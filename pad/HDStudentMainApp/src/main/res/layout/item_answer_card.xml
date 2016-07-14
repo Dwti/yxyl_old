@@ -1,0 +1,25 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+    <ImageView android:layout_width="@dimen/dimen_45"
+               android:layout_height="@dimen/dimen_45"
+               android:id="@+id/answer_card_icon"
+               android:layout_gravity="center" />
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColor="@color/color_805500"
+              android:textStyle="bold"
+              android:textSize="@dimen/dimen_20"
+              android:id="@+id/answer_card_text"
+              android:layout_gravity="center" />
+
+    <ImageView android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/iv_sub_readed"
+               android:visibility="gone"
+               android:src="@drawable/subject_question_read"
+               android:layout_gravity="right|top" />
+
+</FrameLayout>

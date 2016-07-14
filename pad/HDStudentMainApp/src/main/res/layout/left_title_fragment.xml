@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+                 android:background="@color/color_008080"
+    android:id="@+id/relative">
+
+    <RelativeLayout
+        android:id="@+id/dataRelative"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_51">
+
+        <LinearLayout
+            android:id="@+id/textLinear"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_44"
+            android:background="@color/color_00cccc"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/dataText"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_44"
+                style="@style/left_top_data_text_style"
+                />
+            <TextView
+                android:id="@+id/weekText"
+                android:layout_toRightOf="@id/dataText"
+                android:layout_marginLeft="@dimen/dimen_13"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_44"
+                style="@style/left_title_text_style"
+                />
+        </LinearLayout>
+        <View
+            android:layout_below="@id/textLinear"
+            android:id="@+id/lineView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_4"
+            android:background="@color/color_00a3a3"
+            />
+        <View
+            android:layout_below="@id/lineView"
+            android:id="@+id/bottom_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_3"
+            android:background="@color/color_007373"
+            />
+        <View
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/dimen_3"
+            android:layout_height="match_parent"
+            android:background="@drawable/top"
+            android:layout_marginBottom="@dimen/dimen_7"
+            />
+
+    </RelativeLayout>
+
+
+    <com.yanxiu.gphone.hd.student.view.MyHeaderInfoView
+        android:layout_below="@id/dataRelative"
+        android:id="@+id/myHeaderInfoView"
+        android:layout_width="match_parent"
+        android:layout_marginRight="@dimen/dimen_3"
+        android:layout_height="@dimen/dimen_83"
+        />
+
+    <View
+        android:layout_below="@id/dataRelative"
+        android:id="@+id/firLinear"
+        android:layout_width="@dimen/dimen_3"
+        android:layout_height="match_parent"
+        android:background="@color/color_33000000"
+        android:layout_alignParentRight="true"
+        />
+    <View
+        android:layout_below="@id/myHeaderInfoView"
+        android:id="@+id/secLine"
+        android:layout_toLeftOf="@id/firLinear"
+        android:layout_width="@dimen/dimen_3"
+        android:layout_height="match_parent"
+        android:background="@color/color_009999"
+        />
+
+    <ListView
+        android:layout_below="@id/myHeaderInfoView"
+        android:layout_toLeftOf="@id/secLine"
+        android:id="@+id/titleListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/base_listview_style"
+        android:divider="@null"
+       />
+
+
+    <ImageView
+        android:id="@+id/bottom_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        />
+    <TextView
+        android:layout_toRightOf="@id/bottom_icon"
+        android:id="@+id/bottom_text"
+        android:layout_marginRight="@dimen/dimen_6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:singleLine="true"
+        />
+
+</RelativeLayout>
+

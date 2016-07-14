@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="intelli_exe_arrays">
+        <item>生物_1</item>
+        <item>化学_2</item>
+        <item>语文_3</item>
+        <item>英语_4</item>
+        <item>地理_5</item>
+        <item>历史_6</item>
+        <item>数学_7</item>
+        <item>物理_8</item>
+        <item>政治_9</item>
+    </string-array>
+
+
+    <string-array name="analysis_list">
+        <item>1_容易</item>
+        <item>2_较易</item>
+        <item>3_一般</item>
+        <item>4_较难</item>
+        <item>5_困难</item>
+    </string-array>
+
+
+    <string-array name="main_title_tab">
+        <item>排行榜</item>
+        <!--<item>我的收藏</item> -->
+        <item>我的错题</item>
+        <item>练习历史</item>
+        <item>设置</item>
+    </string-array>
+
+
+
+
+
+
+
+</resources>

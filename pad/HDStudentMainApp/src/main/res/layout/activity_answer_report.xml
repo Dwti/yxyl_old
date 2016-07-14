@@ -1,0 +1,322 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:tools="http://schemas.android.com/tools"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+    <RelativeLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/wood_bg">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_44" >
+
+            <ImageView
+                    android:layout_width="@dimen/dimen_30"
+                    android:layout_height="@dimen/dimen_30"
+                    android:id="@+id/iv_top_back"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/login_back" />
+
+
+            <ImageView
+                    android:layout_width="@dimen/dimen_28"
+                    android:layout_height="@dimen/dimen_28"
+                    android:layout_marginRight="@dimen/dimen_10"
+                    android:id="@+id/report_share"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/share_icon"
+                    android:visibility="gone" />
+        </RelativeLayout>
+
+        <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/dimen_80"
+            android:layout_marginTop="@dimen/dimen_52"
+            android:layout_marginLeft="@dimen/dimen_100"
+            android:layout_marginRight="@dimen/dimen_100"
+            android:background="@drawable/answer_report_bg">
+
+            <com.yanxiu.gphone.hd.student.view.ReportScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:id="@+id/report_scrollview">
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                    <RelativeLayout android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_92"
+                        android:id="@+id/rl_answer_report_containter"
+                        android:background="@color/color_white">
+
+                        <View android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_1"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:id="@+id/view_repeat_common_line"
+                            android:background="@drawable/repeat_common_line" />
+
+
+                        <LinearLayout android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_marginLeft="@dimen/dimen_15"
+                            android:layout_marginRight="@dimen/dimen_15"
+                            android:layout_marginTop="@dimen/dimen_45" >
+
+                            <TextView android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:textColor="@color/color_118989"
+                                android:singleLine="true"
+                                android:id="@+id/tv_anwser_tips"
+                                android:textSize="@dimen/dimen_14"
+                                tools:text="练习标题或作业标题"/>
+
+                            <TextView android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dimen_8"
+                                android:gravity="center"
+                                android:id="@+id/report_time_text"
+                                tools:text="本次用时 00：00：00"
+                                android:textColor="@color/color_99937a" />
+
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone"
+                            android:layout_marginLeft="@dimen/dimen_15"
+                            android:layout_marginRight="@dimen/dimen_15"
+                            android:layout_marginTop="@dimen/dimen_40"
+                            android:background="@drawable/corner_line_bg">
+
+
+                            <View android:layout_width="match_parent"
+                                android:layout_height="@dimen/dimen_2"
+                                android:layout_marginRight="@dimen/dimen_2"
+                                android:layout_marginLeft="@dimen/dimen_2"
+                                android:background="@color/color_ccc4a3" />
+
+                            <View android:layout_width="match_parent"
+                                android:layout_height="@dimen/dimen_2"
+                                android:layout_marginRight="@dimen/dimen_2"
+                                android:layout_marginLeft="@dimen/dimen_2"
+                                android:background="@color/color_ccc4a3" />
+                            <!-- -->
+                            <LinearLayout android:layout_height="@dimen/dimen_30"
+                                android:layout_width="match_parent"
+                                android:orientation="horizontal">
+
+                                <TextView style="@style/answer_report_text_style"
+                                    android:layout_marginLeft="0dp"
+                                    android:id="@+id/report_time_title"
+                                    android:paddingLeft="@dimen/dimen_10"
+                                    android:layout_width="@dimen/dimen_54"
+                                    android:text="@string/hw_report_time" />
+
+                                <View style="@style/answer_report_line_style"
+                                    android:layout_marginBottom="@dimen/dimen_2"/>
+
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <FrameLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fl_zigzag_line"
+                        android:layout_below="@id/rl_answer_report_containter"
+                        android:background="@drawable/zigzag_line"/>
+
+                    <LinearLayout android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_23"
+                        android:id="@+id/ll_report_tab"
+                        android:layout_below="@id/fl_zigzag_line"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/report_switch_border"
+                        android:orientation="horizontal" >
+
+                        <TextView android:layout_width="@dimen/dimen_330"
+                            android:layout_height="@dimen/dimen_30"
+                            android:id="@+id/tv_objective_tab"
+                            android:textColor="@color/color_666252"
+                            android:textSize="@dimen/dimen_13"
+                            android:text="客观题"
+                            android:gravity="center" />
+
+                        <View
+                            android:layout_width="@dimen/dimen_2px"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_ccc4a3" />
+
+                        <TextView android:layout_width="@dimen/dimen_330"
+                            android:layout_height="@dimen/dimen_30"
+                            android:id="@+id/tv_subjcetive_tab"
+                            android:textSize="@dimen/dimen_13"
+                            android:text="主观题"
+                            android:textColor="@color/color_b2ab8f"
+                            android:background="@color/color_fff4d9"
+                            android:gravity="center" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/ll_report_tab"
+                        android:id="@+id/rl_object_tab">
+
+                        <TextView android:text="@string/objective_title"
+                            android:id="@+id/tv_objective_line"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            style="@style/report_bar_txt_style" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_1"
+                            android:id="@+id/view_objective_line"
+                            android:layout_below="@id/tv_objective_line"
+                            android:layout_marginLeft="@dimen/dimen_25"
+                            android:layout_marginRight="@dimen/dimen_25"
+                            android:background="@color/color_ccc4a3" />
+
+
+                        <android.support.v7.widget.SwitchCompat
+                            android:id="@+id/btn_subjective_wrong"
+                            android:layout_below="@id/view_objective_line"
+                            android:layout_marginRight="@dimen/dimen_20"
+                            android:layout_marginTop="@dimen/dimen_20"
+                            android:layout_alignParentRight="true"
+                            android:textColor="@color/color_99937a"
+                            android:thumbTextPadding="@dimen/dimen_10"
+                            android:text="@string/wrong_question"
+                            android:background="@color/trans"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <com.common.core.view.UnMoveGridView
+                            android:id="@+id/answer_report_grid"
+                            android:layout_below="@id/btn_subjective_wrong"
+                            style="@style/report_grid_style" >
+                        </com.common.core.view.UnMoveGridView>
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/ll_report_tab"
+                        android:id="@+id/rl_subject_tab">
+
+                        <TextView android:text="@string/subjective_title"
+                            android:id="@+id/tv_subjective_line"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            style="@style/report_bar_txt_style" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_1"
+                            android:id="@+id/view_subjective_line"
+                            android:layout_below="@id/tv_subjective_line"
+                            android:layout_marginLeft="@dimen/dimen_25"
+                            android:layout_marginRight="@dimen/dimen_25"
+                            android:background="@color/color_ccc4a3" />
+
+                        <com.common.core.view.UnMoveGridView
+                            android:id="@+id/subjective_questions_grid"
+                            android:layout_below="@id/tv_subjective_line"
+                            style="@style/report_grid_style" >
+                        </com.common.core.view.UnMoveGridView>
+
+
+                    </RelativeLayout>
+
+                    <ImageView android:layout_width="@dimen/dimen_88"
+                               android:layout_height="@dimen/dimen_88"
+                               android:id="@+id/iv_report_stamp"
+                               android:layout_marginTop="@dimen/dimen_18"
+                               android:layout_marginRight="@dimen/dimen_20"
+                               android:layout_alignParentRight="true"
+                               android:src="@drawable/answer_report_stamp"/>
+
+                </RelativeLayout>
+
+            </com.yanxiu.gphone.hd.student.view.ReportScrollView>
+
+
+        </RelativeLayout>
+
+        <FrameLayout android:layout_width="@dimen/dimen_88"
+            android:layout_height="@dimen/dimen_66"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/answer_report_title_nor" >
+
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_8"
+                android:layout_gravity="center"
+                android:id="@+id/tv_top_title"
+                android:textColor="@color/color_805500"
+                android:text="@string/answer_report"
+                android:textSize="@dimen/dimen_17" />
+
+        </FrameLayout>
+
+        <LinearLayout android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dimen_20"
+            android:id="@+id/ll_bootom">
+
+            <Button android:layout_width="@dimen/dimen_100"
+                    android:layout_height="@dimen/dimen_50"
+                    android:id="@+id/btn_view_resolution"
+                    android:visibility="gone"
+                    android:textSize="@dimen/dimen_14"
+                    android:text="@string/view_resolution"
+                    android:textColor="@color/color_805500"
+                    android:background="@drawable/selector_answer_report_yellow" />
+
+            <Button android:layout_width="@dimen/dimen_100"
+                    android:layout_height="@dimen/dimen_50"
+                    android:layout_marginLeft="@dimen/dimen_13"
+                    android:visibility="gone"
+                    android:textSize="@dimen/dimen_14"
+                    android:id="@+id/error_resolution"
+                    android:text="@string/error_resolution"
+                    android:textColor="@color/color_805500"
+                    android:background="@drawable/selector_answer_report_yellow" />
+
+            <Button android:layout_width="@dimen/dimen_100"
+                    android:layout_height="@dimen/dimen_50"
+                    android:layout_marginLeft="@dimen/dimen_13"
+                    android:textSize="@dimen/dimen_14"
+                    android:id="@+id/practice_again"
+                    android:text="@string/practice_again"
+                    android:textColor="@color/color_006666"
+                    android:background="@drawable/selector_answer_report_blue" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <com.yanxiu.gphone.hd.student.view.StudentLoadingLayout
+            android:id="@+id/loading_layout"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent" />
+
+</merge>
+
+

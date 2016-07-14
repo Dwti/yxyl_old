@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/dimen_130"
+              android:layout_marginRight="@dimen/dimen_6"
+              android:background="@color/color_008080"
+              android:gravity="center"
+              android:orientation="vertical">
+    <Button
+        android:id="@+id/exiseBtn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_44"
+        android:layout_marginLeft="@dimen/dimen_15"
+        android:layout_marginRight="@dimen/dimen_15"
+        android:layout_marginTop="@dimen/dimen_15"
+        android:background="@drawable/left_btn_not_sel"
+        android:gravity="center"
+        android:text="@string/exe"/>
+    <RelativeLayout android:id="@+id/group_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_44"
+                    android:layout_marginBottom="@dimen/dimen_15"
+                    android:layout_marginLeft="@dimen/dimen_15"
+                    android:layout_marginRight="@dimen/dimen_15"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:background="@drawable/left_btn_not_sel"
+                    android:duplicateParentState="true"
+                    android:gravity="center_vertical"
+        >
+        <Button
+            android:id="@+id/homeworkBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="@null"
+            android:gravity="center"
+            android:clickable="false"
+            android:text="@string/navi_tbm_group"
+            />
+        <com.common.core.view.badgeview.BadgeView
+            android:id="@+id/groupBadgeView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/homeworkBtn"
+            android:layout_marginLeft="-10dp"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

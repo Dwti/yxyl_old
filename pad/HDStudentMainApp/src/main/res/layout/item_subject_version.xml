@@ -1,0 +1,33 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_60">
+
+    <ImageView
+        android:id="@+id/iv_subject_version_select"
+        android:layout_width="@dimen/dimen_22"
+        android:layout_height="@dimen/dimen_22"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/dimen_10"
+        android:src="@drawable/sex_sel_bg"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tv_subject_version_name"
+        style="@style/shadow_text_style"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_60"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/iv_subject_version_select"
+        android:paddingLeft="@dimen/dimen_15"
+        android:shadowColor="@color/color_005959"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:textColor="@color/color_ffdb4d"
+        android:textSize="@dimen/dimen_14"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/sort_popwindow_common_line"/>
+</RelativeLayout>

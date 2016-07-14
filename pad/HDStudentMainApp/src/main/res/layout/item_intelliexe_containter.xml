@@ -1,0 +1,59 @@
+<com.yanxiu.gphone.hd.student.view.stickhome.SelectEditionFramelayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent" >
+
+
+    <RelativeLayout android:layout_width="@dimen/dimen_147"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal">
+
+        <RelativeLayout android:layout_width="@dimen/dimen_147"
+            android:layout_height="@dimen/dimen_86"
+            android:id="@+id/rl_edition_list"
+            android:layout_marginTop="@dimen/dimen_14"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/icon_edition_list_bg" >
+
+            <ListView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/lv_edition"
+                  android:scrollbars="none"
+                  android:fadingEdge="none"
+                  android:divider="@null"
+                  android:listSelector="@drawable/selector_item_intelliexe_containter"
+                  android:layout_marginTop="@dimen/dimen_72" />
+
+        </RelativeLayout>
+
+        <RelativeLayout android:layout_width="@dimen/dimen_140"
+            android:layout_height="@dimen/dimen_83"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dimen_17"
+            android:background="@drawable/icon_subject_containter_selector">
+
+            <com.yanxiu.gphone.hd.student.view.YanxiuTypefaceTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_43"
+                app:type_face="fz.ttf"
+                android:id="@+id/tv_sname"
+                android:textSize="@dimen/dimen_20"
+                android:textColor="@color/color_805500"
+                android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+
+        <ImageView android:layout_width="@dimen/dimen_64"
+                   android:layout_height="@dimen/dimen_64"
+                   android:layout_centerHorizontal="true"
+                   android:id="@+id/intelliexe_icon" />
+
+    </RelativeLayout>
+
+    <!--<View android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/tv_ename" />-->
+
+</com.yanxiu.gphone.hd.student.view.stickhome.SelectEditionFramelayout>

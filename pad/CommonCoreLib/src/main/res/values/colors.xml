@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="color_ffff99">#ffff99</color>
+    <color name="color_805500">#805500</color>
+    <color name="txt_refresh">#ff000000</color>
+    <color name="color_a37a00">#a37a00</color>
+    <color name="color_ffe2e2e2">#ffe2e2e2</color>
+</resources>

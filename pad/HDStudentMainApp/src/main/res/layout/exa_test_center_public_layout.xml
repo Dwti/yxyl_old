@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimen_38"
+    android:visibility="gone">
+
+    <TextView
+        android:id="@+id/tv_exa_percent_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:paddingBottom="@dimen/dimen_5"
+        android:paddingLeft="@dimen/dimen_10"
+        android:paddingTop="@dimen/dimen_5"
+        android:text="@string/exa_percent_value"
+        android:textColor="@color/color_805500"
+        android:shadowColor="@color/color_ffff99"
+        style="@style/shadow_text_style"
+        android:textSize="@dimen/dimen_11"/>
+
+    <TextView
+        android:id="@+id/tv_exa_percent_percent"
+        style="@style/yanxiu_text_12_color_ff969696"
+        android:textColor="@color/color_805500"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/dimen_12"
+        android:layout_marginLeft="@dimen/dimen_5"
+        android:gravity="center_vertical"
+        android:text="29/50"
+        android:visibility="visible"
+        />
+
+    <ImageView
+        android:id="@+id/iv_exa_percent_clip_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_8"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/dimen_2"
+        android:layout_toLeftOf="@id/tv_exa_percent_percent"
+        android:layout_toRightOf="@id/tv_exa_percent_view"
+        android:background="@drawable/exa_percent_bg"
+        android:padding="@dimen/dimen_1"
+        android:src="@drawable/center_test_clip_bg"/>
+</RelativeLayout>

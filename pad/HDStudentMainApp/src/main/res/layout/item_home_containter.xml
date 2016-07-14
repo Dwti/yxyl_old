@@ -1,0 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+    <View android:id="@+id/dash_line"
+          android:layout_width="match_parent"
+          android:layout_height="1px"
+          android:layout_alignParentBottom="true"
+          android:background="@drawable/repeat_suebject_section_dash_line" />
+    <ImageView android:layout_width="wrap_content"
+               android:layout_height="match_parent"
+               android:layout_centerVertical="true"
+               android:layout_marginRight="@dimen/dimen_10"
+               android:id="@+id/iv_subject_version_select"
+               android:visibility="gone"
+               android:src="@drawable/sex_sel_bg"
+               android:layout_alignParentRight="true"/>
+
+    <TextView android:layout_width="match_parent"
+              android:layout_height="@dimen/dimen_45"
+              android:id="@+id/tv_subject_version_name"
+              android:singleLine="true"
+              android:textSize="@dimen/dimen_15"
+              android:textColor="@color/color_805500"
+              android:gravity="center" />
+</RelativeLayout>

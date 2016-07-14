@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <fragment
+        android:name="com.yanxiu.gphone.hd.student.fragment.LeftTitleFragment"
+        android:id="@+id/titleFragment"
+        android:layout_width="@dimen/dimen_207"
+        android:layout_height="match_parent"
+        />
+    <RelativeLayout
+        android:layout_toRightOf="@id/titleFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/content_main">
+        </FrameLayout>
+        <com.yanxiu.gphone.hd.student.view.StudentLoadingLayout
+            android:id="@+id/loading"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            />
+    </RelativeLayout>
+
+</merge>

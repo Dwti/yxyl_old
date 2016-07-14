@@ -1,0 +1,272 @@
+apply plugin: 'com.android.application'
+
+
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion '21.1.2'
+
+    defaultConfig {
+        applicationId "com.yanxiu.gphone.hd.student"
+        minSdkVersion 14
+        targetSdkVersion 18
+        versionCode 4
+        versionName "1.1.2"
+        multiDexEnabled true//multiDexEnabled true
+        manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "TalkingData"]
+
+        buildConfigField "boolean", "YANXIU_DEBUG", "${yanxiu_debug}"
+        buildConfigField "boolean", "YANXIU_ERROR_CATCH","${yanxiu_error_catch}"
+        buildConfigField "boolean", "YANXIU_FORTEST", "${yanxiu_fortest}"
+        buildConfigField "String", "YANXIU_PCODE", "\"${yanxiu_pcode}\""
+        buildConfigField "boolean", "YANXIU_ANALYLAYOUTHIERARCHY","${yanxiu_analylayouthierarchy}"
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+    dexOptions {
+        incremental true
+    }
+
+    sourceSets{
+        main{
+            jniLibs.srcDir(['libs'])
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java', 'src/main/aidl']
+            resources.srcDirs = ['src/main/java', 'src/main/aidl']
+            aidl.srcDirs = ['src/main/aidl']
+            res.srcDirs = ['src/main/res']
+            assets.srcDirs = ['src/main/assets']
+        }
+    }
+    signingConfigs {
+        debug {
+            //No debug config
+        }
+        release {
+            storeFile file('E:\\yxyl\\Key\\EEpadKey\\androidHd.keystore')
+            storePassword 'yanxiusrt1qaz@wsx'
+            keyAlias 'E:\\yxyl\\Key\\EEpadKey\\androidHd.keystore'
+            keyPassword 'yanxiusrt1qaz@wsx'
+        }
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+//            versionNameSuffix "-debug"
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.debug
+        }
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+
+            minifyEnabled false
+            zipAlignEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->def outputFile= output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        // ���apk����Ϊyanxiu_v1.0_2015-01-15_wandoujia.apk
+                        def fileName="yanxiu_student_v${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
+                        output.outputFile =new File(outputFile.parent, fileName)
+                    }
+                }
+            }
+        }
+    }
+    productFlavors {
+        yanxiu_com {
+            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "yanxiu_com"]
+        }
+        shoujizhushou360 {
+            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "shoujizhushou360"]//
+        }
+        //hiapk {
+        //manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "hiapk"]//
+        //}
+        baidushoujizhushou {
+            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "baidushoujizhushou"]//
+        }
+//        goapk {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "goapk"]//
+//        }
+//        market91 {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "market91"]//
+//        }
+        wandoujia {
+            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "wandoujia"]//
+        }
+        xiaomi {
+            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "xiaomi"]//
+        }
+        txyingyongbao {
+            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "txyingyongbao"]//
+        }
+//        yingyonghui {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "yingyonghui"]//
+//        }
+//        jifeng {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "jifeng"]//
+//        }
+//        nduo {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "nduo"]//
+//        }
+//        mm10086 {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "mm10086"]//
+//        }
+//        eoemarket {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "eoemarket"]//
+//        }
+//        liantongwo {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "liantongwo"]//
+//        }
+//        android3g {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "android3g"]//
+//        }
+//        sogouphone {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "sogouphone"]//
+//        }
+//        sogoumarket {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "sogoumarket"]//
+//        }
+//        lenovomm {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "lenovomm"]//
+//        }
+//        meizu {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "meizu"]//
+//        }
+//        jinlianzhuoapk {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "jinlianzhuoapk"]//
+//        }
+        huaweihuizhi {
+            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "huaweihuizhi"]//
+        }
+//        tianyi189 {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "tianyi189"]//
+//        }
+//        //=========================在新的渠道里面没找到===============start=================
+//        wangyi163 {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "wangyi163"]
+//        }
+//        googlemarket {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "googlemarket"]
+//        }
+//        paojiao {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "paojiao"]
+//        }
+//        taobaophone {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "taobaophone"]
+//        }
+//        samsungapps {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "samsungapps"]
+//        }
+//        //=========================在新的渠道里面没找到================end==================
+//        chinamobile {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "chinamobile"]//中国移动
+//        }
+//        tongbutui {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "tongbutui"]//同步推
+//        }
+//        kuaiyong {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "kuaiyong"]//快用苹果助手
+//        }
+//        jdmarket {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "jdmarket"]//京东应用商店
+//        }
+//        devpp {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "devpp"]//pp助手安卓开发平台
+//        }
+//        sohuapk {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "sohuapk"]//搜狐应用中心
+//        }
+//        tcltvhuan {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "tcltvhuan"]//TCL欢视商店
+//        }
+//        aptfeng {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "aptfeng"]//威锋源
+//        }
+//        doubanapp {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "doubanapp"]//豆瓣移动应用
+//        }
+//        nearmestoredev {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "nearmestoredev"]//易用汇
+//        }
+//        sharesnsbbs7xz {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "sharesnsbbs7xz"]//sharesns分享
+//        }
+//        managesiapk {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "managesiapk"]//卓乐网
+//        }
+//        sougouliqvdev {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "sougouliqvdev"]//历趣
+//        }
+//        liqucn {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "liqucn"]//格子啦
+//        }
+//        ucrsky {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "ucrsky"]//非凡软件站
+//        }
+//        sohuopen {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "sohuopen"]//搜狐开放平台
+//        }
+//        anzhuoyuan {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "anzhuoyuan"]//安卓园
+//        }
+//        youxibaba {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "youxibaba"]//安贝市场
+//        }
+//        ard9 {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "ard9"]//安卓之家
+//        }
+//        apk8 {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "apk8"]//apk8
+//        }
+//        cnmotopic {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "cnmotopic"]//手机中国
+//        }
+//        dev3gyu {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "dev3gyu"]//安软市场
+//        }
+//        market51vapp {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "market51vapp"]//安卓商店
+//        }
+//        suningmarket {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "suningmarket"]//苏宁应用商店
+//        }
+//        umeng {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "umeng"]//友盟
+//        }
+//        xyzushou {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "xyzushou"]//XY助手
+//        }
+//        store189 {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "store189"]//天翼空间AP
+//        }
+          others {
+              manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "others"]//其他渠道
+          }
+    }
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders =[INSTALL_CHANNEL_VALUE:name]
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':YanxiuBaseCore')
+    compile project(':CommonCoreLib')
+    compile project(':LoginCommonLibs')
+    compile project(':ShareCommonLibs')
+    compile project(':YanxiuUpgradeLib')
+    //compile files('libs/scalpel-1.1.2.jar')
+}

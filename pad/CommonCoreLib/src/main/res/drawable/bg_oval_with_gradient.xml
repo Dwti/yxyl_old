@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval"
+    android:useLevel="false">
+    <solid android:color="#ff6666"/>
+    <padding android:bottom="1dp"
+             android:top="1dp"
+             android:left="1dp"
+             android:right="1dp" />
+    <stroke
+        android:width="1dp"
+        android:color="#ffffff"/>
+    <size
+        android:width="20dp"
+        android:height="20dp" />
+    <!-- gradient设置渐变 -->
+    <gradient
+        android:endColor="#ff6666"
+        android:startColor="#ff6666"
+        android:type="sweep" />
+</shape>

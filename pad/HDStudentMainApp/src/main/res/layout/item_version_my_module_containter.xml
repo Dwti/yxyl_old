@@ -1,0 +1,55 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_vertical"
+              android:orientation="vertical">
+    <View
+        android:id="@+id/top_space_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_15"
+        android:layout_alignParentTop="true"
+        android:visibility="gone"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_list_bg_selector">
+
+        <TextView
+            android:id="@+id/tv_subject_version_name"
+            style="@style/shadow_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_48"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/dimen_20"
+            android:shadowColor="@color/color_ffff99"
+            android:singleLine="true"
+            android:textColor="@color/color_805500"
+            android:textSize="@dimen/dimen_17"
+            tools:text="adfadg"/>
+
+        <ImageView
+            android:id="@+id/iv_subject_version_select"
+            android:layout_width="@dimen/dimen_30"
+            android:layout_height="@dimen/dimen_30"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dimen_15"
+            android:src="@drawable/sex_sel_bg"
+            android:visibility="visible"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/dash_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_10"
+        android:background="@drawable/my_module_repeat_dash_line"/>
+    <View
+        android:id="@+id/bottom_space_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_15"
+        android:layout_alignParentTop="true"
+        android:visibility="gone"/>
+</LinearLayout>

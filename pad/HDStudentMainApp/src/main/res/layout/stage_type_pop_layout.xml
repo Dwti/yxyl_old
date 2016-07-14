@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingRight="@dimen/dimen_35"
+    android:paddingLeft="@dimen/dimen_35">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_48"
+        style="@style/my_list_style"
+        android:layout_below="@id/practice_history_layout">
+        <ImageView
+            android:id="@+id/my_stage_icon"
+            style="@style/my_list_head_img_style"
+            android:background="@drawable/my_stage"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/my_stage_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/my_stage_content"
+            android:layout_toRightOf="@id/my_stage_icon"
+            style="@style/my_list_center_text_style"
+            android:text="@string/my_stage_name"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/stageTypeContainer"
+        android:layout_width="@dimen/dimen_72"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:layout_marginRight="@dimen/dimen_6"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/type_pop_bg"
+        android:orientation="vertical"></LinearLayout>
+</RelativeLayout>
+

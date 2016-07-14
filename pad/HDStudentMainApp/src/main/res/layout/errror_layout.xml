@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/error"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:visibility="gone">
+    <RelativeLayout
+        android:id="@+id/error_child_view"
+        android:layout_width="@dimen/dimen_350"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:background="@drawable/public_error"
+        android:paddingTop="@dimen/dimen_17"
+        android:paddingBottom="@dimen/dimen_20"
+        android:visibility="visible">
+        <ImageView
+            android:id="@+id/net_error_flag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/dimen_5"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ranking_net_error"/>
+        <TextView
+            android:id="@+id/errorTxt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:textColor="@color/color_ffdb4d"
+            android:textSize="@dimen/dimen_14"
+            android:gravity="center"
+            android:text="@string/public_loading_net_errtxt"
+            android:layout_below="@+id/net_error_flag"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/errorTxt2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/errorTxt1"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/dimen_12"
+
+            android:textColor="@color/color_ffdb4d"
+            android:textSize="@dimen/dimen_14"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/try_again"
+            android:background="@drawable/register_code_selector"
+            android:layout_marginLeft="@dimen/dimen_15"
+            android:layout_marginRight="@dimen/dimen_15"
+            android:layout_marginTop="@dimen/dimen_30"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_35"
+            android:layout_below="@id/errorTxt2"
+            android:layout_centerInParent="true"
+            android:textColor="@color/color_ffdb4d"
+            android:gravity="center"
+            android:minEms="6"
+            android:text="@string/refresh_connect"/>
+    </RelativeLayout>
+</RelativeLayout>

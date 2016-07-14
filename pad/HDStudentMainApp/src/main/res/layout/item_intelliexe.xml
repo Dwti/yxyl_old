@@ -1,0 +1,72 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content">
+
+
+    <RelativeLayout android:layout_width="@dimen/dimen_145"
+                    android:layout_height="@dimen/dimen_140"
+                    android:layout_gravity="center">
+
+        <RelativeLayout android:layout_width="@dimen/dimen_145"
+                        android:layout_height="@dimen/dimen_125"
+                        android:layout_marginTop="@dimen/dimen_15"
+                        android:id="@+id/rl_select_subject_version"
+                        android:background="@drawable/icon_subject_selector">
+
+        </RelativeLayout>
+
+
+        <RelativeLayout android:layout_width="@dimen/dimen_140"
+                        android:layout_height="@dimen/dimen_83"
+                        android:id="@+id/rl_select_subject"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/dimen_17"
+                        android:background="@drawable/icon_subject_containter_selector">
+
+            <com.yanxiu.gphone.hd.student.view.YanxiuTypefaceTextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      app:type_face="fz.ttf"
+                      android:layout_marginTop="@dimen/dimen_43"
+                      android:id="@+id/tv_sname"
+                      android:textSize="@dimen/dimen_20"
+                      android:textColor="@color/color_805500"
+                      android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+
+        <!--<TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="@dimen/dimen_10"
+                  android:layout_centerVertical="true"
+                  android:text="语文"
+                  android:id="@+id/tv_sname"
+                  android:textSize="@dimen/dimen_20"
+                  android:textColor="@color/color_805500"
+                  android:layout_centerHorizontal="true"/>-->
+
+        <TextView
+            android:id="@+id/tv_ename"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_15"
+            android:layout_marginRight="@dimen/dimen_15"
+            android:layout_marginTop="@dimen/dimen_107"
+            android:text="选择教材版本"
+            android:textColor="@color/color_805500"
+            android:textSize="@dimen/dimen_15" />
+
+
+        <ImageView android:layout_width="@dimen/dimen_64"
+                   android:layout_height="@dimen/dimen_64"
+                   android:layout_centerHorizontal="true"
+                   android:id="@+id/intelliexe_icon" />
+
+    </RelativeLayout>
+    
+    <!--<View android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/tv_ename" />-->
+
+</FrameLayout>

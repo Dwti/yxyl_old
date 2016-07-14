@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:layout_width="@dimen/dimen_100"
+                android:layout_height="@dimen/dimen_80"
+                android:id="@+id/titleLayout"
+                android:background="@drawable/clamp_btn_selector"
+
+    >
+    <TextView android:layout_width="match_parent"
+              android:layout_height="@dimen/dimen_20"
+              android:id="@+id/pubdown_top_mid"
+              android:maxLength="200"
+              android:singleLine="true"
+              android:ellipsize="end"
+              android:layout_marginLeft="@dimen/dimen_4"
+              android:layout_marginTop="@dimen/dimen_40"
+              android:layout_marginRight="@dimen/dimen_30"
+              android:gravity="center"
+              android:textSize="@dimen/dimen_17"
+              android:textColor="@color/color_805500"
+
+
+        />
+
+</RelativeLayout>

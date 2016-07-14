@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_2"
+        android:background="@drawable/add_pic_line"
+        android:layerType="software"
+        />
+
+    <ImageView
+        android:id="@+id/answerViewFlag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_question_a"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_18"
+        />
+    <com.yanxiu.gphone.hd.student.view.picsel.NoScrollGridView
+        android:layout_toRightOf="@id/answerViewFlag"
+        android:id="@+id/noScrollGrid"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginStart="@dimen/dimen_10"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/dimen_10"
+        android:paddingBottom="@dimen/dimen_9"
+        android:horizontalSpacing="@dimen/dimen_8"
+        android:verticalSpacing="@dimen/dimen_13"
+        android:visibility="gone"
+        android:numColumns="10"
+        />
+    <TextView
+        android:layout_toRightOf="@id/answerViewFlag"
+        android:layout_marginLeft="@dimen/dimen_12"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_17"
+        android:id="@+id/addAnswerView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_51"
+        android:text="@string/subjective_add_text"
+        android:gravity="center"
+        android:textSize="@dimen/dimen_17"
+        android:textStyle="bold"
+        android:textColor="@color/color_805500"
+        style="@style/shadow_color_ffff99"
+        android:background="@drawable/selector_judge_item"
+        />
+</merge>

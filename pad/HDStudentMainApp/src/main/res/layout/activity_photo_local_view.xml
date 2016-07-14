@@ -1,0 +1,14 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <com.yanxiu.gphone.hd.student.view.DefineViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/photo_viewpager"
+        android:fadingEdge="none"
+        android:spacing="0dip" />
+
+</merge>
+
+

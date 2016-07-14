@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/rankingRootView"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:paddingTop="@dimen/dimen_2"
+                android:background="@color/trans"
+                 android:paddingRight="@dimen/dimen_2"
+            android:paddingLeft="@dimen/dimen_2">
+
+    <RelativeLayout
+        android:id="@+id/relativeId"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_45"
+        android:background="@drawable/my_ranking_bg">
+        <TextView
+            android:id="@+id/myRankText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            style="@style/ranking_title_style"
+            android:paddingLeft="@dimen/dimen_18"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/ranking_title_style"
+            android:gravity="center_vertical|right"
+            android:text="@string/ranking_bottom_tips"
+            android:layout_alignParentLeft="true"
+            android:paddingRight="@dimen/dimen_18"
+            android:textStyle="bold"
+            />
+
+    </RelativeLayout>
+    <com.common.core.view.xlistview.XListView
+        android:layout_below="@id/relativeId"
+        android:id="@+id/xListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/color_543b18"
+        android:dividerHeight="@dimen/dimen_2"
+        android:footerDividersEnabled="false"
+        style="@style/listview_common_style">
+    </com.common.core.view.xlistview.XListView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_30"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rank_up_bottom_shadow"
+        />
+</RelativeLayout>

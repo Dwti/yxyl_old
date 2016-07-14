@@ -1,0 +1,438 @@
+<resources>
+    <string name="app_name">易学易练HD</string>
+    <string name="app_upgrade">检测到新版本%s</string>
+    <string name="app_upgrade_sure">更新</string>
+    <string name="app_upgrade_cancle">取消</string>
+    <string name="app_upgrade_inoge">忽略</string>
+    <string name="app_upgrade_exit">退出</string>
+
+    <string name="update_asynctask_downloading">正在下载</string>
+    <string name="update_asynctask_downloading_fail">下载失败</string>
+    <string name="update_asynctask_downloading_cel">取消下载</string>
+    <string name="update_asynctask_downloading_success">下载完成</string>
+    <string name="update_new">当前已是最新版本！</string>
+
+    <string name="navi_tbm_main">智能练习</string>
+    <string name="navi_tbm_group">作业</string>
+    <string name="navi_tbm_my">我的</string>
+
+    <string name="app_exit_tip">再按一次退出客户端</string>
+    <string name="net_null_one">数据加载失败</string>
+    <string name="url_error">地址有误,加载出错啦</string>
+
+    <string name="login_username">请输入手机号</string>
+    <string name="login_password">请输入密码</string>
+    <string name="login_forget_password">忘记密码</string>
+    <string name="login">登录</string>
+    <string name="login_name_null">账号不能为空</string>
+    <string name="mobile_null">手机号不能为空</string>
+    <string name="login_pwd_null">密码不能为空</string>
+    <string name="login_name_ival">请输入正确的手机号</string>
+    <string name="register_quick">快速注册</string>
+    <string name="login_third">其他账号登录</string>
+    <string name="login_wechat">微信</string>
+    <string name="login_qq">QQ</string>
+    <string name="register">注册</string>
+    <string name="register_username">手机号</string>
+    <string name="register_code">请输入验证码</string>
+    <string name="register_send_code">获取验证码</string>
+    <string name="register_code_null">验证码不能为空</string>
+    <string name="register_upload">下一步</string>
+    <string name="register_tip">加油童鞋！还差两步完成注册</string>
+    <string name="set_password">设置密码</string>
+    <string name="reset_password">重置密码</string>
+    <string name="set_password_one">请输入6&#8211;18位密码</string>
+    <string name="set_password_again">请再次输入密码</string>
+    <string name="set_password_next">下一步</string>
+    <string name="set_password_null">密码不能为空</string>
+    <string name="set_password_not_same">两次输入密码不一致</string>
+    <string name="set_password_6_8">密码长度为6&#8211;18位</string>
+    <string name="reset_password_next">确认重置密码</string>
+    <string name="reset_password_success1">重置密码成功</string>
+    <string name="reset_password_success2">请直接登录</string>
+    <string name="login_success">登录成功</string>
+    <string name="login_fail">登录失败</string>
+    <string name="edit_title">个人资料</string>
+    <string name="edit_name">姓名</string>
+    <string name="edit_nickname">昵称</string>
+    <string name="edit_area">地区</string>
+    <string name="edit_school">学校</string>
+    <string name="edit_stage">学段</string>
+    <string name="edit_next">下一步</string>
+    <string name="edit_name_hint">你的名字</string>
+    <string name="edit_nickname_hint">设置你的昵称</string>
+    <string name="edit_area_hint">选择你所在地区</string>
+    <string name="edit_school_hint">选择你的学校</string>
+    <string name="edit_stage_hint">设置你的学段</string>
+    <string name="edit_name_null">姓名不能为空</string>
+    <string name="edit_nickname_null">昵称不能为空</string>
+    <string name="edit_school_null">学校不能为空</string>
+    <string name="edit_stage_null">学段不能为空</string>
+    <string name="edit_area_null">地区不能为空</string>
+
+    <!-- intelliexe -->
+    <string name="itelliexe">智能练习</string>
+    <string name="exe">练习</string>
+    <string name="subject_save">保存</string>
+    <string name="select_subject">选择%s教材</string>
+    <string name="tab_chapter">章节</string>
+    <string name="tab_test_center">考点</string>
+	<string name="diagnosis">诊断</string>
+    <!-- intelliexe -->
+    <string name="no_data_show">暂无</string>
+    <!--common loading -->
+    <string name="intelligent_questions">智能出题</string>
+    <string name="submmit_questions">提交作业&#8230;</string>
+    <!--common loading -->
+    <string name="no_net_tag">目前没有连网，请检查网络后刷新重试</string>
+    <string name="data_uploader_failed">提交失败</string>
+    <string name="mistake_question_del_failed">删除失败</string>
+    <string name="mistake_question_del_done">删除成功</string>
+
+    <string name="fav_question_del_failed">取消收藏失败</string>
+    <string name="fav_question_del_done">取消收藏成功</string>
+    <!--xlistview-->
+    <string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新数据</string>
+    <string name="xlistview_header_hint_loading">正在刷新&#8230;</string>
+    <string name="xlistview_header_last_time">"更新于:<xliff id="time">%s</xliff>"
+    </string>
+    <string name="xlistview_header_no_time">"更新于:从未刷新"</string>
+    <string name="xlistview_footer_pull_up_to_refresh">上拉加载更多</string>
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+    <string name="xlistview_footer_hint_loading">正在加载更多</string>
+    <string name="xlistview_toast_succ">更新成功</string>
+    <string name="xlistview_toast_fail">更新失败</string>
+    <string name="xlistview_toast_10_sec">哎呦，暂时没新的啦</string>
+    <!--xlistview-->
+
+
+    <string name="group_top_title">作业</string>
+    <string name="group_top_tip_start_text">共有</string>
+    <string name="group_top_tip_end_text">篇未完成作业</string>
+    <string name="group_member_full">群组已满,不能申请</string>
+    <string name="class_no_work">您加入的班级尚未布置过作业</string>
+    <string name="class_number_error">班级号码格式错误</string>
+    <string name="no_class_tip">同学，你需要先加入一个班级^_^</string>
+    <string name="class_shenhe">你加入的班级正在审核中...</string>
+    <string name="class_add">加入班级</string>
+    <string name="class_see">查看详情</string>
+    <string name="no_group_hw_list_tip">老师还没发布作业呢</string>
+    <string name="group_add_tips">怎样加入班级？></string>
+    <string name="group_add_tips_title">怎样加入班级</string>
+    <string name="class_define_title">什么是易学易练班级</string>
+    <string name="class_define_content">班级是由老师在“易学历练教师端”中创建，给学生布置批改作业的班级群。每个易学易练班级都有一个8位数班级号码，如：“班级号码: 12345678”。</string>
+    <string name="add_class_define_title">怎样加入班级</string>
+    <string name="add_class_define_content1">第一步：老师在“易学历练教师端”中创建班级，并将班级号码分享或告知学生们。</string>
+    <string name="add_class_define_content2">第二步：同学们在“易学易练学生端”作业页面，点击“加入班级”输入班级号码，即可加入班级，然后就可以通过手机来完成来自教师布置的作业了</string>
+
+
+
+
+    <string name="my_fragment_txt">我的</string>
+    <string name="practice_history_name">练习历史</string>
+    <string name="error_collection_name">我的错题</string>
+    <string name="my_stage_name">学段</string>
+    <string name="teaching_material_name">教材版本</string>
+    <string name="feedback">意见反馈</string>
+    <string name="my_setting_name">设置</string>
+    <string name="user_name_txt">佚名</string>
+    <string name="my_stage_content">初中</string>
+
+    <string name="group_add_title">班级搜索</string>
+    <string name="group_add_tip">请输入8位数字班级号码^_^</string>
+    <string name="group_add_ok">确认</string>
+    <string name="group_num_not_exist">不存在的班级号码</string>
+    <string name="group_info_title">班级信息</string>
+    <string name="group_info_cel">取消</string>
+    <string name="group_info_num">班级号码：%s</string>
+    <string name="group_info_banzhuren">老师</string>
+    <string name="group_info_people">人数</string>
+    <string name="group_info_add">申请加入</string>
+    <string name="class_info_cel">取消申请</string>
+    <string name="group_info_del">退出班级</string>
+    <string name="edit_person_name_cel">取消</string>
+    <string name="edit_person_name_title">姓名</string>
+    <string name="edit_person_name_tip">请输入真实姓名,确保老师会通过审核</string>
+    <string name="edit_person_name_ok">确定</string>
+    <string name="hw_question_num">共%s题</string>
+    <string name="hw_question_finish_sccuracy">完成度</string>
+    <string name="hw_undo_title">待完成作业</string>
+    <string name="primary_txt">小学</string>
+    <string name="juinor_txt">初中</string>
+    <string name="high_txt">高中</string>
+    <string name="group_hw_done_not_cat_ana">%s以后</string>
+    <string name="group_hw_done_not_cat_ana_2">才能查看报告</string>
+
+    <string name="hw_undo_from">来自:%s</string>
+    <string name="user_edit_info_is_null">%s不能为空</string>
+    <string name="hw_undo_state_un_deadline"> %s 截止</string>
+    <string name="hw_undo_state_deadline">已截止</string>
+    <string name="class_cel_title">确定取消申请吗？</string>
+    <string name="class_del_title">确定退出班级吗？</string>
+    <string name="class_cel_sure">确定</string>
+    <string name="class_del_cel">取消</string>
+    <string name="group_del_title_2">删除未审核通过的群组</string>
+    <string name="group_del_sure_2">确认删除</string>
+    <string name="select_subject_txt">选择学段</string>
+    <string name="user_icon_txt">头像</string>
+    <string name="user_detail_info">个人资料</string>
+    <string name="user_name_str">姓名</string>
+    <string name="user_nick_name">昵称</string>
+    <string name="user_gender_str">性别</string>
+    <string name="user_area_str">地区</string>
+    <string name="user_school_str">学校</string>
+    <string name="user_name_edit_save">保存</string>
+    <string name="male_txt">男</string>
+    <string name="female_txt">女</string>
+    <string name="sex_unknown_txt">未知</string>
+    <string name="select_location_province_txt">请选择你所在的省/直辖市</string>
+    <string name="select_location_city_txt">请选择你所在的城市</string>
+    <string name="select_location_district_txt">请选择你所在的区县</string>
+    <string name="select_location_data_error">数据错误</string>
+    <string name="group_num_null">请输入群组号码</string>
+    <string name="group_num_no_right">您输入的群组号不正确</string>
+    <string name="group_add_name_null">请填写真实姓名</string>
+    <string name="group_add_success">加入成功</string>
+    <string name="group_add_no_right">该班级不允许加入</string>
+    <string name="group_add_needcheck_one">申请成功</string>
+    <string name="group_add_needcheck_two">请等待老师审核</string>
+    <string name="group_item_info">最新作业：%s</string>
+    <string name="group_item_waitfinish_info">份待完成</string>
+    <string name="group_item_finished_info">查看已完成</string>
+    <string name="group_item_info_checking">审核中，暂时无法进入群组</string>
+    <string name="group_item_info_check_fail">未审核通过</string>
+
+    <string name="group_item_del_title">删除未审核通过的班级</string>
+    <string name="group_item_del_sure">确认删除</string>
+    <string name="group_item_del_cel">取消</string>
+    <string name="group_item_cancel_success">成功取消申请</string>
+    <string name="group_item_del_success">成功退出班级</string>
+
+    <string name="public_loading_net_errtxt">网络故障，请检查重试</string>
+    <string name="public_loading_net_null_errtxt">网络异常，请稍后重试</string>
+    <string name="public_loading_data_null">暂无数据</string>
+    <string name="public_loading_interface_errtxt">页面载入失败</string>
+    <string name="data_request_fail">数据请求失败</string>
+    <string name="refresh_connect">重 试</string>
+    <string name="connect_loading">正在加载，请稍候&#8230;</string>
+    <string name="login_out_txt">退出登录</string>
+    <string name="mistake_edition_num_txt">错题数：</string>
+    <string name="mistake_all_num_text">全部%1$s题</string>
+    <string name="favourite_edition_num_txt">收藏题数：</string>
+
+
+    <string name="public_has_no_question_tag">这里还没有题哦</string>
+    <string name="public_has_no_question_switch">切换到</string>
+    <string name="public_has_no_question_test">【考点】</string>
+    <string name="public_has_no_question_chapter">【章节】</string>
+    <string name="public_has_no_question_tag_1">看看吧</string>
+    <!-- question -->
+    <string name="question_choice_single">单选题</string>
+    <string name="question_choice_multi">多选题</string>
+    <string name="question_subjective">主观题</string>
+    <string name="subjective_add_text">上传答案</string>
+    <string name="report_error">答案</string>
+    <string name="question_judge">判断题</string>
+    <string name="fill_blanks">填空题</string>
+    <string name="question_no_finish">还有未做完的题目，确定提交吗？</string>
+    <string name="question_no_finish_live">您可以在练习历史中找到记录并继续答题</string>
+    <string name="question_submit">提交</string>
+    <string name="question_live">离开</string>
+    <string name="question_cancel">取消</string>
+    <string name="server_connection_erro">获取数据失败</string>
+    <string name="question_report_error_text">题目有误，我要报错</string>
+    <string name="change_question">左右滑动，就可以切换试题哦 ^_^</string>
+    <string name="question_know">知道了</string>
+    <string name="reading_question_close">收起</string>
+    <string name="reading_question_open">展开</string>
+    <string name="cost_time">用时</string>
+    <string name="objective_questions">客观题</string>
+    <string name="subjective_questions">主观题</string>
+    <string name="subjective_questions_unread">未批改</string>
+    <string name="subjective_questions_unanwser">这道题没有作答哦>_&#60;</string>
+    <string name="diagnose">诊断</string>
+    <string name="answer_card">答题卡</string>
+
+    <string name="questiong_resolution">题目解析</string>
+
+    <string name="answer_report">作业报告</string>
+    <string name="exercises_report">练习报告</string>
+    <string name="answer_report_time">完成时间：</string>
+
+    <string name="answer_view_tips">GO!</string>
+    <string name="show_resolution">显示解析</string>
+    <string name="view_resolution">查看解析</string>
+    <string name="error_resolution">错题解析</string>
+    <string name="practice_again">再练一组</string>
+
+    <string name="question_finish_title">提交成功</string>
+    <string name="question_finish_hw_tips">请点击“确定”查看解析</string>
+    <string name="question_finish_ex_tips">请点击“确定”查看解析</string>
+    <string name="question_finish_hw_end_time_title_tips">本次作业被老师设置为：截止时间后显示答案解析</string>
+    <string name="question_finish_hw_end_time_tips">截止时间为：</string>
+    <string name="question_finish_hw_end_time_content_tips">点击“确定”返回作业列表</string>
+    <string name="answer_cost_time">本次用时&#160;&#160;</string>
+    <string name="question_finish">完成</string>
+
+    <string name="objective_title">答对&#160;%1$d&#160;题，共&#160;%2$d&#160;题，正确率&#160;%3$d%%</string>
+    <string name="subjective_title">共&#160;%1$d&#160;题，平均得分&#160;%2$s&#160;分</string>
+
+    <string name="report_no_data">共&#160;%1$d&#160;题</string>
+
+    <string name="pager_index_1">第&#160;</string>
+    <string name="pager_index_2">&#160;题</string>
+    <string name="pager_count">共%s题</string>
+    <string name="last_question">上一题</string>
+    <string name="next_question">下一题</string>
+    <string name="wrong_question">只看错题</string>
+
+
+    <!--拍照 -->
+    <string name="photo_tips">请拍照，或选择相册中的图片。</string>
+    <string name="open_camera">拍照</string>
+    <string name="selec_from_pic_bucket">从相册选择</string>
+    <string name="pic_bucket">相册</string>
+    <string name="local_bucket">相机胶卷</string>
+    <string name="done">完成</string>
+    <string name="has_sel">已选择 %1$s 张</string>
+    <string name="max_sel_tips">最多选择%s张图片</string>
+    <string name="loading_fail">加载失败</string>
+    <string name="is_del_pic_tips">是否删除图片？</string>
+    <string name="del_tip">删除</string>
+    <!--subject version -->
+    <string name="save_fail_try_again">保存失败，请您重新保存！</string>
+    <string name="no_data_save">请您选择教材版本！</string>
+
+
+    <string name="modify_pwd_txt">修改密码</string>
+    <string name="feedback_txt">意见反馈</string>
+    <string name="update_version_txt">检查更新</string>
+    <string name="about_us_txt">关于</string>
+    <string name="system__version_des">V%s</string>
+
+    <string name="stage_tag">提示：</string>
+    <string
+        name="stage_description_txt">学段更改后，练习将切换到相应学段。
+    </string>
+    <string name="stage_confirm_answer_txt">您确认要更改学段吗？</string>
+    <string name="stage_confirm_sure">更改</string>
+
+    <string name="input_current_pwd">请输入当前密码</string>
+    <string name="input_new_pwd">请输入新的密码</string>
+    <string name="input_new_pwd_again">请确认新的密码</string>
+    <string name="submit_txt">提交</string>
+    <string name="submit_confirm_modify">确认修改密码</string>
+    <string name="new_pwd_not_equals">两次密码不一致</string>
+    <string name="pwd_modify_succeed">修改成功</string>
+    <string name="input_you_feedback">请输入您的宝贵意见......</string>
+    <string name="send_feedback_txt">发送</string>
+    <string name="feedback_is_null">意见反馈不能为空</string>
+    <string name="feedback_submit_succeed">发送成功\n感谢您的支持</string>
+    <string name="official_weixin_txt">官方微信</string>
+    <string name="official_weixin_content">yixueyilian</string>
+    <string name="services_tel_num_txt">客服电话</string>
+    <string name="services_tel_num_content_txt">400&#8211;870&#8211;6696</string>
+    <string name="services_qq_txt">QQ群</string>
+    <string name="services_qq_content_txt">467361659</string>
+    <string name="privacy_policy_txt">使用条款和隐私策略</string>
+    <string name="get_pic_from_camera">拍照</string>
+    <string name="get_pic_from_gallery">从相册选择</string>
+    <string name="cancel_txt">取消</string>
+    <string name="upload_head_img_failed">头像上传失败</string>
+    <string name="upload_head_img_succeed">上传成功</string>
+
+    <string name="practice_history_total">共%s题</string>
+    <string name="practice_history_qus_right">答对 %s 题</string>
+    <string name="practice_history_not_done">未完成</string>
+    <string name="practice_history_done">已完成</string>
+    <string name="practice_history_todo">待完成</string>
+    <string name="practice_history_todo_new">完成题量 </string>
+    <string name="practice_history_done_new">恭喜你，全部完成^ ^</string>
+    <string name="practice_history_not_done_new">未提交作业</string>
+    <string name="hw_undo_state_un_deadline_new">剩余时间：</string>
+    <string name="hw_undo_state_deadline_new">可补做</string>
+
+    <string name="search_school_add">添加</string>
+    <string name="search_school_tag">没有找到？输入完整的学校名称添加^_^</string>
+    <string name="search_school_result">搜索结果</string>
+    <string name="data_null">没有您需要的数据</string>
+    <string name="server_exception">服务端异常，请稍后再试</string>
+    <string name="net_null">网络异常，请稍后重试</string>
+    <string name="add_school_name_null">添加学校名不能为空！</string>
+    <string name="school_name_title">学校名称</string>
+    <string name="search_school_hint">请输入学校关键字</string>
+
+
+    <string name="correct">正确</string>
+    <string name="wrong">错误</string>
+
+    <string name="hw_report_accuracy">完成度</string>
+    <string name="hw_report_correct_curacy">正确率</string>
+    <string name="hw_report_num">共%s题</string>
+    <string name="hw_report_time">总用时</string>
+    <string name="hw_report_parse_statue_title">当前状态</string>
+    <string name="hw_report_my_answer_title">我的答案</string>
+    <string name="hw_report_orrecting_homework_title">批改结果</string>
+    <string name="hw_report_parse_statue_text" formatted="false">正确答案%s,你的答案%s,答题用时%s秒</string>
+    <string name="hw_report_parse_statistics_title">个人统计</string>
+    <string name="hw_report_parse_statistics_text" formatted="false">累计作答本题%s次,做错%s次,平均用时%s秒</string>
+    <string name="hw_report_parse_title">题目解析</string>
+    <string name="hw_report_parse_knowledge_title">考&#160;点</string>
+    <string name="hw_report_parse_diffcullity_title">难&#160;度</string>
+    <string name="hw_report_parse_knowledge_tip">点击考点，可以去加强练习哦 ^_^ </string>
+    <string name="hw_report_parse_knowledge_text">知识点</string>
+    <string name="subject_can_not_selected">请选择教材</string>
+    <string name="crash">程序出错了，请重启应用</string>
+    <string name="paper_test_all_right">全部答对了，没有错题！</string>
+    <string name="use_txt">使用</string>
+    <string name="my_favourite_name">我的收藏</string>
+
+    <string name="no_install_weixin">您还没有安装微信！</string>
+    <string name="no_install_qq">您还没有安装QQ！</string>
+    <string name="share_fail">分享失败</string>
+    <string name="share_success">分享成功</string>
+    <string name="share_tip">分享到</string>
+    <string name="share_cancel">取消</string>
+    <string name="share_wechat">微信</string>
+    <string name="share_wechat_friends">朋友圈</string>
+    <string name="share_qq">QQ</string>
+    <string name="share_qzone">Q-zone</string>
+    <string name="share_title">练习报告</string>
+    <string name="share_discription_one">冰冻三尺非一日之寒，求鞭策！</string>
+    <string name="share_discription_two">成长的路还很长，我在加油，你在干嘛？</string>
+    <string name="share_discription_three">满分会是坚持的人最后获得的奖赏，求见证！</string>
+    <string name="share_discription_four">还有谁？！学霸就是我，我就是学霸，不服来战！</string>
+
+    <!--排行榜 -->
+    <string name="ranking_bottom_tips">每周一重置，勤奋的同学都有机会登上榜首 ：)</string>
+    <string name="no_my_rank">您的做题数过少，暂无排名</string>
+    <string name="ranking_title_name">排行榜</string>
+    <string name="answer_text_title">答题数</string>
+    <string name="correct_text_title">正确率</string>
+    <string name="camera_error">获取图片失败，请重试</string>
+    <!-- 意见反馈 -->
+    <string name="feedback_title">意见反馈</string>
+    <string name="feedback_hit">请描述您遇到的问题，或对我们提出宝贵的建议..(4~500字内)</string>
+    <string name="update_sucess">提交成功</string>
+    <string name="update_fail">提交失败</string>
+    <string name="feedback_content_few">您的反馈字数太少啦！</string>
+    <string name="feedback_conetnt_exceed">反馈意见超出字数限制</string>
+    <string name="feeeback_submit">发 送</string>
+    <!-- 题目报错-->
+    <string name="subject_error_title">题目报错</string>
+    <string name="subject_error_hint">在这里输入您遇到的问题..</string>
+
+    <string name="exa_percent_value">考点完全掌握：</string>
+    <string name="exa_total_percent_value">考点掌握度：</string>
+    <!-- 考点分析-->
+    <string name="exam_grasp_title">~ 考点掌握度 ~</string>
+    <string name="third_exam_value">掌握度 %s</string>
+    <string name="section_value">考点完全掌握 %s</string>
+
+    <string name="fav_question_add_failed">收藏失败</string>
+    <string name="copy_data">已复制,长按输入框即可粘贴</string>
+    <string name="popup_ics_txt">点击查看你的考点掌握情况~</string>
+    <string name="account_name">账号：%s</string>
+</resources>

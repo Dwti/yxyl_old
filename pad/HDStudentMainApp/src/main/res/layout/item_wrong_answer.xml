@@ -1,0 +1,59 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl_answer_exam_wrong"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/my_list_bg_selector">
+    <ImageView
+        android:id="@+id/answer_exam_type_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_marginLeft="@dimen/dimen_12"
+        android:layout_marginBottom="@dimen/dimen_15"
+        android:layout_alignParentLeft="true"
+        android:layout_gravity="center_horizontal" />
+
+    <ImageView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/iv_answer_exam_delete"
+        android:padding="@dimen/dimen_10"
+        android:src="@drawable/answer_exam_delete"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/answer_exam_type_text"
+        android:layout_gravity="center_horizontal" />
+
+    <com.yanxiu.gphone.hd.student.view.question.YXiuAnserTextView
+         android:id="@+id/answer_exam_content_text"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/dimen_20"
+              android:layout_marginRight="@dimen/dimen_17"
+              android:layout_marginBottom="@dimen/dimen_15"
+              android:textColor="@color/color_666252"
+              android:textSize="@dimen/dimen_16"
+              android:layout_alignTop="@id/answer_exam_type_text"
+              android:layout_toRightOf="@id/answer_exam_type_text"
+              android:layout_toLeftOf="@id/iv_answer_exam_delete"
+              android:layout_gravity="center_horizontal" />
+        <View android:layout_width="match_parent"
+              android:layout_height="@dimen/dimen_10"
+              android:layout_below="@id/answer_exam_content_text" />
+
+
+    </RelativeLayout>
+    <ImageView
+        android:id="@+id/item_divider_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_answer_exam_wrong"
+        android:layout_marginLeft="@dimen/dimen_8"
+        android:layout_marginRight="@dimen/dimen_8"
+        android:background="@drawable/my_module_repeat_dash_line"
+        android:visibility="visible"
+        />
+</RelativeLayout>

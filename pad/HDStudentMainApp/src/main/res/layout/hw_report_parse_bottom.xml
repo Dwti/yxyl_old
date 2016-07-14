@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/hw_report_parse_statue_layout"
+                android:orientation="vertical" >
+
+            <!--<RelativeLayout android:layout_width="@dimen/dimen_97"
+                            android:layout_height="@dimen/dimen_30"
+                            android:id="@+id/rl_anwser_pen"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:background="@drawable/current_state_title_bg">
+
+                <ImageView android:layout_width="@dimen/dimen_20"
+                           android:layout_height="@dimen/dimen_20"
+                           android:layout_marginLeft="@dimen/dimen_5"
+                           android:layout_centerVertical="true"
+                           android:id="@+id/left_icon"
+                           android:src="@drawable/hw_report_parse_statue_icon"/>
+
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_toRightOf="@+id/left_icon"
+                          android:singleLine="true"
+                          android:layout_centerVertical="true"
+                          android:text="@string/hw_report_parse_statue_title"
+                          android:textSize="@dimen/dimen_15"
+                          android:textColor="@color/color_white"/>
+
+            </RelativeLayout>-->
+
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+
+                <View android:layout_width="match_parent"
+                      android:layout_height="@dimen/dimen_1"
+                      android:id="@+id/current_state_title_line"
+                      android:layout_marginTop="@dimen/dimen_10"
+                      android:layout_marginBottom="@dimen/dimen_10"
+                      android:layout_marginRight="@dimen/dimen_10"
+                      android:layout_marginLeft="@dimen/dimen_20"
+                      android:background="@drawable/repeat_common_line" />
+
+                <ImageView android:layout_width="@dimen/dimen_60"
+                           android:layout_height="@dimen/dimen_18"
+                           android:layout_below="@id/current_state_title_line"
+                           android:layout_marginLeft="@dimen/dimen_20"
+                           android:src="@drawable/current_state_title_bg"/>
+
+            </RelativeLayout>
+
+            <com.yanxiu.gphone.hd.student.view.question.YXiuAnserTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/hw_report_parse_statue_text"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_marginBottom="@dimen/dimen_10"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:textSize="@dimen/dimen_15"
+                android:textColor="@color/color_666252"
+                android:text="@string/hw_report_parse_statue_text" />
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/hw_report_parse_statistics_layout"
+                android:orientation="vertical" >
+
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+
+                <View android:layout_width="match_parent"
+                      android:layout_height="@dimen/dimen_1"
+                      android:id="@+id/personal_statistics_title_line"
+                      android:layout_marginTop="@dimen/dimen_10"
+                      android:layout_marginBottom="@dimen/dimen_10"
+                      android:layout_marginRight="@dimen/dimen_10"
+                      android:layout_marginLeft="@dimen/dimen_20"
+                      android:background="@drawable/repeat_common_line" />
+
+                <ImageView android:layout_width="@dimen/dimen_60"
+                           android:layout_height="@dimen/dimen_18"
+                           android:layout_below="@id/personal_statistics_title_line"
+                           android:layout_marginLeft="@dimen/dimen_20"
+                           android:src="@drawable/personal_statistics_title_bg"/>
+
+            </RelativeLayout>
+
+            <!--<RelativeLayout android:layout_width="@dimen/dimen_97"
+                            android:layout_height="@dimen/dimen_30"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:background="@drawable/personal_statistics_title_bg">
+
+                <ImageView android:layout_width="@dimen/dimen_20"
+                           android:layout_height="@dimen/dimen_20"
+                           android:layout_marginLeft="@dimen/dimen_5"
+                           android:layout_centerVertical="true"
+                           android:id="@+id/personal_left_icon"
+                           android:src="@drawable/hw_report_parse_statistics_icon"/>
+
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_toRightOf="@+id/personal_left_icon"
+                          android:singleLine="true"
+                          android:layout_centerVertical="true"
+                          android:text="@string/hw_report_parse_statistics_title"
+                          android:textSize="@dimen/dimen_15"
+                          android:textColor="@color/color_white"/>
+
+            </RelativeLayout>-->
+            <com.yanxiu.gphone.hd.student.view.question.YXiuAnserTextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/hw_report_parse_statistics_text"
+                      android:layout_marginTop="@dimen/dimen_10"
+                      android:layout_marginBottom="@dimen/dimen_10"
+                      android:layout_marginLeft="@dimen/dimen_20"
+                      android:textSize="@dimen/dimen_15"
+                      android:textColor="@color/color_666252"
+                      android:text="@string/hw_report_parse_statistics_text" />
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/hw_report_difficullty_layout"
+                android:orientation="vertical" >
+            <!--<RelativeLayout android:layout_width="@dimen/dimen_97"
+                            android:layout_height="@dimen/dimen_30"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:background="@drawable/problem_difficullty_title_bg">
+
+                <ImageView android:layout_width="@dimen/dimen_20"
+                           android:layout_height="@dimen/dimen_20"
+                           android:layout_marginLeft="@dimen/dimen_5"
+                           android:layout_centerVertical="true"
+                           android:id="@+id/difficullty_left_icon"
+                           android:src="@drawable/hw_difficullty_icon"/>
+
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_toRightOf="@+id/difficullty_left_icon"
+                          android:singleLine="true"
+                          android:gravity="center"
+                          android:layout_centerVertical="true"
+                          android:text="@string/hw_report_parse_diffcullity_title"
+                          android:textSize="@dimen/dimen_15"
+                          android:textColor="@color/color_white"/>
+
+            </RelativeLayout>-->
+
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+
+                <View android:layout_width="match_parent"
+                      android:layout_height="@dimen/dimen_1"
+                      android:id="@+id/problem_difficullty_title_line"
+                      android:layout_marginTop="@dimen/dimen_10"
+                      android:layout_marginBottom="@dimen/dimen_10"
+                      android:layout_marginRight="@dimen/dimen_10"
+                      android:layout_marginLeft="@dimen/dimen_20"
+                      android:background="@drawable/repeat_common_line" />
+
+                <ImageView android:layout_width="@dimen/dimen_32"
+                    android:layout_height="@dimen/dimen_18"
+                    android:layout_below="@id/problem_difficullty_title_line"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    android:src="@drawable/problem_difficullty_title_bg"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:id="@+id/hw_report_difficullty_image"
+                    android:orientation="horizontal" />
+
+            <com.yanxiu.gphone.hd.student.view.question.subjective.SubjectiveStarLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:id="@+id/view_sub_difficulty_star"
+                    android:layout_margin="@dimen/dimen_20"
+                    app:maxNumStar="5" />
+
+            <com.yanxiu.gphone.hd.student.view.question.YXiuAnserTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/hw_report_difficullty_text"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:layout_marginBottom="@dimen/dimen_5"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    android:textSize="@dimen/dimen_15"
+                    android:textColor="@color/color_666252" />
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/hw_report_parse_layout"
+                android:orientation="vertical" >
+            <!--<RelativeLayout android:layout_width="@dimen/dimen_97"
+                            android:layout_height="@dimen/dimen_30"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:background="@drawable/problem_analysis_title_bg">
+
+                <ImageView android:layout_width="@dimen/dimen_20"
+                           android:layout_height="@dimen/dimen_20"
+                           android:layout_marginLeft="@dimen/dimen_5"
+                           android:layout_centerVertical="true"
+                           android:id="@+id/problem_left_icon"
+                           android:src="@drawable/hw_report_parse_icon"/>
+
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_toRightOf="@+id/problem_left_icon"
+                          android:singleLine="true"
+                          android:layout_centerVertical="true"
+                          android:text="@string/hw_report_parse_title"
+                          android:textSize="@dimen/dimen_15"
+                          android:textColor="@color/color_white"/>
+
+            </RelativeLayout>-->
+
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+
+                <View android:layout_width="match_parent"
+                      android:layout_height="@dimen/dimen_1"
+                      android:id="@+id/problem_analysis_title_line"
+                      android:layout_marginTop="@dimen/dimen_10"
+                      android:layout_marginBottom="@dimen/dimen_10"
+                      android:layout_marginRight="@dimen/dimen_10"
+                      android:layout_marginLeft="@dimen/dimen_20"
+                      android:background="@drawable/repeat_common_line" />
+
+                <ImageView android:layout_width="@dimen/dimen_60"
+                           android:layout_height="@dimen/dimen_18"
+                           android:layout_below="@id/problem_analysis_title_line"
+                           android:layout_marginLeft="@dimen/dimen_20"
+                           android:src="@drawable/problem_analysis_title_bg"/>
+
+            </RelativeLayout>
+
+            <FrameLayout android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginTop="@dimen/dimen_10"
+                         android:layout_marginBottom="@dimen/dimen_10"
+                         android:layout_marginRight="@dimen/dimen_10"
+                         android:layout_marginLeft="@dimen/dimen_20"
+                         android:background="@drawable/question_content_bg">
+
+                <com.yanxiu.gphone.hd.student.view.question.YXiuAnserTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/hw_report_parse_text"
+                        android:layout_marginTop="@dimen/dimen_5"
+                        android:layout_marginBottom="@dimen/dimen_5"
+                        android:paddingLeft="@dimen/dimen_10"
+                        android:textSize="@dimen/dimen_15"
+                        android:textColor="@color/color_ff323232" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/hw_report_parse_knowledge_layout"
+                android:orientation="vertical" >
+
+            <!--<RelativeLayout android:layout_width="@dimen/dimen_97"
+                            android:layout_height="@dimen/dimen_30"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:background="@drawable/knowledge_point_title_bg">
+
+                <ImageView android:layout_width="@dimen/dimen_20"
+                           android:layout_height="@dimen/dimen_20"
+                           android:layout_marginLeft="@dimen/dimen_5"
+                           android:layout_centerVertical="true"
+                           android:id="@+id/knowledge_left_icon"
+                           android:src="@drawable/hw_report_parse_knowledge_icon"/>
+
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_toRightOf="@+id/knowledge_left_icon"
+                          android:singleLine="true"
+                          android:gravity="center"
+                          android:layout_centerVertical="true"
+                          android:text="@string/hw_report_parse_knowledge_title"
+                          android:textSize="@dimen/dimen_15"
+                          android:textColor="@color/color_white"/>
+
+            </RelativeLayout>-->
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+
+                <View android:layout_width="match_parent"
+                      android:layout_height="@dimen/dimen_1"
+                      android:id="@+id/knowledge_point_title_line"
+                      android:layout_marginTop="@dimen/dimen_10"
+                      android:layout_marginBottom="@dimen/dimen_10"
+                      android:layout_marginRight="@dimen/dimen_10"
+                      android:layout_marginLeft="@dimen/dimen_20"
+                      android:background="@drawable/repeat_common_line" />
+
+                <ImageView android:layout_width="@dimen/dimen_32"
+                           android:layout_height="@dimen/dimen_18"
+                           android:id="@+id/iv_knowledge_point"
+                           android:layout_below="@id/knowledge_point_title_line"
+                           android:layout_marginLeft="@dimen/dimen_20"
+                           android:src="@drawable/knowledge_point_title_bg"/>
+
+                <com.yanxiu.gphone.hd.student.view.question.YXiuAnserTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/iv_knowledge_point"
+                        android:layout_alignTop="@id/iv_knowledge_point"
+                        android:visibility="invisible"
+                        android:id="@+id/hw_report_parse_knowledge_point"
+                        android:text="@string/hw_report_parse_knowledge_tip"
+                        android:layout_marginRight="@dimen/dimen_10"
+                        android:layout_marginTop="@dimen/dimen_5"
+                        android:layout_marginBottom="@dimen/dimen_5"
+                        android:paddingLeft="@dimen/dimen_10"
+                        android:textSize="@dimen/dimen_11"
+                        android:textColor="@color/color_b3ab8f" />
+
+            </RelativeLayout>
+
+
+            <com.common.core.view.flowview.FlowLayout
+                    xmlns:flow="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/knowledge_flow_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dimen_20"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:orientation="horizontal"
+                    flow:weightDefault="1.0"
+                    flow:layoutDirection="ltr"
+                    android:gravity="start|center_vertical" />
+
+
+        </LinearLayout>
+
+        <View android:layout_width="match_parent"
+              android:layout_height="@dimen/dimen_1"
+              android:layout_marginTop="@dimen/dimen_10"
+              android:layout_marginBottom="@dimen/dimen_10"
+              android:layout_marginRight="@dimen/dimen_10"
+              android:layout_marginLeft="@dimen/dimen_20"
+              android:background="@drawable/repeat_common_line" />
+
+
+        <FrameLayout android:layout_width="match_parent"
+                     android:layout_height="@dimen/dimen_85">
+
+            <TextView android:layout_width="@dimen/dimen_188"
+                      android:layout_height="@dimen/dimen_40"
+                      android:id="@+id/tv_report_question_error"
+                      android:layout_gravity="center"
+                      android:gravity="center"
+                      android:textSize="@dimen/dimen_12"
+                      android:background="@drawable/selector_report_question_btn"
+                      android:text="@string/question_report_error_text"
+                      android:textColor="@drawable/question_report_error_text"/>
+
+        </FrameLayout>
+
+</LinearLayout>

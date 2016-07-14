@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/blue_bg"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dimen_25"
+        android:paddingRight="@dimen/dimen_35"
+        android:paddingLeft="@dimen/dimen_35">
+        <include android:layout_width="match_parent"
+                 android:layout_height="@dimen/dimen_48"
+                 android:id="@+id/male_layout"
+                 layout="@layout/activity_info_select_public_item"
+            />
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_7"
+            android:layout_marginRight="@dimen/dimen_7"
+            layout="@layout/bitmap_repeat_layout"
+            />
+        <include android:layout_width="match_parent"
+                 android:layout_height="@dimen/dimen_48"
+                 android:id="@+id/female_layout"
+                 layout="@layout/activity_info_select_public_item"
+            />
+
+
+    </LinearLayout>

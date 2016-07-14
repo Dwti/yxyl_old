@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+
+    <com.common.core.view.roundview.RoundedImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/dimen_165"
+        android:layout_height="@dimen/dimen_165"
+        android:scaleType="centerCrop">
+    </com.common.core.view.roundview.RoundedImageView>
+    <ImageView
+        android:id="@+id/imageDecorate"
+        android:layout_width="@dimen/dimen_165"
+        android:layout_height="@dimen/dimen_165"
+        android:background="@drawable/bucket_pic_sel"
+        android:scaleType="centerCrop">
+    </ImageView>
+
+    <TextView
+        android:layout_below="@id/imageDecorate"
+        android:layout_marginTop="@dimen/dimen_8"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_10"
+        android:id="@+id/name"
+        android:layout_width="@dimen/dimen_165"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:singleLine="true"
+        android:textColor="@color/color_ffdb4d"
+        android:textSize="@dimen/dimen_14"/>
+
+    <TextView
+        android:layout_below="@id/name"
+        android:id="@+id/count"
+        android:layout_width="@dimen/dimen_165"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_10"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/dimen_12"
+        android:textColor="@color/color_ffdb4d"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:gravity="left"/>
+</RelativeLayout>

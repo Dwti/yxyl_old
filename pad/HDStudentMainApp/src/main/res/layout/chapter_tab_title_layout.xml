@@ -1,0 +1,161 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/ll_top_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_44"
+        android:background="@color/color_00cccc">
+
+        <LinearLayout
+            android:id="@+id/ll_top_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_30"
+                android:layout_height="@dimen/dimen_30"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:src="@drawable/login_back"/>
+
+            <TextView
+                android:id="@+id/tv_left_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textColor="@color/color_006666"
+                android:textSize="@dimen/dimen_17"/>
+        </LinearLayout>
+
+        <com.yanxiu.gphone.hd.student.view.YanxiuTypefaceTextView
+            android:id="@+id/tv_center_title"
+            style="@style/shadow_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:shadowColor="@color/color_33ffff"
+            android:textColor="@color/color_006666"
+            android:textSize="@dimen/dimen_18"
+            app:type_face="fz.ttf"
+            tools:text="title_center"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_5"
+        android:background="@color/color_009999"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_56"
+        android:background="@color/color_008080"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dimen_10"
+        android:paddingRight="@dimen/dimen_10">
+
+        <com.yanxiu.gphone.hd.student.view.TitleTabLayout
+            android:id="@+id/view_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/dimen_6"
+            android:layout_marginTop="@dimen/dimen_6"
+            android:layout_weight="4"/>
+
+        <!--<View-->
+            <!--android:id="@+id/rl_center_line"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="0.2"/>-->
+
+        <RelativeLayout
+            android:id="@+id/rl_right"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/iv_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/dimen_8"
+                android:src="@drawable/intelli_exe_down_btn"/>
+
+            <TextView
+                android:id="@+id/intell_volume_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/iv_right"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dimen_10"
+                android:singleLine="true"
+                android:textColor="@color/color_ffdb4d"
+                android:textSize="@dimen/dimen_14"
+                tools:text="必修一"/>
+
+            <View
+                android:id="@+id/rl_right_bg_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/intell_volume_txt"
+                android:layout_alignRight="@id/iv_right"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="@dimen/dimen_8"
+                android:layout_marginTop="@dimen/dimen_8"
+                android:background="@drawable/rl_right_bg_nor"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_right_test"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:visibility="gone">
+            <ImageView
+                android:id="@+id/iv_right_test"
+                android:layout_width="@dimen/dimen_30"
+                android:layout_height="@dimen/dimen_30"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/intelli_knp_selector"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:id="@+id/intell_volume_txt_test"
+                style="@style/shadow_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dimen_7"
+                android:layout_toLeftOf="@id/iv_right_test"
+                android:gravity="center"
+                android:shadowColor="@color/color_005959"
+                android:singleLine="true"
+                android:text="@string/diagnose"
+                android:textColor="@drawable/yellow_white_text_selecter"
+                android:textSize="@dimen/dimen_16"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_2"
+        android:background="@color/color_007373"
+        />
+</LinearLayout>

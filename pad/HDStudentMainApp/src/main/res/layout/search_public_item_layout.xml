@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/item_public_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_45"
+                android:paddingLeft="@dimen/dimen_20"
+                android:paddingRight="@dimen/dimen_10">
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:id="@+id/item_name"
+              style="@style/list_item_text_style"
+              android:text="@string/user_name_txt"
+              android:layout_centerVertical="true"
+              android:textStyle="bold"
+        />
+    <ImageView
+        android:id="@+id/item_select_view"
+        android:layout_width="@dimen/dimen_30"
+        android:layout_height="@dimen/dimen_44"
+        android:layout_centerInParent="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dimen_12"
+        android:visibility="gone"
+        android:src="@drawable/sex_sel_bg"/>
+    <ImageView
+        android:id="@+id/item_right_arrow"
+        android:layout_width="@dimen/dimen_30"
+        android:layout_height="@dimen/dimen_44"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dimen_12"
+        android:visibility="gone"
+        android:src="@drawable/trans_yellow_arrow"/>
+
+</RelativeLayout>

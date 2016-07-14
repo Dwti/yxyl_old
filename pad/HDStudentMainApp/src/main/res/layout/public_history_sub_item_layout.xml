@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_35"
+                android:gravity="center_vertical"
+                android:visibility="gone">
+
+    <ImageView
+        android:id="@+id/group_hw_tag_iv"
+        android:layout_width="@dimen/dimen_18"
+        android:layout_height="@dimen/dimen_18"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dimen_12"
+        android:background="@drawable/group_new_hw_tag"/>
+
+    <ImageView
+        android:id="@+id/group_hw_deadline_iv"
+        android:layout_width="@dimen/dimen_18"
+        android:layout_height="@dimen/dimen_18"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dimen_2"
+        android:layout_marginRight="@dimen/dimen_5"
+        android:background="@drawable/group_hw_deadline_bg"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/group_hw_title_tv"
+        style="@style/shadow_text_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dimen_7"
+        android:layout_toRightOf="@id/group_hw_tag_iv"
+        android:layout_toLeftOf="@id/group_hw_deadline_iv"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:shadowColor="@color/color_ffff99"
+        android:textColor="@color/color_b3476b"
+        android:textSize="@dimen/dimen_13"
+        android:visibility="visible"
+        tools:text="有理数数学"/>
+
+    <TextView
+        android:id="@+id/group_hw_deadline_tv"
+        style="@style/shadow_text_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_toRightOf="@id/group_hw_deadline_iv"
+        android:gravity="center_vertical|left"
+        android:shadowColor="@color/color_ffff99"
+        android:textColor="@color/color_805500"
+        android:textSize="@dimen/dimen_12"
+        android:visibility="gone"
+        tools:text="12月23日 12:00 截止"
+        />
+</RelativeLayout>

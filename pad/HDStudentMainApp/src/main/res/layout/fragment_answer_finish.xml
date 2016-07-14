@@ -1,0 +1,104 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_99000000" >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_fff0b2"
+        android:layout_marginRight="@dimen/dimen_100"
+        android:layout_marginLeft="@dimen/dimen_150">
+
+        <ImageView
+            android:layout_width="@dimen/dimen_74"
+            android:layout_height="@dimen/dimen_74"
+            android:id="@+id/iv_finish"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dimen_170"
+            android:src="@drawable/icon_question_finish"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/iv_finish_title"
+            android:layout_marginTop="@dimen/dimen_13"
+            android:text="@string/question_finish_title"
+            android:textColor="@color/color_7f5510"
+            android:textSize="@dimen/dimen_20"
+            android:layout_below="@id/iv_finish"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/iv_finish_content"
+            android:layout_marginTop="@dimen/dimen_40"
+            android:text="@string/question_finish_hw_tips"
+            android:textColor="@color/color_7f5510"
+            android:textSize="@dimen/dimen_12"
+            android:layout_below="@id/iv_finish_title"
+            android:layout_centerHorizontal="true"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/dimen_40"
+            android:layout_below="@id/iv_finish_title"
+            android:id="@+id/rl_finish_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/question_finish_hw_end_time_title_tips"
+                android:text="@string/question_finish_hw_end_time_title_tips"
+                android:textColor="@color/color_7f5510"
+                android:textSize="@dimen/dimen_12"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:id="@+id/question_finish_hw_end_time_tips"
+                android:layout_below="@id/question_finish_hw_end_time_title_tips"
+                android:text="@string/question_finish_hw_end_time_tips"
+                android:textColor="@color/color_7f5510"
+                android:textSize="@dimen/dimen_12"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_40"
+                android:layout_below="@id/question_finish_hw_end_time_tips"
+                android:text="@string/question_finish_hw_end_time_content_tips"
+                android:textColor="@color/color_7f5510"
+                android:textSize="@dimen/dimen_12"
+                android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+
+        <FrameLayout android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_90"
+            android:id="@+id/fl_question_finish"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_ffe580">
+
+            <Button android:layout_width="@dimen/dimen_175"
+                android:layout_height="@dimen/dimen_50"
+                style="@style/text_fff99_shadow_style"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/color_805500"
+                android:background="@drawable/selector_question_submit"
+                android:text="@string/edit_person_name_ok"
+                android:id="@+id/btn_question_finish"/>
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

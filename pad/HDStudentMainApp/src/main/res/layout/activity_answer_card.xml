@@ -1,0 +1,80 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fl_decor_view">
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical"
+                  android:background="@color/color_fffaf9f9">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_44"
+                android:background="@color/color_ff53c7fd" >
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/dimen_10"
+                    android:id="@+id/iv_top_back"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/login_back" />
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:drawableLeft="@drawable/icon_time"
+                      android:drawablePadding="@dimen/dimen_5"
+                      android:id="@+id/tv_top_title"
+                      android:layout_centerInParent="true"
+                      android:textSize="@dimen/dimen_17"
+                      android:textColor="@color/color_white" />
+
+            <TextView android:layout_width="@dimen/dimen_35"
+                      android:layout_height="@dimen/dimen_35"
+                      android:background="@drawable/selector_question_card"
+                      android:layout_marginRight="@dimen/dimen_5"
+                      android:visibility="gone"
+                      android:layout_centerVertical="true"
+                      android:layout_alignParentRight="true"
+                      android:id="@+id/tv_answer_card" />
+
+        </RelativeLayout>
+
+        <RelativeLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dimen_10"
+                        android:background="@color/color_ff00a1e5">
+
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/tv_anwser_tips"
+                      android:layout_toLeftOf="@+id/tv_pager_index"
+                      android:layout_alignParentLeft="true"
+                      android:singleLine="true"
+                      android:textSize="@dimen/dimen_15"
+                      android:layout_gravity="center"
+                      android:textColor="@color/color_white" />
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/tv_pager_index"
+                      android:textSize="@dimen/dimen_15"
+                      android:layout_alignParentRight="true"
+                      android:layout_gravity="center"
+                      android:textColor="@color/color_white" />
+
+
+        </RelativeLayout>
+
+        <FrameLayout
+                android:id="@+id/content_answer_card"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+    </LinearLayout>
+
+</FrameLayout>
+
+

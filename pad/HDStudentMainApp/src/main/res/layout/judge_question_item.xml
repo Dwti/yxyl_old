@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+<!--        <FrameLayout android:layout_width="@dimen/dimen_30"
+                     android:layout_height="@dimen/dimen_30"
+                     android:layout_centerVertical="true"
+                     android:visibility="gone"
+                     android:id="@+id/fl_choice_text_item_bg"
+                     android:background="@drawable/choice_question_unselect">
+
+        </FrameLayout>-->
+
+    <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_5"
+            android:orientation="vertical"
+            android:id="@+id/ll_parent_bg"
+            android:background="@drawable/selector_judge_item">
+
+        <View android:layout_width="@dimen/dimen_1"
+              android:layout_height="@dimen/dimen_3" />
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:gravity="center"
+                  android:layout_centerInParent="true"
+                  android:textSize="@dimen/dimen_17"
+                  android:id="@+id/tv_item_text"/>
+
+        <View android:layout_width="@dimen/dimen_1"
+              android:layout_height="@dimen/dimen_8" />
+
+    </LinearLayout>
+
+    <ImageView android:layout_width="@dimen/dimen_32"
+               android:layout_height="@dimen/dimen_32"
+               android:visibility="gone"
+               android:layout_alignParentRight="true"
+               android:id="@+id/iv_choice_icon_item" />
+
+
+</RelativeLayout>

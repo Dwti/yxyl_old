@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/wood_bg">
+    <include layout="@layout/public_top_layout"
+        android:id="@+id/top_layout" />
+    <RelativeLayout
+        android:id="@+id/search_edit_layout"
+        android:layout_width="@dimen/dimen_350"
+        android:layout_height="@dimen/dimen_96"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/dimen_40"
+        android:layout_marginRight="@dimen/dimen_43"
+        android:layout_marginTop="@dimen/dimen_25"
+        android:background="@drawable/search_btn_bg">
+
+        <EditText
+            android:id="@+id/search_edit"
+            style="@style/text_bd8e00_shadow_style"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_36"
+            android:layout_marginBottom="@dimen/dimen_5"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_6"
+            android:layout_toLeftOf="@+id/search_add_text"
+            android:background="@drawable/my_single_edit_bg"
+            android:cursorVisible="true"
+            android:drawableLeft="@drawable/search_icon"
+            android:drawablePadding="@dimen/dimen_10"
+            android:hint="@string/search_school_hint"
+            android:paddingLeft="@dimen/dimen_10"
+            android:paddingRight="@dimen/dimen_25"
+            android:singleLine="true"
+            android:textColor="@color/color_ffffff"
+            android:textColorHint="@color/color_ffffff"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/dimen_14" />
+
+        <TextView
+            android:id="@+id/search_add_text"
+            style="@style/text_fff99_shadow_style"
+            android:layout_width="@dimen/dimen_51"
+            android:layout_height="@dimen/dimen_36"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/dimen_5"
+            android:layout_marginLeft="@dimen/dimen_9"
+            android:layout_marginRight="@dimen/dimen_9"
+            android:layout_marginTop="@dimen/dimen_6"
+            android:background="@drawable/search_add_btn_bg"
+            android:gravity="center"
+            android:text="@string/search_school_add"
+            android:textColor="@color/color_805500"
+            android:textSize="@dimen/dimen_12"
+            android:textStyle="bold" />
+
+
+        <include
+            android:id="@+id/topLine"
+            layout="@layout/icon_select_top_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_2"
+            android:layout_below="@id/search_edit" />
+
+        <TextView
+            android:id="@+id/search_tag_text"
+            style="@style/text_fff99_shadow_style"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_33"
+            android:layout_below="@id/topLine"
+            android:layout_marginTop="@dimen/dimen_5"
+            android:drawableLeft="@drawable/tips_icon"
+            android:drawablePadding="@dimen/dimen_10"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="@dimen/dimen_10"
+            android:text="@string/search_school_tag"
+            android:textColor="@color/color_805500"
+            android:textSize="@dimen/dimen_12" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/search_list"
+        style="@style/listview_style"
+        android:layout_width="@dimen/dimen_350"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dimen_15" />
+    />
+</LinearLayout>

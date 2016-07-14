@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dimen_22"
+            android:layout_marginLeft="@dimen/dimen_40"
+            android:layout_marginRight="@dimen/dimen_43"
+            android:fadingEdge="vertical">
+        <LinearLayout android:layout_width="match_parent"
+                      android:orientation="vertical"
+                      android:layout_height="match_parent">
+            <!--修改密码-->
+            <include android:layout_width="match_parent"
+                     android:layout_height="@dimen/dimen_50"
+                     android:id="@+id/setting_modify_pwd_layout"
+                     layout="@layout/activity_info_user_icon_public_item"
+                    />
+            <include
+                android:id="@+id/modify_pwd_divider_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_7"
+                android:layout_marginRight="@dimen/dimen_7"
+                layout="@layout/bitmap_repeat_layout"
+                />
+
+            <!--学段  -->
+            <include android:layout_width="match_parent"
+                     android:layout_height="@dimen/dimen_50"
+                     android:id="@+id/setting_stage_layout"
+                     layout="@layout/activity_info_user_icon_public_item"
+                    />
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_7"
+                android:layout_marginRight="@dimen/dimen_7"
+                layout="@layout/bitmap_repeat_layout"
+                />
+
+
+            <!--教材版本-->
+            <include android:layout_width="match_parent"
+                     android:layout_height="@dimen/dimen_50"
+                     android:id="@+id/book_version_layout"
+                     layout="@layout/activity_info_user_icon_public_item"
+                    />
+
+            <!--意见反馈-->
+            <include
+                     android:layout_marginTop="@dimen/dimen_15"
+                     android:layout_width="match_parent"
+                     android:layout_height="@dimen/dimen_50"
+                     android:id="@+id/advicefeedback_layout"
+                     layout="@layout/activity_info_user_icon_public_item"
+                />
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_7"
+                android:layout_marginRight="@dimen/dimen_7"
+                layout="@layout/bitmap_repeat_layout"
+                />
+
+            <!--检查更新-->
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_50"
+                android:id="@+id/setting_update_layout"
+                layout="@layout/activity_info_user_icon_public_item"
+                />
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_7"
+                android:layout_marginRight="@dimen/dimen_7"
+                layout="@layout/bitmap_repeat_layout"
+                />
+            <!--关于-->
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_50"
+                android:id="@+id/setting_about_us_layout"
+                layout="@layout/activity_info_user_icon_public_item"
+                />
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_7"
+                android:layout_marginRight="@dimen/dimen_7"
+                layout="@layout/bitmap_repeat_layout"
+                />
+
+            <!--隐私策略-->
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_50"
+                android:id="@+id/privacy_layout"
+                layout="@layout/activity_info_user_icon_public_item"
+                />
+
+
+            <!--意见反馈-->
+            <include
+                android:layout_marginTop="@dimen/dimen_15"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_50"
+                android:id="@+id/login_out_layout"
+                layout="@layout/activity_info_user_icon_public_item"
+                />
+
+
+        </LinearLayout>
+    </ScrollView>
+</merge>

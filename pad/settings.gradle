@@ -1,0 +1,2 @@
+include ':YanxiuBaseCore', ':CommonCoreLib', ':HDStudentMainApp', ':LoginCommonLibs',
+        ':ShareCommonLibs',':YanxiuUpgradeLib'

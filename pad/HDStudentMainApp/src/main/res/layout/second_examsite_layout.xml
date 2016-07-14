@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.common.core.view.xlistview.XListView
+        android:id="@+id/examsiteList"
+        android:cacheColorHint="@color/trans"
+        android:scrollbars="none"
+        android:fadingEdgeLength="@dimen/dimen_0"
+        android:listSelector="@color/trans"
+        android:divider="@null"
+        android:background="@drawable/paper_bg"
+        android:paddingTop="@dimen/dimen_20"
+        android:paddingBottom="@dimen/dimen_20"
+        android:layout_marginBottom="@dimen/dimen_15"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.common.core.view.xlistview.XListView>
+
+    <include
+        android:id="@+id/examTopLine"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_4"
+        android:layout_alignParentTop="true"
+        layout="@layout/top_line"
+        />
+</RelativeLayout>
+
+

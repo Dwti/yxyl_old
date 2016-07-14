@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"  >
+
+    <ImageView
+            android:src="@drawable/heart_grey"
+            android:id="@+id/img_heart"
+            android:layout_marginRight="@dimen/dimen_5"
+            android:layout_width="@dimen/dimen_14"
+            android:layout_height="@dimen/dimen_14" />
+
+</FrameLayout>
+
+
+        <!--<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"  >
+
+<ImageView
+        android:src="@drawable/star_grey"
+        android:layout_margin="@dimen/dimen_5"
+        android:layout_width="@dimen/dimen_21"
+        android:layout_height="@dimen/dimen_20" />
+
+</FrameLayout>-->

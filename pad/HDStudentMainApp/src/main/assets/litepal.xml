@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="yan_xiu_hd_student_db" ></dbname>
+    <version value="2" ></version>
+    <list>
+        <mapping class="com.common.login.model.LocalCacheBean"></mapping>
+        <mapping class="com.yanxiu.gphone.hd.student.bean.SubjectVersionBean"></mapping>
+        <mapping class="com.common.login.model.UserInfoBean"></mapping>
+        <mapping class="com.yanxiu.gphone.hd.student.bean.PublicSubjectBean"></mapping>
+        <mapping class="com.yanxiu.gphone.hd.student.bean.PublicEditionBean"></mapping>
+        <mapping class="com.yanxiu.gphone.hd.student.bean.PublicChapterBean"></mapping>
+        <mapping class="com.yanxiu.gphone.hd.student.bean.PublicSectionBean"></mapping>
+        <mapping class="com.yanxiu.gphone.hd.student.bean.PublicVolumeBean"></mapping>
+        <mapping class="com.yanxiu.gphone.hd.student.bean.PublicErrorQuestionCollectionBean"></mapping>
+        <mapping class="com.yanxiu.gphone.hd.student.bean.PublicFavouriteQuestionBean"></mapping>
+    </list>
+</litepal>

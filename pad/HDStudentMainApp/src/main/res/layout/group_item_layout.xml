@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_vertical"
+              android:orientation="vertical"
+    >
+    <View
+        android:id="@+id/group_hw_top_space_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_15"
+        android:visibility="gone"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_list_bg_selector"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dimen_10"
+        android:paddingTop="@dimen/dimen_10"
+        >
+        <include
+            android:id="@+id/group_hw_main_view"
+            layout="@layout/public_group_item_layout"
+            />
+
+        <ImageView
+            android:id="@+id/group_hw_dash_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/repeat_suebject_section_dash_line"
+            android:visibility="gone"
+            />
+
+        <include
+            android:id="@+id/group_hw_sub_view"
+            layout="@layout/public_group_sub_item_layout"
+            />
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/item_divider_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_8"
+        android:layout_marginRight="@dimen/dimen_8"
+        android:background="@drawable/my_module_repeat_dash_line"
+        android:visibility="visible"
+        />
+    <View
+        android:id="@+id/group_hw_bottom_space_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_15"
+        android:visibility="gone"/>
+</LinearLayout>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginLeft="@dimen/dimen_40"
+    android:layout_marginRight="@dimen/dimen_43"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+    <include android:id="@+id/primary_stage_layout"
+             layout="@layout/activity_info_select_public_item"
+             android:layout_width="match_parent"
+             android:layout_height="@dimen/dimen_48"
+             android:layout_marginTop="@dimen/dimen_22"
+        />
+    <include
+        layout="@layout/bitmap_repeat_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_7"
+        android:layout_marginRight="@dimen/dimen_7"
+        />
+    <include android:id="@+id/juinor_stage_layout"
+             layout="@layout/activity_info_select_public_item"
+             android:layout_width="match_parent"
+             android:layout_height="@dimen/dimen_48"
+        />
+    <include
+        layout="@layout/bitmap_repeat_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_7"
+        android:layout_marginRight="@dimen/dimen_7"
+        />
+    <include android:id="@+id/high_stage_layout"
+             layout="@layout/activity_info_select_public_item"
+             android:layout_width="match_parent"
+             android:layout_height="@dimen/dimen_48"
+        />
+</LinearLayout>

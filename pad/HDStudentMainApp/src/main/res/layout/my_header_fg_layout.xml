@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/dimen_83"
+              android:id="@+id/rootRelativeView"
+              android:gravity="center">
+
+
+    <com.common.core.view.roundview.RoundedImageView
+        android:layout_width="@dimen/dimen_55"
+        android:layout_height="@dimen/dimen_55"
+        android:id="@+id/user_icon"
+        android:scaleType="centerCrop"
+        android:layout_marginLeft="@dimen/dimen_15"
+        android:layout_marginTop="@dimen/dimen_12"
+        />
+    <ImageView
+        android:id="@+id/usr_icon_decorate"
+        android:layout_width="@dimen/dimen_55"
+        android:layout_height="@dimen/dimen_55"
+        android:background="@drawable/my_user_icon_des"
+        android:layout_marginLeft="@dimen/dimen_15"
+        android:layout_marginTop="@dimen/dimen_12"
+        android:scaleType="centerCrop"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_55"
+        android:orientation="vertical"
+        android:layout_toRightOf="@id/usr_icon_decorate"
+        android:paddingLeft="@dimen/dimen_12"
+        android:layout_marginTop="@dimen/dimen_12"
+        android:paddingRight="@dimen/dimen_5">
+        <TextView
+            android:layout_marginTop="@dimen/dimen_6"
+            android:id="@+id/userTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="10"
+            android:textSize="@dimen/dimen_16"
+            android:textColor="@color/color_ffdb4d"
+            style="@style/single_text_style"
+            />
+       <TextView
+           android:id="@+id/accountTv"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           style="@style/two_line_text_style"
+           android:layout_marginTop="@dimen/dimen_4"
+           android:textSize="@dimen/dimen_12"
+           android:textColor="@color/color_00e6e6"
+           />
+    </LinearLayout>
+     <View
+         android:layout_width="match_parent"
+         android:layout_height="@dimen/dimen_2"
+         android:background="@color/color_008787"
+         android:layout_alignParentBottom="true"
+         />
+    <View
+        android:layout_width="@dimen/dimen_3"
+        android:layout_marginBottom="@dimen/dimen_2"
+        android:layout_height="match_parent"
+        android:background="@color/color_007373"
+        android:layout_alignParentRight="true"
+        />
+</merge>

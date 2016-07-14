@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/dimen_20"
+        android:scrollbars="none">
+
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/dimen_40"
+                            android:layout_marginRight="@dimen/dimen_43">
+                <ImageView
+                    android:id="@+id/info_head"
+                    android:layout_width="@dimen/dimen_90"
+                    android:layout_height="@dimen/dimen_87"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dimen_29"
+                    android:scaleType="centerCrop"
+                    android:padding="@dimen/dimen_4"
+                    android:src="@drawable/logo"/>
+
+
+                <ImageView
+                    android:id="@+id/login_app_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/info_head"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dimen_15"
+                    android:background="@drawable/logo_app_name"
+                    android:scaleType="centerCrop"
+                    />
+
+
+                <TextView android:layout_width="@dimen/dimen_41"
+                          android:layout_height="@dimen/dimen_25"
+                          android:layout_centerHorizontal="true"
+                          android:layout_below="@id/login_app_name"
+                          android:layout_marginTop="@dimen/dimen_15"
+                          android:textSize="@dimen/dimen_14"
+                          android:textColor="@color/color_443013"
+                          android:background="@color/color_ffffff"
+                          android:textStyle="bold"
+                          android:gravity="center"
+                          android:id="@+id/yanxiu_version_desc"
+                          android:layout_centerVertical="true"
+                    />
+                <RelativeLayout
+                    android:id="@+id/official_weixin_layout"
+                    style="@style/about_container_style"
+                    android:layout_below="@id/yanxiu_version_desc"
+                    android:layout_marginTop="@dimen/dimen_48">
+
+                    <TextView android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:id="@+id/official_weixin_txt"
+                              style="@style/about_left_text_style"
+                              android:text="@string/official_weixin_txt"
+                        />
+                    <TextView android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:id="@+id/official_weixin_content"
+                              style="@style/about_right_text_style"
+                              android:text="@string/official_weixin_content"
+                        />
+
+                </RelativeLayout>
+                <include
+                    android:id="@+id/firLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/official_weixin_layout"
+                    android:layout_marginLeft="@dimen/dimen_7"
+                    android:layout_marginRight="@dimen/dimen_7"
+                    layout="@layout/bitmap_repeat_layout"
+                    />
+                <RelativeLayout
+                    android:id="@+id/services_tel_num_layout"
+                    android:layout_below="@id/firLine"
+                    style="@style/about_container_style">
+                    <TextView android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:id="@+id/services_tel_num_txt"
+                              style="@style/about_left_text_style"
+                              android:text="@string/services_tel_num_txt"
+                        />
+                    <TextView android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:id="@+id/services_tel_num_content_txt"
+                              style="@style/about_right_text_style"
+                              android:text="@string/services_tel_num_content_txt"
+                        />
+
+                </RelativeLayout>
+                <include
+                    android:id="@+id/secLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/services_tel_num_layout"
+                    android:layout_marginLeft="@dimen/dimen_7"
+                    android:layout_marginRight="@dimen/dimen_7"
+                    layout="@layout/bitmap_repeat_layout"
+                    />
+                <RelativeLayout
+                    android:id="@+id/services_qq_layout"
+                    android:layout_below="@id/secLine"
+                    style="@style/about_container_style"
+                    android:visibility="visible"
+                    >
+                    <TextView android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:id="@+id/services_qq_txt"
+                              style="@style/about_left_text_style"
+                              android:text="@string/services_qq_txt"
+                        />
+                    <TextView android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:id="@+id/services_qq_content_txt"
+                              style="@style/about_right_text_style"
+                              android:text="@string/services_qq_content_txt"
+                        />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+    </ScrollView>
+
+
+
+
+
+
+</merge>

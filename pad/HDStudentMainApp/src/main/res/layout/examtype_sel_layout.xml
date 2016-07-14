@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+        android:background="@color/color_99000000">
+
+    <LinearLayout
+        android:id="@+id/selPopLinear"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_117"
+        android:background="@color/color_ffe580">
+        <ImageView
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_4"
+            android:layerType="software"
+            android:background="@drawable/diagnose_sel_pop_line"
+            />
+        <GridView
+            android:id="@+id/selList"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_45"
+            android:cacheColorHint="@color/trans"
+            android:listSelector="@color/trans"
+            android:horizontalSpacing="@dimen/dimen_15"
+            android:verticalSpacing="@dimen/dimen_15"
+            android:layout_marginLeft="@dimen/dimen_30"
+            android:layout_marginRight="@dimen/dimen_30"
+            android:layout_marginTop="@dimen/dimen_50"
+            android:numColumns="8"
+            android:scrollbars="none"
+            />
+    </LinearLayout>
+    <ImageView
+        android:layout_below="@id/selPopLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/yellow_zigzag_line"/>
+
+</merge>
