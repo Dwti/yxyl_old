@@ -1,0 +1,512 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="GridPasswordView" />
+
+    <style name="SwitchTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Active thumb color & Active track color(30% transparency) -->
+        <item name="colorControlActivated">@color/color_118989</item>
+        <!-- Inactive thumb color -->
+        <item name="colorSwitchThumbNormal">@color/color_99937a</item>
+        <!-- Inactive track color(30% transparency) -->
+        <item name="android:colorForeground">@color/color_99937a</item>
+    </style>
+
+    <style name="GridPasswordView.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+
+        <item name="android:gravity">center</item>
+        <item name="android:shadowColor">@color/color_a37a00</item>
+        <item name="android:shadowDx">0.0</item>
+        <item name="android:shadowDy">2.0</item>
+        <item name="android:shadowRadius">1.0</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:singleLine">true</item>
+    </style>
+<!--   <item name="android:background">@drawable/group_input_bg</item> -->
+    <style name="GridPasswordView.EditText" parent="GridPasswordView.TextView">
+        <item name="android:cursorVisible">false</item>
+    </style>
+
+    <style name="GridPasswordView.Divider">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginTop">1dp</item>
+        <item name="android:layout_marginBottom">1dp</item>
+    </style>
+    <style name="radio_btn_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">@dimen/dimen_2</item>
+        <item name="android:paddingBottom">@dimen/dimen_2</item>
+        <item name="android:layout_margin">@dimen/dimen_10</item>
+        <item name="android:button">@null</item>
+        <item name="android:background">@drawable/home_nav_bar_selecter</item>
+        <item name="android:textColor">@color/color_btm_navi_txt</item>
+        <item name="android:textSize">@dimen/dimen_12</item>
+        <item name="android:duplicateParentState">true</item>
+    </style>
+    <style name="home_nav_bar_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_8</item>
+        <item name="android:textColor">@color/color_006666</item>
+        <item name="android:textSize">@dimen/dimen_16</item>
+        <item name="android:duplicateParentState">true</item>
+    </style>
+    <style name="alert_dialog_style" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+    </style>
+    <style name="del_dialog_style" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+    </style>
+    <style name="CustomProgressStyle_31dip" parent="@android:style/Widget.ProgressBar.Large">
+        <item name="android:minWidth">31dip</item>
+        <item name="android:maxWidth">31dip</item>
+        <item name="android:minHeight">31dip</item>
+        <item name="android:maxHeight">31dip</item>
+    </style>
+    <style name="yanxiu_text_15_color_ffc8c7cc">
+        <item name="android:textColor">@color/color_ff646464</item>
+        <item name="android:textSize">@dimen/dimen_15</item>
+    </style>
+    <style name="yanxiu_text_15_refresh_style">
+        <item name="android:textColor">@color/color_ff00a0e6</item>
+        <item name="android:textSize">@dimen/dimen_15</item>
+        <item name="android:background">@drawable/group_add_btn_border</item>
+    </style>
+    <style name="yanxiu_text_15_color_ff323232">
+        <item name="android:textColor">@color/color_ff323232</item>
+        <item name="android:textSize">@dimen/dimen_15</item>
+    </style>
+    <style name="yanxiu_text_15_color_ff646464">
+        <item name="android:textColor">@color/color_ff646464</item>
+        <item name="android:textSize">@dimen/dimen_15</item>
+    </style>
+    <style name="yanxiu_text_12_color_ff969696">
+        <item name="android:textColor">@color/color_ff969696</item>
+        <item name="android:textSize">@dimen/dimen_12</item>
+    </style>
+    <style name="yanxiu_text_15_color_ff40c0fd">
+        <item name="android:textColor">@drawable/blue_black_text_selecter</item>
+        <item name="android:textSize">@dimen/dimen_15</item>
+    </style>
+    <style name="yanxiu_text_15_blue_white">
+        <item name="android:textColor">@drawable/blue_white_text_selecter</item>
+        <item name="android:textSize">@dimen/dimen_15</item>
+    </style>
+    <style name="popwin_anim_style">
+        <item name="android:windowExitAnimation">@anim/data_filter_selecter_hide</item>
+    </style>
+    <style name="edit_txt_style">
+        <item name="android:textColor">@color/color_ff323232</item>
+        <item name="android:textColorHint">@color/color_ffe2e2e2</item>
+        <item name="android:textSize">@dimen/dimen_17</item>
+        <item name="android:password">true</item>
+        <item name="android:cursorVisible">true</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:background">@drawable/border_foot_line</item>
+    </style>
+    <style name="report_bar_txt_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimen_45</item>
+        <item name="android:textColor">@color/color_118989</item>
+        <item name="android:textSize">@dimen/dimen_12</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="report_grid_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:cacheColorHint">@color/color_white</item>
+        <item name="android:padding">@dimen/dimen_20</item>
+        <item name="android:numColumns">5</item>
+        <item name="android:stretchMode">columnWidth</item>
+        <item name="android:listSelector">@color/trans</item>
+        <item name="android:verticalSpacing">@dimen/dimen_5</item>
+        <item name="android:horizontalSpacing">@dimen/dimen_5</item>
+        <item name="android:scrollbars">none</item>
+        <item name="android:fadingEdge">none</item>
+    </style>
+    <style name="listview_common_style">
+        <item name="android:background">@color/trans</item>
+        <item name="android:cacheColorHint">@color/trans</item>
+        <item name="android:listSelector">@color/trans</item>
+        <item name="android:scrollbars">none</item>
+    </style>
+
+
+
+
+    <style name="horizontal_line_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimen_1dp</item>
+        <item name="android:background">@color/color_e2e2e2</item>
+    </style>
+    <style name="answer_card_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_16</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="answer_report_text_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimen_30</item>
+        <item name="android:textSize">@dimen/dimen_11</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_10</item>
+        <item name="android:textColor">@color/color_b3ab8f</item>
+    </style>
+
+    <style name="shadow_text_style">
+        <item name="android:shadowDx">0.0</item>
+        <item name="android:shadowDy">2.0</item>
+        <item name="android:shadowRadius">1.0</item>
+    </style>
+
+
+
+
+    <style name="answer_report_line_style">
+        <item name="android:layout_width">@dimen/dimen_2</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/color_f5f1e2</item>
+    </style>
+
+    <style name="articlelist_item_ratingbar_style" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/woodpecker_rating_bar</item>
+        <item name="android:numStars">10</item>
+        <item name="android:minHeight">16dp</item>
+        <item name="android:maxHeight">16dp</item>
+    </style>
+
+    <style name="shadow_answer_view_text_style" parent="text_shadow_parent_style">
+        <item name="android:shadowColor">@color/color_19000000</item>
+    </style>
+
+    <style name="shadow_answer_guide_text_style" parent="text_shadow_parent_style">
+        <item name="android:shadowColor">@color/color_fff6f6f6</item>
+    </style>
+
+    <style name="shadow_answer_view_index_text_style" parent="text_shadow_parent_style">
+        <item name="android:shadowColor">@color/color_fff7d9</item>
+    </style>
+
+    <style name="shadow_color_ffff99" parent="text_shadow_parent_style">
+        <item name="android:shadowColor">@color/color_ffff99</item>
+    </style>
+
+    <!--系统弹出窗 按钮样式 -->
+    <style name="system_btn_style">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/color_805500</item>
+        <item name="android:textSize">@dimen/dimen_17</item>
+    </style>
+
+
+    <!--我的界面 列表框style -->
+    <style name="my_list_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimen_48</item>
+        <item name="android:background">@drawable/my_list_bg_selector</item>
+    </style>
+
+
+    <!--我的界面 头部imageview style -->
+    <style name="my_list_head_img_style">
+        <item name="android:layout_width">@dimen/dimen_30</item>
+        <item name="android:layout_height">@dimen/dimen_30</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_16</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+
+    <!-- 我的界面 列表标题 TextView style-->
+    <style name="my_list_center_text_style">
+        <item name="android:textColor">@color/color_805500</item>
+        <item name="android:textSize">@dimen/dimen_17</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowColor">@color/color_ffff99</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_10</item>
+        <item name="android:layout_marginRight">@dimen/dimen_10</item>
+    </style>
+
+
+    <!-- 我的界面 右边 imageView Style-->
+
+    <style name="my_list_right_img_style" parent="@style/my_list_right_img_parent_style">
+
+        <item name="android:src">@drawable/blue_arrow</item>
+    </style>
+
+
+    <style name="my_list_right_img_parent_style">
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_marginRight">@dimen/dimen_12</item>
+    </style>
+
+
+    <style name="my_list_right_select_img_style" parent="@style/my_list_right_img_parent_style">
+        <item name="android:src">@drawable/sex_sel_bg</item>
+    </style>
+
+
+
+    <!-- 用户信息详情界面 -->
+    <style name="my_user_info_left_text_style">
+        <item name="android:textColor">@color/color_805500</item>
+        <item name="android:textSize">@dimen/dimen_17</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowColor">@color/color_ffff99</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_20</item>
+        <item name="android:layout_marginRight">@dimen/dimen_20</item>
+    </style>
+
+    <style name="my_user_info_right_text_style" parent="@style/text_fff99_shadow_style">
+        <item name="android:textColor">@color/color_805500</item>
+        <item name="android:textSize">@dimen/dimen_14</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:gravity">center_vertical|right</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_15</item>
+        <item name="android:layout_marginRight">@dimen/dimen_15</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+
+    <!-- 我的 个人资料 姓名 昵称 单行编辑框样式 -->
+    <style name="my_single_edit_style">
+        <item name="android:background">@drawable/my_single_edit_bg</item>
+        <item name="android:textSize">@dimen/dimen_17</item>
+        <item name="android:textColor">@color/color_ffffff</item>
+        <item name="android:shadowColor">@color/color_bd8e00</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLength">25</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:cursorVisible">true</item>
+    </style>
+    <!-- 我的界面 右边 imageView Style-->
+
+    <style name="my_single_edit_img_style" parent="@style/right_img_style">
+        <item name="android:src">@drawable/blue_arrow</item>
+    </style>
+
+    <style name="my_single_edit_clear_img_style" parent="@style/right_img_style">
+        <item name="android:src">@drawable/clear_content_icon</item>
+    </style>
+
+    <style name="right_img_style">
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_marginRight">@dimen/dimen_8</item>
+    </style>
+
+
+    <!-- 投影-->
+    <style name="text_bd8e00_shadow_style" parent="@style/text_shadow_parent_style">
+        <item name="android:shadowColor">@color/color_bd8e00</item>
+
+    </style>
+
+    <style name="text_996600_shadow_style" parent="@style/text_shadow_parent_style">
+        <item name="android:shadowColor">@color/color_996600</item>
+    </style>
+
+
+    <style name="text_fff99_shadow_style"  parent="@style/text_shadow_parent_style">
+        <item name="android:shadowColor">@color/color_ffff99</item>
+    </style>
+
+
+
+    <style name="text_shadow_parent_style">
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">1</item>
+    </style>
+
+
+
+    <style name="rank_shadow_parent_style">
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:shadowColor">@color/color_ffff99</item>
+    </style>
+
+
+
+    <!--搜索 -->
+    <style name="listview_style">
+        <item name="android:divider">@drawable/repeat_suebject_section_dash_line</item>
+        <item name="android:dividerHeight">@dimen/dimen_1dp</item>
+        <item name="android:listSelector">@android:color/transparent</item>
+        <item name="android:cacheColorHint">@null</item>
+        <item name="android:scrollbars">none</item>
+        <item name="android:background">@drawable/search_list_bg</item>
+    </style>
+
+    <style name="list_item_text_style" parent="text_fff99_shadow_style">
+        <item name="android:textColor">@color/color_805500</item>
+        <item name="android:textSize">@dimen/dimen_17</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="list_head_item_style" parent="text_fff99_shadow_style">
+        <item name="android:textColor">@color/color_805500</item>
+        <item name="android:textSize">@dimen/dimen_12</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+
+    <!-- 关于界面 -->
+
+    <style name="list_bg_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimen_61</item>
+        <item name="android:background">@drawable/my_list_bg_selector</item>
+    </style>
+
+
+    <style name="about_container_style" parent="list_bg_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimen_61</item>
+        <item name="android:paddingLeft">@dimen/dimen_20</item>
+        <item name="android:paddingRight">@dimen/dimen_15</item>
+        <item name="android:background">@drawable/my_list_bg_selector</item>
+    </style>
+
+    <style name="modify_container_style" parent="list_bg_style">
+        <item name="android:paddingLeft">@dimen/dimen_10</item>
+        <item name="android:paddingRight">@dimen/dimen_15</item>
+    </style>
+
+    <style name="modify_edit_style" parent="@style/text_996600_shadow_style">
+        <item name="android:layout_marginLeft">@dimen/dimen_5</item>
+        <item name="android:paddingLeft">@dimen/dimen_10</item>
+        <item name="android:paddingRight">@dimen/dimen_10</item>
+        <item name="android:textSize">@dimen/dimen_14</item>
+        <item name="android:layout_marginRight">@dimen/dimen_10</item>
+        <item name="android:cursorVisible">true</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:password">true</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/color_ffffff</item>
+        <item name="android:textColorHint">@color/color_ffffff</item>
+        <item name="android:background">@drawable/my_single_edit_bg</item>
+
+    </style>
+
+
+
+    <style name="about_left_text_style" parent="@style/about_text_style">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <style name="about_right_text_style" parent="@style/about_text_style">
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
+    <style name="about_text_style" parent="@style/text_fff99_shadow_style">
+        <item name="android:textSize">@dimen/dimen_17</item>
+        <item name="android:textColor">@color/color_805500</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="btn_problem_analysis" parent="text_fff99_shadow_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimen_58</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_marginRight">@dimen/dimen_20</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_20</item>
+        <item name="android:textSize">@dimen/dimen_20</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:textColor">@color/color_805500</item>
+        <item name="android:background">@drawable/selector_judge_item</item>
+        <item name="android:text">@string/show_resolution</item>
+    </style>
+
+
+
+    <style name="btn_cotrl_question"  parent="@style/text_shadow_parent_style">
+        <item name="android:shadowColor">@color/color_ffff99</item>
+        <item name="android:layout_width">@dimen/dimen_61</item>
+        <item name="android:layout_height">@dimen/dimen_26</item>
+        <item name="android:textColor">@color/color_7f540f</item>
+        <item name="android:textSize">@dimen/dimen_10</item>
+        <item name="android:background">@drawable/cotrl_question_pager_btn</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="switch_button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">30dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingRight">30dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:minHeight">52dp</item>
+        <item name="android:drawablePadding">16dp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="group_tips_title_style">
+        <item name="android:textColor">@color/color_805500</item>
+        <item name="android:textSize">@dimen/dimen_17</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="group_tips_content_style">
+        <item name="android:textColor">@color/color_996600</item>
+        <item name="android:textSize">@dimen/dimen_13</item>
+        <item name="android:lineSpacingExtra">@dimen/dimen_11</item>
+    </style>
+</resources>

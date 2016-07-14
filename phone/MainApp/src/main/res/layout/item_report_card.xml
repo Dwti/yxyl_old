@@ -1,0 +1,46 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rl_report_content"
+                    android:layout_gravity="center">
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:layout_marginBottom="@dimen/dimen_5"
+                  android:layout_marginRight="@dimen/dimen_5"
+                  android:textColor="@color/color_805500"
+                  android:textStyle="bold"
+                  android:gravity="center"
+                  android:background="@drawable/answer_report_card_bg"
+                  android:textSize="@dimen/dimen_20"
+                  android:id="@+id/answer_report_text" />
+
+        <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
+            android:layout_width="@dimen/dimen_24"
+            android:layout_height="@dimen/dimen_24"
+            android:gravity="center"
+            app:type_face="arial_runded_bold.ttf"
+            android:textSize="@dimen/dimen_14"
+            android:textColor="@color/color_white"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/answer_report_read"
+            android:id="@+id/answer_report_icon"
+            android:layout_gravity="center" />
+
+    </RelativeLayout>
+
+
+    <!--<ImageView android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/iv_sub_readed"
+               android:visibility="gone"
+               android:src="@drawable/subject_question_read"
+               android:layout_gravity="right|top" />-->
+
+</FrameLayout>

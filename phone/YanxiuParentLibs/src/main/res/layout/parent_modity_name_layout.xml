@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:line_edit_text="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <!--<EditText
+        android:id="@+id/input_current_name"
+        android:layout_marginTop="@dimen/dimen_p_20"
+        style="@style/parent_modify_name_text"
+        android:textColor="@color/color_black_p"
+        android:textColorHint="@color/color_black_p" />-->
+
+    <com.yanxiu.gphone.parent.view.LineEditText
+        android:id="@+id/input_current_name"
+        style="@style/parent_modify_name_text"
+        android:layout_marginTop="@dimen/dimen_p_20"
+        android:layout_width="match_parent"
+        android:paddingRight="@dimen/dimen_p_40"
+        android:layout_height="@dimen/dimen_p_48"
+        android:textColor="@color/color_black_p"
+        android:textColorHint="@color/color_black_p"
+        line_edit_text:bottomlinecolor="@android:color/transparent"
+        line_edit_text:drawableleftfocus="@drawable/password_icon"
+        line_edit_text:isneeddrawableleft="false" />
+
+</RelativeLayout>

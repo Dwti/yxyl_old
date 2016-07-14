@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+                 xmlns:tools="http://schemas.android.com/tools"
+                 android:layout_width="match_parent"
+                 android:layout_height="@dimen/dimen_53"
+                android:id="@+id/adapter_rootView">
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_38"
+        android:id="@+id/itemRelative" >
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="@dimen/dimen_14"
+            android:layout_marginLeft="@dimen/dimen_15"
+            android:layout_marginRight="@dimen/dimen_60"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/sectionValueText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dimen_15"
+            android:textSize="@dimen/dimen_14"
+            android:textColor="@color/color_b2ab8f"
+            android:visibility="gone"
+            />
+
+        <RelativeLayout
+            android:id="@+id/childRelative"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            >
+            <TextView
+                android:id="@+id/itemTitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/dimen_13"
+                android:layout_marginLeft="@dimen/dimen_15"
+                android:layout_marginRight="@dimen/dimen_60"
+                android:singleLine="true"
+                android:ellipsize="end"
+                />
+
+
+            <ImageView
+                android:id="@+id/itemFlag"
+                android:layout_width="@dimen/dimen_22"
+                android:layout_height="@dimen/dimen_22"
+                android:background="@drawable/diagnose_arrow"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_centerVertical="true"
+                tools:ignore="ContentDescription"/>
+            <TextView
+                android:id="@+id/itemValueText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@id/itemFlag"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:textSize="@dimen/dimen_12"
+                android:gravity="center_vertical"
+                android:textColor="@color/color_b2ab8f"
+                />
+            <View
+                android:id="@+id/itemLineView"
+                android:layout_height="@dimen/dimen_4"
+                android:layout_width="match_parent"
+                android:background="@drawable/diagnose_item_line"
+                android:layout_marginLeft="@dimen/dimen_15"
+                android:layerType="software"
+                android:layout_alignParentBottom="true"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

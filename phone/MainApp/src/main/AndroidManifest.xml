@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.yanxiu.gphone.student"
+          android:versionCode="10"
+          android:versionName="2.2.2">
+    <uses-sdk
+            android:minSdkVersion="11"
+            android:targetSdkVersion="18"/>
+    <supports-screens android:smallScreens="true"
+                      android:normalScreens="true" android:largeScreens="true"
+                      android:resizeable="true" android:anyDensity="true"/>
+    <application
+            android:name=".YanxiuApplication"
+            android:allowBackup="true"
+            android:icon="@mipmap/app_icon"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme">
+        <!-- 请将value改为MTA分配的appkey，如果是开平、互联、广点通用户，请直接填写为Aqc+开平appid，如：Aqc123456< -->
+        <meta-data
+                android:name="TA_APPKEY"
+                android:value="A1XDURM19G9L" />
+        <!-- 请将value改为app发布的市场名称，如在应用宝就写：应用宝、play写play< -->
+        <meta-data
+                android:name="InstallChannel" android:value="${INSTALL_CHANNEL_VALUE}" />
+        <activity
+                android:name=".activity.WelcomeActivity"
+                android:screenOrientation="portrait"
+                android:configChanges="keyboardHidden|orientation">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".activity.LoginActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustPan|stateHidden"
+                android:launchMode="singleTop"
+                android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity
+                android:name=".activity.RegisterActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateAlwaysVisible"
+                android:configChanges="keyboardHidden|orientation"
+                >
+        </activity>
+        <activity
+                android:name=".activity.SetPasswordActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateAlwaysVisible"
+                android:configChanges="keyboardHidden|orientation"
+                >
+        </activity>
+        <activity
+                android:name=".activity.UserInfoActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateHidden"
+                android:configChanges="keyboardHidden|orientation"
+                >
+        </activity>
+        <activity
+                android:name=".activity.MainActivity"
+                android:launchMode="singleTask"
+                android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.AddGroupActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateAlwaysVisible|adjustResize"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.GroupInfoActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.EditPersonNameActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateAlwaysVisible|adjustResize"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.SubjectSectionActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.MyStageSelectActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.SubjectVersionActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.MyUserInfoActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/NavigationBarHide"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.PhotoViewActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.UserNameEditActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.MyGenderSelectActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.UserLocationSelectActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.AnswerViewActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:launchMode="singleTop"
+                android:screenOrientation="portrait"
+                android:theme="@style/NavigationBarHide">
+        </activity>
+        <activity android:name=".activity.AnswerViewToActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation|screenSize">
+        </activity>
+        <activity android:name=".activity.BaseAnswerViewActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation|screenSize">
+        </activity>
+        <activity android:name=".activity.TextActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation|screenSize">
+        </activity>
+        <activity android:name=".base.YanxiuBaseActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation|screenSize">
+        </activity>
+        <activity android:name=".activity.ResolutionAnswerViewActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+
+        <activity android:name=".activity.ResolutionAllAnswerViewActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation">
+        </activity>
+
+        <activity android:name=".activity.FavouriteViewActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.AnswerCardActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.AnswerReportActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/SwitchTheme"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.GroupHwUndoActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.GroupHwActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.UserAboutUsActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.WebViewActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.UserSettingActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.SettingModifyPWDActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustPan|stateHidden"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.SettingFeedBackActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustPan|stateHidden"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.SchoolSearchActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustPan|stateHidden"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.TeachingMaterialActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustPan|stateHidden"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.MistakeSectionActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustPan|stateHidden"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.MistakeAllActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.FavouriteSectionActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustPan|stateHidden"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.PracticeHistoryActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustPan|stateHidden"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+
+        <activity android:name=".activity.ClipHeadActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.RankingListActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.ImageBucketActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.ImagePicSelActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.LocalPhotoViewActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/NavigationBarHide"
+                  android:windowSoftInputMode="adjustPan|stateHidden"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".activity.NoGroupAddTipsActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation"></activity>
+        <activity android:name=".activity.FeedBackActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateAlwaysVisible"
+                  android:configChanges="orientation">
+        </activity>
+        <activity android:name=".activity.ExamPointActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation"></activity>
+
+        <activity android:name=".activity.ThirdExamSiteActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+
+        <activity android:name=".activity.LoginChoiceActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:configChanges="keyboardHidden|orientation"></activity>
+
+        <activity android:name="com.yanxiu.gphone.parent.activity.ParentFeedBackActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysVisible"
+            android:configChanges="keyboardHidden|orientation"></activity>
+
+
+        <activity android:name="com.yanxiu.gphone.parent.activity.ParentSettingsActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation"></activity>
+
+
+        <activity android:name="com.yanxiu.gphone.parent.activity.ParentModifyPwdActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysVisible"
+            android:configChanges="keyboardHidden|orientation"></activity>
+
+        <activity android:name="com.yanxiu.gphone.parent.activity.ParentsAboutActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation"></activity>
+        <activity android:name="com.yanxiu.gphone.parent.activity.ParentClipHeadActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation"></activity>
+
+        <activity android:name="com.yanxiu.gphone.parent.activity.MainForParentActivity"
+                  android:configChanges="keyboardHidden|orientation"
+                  android:launchMode="singleTask"
+                  android:theme="@style/NavigationBarHide"
+                  android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.yanxiu.gphone.parent.activity.ParentWeekReportDetailsActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+
+        <activity android:name="com.yanxiu.gphone.parent.activity.ParentLoginActivity"
+                  android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+                  android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name="com.yanxiu.gphone.parent.activity.ParentBindAccountActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:configChanges="keyboardHidden|orientation"></activity>
+
+        <activity android:name="com.yanxiu.gphone.parent.activity.ParentBindDataShowActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation"></activity>
+        <activity android:name="com.yanxiu.gphone.parent.activity.ParentSetPsdActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:configChanges="keyboardHidden|orientation"></activity>
+        <activity android:name="com.yanxiu.gphone.parent.activity.ParentVerifyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:configChanges="keyboardHidden|orientation"></activity>
+        <activity android:name="com.yanxiu.gphone.parent.activity.ParentInfomationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NavigationBarHide"
+            android:configChanges="keyboardHidden|orientation"></activity>
+        <activity android:name="com.yanxiu.gphone.parent.activity.ParentHomeSubjectInfActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation"></activity>
+        <activity android:name="com.yanxiu.gphone.parent.activity.ParentModifyNameActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:configChanges="keyboardHidden|orientation"></activity>
+        <activity android:name="com.yanxiu.gphone.parent.activity.ParentLocationSelectActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation"></activity>
+        <activity android:name="com.yanxiu.gphone.parent.activity.ParentWebViewActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation"></activity>
+
+        <!-- 【必须】 (2.30及以上版新增)展示通知的activity -->
+        <!-- 【必须】 exported设置为true -->
+        <activity
+                android:name="com.tencent.android.tpush.XGPushActivity"
+                android:theme="@android:style/Theme.Translucent"
+                android:exported="true" >
+            <intent-filter>
+                <!-- 若使用AndroidStudio，请设置android:name="android.intent.action"-->
+                <action android:name="android.intent.action" />
+            </intent-filter>
+        </activity>
+        <!-- 【必须】 信鸽receiver广播接收 -->
+        <receiver
+                android:name="com.tencent.android.tpush.XGPushReceiver"
+                android:process=":xg_service_v2" >
+            <intent-filter android:priority="0x7fffffff" >
+                <!-- 【必须】 信鸽SDK的内部广播 -->
+                <action android:name="com.tencent.android.tpush.action.SDK" />
+                <action android:name="com.tencent.android.tpush.action.INTERNAL_PUSH_MESSAGE" />
+                <!-- 【必须】 系统广播：开屏和网络切换 -->
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+
+                <!-- 【可选】 一些常用的系统广播，增强信鸽service的复活机会，请根据需要选择。当然，你也可以添加APP自定义的一些广播让启动service -->
+                <action android:name="android.bluetooth.adapter.action.STATE_CHANGED" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+            <!-- 【可选】 usb相关的系统广播，增强信鸽service的复活机会，请根据需要添加 -->
+            <intent-filter android:priority="0x7fffffff" >
+                <action android:name="android.intent.action.MEDIA_UNMOUNTED" />
+                <action android:name="android.intent.action.MEDIA_REMOVED" />
+                <action android:name="android.intent.action.MEDIA_CHECKING" />
+                <action android:name="android.intent.action.MEDIA_EJECT" />
+                <data android:scheme="file" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 【必须】 信鸽service -->
+        <service
+                android:name="com.tencent.android.tpush.service.XGPushService"
+                android:exported="true"
+                android:persistent="true"
+                android:process=":xg_service_v2" />
+
+        <!-- 【必须】 通知service，其中android:name部分要改为当前包名 -->
+        <service
+                android:name="com.tencent.android.tpush.rpc.XGRemoteService"
+                android:exported="true" >
+            <intent-filter>
+                <!-- 【必须】 请修改为当前APP名包.PUSH_ACTION，如demo的包名为：com.qq.xgdemo -->
+                <action android:name="com.yanxiu.gphone.student.PUSH_ACTION" />
+            </intent-filter>
+        </service>
+
+        <!-- 【可选】APP实现的Receiver，用于接收消息透传和操作结果的回调，请根据需要添加 -->
+        <!-- YOUR_PACKAGE_PATH.CustomPushReceiver需要改为自己的Receiver： -->
+        <receiver android:name="com.yanxiu.gphone.student.receiver.YanxiuMessageReceiver" >
+            <intent-filter>
+                <!-- 接收消息透传 -->
+                <action android:name="com.tencent.android.tpush.action.PUSH_MESSAGE" />
+                <!-- 监听注册、反注册、设置/删除标签、通知被点击等处理结果 -->
+                <action android:name="com.tencent.android.tpush.action.FEEDBACK" />
+            </intent-filter>
+        </receiver>
+
+        <!--&lt;!&ndash; 【必须】 请修改为APP的AccessId，“21”开头的10位数字，中间没空格 &ndash;&gt;-->
+        <!-- 正式 ID-->
+        <meta-data
+                android:name="XG_V2_ACCESS_ID"
+                android:value="2100148057" />
+        <!-- 【必须】 请修改为APP的AccessKey，“A”开头的12位字符串，中间没空格 -->
+        <meta-data
+                android:name="XG_V2_ACCESS_KEY"
+                android:value="A6F8K5C2K6RG" />
+
+        <!--&lt;!&ndash; 【！！不需要添加！！】 此处的secretkey主要是为了Demo一键诊断用，实际APP不用添加，切记！ &ndash;&gt;-->
+        <!--<meta-data-->
+                <!--android:name="XG_V2_SECRET_KEY"-->
+                <!--android:value="551e490f584cfb45cbebd739b439701c" />-->
+
+        <!-- 【必须】 请修改为APP的AccessId，“21”开头的10位数字，中间没空格 -->
+        <!-- 测试-->
+        <!--<meta-data-->
+                <!--android:name="XG_V2_ACCESS_ID"-->
+                <!--android:value="2100148204" />-->
+        <!--&lt;!&ndash; 【必须】 请修改为APP的AccessKey，“A”开头的12位字符串，中间没空格 &ndash;&gt;-->
+        <!--<meta-data-->
+                <!--android:name="XG_V2_ACCESS_KEY"-->
+                <!--android:value="A49N1R6XJ5IM" />-->
+        <receiver android:name="com.yanxiu.gphone.student.receiver.YanxiuPushUpdateReceiver" >
+            <intent-filter>
+                <action android:name="com.yanxiu.gphone.student.yanxiu_push_update_receiver" />
+            </intent-filter>
+        </receiver>
+        <activity
+                android:name=".wxapi.WXEntryActivity"
+                android:label="@string/app_name"
+                android:exported="true"
+                android:theme="@android:style/Theme.Translucent"
+                android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="wxb6704ac52abcfe4c"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name="com.tencent.tauth.AuthActivity"
+                android:noHistory="true"
+                android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent1104826608" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name="com.tencent.connect.common.AssistActivity"
+                android:screenOrientation="portrait"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+    </application>
+    <!--图片选择 start -->
+    <uses-feature android:name="android.hardware.Camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <!-- end -->
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CONNECTIVITY_CHANGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <!-- 在SDCard中创建与删除文件权限 -->
+    <uses-permission android:name="android.permission.RESTART_PACKAGES"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.install_packages"/>
+
+    <!-- 【可选】 信鸽SDK所需权限 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BATTERY_STATS" />
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
+</manifest>

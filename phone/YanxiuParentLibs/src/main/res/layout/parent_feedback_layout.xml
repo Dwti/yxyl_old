@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/edit_parent_feed_back"
+        style="@style/parent_feed_back_text"
+        android:layout_marginTop="@dimen/dimen_p_15"
+        android:background="@color/color_white_p"
+        android:gravity="top"
+        android:hint="@string/parent_feedback_hit" />
+
+    <!--<Button
+        android:id="@+id/subBtn"
+        android:layout_width="match_parent"
+        android:textColor="@color/color_white_p"
+        android:layout_height="@dimen/dimen_p_41"
+        android:background="@color/color_b18e4c_p"
+        android:text="@string/submmit"
+        android:layout_alignParentBottom="true"/>-->
+
+
+</RelativeLayout>

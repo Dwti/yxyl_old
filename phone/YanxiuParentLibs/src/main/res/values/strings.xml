@@ -1,0 +1,181 @@
+<resources>
+
+    <string name="navi_tbm_hometab">首页</string>
+    <string name="navi_tbm_weekworktab">周报</string>
+    <string name="navi_tbm_honortab">荣誉</string>
+    <string name="navi_tbm_mytab">我的</string>
+    <string name="parent_app_exit_tip">再按一次退出客户端</string>
+
+    <string name="data_request_fail_p">数据请求失败</string>
+    <string name="public_loading_net_errtxt_p">网络故障，请检查重试</string>
+    <string name="public_loading_net_null_errtxt_p">网络异常，请稍后重试</string>
+    <string name="public_loading_data_null_p">暂无数据</string>
+    <string name="public_loading_interface_errtxt_p">页面载入失败</string>
+    <string name="refresh_connect_p">点击重试</string>
+
+    <string name="url_error">地址有误,加载出错啦</string>
+
+    <string name="national_ranking_name">本周练习全国排名</string>
+    <string name="rank_of_honor_name">获得荣誉次数</string>
+    <string name="feedback_name">意见反馈</string>
+    <string name="settings_name">设置</string>
+    <string name="login_out_name">退出登录</string>
+    <string name="yanxiu_parent_exercise_txt">练习</string>
+    <string name="yanxiu_parent_details_txt">详情</string>
+    <string name="yanxiu_parent_current_exercise_txt">本周练习:</string>
+
+    <string name="yanxiu_parent_exercise">题</string>
+    <string name="yanxiu_parent_current_exercise_finished_txt">共完成</string>
+    <string name="yanxiu_parent_current_exercise_right_txt">答对</string>
+    <string name="yanxiu_parent_current_exercise_orders_txt">在 50987 名学生中排名</string>
+    <string name="yanxiu_parent_current_all_world_orders_txt">全国排名</string>
+    <string name="yanxiu_parent_current_homework_txt">本周作业: </string>
+    <string name="yanxiu_parent_homework_txt">作业</string>
+    <string name="yanxiu_parent_current_homework_finished_txt_start">共完成</string>
+    <string name="yanxiu_parent_current_homework_finished_txt_end">比上周</string>
+    <string name="yanxiu_parent_current_homework_finished_percent_txt">+105%</string>
+    <string name="current_week_homework_average_precision_txt">平均正确率</string>
+
+    <!--登录相关 -->
+    <string name="login_name_null_p">账号不能为空</string>
+    <string name="mobile_null_p">手机号不能为空</string>
+    <string name="login_pwd_null_p">密码不能为空</string>
+    <string name="login_name_ival_p">请输入正确的手机号</string>
+    <string name="forget_pas_text">忘记密码</string>
+    <string name="registe_text">快速注册</string>
+    <string name="login_text">登 录</string>
+    <string name="login_failture">登录失败</string>
+    <string name="login_net_exception">网络异常，请重新尝试登录</string>
+    <string name="register_net_exception">网络异常，请重新尝试注册</string>
+    <string name="bind_net_exception">网络异常，请重新尝试绑定</string>
+    <string name="modify_net_exception">网络异常，请重新尝试修改密码</string>
+    <string name="please_input_pas">请输入密码</string>
+    <string name="please_input_phone">请输入您的手机号</string>
+    <string name="please_input_verifycode">请输入验证码</string>
+    <string name="next_text">下一步</string>
+    <string name="bind_title">绑定您的子女账号</string>
+    <string name="bind_account_code_title">您要绑定的账号是</string>
+    <string name="input_again">重新输入</string>
+    <string name="bind_confirm">确认绑定</string>
+    <string name="set_pds">设置密码</string>
+    <string name="verify_phone_num">验证手机</string>
+    <string name="get_verify_code">获取验证码</string>
+    <string name="phone_is_cannot_empty">手机号不能为空</string>
+    <string name="verifycode_cannot_empty">验证码不能为空</string>
+    <string name="verify_failture">验证失败</string>
+    <string name="set_input_pas">请输入您的密码</string>
+    <string name="confirm_pas">请确认您的密码</string>
+    <string name="confirm">确 认</string>
+    <string name="unknow">暂无</string>
+    <string name="password_can_not_empty">密码信息不能为空</string>
+    <string name="confirm_password_can_not_empty">确认密码信息不能为空</string>
+    <string name="psd_is_not_same">两次密码输入不一致，请重新输入</string>
+    <string name="please_input_student_account">请输入您孩子的易学易练账号</string>
+    <string name="bind_failture">绑定失败</string>
+    <string name="no_class_tip">没有加入任何班级</string>
+    <string name="count_time">%ss</string>
+    <string name="bind_next_text_tag">提示：让您的孩子登录易学易练，在“我的”里查看账号信息。</string>
+    <!--荣誉 -->
+    <string name="honor_get_time">获得时间：%s</string>
+    <string name="share">分享</string>
+    <string name="share_cancel">取 消</string>
+    <string name="honor_title">荣誉</string>
+    <!--我的 -->
+    <string name="parent_feedback_hit">请输入您的意见或建议...</string>
+    <string name="submmit">提交</string>
+    <string name="parent_save">保存</string>
+    <string name="parent_information">个人资料</string>
+
+
+    <string name="parent_hw_report_next_null">已经是最后一周啦</string>
+    <string name="parent_hw_report_last_null">没有更早的数据啦</string>
+
+    <string name="parent_modify_pwd_txt">修改密码</string>
+    <string name="parent_about_us_txt">关于</string>
+    <string name="parent_policy_txt">隐私策略</string>
+
+    <string name="parent_student_parent">%1$s的家长</string>
+    <string name="parent_student_honor">%1$s获得的荣誉</string>
+
+    <string name="user_name_txt">佚名</string>
+    <string name="user_area_str">地区</string>
+    <string name="user_unknow_str">未知</string>
+    <string name="user_name_edit_save">保存</string>
+    <string name="select_location_province_txt">请选择你所在的省/直辖市</string>
+    <string name="select_location_city_txt">请选择你所在的城市</string>
+    <string name="select_location_district_txt">请选择你所在的区县</string>
+    <string name="select_location_data_error">数据错误</string>
+
+    <!-- 意见反馈 -->
+    <string name="update_sucess">提交成功</string>
+    <string name="update_fail">提交失败</string>
+    <string name="feedback_content_few">您的反馈字数太少啦！</string>
+    <string name="feedback_conetnt_exceed">反馈意见超出字数限制</string>
+
+    <string name="parent_wechat_txt">官方微信</string>
+    <string name="parent_wechat_content_txt">zgjsyxw</string>
+    <string name="parent_phone_txt">客服电话</string>
+    <string name="parent_phone_content_txt">440-7799-010</string>
+    <string name="parent_qq_txt">QQ群</string>
+    <string name="parent_qq_content_txt">467361659</string>
+    <string name="parent_change_header_txt">更改头像</string>
+    <string name="parent_name_txt">姓名</string>
+    <string name="parent_location_txt">地区</string>
+
+    <string name="parent_clause_and_policy_txt">使用条款和隐私策略</string>
+
+    <string name="input_current_pwd">请输入当前密码</string>
+    <string name="input_new_pwd">请输入新的密码</string>
+    <string name="input_new_pwd_again">请确认新的密码</string>
+    <string name="new_pwd_not_equals">两次密码不一致</string>
+    <string name="set_password_6_8">密码长度为6&#8211;18位</string>
+    <string name="data_uploader_failed">提交失败</string>
+    <string name="pwd_modify_succeed">修改成功</string>
+
+    <string name="user_edit_info_name_is_null">姓名不能为空</string>
+    <!-- 解除绑定 -->
+    <string name="parent_undind_dialgo_txt">确定解除与子女的绑定吗？</string>
+    <string name="parent_undind_sure">确定</string>
+    <string name="parent_undind_cancel">取消</string>
+    <string name="parent_undind_success">解除绑定成功</string>
+    <string name="parent_undind_fail">解除绑定失败</string>
+
+    <!-- 相册 -->
+    <string name="parent_ablum_cancel">取&#160;&#160;消</string>
+    <string name="parent_ablum">相册</string>
+    <string name="parent_camera">相机</string>
+    <string name="parent_pic_tips">请拍照，或者选择相册中的图片作为头像</string>
+    <string name="loading_fail">加载失败</string>
+    <string name="use_txt">使用</string>
+    <string name="cancel_txt">取消</string>
+
+    <string name="upload_head_img_failed">头像上传失败</string>
+    <string name="upload_head_img_succeed">上传成功</string>
+
+
+    <string name="current_week_homework_average_detail_txt">查看详情</string>
+    <string name="back_week_txt">上一周</string>
+    <string name="forward_week_txt">下一周</string>
+    <string name="current_report_homework_corrected_txt">正确率</string>
+    <string name="current_report_homework_corrected_to_last_week_txt">比上周</string>
+    <string name="left_class_precision_pb_txt">班级平均</string>
+    <string name="right_class_precision_pb_txt">班级最高</string>
+    <string name="right_class_precision_fast_pb_txt">班级最快</string>
+
+    <!-- home -->
+    <string name="parent_home_teacher_sayed">%1$s同学本次作业正确率为%2$s%%，超过其他%3$s名同学，请继续努力！</string>
+    <string name="parent_home_exercise">%1$s同学主动练习了%2$d道%3$s题，正确率为%4$s%%</string>
+    <string name="parent_home_teacher_comment">老师评语：%1$s</string>
+    <string name="parent_home_student_honor">获得荣誉：%1$s</string>
+    <string name="parent_sub_rate_txt">正确率</string>
+    <string name="parent_sub_time_txt">用时</string>
+    <string name="parent_submit_rank">提交时间排名</string>
+    <string name="parent_beat_student_num">超过%1$d名同学</string>
+    <string name="parent_subject_information">查看详情</string>
+    <!-- 分享　 -->
+    <string name="no_install_weixin_p">您还没有安装微信！</string>
+    <string name="no_install_qq_p">您还没有安装QQ！</string>
+　　　<string name="share_title_p">%s在易学易练中获得了荣誉！</string>
+    <string name="default_share_title_p">在易学易练中获得了荣誉！</string>
+     <string name="share_date_p">%s获得该荣誉</string>
+</resources>

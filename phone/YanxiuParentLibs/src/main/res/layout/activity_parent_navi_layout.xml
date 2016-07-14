@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_white_p">
+
+    <LinearLayout
+        android:id="@+id/navi_parent_switcher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_white_p"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dimen_p_3"
+        android:paddingRight="@dimen/dimen_p_3"
+        android:paddingTop="@dimen/dimen_p_3"
+        android:paddingBottom="@dimen/dimen_p_3"
+        android:orientation="horizontal">
+        <include
+            android:id="@+id/navi_homepage"
+            layout="@layout/parent_nav_bar_item_layout"/>
+        <include
+            android:id="@+id/navi_weekreport"
+            layout="@layout/parent_nav_bar_item_layout"/>
+        <include
+            android:id="@+id/navi_honortitle"
+            layout="@layout/parent_nav_bar_item_layout"/>
+        <include
+            android:id="@+id/navi_mytitle"
+            layout="@layout/parent_nav_bar_item_layout"/>
+    </LinearLayout>
+    <View
+        android:id="@+id/bottom_driver_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_above="@id/navi_parent_switcher"
+        android:background="@color/color_999999_p"/>
+
+    <FrameLayout
+        android:id="@+id/content_parent_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_driver_line"
+        android:layout_alignParentTop="true">
+    </FrameLayout>
+</RelativeLayout>

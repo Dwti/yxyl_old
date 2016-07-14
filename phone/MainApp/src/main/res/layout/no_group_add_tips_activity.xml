@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="@string/class_define_title"
+           style="@style/group_tips_title_style"
+           />
+        <TextView
+            android:layout_marginTop="@dimen/dimen_15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/class_define_content"
+            style="@style/group_tips_content_style"
+            />
+
+       <TextView
+           android:layout_marginTop="@dimen/dimen_25"
+           android:layout_marginBottom="@dimen/dimen_15"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="@string/add_class_define_title"
+           style="@style/group_tips_title_style"
+           />
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="@string/add_class_define_content"
+           style="@style/group_tips_content_style"
+           />
+</merge>

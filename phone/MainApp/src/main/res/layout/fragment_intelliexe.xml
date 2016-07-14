@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/chapter_examination_bg" >
+    <include android:id="@+id/main_public_top_intelliexe"
+             layout="@layout/main_public_top_layout"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             />
+    <com.yanxiu.gphone.student.view.stickhome.StickHomeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/main_public_top_intelliexe"
+            android:id="@+id/stick_home_layout" />
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/no_subject"
+            android:layout_below="@+id/main_public_top_intelliexe"
+            android:background="@color/color_fffaf9f9"
+            android:visibility="gone"
+            >
+        <ImageView
+                android:layout_width="@dimen/dimen_56"
+                android:layout_height="@dimen/dimen_56"
+                android:id="@+id/no_subject_icon"
+                android:layout_marginTop="@dimen/dimen_129"
+                android:layout_centerHorizontal="true"
+                android:scaleType="centerCrop"
+                android:background="@drawable/no_data_icon"
+                />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/no_subject_text"
+                android:layout_below="@id/no_subject_icon"
+                android:layout_marginTop="@dimen/dimen_25"
+                android:text="@string/no_class_tip"
+                android:textColor="@color/color_ff646464"
+                android:textSize="@dimen/dimen_15"
+                android:layout_centerHorizontal="true"
+                />
+    </RelativeLayout>
+</RelativeLayout>

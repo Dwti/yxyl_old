@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_p_10">
+    <TextView
+        android:id="@+id/week_homework_average_detail_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_p_24"
+        android:layout_centerHorizontal="true"
+        android:background="@null"
+        android:gravity="center"
+        android:paddingLeft="@dimen/dimen_p_10"
+        android:paddingRight="@dimen/dimen_p_10"
+        android:singleLine="true"
+        android:text="@string/parent_sub_rate_txt"
+        android:textColor="@color/color_333333_p"
+        android:textSize="@dimen/dimen_p_12"
+        android:textStyle="bold"
+        />
+    <View android:layout_width="match_parent"
+          android:layout_height="@dimen/dimen_p_1px"
+          android:layout_centerVertical="true"
+          android:layout_toLeftOf="@+id/week_homework_average_detail_tv"
+          android:background="@color/color_ebebeb_p"
+        />
+    <View android:layout_width="match_parent"
+          android:layout_height="@dimen/dimen_p_1px"
+          android:layout_centerVertical="true"
+          android:layout_toRightOf="@+id/week_homework_average_detail_tv"
+          android:background="@color/color_ebebeb_p"
+        />
+</RelativeLayout>

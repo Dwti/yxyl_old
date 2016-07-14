@@ -1,0 +1,108 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/dimen_p_23">
+
+    <!--<include layout="@layout/public_parent_top_layout"
+        android:id="@+id/layout_top"/>-->
+
+    <RelativeLayout
+        android:id="@+id/personal_information_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_p_98"
+        android:layout_marginTop="@dimen/dimen_p_20"
+        android:background="@color/color_white_p">
+
+        <com.common.core.view.roundview.RoundedImageView
+            android:id="@+id/iv_header"
+            android:layout_width="@dimen/dimen_p_60"
+            android:layout_height="@dimen/dimen_p_60"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dimen_p_8"
+            android:src="@drawable/parent_hearder_default"
+            app:riv_corner_radius="100dp" />
+
+        <TextView
+            android:id="@+id/tv_student_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dimen_p_17"
+            android:layout_toRightOf="@id/iv_header"
+            android:text="@string/parent_change_header_txt"
+            android:textColor="@color/color_333333_p"
+            android:textSize="@dimen/dimen_p_15" />
+
+        <include layout="@layout/my_parent_arrow" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/parent_name_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/personal_information_layout"
+        android:layout_marginTop="@dimen/dimen_p_20"
+        android:background="@color/color_white_p">
+
+        <TextView
+            style="@style/parent_my_list_text"
+            android:layout_toRightOf="@id/feedback_right_arrow"
+            android:paddingBottom="@dimen/dimen_p_15"
+            android:paddingTop="@dimen/dimen_p_15"
+            android:text="@string/parent_name_txt"
+            tool:text="@string/parent_name_txt" />
+
+        <include
+            android:id="@+id/layout_parent_name_arrow"
+            layout="@layout/my_parent_arrow" />
+
+        <TextView
+            android:id="@+id/tv_parent_info_name"
+            style="@style/parent_my_information_text"
+            android:layout_marginLeft="@dimen/dimen_p_200"
+            android:layout_marginRight="@dimen/dimen_p_8"
+            android:layout_toLeftOf="@id/layout_parent_name_arrow"
+            android:singleLine="true" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/view_line_2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_p_1"
+        android:layout_below="@id/parent_name_layout"
+        android:background="@color/color_e6e6e6_p" />
+
+    <RelativeLayout
+        android:id="@+id/parent_location_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view_line_2"
+        android:background="@color/color_white_p">
+
+        <TextView
+            style="@style/parent_my_list_text"
+            android:layout_toRightOf="@id/settings_right_arrow"
+            android:paddingBottom="@dimen/dimen_p_15"
+            android:paddingTop="@dimen/dimen_p_15"
+            android:text="@string/parent_location_txt"
+            tool:text="@string/parent_location_txt" />
+
+        <include
+            android:id="@+id/layout_parent_laction_arrow"
+            layout="@layout/my_parent_arrow" />
+
+        <TextView
+            android:id="@+id/tv_parent_location"
+            style="@style/parent_my_information_text"
+            android:layout_marginRight="@dimen/dimen_p_8"
+            android:layout_toLeftOf="@id/layout_parent_laction_arrow"
+            android:text="北京/北京/朝阳" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,8 @@
+<!-- gai *0.75 -->
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="@dimen/dimen_p_30"
+    android:layout_width="@dimen/dimen_p_30"
+    android:layout_centerVertical="true"
+    android:layout_alignParentRight="true"
+    android:layout_marginRight="@dimen/dimen_p_8"
+    android:src="@drawable/parent_right_arrow_icon" />

@@ -1,0 +1,22 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_008080">
+
+
+    <ImageView android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center"
+               android:src="@drawable/image_default"/>
+
+    <com.yanxiu.gphone.student.view.picsel.bean.LocalImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/iv_photo_view" />
+
+        <!--ndroid:src="@drawable/image_default"-->
+
+
+</FrameLayout>
+
+

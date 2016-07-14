@@ -1,0 +1,123 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/rl_left_examination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dimen_35"
+        android:layout_marginRight="@dimen/dimen_5">
+
+        <View
+            android:id="@+id/view_top_line"
+            android:layout_width="@dimen/dimen_1"
+            android:layout_height="@dimen/dimen_20"
+            android:layout_centerHorizontal="true"
+            android:background="@color/color_ffe2e2e2"
+            android:visibility="invisible"/>
+
+        <FrameLayout
+            android:id="@+id/fl_middle"
+            android:layout_width="@dimen/dimen_28"
+            android:layout_height="@dimen/dimen_28"
+            android:layout_below="@+id/view_top_line"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/chapter_center_examination_up">
+
+            <ImageView
+                android:id="@+id/iv_middle_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_5"
+                android:src="@drawable/icon_unexpanded"
+                android:visibility="gone"/>
+
+        </FrameLayout>
+
+        <View
+            android:id="@+id/view_bottom_line"
+            android:layout_width="@dimen/dimen_1"
+            android:layout_height="@dimen/dimen_20"
+            android:layout_below="@+id/fl_middle"
+            android:layout_centerHorizontal="true"
+            android:background="@color/color_ffe2e2e2"
+            android:visibility="invisible"/>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_5"
+        android:paddingTop="@dimen/dimen_10"
+        android:paddingBottom="@dimen/dimen_10"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:layout_toRightOf="@id/rl_left_examination"
+        android:background="@drawable/child_selector_examination_bg">
+        <include
+            android:id="@+id/exa_child_detail_view"
+            layout="@layout/exa_chapter_public_layout"
+            />
+        <ImageView
+            android:id="@+id/exa_child_dash_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/repeat_suebject_section_dash_line"
+            android:layerType="software"
+            android:visibility="gone"
+            />
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_28"
+            android:id="@+id/exa_child_test_percent_view"
+            layout="@layout/exa_test_center_public_layout"
+            />
+    </LinearLayout>
+
+    <!--<View android:id="@+id/examination_back_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/dimen_65"-->
+        <!--android:layout_marginLeft="@dimen/dimen_10"-->
+        <!--android:layout_marginRight="@dimen/dimen_5"-->
+        <!--android:layout_toRightOf="@id/rl_left_examination"-->
+        <!--android:background="@drawable/child_selector_examination_bg"/>-->
+    <!--<TextView-->
+        <!--android:id="@+id/tv_exa_child"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_marginLeft="@dimen/dimen_10"-->
+        <!--android:layout_toLeftOf="@+id/tv_exa_error"-->
+        <!--android:layout_alignLeft="@id/examination_back_view"-->
+        <!--android:ellipsize="end"-->
+        <!--android:maxLines="2"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:padding="@dimen/dimen_10"-->
+        <!--android:textColor="@color/color_ff323232"-->
+        <!--android:textSize="@dimen/dimen_15"/>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/tv_exa_error"-->
+        <!--style="@style/yanxiu_text_12_color_ff969696"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_toLeftOf="@+id/iv_right_row"-->
+        <!--android:gravity="center_vertical|right"-->
+        <!--android:visibility="gone"-->
+        <!--/>-->
+
+    <!--<ImageView-->
+        <!--android:id="@+id/iv_right_row"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_marginRight="@dimen/dimen_12"-->
+        <!--android:src="@drawable/examination_right_row"/>-->
+
+</RelativeLayout>

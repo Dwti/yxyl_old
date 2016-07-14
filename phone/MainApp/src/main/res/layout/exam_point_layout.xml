@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/scratch_bg"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        />
+
+    <ListView
+        android:id="@+id/pinnedListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@color/trans"
+        android:listSelector="@color/trans"
+        android:dividerHeight="@dimen/dimen_0"
+        android:divider="@null"
+        android:background="@drawable/paper_bg"
+        android:layout_marginBottom="@dimen/dimen_35"
+        android:paddingBottom="@dimen/dimen_4"
+        android:scrollbars="none"/>
+    <include
+        android:id="@+id/bottomShadow"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_50"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dimen_36"
+        layout="@layout/bottom_shadow"
+        />
+    <com.yanxiu.gphone.student.exampoint.view.SubjectTypeContainer
+        android:id="@+id/SubjectTypeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:layout_marginBottom="@dimen/dimen_35"
+        />
+    <com.yanxiu.gphone.student.view.PublicLoadLayout
+        android:id="@+id/errorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+</RelativeLayout>

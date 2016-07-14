@@ -1,0 +1,31 @@
+<RelativeLayout
+    android:id="@+id/rl_common_loading"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="@dimen/dimen_p_15">
+
+    <ImageView
+        android:id="@+id/pb_loaing"
+        android:layout_width="@dimen/dimen_p_108"
+        android:layout_height="@dimen/dimen_p_108"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/parent_common_loading"/>
+    <TextView
+        android:id="@+id/tv_loading_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pb_loaing"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dimen_p_10"
+        android:textColor="@color/color_white_p"
+        android:textSize="@dimen/dimen_p_15"
+        android:textStyle="bold"
+        android:visibility="visible"
+        tools:text="这是搞什"/>
+
+</RelativeLayout>
+

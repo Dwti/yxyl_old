@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/trans"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_231"
+        android:background="@drawable/advice_bg"
+        android:paddingLeft="@dimen/dimen_15"
+        android:paddingRight="@dimen/dimen_15"
+        android:paddingTop="@dimen/dimen_15">
+
+        <EditText
+            android:id="@+id/editFeedBackContent"
+            style="@style/text_bd8e00_shadow_style"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_200"
+            android:background="@drawable/my_single_edit_bg"
+            android:gravity="top"
+            android:hint="@string/feedback_hit"
+            android:padding="@dimen/dimen_10"
+            android:textColor="@color/color_ffffff"
+            android:textColorHint="@color/color_ffffff"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/dimen_15"
+            />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/subBtn"
+        style="@style/text_fff99_shadow_style"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_61"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:background="@drawable/my_list_bg"
+        android:gravity="center"
+        android:text="@string/feeeback_submit"
+        android:textColor="@color/color_805500"
+        android:textSize="@dimen/dimen_20"
+        />
+
+
+</LinearLayout>

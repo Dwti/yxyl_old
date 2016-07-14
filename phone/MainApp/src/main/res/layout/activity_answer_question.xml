@@ -1,0 +1,256 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:id="@+id/fl_decor_view">
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:background="@drawable/wood_bg"
+                  android:orientation="vertical" >
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_44" >
+
+            <ImageView
+                    android:layout_width="@dimen/dimen_30"
+                    android:layout_height="@dimen/dimen_30"
+                    android:id="@+id/iv_top_back"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/login_back" />
+
+
+            <LinearLayout android:layout_width="@dimen/dimen_146"
+                          android:layout_height="@dimen/dimen_40"
+                          android:layout_centerHorizontal="true"
+                          android:layout_alignParentBottom="true"
+                          android:background="@drawable/question_timer_bg">
+
+                <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="match_parent"
+                          style="@style/shadow_answer_view_text_style"
+                          android:id="@+id/tv_top_title"
+                          android:gravity="center"
+                          android:layout_marginLeft="@dimen/dimen_52"
+                          android:textSize="@dimen/dimen_20"
+                          android:textColor="@color/color_white" />
+
+            </LinearLayout>
+
+            <!--<TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:drawableLeft="@drawable/icon_time"
+                      android:visibility="gone"
+                      android:drawablePadding="@dimen/dimen_5"
+                      android:id="@+id/tv_top_title"
+                      android:layout_centerInParent="true"
+                      android:textSize="@dimen/dimen_17"
+                      android:textColor="@color/color_white" />-->
+
+            <ImageView android:layout_width="@dimen/dimen_56"
+                      android:layout_height="@dimen/dimen_40"
+                      android:background="@drawable/selector_question_card"
+                      android:layout_marginRight="@dimen/dimen_25"
+                      android:scaleType="centerInside"
+                      android:layout_alignParentRight="true"
+                      android:layout_alignParentBottom="true"
+                      android:id="@+id/iv_answer_card"
+                      android:visibility="visible"/>
+
+            <ImageView android:layout_width="@dimen/dimen_56"
+                       android:layout_height="@dimen/dimen_40"
+                       android:background="@drawable/selector_answer_collection"
+                       android:layout_marginRight="@dimen/dimen_25"
+                       android:layout_centerVertical="true"
+                       android:scaleType="centerInside"
+                       android:layout_alignParentRight="true"
+                       android:layout_alignParentBottom="true"
+                       android:visibility="gone"
+                       android:id="@+id/iv_fav_card" />
+        </RelativeLayout>
+
+        <RelativeLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:padding="@dimen/dimen_10" >
+
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/tv_anwser_tips"
+                      android:layout_alignParentLeft="true"
+                      android:singleLine="true"
+                      android:textSize="@dimen/dimen_15"
+                      android:layout_gravity="center"
+                      android:textColor="@color/color_white" />
+
+        </RelativeLayout>
+
+
+        <FrameLayout android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:background="@drawable/question_book_bg">
+
+            <android.support.v4.view.ViewPager
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/answer_viewpager"
+                    android:fadingEdge="none"
+                    android:spacing="0dip" />
+
+            <FrameLayout android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:background="@drawable/answer_view_mark" />
+
+            <Button android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_30"
+                    android:visibility="gone"
+                    android:layout_gravity="right"
+                    android:layout_margin="@dimen/dimen_10"
+                    android:id="@+id/btn_all_report_error"
+                    android:textColor="@drawable/selector_question_report_txt"
+                    android:background="@drawable/selector_question_report_btn"
+                    android:text="@string/report_error" />
+
+            <Button android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_30"
+                    android:visibility="gone"
+                    android:layout_gravity="right"
+                    android:layout_margin="@dimen/dimen_10"
+                    android:id="@+id/btn_report_error"
+                    android:textColor="@drawable/selector_question_report_txt"
+                    android:background="@drawable/selector_question_report_btn"
+                    android:text="@string/report_error" />
+
+            <com.yanxiu.gphone.student.view.StudentLoadingLayout
+                    android:id="@+id/loading_layout"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_40"
+        android:layout_gravity="bottom"
+        android:layout_margin="@dimen/dimen_20" >
+        
+        
+        <com.yanxiu.gphone.student.view.YanxiuTypefaceButton
+            style="@style/btn_cotrl_question"
+            app:type_face="metor_bold.OTF"
+            android:visibility="gone"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:id="@+id/btn_last_question"
+            android:text="@string/last_question"
+            tool:text="上一题" />
+
+        <com.yanxiu.gphone.student.view.YanxiuTypefaceButton
+            style="@style/btn_cotrl_question"
+            app:type_face="metor_bold.OTF"
+            android:visibility="gone"
+            android:id="@+id/btn_next_question"
+            android:layout_marginRight="@dimen/dimen_10"
+            android:layout_alignParentRight="true"
+            android:text="@string/next_question"
+            tool:text="下一题" />
+
+        <!--<com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:visibility="gone"
+            android:id="@+id/tv_answer_question_tips"
+            style="@style/shadow_answer_view_index_text_style"
+            android:layout_centerVertical="true"
+            android:text="@string/answer_view_tips"
+            android:textStyle="italic"
+            app:type_face="metor_bold.OTF"
+            android:gravity="center"
+            android:textSize="@dimen/dimen_20"
+            android:textColor="@color/color_b3ab8f" />-->
+
+        <!--<com.common.core.view.ProgressLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_7"
+            android:visibility="gone"
+            android:id="@+id/ll_answer_view_progress"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_marginRight="@dimen/dimen_10"
+            android:layout_toRightOf="@id/tv_answer_question_tips"
+            android:layout_toLeftOf="@+id/tv_pager_index"
+            android:background="@drawable/answer_view_progress_bg">
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_7"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/answer_view_progress_front"  />
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_7"
+                    android:layout_weight="3" />
+
+        </com.common.core.view.ProgressLayout>-->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" >
+
+            <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pager_index_1"
+                app:type_face="fz.ttf"
+                android:textSize="@dimen/dimen_11"
+                android:textColor="@color/color_b3ae98" />
+
+            <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                style="@style/shadow_answer_view_index_text_style"
+                app:type_face="metor_bold.OTF"
+                android:id="@+id/tv_pager_index"
+                android:textSize="@dimen/dimen_14"
+                android:textColor="@color/color_807c6c" />
+
+            <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pager_index_2"
+                app:type_face="fz.ttf"
+                android:textSize="@dimen/dimen_11"
+                android:textColor="@color/color_b3ae98" />
+
+            <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/1"
+                app:type_face="fz.ttf"
+                android:id="@+id/tv_pager_count"
+                android:layout_alignBottom="@id/tv_pager_index"
+                android:textSize="@dimen/dimen_11"
+                android:textColor="@color/color_b3ae98" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <FrameLayout
+            android:id="@+id/content_answer_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+</FrameLayout>
+
+

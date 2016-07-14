@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_1dp"
+                android:id="@+id/relative">
+
+    <com.common.core.view.roundview.RoundedImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop">
+    </com.common.core.view.roundview.RoundedImageView>
+    <ImageView
+        android:id="@+id/imageDecorate"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:background="@drawable/pic_sel_selector"
+        android:scaleType="centerCrop"
+        >
+    </ImageView>
+</RelativeLayout>

@@ -1,0 +1,19 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/dimen_10"
+              android:layout_marginTop="@dimen/dimen_10"
+              android:gravity="center"
+              android:id="@+id/tv_knowledge_name"
+              android:textSize="@dimen/dimen_13"
+              android:background="@drawable/knowledge_bord"
+              android:textColor="@color/color_white"/>
+
+
+</RelativeLayout>
+
+

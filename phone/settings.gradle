@@ -1,0 +1,2 @@
+include ':MainApp', ':YanxiuBaseCore', ':CommonCoreLib', ':LoginCommonLibs', ':YanxiuParentLibs',
+        ':ShareCommonLibs',"YanxiuUpgradeLib"

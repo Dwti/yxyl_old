@@ -1,0 +1,66 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent" >
+
+    <com.yanxiu.gphone.student.view.stickhome.ScrollHomeView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/dimen_10"
+                android:scrollbars="none"
+                android:fadingEdge="none"
+                android:id="@+id/home_scroll_view" >
+
+
+        <LinearLayout android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            <com.common.core.view.UnMoveGridView
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:numColumns="2"
+                    android:verticalSpacing="@dimen/dimen_25"
+                    android:listSelector="@color/trans"
+                    android:stretchMode="columnWidth"
+                    android:scrollbars="none"
+                    android:fadingEdge="none"
+                    android:id="@+id/home_grid_view" />
+
+            <View android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:id="@+id/view_bottom"/>
+
+        </LinearLayout>
+
+
+        <!--<ImageView android:layout_width="match_parent"
+                   android:layout_height="1000dp"
+                   android:id="@+id/image"
+                android:background="@drawable/test_bg"/>-->
+
+    </com.yanxiu.gphone.student.view.stickhome.ScrollHomeView>
+
+    <View android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:visibility="invisible"
+          android:id="@+id/view_mark"
+          android:background="@color/color_88000000" />
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/dimen_10"
+        android:orientation="horizontal" >
+
+        <FrameLayout android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/fl_left_containt"/>
+
+        <FrameLayout android:layout_width="@dimen/dimen_0"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:id="@+id/fl_right_containt"/>
+
+    </LinearLayout>
+
+</FrameLayout>

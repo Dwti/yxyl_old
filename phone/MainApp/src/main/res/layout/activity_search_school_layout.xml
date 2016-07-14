@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+        >
+    <include
+            android:id="@+id/top_layout"
+            layout="@layout/public_top_layout"
+            />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/yanxiu_my_frgment_bg">
+        <RelativeLayout android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_96"
+                        android:id="@+id/search_edit_layout"
+                        android:background="@drawable/search_btn_bg"
+                        android:layout_marginTop="@dimen/dimen_25"
+                        android:layout_marginRight="@dimen/dimen_30"
+                        android:layout_marginLeft="@dimen/dimen_30">
+            <EditText android:layout_width="match_parent"
+                      android:layout_height="@dimen/dimen_36"
+                      android:id="@+id/search_edit"
+                      android:layout_toLeftOf="@+id/search_add_text"
+                      android:drawableLeft="@drawable/search_icon"
+                      android:drawablePadding="@dimen/dimen_10"
+                      android:paddingLeft="@dimen/dimen_10"
+                      android:paddingRight="@dimen/dimen_25"
+                      android:textSize="@dimen/dimen_14"
+                      android:layout_marginLeft="@dimen/dimen_10"
+                      android:layout_marginTop="@dimen/dimen_6"
+                      android:layout_marginBottom="@dimen/dimen_5"
+                      android:cursorVisible="true"
+                      android:textCursorDrawable="@null"
+                      android:singleLine="true"
+                      android:hint="@string/search_school_hint"
+                      android:textColor="@color/color_ffffff"
+                      android:textColorHint="@color/color_ffffff"
+                      style="@style/text_bd8e00_shadow_style"
+                     android:background="@drawable/my_single_edit_bg"
+                />
+
+            <TextView
+                android:layout_width="@dimen/dimen_51"
+                android:layout_height="@dimen/dimen_36"
+                android:id="@+id/search_add_text"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:textSize="@dimen/dimen_12"
+                android:textColor="@color/color_805500"
+                android:textStyle="bold"
+                android:background="@drawable/search_add_btn_bg"
+                android:layout_marginRight="@dimen/dimen_9"
+                android:layout_marginTop="@dimen/dimen_6"
+                android:layout_marginBottom="@dimen/dimen_5"
+                android:layout_marginLeft="@dimen/dimen_9"
+                android:text="@string/search_school_add"
+                style="@style/text_fff99_shadow_style"
+                />
+
+
+            <include
+                android:id="@+id/topLine"
+                android:layout_below="@id/search_edit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_2"
+                layout="@layout/icon_select_top_line"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_33"
+                android:id="@+id/search_tag_text"
+                android:layout_below="@id/topLine"
+                android:paddingLeft="@dimen/dimen_10"
+                android:gravity="center_vertical|left"
+                android:textSize="@dimen/dimen_12"
+                android:textColor="@color/color_805500"
+                style="@style/text_fff99_shadow_style"
+                android:text="@string/search_school_tag"
+                android:drawableLeft="@drawable/tips_icon"
+                android:drawablePadding="@dimen/dimen_10"
+                android:layout_marginTop="@dimen/dimen_5"
+                />
+        </RelativeLayout>
+
+        <ListView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="@dimen/dimen_15"
+                  android:layout_marginRight="@dimen/dimen_30"
+                  android:layout_marginLeft="@dimen/dimen_30"
+                  android:id="@+id/search_list"
+                  style="@style/listview_style"/>
+        />
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

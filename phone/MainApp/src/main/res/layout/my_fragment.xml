@@ -1,0 +1,400 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/yanxiu_my_frgment_bg">
+
+    <include
+        android:id="@+id/main_public_top_my"
+        layout="@layout/main_public_top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/main_public_top_my"
+        android:fadingEdge="vertical"
+        android:paddingBottom="@dimen/dimen_5"
+        android:paddingLeft="@dimen/dimen_30"
+        android:paddingRight="@dimen/dimen_30"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/user_info_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_100"
+                android:layout_marginTop="@dimen/dimen_25"
+                android:background="@drawable/my_list_bg_selector"
+                >
+
+                <com.common.core.view.roundview.RoundedImageView
+                    android:id="@+id/user_icon"
+                    android:layout_width="@dimen/dimen_80"
+                    android:layout_height="@dimen/dimen_80"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:scaleType="centerCrop"
+                    />
+
+                <ImageView
+                    android:id="@+id/usr_icon_decorate"
+                    android:layout_width="@dimen/dimen_80"
+                    android:layout_height="@dimen/dimen_80"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:background="@drawable/user_info_icon_bg"
+                    android:scaleType="centerCrop"
+                    />
+
+                <ImageView
+                    android:id="@+id/icon_right_arrow"
+                    style="@style/my_list_right_img_style"
+                    android:layout_width="@dimen/dimen_30"
+                    android:layout_height="@dimen/dimen_30"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:layout_toLeftOf="@id/icon_right_arrow"
+                    android:layout_toRightOf="@id/user_icon"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/dimen_5"
+                    android:paddingTop="@dimen/dimen_5">
+                    <TextView
+                        android:id="@+id/user_name"
+                        style="@style/text_fff99_shadow_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_centerVertical="true"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="left|center_vertical"
+                        android:singleLine="true"
+                        android:text="@string/user_name_txt"
+                        android:textColor="@color/color_805500"
+                        android:textSize="@dimen/dimen_20"
+                        android:textStyle="bold"
+                        />
+                    <TextView
+                        android:id="@+id/stdUidTv"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="left|center_vertical"
+                        android:maxLines="2"
+                        android:textColor="@color/color_805500"
+                        tools:text="学号:1342642801111"
+                        />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/my_favourite_layout"
+                style="@style/my_list_style"
+                android:layout_below="@id/user_info_layout"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:visibility="gone">
+
+
+                <ImageView
+                    android:id="@+id/my_favourite_right_arrow"
+                    style="@style/my_list_right_img_style"
+                    android:layout_width="@dimen/dimen_30"
+                    android:layout_height="@dimen/dimen_30"/>
+
+                <ImageView
+                    android:id="@+id/my_favourite_icon"
+                    style="@style/my_list_head_img_style"
+                    android:background="@drawable/save_icon"
+                    />
+
+                <TextView
+                    android:id="@+id/my_favourite_name"
+                    style="@style/my_list_center_text_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/my_favourite_right_arrow"
+                    android:layout_toRightOf="@id/my_favourite_icon"
+                    android:text="@string/my_favourite_name"
+                    tools:text="我的收藏"
+                    />
+            </RelativeLayout>
+
+            <!--
+            <include
+                android:id="@+id/firstLine"
+                layout="@layout/bitmap_repeat_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/my_favourite_layout"
+                android:layout_marginLeft="@dimen/dimen_7"
+                android:layout_marginRight="@dimen/dimen_7"
+                />
+                -->
+
+            <RelativeLayout
+                android:id="@+id/error_collection_layout"
+                style="@style/my_list_style"
+                android:layout_below="@id/user_info_layout"
+                android:layout_marginTop="@dimen/dimen_17">
+
+                <ImageView
+                    android:id="@+id/error_collection_right_arrow"
+                    style="@style/my_list_right_img_style"
+                    android:layout_width="@dimen/dimen_30"
+                    android:layout_height="@dimen/dimen_30"/>
+
+                <ImageView
+                    android:id="@+id/error_collection_icon"
+                    style="@style/my_list_head_img_style"
+                    android:background="@drawable/my_error_subject"
+                    />
+
+                <TextView
+                    android:id="@+id/error_collection_name"
+                    style="@style/my_list_center_text_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/error_collection_right_arrow"
+
+                    android:layout_toRightOf="@id/error_collection_icon"
+
+
+                    android:text="@string/error_collection_name"
+                    tools:text="我的错题"
+                    />
+
+
+            </RelativeLayout>
+
+            <include
+                android:id="@+id/secLine"
+                layout="@layout/bitmap_repeat_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_below="@id/error_collection_layout"
+                android:layout_marginLeft="@dimen/dimen_7"
+                android:layout_marginRight="@dimen/dimen_7"
+                />
+
+            <RelativeLayout
+                android:id="@+id/practice_history_layout"
+                style="@style/my_list_style"
+                android:visibility="gone"
+                android:layout_below="@id/secLine">
+
+                <ImageView
+                    android:id="@+id/practice_history_right_arrow"
+                    style="@style/my_list_right_img_style"
+                    android:layout_width="@dimen/dimen_30"
+                    android:layout_height="@dimen/dimen_30"/>
+
+                <ImageView
+                    android:id="@+id/practice_history_icon"
+                    style="@style/my_list_head_img_style"
+                    android:background="@drawable/exise_his"
+
+                    />
+
+                <TextView
+                    android:id="@+id/practice_history_name"
+                    style="@style/my_list_center_text_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/practice_history_right_arrow"
+                    android:layout_toRightOf="@id/practice_history_icon"
+                    android:text="@string/practice_history_name"
+                    tools:text="练习历史"
+                    />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/my_stage_layout"
+                style="@style/my_list_style"
+                android:layout_below="@id/practice_history_layout"
+                android:layout_marginTop="@dimen/dimen_17">
+
+
+                <ImageView
+                    android:id="@+id/my_stage_icon"
+                    style="@style/my_list_head_img_style"
+                    android:background="@drawable/stage_icon"
+                    />
+
+                <ImageView
+                    android:id="@+id/my_stage_right_arrow"
+                    style="@style/my_list_right_img_style"
+                    android:layout_width="@dimen/dimen_30"
+                    android:layout_height="@dimen/dimen_30"/>
+
+                <TextView
+                    android:id="@+id/my_stage_content"
+                    style="@style/text_fff99_shadow_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dimen_10"
+                    android:layout_toLeftOf="@id/my_stage_right_arrow"
+                    android:gravity="center_vertical|left"
+                    android:text="@string/my_stage_content"
+                    android:textColor="@color/color_805500"
+                    android:textSize="@dimen/dimen_14"
+                    tools:text="初中"
+                    />
+
+                <TextView
+                    android:id="@+id/my_stage_name"
+                    style="@style/my_list_center_text_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/my_stage_content"
+                    android:layout_toRightOf="@id/my_stage_icon"
+                    android:text="@string/my_stage_name"
+                    tools:text="学段"
+                    />
+
+
+            </RelativeLayout>
+
+            <include
+                android:id="@+id/thrLine"
+                layout="@layout/bitmap_repeat_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/my_stage_layout"
+                android:layout_marginLeft="@dimen/dimen_7"
+                android:layout_marginRight="@dimen/dimen_7"
+                />
+
+            <RelativeLayout
+                android:id="@+id/teaching_material_layout"
+                style="@style/my_list_style"
+                android:layout_below="@id/thrLine"
+
+                >
+
+                <ImageView
+                    android:id="@+id/teaching_material_right_arrow"
+                    style="@style/my_list_right_img_style"
+                    android:layout_width="@dimen/dimen_30"
+                    android:layout_height="@dimen/dimen_30"/>
+
+                <ImageView
+                    android:id="@+id/teaching_material_icon"
+                    style="@style/my_list_head_img_style"
+                    android:background="@drawable/book_icon"
+
+                    />
+
+                <TextView
+                    android:id="@+id/teaching_material_name"
+
+                    style="@style/my_list_center_text_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/teaching_material_right_arrow"
+
+
+                    android:layout_toRightOf="@id/teaching_material_icon"
+                    android:text="@string/teaching_material_name"
+                    tools:text="教材版本"
+                    />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/feedback_layout"
+                style="@style/my_list_style"
+                android:layout_below="@id/teaching_material_layout"
+                android:layout_marginTop="@dimen/dimen_17">
+
+
+                <ImageView
+                    android:id="@+id/feedback_right_arrow"
+                    style="@style/my_list_right_img_style"
+                    android:layout_width="@dimen/dimen_30"
+                    android:layout_height="@dimen/dimen_30"/>
+
+                <ImageView
+                    android:id="@+id/feedback_icon"
+                    style="@style/my_list_head_img_style"
+                    android:background="@drawable/advice_icon"/>
+
+                <TextView
+                    android:id="@+id/feedback_name"
+
+                    style="@style/my_list_center_text_style"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/feedback_right_arrow"
+
+                    android:layout_toRightOf="@id/feedback_icon"
+
+                    android:text="@string/feedback"
+                    />
+
+
+            </RelativeLayout>
+
+            <include
+                android:id="@+id/fourLine"
+                layout="@layout/bitmap_repeat_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/feedback_layout"
+                android:layout_marginLeft="@dimen/dimen_7"
+                android:layout_marginRight="@dimen/dimen_7"
+                />
+
+            <RelativeLayout
+                android:id="@+id/my_setting_layout"
+                style="@style/my_list_style"
+                android:layout_below="@id/fourLine">
+
+
+                <ImageView
+                    android:id="@+id/my_setting_right_arrow"
+                    style="@style/my_list_right_img_style"
+                    android:layout_width="@dimen/dimen_30"
+                    android:layout_height="@dimen/dimen_30"/>
+
+                <ImageView
+                    android:id="@+id/my_setting_icon"
+                    style="@style/my_list_head_img_style"
+                    android:background="@drawable/set_icon"
+
+                    />
+
+                <TextView
+                    android:id="@+id/my_setting_name"
+
+                    style="@style/my_list_center_text_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/my_setting_right_arrow"
+                    android:layout_toRightOf="@id/my_setting_icon"
+                    android:text="@string/my_setting_name"
+                    />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_25"
+                android:layout_below="@id/my_setting_layout"/>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

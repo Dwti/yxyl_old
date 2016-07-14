@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/yanxiu_my_frgment_bg"
+              android:orientation="vertical">
+    <include android:id="@+id/top_layout"
+             layout="@layout/public_top_layout"
+        />
+
+    <ListView
+        android:id="@+id/location_list"
+        style="@style/listview_style"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/dimen_25"
+        android:layout_marginLeft="@dimen/dimen_30"
+        android:layout_marginRight="@dimen/dimen_30"
+        android:layout_marginTop="@dimen/dimen_25"
+        />
+
+
+    <!-- -->
+    <!--<TextView android:id="@+id/location_top_title" android:layout_width="match_parent" android:layout_height="wrap_content"-->
+    <!--android:background="@color/color_fffaf9f9"-->
+    <!--style="@style/yanxiu_text_15_color_ff323232"-->
+    <!--android:textSize="@dimen/dimen_12"-->
+    <!--android:text="@string/select_location_province_txt"-->
+    <!--android:gravity="bottom"-->
+    <!--android:paddingBottom="@dimen/dimen_10"-->
+    <!--android:paddingTop="@dimen/dimen_15"-->
+    <!--android:paddingLeft="@dimen/dimen_10"-->
+    <!--/>-->
+
+</LinearLayout>

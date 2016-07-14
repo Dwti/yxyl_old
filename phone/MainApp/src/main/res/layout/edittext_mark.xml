@@ -1,0 +1,21 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+    <EditText android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/et_mark"
+              android:singleLine="true"
+              android:background="@null"
+              android:textSize="@dimen/dimen_15"
+              android:textColor="@color/color_ff40c0fd"
+              android:layout_centerInParent="true"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_ff40c0fd"
+            />
+
+</RelativeLayout>

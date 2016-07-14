@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/dimen_45"
+              android:paddingLeft="@dimen/dimen_20"
+              android:paddingRight="@dimen/dimen_10"
+              android:orientation="vertical">
+       <TextView android:layout_width="match_parent"
+                 android:layout_height="@dimen/dimen_45"
+                 android:id="@+id/school_name"
+                 style="@style/list_item_text_style"
+                 tools:text="北京市一中"
+               />
+</LinearLayout>

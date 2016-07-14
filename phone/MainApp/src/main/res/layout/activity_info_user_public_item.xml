@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/item_public_layout"
+                style="@style/my_list_style">
+    <TextView
+        android:id="@+id/item_name"
+        android:text="@string/user_name_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        style="@style/my_user_info_left_text_style"
+        />
+
+    <ImageView
+        android:id="@+id/item_right_arrow"
+        android:layout_width="@dimen/dimen_30"
+        android:layout_height="@dimen/dimen_30"
+        style="@style/my_list_right_img_style" />
+
+    <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:id="@+id/item_sub_content"
+              android:layout_toRightOf="@id/item_name"
+              android:layout_toLeftOf="@id/item_right_arrow"
+              tools:text="孙长龙"
+              style="@style/my_user_info_right_text_style"
+        />
+
+
+    <RelativeLayout
+        android:id="@+id/gender_contentRelative"
+        android:layout_width="@dimen/dimen_68"
+        android:layout_height="@dimen/dimen_36"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_11"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"
+        android:background="@drawable/type_sel_selector">
+        <TextView
+            android:id="@+id/gender_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/color_805500"
+            android:textSize="@dimen/dimen_14"
+            android:textStyle="bold"
+            style="@style/text_fff99_shadow_style"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:paddingLeft="@dimen/dimen_2"
+            android:paddingRight="@dimen/dimen_20"
+            android:text="@string/my_stage_content"
+            tools:text="未知"
+            />
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

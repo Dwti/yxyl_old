@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/public_layout_top"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_44"
+        android:background="@color/color_00cccc"
+        >
+
+        <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
+            android:id="@+id/public_layout_top_tv"
+            style="@style/shadow_text_style"
+            android:layout_width="@dimen/dimen_200"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:shadowColor="@color/color_33ffff"
+            android:singleLine="true"
+            android:textColor="@color/color_006666"
+            android:textSize="@dimen/dimen_18"
+            app:type_face="fz.ttf"
+            tools:text="@string/group_top_title"
+            />
+        <ImageView
+            android:id="@+id/public_layout_history_iv"
+            style="@style/my_list_head_img_style"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dimen_10"
+            android:background="@drawable/exise_his"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            />
+        <ImageView
+            android:id="@+id/public_layout_top_iv"
+            android:layout_width="@dimen/dimen_30"
+            android:layout_height="@dimen/dimen_30"
+            android:layout_toLeftOf="@id/public_layout_history_iv"
+            android:layout_centerVertical="true"
+            android:background="@drawable/group_top_add"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/home_top_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_4"
+        android:layout_below="@id/public_layout_top"
+        android:background="@color/color_009999"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_2"
+        android:layout_below="@id/home_top_view"
+        android:background="@color/color_007373"
+        />
+</RelativeLayout>

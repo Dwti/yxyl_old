@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_fff6f6f6">
+
+    <LinearLayout
+        android:id="@+id/navi_switcher"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_55"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_008080"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/dimen_5"
+        android:paddingBottom="@dimen/dimen_5"
+        android:paddingLeft="@dimen/dimen_3"
+        android:paddingRight="@dimen/dimen_3"
+        android:orientation="horizontal">
+        <include
+            android:id="@+id/navi_homework"
+            layout="@layout/home_nav_bar_item_layout"/>
+        <include
+            android:id="@+id/navi_group"
+            layout="@layout/home_nav_bar_item_layout"/>
+        <include
+            android:id="@+id/navi_my"
+            layout="@layout/home_nav_bar_item_layout"/>
+    </LinearLayout>
+    <View
+        android:id="@+id/bottom_driver_line"
+        android:layout_width="match_parent"
+        android:layout_height="3dip"
+        android:layout_above="@id/navi_switcher"
+        android:background="@color/color_009999"/>
+
+    <FrameLayout
+        android:id="@+id/content_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_driver_line"
+        android:layout_alignParentTop="true">
+    </FrameLayout>
+
+</RelativeLayout>

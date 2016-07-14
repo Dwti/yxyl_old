@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:line_edit_text="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.yanxiu.gphone.parent.view.LineEditText
+        android:id="@+id/inputPhone"
+        android:phoneNumber="true"
+        style="@style/login_edit_style"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dimen_p_20"
+        android:layout_height="@dimen/dimen_p_50"
+        android:hint="@string/please_input_phone"
+        line_edit_text:bottomlinecolor="@color/color_e6e6e6_p"
+        line_edit_text:isneeddrawableleft="false"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.yanxiu.gphone.parent.view.LineEditText
+            android:id="@+id/inputVerifyCode"
+            style="@style/login_edit_style"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_p_50"
+            android:hint="@string/please_input_verifycode"
+            android:numeric="integer"
+            line_edit_text:bottomlinecolor="@color/color_e6e6e6_p"
+            line_edit_text:isneeddrawableleft="false"
+            line_edit_text:isneeddrawablebottomline="false"
+            line_edit_text:isneeddrawableright="false"
+            />
+        <TextView
+            android:id="@+id/vetifyCodeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dimen_p_14"
+            android:textColor="@color/color_black_p"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dimen_p_13"
+            android:text="@string/get_verify_code"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom">
+        <TextView
+            android:id="@+id/verifyNextTv"
+            android:text="@string/confirm"
+            style="@style/login_next_btn_style"/>
+    </LinearLayout>
+
+</merge>

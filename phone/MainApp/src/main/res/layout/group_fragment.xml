@@ -1,0 +1,87 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/yanxiu_group_bg">
+
+    <include
+        android:id="@+id/main_public_top_group"
+        layout="@layout/main_public_top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <RelativeLayout
+        android:id="@+id/group_unfinish_tip_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_40"
+        android:layout_below="@id/main_public_top_group"
+        android:background="@color/color_008080"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:id="@+id/group_unfinish_tip_image"
+            style="@style/my_list_right_img_style"
+            android:layout_width="@dimen/dimen_30"
+            android:layout_height="@dimen/dimen_30"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="centerCrop"
+            />
+
+        <TextView
+            android:id="@+id/group_unfinish_tip_text"
+            style="@style/shadow_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/group_unfinish_tip_image"
+            android:paddingLeft="@dimen/dimen_10"
+            android:shadowColor="@color/color_005959"
+            android:textColor="@color/color_00cccc"
+            android:textSize="@dimen/dimen_16"
+            tools:text="group_top_tip_text"
+            />
+    </RelativeLayout>
+    <View
+        android:id="@+id/group_unfinish_tip_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_2"
+        android:layout_below="@id/group_unfinish_tip_layout"
+        android:background="@color/color_007373"
+        android:visibility="gone"
+        />
+    <com.common.core.view.xlistview.XListView
+        android:id="@+id/group_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/group_unfinish_tip_bottom"
+        android:layout_marginLeft="@dimen/dimen_30"
+        android:layout_marginRight="@dimen/dimen_30"
+        android:cacheColorHint="@null"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="none"
+        />
+
+    <View
+        android:id="@+id/no_group_top_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/main_public_top_group"
+        android:background="@color/color_99000000"
+        android:visibility="gone"
+        />
+
+    <include
+        android:id="@+id/no_group"
+        layout="@layout/group_public_layout_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_20"
+        />
+</RelativeLayout>

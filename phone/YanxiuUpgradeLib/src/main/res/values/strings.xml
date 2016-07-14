@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">YanxiuUpgradeLib</string>
+    <string name="public_app_name">易学易练</string>
+    <string name="public_app_upgrade">检测到新版本%s</string>
+    <string name="public_app_upgrade_sure">更新</string>
+    <string name="public_app_upgrade_cancle">取消</string>
+    <string name="public_app_upgrade_inoge">忽略</string>
+    <string name="public_app_upgrade_exit">退出</string>
+
+    <string name="public_update_asynctask_downloading">正在下载</string>
+    <string name="public_update_asynctask_downloading_fail">下载失败</string>
+    <string name="public_update_asynctask_downloading_cel">取消下载</string>
+    <string name="public_update_asynctask_downloading_success">下载完成</string>
+    <string name="public_update_new">当前已是最新版本！</string>
+
+    <string name="public_server_exception">服务端异常，请稍后再试</string>
+    <string name="public_net_null">网络异常，请稍后重试</string>
+</resources>

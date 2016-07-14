@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_100"
+        android:layout_marginRight="@dimen/dimen_5"
+        android:background="@drawable/grandson_selector_examination_bg"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dimen_10"
+        android:paddingTop="@dimen/dimen_10">
+        <include
+            android:id="@+id/exa_grandson_detail_view"
+            layout="@layout/exa_chapter_public_layout"
+            />
+        <ImageView
+            android:id="@+id/exa_grandson_dash_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/repeat_suebject_section_dash_line"
+            android:visibility="gone"
+            />
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_28"
+            android:id="@+id/exa_grandson_test_percent_view"
+            layout="@layout/exa_test_center_public_layout"
+            />
+
+    </LinearLayout>
+    <!--<RelativeLayout android:layout_marginLeft="@dimen/dimen_100"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:background="@drawable/grandson_selector_examination_bg"-->
+    <!--android:layout_marginRight="@dimen/dimen_5"-->
+    <!--android:layout_height="@dimen/dimen_65" >-->
+
+    <!--<TextView android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginLeft="@dimen/dimen_15"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:layout_toLeftOf="@+id/tv_exa_error"-->
+    <!--android:textSize="@dimen/dimen_15"-->
+    <!--android:maxLines="2"-->
+    <!--android:ellipsize="end"-->
+    <!--android:textColor="@color/color_ff323232"-->
+    <!--android:padding="@dimen/dimen_10"-->
+    <!--tools:text="adfasdgadsgadgad"-->
+    <!--android:id="@+id/tv_exa_gradeson" />-->
+
+
+    <!--<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"-->
+    <!--style="@style/yanxiu_text_12_color_ff969696"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:gravity="center_vertical|right"-->
+    <!--android:id="@+id/tv_exa_error"-->
+    <!--android:layout_toLeftOf="@+id/iv_right_row"-->
+    <!--android:visibility="gone"-->
+    <!--/>-->
+    <!--<ImageView android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/iv_right_row"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginRight="@dimen/dimen_12"-->
+    <!--android:src="@drawable/examination_right_row"/>-->
+    <!--</RelativeLayout>-->
+
+</RelativeLayout>

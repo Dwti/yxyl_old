@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/color_fffaf9f9">
+    <include android:id="@+id/top_layout"
+             layout="@layout/public_top_layout"
+            />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/yanxiu_my_frgment_bg">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_61"
+            android:background="@drawable/my_single_edit_container_bg"
+            android:layout_marginTop="@dimen/dimen_25"
+            android:layout_marginRight="@dimen/dimen_30"
+            android:layout_marginLeft="@dimen/dimen_30">
+            <EditText android:id="@+id/user_name_edit"
+                      android:layout_width="match_parent"
+                      android:layout_height="@dimen/dimen_35"
+                      android:paddingLeft="@dimen/dimen_10"
+                      android:layout_marginLeft="@dimen/dimen_10"
+                      android:layout_marginRight="@dimen/dimen_60"
+                      android:layout_centerVertical="true"
+                      style="@style/my_single_edit_style"
+                />
+            <ImageView
+                android:id="@+id/clearContentIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/my_single_edit_clear_img_style"
+                />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

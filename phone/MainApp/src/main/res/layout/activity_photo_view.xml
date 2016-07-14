@@ -1,0 +1,73 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fl_decor_view">
+
+    <com.yanxiu.gphone.student.view.DefineViewPager
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/photo_viewpager"
+            android:fadingEdge="none"
+            android:spacing="0dip" />
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_44"
+            android:background="@color/color_21000000" >
+    <RelativeLayout
+            android:id="@+id/iv_top_back_Relative"
+            android:layout_width="@dimen/dimen_50"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true">
+        <ImageView
+                android:layout_width="@dimen/dimen_30"
+                android:layout_height="@dimen/dimen_30"
+                android:id="@+id/iv_top_back"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:src="@drawable/login_back" />
+    </RelativeLayout>
+
+
+        <RelativeLayout android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textSize="@dimen/dimen_18"
+                      android:textColor="@color/color_white"
+                      android:id="@+id/tv_pager_index"/>
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_toRightOf="@id/tv_pager_index"
+                      android:layout_alignBottom="@id/tv_pager_index"
+                      android:textColor="@color/color_white"
+                      android:textSize="@dimen/dimen_12"
+                      android:id="@+id/tv_pager_count"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:id="@+id/iv_photo_delete"
+                android:layout_width="@dimen/dimen_50"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:visibility="gone"
+                >
+            <ImageView android:layout_width="@dimen/dimen_22"
+                       android:layout_height="@dimen/dimen_22"
+                       android:background="@drawable/img_photo_delete"
+                       android:layout_marginRight="@dimen/dimen_10"
+                       android:layout_centerInParent="true" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</FrameLayout>
+
+

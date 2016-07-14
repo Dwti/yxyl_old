@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item>
+        <shape android:shape="rectangle" >
+
+            <stroke  android:width="2dp"  android:dashWidth="2dp"   android:color="@color/color_ccc4a3"/>
+            <corners  android:bottomLeftRadius="@dimen/dimen_5"
+                android:bottomRightRadius="@dimen/dimen_5"/>
+        </shape>
+    </item>
+
+    <item
+        android:left="2dp"
+        android:right="2dp"
+        android:bottom="2dp">
+        <shape>
+            <solid android:color="@color/color_fff7d9" />
+        </shape>
+    </item>
+</layer-list>

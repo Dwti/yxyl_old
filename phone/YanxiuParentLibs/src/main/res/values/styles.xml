@@ -1,0 +1,164 @@
+<resources>
+
+    <style name="NavigationBarHide" parent="Theme.AppCompat.Light.DarkActionBar" />
+
+    <style name="parent_home_nav_bar_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/color_333333_p</item>
+        <item name="android:textSize">@dimen/dimen_p_12</item>
+        <item name="android:duplicateParentState">true</item>
+    </style>
+
+    <!-- gai *0.75 -->
+    <style name="parent_my_list_image" >
+        <item name="android:layout_width">@dimen/dimen_p_30</item>
+        <item name="android:layout_height">@dimen/dimen_p_30</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <!-- gai *0.75 -->
+    <style name="parent_my_list_text" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_p_14</item>
+        <item name="android:textColor">@color/color_333333_p</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_p_15</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <!-- gai *0.75 -->
+    <style name="parent_my_information_text" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_p_14</item>
+        <item name="android:textColor">@color/color_999999_p</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="page_top_timedate_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/color_white_p</item>
+        <item name="android:textSize">@dimen/dimen_p_12</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/top_time_bg_border</item>
+        <item name="android:padding">@dimen/dimen_p_4</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_p_12</item>
+        <item name="android:layout_marginRight">@dimen/dimen_p_12</item>
+    </style>
+    <!-- gai *0.75 -->
+    <style name="parent_settings_list_text" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_p_14</item>
+        <item name="android:textColor">@color/color_333333_p</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <!-- gai *0.75 -->
+    <style name="parent_about_content_text" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_p_15</item>
+        <item name="android:textColor">@color/color_999999_p</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+    <!-- gai *0.75 -->
+    <style name="parent_modify_pwd_text" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimen_p_48</item>
+        <item name="android:textSize">@dimen/dimen_p_14</item>
+        <item name="android:textColor">@color/color_black_p</item>
+        <item name="android:textColorHint">@color/color_cccccc_p</item>
+        <item name="android:padding">@dimen/dimen_p_15</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:password">true</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textCursorDrawable">@null</item>
+    </style>
+    <!-- gai *0.75 -->
+    <style name="parent_modify_name_text" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_p_14</item>
+        <item name="android:textColor">@color/color_cccccc_p</item>
+        <item name="android:textColorHint">@color/color_cccccc_p</item>
+        <item name="android:padding">@dimen/dimen_p_15</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textCursorDrawable">@null</item>
+    </style>
+
+    <style name="parent_location_text_style">
+        <item name="android:textColor">@color/color_black_p</item>
+        <item name="android:textSize">@dimen/dimen_p_14</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_p_15</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="parent_listview_style">
+        <item name="android:dividerHeight">@dimen/dimen_p_1</item>
+        <item name="android:listSelector">@android:color/transparent</item>
+        <item name="android:cacheColorHint">@null</item>
+        <item name="android:scrollbars">none</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="parent_feed_back_text" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimen_p_150</item>
+        <item name="android:textSize">@dimen/dimen_p_14</item>
+        <item name="android:textColor">@color/color_black_p</item>
+        <item name="android:textColorHint">@color/color_cccccc_p</item>
+        <item name="android:padding">@dimen/dimen_p_15</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:textCursorDrawable">@null</item>
+    </style>
+
+    <style name="unbind_dialog_style" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+    </style>
+
+    <style name="unbind_button_style" >
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@null</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">@dimen/dimen_p_12</item>
+    </style>
+
+    <style name="login_edit_style">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@color/color_ccffffff</item>
+        <item name="android:textColorHint">@color/color_cccccc_p</item>
+        <item name="android:textColor">@color/color_333333_p</item>
+        <item name="android:textSize">@dimen/dimen_p_14</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:paddingLeft">@dimen/dimen_p_7</item>
+        <item name="android:paddingRight">@dimen/dimen_p_7</item>
+        <item name="android:drawablePadding">@dimen/dimen_p_7</item>
+    </style>
+    <style name="login_next_btn_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimen_p_48</item>
+        <item name="android:background">@drawable/login_selector</item>
+        <item name="android:textSize">@dimen/dimen_p_17</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/color_white_p</item>
+    </style>
+</resources>

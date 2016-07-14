@@ -1,0 +1,18 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.yanxiu.gphone.parent">
+
+    <!--<application-->
+        <!--android:allowBackup="true"-->
+        <!--android:label="@string/app_name"-->
+        <!--android:supportsRtl="true">-->
+        <!--<activity android:name=".activity.MainForParentActivity"-->
+                  <!--android:screenOrientation="portrait"-->
+                  <!--android:configChanges="keyboardHidden|orientation">-->
+        <!--</activity>-->
+        <!--<activity android:name=".activity.ParentWeekReportDetailsActivity"-->
+                  <!--android:screenOrientation="portrait"-->
+                  <!--android:configChanges="keyboardHidden|orientation">-->
+        <!--</activity>-->
+    <!--</application>-->
+
+</manifest>

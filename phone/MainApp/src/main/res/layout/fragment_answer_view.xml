@@ -1,0 +1,13 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical" >
+
+    <com.yanxiu.gphone.student.view.question.readquestion.InterViewPager
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/answer_viewpager"
+            android:fadingEdge="none"
+            android:spacing="0dip" />
+
+</LinearLayout>
