@@ -20,7 +20,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.basecore.utils.BaseCoreLogInfo;
-import com.yanxiu.gphone.parent.utils.ParentConfigConstant;
+//import com.yanxiu.gphone.parent.utils.ParentConfigConstant;
 import com.yanxiu.gphone.student.bean.SubjectVersionBean;
 import com.yanxiu.gphone.student.bean.statistics.InstantUploadErrorData;
 import com.yanxiu.gphone.student.bean.statistics.StatisticHashMap;
@@ -33,7 +33,7 @@ import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.utils.statistics.DataBaseManager;
 import com.yanxiu.gphone.student.utils.statistics.DataStatisticsUploadManager;
 import com.yanxiu.gphone.student.utils.statistics.requestAsycn.UploadInstantPointDataTask;
-import com.yanxiu.gphone.upgrade.utils.UpgradeConstant;
+//import com.yanxiu.gphone.upgrade.utils.UpgradeConstant;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -92,17 +92,17 @@ public class YanxiuApplication extends CommonCoreApplication {
      * 升级环境配置
      */
     private void initUpgradeConstant(){
-        UpgradeConstant.setDEVICEID(YanXiuConstant.DEVICEID);
-        UpgradeConstant.setIsForTest(Configuration.isDebug());
+        //UpgradeConstant.setDEVICEID(YanXiuConstant.DEVICEID);
+        //UpgradeConstant.setIsForTest(Configuration.isDebug());
     }
     /**
      * 家长端初始化
      */
     private void initParentConstant () {
-        ParentConfigConstant.setDEVICEID(YanXiuConstant.DEVICEID);
+        /*ParentConfigConstant.setDEVICEID(YanXiuConstant.DEVICEID);
         ParentConfigConstant.setDisplayMetrics(YanXiuConstant.displayMetrics);
         ParentConfigConstant.setVERSION(YanXiuConstant.VERSION);
-        ParentConfigConstant.setVersionCode(YanXiuConstant.VERSION_CODE);
+        ParentConfigConstant.setVersionCode(YanXiuConstant.VERSION_CODE);*/
     }
 
     @Override

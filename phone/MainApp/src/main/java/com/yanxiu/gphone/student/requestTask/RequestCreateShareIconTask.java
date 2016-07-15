@@ -8,7 +8,7 @@ import android.graphics.BitmapFactory;
 import com.common.share.utils.ShareUtils;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.basecore.bean.YanxiuDataHull;
-import com.yanxiu.gphone.parent.contants.YanxiuParentConstants;
+//import com.yanxiu.gphone.parent.contants.YanxiuParentConstants;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 
@@ -36,7 +36,7 @@ public class RequestCreateShareIconTask extends AbstractAsyncTask {
             Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.share_app_icon);
             ShareUtils.saveShareBitmap(bitmap,YanXiuConstant.SHARE_ICON_PATH ,YanXiuConstant.SHARE_LOGO_NAME);
         }
-        final String xlcgFilePath= YanxiuParentConstants.XUANLIANGCIGU_ICON_PATH;
+        /*final String xlcgFilePath= YanxiuParentConstants.XUANLIANGCIGU_ICON_PATH;
         File xlcgFile=new File(xlcgFilePath);
         if(!xlcgFile.exists()){
             Bitmap bitmap=BitmapFactory.decodeStream(ShareUtils.getAsssetStream(YanxiuParentConstants.XUANLIANGCIFUICON));
@@ -62,7 +62,7 @@ public class RequestCreateShareIconTask extends AbstractAsyncTask {
         if(!zlzyFile.exists()){
             Bitmap bitmap=BitmapFactory.decodeStream(ShareUtils.getAsssetStream(YanxiuParentConstants.ZHULUZHONGYUANICON));
             ShareUtils.saveShareBitmap(bitmap, YanXiuConstant.SHARE_ICON_PATH, YanxiuParentConstants.ZHULUZHONGYUANICON);
-        }
+        }*/
 
         return null;
     }

@@ -9,7 +9,7 @@ import android.view.KeyEvent;
 import android.widget.ImageView;
 
 import com.common.core.utils.LogInfo;
-import com.yanxiu.gphone.parent.eventbus.bean.ParentJumpToLoginChoiceEventBean;
+//import com.yanxiu.gphone.parent.eventbus.bean.ParentJumpToLoginChoiceEventBean;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.YanxiuApplication;
 import com.yanxiu.gphone.student.manager.ActivityManager;
@@ -37,7 +37,7 @@ public class LoginChoiceActivity extends YanxiuJumpBaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
+        //EventBus.getDefault().register(this);
         setContentView(R.layout.login_choice_layout);
         initView();
         mHandler.postDelayed(new Runnable() {
@@ -52,7 +52,7 @@ public class LoginChoiceActivity extends YanxiuJumpBaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
+        //EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -125,13 +125,13 @@ public class LoginChoiceActivity extends YanxiuJumpBaseActivity {
         valueAnimator.setDuration(LOGIN_DUR_TIME);
         valueAnimator.start();
     }
-    public void onEventMainThread(ParentJumpToLoginChoiceEventBean eventBean){
+    /*public void onEventMainThread(ParentJumpToLoginChoiceEventBean eventBean){
         LogInfo.log("geny", "LoginChoiceActivity-------onEventMainThread");
        if(eventBean==null){
            return;
        }
         ActivityManager.destoryExcepLoginChoiceActivity();
 
-    }
+    }*/
 
 }

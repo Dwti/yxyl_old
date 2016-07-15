@@ -18,9 +18,9 @@ import com.common.core.utils.StringUtils;
 import com.common.login.LoginModel;
 import com.common.login.constants.LoginConstants;
 import com.common.login.model.ParentInfoBean;
-import com.yanxiu.gphone.parent.activity.MainForParentActivity;
-import com.yanxiu.gphone.parent.contants.YanxiuParentConstants;
-import com.yanxiu.gphone.parent.jump.utils.ParentActivityJumpUtils;
+//import com.yanxiu.gphone.parent.activity.MainForParentActivity;
+//import com.yanxiu.gphone.parent.contants.YanxiuParentConstants;
+//import com.yanxiu.gphone.parent.jump.utils.ParentActivityJumpUtils;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
 import com.yanxiu.gphone.student.bean.statistics.StatisticsInfoBean;
@@ -58,7 +58,8 @@ public class WelcomeActivity extends YanxiuBaseActivity{
             super.handleMessage(msg);
             switch (msg.what){
                 case GO_LOGIN_CHOICE:
-                    ActivityJumpUtils.jumpToLoginChoiceActivity(WelcomeActivity.this);
+                    //ActivityJumpUtils.jumpToLoginChoiceActivity(WelcomeActivity.this);
+                    LoginActivity.launcherActivity(WelcomeActivity.this,0);
                     WelcomeActivity.this.finish();
                     break;
                 case GO_MAIN:
@@ -66,7 +67,7 @@ public class WelcomeActivity extends YanxiuBaseActivity{
                     WelcomeActivity.this.finish();
                     break;
                 case GO_PARENT_MAIN:
-                    MainForParentActivity.launchActivity(WelcomeActivity.this);
+                    //MainForParentActivity.launchActivity(WelcomeActivity.this);
                     WelcomeActivity.this.finish();
                     break;
                 case GO_FEATURE:
@@ -74,7 +75,7 @@ public class WelcomeActivity extends YanxiuBaseActivity{
                     viewpager.setVisibility(View.VISIBLE);
                     break;
                 case GO_BIND_INFO:
-                    ParentActivityJumpUtils.jumpToParentBindAccountActivity(WelcomeActivity.this,-1);
+                    //ParentActivityJumpUtils.jumpToParentBindAccountActivity(WelcomeActivity.this,-1);
                     WelcomeActivity.this.finish();
                     break;
             }
@@ -133,12 +134,13 @@ public class WelcomeActivity extends YanxiuBaseActivity{
         if(LoginModel.getCacheData()==null|| StringUtils.isEmpty(LoginModel.getCacheData().getCacheData())){
             mHander.sendEmptyMessageDelayed(GO_LOGIN_CHOICE,1000);
         }else{
-            int poleID=LoginModel.getCacheData().getPoleId();
+            //int poleID=LoginModel.getCacheData().getPoleId();
+            int poleID = LoginConstants.ROLE_STUDENT;
             switch (poleID){
                 case LoginConstants.ROLE_STUDENT:
                     mHander.sendEmptyMessageDelayed(GO_MAIN,2000);
                     break;
-                case LoginConstants.ROLE_PARENT:
+                /*case LoginConstants.ROLE_PARENT:
                     ParentInfoBean loginInBean= (ParentInfoBean) LoginModel.getRoleLoginBean();
                     if(loginInBean.getProperty().getIsBind()== YanxiuParentConstants.HASBIND){
                         mHander.sendEmptyMessageDelayed(GO_PARENT_MAIN,2000);
@@ -146,7 +148,7 @@ public class WelcomeActivity extends YanxiuBaseActivity{
                         mHander.sendEmptyMessageDelayed(GO_BIND_INFO,2000);
                     }
 
-                    break;
+                    break;*/
             }
 
         }

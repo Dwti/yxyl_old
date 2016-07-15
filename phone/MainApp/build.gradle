@@ -266,7 +266,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':YanxiuParentLibs')
+    //compile project(':YanxiuParentLibs')
     //compile files('libs/scalpel-1.1.2.jar')
     compile project(':CommonCoreLib')
     compile project(':LoginCommonLibs')

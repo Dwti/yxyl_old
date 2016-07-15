@@ -19,7 +19,7 @@ import com.common.share.utils.ShareUtils;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.basecore.exception.ErrorCode;
 import com.yanxiu.basecore.http.HttpTaskManager;
-import com.yanxiu.gphone.parent.contants.YanxiuParentConstants;
+//import com.yanxiu.gphone.parent.contants.YanxiuParentConstants;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.InitializeBean;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
@@ -120,7 +120,7 @@ public class UpgradeUtils {
      */
     public static void installApk(String filePath) {
         LogInfo.log("king", "filePath == " + filePath);
-        FileUtils.RecursionDeleteFile(new File(YanxiuParentConstants.SHARE_ICON_PATH));
+        //FileUtils.RecursionDeleteFile(new File(YanxiuParentConstants.SHARE_ICON_PATH));
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -175,7 +175,7 @@ public class UpgradeUtils {
             LogInfo.log("king","onStart ");
             Intent intent = new Intent();
             PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, 0);
-            notification.icon = R.anim.notification_download;
+            //notification.icon = R.anim.notification_download;
             notification.tickerText = mContext.getResources().getString(
                     R.string.update_asynctask_downloading);
             notification.flags = Notification.FLAG_AUTO_CANCEL;

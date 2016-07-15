@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.yanxiu.gphone.parent.jump.utils.ParentActivityJumpUtils;
+//import com.yanxiu.gphone.parent.jump.utils.ParentActivityJumpUtils;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.LoginActivity;
 
@@ -56,7 +56,7 @@ public class LoginChoiceView extends RelativeLayout implements View.OnClickListe
                 LoginActivity.launcherActivity(mContext,0);
                 break;
             case R.id.parentImg:
-                ParentActivityJumpUtils.jumpToParentLoginActivity(mContext);
+                //ParentActivityJumpUtils.jumpToParentLoginActivity(mContext);
                 break;
         }
     }
