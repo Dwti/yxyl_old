@@ -456,7 +456,8 @@ public class MainActivity extends YanxiuBaseActivity implements View.OnClickList
 
 
     public void onEventMainThread(TokenInviateBean tokenInviateBean){
-        ActivityJumpUtils.jumpToLoginChoiceActivity(this);
+        //ActivityJumpUtils.jumpToLoginChoiceActivity(this);
+        LoginActivity.launcherActivity(this, 0);
         PublicErrorQuestionCollectionBean.deleteAllData();
         PreferencesManager.getInstance().clearSubjectSection();
         YanxiuApplication.getInstance().setSubjectVersionBean(null);

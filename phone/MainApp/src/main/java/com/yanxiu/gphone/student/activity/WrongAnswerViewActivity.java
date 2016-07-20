@@ -19,6 +19,7 @@ import com.yanxiu.gphone.student.bean.PublicErrorQuestionCollectionBean;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
 import com.yanxiu.gphone.student.requestTask.RequestDelMistakeTask;
+import com.yanxiu.gphone.student.requestTask.RequestWrongAllQuestionTask;
 import com.yanxiu.gphone.student.requestTask.RequestWrongQuestionTask;
 import com.yanxiu.gphone.student.utils.QuestionUtils;
 import com.yanxiu.gphone.student.utils.Util;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
  */
 public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
     public final static int WRONG_ANSWER_REQUESTCODE = 0x100;
-    private RequestWrongQuestionTask mRequestWrongQuestionTask;
+    private RequestWrongAllQuestionTask mRequestWrongQuestionTask;
     private PaperTestEntity mPaperTestEntity;
     private int pageIndex = 0;
     private String stageId;
@@ -46,6 +47,11 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
     private int currentPageIndex = 1;
     private int delQueNum = 0;
     private boolean isNetData = true;
+
+    private int comeFrom = 0;
+    private int position;
+    private String wrongCount;
+
     private boolean deleteAction = false;
     private ArrayList<String> delQuestionTmpList = new ArrayList<String>();
 
@@ -64,6 +70,18 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
         context.startActivityForResult(intent, WRONG_ANSWER_REQUESTCODE);
     }
 
+    public static void launch(Activity context, SubjectExercisesItemBean bean, String subjectId, int pagerIndex, int childIndex, int comeFrom, String wrongCount, int position) {
+        Intent intent = new Intent(context, ResolutionAllAnswerViewActivity.class);
+        intent.putExtra("subjectExercisesItemBean", bean);
+        intent.putExtra("subjectId", subjectId);
+        intent.putExtra("pagerIndex", pagerIndex);
+        intent.putExtra("childIndex", childIndex);
+        intent.putExtra("comeFrom", comeFrom);
+        intent.putExtra("position", position);
+        intent.putExtra("wrongCount", wrongCount);
+        context.startActivityForResult(intent, YanXiuConstant.LAUNCHER_FROM_MISTAKE);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +94,9 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
         uniteId = getIntent().getStringExtra("uniteId");
         isChapterSection = getIntent().getIntExtra("isChapterSection", 0);
         isNetData = getIntent().getBooleanExtra("isNetData", true);
+        comeFrom = getIntent().getIntExtra("comeFrom", 0);
+        position = getIntent().getIntExtra("position", 0);
+        wrongCount = getIntent().getStringExtra("wrongCount");
         initView();
         initData();
     }
@@ -125,7 +146,53 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
             } catch (Exception e){
             }
             LogInfo.log("haitian", "onPageSelected currentId ="+currentId);
-            requestWrongQuestion(subjectId, editionId, volumeId, chapterId, sectionId, currentPageIndex + 1, currentId);
+            //requestWrongQuestion(subjectId, editionId, volumeId, chapterId, sectionId, currentPageIndex + 1, currentId);
+            requestWrongAllQuestion(subjectId, currentPageIndex + 1, currentId);
+        }
+    }
+
+    private void requestWrongAllQuestion(final String subjectId, final int currentPage, final String currentId) {
+        cancelWrongQuestionTask();
+        if (!isNetData) {
+            new YanxiuSimpleAsyncTask<SubjectExercisesItemBean>(this) {
+                @Override
+                public SubjectExercisesItemBean doInBackground() {
+                    SubjectExercisesItemBean mBean = null;
+                    try {
+                        ArrayList<ExercisesDataEntity> data = null;
+                        ExercisesDataEntity mExercisesDataEntity = PublicErrorQuestionCollectionBean.findExercisesDataEntityWithAll(stageId,
+                                subjectId, (currentPage - 1) * YanXiuConstant
+                                        .YX_PAGESIZE_CONSTANT);
+                        mBean = new SubjectExercisesItemBean();
+                        data = new ArrayList<ExercisesDataEntity>();
+                        data.add(mExercisesDataEntity);
+                        mBean.setData(data);
+                    } catch (Exception e) {
+                    }
+                    return mBean;
+                }
+
+                @Override
+                public void onPostExecute(SubjectExercisesItemBean result) {
+                    if (result != null && result.getData() != null) {
+                        QuestionUtils.initDataWithAnswer(result);
+                        currentPageIndex++;
+                        dataSources.getData().get(0).getPaperTest().addAll(result.getData().get(0).getPaperTest());
+                        adapter.addDataSourcesMore(result.getData().get(0).getPaperTest());
+                    } else {
+                        if (NetWorkTypeUtils.isNetAvailable()) {
+                            Util.showToast(R.string.server_connection_erro);
+                        }
+                    }
+                }
+            }.start();
+        } else {
+            mRequestWrongQuestionTask = new RequestWrongAllQuestionTask(WrongAnswerViewActivity.this, stageId,
+                    subjectId, currentPage, currentId, 2, mWrongQuesAsyncCallBack);
+            mRequestWrongQuestionTask.start();
+            /*mRequestWrongQuestionTask = new RequestWrongQuestionTask(WrongAnswerViewActivity.this, stageId,
+                    subjectId, editionId, chapterId, sectionId, volumeId, currentPage, currentId, uniteId, isChapterSection, mWrongQuesAsyncCallBack);
+            mRequestWrongQuestionTask.start();*/
         }
     }
 
@@ -183,8 +250,10 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
                 }
             }.start();
         } else {
-            mRequestWrongQuestionTask = new RequestWrongQuestionTask(WrongAnswerViewActivity.this, stageId,
-                    subjectId, editionId, chapterId, sectionId, volumeId, currentPage, currentId, uniteId, isChapterSection, mWrongQuesAsyncCallBack);
+            mRequestWrongQuestionTask = new RequestWrongAllQuestionTask(WrongAnswerViewActivity.this, stageId,
+                    subjectId, currentPage, currentId, 2, mWrongQuesAsyncCallBack);
+            //mRequestWrongQuestionTask = new RequestWrongQuestionTask(WrongAnswerViewActivity.this, stageId,
+                    //subjectId, editionId, chapterId, sectionId, volumeId, currentPage, currentId, uniteId, isChapterSection, mWrongQuesAsyncCallBack);
             mRequestWrongQuestionTask.start();
         }
     }
