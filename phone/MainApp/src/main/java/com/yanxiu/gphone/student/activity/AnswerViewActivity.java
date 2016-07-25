@@ -208,6 +208,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
             public void answerViewClick() {
 
             }
+
         });
         if(dataSources != null && dataSources.getData() != null){
             long begintime = System.currentTimeMillis();

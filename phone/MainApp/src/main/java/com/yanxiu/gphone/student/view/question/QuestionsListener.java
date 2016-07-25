@@ -1,5 +1,7 @@
 package com.yanxiu.gphone.student.view.question;
 
+import android.view.View;
+
 import com.yanxiu.gphone.student.bean.AnswerBean;
 
 /**
@@ -33,4 +35,5 @@ public interface QuestionsListener {
      * view click
      * */
     void answerViewClick();
+
 }
