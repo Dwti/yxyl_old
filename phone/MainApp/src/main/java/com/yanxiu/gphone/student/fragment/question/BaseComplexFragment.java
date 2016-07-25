@@ -9,7 +9,7 @@ import com.common.core.utils.LogInfo;
 /**
  * Created by Yjj on 2016/7/25.
  */
-public class ComplexFragment extends BaseQuestionFragment implements View.OnTouchListener {
+public class BaseComplexFragment extends BaseQuestionFragment implements View.OnTouchListener {
 
     public int x;//触点X坐标
     public int y;//触点Y坐标

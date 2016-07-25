@@ -6,7 +6,7 @@ import com.yanxiu.gphone.student.view.question.QuestionsListener;
 /**
  * Created by Yangjj on 2016/7/25.
  */
-public class ReadComplexFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex  {
+public class ReadComplexFragment extends BaseComplexFragment implements QuestionsListener, PageIndex  {
     @Override
     public int getPageIndex() {
         return 0;
