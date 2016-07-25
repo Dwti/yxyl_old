@@ -284,14 +284,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
-                       <!-- <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:id="@+id/btn_subjective_wrong"
-                            android:layout_below="@id/view_objective_line"
-                            android:text="只看错题"/>-->
-
                         <com.common.core.view.UnMoveGridView
                             android:id="@+id/answer_report_grid"
                             android:layout_below="@id/btn_subjective_wrong"
@@ -360,13 +352,6 @@
                 android:textSize="@dimen/dimen_17" />
 
         </FrameLayout>
-
-        <!--<ImageView android:layout_width="@dimen/dimen_88"
-                   android:layout_height="@dimen/dimen_88"
-                   android:layout_marginTop="@dimen/dimen_70"
-                   android:layout_marginRight="@dimen/dimen_40"
-                   android:layout_alignParentRight="true"
-                   android:src="@drawable/answer_report_stamp"/>-->
 
         <ImageView android:layout_width="@dimen/dimen_88"
                    android:layout_height="@dimen/dimen_98"
