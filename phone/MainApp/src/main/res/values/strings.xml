@@ -233,7 +233,8 @@
     <string name="subjective_add_text">上传答案</string>
     <string name="report_error">答案</string>
     <string name="question_judge">判断题</string>
-    <string name="fill_blanks">填空题</string>
+    <string name="question_fill_blanks">填空题</string>
+    <string name="question_reading">材料题</string>
     <string name="question_no_finish">还有未做完的题目，确定提交吗？</string>
     <string name="question_no_finish_live">您可以在练习历史中找到记录并继续答题</string>
     <string name="question_submit">提交</string>

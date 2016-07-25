@@ -122,6 +122,8 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
 
     }
 
+    public void method() throws Exception {};
+
 
     @Override
     public void onPageSelected(int position) {

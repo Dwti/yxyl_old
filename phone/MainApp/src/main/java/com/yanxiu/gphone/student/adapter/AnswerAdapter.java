@@ -180,6 +180,8 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 						}else {
 							pageIndexList.add(pageIndex++);
 						}
+					} else  if(typeId == QUESTION_READING.type){
+
 					}
 					if(fragment != null){
 						((QuestionsListener)fragment).flipNextPager(this);

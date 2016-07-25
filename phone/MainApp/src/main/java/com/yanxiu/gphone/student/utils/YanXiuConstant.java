@@ -4,6 +4,7 @@ import android.os.Environment;
 import android.util.DisplayMetrics;
 
 import com.common.core.utils.CommonCoreUtil;
+import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.YanxiuApplication;
 
 public class YanXiuConstant {
@@ -91,12 +92,12 @@ public class YanXiuConstant {
 
 
 	public enum QUESTION_TYP{
-		QUESTION_SINGLE_CHOICES(1,"单选题"),
-		QUESTION_MULTI_CHOICES(2,"多选题"),
-		QUESTION_JUDGE(4,"判断题"),
-		QUESTION_FILL_BLANKS(3,"填空题"),
-		QUESTION_READING(5,"材料题"),
-		QUESTION_SUBJECTIVE(6,"主观题");
+		QUESTION_SINGLE_CHOICES(1,YanxiuApplication.getInstance().getResources().getString(R.string.question_choice_single)),
+		QUESTION_MULTI_CHOICES(2,YanxiuApplication.getInstance().getResources().getString(R.string.question_choice_multi)),
+		QUESTION_JUDGE(4,YanxiuApplication.getInstance().getResources().getString(R.string.question_judge)),
+		QUESTION_FILL_BLANKS(3,YanxiuApplication.getInstance().getResources().getString(R.string.question_fill_blanks)),
+		QUESTION_READING(5,YanxiuApplication.getInstance().getResources().getString(R.string.question_reading)),
+		QUESTION_SUBJECTIVE(6,YanxiuApplication.getInstance().getResources().getString(R.string.question_subjective));
 
 		public int type;
 		public String name;
