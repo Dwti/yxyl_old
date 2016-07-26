@@ -136,13 +136,14 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 				if(dataList.get(i) != null && dataList.get(i).getQuestions() != null){
 					dataList.get(i).getQuestions().setPageIndex(i);
 					//int typeId = bean.getData().get(0).getPaperTest().get(i).getQuestions().getType_id();
-					int typeId = dataList.get(i).getQuestions().getType_id();
+//					int typeId = dataList.get(i).getQuestions().getType_id();
 //					typeId = 4;
 					dataList.get(i).getQuestions().setTitleName(bean.getData().get(0).getName());
 					Fragment fragment = null;
 //					fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_FILL_BLANKS, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
 //					pageIndexList.add(pageIndex++);
-//					typeId = 4;
+//					typeId = 5;
+					int typeId=5;
 					if(typeId == QUESTION_SUBJECTIVE.type){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_SUBJECTIVE, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
 						if(!isFirstSub){

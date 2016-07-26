@@ -65,6 +65,7 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
         this.pageCountIndex = this.pageIndex;
         if(questionsEntity != null && questionsEntity.getChildren() != null){
             children = questionsEntity.getChildren();
+            children.addAll(children);
 //            LogInfo.log("geny", "chilid" + children.size());
         }
         //注册EventBus

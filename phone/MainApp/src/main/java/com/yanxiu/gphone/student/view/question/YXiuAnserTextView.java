@@ -12,9 +12,9 @@ import android.view.View;
 
 import com.common.core.utils.DensityUtils;
 import com.common.core.utils.imageloader.UilImageGetter;
+import com.common.core.view.htmlview.HtmlTextView;
 import com.yanxiu.gphone.student.YanxiuApplication;
 
-import org.sufficientlysecure.htmltextview.HtmlTextView;
 import org.xml.sax.XMLReader;
 
 /**
