@@ -96,8 +96,9 @@ public class YanXiuConstant {
 		QUESTION_MULTI_CHOICES(2,YanxiuApplication.getInstance().getResources().getString(R.string.question_choice_multi)),
 		QUESTION_JUDGE(4,YanxiuApplication.getInstance().getResources().getString(R.string.question_judge)),
 		QUESTION_FILL_BLANKS(3,YanxiuApplication.getInstance().getResources().getString(R.string.question_fill_blanks)),
-		QUESTION_READING(5,YanxiuApplication.getInstance().getResources().getString(R.string.question_reading)),
-		QUESTION_SUBJECTIVE(6,YanxiuApplication.getInstance().getResources().getString(R.string.question_subjective));
+		QUESTION_READING(7,YanxiuApplication.getInstance().getResources().getString(R.string.question_reading)),
+		QUESTION_SUBJECTIVE(6,YanxiuApplication.getInstance().getResources().getString(R.string.question_subjective)),
+		QUESTION_READ_COMPLEX(5,YanxiuApplication.getInstance().getResources().getString(R.string.question_read_complex));
 
 		public int type;
 		public String name;
