@@ -142,7 +142,7 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 					Fragment fragment = null;
 //					fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_FILL_BLANKS, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
 //					pageIndexList.add(pageIndex++);
-//					typeId = 5;
+					typeId = 16;
 					if(typeId == QUESTION_SUBJECTIVE.type){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_SUBJECTIVE, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
 						if(!isFirstSub){
@@ -195,7 +195,12 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 								}
 							}
 						}
-						pageIndexList.add(pageIndex++);
+						if(dataList.get(i).getQuestions() != null && dataList.get(i).getQuestions().getChildren() != null){
+							pageIndexList.add(pageIndex);
+							pageIndex = dataList.get(i).getQuestions().getChildren().size() + pageIndex;
+						}else {
+							pageIndexList.add(pageIndex++);
+						}
 					}
 					if(fragment != null){
 						((QuestionsListener)fragment).flipNextPager(this);
