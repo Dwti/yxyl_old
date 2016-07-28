@@ -7,6 +7,7 @@ import android.text.Html;
 import android.text.Spanned;
 import android.text.style.ClickableSpan;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 
@@ -70,6 +71,7 @@ public class YXiuAnserTextView extends HtmlTextView {
 
         UilImageGetter imageGetter = new UilImageGetter(this, mCtx, this.application);
         Spanned spanned = Html.fromHtml(text, imageGetter, null);
+//        Log.d("asd",spanned.toString());
         this.setText(spanned);
 
 

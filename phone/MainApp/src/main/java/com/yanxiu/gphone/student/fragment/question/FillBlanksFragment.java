@@ -3,6 +3,7 @@ package com.yanxiu.gphone.student.fragment.question;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
         fillBlanksFramelayout = (FillBlanksFramelayout)rootView.findViewById(R.id.fb_item);
         if(questionsEntity != null && questionsEntity.getStem() != null){
             fillBlanksFramelayout.setData(questionsEntity.getStem());
+            Log.d("asd","Stem+++++"+questionsEntity.getStem());
             fillBlanksFramelayout.setAnswers(questionsEntity.getAnswer());
         }
 
