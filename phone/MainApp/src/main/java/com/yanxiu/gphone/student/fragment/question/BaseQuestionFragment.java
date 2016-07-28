@@ -64,6 +64,10 @@ public class BaseQuestionFragment extends Fragment {
                 ivTopIcon.setImageResource(R.drawable.fill_blanks_bg);
             }else if(typeId == QUESTION_READING.type){
                 ivTopIcon.setImageResource(R.drawable.reading_title_bg);
+            }else if(typeId == QUESTION_READ_COMPLEX.type){
+                ivTopIcon.setImageResource(R.drawable.read_complex_title_bg);
+            }else if(typeId == QUESTION_SOLVE_COMPLEX.type){
+                ivTopIcon.setImageResource(R.drawable.solve_complex_title_bg);
             }
             if(questionsEntity.isReadQuestion()){
                 rlTopView.setVisibility(View.GONE);
