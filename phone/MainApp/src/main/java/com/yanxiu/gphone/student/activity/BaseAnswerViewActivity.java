@@ -13,7 +13,9 @@ import android.widget.ImageView;
 import android.widget.Scroller;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.common.core.utils.LogInfo;
+import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.AnswerAdapter;
 import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
@@ -155,6 +157,8 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 
     protected void initData(){
         dataSources =  (SubjectExercisesItemBean) getIntent().getSerializableExtra("subjectExercisesItemBean");
+        //String jsonString = "{\"ret\":0,\"data\":[{\"id\":\"2734957\",\"type_id\":\"5\",\"difficulty\":\"1\",\"template\":\"multi\",\"stem\":\"<p>One evening, it was raining and the wind was blowing hard. An old couple came to a small hotel and wanted to stay there for the night. A young man welcomed them warmly, but said “I’m sorry! Our rooms here are all full and the hotels nearby are all full too, for there will be an important meeting held here tomorrow.”<\\/p><p>Hearing the young man’s words, the old couple felt very disappointed, and turned around to leave.<\\/p><p>Just as they were leaving, the young man came up to them and stopped them: “Madam and sir, if you don’t mind, you can sleep in my bedroom for a night…”<\\/p><p>The next morning, the old couple took out lots of money to give it to the young man, but he refused to take it.<\\/p><p>“No! You needn’t pay me any money, for I only lend my room to you.” said the young man with a smile on his face.<\\/p><p>“You’re great, young man! It’s very kind of you. Maybe one day, I’ll build a hotel for you!” said the old man. With these words, the old couple left. The young man only laughed and went on working.<\\/p><p>Several years later, the young man got a letter from the old couple, inviting him to go to Manhattan. The young man met the old couple in front of a five-star hotel.<\\/p><p>“Do you still remember what I said to you several years ago? Look! ________” said the old man. Soon, the young man became the manager of the hotel.<\\/p><p><br\\/><\\/p>\",\"answer\":[null],\"content\":null,\"analysis\":\"\",\"point\":[{\"id\":\"1033\",\"name\":\"社会主义现代化成就\"}],\"children\":[{\"id\":\"2734958\",\"type_id\":\"1\",\"difficulty\":\"1\",\"template\":\"choice\",\"stem\":\"<p>testtesds<\\/p><br\\/>\",\"answer\":[\"3\"],\"content\":{\"choices\":[\"asdfas\",\"dsafasf\",\"asdfas\",\"sadfasf\"]},\"analysis\":\"asdfasfs\",\"point\":null},{\"id\":\"2734959\",\"type_id\":\"4\",\"difficulty\":\"1\",\"template\":\"alter\",\"stem\":\"asdfasfasfasfsaf\",\"answer\":[1],\"content\":null,\"analysis\":\"ddd\",\"point\":null}]}]}\n";
+        //dataSources = JSON.parseObject(jsonString, SubjectExercisesItemBean.class);
 
         if(dataSources==null){
             LogInfo.log("geny","dataSources==null");

@@ -236,8 +236,8 @@
     <string name="question_fill_blanks">填空题</string>
     <string name="question_reading">材料题</string>
     <string name="question_listen">听力题</string>
-    <string name="question_cloze_complex">完型填空题</string>
-    <string name="question_read_complex">阅读理解题</string>
+    <string name="question_cloze_complex">完型填空</string>
+    <string name="question_read_complex">阅读理解</string>
     <string name="question_solve_complex">解答题</string>
     <string name="question_no_finish">还有未做完的题目，确定提交吗？</string>
     <string name="question_no_finish_live">您可以在练习历史中找到记录并继续答题</string>

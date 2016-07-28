@@ -4,16 +4,15 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.common.core.utils.CommonCoreUtil;
 import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.AnswerViewActivity;
@@ -22,43 +21,37 @@ import com.yanxiu.gphone.student.adapter.AnswerAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ChildIndexEvent;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
+import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout;
 import com.yanxiu.gphone.student.view.YanxiuTypefaceTextView;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
 /**
- * Created by Administrator on 2015/7/14.
+ * Created by Yangjj on 2016/7/25.
  */
-public class ReadingQuestionsFragment extends BaseQuestionFragment implements View.OnClickListener,QuestionsListener, PageIndex ,ViewPager.OnPageChangeListener {
+public class ReadComplexQuestionFragment extends BaseQuestionFragment implements View.OnClickListener, View.OnTouchListener, QuestionsListener, PageIndex ,ViewPager.OnPageChangeListener  {
+
     private View rootView;
     private ExpandableRelativeLayoutlayout llTopView;
-//    private TextView  tvBottomCtrl;
+    private LinearLayout ll_bottom_view;
     private ImageView ivBottomCtrl;
-    private TextView tvPagerIndex;
-    private TextView tvPagerCount;
-//    private TranslateAnimation animDown;
-    private TranslateAnimation animUp;
+    private YXiuAnserTextView tvYanxiu;
     private int pageCount = 1;
     private QuestionsListener listener;
     private Resources mResources;
 
+    
     private int pageCountIndex;
-
-    private YXiuAnserTextView tvYanxiu;
-
     private ViewPager vpAnswer;
-
     private List<QuestionEntity> children;
 
     private AnswerAdapter adapter;
-    private YanxiuTypefaceTextView tvReadItemQuesitonType;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,41 +67,22 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_read_question,null);
-
-//        android.support.v4.app.FragmentTransaction ft = this.getChildFragmentManager().beginTransaction();
-//        Bundle args = new Bundle();
-//        if(questionsEntity != null){
-//            args.putSerializable("questions", questionsEntity);
-//            args.putInt("answerViewTypyBean", answerViewTypyBean);
-//        }
-//        ft.add(R.id.content_read_question_frament, Fragment.instantiate(this.getActivity(), AnswerViewFragment.class.getName(), args)).commitAllowingStateLoss();
-
+        rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_read_complex_question,null);
         initView();
-        initAnim();
+        //initAnim();
         initData();
         return rootView;
     }
-
-
-//    public int getChildCount(){
-//
-//        if(questionsEntity != null && questionsEntity.getChildren()!= null){
-//            childCount = questionsEntity.getChildren().size();
-//        }
-//
-//        return childCount;
-//    }
+	
+	
 
     private void initData() {
-        mResources = ReadingQuestionsFragment.this.getActivity().getResources();
+        mResources = getActivity().getResources();
         LogInfo.log("geny-", "pageCountIndex====" + pageCountIndex + "---pageIndex===" + pageIndex);
         if(questionsEntity != null && questionsEntity.getStem() != null){
             tvYanxiu.setTextHtml(questionsEntity.getStem());
         }
     }
-
-
     private void initView(){
         llTopView = (ExpandableRelativeLayoutlayout) rootView.findViewById(R.id.rl_top_view);
         llTopView.setOnExpandStateChangeListener(new ExpandableRelativeLayoutlayout.OnExpandStateChangeListener() {
@@ -116,20 +90,15 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
             public void onExpandStateChanged(View view, boolean isExpanded) {
                 if(isExpanded){
                     ivBottomCtrl.setBackgroundResource(R.drawable.read_question_arrow_up);
-//                    animOpen(ivBottomCtrl);
                 }else{
                     ivBottomCtrl.setBackgroundResource(R.drawable.read_question_arrow_down);
-//                    animClose(ivBottomCtrl);
                 }
             }
         });
         ivBottomCtrl = (ImageView) rootView.findViewById(R.id.iv_bottom_ctrl);
-        ivBottomCtrl.setOnClickListener(this);
-        tvPagerIndex = (TextView) rootView.findViewById(R.id.tv_pager_index);
-        tvPagerCount = (TextView) rootView.findViewById(R.id.tv_pager_count);
+        ivBottomCtrl.setOnTouchListener(this);
+        ll_bottom_view = (LinearLayout) rootView.findViewById(R.id.ll_bottom_view);
         tvYanxiu = (YXiuAnserTextView) rootView.findViewById(R.id.yxiu_tv);
-        tvReadItemQuesitonType = (YanxiuTypefaceTextView) rootView.findViewById(R.id.tv_read_item_quesiton_type);
-        tvReadItemQuesitonType.setTypefaceName(YanxiuTypefaceTextView.TypefaceType.METRO_BOLD);
 
 
         vpAnswer = (ViewPager) rootView.findViewById(R.id.answer_viewpager);
@@ -148,9 +117,6 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
         adapter.addDataSourcesForReadingQuestion(children);
         int count = adapter.getCount();
         onPageCount(count);
-//        if(this.getParentFragment() != null && this.getParentFragment() instanceof  ReadingQuestionsFragment){
-//            ((ReadingQuestionsFragment)this.getParentFragment()).
-//        }
         vpAnswer.setAdapter(adapter);
         adapter.setViewPager(vpAnswer);
 
@@ -159,24 +125,12 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
     public void onPageCount(int count) {
 
         pageCount = count;
-        if(count > 0){
-            tvPagerIndex.setText("1");
-            tvPagerCount.setText("/" + count);
-
-        }
-        if(children != null && !children.isEmpty()){
-            tvReadItemQuesitonType.setText(children.get(0).getReadItemName());
-        }
     }
     private boolean isVisibleToUser;
     public void setUserVisibleHint(boolean isVisibleToUser) {
 //        LogInfo.log("geny", "setUserVisibleHint");
         this.isVisibleToUser = isVisibleToUser;
     }
-
-//    public int getPagerIndex() {
-//        return pagerIndex;
-//    }
 
     @Override
     public void onDestroy() {
@@ -185,10 +139,8 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
         rootView=null;
         llTopView=null;
         ivBottomCtrl=null;
-        tvPagerIndex=null;
-        tvPagerCount=null;
-        animUp=null;
-        listener=null;
+        //animUp=null;
+        //listener=null;
         mResources=null;
         tvYanxiu=null;
         vpAnswer=null;
@@ -196,7 +148,6 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
         children=null;
 
         adapter=null;
-        tvReadItemQuesitonType=null;
         System.gc();
     }
 
@@ -212,14 +163,10 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
     public void onPageScrolled(int i, float v, int i1) {
 
     }
-
     public void onPageSelected(int childPosition) {
 //        pagerIndex = position;
         if(questionsEntity != null){
             pageCountIndex = pageIndex + childPosition;
-            tvPagerIndex.setText(String.valueOf(childPosition + 1));
-            tvPagerCount.setText("/" + pageCount);
-            tvReadItemQuesitonType.setText(children.get(childPosition).getReadItemName());
             if (this.getActivity() instanceof AnswerViewActivity && isVisibleToUser){
                 ((AnswerViewActivity) this.getActivity()).setIndexFromRead(pageCountIndex);
             }else if(this.getActivity() instanceof ResolutionAnswerViewActivity && isVisibleToUser){
@@ -244,83 +191,9 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
             }
         }
     }
-
     @Override
-    public void onClick(View v) {
-        if(v == ivBottomCtrl){
-            llTopView.onExpandable(null);
-        }
-    }
-    private void animOpen(final ImageView arrow) {
-        Animation ani = AnimationUtils.loadAnimation(this.getActivity(),
-                R.anim.fenlei_rotate);
-        ani.setFillAfter(true);
-        ani.setAnimationListener(new Animation.AnimationListener() {
+    public void onClick(View view) {
 
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                arrow.setImageResource(R.drawable.read_question_arrow_up);
-                arrow.clearAnimation();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
-        });
-        arrow.startAnimation(ani);
-    }
-
-    private void animClose(final ImageView arrow) {
-//        Util.showToast("animClose");
-        Animation ani = AnimationUtils.loadAnimation(this.getActivity(), R.anim.fenlei_rotate_back);
-        ani.setFillAfter(true);
-        ani.setAnimationListener(new Animation.AnimationListener() {
-
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                arrow.setImageResource(R.drawable.read_question_arrow_down);
-                arrow.clearAnimation();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
-        });
-        arrow.startAnimation(ani);
-    }
-
-
-    private void initAnim() {
-        long ANIMDURATION = 300l;
-        animUp = new TranslateAnimation(0, 0, 0, -CommonCoreUtil.getScreenHeight());
-        animUp.setDuration(ANIMDURATION);
-        animUp.setInterpolator(new AccelerateInterpolator());
-        animUp.setAnimationListener(new Animation.AnimationListener() {
-
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-            }
-        });
     }
 
 
@@ -353,5 +226,77 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
     @Override
     public void setPageIndex(int pageIndex) {
         this.pageIndex = pageIndex;
+    }
+
+    public int x;//触点X坐标
+    public int y;//触点Y坐标
+
+    public int yy;//控件高度
+    public int xx;//控件宽度
+
+    private int move_x;//x轴移动距离
+    private int move_y;//y轴移动距离
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        switch (motionEvent.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                x= (int) motionEvent.getRawX();
+                y= (int) motionEvent.getRawY();
+                xx= (int) ll_bottom_view.getWidth();
+                yy= (int) ll_bottom_view.getHeight();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                int x_now= (int) motionEvent.getRawX();
+                int y_now= (int) motionEvent.getRawY();
+
+                //用来说明滑动情况，无意义
+                if (Math.abs(x_now)>Math.abs(x)) {
+                    //right
+                    LogInfo.log("flip","right");
+                    if (Math.abs(y_now)>Math.abs(y)){
+                        //down
+                        LogInfo.log("flip","down");
+                    }else {
+                        //up
+                        LogInfo.log("flip","up");
+                    }
+                }else {
+                    //left
+                    LogInfo.log("flip","left");
+                    if (Math.abs(y_now)>Math.abs(y)){
+                        //down
+                        LogInfo.log("flip","down");
+                    }else {
+                        //up
+                        LogInfo.log("flip","up");
+                    }
+                }
+
+                move_x=x_now-x;
+                move_y=y_now-y;
+                setMove();
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
+            case MotionEvent.ACTION_CANCEL:
+                break;
+        }
+
+        return true;
+    }
+
+    private void setMove(){
+        LogInfo.log("move",xx+"+XXXXXXXXX");
+        LogInfo.log("move",yy-move_y+"+YYYYYYYYY");
+        WindowManager wm = (WindowManager) getActivity()
+                .getSystemService(getActivity().WINDOW_SERVICE);
+        int height = wm.getDefaultDisplay().getHeight();
+        LogInfo.log("move",height+"+YYYYYYYYY");
+        if (yy-move_y < height*3/5) {
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(xx, yy - move_y);
+            ll_bottom_view.setLayoutParams(layoutParams);
+        }
+        //layoutParams.addRule(LinearLayout., RelativeLayout.TRUE);
     }
 }

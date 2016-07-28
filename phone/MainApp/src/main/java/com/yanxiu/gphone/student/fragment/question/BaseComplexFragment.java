@@ -38,23 +38,23 @@ public class BaseComplexFragment extends BaseQuestionFragment implements View.On
                 //用来说明滑动情况，无意义
                 if (Math.abs(x_now)>Math.abs(x)) {
                     //向友
-                    LogInfo.log("asd","右");
+                    LogInfo.log("asd","right");
                     if (Math.abs(y_now)>Math.abs(y)){
                         //向下
-                        LogInfo.log("asd","下");
+                        LogInfo.log("asd","down");
                     }else {
                         //向上
-                        LogInfo.log("asd","上");
+                        LogInfo.log("asd","up");
                     }
                 }else {
                     //向左
-                    LogInfo.log("asd","左");
+                    LogInfo.log("asd","left");
                     if (Math.abs(y_now)>Math.abs(y)){
                         //向下
-                        LogInfo.log("asd","下");
+                        LogInfo.log("asd","down");
                     }else {
                         //向上
-                        LogInfo.log("asd","上");
+                        LogInfo.log("asd","up");
                     }
                 }
 
