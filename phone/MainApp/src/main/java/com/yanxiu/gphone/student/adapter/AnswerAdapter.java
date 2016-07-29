@@ -18,6 +18,7 @@ import com.yanxiu.gphone.student.view.question.readquestion.InterViewPager;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_CLOZE_COMPLEX;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_FILL_BLANKS;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_JUDGE;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_MULTI_CHOICES;
@@ -142,7 +143,7 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 					Fragment fragment = null;
 //					fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_FILL_BLANKS, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
 //					pageIndexList.add(pageIndex++);
-					typeId = 16;
+					typeId = 15;
 					if(typeId == QUESTION_SUBJECTIVE.type){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_SUBJECTIVE, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
 						if(!isFirstSub){
@@ -184,6 +185,25 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 						}
 					}else if(typeId == QUESTION_READ_COMPLEX.type){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_READ_COMPLEX, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
+
+						if (dataList.get(i).getQuestions() != null) {
+							List<QuestionEntity> childQuestion = dataList.get(i).getQuestions().getChildren();
+							if (childQuestion != null ) {
+								int childCount = childQuestion.size();
+								for (int j = 0; j < childCount; j++) {
+									childQuestion.get(j).setPageIndex(i);
+									childQuestion.get(j).setChildPageIndex(j);
+								}
+							}
+						}
+						if(dataList.get(i).getQuestions() != null && dataList.get(i).getQuestions().getChildren() != null){
+							pageIndexList.add(pageIndex);
+							pageIndex = dataList.get(i).getQuestions().getChildren().size() + pageIndex;
+						}else {
+							pageIndexList.add(pageIndex++);
+						}
+					}else if (typeId== QUESTION_CLOZE_COMPLEX.type){
+						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_CLOZE_COMPLEX, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
 
 						if (dataList.get(i).getQuestions() != null) {
 							List<QuestionEntity> childQuestion = dataList.get(i).getQuestions().getChildren();

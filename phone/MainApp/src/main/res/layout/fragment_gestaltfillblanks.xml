@@ -46,7 +46,7 @@
                                 android:layout_height="wrap_content"
                                 android:padding="@dimen/dimen_10"
                                 android:layout_gravity="center"
-                                android:id="@+id/yxiu_tv"
+                                android:id="@+id/fill_blanks_button"
                                 android:layout_below="@+id/rl_anwser_pen"/>
 
                         </LinearLayout>

@@ -50,6 +50,7 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
     private int pageCountIndex;
     private ViewPager vpAnswer;
     private List<QuestionEntity> children;
+    private boolean isVisibleToUser;
 
     private AnswerAdapter adapter;
 
@@ -126,7 +127,7 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
 
         pageCount = count;
     }
-    private boolean isVisibleToUser;
+
     public void setUserVisibleHint(boolean isVisibleToUser) {
 //        LogInfo.log("geny", "setUserVisibleHint");
         this.isVisibleToUser = isVisibleToUser;

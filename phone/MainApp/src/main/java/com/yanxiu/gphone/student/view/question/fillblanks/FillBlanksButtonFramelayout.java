@@ -2,13 +2,16 @@ package com.yanxiu.gphone.student.view.question.fillblanks;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.Layout;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -46,6 +49,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
     private AnswerBean bean;
     private List<String> answers = new ArrayList<String>();
     private List<TextView> list_textview = new ArrayList<TextView>();
+    private List<String> answers_cache = new ArrayList<String>();
     public Context mCtx;
     private RelativeLayout rlMark;
     private YXiuAnserTextView tvFillBlank;
@@ -54,6 +58,13 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
             "    鲁迅写出了中国现代第一篇白话小说(_)，1918年在(_)上发表其后又发表(_)等著名小说。\n";
     private int answerViewTypyBean;
     private int textSize = 0;
+
+    /**正在回答背景色*/
+    private String Color_FF0000="#ff0000";
+    /**未回答背景色*/
+    private String Color_00FF00="#00ff00";
+    /**已回答背景色*/
+    private String Color_0000FF="#0000ff";
 
     public FillBlanksButtonFramelayout(Context context) {
         super(context);
@@ -87,9 +98,10 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
      * 设置数据源，替换字符
      */
     public void setData(String stem) {
-        data = stem + "  \n";
+//        data = stem + "  \n";
         data = data + "  \n";
-        data = data.replace("(_)", "(________________)");
+//        data = data.replace("(_)", "________________");
+        data = data.replace("(_)", "                ");
 //        tvFillBlank.setTextHtml(data);
         tvFillBlank.setText(data);
 //        Log.d("asd","data++++"+data);
@@ -201,6 +213,22 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         if (selectListener!=null){
             selectListener.QuestionPosition(position);
         }
+        setTextViewColor(position);
+    }
+
+    private void setTextViewColor(int position){
+        for (int i=0;i<list_textview.size();i++){
+            TextView textView=list_textview.get(i);
+            if ((int)textView.getTag()==position){
+                textView.setBackgroundColor(Color.parseColor(Color_FF0000));
+            }else {
+                if (TextUtils.isEmpty(answers_cache.get(i))){
+                    textView.setBackgroundColor(Color.parseColor(Color_00FF00));
+                }else {
+                    textView.setBackgroundColor(Color.parseColor(Color_0000FF));
+                }
+            }
+        }
     }
 
     public interface QuestionPositionSelectListener{
@@ -222,14 +250,23 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         public void onGlobalLayout() {
             FillBlanksButtonFramelayout.this.getViewTreeObserver().removeGlobalOnLayoutListener(
                     this);
-            Pattern pattern = Pattern.compile("_______________");
+            Pattern pattern = Pattern.compile("                ");
             if (!StringUtils.isEmpty(data)) {
                 Matcher matcher = pattern.matcher(data);
                 while (matcher.find()) {
                     addTextView(matcher.start());
+                    setAnswers_cache();
                 }
             }
             initViewWithData(bean);
+        }
+    }
+
+    private void setAnswers_cache(){
+        if (answers_cache.size()==4){
+            answers_cache.add("asd");
+        }else {
+            answers_cache.add("");
         }
     }
 
@@ -276,6 +313,9 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         tv.setBackground(null);
         tv.setOnClickListener(this);
         tv.setTag(list_textview.size());
+        tv.setText(list_textview.size()+1+"");
+        tv.setGravity(Gravity.CENTER);
+        tv.setBackgroundColor(Color.parseColor(Color_00FF00));
         list_textview.add(tv);
         setTextViewCusrorDrawable(tv);
         if (answerViewTypyBean == SubjectExercisesItemBean.RESOLUTION || answerViewTypyBean == SubjectExercisesItemBean.WRONG_SET) {
