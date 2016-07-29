@@ -70,13 +70,10 @@ public class QuestionFragmentFactory {
             case QUESTION_READ_COMPLEX:
                 fragment = new ReadComplexQuestionFragment();
                 break;
-<<<<<<< HEAD
             case QUESTION_CLOZE_COMPLEX:
                 fragment = new GestaltFillBlanksQuestionFragment();
-=======
             case QUESTION_SOLVE_COMPLEX:
                 fragment = new SolveComplexQuestionFragment();
->>>>>>> c6eea19d7a3d946ef7897c5317cb739aa2b6c983
                 break;
 
         }
