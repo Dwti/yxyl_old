@@ -235,7 +235,7 @@
     <string name="question_judge">判断题</string>
     <string name="question_fill_blanks">填空题</string>
     <string name="question_reading">材料题</string>
-    <string name="question_listen">听力题</string>
+    <string name="question_listen_complex">听力题</string>
     <string name="question_cloze_complex">完型填空</string>
     <string name="question_read_complex">阅读理解</string>
     <string name="question_solve_complex">解答题</string>
