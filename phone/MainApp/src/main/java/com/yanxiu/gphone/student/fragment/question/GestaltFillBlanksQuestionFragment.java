@@ -65,7 +65,13 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
         fill_blanks_button.setListener(new FillBlanksButtonFramelayout.QuestionPositionSelectListener() {
             @Override
             public void QuestionPosition(int position) {
-                Toast.makeText(getActivity(),position+"",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(),position+"",Toast.LENGTH_SHORT).show();
+                if (vpAnswer!=null) {
+                    int count = adapter.getCount();
+                    if (position<count) {
+                        vpAnswer.setCurrentItem(position);
+                    }
+                }
             }
         });
     }
@@ -77,6 +83,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
             fill_blanks_button.setData(questionsEntity.getStem());
             Log.d("asd","Stem+++++"+questionsEntity.getStem());
             fill_blanks_button.setAnswers(questionsEntity.getAnswer());
+            fill_blanks_button.setQuestionsEntity(questionsEntity);
         }
 
         vpAnswer = (ViewPager) rootView.findViewById(R.id.answer_viewpager);
@@ -124,7 +131,8 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
 
     @Override
     public void flipNextPager(QuestionsListener listener) {
-
+        String ss="";
+        ss="";
     }
 
     @Override
@@ -172,6 +180,13 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
     public void setUserVisibleHint(boolean isVisibleToUser) {
 //        LogInfo.log("geny", "setUserVisibleHint");
         this.isVisibleToUser = isVisibleToUser;
+        if(!isVisibleToUser && fill_blanks_button!=null){
+            fill_blanks_button.hideSoftInput();
+            if(bean!=null){
+                LogInfo.log("king","saveAnswers");
+                fill_blanks_button.saveAnswers();
+            }
+        }
     }
 
     @Override
@@ -187,6 +202,9 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
                 ((AnswerViewActivity) this.getActivity()).setIndexFromRead(pageCountIndex);
             }else if(this.getActivity() instanceof ResolutionAnswerViewActivity && isVisibleToUser){
                 ((ResolutionAnswerViewActivity)this.getActivity()).setIndexFromRead(pageCountIndex);
+            }
+            if (fill_blanks_button!=null){
+                fill_blanks_button.setTextViewSelect(position);
             }
         }
     }

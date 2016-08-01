@@ -27,6 +27,7 @@ import com.common.core.utils.LogInfo;
 import com.common.core.utils.StringUtils;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.AnswerBean;
+import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
@@ -46,6 +47,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
 
     private QuestionsListener listener;
     private QuestionPositionSelectListener selectListener;
+    protected QuestionEntity questionsEntity;
     private AnswerBean bean;
     private List<String> answers = new ArrayList<String>();
     private List<TextView> list_textview = new ArrayList<TextView>();
@@ -53,9 +55,9 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
     public Context mCtx;
     private RelativeLayout rlMark;
     private YXiuAnserTextView tvFillBlank;
-    private String data = "鲁迅，原名(_)字(_)，他的代表作品是小说集(_)、(_)，散文集(_)。\n" +
-            "    鲁迅再《琐记》一文中，用了(_)来讥讽洋务派的办学。\n" +
-            "    鲁迅写出了中国现代第一篇白话小说(_)，1918年在(_)上发表其后又发表(_)等著名小说。\n";
+    private String data = "鲁迅，原名(_)字，他的代表作品是小说集，散文集。\n" +
+            "    鲁迅再《琐记》一文中，用了来讥讽洋务派的办学。\n" +
+            "    鲁迅写出了中国现代第一篇白话小说(_)，1918年在上发表其后又发表等著名小说。\n";
     private int answerViewTypyBean;
     private int textSize = 0;
 
@@ -101,7 +103,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
 //        data = stem + "  \n";
         data = data + "  \n";
 //        data = data.replace("(_)", "________________");
-        data = data.replace("(_)", "                ");
+        data = data.replace("(_)", "                  ");
 //        tvFillBlank.setTextHtml(data);
         tvFillBlank.setText(data);
 //        Log.d("asd","data++++"+data);
@@ -144,7 +146,26 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
             if (bean.getFillAnswers().size() == rlMark.getChildCount()) {
                 int fillCount = rlMark.getChildCount();
                 for (int i = 0; i < fillCount; i++) {
-                    ((TextView) rlMark.getChildAt(i)).setText(bean.getFillAnswers().get(i));
+                    String text="";
+                    TextView textView=(TextView) rlMark.getChildAt(i);
+                    switch (bean.getFillAnswers().get(i)){
+                        case "0":
+                            text="A";
+                            break;
+                        case "1":
+                            text="B";
+                            break;
+                        case "2":
+                            text="C";
+                            break;
+                        case "3":
+                            text="D";
+                            break;
+                        default:
+                            text=(int)textView.getTag()+"";
+                            break;
+                    }
+                    textView.setText(text);
                 }
             }
         }
@@ -152,7 +173,10 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
 
     @Override
     public void answerViewClick() {
+    }
 
+    public void setQuestionsEntity(QuestionEntity questionsEntity){
+        this.questionsEntity=questionsEntity;
     }
 
     /**
@@ -167,12 +191,14 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
             int fillCount = rlMark.getChildCount();
             int answerCount = bean.getFillAnswers().size();
             bean.setIsFinish(false);
+            List<QuestionEntity> list=questionsEntity.getChildren();
             for (int i = 0; i < fillCount; i++) {
                 String fillAnswer = "";
-                if (!StringUtils.isEmpty(
-                        ((TextView) rlMark.getChildAt(i)).getText().toString())) {
-                    fillAnswer = ((TextView) rlMark.getChildAt(i)).getText().toString();
-                    bean.setIsFinish(true);
+                if (list!=null) {
+                    if (!StringUtils.isEmpty(list.get(i).getAnswerBean().getSelectType())) {
+                        fillAnswer = list.get(i).getAnswerBean().getSelectType();
+                        bean.setIsFinish(true);
+                    }
                 }
                 if (answerCount == fillCount) {
                     bean.getFillAnswers().set(i, fillAnswer);
@@ -213,10 +239,10 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         if (selectListener!=null){
             selectListener.QuestionPosition(position);
         }
-        setTextViewColor(position);
+        setTextViewSelect(position);
     }
 
-    private void setTextViewColor(int position){
+    public void setTextViewSelect(int position){
         for (int i=0;i<list_textview.size();i++){
             TextView textView=list_textview.get(i);
             if ((int)textView.getTag()==position){
@@ -250,7 +276,8 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         public void onGlobalLayout() {
             FillBlanksButtonFramelayout.this.getViewTreeObserver().removeGlobalOnLayoutListener(
                     this);
-            Pattern pattern = Pattern.compile("                ");
+            Pattern pattern = Pattern.compile("                  ");
+//            Pattern pttern1 = Pattern.compile("                  ");
             if (!StringUtils.isEmpty(data)) {
                 Matcher matcher = pattern.matcher(data);
                 while (matcher.find()) {
@@ -263,11 +290,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
     }
 
     private void setAnswers_cache(){
-        if (answers_cache.size()==4){
-            answers_cache.add("asd");
-        }else {
-            answers_cache.add("");
-        }
+        answers_cache.add("");
     }
 
     /**
@@ -293,15 +316,15 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         RelativeLayout.LayoutParams params;
         if (bean != null && String.valueOf(YanXiuConstant.SUBJECT.YINYU).equals(bean.getSubjectId())) {
             if (CommonCoreUtil.getSDK() >= 21) {
-                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() / 2) * 15), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()));
+                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() / 2) * 8), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()));
             } else {
-                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() / 2) * 15), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize() * 4 / 5));
+                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() / 2) * 8), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize() * 4 / 5));
             }
         } else {
             if (CommonCoreUtil.getSDK() >= 21) {
-                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() / 2) * 15), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()));
+                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() / 2) * 8), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()));
             } else {
-                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() / 2) * 15), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize() / 3));
+                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() / 2) * 8), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize() / 3));
             }
         }
         params.leftMargin = (int) xAxisLeft;
@@ -313,7 +336,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         tv.setBackground(null);
         tv.setOnClickListener(this);
         tv.setTag(list_textview.size());
-        tv.setText(list_textview.size()+1+"");
+//        tv.setText(list_textview.size()+1+"");
         tv.setGravity(Gravity.CENTER);
         tv.setBackgroundColor(Color.parseColor(Color_00FF00));
         list_textview.add(tv);
