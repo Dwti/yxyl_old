@@ -1,90 +1,98 @@
-<ScrollView android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <RelativeLayout android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="@dimen/dimen_30">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/dimen_30">
 
 
-        <LinearLayout android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_margin="@dimen/dimen_20"
-                      android:orientation="horizontal"
-                      android:id="@+id/ll_answer_content">
+        <LinearLayout
+            android:id="@+id/ll_answer_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_20"
+            android:orientation="horizontal">
 
-            <ImageView android:layout_width="@dimen/dimen_28"
-                       android:layout_height="@dimen/dimen_30"
-                       android:layout_marginTop="@dimen/dimen_7"
-                       android:src="@drawable/icon_question_q"/>
+            <ImageView
+                android:layout_width="@dimen/dimen_28"
+                android:layout_height="@dimen/dimen_30"
+                android:layout_marginTop="@dimen/dimen_7"
+                android:src="@drawable/icon_question_q" />
 
-            <FrameLayout android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:layout_marginLeft="@dimen/dimen_12"
-                         android:background="@drawable/question_content_bg">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_12"
+                android:background="@drawable/question_content_bg">
 
                 <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/dimen_15"
-                        android:layout_gravity="center"
-                        android:textColor="@color/color_black"
-                        android:id="@+id/yxiu_tv"
-                        android:layout_below="@+id/view_line_ccc4a3"/>
+                    android:id="@+id/yxiu_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view_line_ccc4a3"
+                    android:layout_gravity="center"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/dimen_15" />
 
             </FrameLayout>
 
         </LinearLayout>
 
-        <View android:layout_width="match_parent"
-              android:layout_height="@dimen/dimen_1"
-              android:layout_marginLeft="@dimen/dimen_60"
-              android:layout_marginTop="@dimen/dimen_20"
-              android:layout_marginBottom="@dimen/dimen_20"
-              android:layout_marginRight="@dimen/dimen_10"
-              android:background="@drawable/repeat_common_line"
-              android:id="@+id/view_line_ccc4a3_2"
-              android:layout_below="@id/ll_answer_content"
-              android:layerType="software" />
+        <View
+            android:id="@+id/view_line_ccc4a3_2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1"
+            android:layout_below="@id/ll_answer_content"
+            android:layout_marginBottom="@dimen/dimen_20"
+            android:layout_marginLeft="@dimen/dimen_60"
+            android:layout_marginRight="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:background="@drawable/repeat_common_line"
+            android:layerType="software" />
 
 
-        <LinearLayout android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_margin="@dimen/dimen_20"
-                      android:layout_below="@id/view_line_ccc4a3_2"
-                      android:orientation="horizontal"
-                      android:id="@+id/ll_answer">
+        <LinearLayout
+            android:id="@+id/ll_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_line_ccc4a3_2"
+            android:layout_margin="@dimen/dimen_20"
+            android:orientation="horizontal">
 
-            <ImageView android:layout_width="@dimen/dimen_26"
-                       android:layout_height="@dimen/dimen_28"
-                       android:src="@drawable/icon_question_a"/>
+            <ImageView
+                android:layout_width="@dimen/dimen_26"
+                android:layout_height="@dimen/dimen_28"
+                android:src="@drawable/icon_question_a" />
 
             <com.yanxiu.gphone.student.view.question.choicequestion.ChoiceQuestions
-                    android:layout_width="match_parent"
-                    android:id="@+id/cq_item"
-                    android:layout_height="wrap_content" />
+                android:id="@+id/cq_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
 
-        <FrameLayout android:layout_width="match_parent"
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/ll_answer">
 
             <com.yanxiu.gphone.student.view.YanxiuTypefaceButton
-                    style="@style/btn_problem_analysis"
-                    app:type_face="fz.ttf"
-                    android:id="@+id/add_problem_analysis"/>
+                android:id="@+id/add_problem_analysis"
+                style="@style/btn_problem_analysis"
+                app:type_face="fz.ttf" />
 
         </FrameLayout>
 
         <FrameLayout
-                android:id="@+id/content_problem_analysis"
-                android:layout_below="@+id/ll_answer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            android:id="@+id/content_problem_analysis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_answer" />
 
     </RelativeLayout>
 
