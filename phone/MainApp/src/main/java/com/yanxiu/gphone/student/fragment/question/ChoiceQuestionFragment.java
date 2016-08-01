@@ -13,6 +13,7 @@ import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.inter.AnswerCallback;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 import com.yanxiu.gphone.student.view.question.choicequestion.ChoiceQuestions;
@@ -24,7 +25,7 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
 
     private View rootView;
     private ChoiceQuestions choiceQuestions;
-    private QuestionsListener listener;
+    private static QuestionsListener listener;
     //本地的保存数据bean
     private AnswerBean bean;
 
@@ -36,6 +37,8 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
     public int typeId;
 
     private Fragment resolutionFragment;
+    private static AnswerCallback callback;
+    private int position;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,9 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
         rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_choices_question,null);
         choiceQuestions = (ChoiceQuestions) rootView.findViewById(R.id.cq_item);
         choiceQuestions.flipNextPager(listener);
+        if (callback!=null) {
+            choiceQuestions.setAnswerCallback(position, callback);
+        }
         yXiuAnserTextView = (YXiuAnserTextView) rootView.findViewById(R.id.yxiu_tv);
         FragmentTransaction ft = ChoiceQuestionFragment.this.getChildFragmentManager().beginTransaction();
         ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
@@ -64,7 +70,13 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
         return rootView;
     }
 
-
+    public void setAnswerCallback(int position,AnswerCallback callback){
+        this.callback=callback;
+        this.position=position;
+        if (choiceQuestions!=null) {
+            choiceQuestions.setAnswerCallback(position, callback);
+        }
+    }
 
 
     private void selectTypeView(){

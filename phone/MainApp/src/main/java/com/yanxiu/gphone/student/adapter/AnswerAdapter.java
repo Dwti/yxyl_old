@@ -11,7 +11,9 @@ import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.fragment.question.ChoiceQuestionFragment;
 import com.yanxiu.gphone.student.fragment.question.QuestionFragmentFactory;
+import com.yanxiu.gphone.student.inter.AnswerCallback;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.readquestion.InterViewPager;
 
@@ -36,6 +38,7 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 	private int answerViewTypyBean = 0;
 
 	private QuestionsListener flip;
+	private AnswerCallback callback;
 
 
 	private ArrayList<Integer> pageIndexList = new ArrayList<Integer>();
@@ -326,6 +329,10 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 		return "";
 	}
 
+	public void setAnswerCallback(AnswerCallback callback){
+		this.callback=callback;
+	}
+
 	public void addDataSourcesForReadingQuestion(List<QuestionEntity> dataList){
 		if(dataList != null){
 			int count = dataList.size();
@@ -339,6 +346,7 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 					Fragment fragment = null;
 					if(typeId == QUESTION_SINGLE_CHOICES.type) {
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_SINGLE_CHOICES, dataList.get(i), answerViewTypyBean, dataList.get(i).getChildPageIndex());
+						((ChoiceQuestionFragment)fragment).setAnswerCallback(i,callback);
 					}else if(typeId == QUESTION_MULTI_CHOICES.type){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_MULTI_CHOICES, dataList.get(i), answerViewTypyBean, dataList.get(i).getChildPageIndex());
 					}else if(typeId == QUESTION_JUDGE.type){

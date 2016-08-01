@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
+import com.yanxiu.gphone.student.inter.AnswerCallback;
 import com.yanxiu.gphone.student.utils.QuestionUtils;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 
@@ -27,6 +28,10 @@ public class ChoiceQuestions extends LinearLayout implements ChoiceQuestionsItem
     private boolean isSingleChoice;
 
     private QuestionsListener listener;
+
+    private AnswerCallback callback;
+    private int position;
+
 
     //本地答案
     private AnswerBean bean;
@@ -149,6 +154,11 @@ public class ChoiceQuestions extends LinearLayout implements ChoiceQuestionsItem
     public void flipNextPager(QuestionsListener listener) {
         this.listener = listener;
         LogInfo.log("geny", "ChoiceQuestions flipNextPager");
+    }
+
+    public void setAnswerCallback(int position,AnswerCallback callback){
+        this.position=position;
+        this.callback=callback;
     }
 
     /**
@@ -382,6 +392,9 @@ public class ChoiceQuestions extends LinearLayout implements ChoiceQuestionsItem
                 //点击选中的item
                 if(((ChoiceQuestionsItem) view).isChecked() && view == choiceQuestionsItem){
                     bean.setSelectType(((ChoiceQuestionsItem) view).getSelectType());
+                    if (callback!=null){
+                        callback.answercallback(position,((ChoiceQuestionsItem) view).getSelectType());
+                    }
                     if(listener != null){
                         listener.flipNextPager(listener);
                     }

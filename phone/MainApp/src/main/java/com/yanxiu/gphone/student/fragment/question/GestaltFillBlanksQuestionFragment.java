@@ -18,6 +18,7 @@ import com.yanxiu.gphone.student.adapter.AnswerAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ChildIndexEvent;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
+import com.yanxiu.gphone.student.inter.AnswerCallback;
 import com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.fillblanks.FillBlanksButtonFramelayout;
@@ -30,7 +31,7 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by Administrator on 2016/7/28.
  */
-public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex, ViewPager.OnPageChangeListener {
+public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex, ViewPager.OnPageChangeListener,AnswerCallback {
 
     private AnswerBean bean;
     private FillBlanksButtonFramelayout fill_blanks_button;
@@ -81,7 +82,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
         fill_blanks_button= (FillBlanksButtonFramelayout) rootView.findViewById(R.id.fill_blanks_button);
         if(questionsEntity != null && questionsEntity.getStem() != null){
             fill_blanks_button.setData(questionsEntity.getStem());
-            Log.d("asd","Stem+++++"+questionsEntity.getStem());
+//            Log.d("asd","Stem+++++"+questionsEntity.getStem());
             fill_blanks_button.setAnswers(questionsEntity.getAnswer());
             fill_blanks_button.setQuestionsEntity(questionsEntity);
         }
@@ -98,6 +99,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
         //=============================================
         vpAnswer.setOnPageChangeListener(this);
         adapter = new AnswerAdapter(this.getChildFragmentManager());
+        adapter.setAnswerCallback(this);
         adapter.setAnswerViewTypyBean(answerViewTypyBean);
         adapter.addDataSourcesForReadingQuestion(children);
         int count = adapter.getCount();
@@ -227,5 +229,12 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
 
         adapter=null;
         System.gc();
+    }
+
+    @Override
+    public void answercallback(int position,String answer) {
+        if (fill_blanks_button!=null) {
+            fill_blanks_button.setAnswersToPosition(position, answer);
+        }
     }
 }

@@ -146,29 +146,35 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
             if (bean.getFillAnswers().size() == rlMark.getChildCount()) {
                 int fillCount = rlMark.getChildCount();
                 for (int i = 0; i < fillCount; i++) {
-                    String text="";
                     TextView textView=(TextView) rlMark.getChildAt(i);
-                    switch (bean.getFillAnswers().get(i)){
-                        case "0":
-                            text="A";
-                            break;
-                        case "1":
-                            text="B";
-                            break;
-                        case "2":
-                            text="C";
-                            break;
-                        case "3":
-                            text="D";
-                            break;
-                        default:
-                            text=(int)textView.getTag()+"";
-                            break;
-                    }
-                    textView.setText(text);
+                    String answer=bean.getFillAnswers().get(i);
+                    setText(textView,answer);
+                    setTextColor(textView,answer);
                 }
             }
         }
+    }
+
+    private void setText(TextView textView,String answer){
+        String text="";
+        switch (answer){
+            case "0":
+                text="A";
+                break;
+            case "1":
+                text="B";
+                break;
+            case "2":
+                text="C";
+                break;
+            case "3":
+                text="D";
+                break;
+            default:
+                text=(int)textView.getTag()+1+"";
+                break;
+        }
+        textView.setText(text);
     }
 
     @Override
@@ -210,6 +216,11 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         }
     }
 
+    public void setAnswersToPosition(int position,String answer){
+        TextView textView=(TextView) rlMark.getChildAt(position);
+        setText(textView,answer);
+    }
+
     /**
      * 隐藏软键盘
      */
@@ -242,18 +253,28 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         setTextViewSelect(position);
     }
 
+
     public void setTextViewSelect(int position){
         for (int i=0;i<list_textview.size();i++){
             TextView textView=list_textview.get(i);
             if ((int)textView.getTag()==position){
                 textView.setBackgroundColor(Color.parseColor(Color_FF0000));
             }else {
-                if (TextUtils.isEmpty(answers_cache.get(i))){
-                    textView.setBackgroundColor(Color.parseColor(Color_00FF00));
+                if (bean!=null&&bean.getFillAnswers()!=null&&bean.getFillAnswers().size()>i){
+                    String answer=bean.getFillAnswers().get(i);
+                    setTextColor(textView,answer);
                 }else {
-                    textView.setBackgroundColor(Color.parseColor(Color_0000FF));
+                    setTextColor(textView,null);
                 }
             }
+        }
+    }
+
+    private void setTextColor(TextView textView,String answer){
+        if (TextUtils.isEmpty(answer)){
+            textView.setBackgroundColor(Color.parseColor(Color_00FF00));
+        }else {
+            textView.setBackgroundColor(Color.parseColor(Color_0000FF));
         }
     }
 
@@ -282,7 +303,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
                 Matcher matcher = pattern.matcher(data);
                 while (matcher.find()) {
                     addTextView(matcher.start());
-                    setAnswers_cache();
+//                    setAnswers_cache();
                 }
             }
             initViewWithData(bean);
@@ -290,7 +311,8 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
     }
 
     private void setAnswers_cache(){
-        answers_cache.add("");
+//        answers_cache.add("");
+        bean.getFillAnswers().add("");
     }
 
     /**
