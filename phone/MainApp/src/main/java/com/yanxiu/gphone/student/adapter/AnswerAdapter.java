@@ -368,6 +368,7 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 					int typeId = dataList.get(i).getType_id();
 
 					dataList.get(i).setReadItemName(getTypeName(typeId));
+
 					Fragment fragment = null;
 					if(typeId == QUESTION_SINGLE_CHOICES.type) {
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_SINGLE_CHOICES, dataList.get(i), answerViewTypyBean, dataList.get(i).getChildPageIndex());
