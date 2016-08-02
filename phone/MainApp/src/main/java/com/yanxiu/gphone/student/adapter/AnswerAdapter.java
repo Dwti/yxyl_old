@@ -34,7 +34,7 @@ import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTI
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SOLVE_COMPLEX;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SUBJECTIVE;
 
-public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsListener {
+public class AnswerAdapter extends FragmentStatePagerAdapter implements QuestionsListener {
 	private ArrayList<Fragment> mFragments;
 	private ViewPager mViewPager;
 //	private SubjectExercisesItemBean subjectExercisesItemBean;
