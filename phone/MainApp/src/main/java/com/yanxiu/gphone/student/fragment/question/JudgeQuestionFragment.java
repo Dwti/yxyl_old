@@ -20,7 +20,7 @@ import com.yanxiu.gphone.student.view.question.judgequestion.JudgeQuestions;
  */
 public class JudgeQuestionFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex  {
     private JudgeQuestions judgeQuestions;
-    private QuestionsListener listener;
+    private static QuestionsListener listener;
     private YXiuAnserTextView yXiuAnserTextView;
     private AnswerBean bean;
 

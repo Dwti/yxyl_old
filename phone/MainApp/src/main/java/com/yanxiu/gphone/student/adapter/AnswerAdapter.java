@@ -12,6 +12,7 @@ import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.fragment.question.QuestionFragmentFactory;
+import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.readquestion.InterViewPager;
 
@@ -121,13 +122,14 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 	}
 
 	public void addDataSources(SubjectExercisesItemBean bean){
-//		subjectExercisesItemBean = bean;
+		SubjectExercisesItemBean beanTmp = Util.getSubjectExercisesItemBean();
 		if(bean!=null && bean.getData()!= null && !bean.getData().isEmpty()){
 			answerViewTypyBean = bean.getViewType();
 //			isResolution = bean.getIsResolution();
 //			isWrongSet = bean.isWrongSet();
 			//data 中数据为数组 只是去数组中的第一个item
-			dataList.addAll(bean.getData().get(0).getPaperTest());
+			//dataList.addAll(bean.getData().get(0).getPaperTest());
+			dataList.addAll(beanTmp.getData().get(0).getPaperTest());
 			/*for (int i=0; i<bean.getData().size(); i++) {
 				dataList.addAll(bean.getData().get(i).getPaperTest());
 			}*/
@@ -135,7 +137,7 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 			mFragments.clear();
 			int pageIndex = 1;
 			boolean isFirstSub = false;
-			//dataList.get(0).getQuestions().setType_id(17);
+			//dataList.get(0).getQuestions().setType_id(16);
 			for(int i = 0; i < count; i++){
 				if(dataList.get(i) != null && dataList.get(i).getQuestions() != null){
 					dataList.get(i).getQuestions().setPageIndex(i);
@@ -145,7 +147,6 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 					Fragment fragment = null;
 //					fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_FILL_BLANKS, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
 //					pageIndexList.add(pageIndex++);
-					typeId = 15;
 					if(typeId == QUESTION_SUBJECTIVE.type){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_SUBJECTIVE, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
 						if(!isFirstSub){

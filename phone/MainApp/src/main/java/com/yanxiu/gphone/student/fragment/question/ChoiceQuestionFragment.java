@@ -24,7 +24,7 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
 
     private View rootView;
     private ChoiceQuestions choiceQuestions;
-    private QuestionsListener listener;
+    private static QuestionsListener listener;
     //本地的保存数据bean
     private AnswerBean bean;
 
