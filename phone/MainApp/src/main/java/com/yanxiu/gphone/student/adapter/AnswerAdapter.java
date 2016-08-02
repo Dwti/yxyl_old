@@ -34,7 +34,7 @@ import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTI
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SOLVE_COMPLEX;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SUBJECTIVE;
 
-public class AnswerAdapter extends FragmentStatePagerAdapter implements QuestionsListener {
+public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsListener {
 	private ArrayList<Fragment> mFragments;
 	private ViewPager mViewPager;
 //	private SubjectExercisesItemBean subjectExercisesItemBean;
@@ -331,10 +331,72 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 		}
 	}
 
+	public String getTypeName(int typeId){
+		if(typeId == QUESTION_SINGLE_CHOICES.type) {
+			return QUESTION_SINGLE_CHOICES.name;
+		}else if(typeId == QUESTION_MULTI_CHOICES.type){
+			return QUESTION_MULTI_CHOICES.name;
+		}else if(typeId == QUESTION_JUDGE.type){
+			return QUESTION_JUDGE.name;
+		}else if(typeId == QUESTION_FILL_BLANKS.type){
+			return QUESTION_FILL_BLANKS.name;
+		}else if(typeId == QUESTION_READING.type){
+			return QUESTION_READING.name;
+		}else if(typeId == QUESTION_SUBJECTIVE.type){
+			return QUESTION_SUBJECTIVE.name;
+		}else if(typeId == QUESTION_CLOZE_COMPLEX.type){
+			return QUESTION_CLOZE_COMPLEX.name;
+		}else if(typeId == QUESTION_LISTEN_COMPLEX.type) {
+			return QUESTION_LISTEN_COMPLEX.name;
+		}else if(typeId == QUESTION_READ_COMPLEX.type){
+			return QUESTION_READ_COMPLEX.name;
+		}else if(typeId == QUESTION_SOLVE_COMPLEX.type) {
+			return QUESTION_SOLVE_COMPLEX.name;
+		}
+		return "";
+	}
+
 	public void setAnswerCallback(AnswerCallback callback){
 		this.callback=callback;
 	}
 
+	public void addDataSourcesForReadingQuestion(List<QuestionEntity> dataList){
+		if(dataList != null){
+			int count = dataList.size();
+			List<QuestionEntity> dirtyData = new ArrayList<>();
+			for(int i = 0; i < count; i++){
+				if(dataList.get(i) !=null){
+					dataList.get(i).setReadQuestion(true);
+					int typeId = dataList.get(i).getType_id();
+
+					dataList.get(i).setReadItemName(getTypeName(typeId));
+
+					Fragment fragment = null;
+					if(typeId == QUESTION_SINGLE_CHOICES.type) {
+						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_SINGLE_CHOICES, dataList.get(i), answerViewTypyBean, dataList.get(i).getChildPageIndex());
+						((ChoiceQuestionFragment)fragment).setAnswerCallback(i,callback);
+					}else if(typeId == QUESTION_MULTI_CHOICES.type){
+						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_MULTI_CHOICES, dataList.get(i), answerViewTypyBean, dataList.get(i).getChildPageIndex());
+					}else if(typeId == QUESTION_JUDGE.type){
+						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_JUDGE, dataList.get(i), answerViewTypyBean, dataList.get(i).getChildPageIndex());
+					}else if(typeId == QUESTION_FILL_BLANKS.type){
+						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_FILL_BLANKS, dataList.get(i), answerViewTypyBean, dataList.get(i).getChildPageIndex());
+					}else{
+						dirtyData.add(dataList.get(i));
+					}
+//					else if(typeId == QUESTION_READING.type){
+//						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_READING, dataList.get(i), answerViewTypyBean, dataList.get(i).getChildPageIndex());
+//					}
+					if(fragment != null){
+						mFragments.add(fragment);
+						((QuestionsListener)fragment).flipNextPager(this);
+						((QuestionsListener)fragment).setDataSources(dataList.get(i).getAnswerBean());
+					}
+				}
+			}
+			dataList.removeAll(dirtyData);
+		}
+	}
 	public void deleteFragment(int index){
 		if(mFragments != null && mFragments.size() > index){
 			mFragments.remove(index);

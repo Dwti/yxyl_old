@@ -12,7 +12,7 @@ import android.view.animation.Interpolator;
 import android.widget.Scroller;
 
 import com.yanxiu.gphone.student.R;
-import com.yanxiu.gphone.student.adapter.ChildAnswerAdapter;
+import com.yanxiu.gphone.student.adapter.AnswerAdapter;
 import com.yanxiu.gphone.student.bean.ChildIndexEvent;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 
@@ -34,7 +34,7 @@ public class AnswerViewFragment extends Fragment implements View.OnClickListener
 
     private List<QuestionEntity> children;
 
-    private ChildAnswerAdapter childAnswerAdapter;
+    private AnswerAdapter childAnswerAdapter;
 
 //    private boolean isResolution;
 //    //是否是错题集
@@ -139,7 +139,7 @@ public class AnswerViewFragment extends Fragment implements View.OnClickListener
         }
         //=============================================
         vpAnswer.setOnPageChangeListener(this);
-        childAnswerAdapter = new ChildAnswerAdapter(this.getChildFragmentManager());
+        childAnswerAdapter = new AnswerAdapter(this.getChildFragmentManager());
         childAnswerAdapter.setAnswerViewTypyBean(answerViewTypyBean);
         childAnswerAdapter.addDataSourcesForReadingQuestion(children);
         int count = childAnswerAdapter.getCount();

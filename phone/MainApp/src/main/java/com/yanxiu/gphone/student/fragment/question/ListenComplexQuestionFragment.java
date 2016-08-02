@@ -26,7 +26,6 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.AnswerViewActivity;
 import com.yanxiu.gphone.student.activity.ResolutionAnswerViewActivity;
 import com.yanxiu.gphone.student.adapter.AnswerAdapter;
-import com.yanxiu.gphone.student.adapter.ChildAnswerAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ChildIndexEvent;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
@@ -61,7 +60,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     private ViewPager vpAnswer;
     private List<QuestionEntity> children;
     private boolean isVisibleToUser;
-    private ChildAnswerAdapter adapter;
+    private AnswerAdapter adapter;
     private Chronometer et_time;
     private SimpleAudioPlayer mSimplePlayer;
     private MediaPlayer mediaPlayer;
@@ -129,7 +128,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         }
         //=============================================
         vpAnswer.setOnPageChangeListener(this);
-        adapter = new ChildAnswerAdapter(this.getChildFragmentManager());
+        adapter = new AnswerAdapter(this.getChildFragmentManager());
         adapter.setAnswerViewTypyBean(answerViewTypyBean);
         adapter.addDataSourcesForReadingQuestion(children);
         int count = adapter.getCount();
@@ -195,7 +194,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         } else {
             //继续播放
             subtime += SystemClock.elapsedRealtime() - pauseTime;
-            mediaPlayer.start();
+            //mediaPlayer.start();
             beginTime = falgTime + subtime;
             et_time.setBase(beginTime);
             et_time.start();
