@@ -176,6 +176,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
             // 获得歌曲现在播放位置并设置成播放进度条的值
             if (mediaPlayer != null) {
                 mSimplePlayer.setProgress(mediaPlayer.getCurrentPosition());
+                Log.i("progress",mediaPlayer.getCurrentPosition()+"");
                 // 每次延迟100毫秒再启动线程
                 handler.postDelayed(updateThread, 100);
             }

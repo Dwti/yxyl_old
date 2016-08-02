@@ -2,6 +2,7 @@ package com.yanxiu.gphone.student.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -56,16 +57,12 @@ public class SimpleAudioPlayer extends FrameLayout {
                 isPlaying = !isPlaying;
             }
         });
+        Log.i("init",mProgressBar.getProgress()+"");
     }
 
 
     public void setMax(int max) {
         mProgressBar.setMax(max);
-    }
-
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
     }
 
     public void setProgress(int progress) {
