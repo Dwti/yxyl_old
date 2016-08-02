@@ -79,6 +79,9 @@ public class QuestionFragmentFactory {
             case QUESTION_SOLVE_COMPLEX:
                 fragment = new SolveComplexQuestionFragment();
                 break;
+            case QUESTION_LISTEN_COMPLEX:
+                fragment = new ListenComplexFragment();
+                break;
 
         }
         LogInfo.log(TAG,"fragment setArguments -questionsEntity "+questionsEntity);

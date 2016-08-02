@@ -20,6 +20,7 @@ public class YanxiuCommonBaseActivity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i("当前",this.getClass().getName());
     }
 
     @Override
