@@ -14,6 +14,7 @@ import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.fragment.question.ChoiceQuestionFragment;
 import com.yanxiu.gphone.student.fragment.question.QuestionFragmentFactory;
 import com.yanxiu.gphone.student.inter.AnswerCallback;
+import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.readquestion.InterViewPager;
 
@@ -23,6 +24,7 @@ import java.util.List;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_CLOZE_COMPLEX;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_FILL_BLANKS;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_JUDGE;
+import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_LISTEN_COMPLEX;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_MULTI_CHOICES;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_READING;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_READ_COMPLEX;
@@ -124,13 +126,14 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 	}
 
 	public void addDataSources(SubjectExercisesItemBean bean){
-//		subjectExercisesItemBean = bean;
+		SubjectExercisesItemBean beanTmp = Util.getSubjectExercisesItemBean();
 		if(bean!=null && bean.getData()!= null && !bean.getData().isEmpty()){
 			answerViewTypyBean = bean.getViewType();
 //			isResolution = bean.getIsResolution();
 //			isWrongSet = bean.isWrongSet();
 			//data 中数据为数组 只是去数组中的第一个item
-			dataList.addAll(bean.getData().get(0).getPaperTest());
+			//dataList.addAll(bean.getData().get(0).getPaperTest());
+			dataList.addAll(beanTmp.getData().get(0).getPaperTest());
 			/*for (int i=0; i<bean.getData().size(); i++) {
 				dataList.addAll(bean.getData().get(i).getPaperTest());
 			}*/
@@ -138,7 +141,7 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 			mFragments.clear();
 			int pageIndex = 1;
 			boolean isFirstSub = false;
-			//dataList.get(0).getQuestions().setType_id(17);
+			//dataList.get(0).getQuestions().setType_id(16);
 			for(int i = 0; i < count; i++){
 				if(dataList.get(i) != null && dataList.get(i).getQuestions() != null){
 					dataList.get(i).getQuestions().setPageIndex(i);
@@ -148,7 +151,6 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 					Fragment fragment = null;
 //					fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_FILL_BLANKS, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
 //					pageIndexList.add(pageIndex++);
-					typeId = 15;
 					if(typeId == QUESTION_SUBJECTIVE.type){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_SUBJECTIVE, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
 						if(!isFirstSub){
@@ -186,6 +188,25 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 							pageIndexList.add(pageIndex);
 							pageIndex = dataList.get(i).getQuestions().getChildren().size() + pageIndex;
 						}else {
+							pageIndexList.add(pageIndex++);
+						}
+					}else if(typeId == QUESTION_LISTEN_COMPLEX.type) {
+						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_LISTEN_COMPLEX, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
+
+						if (dataList.get(i).getQuestions() != null) {
+							List<QuestionEntity> childQuestion = dataList.get(i).getQuestions().getChildren();
+							if (childQuestion != null) {
+								int childCount = childQuestion.size();
+								for (int j = 0; j < childCount; j++) {
+									childQuestion.get(j).setPageIndex(i);
+									childQuestion.get(j).setChildPageIndex(j);
+								}
+							}
+						}
+						if (dataList.get(i).getQuestions() != null && dataList.get(i).getQuestions().getChildren() != null) {
+							pageIndexList.add(pageIndex);
+							pageIndex = dataList.get(i).getQuestions().getChildren().size() + pageIndex;
+						} else {
 							pageIndexList.add(pageIndex++);
 						}
 					}else if(typeId == QUESTION_READ_COMPLEX.type){
@@ -285,6 +306,8 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_FILL_BLANKS, paperList.get(i).getQuestions(), answerViewTypyBean, 0);
 					}else if(typeId == QUESTION_READING.type){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_READING, paperList.get(i).getQuestions(), answerViewTypyBean, 0);
+					}else if(typeId == QUESTION_LISTEN_COMPLEX.type){
+						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_LISTEN_COMPLEX, paperList.get(i).getQuestions(), answerViewTypyBean, 0);
 					}else if(typeId == QUESTION_READ_COMPLEX.type){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_READ_COMPLEX, paperList.get(i).getQuestions(), answerViewTypyBean, 0);
 					}else if(typeId == QUESTION_SOLVE_COMPLEX.type){
@@ -321,6 +344,8 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 			return QUESTION_SUBJECTIVE.name;
 		}else if(typeId == QUESTION_CLOZE_COMPLEX.type){
 			return QUESTION_CLOZE_COMPLEX.name;
+		}else if(typeId == QUESTION_LISTEN_COMPLEX.type) {
+			return QUESTION_LISTEN_COMPLEX.name;
 		}else if(typeId == QUESTION_READ_COMPLEX.type){
 			return QUESTION_READ_COMPLEX.name;
 		}else if(typeId == QUESTION_SOLVE_COMPLEX.type) {

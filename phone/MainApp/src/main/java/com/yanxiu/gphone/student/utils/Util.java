@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.common.core.utils.CommonCoreUtil;
 import com.common.core.utils.StringUtils;
 import com.jakewharton.scalpel.ScalpelFrameLayout;
@@ -23,6 +24,7 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.YanxiuApplication;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
+import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.preference.PreferencesManager;
 import com.yanxiu.gphone.student.view.YanxiuTypefaceTextView;
 
@@ -503,6 +505,396 @@ public class Util {
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
+    }
+
+    public static SubjectExercisesItemBean getSubjectExercisesItemBean() {
+        String str = "{\n" +
+                "    \"data\": [\n" +
+                "        {\n" +
+                "            \"authorid\": 20049003,\n" +
+                "            \"bedition\": 1452,\n" +
+                "            \"begintime\": 1468320000000,\n" +
+                "            \"buildtime\": 1468320062000,\n" +
+                "            \"chapterName\": \"第1章 统计\",\n" +
+                "            \"chapterid\": 201804,\n" +
+                "            \"editionName\": \"大纲版\",\n" +
+                "            \"endtime\": 1468339140000,\n" +
+                "            \"id\": 88398,\n" +
+                "            \"name\": \"7月12日数学作业\",\n" +
+                "            \"paperStatus\": {\n" +
+                "                \"begintime\": 1470103308000,\n" +
+                "                \"checkStatus\": 0,\n" +
+                "                \"costtime\": 3,\n" +
+                "                \"endtime\": 1470103441000,\n" +
+                "                \"id\": 70835,\n" +
+                "                \"ppid\": 88398,\n" +
+                "                \"rate\": 0,\n" +
+                "                \"status\": 1,\n" +
+                "                \"tid\": 0,\n" +
+                "                \"uid\": 6355\n" +
+                "            },\n" +
+                "            \"paperTest\": [\n" +
+                "                {\n" +
+                "                    \"difficulty\": 3,\n" +
+                "                    \"id\": 570354,\n" +
+                "                    \"isfavorite\": 0,\n" +
+                "                    \"knowledgepoint\": \"44463\",\n" +
+                "                    \"pad\": {\n" +
+                "                        \"answer\": \"[]\",\n" +
+                "                        \"costtime\": 0,\n" +
+                "                        \"id\": 390741,\n" +
+                "                        \"jsonAnswer\": [],\n" +
+                "                        \"ptid\": 570354,\n" +
+                "                        \"status\": 3,\n" +
+                "                        \"uid\": 6355\n" +
+                "                    },\n" +
+                "                    \"pid\": 88398,\n" +
+                "                    \"qid\": 2734957,\n" +
+                "                    \"qtype\": 0,\n" +
+                "                    \"questions\": {\n" +
+                "                        \"analysis\": \"\",\n" +
+                "                        \"answer\": [\n" +
+                "                            null\n" +
+                "                        ],\n" +
+                "                        \"children\": [\n" +
+                "                            {\n" +
+                "                                \"analysis\": \"asdfasfs\",\n" +
+                "                                \"answer\": [\n" +
+                "                                    \"3\"\n" +
+                "                                ],\n" +
+                "                                \"content\": {\n" +
+                "                                    \"choices\": [\n" +
+                "                                        \"asdfas\",\n" +
+                "                                        \"dsafasf\",\n" +
+                "                                        \"asdfas\",\n" +
+                "                                        \"sadfasf\"\n" +
+                "                                    ]\n" +
+                "                                },\n" +
+                "                                \"difficulty\": \"1\",\n" +
+                "                                \"id\": \"2734958\",\n" +
+                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
+                "                                \"template\": \"choice\",\n" +
+                "                                \"type_id\": \"1\"\n" +
+                "                            },\n" +
+                "                            {\n" +
+                "                                \"analysis\": \"ddd\",\n" +
+                "                                \"answer\": [\n" +
+                "                                    \"1\"\n" +
+                "                                ],\n" +
+                "                                \"difficulty\": \"1\",\n" +
+                "                                \"id\": \"2734959\",\n" +
+                "                                \"stem\": \"asdfasfasfasfsaf\",\n" +
+                "                                \"template\": \"alter\",\n" +
+                "                                \"type_id\": \"4\"\n" +
+                "                            }\n" +
+                "                        ],\n" +
+                "                        \"difficulty\": \"1\",\n" +
+                "                        \"id\": \"2734957\",\n" +
+                "                        \"point\": [\n" +
+                "                            {\n" +
+                "                                \"id\": \"1033\",\n" +
+                "                                \"name\": \"社会主义现代化成就\"\n" +
+                "                            }\n" +
+                "                        ],\n" +
+                "                        \"stem\": \"<p>One evening, it was raining and the wind was blowing hard. An old couple came to a small hotel and wanted to stay there for the night. A young man welcomed them warmly, but said “I’m sorry! Our rooms here are all full and the hotels nearby are all full too, for there will be an important meeting held here tomorrow.”</p><p>Hearing the young man’s words, the old couple felt very disappointed, and turned around to leave.</p><p>Just as they were leaving, the young man came up to them and stopped them: “Madam and sir, if you don’t mind, you can sleep in my bedroom for a night…”</p><p>The next morning, the old couple took out lots of money to give it to the young man, but he refused to take it.</p><p>“No! You needn’t pay me any money, for I only lend my room to you.” said the young man with a smile on his face.</p><p>“You’re great, young man! It’s very kind of you. Maybe one day, I’ll build a hotel for you!” said the old man. With these words, the old couple left. The young man only laughed and went on working.</p><p>Several years later, the young man got a letter from the old couple, inviting him to go to Manhattan. The young man met the old couple in front of a five-star hotel.</p><p>“Do you still remember what I said to you several years ago? Look! ________” said the old man. Soon, the young man became the manager of the hotel.</p><p><br/></p>\",\n" +
+                "                        \"template\": \"multi\",\n" +
+                "                        \"type_id\": \"13\"\n" +
+                "                    },\n" +
+                "                    \"sectionid\": 201804\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"difficulty\": 3,\n" +
+                "                    \"id\": 570354,\n" +
+                "                    \"isfavorite\": 0,\n" +
+                "                    \"knowledgepoint\": \"44463\",\n" +
+                "                    \"pad\": {\n" +
+                "                        \"answer\": \"[]\",\n" +
+                "                        \"costtime\": 0,\n" +
+                "                        \"id\": 390741,\n" +
+                "                        \"jsonAnswer\": [],\n" +
+                "                        \"ptid\": 570354,\n" +
+                "                        \"status\": 3,\n" +
+                "                        \"uid\": 6355\n" +
+                "                    },\n" +
+                "                    \"pid\": 88398,\n" +
+                "                    \"qid\": 2734957,\n" +
+                "                    \"qtype\": 0,\n" +
+                "                    \"questions\": {\n" +
+                "                        \"analysis\": \"\",\n" +
+                "                        \"answer\": [\n" +
+                "                            null\n" +
+                "                        ],\n" +
+                "                        \"children\": [\n" +
+                "                            {\n" +
+                "                                \"analysis\": \"asdfasfs\",\n" +
+                "                                \"answer\": [\n" +
+                "                                    \"3\"\n" +
+                "                                ],\n" +
+                "                                \"content\": {\n" +
+                "                                    \"choices\": [\n" +
+                "                                        \"asdfas\",\n" +
+                "                                        \"dsafasf\",\n" +
+                "                                        \"asdfas\",\n" +
+                "                                        \"sadfasf\"\n" +
+                "                                    ]\n" +
+                "                                },\n" +
+                "                                \"difficulty\": \"1\",\n" +
+                "                                \"id\": \"2734958\",\n" +
+                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
+                "                                \"template\": \"choice\",\n" +
+                "                                \"type_id\": \"1\"\n" +
+                "                            },\n" +
+                "                            {\n" +
+                "                                \"analysis\": \"ddd\",\n" +
+                "                                \"answer\": [\n" +
+                "                                    \"1\"\n" +
+                "                                ],\n" +
+                "                                \"difficulty\": \"1\",\n" +
+                "                                \"id\": \"2734959\",\n" +
+                "                                \"stem\": \"asdfasfasfasfsaf\",\n" +
+                "                                \"template\": \"alter\",\n" +
+                "                                \"type_id\": \"4\"\n" +
+                "                            }\n" +
+                "                        ],\n" +
+                "                        \"difficulty\": \"1\",\n" +
+                "                        \"id\": \"2734957\",\n" +
+                "                        \"point\": [\n" +
+                "                            {\n" +
+                "                                \"id\": \"1033\",\n" +
+                "                                \"name\": \"社会主义现代化成就\"\n" +
+                "                            }\n" +
+                "                        ],\n" +
+                "                        \"stem\": \"<p>One evening, it was raining and the wind was blowing hard. An old couple came to a small hotel and wanted to stay there for the night. A young man welcomed them warmly, but said “I’m sorry! Our rooms here are all full and the hotels nearby are all full too, for there will be an important meeting held here tomorrow.”</p><p>Hearing the young man’s words, the old couple felt very disappointed, and turned around to leave.</p><p>Just as they were leaving, the young man came up to them and stopped them: “Madam and sir, if you don’t mind, you can sleep in my bedroom for a night…”</p><p>The next morning, the old couple took out lots of money to give it to the young man, but he refused to take it.</p><p>“No! You needn’t pay me any money, for I only lend my room to you.” said the young man with a smile on his face.</p><p>“You’re great, young man! It’s very kind of you. Maybe one day, I’ll build a hotel for you!” said the old man. With these words, the old couple left. The young man only laughed and went on working.</p><p>Several years later, the young man got a letter from the old couple, inviting him to go to Manhattan. The young man met the old couple in front of a five-star hotel.</p><p>“Do you still remember what I said to you several years ago? Look! ________” said the old man. Soon, the young man became the manager of the hotel.</p><p><br/></p>\",\n" +
+                "                        \"template\": \"multi\",\n" +
+                "                        \"type_id\": \"15\"\n" +
+                "                    },\n" +
+                "                    \"sectionid\": 201804\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"difficulty\": 3,\n" +
+                "                    \"id\": 570354,\n" +
+                "                    \"isfavorite\": 0,\n" +
+                "                    \"knowledgepoint\": \"44463\",\n" +
+                "                    \"pad\": {\n" +
+                "                        \"answer\": \"[]\",\n" +
+                "                        \"costtime\": 0,\n" +
+                "                        \"id\": 390741,\n" +
+                "                        \"jsonAnswer\": [],\n" +
+                "                        \"ptid\": 570354,\n" +
+                "                        \"status\": 3,\n" +
+                "                        \"uid\": 6355\n" +
+                "                    },\n" +
+                "                    \"pid\": 88398,\n" +
+                "                    \"qid\": 2734957,\n" +
+                "                    \"qtype\": 0,\n" +
+                "                    \"questions\": {\n" +
+                "                        \"analysis\": \"\",\n" +
+                "                        \"answer\": [\n" +
+                "                            null\n" +
+                "                        ],\n" +
+                "                        \"children\": [\n" +
+                "                            {\n" +
+                "                                \"analysis\": \"asdfasfs\",\n" +
+                "                                \"answer\": [\n" +
+                "                                    \"3\"\n" +
+                "                                ],\n" +
+                "                                \"content\": {\n" +
+                "                                    \"choices\": [\n" +
+                "                                        \"asdfas\",\n" +
+                "                                        \"dsafasf\",\n" +
+                "                                        \"asdfas\",\n" +
+                "                                        \"sadfasf\"\n" +
+                "                                    ]\n" +
+                "                                },\n" +
+                "                                \"difficulty\": \"1\",\n" +
+                "                                \"id\": \"2734958\",\n" +
+                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
+                "                                \"template\": \"choice\",\n" +
+                "                                \"type_id\": \"1\"\n" +
+                "                            },\n" +
+                "                            {\n" +
+                "                                \"analysis\": \"ddd\",\n" +
+                "                                \"answer\": [\n" +
+                "                                    \"1\"\n" +
+                "                                ],\n" +
+                "                                \"difficulty\": \"1\",\n" +
+                "                                \"id\": \"2734959\",\n" +
+                "                                \"stem\": \"asdfasfasfasfsaf\",\n" +
+                "                                \"template\": \"alter\",\n" +
+                "                                \"type_id\": \"4\"\n" +
+                "                            }\n" +
+                "                        ],\n" +
+                "                        \"difficulty\": \"1\",\n" +
+                "                        \"id\": \"2734957\",\n" +
+                "                        \"point\": [\n" +
+                "                            {\n" +
+                "                                \"id\": \"1033\",\n" +
+                "                                \"name\": \"社会主义现代化成就\"\n" +
+                "                            }\n" +
+                "                        ],\n" +
+                "                        \"stem\": \"<p>One evening, it was raining and the wind was blowing hard. An old couple came to a small hotel and wanted to stay there for the night. A young man welcomed them warmly, but said “I’m sorry! Our rooms here are all full and the hotels nearby are all full too, for there will be an important meeting held here tomorrow.”</p><p>Hearing the young man’s words, the old couple felt very disappointed, and turned around to leave.</p><p>Just as they were leaving, the young man came up to them and stopped them: “Madam and sir, if you don’t mind, you can sleep in my bedroom for a night…”</p><p>The next morning, the old couple took out lots of money to give it to the young man, but he refused to take it.</p><p>“No! You needn’t pay me any money, for I only lend my room to you.” said the young man with a smile on his face.</p><p>“You’re great, young man! It’s very kind of you. Maybe one day, I’ll build a hotel for you!” said the old man. With these words, the old couple left. The young man only laughed and went on working.</p><p>Several years later, the young man got a letter from the old couple, inviting him to go to Manhattan. The young man met the old couple in front of a five-star hotel.</p><p>“Do you still remember what I said to you several years ago? Look! ________” said the old man. Soon, the young man became the manager of the hotel.</p><p><br/></p>\",\n" +
+                "                        \"template\": \"multi\",\n" +
+                "                        \"type_id\": \"16\"\n" +
+                "                    },\n" +
+                "                    \"sectionid\": 201804\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"difficulty\": 3,\n" +
+                "                    \"id\": 570354,\n" +
+                "                    \"isfavorite\": 0,\n" +
+                "                    \"knowledgepoint\": \"44463\",\n" +
+                "                    \"pad\": {\n" +
+                "                        \"answer\": \"[]\",\n" +
+                "                        \"costtime\": 0,\n" +
+                "                        \"id\": 390741,\n" +
+                "                        \"jsonAnswer\": [],\n" +
+                "                        \"ptid\": 570354,\n" +
+                "                        \"status\": 3,\n" +
+                "                        \"uid\": 6355\n" +
+                "                    },\n" +
+                "                    \"pid\": 88398,\n" +
+                "                    \"qid\": 2734957,\n" +
+                "                    \"qtype\": 0,\n" +
+                "                    \"questions\": {\n" +
+                "                        \"analysis\": \"\",\n" +
+                "                        \"answer\": [\n" +
+                "                            null\n" +
+                "                        ],\n" +
+                "                        \"children\": [\n" +
+                "                            {\n" +
+                "                                \"analysis\": \"asdfasfs\",\n" +
+                "                                \"answer\": [\n" +
+                "                                    \"3\"\n" +
+                "                                ],\n" +
+                "                                \"content\": {\n" +
+                "                                    \"choices\": [\n" +
+                "                                        \"asdfas\",\n" +
+                "                                        \"dsafasf\",\n" +
+                "                                        \"asdfas\",\n" +
+                "                                        \"sadfasf\"\n" +
+                "                                    ]\n" +
+                "                                },\n" +
+                "                                \"difficulty\": \"1\",\n" +
+                "                                \"id\": \"2734958\",\n" +
+                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
+                "                                \"template\": \"choice\",\n" +
+                "                                \"type_id\": \"1\"\n" +
+                "                            },\n" +
+                "                            {\n" +
+                "                                \"analysis\": \"ddd\",\n" +
+                "                                \"answer\": [\n" +
+                "                                    \"1\"\n" +
+                "                                ],\n" +
+                "                                \"difficulty\": \"1\",\n" +
+                "                                \"id\": \"2734959\",\n" +
+                "                                \"stem\": \"asdfasfasfasfsaf\",\n" +
+                "                                \"template\": \"alter\",\n" +
+                "                                \"type_id\": \"4\"\n" +
+                "                            }\n" +
+                "                        ],\n" +
+                "                        \"difficulty\": \"1\",\n" +
+                "                        \"id\": \"2734957\",\n" +
+                "                        \"point\": [\n" +
+                "                            {\n" +
+                "                                \"id\": \"1033\",\n" +
+                "                                \"name\": \"社会主义现代化成就\"\n" +
+                "                            }\n" +
+                "                        ],\n" +
+                "                        \"stem\": \"<p>One evening, it was raining and the wind was blowing hard. An old couple came to a small hotel and wanted to stay there for the night. A young man welcomed them warmly, but said “I’m sorry! Our rooms here are all full and the hotels nearby are all full too, for there will be an important meeting held here tomorrow.”</p><p>Hearing the young man’s words, the old couple felt very disappointed, and turned around to leave.</p><p>Just as they were leaving, the young man came up to them and stopped them: “Madam and sir, if you don’t mind, you can sleep in my bedroom for a night…”</p><p>The next morning, the old couple took out lots of money to give it to the young man, but he refused to take it.</p><p>“No! You needn’t pay me any money, for I only lend my room to you.” said the young man with a smile on his face.</p><p>“You’re great, young man! It’s very kind of you. Maybe one day, I’ll build a hotel for you!” said the old man. With these words, the old couple left. The young man only laughed and went on working.</p><p>Several years later, the young man got a letter from the old couple, inviting him to go to Manhattan. The young man met the old couple in front of a five-star hotel.</p><p>“Do you still remember what I said to you several years ago? Look! ________” said the old man. Soon, the young man became the manager of the hotel.</p><p><br/></p>\",\n" +
+                "                        \"template\": \"multi\",\n" +
+                "                        \"type_id\": \"17\"\n" +
+                "                    },\n" +
+                "                    \"sectionid\": 201804\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"difficulty\": 3,\n" +
+                "                    \"id\": 570354,\n" +
+                "                    \"isfavorite\": 0,\n" +
+                "                    \"knowledgepoint\": \"44463\",\n" +
+                "                    \"pad\": {\n" +
+                "                        \"answer\": \"[]\",\n" +
+                "                        \"costtime\": 0,\n" +
+                "                        \"id\": 390741,\n" +
+                "                        \"jsonAnswer\": [],\n" +
+                "                        \"ptid\": 570354,\n" +
+                "                        \"status\": 3,\n" +
+                "                        \"uid\": 6355\n" +
+                "                    },\n" +
+                "                    \"pid\": 88398,\n" +
+                "                    \"qid\": 2734957,\n" +
+                "                    \"qtype\": 0,\n" +
+                "                    \"questions\": {\n" +
+                "                        \"analysis\": \"\",\n" +
+                "                        \"answer\": [\n" +
+                "                            null\n" +
+                "                        ],\n" +
+                "                        \"children\": [\n" +
+                "                            {\n" +
+                "                                \"analysis\": \"asdfasfs\",\n" +
+                "                                \"answer\": [\n" +
+                "                                    \"3\"\n" +
+                "                                ],\n" +
+                "                                \"content\": {\n" +
+                "                                    \"choices\": [\n" +
+                "                                        \"asdfas\",\n" +
+                "                                        \"dsafasf\",\n" +
+                "                                        \"asdfas\",\n" +
+                "                                        \"sadfasf\"\n" +
+                "                                    ]\n" +
+                "                                },\n" +
+                "                                \"difficulty\": \"1\",\n" +
+                "                                \"id\": \"2734958\",\n" +
+                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
+                "                                \"template\": \"choice\",\n" +
+                "                                \"type_id\": \"1\"\n" +
+                "                            },\n" +
+                "                            {\n" +
+                "                                \"analysis\": \"ddd\",\n" +
+                "                                \"answer\": [\n" +
+                "                                    \"1\"\n" +
+                "                                ],\n" +
+                "                                \"difficulty\": \"1\",\n" +
+                "                                \"id\": \"2734959\",\n" +
+                "                                \"stem\": \"asdfasfasfasfsaf\",\n" +
+                "                                \"template\": \"alter\",\n" +
+                "                                \"type_id\": \"4\"\n" +
+                "                            }\n" +
+                "                        ],\n" +
+                "                        \"difficulty\": \"1\",\n" +
+                "                        \"id\": \"2734957\",\n" +
+                "                        \"point\": [\n" +
+                "                            {\n" +
+                "                                \"id\": \"1033\",\n" +
+                "                                \"name\": \"社会主义现代化成就\"\n" +
+                "                            }\n" +
+                "                        ],\n" +
+                "                        \"stem\": \"<p>One evening, it was raining and the wind was blowing hard. An old couple came to a small hotel and wanted to stay there for the night. A young man welcomed them warmly, but said “I’m sorry! Our rooms here are all full and the hotels nearby are all full too, for there will be an important meeting held here tomorrow.”</p><p>Hearing the young man’s words, the old couple felt very disappointed, and turned around to leave.</p><p>Just as they were leaving, the young man came up to them and stopped them: “Madam and sir, if you don’t mind, you can sleep in my bedroom for a night…”</p><p>The next morning, the old couple took out lots of money to give it to the young man, but he refused to take it.</p><p>“No! You needn’t pay me any money, for I only lend my room to you.” said the young man with a smile on his face.</p><p>“You’re great, young man! It’s very kind of you. Maybe one day, I’ll build a hotel for you!” said the old man. With these words, the old couple left. The young man only laughed and went on working.</p><p>Several years later, the young man got a letter from the old couple, inviting him to go to Manhattan. The young man met the old couple in front of a five-star hotel.</p><p>“Do you still remember what I said to you several years ago? Look! ________” said the old man. Soon, the young man became the manager of the hotel.</p><p><br/></p>\",\n" +
+                "                        \"template\": \"multi\",\n" +
+                "                        \"type_id\": \"15\"\n" +
+                "                    },\n" +
+                "                    \"sectionid\": 201804\n" +
+                "                }\n" +
+                "            ],\n" +
+                "            \"ptype\": 1,\n" +
+                "            \"quesnum\": 1,\n" +
+                "            \"sectionid\": 0,\n" +
+                "            \"showana\": 1,\n" +
+                "            \"stageName\": \"高中\",\n" +
+                "            \"stageid\": 1204,\n" +
+                "            \"status\": 1,\n" +
+                "            \"subjectName\": \"数学\",\n" +
+                "            \"subjectid\": 1103,\n" +
+                "            \"subquesnum\": 2,\n" +
+                "            \"volume\": 201803,\n" +
+                "            \"volumeName\": \"高三上\"\n" +
+                "        }\n" +
+                "    ],\n" +
+                "    \"status\": {\n" +
+                "        \"code\": 0,\n" +
+                "        \"desc\": \"get question list success\"\n" +
+                "    }\n" +
+                "}";
+        return (SubjectExercisesItemBean) JSON.parseObject(str, SubjectExercisesItemBean.class);
     }
 
 

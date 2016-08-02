@@ -67,6 +67,9 @@ public class QuestionFragmentFactory {
             case QUESTION_SUBJECTIVE:
                 fragment = new SubjectiveQuestionFragment();
                 break;
+            case QUESTION_LISTEN_COMPLEX:
+                fragment = new ListenComplexQuestionFragment();
+                break;
             case QUESTION_READ_COMPLEX:
                 fragment = new ReadComplexQuestionFragment();
                 break;
