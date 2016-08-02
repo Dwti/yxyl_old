@@ -22,6 +22,7 @@ import java.util.List;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_CLOZE_COMPLEX;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_FILL_BLANKS;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_JUDGE;
+import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_LISTEN_COMPLEX;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_MULTI_CHOICES;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_READING;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_READ_COMPLEX;
@@ -186,6 +187,25 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 						}else {
 							pageIndexList.add(pageIndex++);
 						}
+					}else if(typeId == QUESTION_LISTEN_COMPLEX.type) {
+						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_LISTEN_COMPLEX, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
+
+						if (dataList.get(i).getQuestions() != null) {
+							List<QuestionEntity> childQuestion = dataList.get(i).getQuestions().getChildren();
+							if (childQuestion != null) {
+								int childCount = childQuestion.size();
+								for (int j = 0; j < childCount; j++) {
+									childQuestion.get(j).setPageIndex(i);
+									childQuestion.get(j).setChildPageIndex(j);
+								}
+							}
+						}
+						if (dataList.get(i).getQuestions() != null && dataList.get(i).getQuestions().getChildren() != null) {
+							pageIndexList.add(pageIndex);
+							pageIndex = dataList.get(i).getQuestions().getChildren().size() + pageIndex;
+						} else {
+							pageIndexList.add(pageIndex++);
+						}
 					}else if(typeId == QUESTION_READ_COMPLEX.type){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_READ_COMPLEX, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
 
@@ -283,6 +303,8 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_FILL_BLANKS, paperList.get(i).getQuestions(), answerViewTypyBean, 0);
 					}else if(typeId == QUESTION_READING.type){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_READING, paperList.get(i).getQuestions(), answerViewTypyBean, 0);
+					}else if(typeId == QUESTION_LISTEN_COMPLEX.type){
+						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_LISTEN_COMPLEX, paperList.get(i).getQuestions(), answerViewTypyBean, 0);
 					}else if(typeId == QUESTION_READ_COMPLEX.type){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_READ_COMPLEX, paperList.get(i).getQuestions(), answerViewTypyBean, 0);
 					}else if(typeId == QUESTION_SOLVE_COMPLEX.type){
@@ -319,6 +341,8 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 			return QUESTION_SUBJECTIVE.name;
 		}else if(typeId == QUESTION_CLOZE_COMPLEX.type){
 			return QUESTION_CLOZE_COMPLEX.name;
+		}else if(typeId == QUESTION_LISTEN_COMPLEX.type) {
+			return QUESTION_LISTEN_COMPLEX.name;
 		}else if(typeId == QUESTION_READ_COMPLEX.type){
 			return QUESTION_READ_COMPLEX.name;
 		}else if(typeId == QUESTION_SOLVE_COMPLEX.type) {
