@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.R;
@@ -46,13 +48,16 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
         this.typeId = (getArguments() != null) ? getArguments().getInt("typeId") : null;
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_choices_question,null);
+        LinearLayout ll_answer_content= (LinearLayout) rootView.findViewById(R.id.ll_answer_content);
+        View view_line_ccc4a3_2=rootView.findViewById(R.id.view_line_ccc4a3_2);
         choiceQuestions = (ChoiceQuestions) rootView.findViewById(R.id.cq_item);
         choiceQuestions.flipNextPager(listener);
         if (callback!=null) {
+            ll_answer_content.setVisibility(View.GONE);
+            view_line_ccc4a3_2.setVisibility(View.GONE);
             choiceQuestions.setAnswerCallback(position, callback);
         }
         yXiuAnserTextView = (YXiuAnserTextView) rootView.findViewById(R.id.yxiu_tv);

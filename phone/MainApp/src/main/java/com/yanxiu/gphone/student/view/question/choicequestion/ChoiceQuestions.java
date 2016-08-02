@@ -401,6 +401,9 @@ public class ChoiceQuestions extends LinearLayout implements ChoiceQuestionsItem
                 }else{
                     //其他的item置为 未选中
                     ((ChoiceQuestionsItem) view).setUnSelected();
+                    if (view == choiceQuestionsItem&&callback!=null){
+                        callback.answercallback(position,"-1");
+                    }
                 }
             }
 

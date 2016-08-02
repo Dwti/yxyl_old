@@ -1,34 +1,37 @@
-<RelativeLayout android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <ImageView android:layout_width="@dimen/dimen_46"
-               android:layout_height="@dimen/dimen_18"
-               android:id="@+id/iv_answer_top_icon"
-               android:layout_marginLeft="@dimen/dimen_20"
-               android:layout_marginTop="@dimen/dimen_10" />
+    <ImageView
+        android:id="@+id/iv_answer_top_icon"
+        android:layout_width="@dimen/dimen_46"
+        android:layout_height="@dimen/dimen_18"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_marginTop="@dimen/dimen_10" />
 
 
-    <TextView android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_alignParentRight="true"
-              android:singleLine="true"
-              android:layout_marginLeft="@dimen/dimen_10"
-              android:gravity="right"
-              android:layout_toRightOf="@id/iv_answer_top_icon"
-              android:layout_marginRight="@dimen/dimen_10"
-              android:layout_marginTop="@dimen/dimen_10"
-              android:textColor="@color/color_b3ab8f"
-              android:textSize="@dimen/dimen_12"
-              android:id="@+id/tv_title_name"/>
+    <TextView
+        android:id="@+id/tv_title_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_toRightOf="@id/iv_answer_top_icon"
+        android:gravity="right"
+        android:singleLine="true"
+        android:textColor="@color/color_b3ab8f"
+        android:textSize="@dimen/dimen_12" />
 
-    <View android:layout_width="match_parent"
-          android:layout_height="@dimen/dimen_1"
-          android:layout_marginTop="@dimen/dimen_10"
-          android:layout_marginBottom="@dimen/dimen_10"
-          android:layout_marginRight="@dimen/dimen_10"
-          android:layout_marginLeft="@dimen/dimen_20"
-          android:background="@drawable/repeat_common_line"
-          android:layout_below="@id/iv_answer_top_icon" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1"
+        android:layout_below="@id/iv_answer_top_icon"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:background="@drawable/repeat_common_line" />
 
 </RelativeLayout>

@@ -8,11 +8,14 @@
               android:layout_height="match_parent"
               android:lineSpacingExtra="@dimen/dimen_9"
               android:textSize="@dimen/dimen_15"
+        android:padding="@dimen/dimen_10"
               android:textColor="@color/color_black"
               android:id="@+id/tv_fill_blanks" />
 
     <RelativeLayout android:layout_width="match_parent"
                     android:layout_height="match_parent"
+        android:paddingLeft="@dimen/dimen_10"
+        android:paddingRight="@dimen/dimen_10"
                     android:id="@+id/rl_mark" />
 
     <!--<TextView android:layout_width="match_parent"

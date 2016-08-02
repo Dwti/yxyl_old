@@ -57,8 +57,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/rl_anwser_pen"
-                                android:layout_gravity="center"
-                                android:padding="@dimen/dimen_10" />
+                                android:layout_gravity="center" />
 
                         </LinearLayout>
                     </ScrollView>

@@ -7,19 +7,17 @@ import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.text.Layout;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
-import android.widget.TextView;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.common.core.utils.CommonCoreUtil;
 import com.common.core.utils.DensityUtils;
@@ -29,6 +27,7 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
@@ -61,12 +60,12 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
     private int answerViewTypyBean;
     private int textSize = 0;
 
-    /**正在回答背景色*/
-    private String Color_FF0000="#ff0000";
-    /**未回答背景色*/
-    private String Color_00FF00="#00ff00";
-    /**已回答背景色*/
-    private String Color_0000FF="#0000ff";
+//    /**正在回答背景色*/
+//    private String Color_FF0000="#ffe580";
+//    /**未回答背景色*/
+//    private String Color_00FF00="#00ff00";
+//    /**已回答背景色*/
+//    private String Color_0000FF="#ffee00";
 
     public FillBlanksButtonFramelayout(Context context) {
         super(context);
@@ -258,10 +257,12 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         for (int i=0;i<list_textview.size();i++){
             TextView textView=list_textview.get(i);
             if ((int)textView.getTag()==position){
-                textView.setBackgroundColor(Color.parseColor(Color_FF0000));
+                textView.setBackgroundResource(R.drawable.gestalt_button_nowanswer);
+                textView.setTextColor(mCtx.getResources().getColor(R.color.color_805500));
             }else {
-                if (bean!=null&&bean.getFillAnswers()!=null&&bean.getFillAnswers().size()>i){
-                    String answer=bean.getFillAnswers().get(i);
+                List<QuestionEntity> list=questionsEntity.getChildren();
+                if (list!=null&&list.get(i).getAnswerBean()!=null&&list.get(i).getAnswerBean().getSelectType()!=null){
+                    String answer=list.get(i).getAnswerBean().getSelectType();
                     setTextColor(textView,answer);
                 }else {
                     setTextColor(textView,null);
@@ -272,9 +273,11 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
 
     private void setTextColor(TextView textView,String answer){
         if (TextUtils.isEmpty(answer)){
-            textView.setBackgroundColor(Color.parseColor(Color_00FF00));
+            textView.setBackgroundResource(R.drawable.gestalt_button_noanswer);
+            textView.setTextColor(mCtx.getResources().getColor(R.color.color_805500));
         }else {
-            textView.setBackgroundColor(Color.parseColor(Color_0000FF));
+            textView.setBackgroundResource(R.drawable.gestalt_button_answer);
+            textView.setTextColor(mCtx.getResources().getColor(R.color.color_black));
         }
     }
 
@@ -306,8 +309,29 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
 //                    setAnswers_cache();
                 }
             }
-            initViewWithData(bean);
+//            initViewWithData(bean);
+            setData();
         }
+    }
+
+    private void setData(){
+        List<QuestionEntity> list=questionsEntity.getChildren();
+        if (list!=null) {
+            for (int i = 0; i < list.size(); i++) {
+                TextView textView = (TextView) rlMark.getChildAt(i);
+                if (!StringUtils.isEmpty(list.get(i).getAnswerBean().getSelectType())) {
+                    String answer = list.get(i).getAnswerBean().getSelectType();
+                    setText(textView, answer);
+                    setTextColor(textView,answer);
+                }else {
+                    int answer_id=(int)textView.getTag()+1;
+                    textView.setText(answer_id+"");
+                }
+            }
+        }
+        /**设置默认选中第一个*/
+        TextView textView_first = (TextView) rlMark.getChildAt(0);
+        textView_first.setBackgroundResource(R.drawable.gestalt_button_nowanswer);
     }
 
     private void setAnswers_cache(){
@@ -350,17 +374,17 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
             }
         }
         params.leftMargin = (int) xAxisLeft;
-        params.topMargin = (int) (yAxisTop - tvFillBlank.getTextSize() / 2);
+        params.topMargin = (int) (yAxisTop - tvFillBlank.getTextSize() / 2)+ Util.dipToPx(10)+4;
         TextView tv = new TextView(mCtx);
         tv.setSingleLine();
-        tv.setTextColor(mCtx.getResources().getColor(R.color.color_ff40c0fd));
+        tv.setTextColor(mCtx.getResources().getColor(R.color.color_805500));
         tv.setTextSize(textSize);
-        tv.setBackground(null);
+        tv.setBackgroundResource(R.drawable.gestalt_button_noanswer);
         tv.setOnClickListener(this);
         tv.setTag(list_textview.size());
 //        tv.setText(list_textview.size()+1+"");
         tv.setGravity(Gravity.CENTER);
-        tv.setBackgroundColor(Color.parseColor(Color_00FF00));
+//        tv.setBackgroundColor(Color.parseColor(Color_00FF00));
         list_textview.add(tv);
         setTextViewCusrorDrawable(tv);
         if (answerViewTypyBean == SubjectExercisesItemBean.RESOLUTION || answerViewTypyBean == SubjectExercisesItemBean.WRONG_SET) {

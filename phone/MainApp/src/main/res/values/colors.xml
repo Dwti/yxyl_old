@@ -59,7 +59,6 @@
 
     <color name="color_ff969696">#ff969696</color>
 
-
     <color name="color_ffe4f4fd">#ffe4f4fd</color>
     <color name="color_ff333333">#ff333333</color>
     <color name="color_ff999999">#ff999999</color>
@@ -177,6 +176,7 @@
     <color name="color_ff99bb">#ff99bb</color>
     <color name="color_e4b62e">#e4b62e</color>
     <color name="color_b3ab8f">#b3ab8f</color>
+    <color name="color_ffeda6">#FFEDA6</color>
     <color name="color_ffe580">#ffe580</color>
     <color name="color_e6bb47">#e6bb47</color>
     <color name="color_996600">#996600</color>
