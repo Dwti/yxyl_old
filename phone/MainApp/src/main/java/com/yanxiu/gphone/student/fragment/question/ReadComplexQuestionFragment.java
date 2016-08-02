@@ -18,6 +18,7 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.AnswerViewActivity;
 import com.yanxiu.gphone.student.activity.ResolutionAnswerViewActivity;
 import com.yanxiu.gphone.student.adapter.AnswerAdapter;
+import com.yanxiu.gphone.student.adapter.ChildAnswerAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ChildIndexEvent;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
@@ -52,7 +53,7 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
     private List<QuestionEntity> children;
     private boolean isVisibleToUser;
 
-    private AnswerAdapter adapter;
+    private ChildAnswerAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -113,7 +114,7 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
         }
         //=============================================
         vpAnswer.setOnPageChangeListener(this);
-        adapter = new AnswerAdapter(this.getChildFragmentManager());
+        adapter = new ChildAnswerAdapter(this.getChildFragmentManager());
         adapter.setAnswerViewTypyBean(answerViewTypyBean);
         adapter.addDataSourcesForReadingQuestion(children);
         int count = adapter.getCount();
