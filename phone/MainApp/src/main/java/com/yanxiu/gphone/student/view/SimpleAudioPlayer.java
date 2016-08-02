@@ -81,7 +81,7 @@ public class SimpleAudioPlayer extends FrameLayout {
     public void setPlayOver() {
         isPlaying = false;
         mIvControl.setImageResource(R.drawable.play);
-        setProgress(0);
+        mProgressBar.setProgress(0);
     }
 
     public int getProgress() {

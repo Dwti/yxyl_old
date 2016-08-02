@@ -136,7 +136,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         onPageCount(count);
         vpAnswer.setAdapter(adapter);
         adapter.setViewPager(vpAnswer);
-
+        mSimplePlayer.setProgress(0);
         mSimplePlayer.setOnControlButtonClickListener(new SimpleAudioPlayer.OnControlButtonClickListener() {
             @Override
             public void onClick(ImageView imageButton) {
@@ -242,13 +242,25 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
 
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
+
+    /**
+     * 释放音乐播放器
+     */
+    public void releaseMediaPlayer(){
         if (mediaPlayer != null) {
+            if(mediaPlayer.isPlaying())
+                mediaPlayer.stop();
             mediaPlayer.release();
             mediaPlayer = null;
+            handler.removeCallbacks(updateThread);
         }
+        mSimplePlayer.setPlayOver();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        releaseMediaPlayer();
     }
 
     @Override

@@ -147,7 +147,26 @@ public class MediaUtils {
                 new String[]{path}, null, null);
     }
 
-
+    /**
+     * 裁剪图片方法
+     */
+    public void cropImage(Activity activity,Uri uri,int requestCode) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+//        if(intent.resolveActivity(getPackageManager())==null){
+//            ToastMaster.showToast("该手机不支持裁剪");
+//        }
+        intent.setDataAndType(uri, "image/*");
+        // crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
+        intent.putExtra("crop", "true");
+        // aspectX aspectY 是宽高的比例
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        // outputX outputY 是裁剪图片宽高
+        intent.putExtra("outputX", 250);
+        intent.putExtra("outputY", 250);
+        intent.putExtra("return-data", true);
+        activity.startActivityForResult(intent, requestCode);
+    }
 
 
 }
