@@ -1,5 +1,6 @@
 package com.yanxiu.gphone.student.fragment.question;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -27,7 +28,7 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
 
     private View rootView;
     private ChoiceQuestions choiceQuestions;
-    private static QuestionsListener listener;
+    private QuestionsListener listener;
     //本地的保存数据bean
     private AnswerBean bean;
 
@@ -39,7 +40,7 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
     public int typeId;
 
     private Fragment resolutionFragment;
-    private static AnswerCallback callback;
+    private AnswerCallback callback;
     private int position;
 
     @Override
@@ -55,6 +56,7 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
         View view_line_ccc4a3_2=rootView.findViewById(R.id.view_line_ccc4a3_2);
         choiceQuestions = (ChoiceQuestions) rootView.findViewById(R.id.cq_item);
         choiceQuestions.flipNextPager(listener);
+        ChoiceQuestionFragment context=this;
         if (callback!=null) {
             ll_answer_content.setVisibility(View.GONE);
             view_line_ccc4a3_2.setVisibility(View.GONE);

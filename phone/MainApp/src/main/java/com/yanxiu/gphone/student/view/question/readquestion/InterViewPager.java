@@ -34,6 +34,11 @@ public class InterViewPager extends ViewPager {
         initView();
     }
 
+    @Override
+    public void setCurrentItem(int item) {
+        super.setCurrentItem(item);
+    }
+
     private void initView() {
 //        this.setOnPageChangeListener(new OnPageChangeListener() {
 //            @Override

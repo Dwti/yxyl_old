@@ -112,7 +112,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
         if(event != null && vpAnswer != null){
 //            String msg = "onEventMainThread收到了消息：" + event.getIndex();
 //            Toast.makeText(this.getActivity(), msg, Toast.LENGTH_LONG).show();
-            vpAnswer.setCurrentItem(event.getIndex());
+//            vpAnswer.setCurrentItem(event.getIndex());
         }
     }
 
@@ -145,12 +145,14 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
         }
         setDataSources(bean);
         LogInfo.log("geny", "onResume");
-
-        if(questionsEntity != null){
-            if(questionsEntity.getChildPageIndex() != -1){
-                vpAnswer.setCurrentItem(questionsEntity.getChildPageIndex());
-            }
+        if (vpAnswer!=null) {
+            vpAnswer.setCurrentItem(0);
         }
+//        if(questionsEntity != null){
+//            if(questionsEntity.getChildPageIndex() != -1){
+//                vpAnswer.setCurrentItem(questionsEntity.getChildPageIndex());
+//            }
+//        }
         //        LogInfo.log("geny", paperTestEntity.getQuestions().getStem());
     }
 

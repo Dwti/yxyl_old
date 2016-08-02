@@ -149,7 +149,7 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
         children=null;
 
         adapter=null;
-        System.gc();
+//        System.gc();
     }
 
     public void onEventMainThread(ChildIndexEvent event) {

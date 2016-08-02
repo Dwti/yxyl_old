@@ -27,10 +27,10 @@ public class ChoiceQuestions extends LinearLayout implements ChoiceQuestionsItem
 
     private boolean isSingleChoice;
 
-    private QuestionsListener listener;
+    public QuestionsListener listener;
 
-    private AnswerCallback callback;
-    private int position;
+    public AnswerCallback callback;
+    public int position;
 
 
     //本地答案

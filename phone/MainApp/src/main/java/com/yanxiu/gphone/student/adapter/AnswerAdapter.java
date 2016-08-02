@@ -2,9 +2,11 @@ package com.yanxiu.gphone.student.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.ViewGroup;
 
 import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.bean.AnswerBean;
@@ -84,6 +86,14 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 		return mFragments.get(position);
 	}
 
+	@Override
+	public Object instantiateItem(ViewGroup container, int position) {
+//		if (mFragments!=null&&mFragments.size()>0){
+//			return mFragments.get(position);
+//		}else {
+			return super.instantiateItem(container, position);
+//		}
+	}
 
 	public int getIndexPage(int position){
 //		if(getItem(position) instanceof ReadingQuestionsFragment){
@@ -291,6 +301,7 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 			//data 中数据为数组 只是去数组中的第一个item
 			int count = paperList.size();
 			dataList.addAll(paperList);
+			mFragments.clear();
 			for(int i = 0; i < count; i++){
 				if(paperList.get(i) != null && paperList.get(i).getQuestions() != null){
 					int typeId = paperList.get(i).getQuestions().getType_id();
@@ -362,6 +373,7 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 		if(dataList != null){
 			int count = dataList.size();
 			List<QuestionEntity> dirtyData = new ArrayList<>();
+			mFragments.clear();
 			for(int i = 0; i < count; i++){
 				if(dataList.get(i) !=null){
 					dataList.get(i).setReadQuestion(true);
@@ -412,7 +424,8 @@ public class AnswerAdapter extends FragmentStatePagerAdapter implements Question
 
 	}
 
-	@Override public void answerViewClick() {
+	@Override
+	public void answerViewClick() {
 		int count = mFragments.size();
 		for(int i=0;i<count;i++)
 		{
