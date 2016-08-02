@@ -12,7 +12,7 @@ import android.view.animation.Interpolator;
 import android.widget.Scroller;
 
 import com.yanxiu.gphone.student.R;
-import com.yanxiu.gphone.student.adapter.AnswerAdapter;
+import com.yanxiu.gphone.student.adapter.ChildAnswerAdapter;
 import com.yanxiu.gphone.student.bean.ChildIndexEvent;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 
@@ -34,7 +34,7 @@ public class AnswerViewFragment extends Fragment implements View.OnClickListener
 
     private List<QuestionEntity> children;
 
-    private AnswerAdapter adapter;
+    private ChildAnswerAdapter childAnswerAdapter;
 
 //    private boolean isResolution;
 //    //是否是错题集
@@ -139,15 +139,15 @@ public class AnswerViewFragment extends Fragment implements View.OnClickListener
         }
         //=============================================
         vpAnswer.setOnPageChangeListener(this);
-        adapter = new AnswerAdapter(this.getChildFragmentManager());
-        adapter.setAnswerViewTypyBean(answerViewTypyBean);
-        adapter.addDataSourcesForReadingQuestion(children);
-        int count = adapter.getCount();
+        childAnswerAdapter = new ChildAnswerAdapter(this.getChildFragmentManager());
+        childAnswerAdapter.setAnswerViewTypyBean(answerViewTypyBean);
+        childAnswerAdapter.addDataSourcesForReadingQuestion(children);
+        int count = childAnswerAdapter.getCount();
         if(this.getParentFragment() != null && this.getParentFragment() instanceof  ReadingQuestionsFragment){
             ((ReadingQuestionsFragment)this.getParentFragment()).onPageCount(count);
         }
-        vpAnswer.setAdapter(adapter);
-        adapter.setViewPager(vpAnswer);
+        vpAnswer.setAdapter(childAnswerAdapter);
+        childAnswerAdapter.setViewPager(vpAnswer);
 
 
     }

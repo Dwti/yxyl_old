@@ -15,6 +15,7 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.AnswerViewActivity;
 import com.yanxiu.gphone.student.activity.ResolutionAnswerViewActivity;
 import com.yanxiu.gphone.student.adapter.AnswerAdapter;
+import com.yanxiu.gphone.student.adapter.ChildAnswerAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ChildIndexEvent;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
@@ -37,7 +38,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
     private FillBlanksButtonFramelayout fill_blanks_button;
     private int pageCountIndex;
     private ViewPager vpAnswer;
-    private AnswerAdapter adapter;
+    private ChildAnswerAdapter adapter;
     private int pageCount = 1;
     private List<QuestionEntity> children;
 
@@ -98,7 +99,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
         }
         //=============================================
         vpAnswer.setOnPageChangeListener(this);
-        adapter = new AnswerAdapter(this.getChildFragmentManager());
+        adapter = new ChildAnswerAdapter(this.getChildFragmentManager());
         adapter.setAnswerCallback(this);
         adapter.setAnswerViewTypyBean(answerViewTypyBean);
         adapter.addDataSourcesForReadingQuestion(children);
@@ -145,9 +146,9 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
         }
         setDataSources(bean);
         LogInfo.log("geny", "onResume");
-        if (vpAnswer!=null) {
-            vpAnswer.setCurrentItem(0);
-        }
+//        if (vpAnswer!=null) {
+//            vpAnswer.setCurrentItem(0);
+//        }
 //        if(questionsEntity != null){
 //            if(questionsEntity.getChildPageIndex() != -1){
 //                vpAnswer.setCurrentItem(questionsEntity.getChildPageIndex());
