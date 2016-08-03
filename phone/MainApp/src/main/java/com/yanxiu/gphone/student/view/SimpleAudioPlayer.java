@@ -20,6 +20,7 @@ public class SimpleAudioPlayer extends FrameLayout {
     private ImageView mIvControl;
     public boolean isPlaying = false;
     private int totalLength=0;
+    public static final int PLAY=0,RESUME=1,PAUSE=-1;
 
     private OnControlButtonClickListener onControlButtonClickListener;
 
@@ -81,6 +82,13 @@ public class SimpleAudioPlayer extends FrameLayout {
         mProgressBar.setProgress(0);
     }
 
+    public void setState(int state){
+        if(state==PLAY){
+            mIvControl.setImageResource(R.drawable.pause);
+        }else if(state == PAUSE){
+            mIvControl.setImageResource(R.drawable.play);
+        }
+    }
     public int getProgress() {
         return mProgressBar.getProgress();
     }
