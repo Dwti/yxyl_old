@@ -100,6 +100,15 @@ public class JudgeQuestionFragment extends BaseQuestionFragment implements Quest
         }
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser&&!ischild){
+//            if (adapter!=null){
+                ((QuestionsListener)getActivity()).flipNextPager(null);
+//            }
+        }
+    }
 
     private void addAnalysisFragment(){
 

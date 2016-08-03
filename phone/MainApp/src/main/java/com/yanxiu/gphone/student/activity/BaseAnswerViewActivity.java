@@ -19,6 +19,7 @@ import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.AnswerAdapter;
 import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
+import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.utils.Configuration;
@@ -27,6 +28,7 @@ import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.view.PublicLoadLayout;
 import com.yanxiu.gphone.student.view.StudentLoadingLayout;
 import com.yanxiu.gphone.student.view.YanxiuTypefaceTextView;
+import com.yanxiu.gphone.student.view.question.QuestionsListener;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -34,7 +36,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2015/7/6.
  */
-public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener{
+public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener,QuestionsListener {
 
     private final static String TAG=BaseAnswerViewActivity.class.getSimpleName();
     protected PublicLoadLayout mRootView;
@@ -62,6 +64,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
     protected StudentLoadingLayout loadingLayout;
 
     protected Button btnLastQuestion, btnNextQuestion;
+    private QuestionsListener listener;
 
 
     @Override public void onCreate(Bundle savedInstanceState) {
@@ -256,7 +259,17 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
     public void onClick(View v) {
         if(v == btnLastQuestion){
             if(vpAnswer.getCurrentItem() != 0){
-                vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() - 1));
+                if (listener!=null) {
+                    int tatle_count=((AnswerAdapter)listener).getCount();
+                    int currenItem=((AnswerAdapter)listener).getViewPagerCurrentItem();
+                    if (currenItem==0){
+                        vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() - 1));
+                    }else {
+                        ((AnswerAdapter)listener).setPagerLift();
+                    }
+                }else {
+                    vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() - 1));
+                }
             }
 
 
@@ -264,7 +277,19 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
             if(vpAnswer.getCurrentItem() != adapter.getTotalCount() - 1 || vpAnswer.getCurrentItem() != adapter.getListCount() - 1){
                 LogInfo.log(vpAnswer.getCurrentItem()+"");
                 LogInfo.log(adapter.getTotalCount()+"");
-                vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
+                if (listener!=null) {
+                    listener.flipNextPager(listener);
+                    int tatle_count=((AnswerAdapter)listener).getCount();
+                    int currenItem=((AnswerAdapter)listener).getViewPagerCurrentItem();
+                    if (vpAnswer.getCurrentItem() == adapter.getCount() - 1&&tatle_count-1==currenItem){
+                        btnNextQuestion.setVisibility(View.GONE);
+                    }else {
+                        btnNextQuestion.setVisibility(View.VISIBLE);
+                    }
+                }else {
+                    vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
+                }
+//                vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
             }
         }
     }
@@ -275,6 +300,43 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 
     public int getCurrentIndex() {
         return currentIndex;
+    }
+
+    @Override
+    public void flipNextPager(QuestionsListener listener) {
+        this.listener=listener;
+        if (listener!=null) {
+            int tatle_count = ((AnswerAdapter) listener).getCount();
+            int currenItem = ((AnswerAdapter) listener).getViewPagerCurrentItem();
+            if (vpAnswer.getCurrentItem() == adapter.getCount() - 1 && tatle_count - 1 == currenItem) {
+                btnNextQuestion.setVisibility(View.GONE);
+            } else {
+                btnNextQuestion.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    public void setPagerSelect(int count,int position){
+        if (vpAnswer.getCurrentItem() == adapter.getCount() - 1 && count - 1 == position) {
+            btnNextQuestion.setVisibility(View.GONE);
+        } else {
+            btnNextQuestion.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void setDataSources(AnswerBean bean) {
+
+    }
+
+    @Override
+    public void initViewWithData(AnswerBean bean) {
+
+    }
+
+    @Override
+    public void answerViewClick() {
+
     }
 
     public class FixedSpeedScroller extends Scroller {

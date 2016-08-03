@@ -121,6 +121,11 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
     public void setUserVisibleHint(boolean isVisibleToUser) {
 //        LogInfo.log("geny", "setUserVisibleHint");
         this.isVisibleToUser = isVisibleToUser;
+        if (isVisibleToUser&&!ischild){
+            if (adapter!=null){
+                ((QuestionsListener)getActivity()).flipNextPager(adapter);
+            }
+        }
     }
 
     @Override

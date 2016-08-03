@@ -96,6 +96,14 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
 
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser&&!ischild){
+            ((QuestionsListener)getActivity()).flipNextPager(null);
+        }
+    }
+
     /**
      * 设置当前主观题Id给图片选择View
      */

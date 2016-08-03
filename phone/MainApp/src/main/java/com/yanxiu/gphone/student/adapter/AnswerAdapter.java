@@ -14,6 +14,8 @@ import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.fragment.question.ChoiceQuestionFragment;
+import com.yanxiu.gphone.student.fragment.question.FillBlanksFragment;
+import com.yanxiu.gphone.student.fragment.question.JudgeQuestionFragment;
 import com.yanxiu.gphone.student.fragment.question.QuestionFragmentFactory;
 import com.yanxiu.gphone.student.inter.AnswerCallback;
 import com.yanxiu.gphone.student.utils.Util;
@@ -62,6 +64,14 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 	}
 	public void setViewPager(ViewPager viewPager){
 		mViewPager = viewPager;
+	}
+
+	public int getViewPagerCurrentItem(){
+		return mViewPager.getCurrentItem();
+	}
+
+	public void setPagerLift(){
+		mViewPager.setCurrentItem(mViewPager.getCurrentItem()-1);
 	}
 
 	public int getTotalCount(){
@@ -375,12 +385,16 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 					if(typeId == QUESTION_SINGLE_CHOICES.type) {
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_SINGLE_CHOICES, dataList.get(i), answerViewTypyBean, dataList.get(i).getChildPageIndex());
 						((ChoiceQuestionFragment)fragment).setAnswerCallback(i,callback);
+						((ChoiceQuestionFragment)fragment).setIsChild(true);
 					}else if(typeId == QUESTION_MULTI_CHOICES.type){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_MULTI_CHOICES, dataList.get(i), answerViewTypyBean, dataList.get(i).getChildPageIndex());
+						((ChoiceQuestionFragment)fragment).setIsChild(true);
 					}else if(typeId == QUESTION_JUDGE.type){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_JUDGE, dataList.get(i), answerViewTypyBean, dataList.get(i).getChildPageIndex());
+						((JudgeQuestionFragment)fragment).setIsChild(true);
 					}else if(typeId == QUESTION_FILL_BLANKS.type){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_FILL_BLANKS, dataList.get(i), answerViewTypyBean, dataList.get(i).getChildPageIndex());
+						((FillBlanksFragment)fragment).setIsChild(true);
 					}else{
 						dirtyData.add(dataList.get(i));
 					}

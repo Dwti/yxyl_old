@@ -1,5 +1,6 @@
 package com.yanxiu.gphone.student.fragment.question;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.AnswerViewActivity;
+import com.yanxiu.gphone.student.activity.BaseAnswerViewActivity;
 import com.yanxiu.gphone.student.activity.ResolutionAnswerViewActivity;
 import com.yanxiu.gphone.student.adapter.AnswerAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
@@ -98,6 +100,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
         } catch (Exception e) {
 
         }
+
         //=============================================
         vpAnswer.setOnPageChangeListener(this);
         adapter = new AnswerAdapter(this.getChildFragmentManager());
@@ -193,6 +196,11 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
                 fill_blanks_button.saveAnswers();
             }
         }
+        if (isVisibleToUser&&!ischild){
+            if (adapter!=null){
+                ((QuestionsListener)getActivity()).flipNextPager(adapter);
+            }
+        }
     }
 
     @Override
@@ -213,6 +221,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
                 fill_blanks_button.setTextViewSelect(position);
             }
         }
+        ((BaseAnswerViewActivity)getActivity()).setPagerSelect(adapter.getCount(),position);
     }
 
     @Override

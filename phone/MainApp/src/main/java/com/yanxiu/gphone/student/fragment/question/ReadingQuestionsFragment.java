@@ -172,6 +172,11 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
     public void setUserVisibleHint(boolean isVisibleToUser) {
 //        LogInfo.log("geny", "setUserVisibleHint");
         this.isVisibleToUser = isVisibleToUser;
+        if (isVisibleToUser&&!ischild){
+            if (adapter!=null){
+                ((QuestionsListener)getActivity()).flipNextPager(adapter);
+            }
+        }
     }
 
 //    public int getPagerIndex() {

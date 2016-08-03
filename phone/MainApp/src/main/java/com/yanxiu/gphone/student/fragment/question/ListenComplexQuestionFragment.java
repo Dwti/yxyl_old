@@ -166,6 +166,11 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
 
     public void setUserVisibleHint(boolean isVisibleToUser) {
         this.isVisibleToUser = isVisibleToUser;
+        if (isVisibleToUser){
+            if (adapter!=null){
+                ((QuestionsListener)getActivity()).flipNextPager(adapter);
+            }
+        }
     }
 
     private Handler handler = new Handler();

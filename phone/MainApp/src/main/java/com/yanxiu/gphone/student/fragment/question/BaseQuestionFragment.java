@@ -32,6 +32,8 @@ public class BaseQuestionFragment extends Fragment {
 
     private RelativeLayout rlTopView;
 
+    protected boolean ischild=false;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,6 +84,10 @@ public class BaseQuestionFragment extends Fragment {
             }
         }
 
+    }
+
+    public void setIsChild(boolean ischild){
+        this.ischild=ischild;
     }
 
     @Override

@@ -85,6 +85,11 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
                 fillBlanksFramelayout.saveAnswers();
             }
         }
+        if (isVisibleToUser&&!ischild){
+//            if (adapter!=null){
+                ((QuestionsListener)getActivity()).flipNextPager(null);
+//            }
+        }
     }
 
     @Override
