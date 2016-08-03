@@ -272,17 +272,17 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);//反注册EventBus
-        rootView = null;
-        llTopView = null;
-        ivBottomCtrl = null;
-        mResources = null;
-        tvYanxiu = null;
-        vpAnswer = null;
-
-        children = null;
-
-        adapter = null;
-        System.gc();
+//        rootView = null;
+//        llTopView = null;
+//        ivBottomCtrl = null;
+//        mResources = null;
+//        tvYanxiu = null;
+//        vpAnswer = null;
+//
+//        children = null;
+//
+//        adapter = null;
+//        System.gc();
     }
 
     public void onEventMainThread(ChildIndexEvent event) {
