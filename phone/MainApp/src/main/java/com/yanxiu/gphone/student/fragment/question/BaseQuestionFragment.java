@@ -72,7 +72,7 @@ public class BaseQuestionFragment extends Fragment {
                 ivTopIcon.setImageResource(R.drawable.solve_complex_title_bg);
             }else if (typeId==QUESTION_CLOZE_COMPLEX.type){
                 //完形填空
-                ivTopIcon.setImageResource(R.drawable.solve_complex_title_bg);
+                ivTopIcon.setImageResource(R.drawable.gestalt_complex_title_bg);
             }
             if(questionsEntity.isReadQuestion()){
                 rlTopView.setVisibility(View.GONE);

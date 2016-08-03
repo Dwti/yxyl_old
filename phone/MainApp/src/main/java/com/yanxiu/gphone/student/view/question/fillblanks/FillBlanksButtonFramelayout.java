@@ -60,13 +60,6 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
     private int answerViewTypyBean;
     private int textSize = 0;
 
-//    /**正在回答背景色*/
-//    private String Color_FF0000="#ffe580";
-//    /**未回答背景色*/
-//    private String Color_00FF00="#00ff00";
-//    /**已回答背景色*/
-//    private String Color_0000FF="#ffee00";
-
     public FillBlanksButtonFramelayout(Context context) {
         super(context);
         mCtx = context;

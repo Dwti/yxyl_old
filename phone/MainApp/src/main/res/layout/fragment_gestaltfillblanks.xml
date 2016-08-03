@@ -19,7 +19,8 @@
             android:id="@+id/rl_top_view"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_margin="@dimen/dimen_20"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_marginRight="@dimen/dimen_20"
             android:layout_weight="1.5"
             android:orientation="vertical">
 
@@ -31,6 +32,7 @@
                 android:src="@drawable/icon_question_q" />
 
             <RelativeLayout
+                android:id="@+id/relative"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dimen_12"
@@ -63,15 +65,15 @@
                     </ScrollView>
                 </FrameLayout>
 
-                <ImageButton
-                    android:id="@+id/iv_bottom_ctrl"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="@dimen/dimen_13"
-                    android:background="@drawable/complex_question_up_down" />
+
             </RelativeLayout>
+
+            <ImageButton
+                android:id="@+id/iv_bottom_ctrl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/complex_question_up_down" />
 
         </com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout>
 
