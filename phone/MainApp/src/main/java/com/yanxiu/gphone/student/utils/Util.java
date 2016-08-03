@@ -576,17 +576,17 @@ public class Util {
                 "                                \"template\": \"choice\",\n" +
                 "                                \"type_id\": \"1\"\n" +
                 "                            },\n" +
-//                "                            {\n" +
-//                "                                \"analysis\": \"ddd\",\n" +
-//                "                                \"answer\": [\n" +
-//                "                                    \"1\"\n" +
-//                "                                ],\n" +
-//                "                                \"difficulty\": \"1\",\n" +
-//                "                                \"id\": \"2734959\",\n" +
-//                "                                \"stem\": \"asdfasfasfasfsaf\",\n" +
-//                "                                \"template\": \"alter\",\n" +
-//                "                                \"type_id\": \"4\"\n" +
-//                "                            }\n" +
+                "                            {\n" +
+                "                                \"analysis\": \"ddd\",\n" +
+                "                                \"answer\": [\n" +
+                "                                    \"1\"\n" +
+                "                                ],\n" +
+                "                                \"difficulty\": \"1\",\n" +
+                "                                \"id\": \"2734959\",\n" +
+                "                                \"stem\": \"asdfasfasfasfsaf\",\n" +
+                "                                \"template\": \"alter\",\n" +
+                "                                \"type_id\": \"4\"\n" +
+                "                            }\n" +
                 "                        ],\n" +
                 "                        \"difficulty\": \"1\",\n" +
                 "                        \"id\": \"2734957\",\n" +
@@ -750,17 +750,17 @@ public class Util {
                 "                                \"template\": \"choice\",\n" +
                 "                                \"type_id\": \"1\"\n" +
                 "                            },\n" +
-//                "                            {\n" +
-//                "                                \"analysis\": \"ddd\",\n" +
-//                "                                \"answer\": [\n" +
-//                "                                    \"1\"\n" +
-//                "                                ],\n" +
-//                "                                \"difficulty\": \"1\",\n" +
-//                "                                \"id\": \"2734959\",\n" +
-//                "                                \"stem\": \"asdfasfasfasfsaf\",\n" +
-//                "                                \"template\": \"alter\",\n" +
-//                "                                \"type_id\": \"4\"\n" +
-//                "                            }\n" +
+                "                            {\n" +
+                "                                \"analysis\": \"ddd\",\n" +
+                "                                \"answer\": [\n" +
+                "                                    \"1\"\n" +
+                "                                ],\n" +
+                "                                \"difficulty\": \"1\",\n" +
+                "                                \"id\": \"2734959\",\n" +
+                "                                \"stem\": \"asdfasfasfasfsaf\",\n" +
+                "                                \"template\": \"alter\",\n" +
+                "                                \"type_id\": \"4\"\n" +
+                "                            }\n" +
                 "                        ],\n" +
                 "                        \"difficulty\": \"1\",\n" +
                 "                        \"id\": \"2734957\",\n" +
@@ -818,17 +818,17 @@ public class Util {
                 "                                \"template\": \"choice\",\n" +
                 "                                \"type_id\": \"1\"\n" +
                 "                            },\n" +
-//                "                            {\n" +
-//                "                                \"analysis\": \"ddd\",\n" +
-//                "                                \"answer\": [\n" +
-//                "                                    \"1\"\n" +
-//                "                                ],\n" +
-//                "                                \"difficulty\": \"1\",\n" +
-//                "                                \"id\": \"2734959\",\n" +
-//                "                                \"stem\": \"asdfasfasfasfsaf\",\n" +
-//                "                                \"template\": \"alter\",\n" +
-//                "                                \"type_id\": \"4\"\n" +
-//                "                            }\n" +
+                "                            {\n" +
+                "                                \"analysis\": \"ddd\",\n" +
+                "                                \"answer\": [\n" +
+                "                                    \"1\"\n" +
+                "                                ],\n" +
+                "                                \"difficulty\": \"1\",\n" +
+                "                                \"id\": \"2734959\",\n" +
+                "                                \"stem\": \"asdfasfasfasfsaf\",\n" +
+                "                                \"template\": \"alter\",\n" +
+                "                                \"type_id\": \"4\"\n" +
+                "                            }\n" +
                 "                        ],\n" +
                 "                        \"difficulty\": \"1\",\n" +
                 "                        \"id\": \"2734957\",\n" +

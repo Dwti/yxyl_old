@@ -137,18 +137,18 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);//反注册EventBus
-        rootView=null;
-        llTopView=null;
-        ivBottomCtrl=null;
-        //animUp=null;
-        //listener=null;
-        mResources=null;
-        tvYanxiu=null;
-        vpAnswer=null;
-
-        children=null;
-
-        adapter=null;
+//        rootView=null;
+//        llTopView=null;
+//        ivBottomCtrl=null;
+//        //animUp=null;
+//        //listener=null;
+//        mResources=null;
+//        tvYanxiu=null;
+//        vpAnswer=null;
+//
+//        children=null;
+//
+//        adapter=null;
 //        System.gc();
     }
 

@@ -127,19 +127,19 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);//反注册EventBus
-        rootView=null;
-        llTopView=null;
-        ivBottomCtrl=null;
-        //animUp=null;
-        //listener=null;
-        mResources=null;
-        tvYanxiu=null;
-        vpAnswer=null;
-
-        children=null;
-
-        adapter=null;
-        System.gc();
+//        rootView=null;
+//        llTopView=null;
+//        ivBottomCtrl=null;
+//        //animUp=null;
+//        //listener=null;
+//        mResources=null;
+//        tvYanxiu=null;
+//        vpAnswer=null;
+//
+//        children=null;
+//
+//        adapter=null;
+//        System.gc();
     }
 
     public void onEventMainThread(ChildIndexEvent event) {
