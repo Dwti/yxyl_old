@@ -151,16 +151,16 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         String text="";
         switch (answer){
             case "0":
-                text=(int)textView.getTag()+1+"A";
+                text=(int)textView.getTag()+1+".A";
                 break;
             case "1":
-                text=(int)textView.getTag()+1+"B";
+                text=(int)textView.getTag()+1+".B";
                 break;
             case "2":
-                text=(int)textView.getTag()+1+"C";
+                text=(int)textView.getTag()+1+".C";
                 break;
             case "3":
-                text=(int)textView.getTag()+1+"D";
+                text=(int)textView.getTag()+1+".D";
                 break;
             default:
                 text=(int)textView.getTag()+1+"";
