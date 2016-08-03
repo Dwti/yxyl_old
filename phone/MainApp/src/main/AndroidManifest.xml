@@ -143,7 +143,7 @@
                   android:configChanges="keyboardHidden|orientation">
         </activity>
 
-        <activity android:name=".activity.ResolutionAllAnswerViewActivity"
+        <activity android:name=".activity.WrongAnswerViewActivity"
             android:screenOrientation="portrait"
             android:configChanges="keyboardHidden|orientation">
         </activity>

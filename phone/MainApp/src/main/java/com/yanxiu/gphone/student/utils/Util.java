@@ -944,7 +944,6 @@ public class Util {
                 "        \"desc\": \"get question list success\"\n" +
                 "    }\n" +
                 "}";
-        Log.d("asd",str);
         return (SubjectExercisesItemBean) JSON.parseObject(str, SubjectExercisesItemBean.class);
     }
 
