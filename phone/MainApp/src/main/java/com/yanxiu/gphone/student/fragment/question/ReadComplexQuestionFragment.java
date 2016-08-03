@@ -239,6 +239,10 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
 
     @Override
     public int getChildCount() {
-        return adapter.getCount();
+        if (adapter!=null) {
+            return adapter.getCount();
+        }else {
+            return super.getChildCount();
+        }
     }
 }

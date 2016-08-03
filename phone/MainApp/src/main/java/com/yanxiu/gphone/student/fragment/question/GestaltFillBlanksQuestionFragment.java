@@ -91,7 +91,11 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
 
     @Override
     public int getChildCount() {
-        return adapter.getCount();
+        if (adapter!=null) {
+            return adapter.getCount();
+        }else {
+            return super.getChildCount();
+        }
     }
 
     private void initview() {
