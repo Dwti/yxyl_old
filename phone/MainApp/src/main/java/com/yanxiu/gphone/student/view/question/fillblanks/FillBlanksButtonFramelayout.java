@@ -55,7 +55,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
     private RelativeLayout rlMark;
     private YXiuAnserTextView tvFillBlank;
     private String data = "鲁迅，原名(_)字，他的代表作品是小说集，散文集。\n" +
-            "    鲁迅再《琐记》一文中，用了来讥讽洋务派的办学。\n" +
+            "    鲁迅再《琐记》一文中，用了来讥讽洋务(_)派的办学。\n" +
             "    鲁迅写出了中国现代第一篇白话小说(_)，1918年在上发表其后又发表等著名小说。\n";
     private int answerViewTypyBean;
     private int textSize = 0;

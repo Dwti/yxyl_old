@@ -56,9 +56,11 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView=inflater.inflate(R.layout.fragment_gestaltfillblanks,null);
-        initview();
-        listener();
+        if (rootView==null) {
+            rootView = inflater.inflate(R.layout.fragment_gestaltfillblanks, null);
+            initview();
+            listener();
+        }
         return rootView;
     }
 
@@ -145,9 +147,9 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
         }
         setDataSources(bean);
         LogInfo.log("geny", "onResume");
-//        if (vpAnswer!=null) {
-//            vpAnswer.setCurrentItem(0);
-//        }
+        if (vpAnswer!=null) {
+            vpAnswer.setCurrentItem(0);
+        }
 //        if(questionsEntity != null){
 //            if(questionsEntity.getChildPageIndex() != -1){
 //                vpAnswer.setCurrentItem(questionsEntity.getChildPageIndex());
@@ -222,15 +224,15 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);//反注册EventBus
-        rootView=null;
-        //animUp=null;
-        //listener=null;
-        vpAnswer=null;
-
-        children=null;
-
-        adapter=null;
-        System.gc();
+//        rootView=null;
+//        //animUp=null;
+//        //listener=null;
+//        vpAnswer=null;
+//
+//        children=null;
+//
+//        adapter=null;
+//        System.gc();
     }
 
     @Override

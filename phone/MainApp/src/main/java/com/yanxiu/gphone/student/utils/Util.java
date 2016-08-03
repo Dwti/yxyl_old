@@ -663,6 +663,25 @@ public class Util {
                 "                                \"template\": \"choice\",\n" +
                 "                                \"type_id\": \"1\"\n" +
                 "                            },\n" +
+                "                            {\n" +
+                "                                \"analysis\": \"test\",\n" +
+                "                                \"answer\": [\n" +
+                "                                    \"3\"\n" +
+                "                                ],\n" +
+                "                                \"content\": {\n" +
+                "                                    \"choices\": [\n" +
+                "                                        \"ceshi1\",\n" +
+                "                                        \"ceshi2\",\n" +
+                "                                        \"ceshi3\",\n" +
+                "                                        \"ceshi4\"\n" +
+                "                                    ]\n" +
+                "                                },\n" +
+                "                                \"difficulty\": \"1\",\n" +
+                "                                \"id\": \"2734960\",\n" +
+                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
+                "                                \"template\": \"choice\",\n" +
+                "                                \"type_id\": \"1\"\n" +
+                "                            },\n" +
 //                "                            {\n" +
 //                "                                \"analysis\": \"ddd\",\n" +
 //                "                                \"answer\": [\n" +
@@ -874,6 +893,17 @@ public class Util {
                 "                                ],\n" +
                 "                                \"difficulty\": \"1\",\n" +
                 "                                \"id\": \"2734959\",\n" +
+                "                                \"stem\": \"asdfasfasfasfsaf\",\n" +
+                "                                \"template\": \"alter\",\n" +
+                "                                \"type_id\": \"4\"\n" +
+                "                            }\n" +
+                "                            {\n" +
+                "                                \"analysis\": \"ddd\",\n" +
+                "                                \"answer\": [\n" +
+                "                                    \"1\"\n" +
+                "                                ],\n" +
+                "                                \"difficulty\": \"1\",\n" +
+                "                                \"id\": \"2734960\",\n" +
                 "                                \"stem\": \"asdfasfasfasfsaf\",\n" +
                 "                                \"template\": \"alter\",\n" +
                 "                                \"type_id\": \"4\"\n" +

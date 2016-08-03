@@ -87,15 +87,15 @@ public class BaseQuestionFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        questionsEntity=null;
-
-        rootView=null;
-
-        tvQuestionTitle=null;
-
-        ivTopIcon=null;
-
-        rlTopView=null;
+//        questionsEntity=null;
+//
+//        rootView=null;
+//
+//        tvQuestionTitle=null;
+//
+//        ivTopIcon=null;
+//
+//        rlTopView=null;
     }
 
 
