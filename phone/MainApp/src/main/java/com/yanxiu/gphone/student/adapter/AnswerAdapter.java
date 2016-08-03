@@ -128,6 +128,8 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 
 	public void addDataSources(SubjectExercisesItemBean bean){
 		SubjectExercisesItemBean beanTmp = Util.getSubjectExercisesItemBean();
+
+
 		if(bean!=null && bean.getData()!= null && !bean.getData().isEmpty()){
 			answerViewTypyBean = bean.getViewType();
 //			isResolution = bean.getIsResolution();
@@ -241,12 +243,6 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 									childQuestion.get(j).setChildPageIndex(j);
 								}
 							}
-						}
-						if(dataList.get(i).getQuestions() != null && dataList.get(i).getQuestions().getChildren() != null){
-							pageIndexList.add(pageIndex);
-							pageIndex = dataList.get(i).getQuestions().getChildren().size() + pageIndex;
-						}else {
-							pageIndexList.add(pageIndex++);
 						}
 						pageIndexList.add(pageIndex++);
 					}else if (typeId==QUESTION_CLOZE_COMPLEX.type){

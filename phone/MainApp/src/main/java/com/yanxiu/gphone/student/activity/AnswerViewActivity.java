@@ -83,6 +83,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
 
     private boolean isSubmitFinish = false;
 
+    private int childPostion;
+
 
 //    private ProgressLayout progressLayout;
 
