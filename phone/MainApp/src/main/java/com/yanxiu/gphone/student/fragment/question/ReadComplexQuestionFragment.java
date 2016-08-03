@@ -236,4 +236,9 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
     public void setPageIndex(int pageIndex) {
         this.pageIndex = pageIndex;
     }
+
+    @Override
+    public int getChildCount() {
+        return adapter.getCount();
+    }
 }

@@ -40,12 +40,14 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
 
     private AnswerBean bean;
     private FillBlanksButtonFramelayout fill_blanks_button;
-    private ImageView ivBottomCtrl;
+
     private int pageCountIndex;
     private ViewPager vpAnswer;
     private AnswerAdapter adapter;
     private int pageCount = 1;
     private List<QuestionEntity> children;
+
+    private ImageView ivBottomCtrl;
     private OnPushPullTouchListener mOnPushPullTouchListener;
     private LinearLayout ll_bottom_view;
 
@@ -87,6 +89,11 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
         });
     }
 
+    @Override
+    public int getChildCount() {
+        return adapter.getCount();
+    }
+
     private void initview() {
         ExpandableRelativeLayoutlayout rl_top_view= (ExpandableRelativeLayoutlayout) rootView.findViewById(R.id.rl_top_view);
         fill_blanks_button= (FillBlanksButtonFramelayout) rootView.findViewById(R.id.fill_blanks_button);
@@ -96,6 +103,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
 //            Log.d("asd","Stem+++++"+questionsEntity.getStem());
             fill_blanks_button.setAnswers(questionsEntity.getAnswer());
         }
+
         ll_bottom_view = (LinearLayout) rootView.findViewById(R.id.ll_bottom_view);
         mOnPushPullTouchListener = new OnPushPullTouchListener(ll_bottom_view, getActivity());
         ivBottomCtrl = (ImageView) rootView.findViewById(R.id.iv_bottom_ctrl);
@@ -224,6 +232,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
             pageCountIndex = pageIndex + position;
             if (this.getActivity() instanceof AnswerViewActivity && isVisibleToUser){
                 ((AnswerViewActivity) this.getActivity()).setIndexFromRead(pageCountIndex);
+//                ((AnswerViewActivity) this.getActivity()).setIndexNext(pageCountIndex+getChildCount());
             }else if(this.getActivity() instanceof ResolutionAnswerViewActivity && isVisibleToUser){
                 ((ResolutionAnswerViewActivity)this.getActivity()).setIndexFromRead(pageCountIndex);
             }

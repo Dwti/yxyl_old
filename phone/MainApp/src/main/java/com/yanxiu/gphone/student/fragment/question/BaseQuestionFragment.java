@@ -91,6 +91,10 @@ public class BaseQuestionFragment extends Fragment {
 
     }
 
+    public int getChildCount(){
+        return 1;
+    }
+
     public void setIsChild(boolean ischild){
         this.ischild=ischild;
     }

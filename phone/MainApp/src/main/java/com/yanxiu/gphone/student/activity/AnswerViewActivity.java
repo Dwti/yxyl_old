@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 import com.common.core.utils.LogInfo;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.adapter.AnswerAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ChildIndexEvent;
 import com.yanxiu.gphone.student.bean.GroupEventHWRefresh;
@@ -23,8 +24,10 @@ import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.fragment.question.AnswerCardFragment;
 import com.yanxiu.gphone.student.fragment.question.AnswerFinishFragment;
+import com.yanxiu.gphone.student.fragment.question.BaseQuestionFragment;
 import com.yanxiu.gphone.student.fragment.question.PageIndex;
 import com.yanxiu.gphone.student.fragment.question.ReadingQuestionsFragment;
+import com.yanxiu.gphone.student.fragment.question.SolveComplexQuestionFragment;
 import com.yanxiu.gphone.student.fragment.question.SubjectiveQuestionFragment;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
 import com.yanxiu.gphone.student.manager.ActivityManager;
@@ -39,6 +42,7 @@ import com.yanxiu.gphone.student.view.question.GuideQuestionView;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 
 import java.util.Formatter;
+import java.util.List;
 import java.util.Locale;
 
 import de.greenrobot.event.EventBus;
@@ -84,6 +88,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
     private boolean isSubmitFinish = false;
 
     private int childPostion;
+
+    private int mNextIndex;
 
 
 //    private ProgressLayout progressLayout;
@@ -465,9 +471,17 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
     }
 
     public void setIndexFromRead(int position){
+//        ((AnswerAdapter)listen
+//        Fragment fragment=((AnswerAdapter)vpAnswer.getAdapter()).getmFragments().get(vpAnswer.getCurrentItem());
+//        if (fragment instanceof SolveComplexQuestionFragment) {
+//            ((AnswerAdapter)listener.
+//        }
         tvPagerIndex.setText(position + "/" + adapter.getTotalCount());
     }
 
+    public void setIndexNext(int index){
+        mNextIndex = index;
+    }
 
     @Override
     public void onPageSelected(int position) {
@@ -486,7 +500,14 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
             btnWrongError.setVisibility(View.VISIBLE);
         }
         Fragment fragment = adapter.getItem(position);
-        tvPagerIndex.setText(String.valueOf(position + 1));
+        List<Fragment> list=((AnswerAdapter)vpAnswer.getAdapter()).getmFragments();
+        int sumIndex = 0;
+        for (int i=0;i<position;i++){
+            BaseQuestionFragment fragment1= (BaseQuestionFragment) list.get(i);
+            sumIndex = sumIndex + fragment1.getChildCount();
+        }
+
+        tvPagerIndex.setText(String.valueOf(sumIndex + 1));
         tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(adapter.getTotalCount())));
         viewPagerLastPosition = position;
         LogInfo.log("geny", costTime + "---mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm---" + ((PageIndex) fragment).getPageIndex() + "/" + adapter.getTotalCount());

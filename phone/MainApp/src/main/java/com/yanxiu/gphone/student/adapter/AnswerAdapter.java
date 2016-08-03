@@ -274,7 +274,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 						}else {
 							pageIndexList.add(pageIndex++);
 						}
-						pageIndexList.add(pageIndex++);
+//						pageIndexList.add(pageIndex++);
 					}
 					if(fragment != null){
 						((QuestionsListener)fragment).flipNextPager(this);

@@ -171,9 +171,9 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
         if(questionsEntity != null){
             pageCountIndex = pageIndex + childPosition;
             if (this.getActivity() instanceof AnswerViewActivity && isVisibleToUser){
-                ((AnswerViewActivity) this.getActivity()).setIndexFromRead(pageCountIndex);
+                ((AnswerViewActivity) this.getActivity()).setIndexFromRead(pageIndex);
             }else if(this.getActivity() instanceof ResolutionAnswerViewActivity && isVisibleToUser){
-                ((ResolutionAnswerViewActivity)this.getActivity()).setIndexFromRead(pageCountIndex);
+                ((ResolutionAnswerViewActivity)this.getActivity()).setIndexFromRead(pageIndex);
             }
         }
 
