@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -21,6 +23,7 @@ import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ChildIndexEvent;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.inter.AnswerCallback;
+import com.yanxiu.gphone.student.inter.OnPushPullTouchListener;
 import com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.fillblanks.FillBlanksButtonFramelayout;
@@ -37,11 +40,16 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
 
     private AnswerBean bean;
     private FillBlanksButtonFramelayout fill_blanks_button;
+
     private int pageCountIndex;
     private ViewPager vpAnswer;
     private AnswerAdapter adapter;
     private int pageCount = 1;
     private List<QuestionEntity> children;
+
+    private ImageView ivBottomCtrl;
+    private OnPushPullTouchListener mOnPushPullTouchListener;
+    private LinearLayout ll_bottom_view;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,6 +89,15 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
         });
     }
 
+    @Override
+    public int getChildCount() {
+        if (adapter!=null) {
+            return adapter.getCount();
+        }else {
+            return super.getChildCount();
+        }
+    }
+
     private void initview() {
         ExpandableRelativeLayoutlayout rl_top_view= (ExpandableRelativeLayoutlayout) rootView.findViewById(R.id.rl_top_view);
         fill_blanks_button= (FillBlanksButtonFramelayout) rootView.findViewById(R.id.fill_blanks_button);
@@ -90,6 +107,11 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
 //            Log.d("asd","Stem+++++"+questionsEntity.getStem());
             fill_blanks_button.setAnswers(questionsEntity.getAnswer());
         }
+
+        ll_bottom_view = (LinearLayout) rootView.findViewById(R.id.ll_bottom_view);
+        mOnPushPullTouchListener = new OnPushPullTouchListener(ll_bottom_view, getActivity());
+        ivBottomCtrl = (ImageView) rootView.findViewById(R.id.iv_bottom_ctrl);
+        ivBottomCtrl.setOnTouchListener(mOnPushPullTouchListener);
 
         vpAnswer = (ViewPager) rootView.findViewById(R.id.answer_viewpager);
         //=============================================
@@ -214,6 +236,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
             pageCountIndex = pageIndex + position;
             if (this.getActivity() instanceof AnswerViewActivity && isVisibleToUser){
                 ((AnswerViewActivity) this.getActivity()).setIndexFromRead(pageCountIndex);
+//                ((AnswerViewActivity) this.getActivity()).setIndexNext(pageCountIndex+getChildCount());
             }else if(this.getActivity() instanceof ResolutionAnswerViewActivity && isVisibleToUser){
                 ((ResolutionAnswerViewActivity)this.getActivity()).setIndexFromRead(pageCountIndex);
             }

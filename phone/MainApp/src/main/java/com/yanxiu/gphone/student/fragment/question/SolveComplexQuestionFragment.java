@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.R;
@@ -16,6 +17,7 @@ import com.yanxiu.gphone.student.adapter.AnswerAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ChildIndexEvent;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
+import com.yanxiu.gphone.student.inter.OnPushPullTouchListener;
 import com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
@@ -28,7 +30,7 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by Yangjj on 2016/7/25.
  */
-public class SolveComplexQuestionFragment extends BaseQuestionFragment implements View.OnClickListener,QuestionsListener, PageIndex ,ViewPager.OnPageChangeListener  {
+public class SolveComplexQuestionFragment extends BaseQuestionFragment implements View.OnClickListener, QuestionsListener, PageIndex ,ViewPager.OnPageChangeListener  {
 
     private View rootView;
     private ExpandableRelativeLayoutlayout llTopView;
@@ -36,6 +38,7 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
     private YXiuAnserTextView tvYanxiu;
     private int pageCount = 1;
     private QuestionsListener listener;
+    private OnPushPullTouchListener mOnPushPullTouchListener;
     private Resources mResources;
 
     
@@ -44,6 +47,8 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
     private List<QuestionEntity> children;
 
     private AnswerAdapter adapter;
+
+    private LinearLayout ll_bottom_view;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,7 +64,7 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_read_complex_question,null);
+        rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_solve_complex_question,null);
         initView();
         //initAnim();
         initData();
@@ -87,8 +92,10 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
                 }
             }
         });
+        ll_bottom_view = (LinearLayout) rootView.findViewById(R.id.ll_bottom_view);
+        mOnPushPullTouchListener = new OnPushPullTouchListener(ll_bottom_view, getActivity());
         ivBottomCtrl = (ImageView) rootView.findViewById(R.id.iv_bottom_ctrl);
-        ivBottomCtrl.setOnClickListener(this);
+        ivBottomCtrl.setOnTouchListener(mOnPushPullTouchListener);
         tvYanxiu = (YXiuAnserTextView) rootView.findViewById(R.id.yxiu_tv);
 
 
@@ -164,9 +171,9 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
         if(questionsEntity != null){
             pageCountIndex = pageIndex + childPosition;
             if (this.getActivity() instanceof AnswerViewActivity && isVisibleToUser){
-                ((AnswerViewActivity) this.getActivity()).setIndexFromRead(pageCountIndex);
+                ((AnswerViewActivity) this.getActivity()).setIndexFromRead(pageIndex);
             }else if(this.getActivity() instanceof ResolutionAnswerViewActivity && isVisibleToUser){
-                ((ResolutionAnswerViewActivity)this.getActivity()).setIndexFromRead(pageCountIndex);
+                ((ResolutionAnswerViewActivity)this.getActivity()).setIndexFromRead(pageIndex);
             }
         }
 

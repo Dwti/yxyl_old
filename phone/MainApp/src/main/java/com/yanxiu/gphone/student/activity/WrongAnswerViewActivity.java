@@ -71,7 +71,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
     }
 
     public static void launch(Activity context, SubjectExercisesItemBean bean, String subjectId, int pagerIndex, int childIndex, int comeFrom, String wrongCount, int position) {
-        Intent intent = new Intent(context, ResolutionAllAnswerViewActivity.class);
+        Intent intent = new Intent(context, WrongAnswerViewActivity.class);
         intent.putExtra("subjectExercisesItemBean", bean);
         intent.putExtra("subjectId", subjectId);
         intent.putExtra("pagerIndex", pagerIndex);

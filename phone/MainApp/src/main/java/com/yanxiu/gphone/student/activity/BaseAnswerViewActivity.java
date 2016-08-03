@@ -64,7 +64,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
     protected StudentLoadingLayout loadingLayout;
 
     protected Button btnLastQuestion, btnNextQuestion;
-    private QuestionsListener listener;
+    protected QuestionsListener listener;
 
 
     @Override public void onCreate(Bundle savedInstanceState) {
