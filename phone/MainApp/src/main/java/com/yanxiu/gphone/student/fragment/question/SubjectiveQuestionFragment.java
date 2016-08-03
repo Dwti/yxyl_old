@@ -25,8 +25,8 @@ import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 /**
  * Created by lidm on 2015/9/25.
  */
-public class SubjectiveQuestionFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex  {
-    private static final String TAG=SubjectiveQuestionFragment.class.getSimpleName();
+public class SubjectiveQuestionFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex {
+    private static final String TAG = SubjectiveQuestionFragment.class.getSimpleName();
     private View rootView;
     //本地的保存数据bean
     private AnswerBean bean;
@@ -49,24 +49,25 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LogInfo.log(TAG, "SubjectiveQuestionFragment on Create： ");
-            this.questionsEntity = (getArguments() != null) ? (QuestionEntity) getArguments().getSerializable("questions") : null;
-            if(questionsEntity==null){
-                LogInfo.log(TAG,"questionsEntity==null");
-            }
+        this.questionsEntity = (getArguments() != null) ? (QuestionEntity) getArguments().getSerializable("questions") : null;
+        if (questionsEntity == null) {
+            LogInfo.log(TAG, "questionsEntity==null");
+        }
 
-            this.answerViewTypyBean = (getArguments() != null) ? getArguments().getInt("answerViewTypyBean") : null;
-            this.pageIndex = (getArguments() != null) ? getArguments().getInt("pageIndex") : 0;
-            this.isFirstSub=(getArguments()!=null)?getArguments().getBoolean("isFirstSub", false):false;
-            if(isFirstSub){
-                if(!ShareBitmapUtils.getInstance().isInitCurrentId()){
-                    LogInfo.log("geny","come from onCreate");
-                    changeCurrentSelData(questionsEntity);
-                    ShareBitmapUtils.getInstance().setIsInitCurrentId(true);
-                }
+        this.answerViewTypyBean = (getArguments() != null) ? getArguments().getInt("answerViewTypyBean") : null;
+        this.pageIndex = (getArguments() != null) ? getArguments().getInt("pageIndex") : 0;
+        this.isFirstSub = (getArguments() != null) ? getArguments().getBoolean("isFirstSub", false) : false;
+        if (isFirstSub) {
+            if (!ShareBitmapUtils.getInstance().isInitCurrentId()) {
+                LogInfo.log("geny", "come from onCreate");
+                changeCurrentSelData(questionsEntity);
+                ShareBitmapUtils.getInstance().setIsInitCurrentId(true);
             }
+        }
 
 
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_subjective_question, null);
@@ -74,7 +75,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
 
         FragmentTransaction ft = SubjectiveQuestionFragment.this.getChildFragmentManager().beginTransaction();
         ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
-        if(questionsEntity != null && questionsEntity.getStem() != null){
+        if (questionsEntity != null && questionsEntity.getStem() != null) {
             yXiuAnserTextView.setTextHtml(questionsEntity.getStem());
         }
 
@@ -99,15 +100,16 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     /**
      * 设置当前主观题Id给图片选择View
      */
-    private void setPicSelViewId(){
-        LogInfo.log(TAG,"setPicSelViewId: "+this.questionsEntity.getId());
-        mPicSelView=(PicSelView)rootView.findViewById(R.id.picSelView);
-        if(this.questionsEntity!=null&& !StringUtils.isEmpty(this.questionsEntity.getId())){
+    private void setPicSelViewId() {
+        LogInfo.log(TAG, "setPicSelViewId: " + this.questionsEntity.getId());
+        mPicSelView = (PicSelView) rootView.findViewById(R.id.picSelView);
+        if (this.questionsEntity != null && !StringUtils.isEmpty(this.questionsEntity.getId())) {
             mPicSelView.setSubjectiveId(this.questionsEntity.getId());
         }
     }
-    private void selectTypeView(){
-        switch (answerViewTypyBean){
+
+    private void selectTypeView() {
+        switch (answerViewTypyBean) {
             case SubjectExercisesItemBean.RESOLUTION:
                 mPicSelView.setVisibility(View.GONE);
                 addAnalysisFragment();
@@ -130,7 +132,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         }
     }
 
-    private void addAnalysisFragment(){
+    private void addAnalysisFragment() {
         Bundle args = new Bundle();
         args.putSerializable("questions", questionsEntity);
         resolutionFragment = Fragment.instantiate(SubjectiveQuestionFragment.this.getActivity(), SubjectiveProblemAnalysisFragment.class.getName(), args);
@@ -152,7 +154,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     public void onResume() {
         super.onResume();
         LogInfo.log(TAG, "---onResume-------pageIndex----" + pageIndex);
-        if(bean == null){
+        if (bean == null) {
             bean = questionsEntity.getAnswerBean();
         }
     }
@@ -171,73 +173,66 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
 
     /**
      * 切换当前的全局变量数据
-     *  1. 首个主观题执行 2 . onPageSelected 执行
+     * 1. 首个主观题执行 2 . onPageSelected 执行
      */
-    public void changeCurrentSelData(QuestionEntity entity){
+    public void changeCurrentSelData(QuestionEntity entity) {
         LogInfo.log(TAG, "changeCurrentSelData");
-        if(this.questionsEntity==null && entity != null){
+        if (this.questionsEntity == null && entity != null) {
             this.questionsEntity = entity;
-            LogInfo.log(TAG,"entity != null");
+            LogInfo.log(TAG, "entity != null");
         }
 
-        if(this.questionsEntity==null){
+        if (this.questionsEntity == null) {
             return;
         }
 
-        if(StringUtils.isEmpty(questionsEntity.getId())){
-            LogInfo.log(TAG,"StringUtils.isEmpty(questionsEntity.getId())");
+        if (StringUtils.isEmpty(questionsEntity.getId())) {
+            LogInfo.log(TAG, "StringUtils.isEmpty(questionsEntity.getId())");
             return;
         }
         LogInfo.log(TAG, "Change Id is : " + this.questionsEntity.getId());
-        String id=this.questionsEntity.getId();
-        if(StringUtils.isEmpty(id)){
+        String id = this.questionsEntity.getId();
+        if (StringUtils.isEmpty(id)) {
             return;
         }
         ShareBitmapUtils.getInstance().setCurrentSbId(id);
-        if(mPicSelView!=null){
+        if (mPicSelView != null) {
             mPicSelView.changeData();
         }
 
     }
 
 
-    public void updataPhotoView(int type)  {
+    public void updataPhotoView(int type) {
         LogInfo.log(TAG, "updataPhotoView");
-        if(questionsEntity==null||StringUtils.isEmpty(questionsEntity.getId())){
-            LogInfo.log(TAG,"questionsEntity==null||StringUtils.isEmpty(questionsEntity.getId())");
+        if (questionsEntity == null || StringUtils.isEmpty(questionsEntity.getId())) {
+            LogInfo.log(TAG, "questionsEntity==null||StringUtils.isEmpty(questionsEntity.getId())");
             questionsEntity = (getArguments() != null) ? (QuestionEntity) getArguments().getSerializable("questions") : null;
-            if(questionsEntity==null||StringUtils.isEmpty(questionsEntity.getId())){
-                LogInfo.log(TAG,"getArguments(): questionsEntity==null||StringUtils.isEmpty(questionsEntity.getId())");
+            if (questionsEntity == null || StringUtils.isEmpty(questionsEntity.getId())) {
+                LogInfo.log(TAG, "getArguments(): questionsEntity==null||StringUtils.isEmpty(questionsEntity.getId())");
                 return;
             }
         }
 
-            ShareBitmapUtils.getInstance().setCurrentSbId(questionsEntity.getId());
-
-//            PicSelViewEvent event =new PicSelViewEvent();
-//            event.setType(type);
-//            event.setCurrentIndex(((AnswerViewActivity) getActivity()).currentIndex);
-//            event.setPicIndex(pageIndex - 1);
-//            event.setId(questionsEntity.getId());
-//            EventBus.getDefault().post(event);
+        ShareBitmapUtils.getInstance().setCurrentSbId(questionsEntity.getId());
         LogInfo.log(TAG, "mPicSelView: " + mPicSelView);
-            if(mPicSelView!=null){
-                mPicSelView.upDate(type,questionsEntity.getId());
-            }
+        if (mPicSelView != null) {
+            mPicSelView.upDate(type, questionsEntity.getId());
+        }
 
-            if(!ShareBitmapUtils.getInstance().isCurrentListIsEmpty(questionsEntity.getId())){
-                LogInfo.log(TAG,"setPhotoUri");
-                questionsEntity.setPhotoUri(ShareBitmapUtils.getInstance().getPathList(questionsEntity.getId()));
-            }
-            questionsEntity.getAnswerBean().setIsSubjective(true);
-            //add by lidm 判断是否完成主观题
-            if(!ShareBitmapUtils.getInstance().isCurrentListIsEmpty(questionsEntity.getId())){
-                LogInfo.log(TAG,"questionsEntity.getAnswerBean().setIsFinish(true)");
-                questionsEntity.getAnswerBean().setIsFinish(true);
-            }else{
-                LogInfo.log(TAG, "questionsEntity.getAnswerBean().setIsFinish(false)");
-                questionsEntity.getAnswerBean().setIsFinish(false);
-            } 
+        if (!ShareBitmapUtils.getInstance().isCurrentListIsEmpty(questionsEntity.getId())) {
+            LogInfo.log(TAG, "setPhotoUri");
+            questionsEntity.setPhotoUri(ShareBitmapUtils.getInstance().getPathList(questionsEntity.getId()));
+        }
+        questionsEntity.getAnswerBean().setIsSubjective(true);
+        //add by lidm 判断是否完成主观题
+        if (!ShareBitmapUtils.getInstance().isCurrentListIsEmpty(questionsEntity.getId())) {
+            LogInfo.log(TAG, "questionsEntity.getAnswerBean().setIsFinish(true)");
+            questionsEntity.getAnswerBean().setIsFinish(true);
+        } else {
+            LogInfo.log(TAG, "questionsEntity.getAnswerBean().setIsFinish(false)");
+            questionsEntity.getAnswerBean().setIsFinish(false);
+        }
 
     }
 
@@ -286,7 +281,8 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         this.bean = bean;
     }
 
-    @Override public void answerViewClick() {
+    @Override
+    public void answerViewClick() {
 
     }
 

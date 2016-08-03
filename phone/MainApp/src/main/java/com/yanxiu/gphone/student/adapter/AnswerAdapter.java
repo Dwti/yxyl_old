@@ -135,8 +135,8 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 //			isResolution = bean.getIsResolution();
 //			isWrongSet = bean.isWrongSet();
 			//data 中数据为数组 只是去数组中的第一个item
-			//dataList.addAll(bean.getData().get(0).getPaperTest());
-			dataList.addAll(beanTmp.getData().get(0).getPaperTest());
+			dataList.addAll(bean.getData().get(0).getPaperTest());
+//			dataList.addAll(beanTmp.getData().get(0).getPaperTest());
 			/*for (int i=0; i<bean.getData().size(); i++) {
 				dataList.addAll(bean.getData().get(i).getPaperTest());
 			}*/

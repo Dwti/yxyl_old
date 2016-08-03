@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.os.SystemClock;
 import android.support.v4.view.ViewPager;
 import android.telephony.PhoneStateListener;
@@ -54,7 +55,8 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     private QuestionsListener listener;
     private Resources mResources;
     private long subtime = 0, beginTime = 0, falgTime = 0, pauseTime = 0;
-
+    private static final int UPDATE_PROGRESS = 0;
+    private boolean isNeedUpdate;
     private TelephonyManager manager;
     private int pageCountIndex;
     private ViewPager vpAnswer;
@@ -80,6 +82,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_listen_complex_question, null);
+        isNeedUpdate=true;
         mContext = getActivity();
         initView();
         initData();
@@ -135,7 +138,6 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         onPageCount(count);
         vpAnswer.setAdapter(adapter);
         adapter.setViewPager(vpAnswer);
-        mSimplePlayer.setProgress(0);
         mSimplePlayer.setOnControlButtonClickListener(new SimpleAudioPlayer.OnControlButtonClickListener() {
             @Override
             public void onClick(ImageView imageButton) {
@@ -166,17 +168,32 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
 
     public void setUserVisibleHint(boolean isVisibleToUser) {
         this.isVisibleToUser = isVisibleToUser;
-        if (!isVisibleToUser && mediaPlayer !=null && mediaPlayer.isPlaying()) {
+        if (!isVisibleToUser) {
+            isNeedUpdate = false;
+        }
+//        } else {
+//            if (mSimplePlayer!=null && mSimplePlayer.getProgress() != 0)
+//                mSimplePlayer.setProgress(mediaPlayer.getCurrentPosition());
+//        }
+        if (!isVisibleToUser && mediaPlayer != null && mediaPlayer.isPlaying()) {
             //暂停
             mediaPlayer.pause();
             et_time.stop();
             pauseTime = SystemClock.elapsedRealtime();
             mSimplePlayer.setState(SimpleAudioPlayer.PAUSE);
-            mSimplePlayer.isPlaying=false;
         }
     }
 
-    private Handler handler = new Handler();
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == UPDATE_PROGRESS && isNeedUpdate) {
+                mSimplePlayer.setProgress(mediaPlayer.getCurrentPosition());
+                Log.i("progress", mediaPlayer.getCurrentPosition() + "");
+                handler.sendEmptyMessageDelayed(UPDATE_PROGRESS, 100);
+            }
+        }
+    };
 
     Runnable updateThread = new Runnable() {
         public void run() {
@@ -190,6 +207,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         }
     };
 
+
     /**
      * 暂停播放
      */
@@ -199,13 +217,16 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
             mediaPlayer.pause();
             et_time.stop();
             pauseTime = SystemClock.elapsedRealtime();
+            isNeedUpdate=false;
         } else {
             //继续播放
             subtime += SystemClock.elapsedRealtime() - pauseTime;
-            //mediaPlayer.start();
+            mediaPlayer.start();
             beginTime = falgTime + subtime;
             et_time.setBase(beginTime);
             et_time.start();
+            isNeedUpdate=true;
+            handler.sendEmptyMessageDelayed(UPDATE_PROGRESS, 100);
         }
     }
 
@@ -224,7 +245,8 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                 mediaPlayer.start();
                 mSimplePlayer.setMax(mediaPlayer.getDuration());
                 Log.i("max", mediaPlayer.getDuration() + "");
-                handler.post(updateThread);
+//                handler.post(updateThread);
+                handler.sendEmptyMessageDelayed(UPDATE_PROGRESS, 100);
             }
         });
 
@@ -244,6 +266,11 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         mediaPlayer.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
             @Override
             public void onBufferingUpdate(MediaPlayer mp, int percent) {
+                if(!mp.isPlaying()&&mSimplePlayer.isPlaying){
+                    mSimplePlayer.setState(SimpleAudioPlayer.PAUSE);
+                }else if(mp.isPlaying() && !mSimplePlayer.isPlaying){
+                    mSimplePlayer.setState(SimpleAudioPlayer.PLAY);
+                }
                 Log.i("buffering", percent + "");
             }
         });
@@ -268,13 +295,13 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     @Override
     public void onPause() {
         super.onPause();
-        if (mediaPlayer!=null &&mediaPlayer.isPlaying()) {
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
             //暂停
             mediaPlayer.pause();
             et_time.stop();
             pauseTime = SystemClock.elapsedRealtime();
             mSimplePlayer.setState(SimpleAudioPlayer.PAUSE);
-            mSimplePlayer.isPlaying=false;
+            isNeedUpdate=false;
         }
     }
 
@@ -283,17 +310,6 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         super.onDestroy();
         releaseMediaPlayer();
         EventBus.getDefault().unregister(this);//反注册EventBus
-//        rootView = null;
-//        llTopView = null;
-//        ivBottomCtrl = null;
-//        mResources = null;
-//        tvYanxiu = null;
-//        vpAnswer = null;
-//
-//        children = null;
-//
-//        adapter = null;
-//        System.gc();
     }
 
     public void onEventMainThread(ChildIndexEvent event) {
