@@ -166,6 +166,14 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
 
     public void setUserVisibleHint(boolean isVisibleToUser) {
         this.isVisibleToUser = isVisibleToUser;
+        if (!isVisibleToUser && mediaPlayer !=null && mediaPlayer.isPlaying()) {
+            //暂停
+            mediaPlayer.pause();
+            et_time.stop();
+            pauseTime = SystemClock.elapsedRealtime();
+            mSimplePlayer.setState(SimpleAudioPlayer.PAUSE);
+            mSimplePlayer.isPlaying=false;
+        }
     }
 
     private Handler handler = new Handler();
@@ -175,7 +183,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
             // 获得歌曲现在播放位置并设置成播放进度条的值
             if (mediaPlayer != null) {
                 mSimplePlayer.setProgress(mediaPlayer.getCurrentPosition());
-                Log.i("progress",mediaPlayer.getCurrentPosition()+"");
+                Log.i("progress", mediaPlayer.getCurrentPosition() + "");
                 // 每次延迟100毫秒再启动线程
                 handler.postDelayed(updateThread, 100);
             }
@@ -186,7 +194,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
      * 暂停播放
      */
     private void pause() {
-        if (mSimplePlayer.isPlaying) {
+        if (mediaPlayer.isPlaying()) {
             //暂停
             mediaPlayer.pause();
             et_time.stop();
@@ -246,9 +254,9 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     /**
      * 释放音乐播放器
      */
-    public void releaseMediaPlayer(){
+    public void releaseMediaPlayer() {
         if (mediaPlayer != null) {
-            if(mediaPlayer.isPlaying())
+            if (mediaPlayer.isPlaying())
                 mediaPlayer.stop();
             mediaPlayer.release();
             mediaPlayer = null;
@@ -260,12 +268,20 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     @Override
     public void onPause() {
         super.onPause();
-        releaseMediaPlayer();
+        if (mediaPlayer!=null &&mediaPlayer.isPlaying()) {
+            //暂停
+            mediaPlayer.pause();
+            et_time.stop();
+            pauseTime = SystemClock.elapsedRealtime();
+            mSimplePlayer.setState(SimpleAudioPlayer.PAUSE);
+            mSimplePlayer.isPlaying=false;
+        }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        releaseMediaPlayer();
         EventBus.getDefault().unregister(this);//反注册EventBus
 //        rootView = null;
 //        llTopView = null;
