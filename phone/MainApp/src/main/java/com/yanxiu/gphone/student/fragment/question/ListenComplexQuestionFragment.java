@@ -146,8 +146,8 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
             public void onClick(ImageView imageButton) {
                 if (mSimplePlayer.getProgress() == 0) {
                     //开始播放
-//                    String path = "http://abv.cn/music/光辉岁月.mp3";
-                    String path = "http://data.5sing.kgimg.com/G034/M05/16/17/ApQEAFXsgeqIXl7gAAVVd-n31lcAABOogKzlD4ABVWP363.mp3";
+                    String path = "http://abv.cn/music/光辉岁月.mp3";
+//                    String path = "http://data.5sing.kgimg.com/G034/M05/16/17/ApQEAFXsgeqIXl7gAAVVd-n31lcAABOogKzlD4ABVWP363.mp3";
                     try {
                         play(path);
                     } catch (Exception e) {
@@ -242,6 +242,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
 
             public void onPrepared(MediaPlayer mp) {
+                isNeedUpdate=true;
                 mediaPlayer.start();
                 mSimplePlayer.setMax(mediaPlayer.getDuration());
                 mDuration = mediaPlayer.getDuration() / 1000;
@@ -260,6 +261,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
             public void onCompletion(MediaPlayer mp) {
                 isNeedUpdate=false;
                 mediaPlayer.release();
+                mediaPlayer=null;    //此处不置空，播放完了不能播放第二次,这是因为mediaPlayer.release()之后，mediaPlayer并不为空，导致上面没有重新create，然后又释放了，所以不能播放第二次
                 mSimplePlayer.setPlayOver();
             }
         });
