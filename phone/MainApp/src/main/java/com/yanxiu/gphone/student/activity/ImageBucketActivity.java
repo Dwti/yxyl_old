@@ -153,7 +153,7 @@ public class ImageBucketActivity extends TopViewBaseActivity {
                     boolean isAddList=jumpBackModel.isAddList();
                     if(isAddList){
                         ActivityJumpUtils.jumpBackFromImageBucketActivity(this, RESULT_OK);
-                        ShareBitmapUtils.getInstance().addAllPath(ShareBitmapUtils.getInstance().getCurrentSbId(),mTempDrrList);
+//                        ShareBitmapUtils.getInstance().addAllPath(ShareBitmapUtils.getInstance().getCurrentSbId(),mTempDrrList);
                         executeFinish();
                     }else{
                         ActivityJumpUtils.jumpBackFromImageBucketActivity(this, RESULT_CANCELED);

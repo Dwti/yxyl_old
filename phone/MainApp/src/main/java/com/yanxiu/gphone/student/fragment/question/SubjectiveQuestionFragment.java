@@ -1,6 +1,8 @@
 package com.yanxiu.gphone.student.fragment.question;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.common.core.utils.LogInfo;
+import com.common.core.utils.PictureHelper;
 import com.common.core.utils.StringUtils;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.LocalPhotoViewActivity;
@@ -42,6 +45,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
 
     private int pageIndex;
     private PicSelView mPicSelView;
+    private Activity mActivity;
 
     private boolean isFirstSub;//是否是首个主观题Frgment用于初始化全局主观题Id
 
@@ -49,6 +53,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LogInfo.log(TAG, "SubjectiveQuestionFragment on Create： ");
+        mActivity = getActivity();
         this.questionsEntity = (getArguments() != null) ? (QuestionEntity) getArguments().getSerializable("questions") : null;
         if (questionsEntity == null) {
             LogInfo.log(TAG, "questionsEntity==null");
@@ -139,7 +144,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         FragmentTransaction ft = SubjectiveQuestionFragment.this.getChildFragmentManager().beginTransaction();
 //         标准动画
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
 
         ft.replace(R.id.content_problem_analysis, resolutionFragment).commitAllowingStateLoss();
     }
@@ -217,7 +222,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         ShareBitmapUtils.getInstance().setCurrentSbId(questionsEntity.getId());
         LogInfo.log(TAG, "mPicSelView: " + mPicSelView);
         if (mPicSelView != null) {
-            mPicSelView.upDate(type, questionsEntity.getId());
+            mPicSelView.upDate(getActivity(),type, questionsEntity.getId());
         }
 
         if (!ShareBitmapUtils.getInstance().isCurrentListIsEmpty(questionsEntity.getId())) {
@@ -245,6 +250,22 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
                 break;
             case MediaUtils.OPEN_DEFINE_PIC_BUILD:
                 updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
+                break;
+            case MediaUtils.IMAGE_CROP:
+                if(resultCode==mActivity.RESULT_OK){
+                    if(data!=null){
+//                        Bundle extras = data.getExtras();
+//                        if(extras!=null){
+//                            Bitmap bmp = extras.getParcelable("data");
+//                            String filePath =  MediaUtils.saveCroppedImage(bmp);
+//                            ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), filePath);
+//                            mPicSelView.updateImage(ShareBitmapUtils.getInstance().getCurrentSbId());
+//                        }
+                        String filePath = PictureHelper.getPath(mActivity,MediaUtils.currentCroppedImageUri);
+                        ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), filePath);
+                        mPicSelView.updateImage(ShareBitmapUtils.getInstance().getCurrentSbId());
+                    }
+                }
                 break;
             case LocalPhotoViewActivity.REQUEST_CODE:
                 updataPhotoView(LocalPhotoViewActivity.REQUEST_CODE);
