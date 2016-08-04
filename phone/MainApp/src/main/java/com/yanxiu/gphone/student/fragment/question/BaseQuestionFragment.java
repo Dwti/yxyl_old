@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
+import com.yanxiu.gphone.student.utils.YanXiuConstant;
 
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.*;
 
@@ -38,6 +39,8 @@ public class BaseQuestionFragment extends Fragment {
     private RelativeLayout rlTopView;
 
     protected boolean ischild=false;
+    /**是否小题需要显示最后一个*/
+    protected boolean is_reduction=false;
 
 
     @Override
@@ -99,6 +102,17 @@ public class BaseQuestionFragment extends Fragment {
 
     public void setIsChild(boolean ischild){
         this.ischild=ischild;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (YanXiuConstant.OnClick_TYPE==0){
+            is_reduction=false;
+        }else if (YanXiuConstant.OnClick_TYPE==1){
+            YanXiuConstant.OnClick_TYPE=0;
+            is_reduction=true;
+        }
     }
 
     @Override

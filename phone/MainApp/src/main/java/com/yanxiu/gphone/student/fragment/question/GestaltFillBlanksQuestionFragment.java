@@ -36,7 +36,7 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by Administrator on 2016/7/28.
  */
-public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex, ViewPager.OnPageChangeListener,AnswerCallback {
+public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex, ViewPager.OnPageChangeListener, AnswerCallback {
 
     private AnswerBean bean;
     private FillBlanksButtonFramelayout fill_blanks_button;
@@ -55,7 +55,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.pageCountIndex = this.pageIndex;
-        if(questionsEntity != null && questionsEntity.getChildren() != null){
+        if (questionsEntity != null && questionsEntity.getChildren() != null) {
             children = questionsEntity.getChildren();
 //            LogInfo.log("geny", "chilid" + children.size());
         }
@@ -66,7 +66,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (rootView==null) {
+        if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_gestaltfillblanks, null);
             initview();
             listener();
@@ -79,9 +79,9 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
             @Override
             public void QuestionPosition(int position) {
 //                Toast.makeText(getActivity(),position+"",Toast.LENGTH_SHORT).show();
-                if (vpAnswer!=null) {
+                if (vpAnswer != null) {
                     int count = adapter.getCount();
-                    if (position<count) {
+                    if (position < count) {
                         vpAnswer.setCurrentItem(position);
                     }
                 }
@@ -91,17 +91,17 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
 
     @Override
     public int getChildCount() {
-        if (adapter!=null) {
+        if (adapter != null) {
             return adapter.getCount();
-        }else {
+        } else {
             return super.getChildCount();
         }
     }
 
     private void initview() {
-        ExpandableRelativeLayoutlayout rl_top_view= (ExpandableRelativeLayoutlayout) rootView.findViewById(R.id.rl_top_view);
-        fill_blanks_button= (FillBlanksButtonFramelayout) rootView.findViewById(R.id.fill_blanks_button);
-        if(questionsEntity != null && questionsEntity.getStem() != null){
+        ExpandableRelativeLayoutlayout rl_top_view = (ExpandableRelativeLayoutlayout) rootView.findViewById(R.id.rl_top_view);
+        fill_blanks_button = (FillBlanksButtonFramelayout) rootView.findViewById(R.id.fill_blanks_button);
+        if (questionsEntity != null && questionsEntity.getStem() != null) {
             fill_blanks_button.setQuestionsEntity(questionsEntity);
             fill_blanks_button.setData(questionsEntity.getStem());
 //            Log.d("asd","Stem+++++"+questionsEntity.getStem());
@@ -136,7 +136,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
     }
 
     public void onEventMainThread(ChildIndexEvent event) {
-        if(event != null && vpAnswer != null){
+        if (event != null && vpAnswer != null) {
 //            String msg = "onEventMainThread收到了消息：" + event.getIndex();
 //            Toast.makeText(this.getActivity(), msg, Toast.LENGTH_LONG).show();
 //            vpAnswer.setCurrentItem(event.getIndex());
@@ -160,20 +160,24 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
 
     @Override
     public void flipNextPager(QuestionsListener listener) {
-        String ss="";
-        ss="";
+        String ss = "";
+        ss = "";
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if(bean == null){
+        if (bean == null) {
             bean = questionsEntity.getAnswerBean();
         }
         setDataSources(bean);
         LogInfo.log("geny", "onResume");
-        if (vpAnswer!=null) {
-            vpAnswer.setCurrentItem(0);
+        if (vpAnswer != null) {
+            if (!is_reduction) {
+                vpAnswer.setCurrentItem(0);
+            } else {
+                vpAnswer.setCurrentItem(adapter.getCount() - 1);
+            }
         }
 
 //        if(questionsEntity != null){
@@ -187,7 +191,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
     @Override
     public void setDataSources(AnswerBean bean) {
         this.bean = bean;
-        if(fill_blanks_button!=null){
+        if (fill_blanks_button != null) {
             fill_blanks_button.setDataSources(bean);
         }
     }
@@ -199,34 +203,41 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
 
     @Override
     public void answerViewClick() {
-        if(fill_blanks_button!=null){
+        if (fill_blanks_button != null) {
             fill_blanks_button.hideSoftInput();
-            if(bean!=null){
-                LogInfo.log("king","answerViewClick saveAnswers");
+            if (bean != null) {
+                LogInfo.log("king", "answerViewClick saveAnswers");
                 fill_blanks_button.saveAnswers();
             }
         }
     }
 
     private boolean isVisibleToUser;
+
     public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
 //        LogInfo.log("geny", "setUserVisibleHint");
         this.isVisibleToUser = isVisibleToUser;
-        if(!isVisibleToUser && fill_blanks_button!=null){
-            fill_blanks_button.hideSoftInput();
-            if(bean!=null){
-                LogInfo.log("king","saveAnswers");
-                fill_blanks_button.saveAnswers();
+        if (!isVisibleToUser) {
+            if (fill_blanks_button != null) {
+                fill_blanks_button.hideSoftInput();
+                if (bean != null) {
+                    LogInfo.log("king", "saveAnswers");
+                    fill_blanks_button.saveAnswers();
+                }
             }
-        }
-        if (isVisibleToUser&&!ischild){
-            if (adapter!=null){
-                ((QuestionsListener)getActivity()).flipNextPager(adapter);
+        } else {
+            if (!ischild) {
+                if (adapter != null) {
+                    ((QuestionsListener) getActivity()).flipNextPager(adapter);
+                }
             }
-        }
-        if (isVisibleToUser){
-            if (vpAnswer!=null) {
-                vpAnswer.setCurrentItem(0);
+            if (vpAnswer != null) {
+                if (!is_reduction) {
+                    vpAnswer.setCurrentItem(0);
+                } else {
+                    vpAnswer.setCurrentItem(adapter.getCount() - 1);
+                }
             }
         }
     }
@@ -238,19 +249,19 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
 
     @Override
     public void onPageSelected(int position) {
-        if(questionsEntity != null){
+        if (questionsEntity != null) {
             pageCountIndex = pageIndex + position;
-            if (this.getActivity() instanceof AnswerViewActivity && isVisibleToUser){
+            if (this.getActivity() instanceof AnswerViewActivity && isVisibleToUser) {
                 ((AnswerViewActivity) this.getActivity()).setIndexFromRead(pageCountIndex);
 //                ((AnswerViewActivity) this.getActivity()).setIndexNext(pageCountIndex+getChildCount());
-            }else if(this.getActivity() instanceof ResolutionAnswerViewActivity && isVisibleToUser){
-                ((ResolutionAnswerViewActivity)this.getActivity()).setIndexFromRead(pageCountIndex);
+            } else if (this.getActivity() instanceof ResolutionAnswerViewActivity && isVisibleToUser) {
+                ((ResolutionAnswerViewActivity) this.getActivity()).setIndexFromRead(pageCountIndex);
             }
-            if (fill_blanks_button!=null){
+            if (fill_blanks_button != null) {
                 fill_blanks_button.setTextViewSelect(position);
             }
         }
-        ((BaseAnswerViewActivity)getActivity()).setPagerSelect(adapter.getCount(),position);
+        ((BaseAnswerViewActivity) getActivity()).setPagerSelect(adapter.getCount(), position);
     }
 
     @Override
@@ -274,8 +285,8 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
     }
 
     @Override
-    public void answercallback(int position,String answer) {
-        if (fill_blanks_button!=null) {
+    public void answercallback(int position, String answer) {
+        if (fill_blanks_button != null) {
             fill_blanks_button.setAnswersToPosition(position, answer);
         }
     }

@@ -37,7 +37,8 @@ public class YanXiuConstant {
 
 	public static final int PRODUCTLINE = 1;
 
-
+	/**0正常还原1代表切换小题*/
+	public static int OnClick_TYPE=0;
 
 	public static final String VERSION = CommonCoreUtil.getClientVersionName(
 			YanxiuApplication.getInstance());

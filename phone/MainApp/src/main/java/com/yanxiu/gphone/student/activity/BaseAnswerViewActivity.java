@@ -25,6 +25,7 @@ import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.utils.Configuration;
 import com.yanxiu.gphone.student.utils.PublicLoadUtils;
 import com.yanxiu.gphone.student.utils.Util;
+import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.PublicLoadLayout;
 import com.yanxiu.gphone.student.view.StudentLoadingLayout;
 import com.yanxiu.gphone.student.view.YanxiuTypefaceTextView;
@@ -263,11 +264,13 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
                     int tatle_count=((AnswerAdapter)listener).getCount();
                     int currenItem=((AnswerAdapter)listener).getViewPagerCurrentItem();
                     if (currenItem==0){
+                        YanXiuConstant.OnClick_TYPE=1;
                         vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() - 1));
                     }else {
                         ((AnswerAdapter)listener).setPagerLift();
                     }
                 }else {
+                    YanXiuConstant.OnClick_TYPE=1;
                     vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() - 1));
                 }
             }

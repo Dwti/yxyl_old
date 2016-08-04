@@ -134,14 +134,18 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
     public void setUserVisibleHint(boolean isVisibleToUser) {
 //        LogInfo.log("geny", "setUserVisibleHint");
         this.isVisibleToUser = isVisibleToUser;
-        if (isVisibleToUser&&!ischild){
-            if (adapter!=null){
-                ((QuestionsListener)getActivity()).flipNextPager(adapter);
+        if (isVisibleToUser){
+            if (!ischild) {
+                if (adapter != null) {
+                    ((QuestionsListener) getActivity()).flipNextPager(adapter);
+                }
             }
-        }
-        if (isVisibleToUser) {
             if (vpAnswer != null) {
-                vpAnswer.setCurrentItem(0);
+                if (!is_reduction) {
+                    vpAnswer.setCurrentItem(0);
+                } else {
+                    vpAnswer.setCurrentItem(adapter.getCount() - 1);
+                }
             }
         }
     }
@@ -206,7 +210,11 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
         }
 
         if (vpAnswer != null) {
-            vpAnswer.setCurrentItem(0);
+            if (!is_reduction) {
+                vpAnswer.setCurrentItem(0);
+            } else {
+                vpAnswer.setCurrentItem(adapter.getCount() - 1);
+            }
         }
     }
     @Override
