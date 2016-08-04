@@ -93,7 +93,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
 
     private void initData() {
         manager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
-        manager.listen(new MyListener(), PhoneStateListener.LISTEN_CALL_STATE);
+//        manager.listen(new MyListener(), PhoneStateListener.LISTEN_CALL_STATE);
         mResources = getActivity().getResources();
         LogInfo.log("geny-", "pageCountIndex====" + pageCountIndex + "---pageIndex===" + pageIndex);
         if (questionsEntity != null && questionsEntity.getStem() != null) {
