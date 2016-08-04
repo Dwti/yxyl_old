@@ -481,10 +481,12 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                 case TelephonyManager.CALL_STATE_RINGING:
                     // 音乐播放器暂停
                     pause();
+                    Log.i("pause","call_state_ringing");
                     break;
                 case TelephonyManager.CALL_STATE_IDLE:
                     // 重新播放音乐
                     pause();
+                    Log.i("pause", "call_state_idle");
                     break;
             }
         }
