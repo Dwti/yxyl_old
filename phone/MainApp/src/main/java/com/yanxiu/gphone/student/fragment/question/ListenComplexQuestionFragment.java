@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
-import android.os.SystemClock;
 import android.support.v4.view.ViewPager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
@@ -18,7 +17,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -84,11 +82,13 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_listen_complex_question, null);
-        isNeedUpdate = true;
-        mContext = getActivity();
-        initView();
-        initData();
+        if (rootView==null) {
+            rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_listen_complex_question, null);
+            isNeedUpdate = true;
+            mContext = getActivity();
+            initView();
+            initData();
+        }
         return rootView;
     }
 
@@ -146,7 +146,8 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
             public void onClick(ImageView imageButton) {
                 if (mSimplePlayer.getProgress() == 0) {
                     //开始播放
-                    String path = "http://abv.cn/music/光辉岁月.mp3";
+//                    String path = "http://abv.cn/music/光辉岁月.mp3";
+                    String path = "http://data.5sing.kgimg.com/G034/M05/16/17/ApQEAFXsgeqIXl7gAAVVd-n31lcAABOogKzlD4ABVWP363.mp3";
                     try {
                         play(path);
                     } catch (Exception e) {
@@ -168,7 +169,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
-        if (isVisibleToUser){
+        if (isVisibleToUser) {
             if (!ischild) {
                 if (adapter != null) {
                     ((QuestionsListener) getActivity()).flipNextPager(adapter);
@@ -181,13 +182,14 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                     vpAnswer.setCurrentItem(adapter.getCount() - 1);
                 }
             }
-        }else {
+        } else {
             isNeedUpdate = false;
         }
         if (!isVisibleToUser && mediaPlayer != null && mediaPlayer.isPlaying()) {
             //暂停
             mediaPlayer.pause();
             mDownTimer.cancel();
+
             mSimplePlayer.setState(SimpleAudioPlayer.PAUSE);
         }
     }
@@ -196,26 +198,16 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == UPDATE_PROGRESS && isNeedUpdate) {
-                mSimplePlayer.setProgress(mediaPlayer.getCurrentPosition());
-                Log.i("progress", mediaPlayer.getCurrentPosition() + "");
-                handler.sendEmptyMessageDelayed(UPDATE_PROGRESS, 100);
+                try {
+                    mSimplePlayer.setProgress(mediaPlayer.getCurrentPosition());
+                    Log.i("progress", mediaPlayer.getCurrentPosition() + "");
+                    handler.sendEmptyMessageDelayed(UPDATE_PROGRESS, 100);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     };
-
-    Runnable updateThread = new Runnable() {
-        public void run() {
-            // 获得歌曲现在播放位置并设置成播放进度条的值
-            if (mediaPlayer != null) {
-                mSimplePlayer.setProgress(mediaPlayer.getCurrentPosition());
-                Log.i("progress", mediaPlayer.getCurrentPosition() + "");
-                // 每次延迟100毫秒再启动线程
-                handler.postDelayed(updateThread, 100);
-            }
-        }
-    };
-
-
     /**
      * 暂停播放
      */
@@ -230,7 +222,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         } else {
             //继续播放
             mediaPlayer.start();
-            mDownTimer = startNewCountDownTimer(mMillisUntilFinished);
+            mDownTimer = createNewCountDownTimer(mMillisUntilFinished);
             mDownTimer.start();
             isNeedUpdate = true;
             handler.sendEmptyMessageDelayed(UPDATE_PROGRESS, 100);
@@ -254,7 +246,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                 mSimplePlayer.setMax(mediaPlayer.getDuration());
                 mDuration = mediaPlayer.getDuration() / 1000;
                 mMinutes = mDuration / 60;
-                mDownTimer = startNewCountDownTimer(mediaPlayer.getDuration());
+                mDownTimer = createNewCountDownTimer(mediaPlayer.getDuration());
                 mDownTimer.start();
                 Log.i("max", mediaPlayer.getDuration() + "");
 //                handler.post(updateThread);
@@ -266,6 +258,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
             public void onCompletion(MediaPlayer mp) {
+                isNeedUpdate=false;
                 mediaPlayer.release();
                 mSimplePlayer.setPlayOver();
             }
@@ -285,7 +278,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
 
     }
 
-    private CountDownTimer startNewCountDownTimer(long milliSeconds) {
+    private CountDownTimer createNewCountDownTimer(long milliSeconds) {
         CountDownTimer countDownTimer;
         countDownTimer = new CountDownTimer(milliSeconds, 1000) {
             @Override
@@ -300,7 +293,6 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                 tv_timer.setText("00:00");
             }
         };
-        countDownTimer.start();
         return countDownTimer;
     }
 
@@ -313,7 +305,6 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                 mediaPlayer.stop();
             mediaPlayer.release();
             mediaPlayer = null;
-            handler.removeCallbacks(updateThread);
         }
         mSimplePlayer.setPlayOver();
     }
@@ -324,6 +315,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         if (mediaPlayer != null && mediaPlayer.isPlaying()) {
             //暂停
             mediaPlayer.pause();
+            mDownTimer.cancel();
             mSimplePlayer.setState(SimpleAudioPlayer.PAUSE);
             isNeedUpdate = false;
         }
