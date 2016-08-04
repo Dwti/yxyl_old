@@ -174,6 +174,11 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                 ((QuestionsListener)getActivity()).flipNextPager(adapter);
             }
         }
+        if (isVisibleToUser) {
+            if (vpAnswer != null) {
+                vpAnswer.setCurrentItem(0);
+            }
+        }
     }
 
     private Handler handler = new Handler();
@@ -325,6 +330,10 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
             if (questionsEntity.getChildPageIndex() != -1) {
                 vpAnswer.setCurrentItem(questionsEntity.getChildPageIndex());
             }
+        }
+
+        if (vpAnswer != null) {
+            vpAnswer.setCurrentItem(0);
         }
     }
 
