@@ -535,6 +535,78 @@ public class Util {
                 "                \"uid\": 6355\n" +
                 "            },\n" +
                 "            \"paperTest\": [\n" +
+                "               {\n" +
+                "                    \"difficulty\": 3,\n" +
+                "                    \"id\": 570354,\n" +
+                "                    \"isfavorite\": 0,\n" +
+                "                    \"knowledgepoint\": \"44463\",\n" +
+                "                    \"pad\": {\n" +
+                "                        \"answer\": \"[]\",\n" +
+                "                        \"costtime\": 0,\n" +
+                "                        \"id\": 390741,\n" +
+                "                        \"jsonAnswer\": [],\n" +
+                "                        \"ptid\": 570354,\n" +
+                "                        \"status\": 3,\n" +
+                "                        \"uid\": 6355\n" +
+                "                    },\n" +
+                "                    \"pid\": 88398,\n" +
+                "                    \"qid\": 2734957,\n" +
+                "                    \"qtype\": 0,\n" +
+                "                    \"questions\": {\n" +
+                "                        \"analysis\": \"考查对词组看电视的掌握。<p><br/></p>\",\n" +
+                "                        \"answer\": [\n" +
+                "                            \"watches\",\n" +
+                "                            \"TV\"\n" +
+                "                        ],\n" +
+                "                        \"difficulty\": \"1\",\n" +
+                "                        \"id\": \"2740230\",\n" +
+                "                        \"point\": [\n" +
+                "                            {\n" +
+                "                                \"id\": \"26021\",\n" +
+                "                                \"name\": \"watchTV(watchtelevision)\"\n" +
+                "                            }\n" +
+                "                        ],\n" +
+                "                        \"stem\": \"<p><br/>Tonyoften(_)(_)onSunday.<br/></p>\",\n" +
+                "                        \"template\": \"fill\",\n" +
+                "                        \"type_id\": \"3\"\n" +
+                "                    }\n" +
+                "                }," +
+                "               {\n" +
+                "                    \"difficulty\": 3,\n" +
+                "                    \"id\": 570354,\n" +
+                "                    \"isfavorite\": 0,\n" +
+                "                    \"knowledgepoint\": \"44463\",\n" +
+                "                    \"pad\": {\n" +
+                "                        \"answer\": \"[]\",\n" +
+                "                        \"costtime\": 0,\n" +
+                "                        \"id\": 390741,\n" +
+                "                        \"jsonAnswer\": [],\n" +
+                "                        \"ptid\": 570354,\n" +
+                "                        \"status\": 3,\n" +
+                "                        \"uid\": 6355\n" +
+                "                    },\n" +
+                "                    \"pid\": 88398,\n" +
+                "                    \"qid\": 2734957,\n" +
+                "                    \"qtype\": 0,\n" +
+                "                    \"questions\": {\n" +
+                "                        \"analysis\": \"考查对词组看电视的掌握。<p><br/></p>\",\n" +
+                "                        \"answer\": [\n" +
+                "                            \"watches\",\n" +
+                "                            \"TV\"\n" +
+                "                        ],\n" +
+                "                        \"difficulty\": \"1\",\n" +
+                "                        \"id\": \"2740230\",\n" +
+                "                        \"point\": [\n" +
+                "                            {\n" +
+                "                                \"id\": \"26021\",\n" +
+                "                                \"name\": \"watchTV(watchtelevision)\"\n" +
+                "                            }\n" +
+                "                        ],\n" +
+                "                        \"stem\": \"<p><br/>Tonyoften(_)(_)onSunday.<br/></p>\",\n" +
+                "                        \"template\": \"fill\",\n" +
+                "                        \"type_id\": \"3\"\n" +
+                "                    }\n" +
+                "                }," +
                 "                {\n" +
                 "                    \"difficulty\": 3,\n" +
                 "                    \"id\": 570354,\n" +
@@ -888,27 +960,43 @@ public class Util {
                 "                                \"type_id\": \"1\"\n" +
                 "                            },\n" +
                 "                            {\n" +
-                "                                \"analysis\": \"ddd\",\n" +
+                "                                \"analysis\": \"asdfasfs\",\n" +
                 "                                \"answer\": [\n" +
-                "                                    \"1\"\n" +
+                "                                    \"3\"\n" +
                 "                                ],\n" +
+                "                                \"content\": {\n" +
+                "                                    \"choices\": [\n" +
+                "                                        \"test1\",\n" +
+                "                                        \"test2\",\n" +
+                "                                        \"test3\",\n" +
+                "                                        \"test4\"\n" +
+                "                                    ]\n" +
+                "                                },\n" +
                 "                                \"difficulty\": \"1\",\n" +
                 "                                \"id\": \"2734959\",\n" +
-                "                                \"stem\": \"asdfasfasfasfsaf\",\n" +
-                "                                \"template\": \"alter\",\n" +
-                "                                \"type_id\": \"4\"\n" +
-                "                            }\n" +
+                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
+                "                                \"template\": \"choice\",\n" +
+                "                                \"type_id\": \"1\"\n" +
+                "                            },\n" +
                 "                            {\n" +
-                "                                \"analysis\": \"ddd\",\n" +
+                "                                \"analysis\": \"asdfasfs\",\n" +
                 "                                \"answer\": [\n" +
-                "                                    \"1\"\n" +
+                "                                    \"3\"\n" +
                 "                                ],\n" +
+                "                                \"content\": {\n" +
+                "                                    \"choices\": [\n" +
+                "                                        \"ceshi1\",\n" +
+                "                                        \"ceshi2\",\n" +
+                "                                        \"ceshi3\",\n" +
+                "                                        \"ceshi4\"\n" +
+                "                                    ]\n" +
+                "                                },\n" +
                 "                                \"difficulty\": \"1\",\n" +
                 "                                \"id\": \"2734960\",\n" +
-                "                                \"stem\": \"asdfasfasfasfsaf\",\n" +
-                "                                \"template\": \"alter\",\n" +
-                "                                \"type_id\": \"4\"\n" +
-                "                            }\n" +
+                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
+                "                                \"template\": \"choice\",\n" +
+                "                                \"type_id\": \"1\"\n" +
+                "                            },\n" +
                 "                        ],\n" +
                 "                        \"difficulty\": \"1\",\n" +
                 "                        \"id\": \"2734957\",\n" +

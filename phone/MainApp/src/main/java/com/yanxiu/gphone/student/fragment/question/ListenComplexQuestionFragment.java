@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.os.SystemClock;
 import android.support.v4.view.ViewPager;
 import android.telephony.PhoneStateListener;
@@ -44,7 +45,7 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by sunpeng on 2016/8/2.
  */
-public class ListenComplexQuestionFragment extends BaseQuestionFragment implements View.OnClickListener, QuestionsListener, PageIndex, ViewPager.OnPageChangeListener {
+public class ListenComplexQuestionFragment extends BaseQuestionFragment implements View.OnClickListener, View.OnTouchListener, QuestionsListener, PageIndex, ViewPager.OnPageChangeListener {
 
     private View rootView;
     private ExpandableRelativeLayoutlayout llTopView;
@@ -53,10 +54,10 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     private YXiuAnserTextView tvYanxiu;
     private int pageCount = 1;
     private QuestionsListener listener;
-    private OnPushPullTouchListener mOnPushPullTouchListener;
     private Resources mResources;
     private long subtime = 0, beginTime = 0, falgTime = 0, pauseTime = 0;
-
+    private static final int UPDATE_PROGRESS = 0;
+    private boolean isNeedUpdate;
     private TelephonyManager manager;
     private int pageCountIndex;
     private ViewPager vpAnswer;
@@ -82,6 +83,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_listen_complex_question, null);
+        isNeedUpdate=true;
         mContext = getActivity();
         initView();
         initData();
@@ -91,7 +93,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
 
     private void initData() {
         manager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
-        manager.listen(new MyPhoneStateListener(), PhoneStateListener.LISTEN_CALL_STATE);
+//        manager.listen(new MyListener(), PhoneStateListener.LISTEN_CALL_STATE);
         mResources = getActivity().getResources();
         LogInfo.log("geny-", "pageCountIndex====" + pageCountIndex + "---pageIndex===" + pageIndex);
         if (questionsEntity != null && questionsEntity.getStem() != null) {
@@ -113,10 +115,9 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                 }
             }
         });
-        ll_bottom_view = (LinearLayout) rootView.findViewById(R.id.ll_bottom_view);
-        mOnPushPullTouchListener = new OnPushPullTouchListener(ll_bottom_view, getActivity());
         ivBottomCtrl = (ImageView) rootView.findViewById(R.id.iv_bottom_ctrl);
-        ivBottomCtrl.setOnTouchListener(mOnPushPullTouchListener);
+        ivBottomCtrl.setOnTouchListener(this);
+        ll_bottom_view = (LinearLayout) rootView.findViewById(R.id.ll_bottom_view);
         tvYanxiu = (YXiuAnserTextView) rootView.findViewById(R.id.yxiu_tv);
 
 
@@ -138,7 +139,6 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         onPageCount(count);
         vpAnswer.setAdapter(adapter);
         adapter.setViewPager(vpAnswer);
-        mSimplePlayer.setProgress(0);
         mSimplePlayer.setOnControlButtonClickListener(new SimpleAudioPlayer.OnControlButtonClickListener() {
             @Override
             public void onClick(ImageView imageButton) {
@@ -174,38 +174,69 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                 ((QuestionsListener)getActivity()).flipNextPager(adapter);
             }
         }
+        if (isVisibleToUser) {
+            if (vpAnswer != null) {
+                vpAnswer.setCurrentItem(0);
+            }
+        }
+        if (!isVisibleToUser) {
+            isNeedUpdate = false;
+        }
+        if (!isVisibleToUser && mediaPlayer != null && mediaPlayer.isPlaying()) {
+            //暂停
+            mediaPlayer.pause();
+            et_time.stop();
+            pauseTime = SystemClock.elapsedRealtime();
+            mSimplePlayer.setState(SimpleAudioPlayer.PAUSE);
+        }
     }
 
-    private Handler handler = new Handler();
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == UPDATE_PROGRESS && isNeedUpdate) {
+                mSimplePlayer.setProgress(mediaPlayer.getCurrentPosition());
+                Log.i("progress", mediaPlayer.getCurrentPosition() + "");
+                handler.sendEmptyMessageDelayed(UPDATE_PROGRESS, 100);
+            }
+        }
+    };
 
     Runnable updateThread = new Runnable() {
         public void run() {
             // 获得歌曲现在播放位置并设置成播放进度条的值
             if (mediaPlayer != null) {
                 mSimplePlayer.setProgress(mediaPlayer.getCurrentPosition());
-                Log.i("progress",mediaPlayer.getCurrentPosition()+"");
+                Log.i("progress", mediaPlayer.getCurrentPosition() + "");
                 // 每次延迟100毫秒再启动线程
+                
                 handler.postDelayed(updateThread, 100);
             }
         }
     };
 
+
     /**
      * 暂停播放
      */
     private void pause() {
-        if (mSimplePlayer.isPlaying) {
+        if(mediaPlayer==null)
+            return;
+        if (mediaPlayer.isPlaying()) {
             //暂停
             mediaPlayer.pause();
             et_time.stop();
             pauseTime = SystemClock.elapsedRealtime();
+            isNeedUpdate=false;
         } else {
             //继续播放
             subtime += SystemClock.elapsedRealtime() - pauseTime;
-            //mediaPlayer.start();
+            mediaPlayer.start();
             beginTime = falgTime + subtime;
             et_time.setBase(beginTime);
             et_time.start();
+            isNeedUpdate=true;
+            handler.sendEmptyMessageDelayed(UPDATE_PROGRESS, 100);
         }
     }
 
@@ -224,7 +255,8 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                 mediaPlayer.start();
                 mSimplePlayer.setMax(mediaPlayer.getDuration());
                 Log.i("max", mediaPlayer.getDuration() + "");
-                handler.post(updateThread);
+//                handler.post(updateThread);
+                handler.sendEmptyMessageDelayed(UPDATE_PROGRESS, 100);
             }
         });
 
@@ -244,6 +276,11 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         mediaPlayer.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
             @Override
             public void onBufferingUpdate(MediaPlayer mp, int percent) {
+                if(!mp.isPlaying()&&mSimplePlayer.isPlaying){
+                    mSimplePlayer.setState(SimpleAudioPlayer.PAUSE);
+                }else if(mp.isPlaying() && !mSimplePlayer.isPlaying){
+                    mSimplePlayer.setState(SimpleAudioPlayer.PLAY);
+                }
                 Log.i("buffering", percent + "");
             }
         });
@@ -254,9 +291,9 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     /**
      * 释放音乐播放器
      */
-    public void releaseMediaPlayer(){
+    public void releaseMediaPlayer() {
         if (mediaPlayer != null) {
-            if(mediaPlayer.isPlaying())
+            if (mediaPlayer.isPlaying())
                 mediaPlayer.stop();
             mediaPlayer.release();
             mediaPlayer = null;
@@ -268,24 +305,21 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     @Override
     public void onPause() {
         super.onPause();
-        releaseMediaPlayer();
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            //暂停
+            mediaPlayer.pause();
+            et_time.stop();
+            pauseTime = SystemClock.elapsedRealtime();
+            mSimplePlayer.setState(SimpleAudioPlayer.PAUSE);
+            isNeedUpdate=false;
+        }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        releaseMediaPlayer();
         EventBus.getDefault().unregister(this);//反注册EventBus
-//        rootView = null;
-//        llTopView = null;
-//        ivBottomCtrl = null;
-//        mResources = null;
-//        tvYanxiu = null;
-//        vpAnswer = null;
-//
-//        children = null;
-//
-//        adapter = null;
-//        System.gc();
     }
 
     public void onEventMainThread(ChildIndexEvent event) {
@@ -320,11 +354,14 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     @Override
     public void onResume() {
         super.onResume();
-//
         if (questionsEntity != null) {
             if (questionsEntity.getChildPageIndex() != -1) {
                 vpAnswer.setCurrentItem(questionsEntity.getChildPageIndex());
             }
+        }
+
+        if (vpAnswer != null) {
+            vpAnswer.setCurrentItem(0);
         }
     }
 
@@ -365,7 +402,78 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         this.pageIndex = pageIndex;
     }
 
-    private class MyPhoneStateListener extends PhoneStateListener {
+    public int x;//触点X坐标
+    public int y;//触点Y坐标
+
+    public int yy;//控件高度
+    public int xx;//控件宽度
+
+    private int move_x;//x轴移动距离
+    private int move_y;//y轴移动距离
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        switch (motionEvent.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                x = (int) motionEvent.getRawX();
+                y = (int) motionEvent.getRawY();
+                xx = (int) ll_bottom_view.getWidth();
+                yy = (int) ll_bottom_view.getHeight();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                int x_now = (int) motionEvent.getRawX();
+                int y_now = (int) motionEvent.getRawY();
+
+                //用来说明滑动情况，无意义
+                if (Math.abs(x_now) > Math.abs(x)) {
+                    //right
+                    LogInfo.log("flip", "right");
+                    if (Math.abs(y_now) > Math.abs(y)) {
+                        //down
+                        LogInfo.log("flip", "down");
+                    } else {
+                        //up
+                        LogInfo.log("flip", "up");
+                    }
+                } else {
+                    //left
+                    LogInfo.log("flip", "left");
+                    if (Math.abs(y_now) > Math.abs(y)) {
+                        //down
+                        LogInfo.log("flip", "down");
+                    } else {
+                        //up
+                        LogInfo.log("flip", "up");
+                    }
+                }
+
+                move_x = x_now - x;
+                move_y = y_now - y;
+                setMove();
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
+            case MotionEvent.ACTION_CANCEL:
+                break;
+        }
+
+        return true;
+    }
+
+    private void setMove() {
+        LogInfo.log("move", xx + "+XXXXXXXXX");
+        LogInfo.log("move", yy - move_y + "+YYYYYYYYY");
+        WindowManager wm = (WindowManager) getActivity()
+                .getSystemService(getActivity().WINDOW_SERVICE);
+        int height = wm.getDefaultDisplay().getHeight();
+        LogInfo.log("move", height + "+YYYYYYYYY");
+        if (yy - move_y < height * 3 / 5) {
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(xx, yy - move_y);
+            ll_bottom_view.setLayoutParams(layoutParams);
+        }
+    }
+
+    private class MyListener extends PhoneStateListener {
 
         @Override
         public void onCallStateChanged(int state, String incomingNumber) {
@@ -374,10 +482,12 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                 case TelephonyManager.CALL_STATE_RINGING:
                     // 音乐播放器暂停
                     pause();
+                    Log.i("pause","call_state_ringing");
                     break;
                 case TelephonyManager.CALL_STATE_IDLE:
                     // 重新播放音乐
                     pause();
+                    Log.i("pause", "call_state_idle");
                     break;
             }
         }
@@ -391,5 +501,4 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
             return super.getChildCount();
         }
     }
-
 }

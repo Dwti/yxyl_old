@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -170,15 +171,15 @@ public class PicSelView extends RelativeLayout {
         }
     }
 
-    public void upDate(int type, String id) {
+    public void upDate(Activity activity,int type, String id) {
         switch (type){
             case LocalPhotoViewActivity.REQUEST_CODE:
                 handler.sendEmptyMessage(updateCode);
                 break;
             case MediaUtils.OPEN_SYSTEM_CAMERA:
-                handlerCameraBit(id);
-                currentDrrList = ShareBitmapUtils.getInstance().getDrrMaps().get(id);
-                handler.sendEmptyMessage(updateCode);
+                handlerCameraBit(activity,id);
+//                currentDrrList = ShareBitmapUtils.getInstance().getDrrMaps().get(id);
+//                handler.sendEmptyMessage(updateCode);
                 break;
             case MediaUtils.OPEN_DEFINE_PIC_BUILD :
                 currentDrrList = ShareBitmapUtils.getInstance().getDrrMaps().get(id);
@@ -187,7 +188,11 @@ public class PicSelView extends RelativeLayout {
         }
     }
 
-    private void handlerCameraBit(String id ) {
+    public void updateImage(String id){
+        currentDrrList = ShareBitmapUtils.getInstance().getDrrMaps().get(id);
+        handler.sendEmptyMessage(updateCode);
+    }
+    private void handlerCameraBit(Activity activity,String id ) {
         if(ShareBitmapUtils.getInstance().getDrrMaps().get(id)!=null){
             Uri uri=MediaUtils.getOutputMediaFileUri(false);
             String path = null;
@@ -206,7 +211,9 @@ public class PicSelView extends RelativeLayout {
                 if(bitmap != null && !bitmap.isRecycled()){
                     bitmap.recycle();
                 }
-                ShareBitmapUtils.getInstance().addPath(id, path);
+                //在此处进行裁剪
+                MediaUtils.cropImage(activity,uri,MediaUtils.IMAGE_CROP);
+//                ShareBitmapUtils.getInstance().addPath(id, path);
             } catch (IOException e) {
                 e.printStackTrace();
             }

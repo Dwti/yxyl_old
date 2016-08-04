@@ -139,6 +139,11 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
                 ((QuestionsListener)getActivity()).flipNextPager(adapter);
             }
         }
+        if (isVisibleToUser) {
+            if (vpAnswer != null) {
+                vpAnswer.setCurrentItem(0);
+            }
+        }
     }
 
     @Override
@@ -198,6 +203,10 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
             if(questionsEntity.getChildPageIndex() != -1){
                 vpAnswer.setCurrentItem(questionsEntity.getChildPageIndex());
             }
+        }
+
+        if (vpAnswer != null) {
+            vpAnswer.setCurrentItem(0);
         }
     }
     @Override

@@ -133,6 +133,11 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
                 ((QuestionsListener)getActivity()).flipNextPager(adapter);
             }
         }
+        if (isVisibleToUser) {
+            if (vpAnswer != null) {
+                vpAnswer.setCurrentItem(0);
+            }
+        }
     }
 
     @Override
@@ -192,6 +197,10 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
             if(questionsEntity.getChildPageIndex() != -1){
                 vpAnswer.setCurrentItem(questionsEntity.getChildPageIndex());
             }
+        }
+
+        if (vpAnswer != null) {
+            vpAnswer.setCurrentItem(0);
         }
     }
     @Override
