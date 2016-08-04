@@ -104,15 +104,21 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
     @Override
     public void initData() {
         super.initData();
-        if (dataSources != null && dataSources.getData() != null) {
-            pageCount = dataSources.getTotalNum();
-            tvPagerIndex.setText("1");
-            tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(pageCount)));
+        //if (dataSources != null && dataSources.getData() != null) {
+            if (position+1 == pageCount-delQueNum) {
+                btnNextQuestion.setVisibility(View.GONE);
+            } else {
+                btnNextQuestion.setVisibility(View.VISIBLE);
+            }
+            pageIndex = position;
+            tvPagerIndex.setText(String.valueOf(position + 1));
+            //tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(adapter.getTotalCount())));
+            tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), pageCount-delQueNum));
             tvToptext.setText(this.getResources().getString(R.string.questiong_resolution));
             tvToptext.setCompoundDrawables(null, null, null, null);
 //            tvAnswerCard.setVisibility(View.GONE);
             ivAnswerCard.setBackgroundResource(R.drawable.selector_answer_delete);
-        }
+        //}
     }
 
 
