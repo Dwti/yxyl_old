@@ -123,8 +123,6 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
             case R.id.doneText:
                 isAddList=true;
                 executeFinish();
-                if(ImageBucketActivity.mTempDrrList!=null&&ImageBucketActivity.mTempDrrList.size()>0)
-                MediaUtils.cropImage(ImagePicSelActivity.this, Uri.fromFile(new File(ImageBucketActivity.mTempDrrList.get(0))),MediaUtils.IMAGE_CROP);
                 break;
         }
     }
