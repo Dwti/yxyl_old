@@ -209,6 +209,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                 mSimplePlayer.setProgress(mediaPlayer.getCurrentPosition());
                 Log.i("progress", mediaPlayer.getCurrentPosition() + "");
                 // 每次延迟100毫秒再启动线程
+                
                 handler.postDelayed(updateThread, 100);
             }
         }
