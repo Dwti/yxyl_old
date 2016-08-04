@@ -1,6 +1,7 @@
 package com.yanxiu.gphone.student.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -9,13 +10,16 @@ import android.widget.RelativeLayout;
 
 import com.common.core.utils.CommonCoreUtil;
 import com.common.core.utils.LogInfo;
+import com.common.core.utils.PictureHelper;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.ImageBucketAdapter;
 import com.yanxiu.gphone.student.jump.ImagePicSelJumpBackModel;
 import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
+import com.yanxiu.gphone.student.utils.MediaUtils;
 import com.yanxiu.gphone.student.view.picsel.utils.AlbumHelper;
 import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
 
+import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -152,12 +156,22 @@ public class ImageBucketActivity extends TopViewBaseActivity {
                     }
                     boolean isAddList=jumpBackModel.isAddList();
                     if(isAddList){
-                        ActivityJumpUtils.jumpBackFromImageBucketActivity(this, RESULT_OK);
-                        ShareBitmapUtils.getInstance().addAllPath(ShareBitmapUtils.getInstance().getCurrentSbId(),mTempDrrList);
-                        executeFinish();
+//                        ActivityJumpUtils.jumpBackFromImageBucketActivity(this, RESULT_OK);
+//                        ShareBitmapUtils.getInstance().addAllPath(ShareBitmapUtils.getInstance().getCurrentSbId(),mTempDrrList);
+//                        executeFinish();
+                        if(mTempDrrList!=null&&mTempDrrList.size()>0)
+                            MediaUtils.cropImage(ImageBucketActivity.this, Uri.fromFile(new File(ImageBucketActivity.mTempDrrList.get(0))),MediaUtils.IMAGE_CROP);
                     }else{
                         ActivityJumpUtils.jumpBackFromImageBucketActivity(this, RESULT_CANCELED);
                     }
+                    break;
+                case MediaUtils.IMAGE_CROP:
+                    if(data!=null){
+                        String filePath = PictureHelper.getPath(ImageBucketActivity.this,MediaUtils.currentCroppedImageUri);
+                        ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), filePath);
+                        ActivityJumpUtils.jumpBackFromImageBucketActivity(this, RESULT_OK);
+                    }
+                    executeFinish();
                     break;
             }
         }

@@ -25,6 +25,8 @@ public class ImagePicSelAdapter extends YXiuCustomerBaseAdapter<ImageItem> {
     private int columNum=3;
     private int screentWidth;
     private int itemWidth;
+    private ImageItem lastSelectedItem;
+    private ViewHolder lastSelectedHolder;
 
     public ImagePicSelAdapter(Activity context) {
         super(context);
@@ -94,6 +96,17 @@ public class ImagePicSelAdapter extends YXiuCustomerBaseAdapter<ImageItem> {
                     mHolder.picDecorate.setSelected(true);
                     ImageBucketActivity.mTempDrrList.add(item.getImagePath());
                     ShareBitmapUtils.getInstance().recordBucketPicSelNums++;
+//                    notifyNumChange(ShareBitmapUtils.getInstance().getRecordBucketPicSelNums());
+                    //此处为新增加的逻辑，不让多选，一次只能选择一个
+                    if(lastSelectedItem != null){
+                        lastSelectedItem.setIsSelected(false);
+                        lastSelectedHolder.picDecorate.setSelected(false);
+                        ImageBucketActivity.mTempDrrList.remove(lastSelectedItem.getImagePath());
+                        ShareBitmapUtils.getInstance().recordBucketPicSelNums--;
+                        //需要通知变化
+                    }
+                    lastSelectedItem=item;
+                    lastSelectedHolder=mHolder;
                     notifyNumChange(ShareBitmapUtils.getInstance().getRecordBucketPicSelNums());
                 } else {
                     item.setIsSelected(false);
@@ -103,6 +116,8 @@ public class ImagePicSelAdapter extends YXiuCustomerBaseAdapter<ImageItem> {
                         ShareBitmapUtils.getInstance().recordBucketPicSelNums--;
                         notifyNumChange(ShareBitmapUtils.getInstance().getRecordBucketPicSelNums());
                     }
+                    lastSelectedItem=null;
+                    lastSelectedHolder=null;
                 }
 
             }

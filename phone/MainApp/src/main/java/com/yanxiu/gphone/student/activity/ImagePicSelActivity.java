@@ -1,5 +1,6 @@
 package com.yanxiu.gphone.student.activity;
 
+import android.net.Uri;
 import android.text.TextPaint;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +14,13 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.ImagePicSelAdapter;
 import com.yanxiu.gphone.student.jump.ImagePicSelJumpModel;
 import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
+import com.yanxiu.gphone.student.utils.MediaUtils;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.view.picsel.bean.ImageItem;
 import com.yanxiu.gphone.student.view.picsel.inter.PicNumListener;
 import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
 
+import java.io.File;
 import java.util.List;
 
 /**
