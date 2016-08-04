@@ -126,6 +126,7 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
     }
     private boolean isVisibleToUser;
     public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
 //        LogInfo.log("geny", "setUserVisibleHint");
         this.isVisibleToUser = isVisibleToUser;
         if (isVisibleToUser){

@@ -107,11 +107,13 @@ public class BaseQuestionFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (YanXiuConstant.OnClick_TYPE==0){
-            is_reduction=false;
-        }else if (YanXiuConstant.OnClick_TYPE==1){
-            YanXiuConstant.OnClick_TYPE=0;
-            is_reduction=true;
+        if (isVisibleToUser) {
+            if (YanXiuConstant.OnClick_TYPE == 0) {
+                is_reduction = false;
+            } else if (YanXiuConstant.OnClick_TYPE == 1) {
+                YanXiuConstant.OnClick_TYPE = 0;
+                is_reduction = true;
+            }
         }
     }
 

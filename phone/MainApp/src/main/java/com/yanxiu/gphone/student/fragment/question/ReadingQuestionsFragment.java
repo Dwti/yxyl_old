@@ -170,6 +170,7 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
     }
     private boolean isVisibleToUser;
     public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
 //        LogInfo.log("geny", "setUserVisibleHint");
         this.isVisibleToUser = isVisibleToUser;
         if (isVisibleToUser&&!ischild){

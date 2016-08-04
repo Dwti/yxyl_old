@@ -133,6 +133,7 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
 
     public void setUserVisibleHint(boolean isVisibleToUser) {
 //        LogInfo.log("geny", "setUserVisibleHint");
+        super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
         if (isVisibleToUser){
             if (!ischild) {

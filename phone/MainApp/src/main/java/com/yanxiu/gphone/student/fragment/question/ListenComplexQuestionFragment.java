@@ -168,6 +168,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     }
 
     public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
         if (isVisibleToUser){
             if (!ischild) {
