@@ -535,24 +535,78 @@ public class Util {
                 "                \"uid\": 6355\n" +
                 "            },\n" +
                 "            \"paperTest\": [\n" +
-                                    "{\n" +
-                                    "    \"analysis\": \"考查对词组看电视的掌握。<p><br/></p>\",\n" +
-                                    "    \"answer\": [\n" +
-                                    "        \"watches\",\n" +
-                                    "        \"TV\"\n" +
-                                    "    ],\n" +
-                                    "    \"difficulty\": \"1\",\n" +
-                                    "    \"id\": \"2740230\",\n" +
-                                    "    \"point\": [\n" +
-                                    "        {\n" +
-                                    "            \"id\": \"26021\",\n" +
-                                    "            \"name\": \"watchTV(watchtelevision)\"\n" +
-                                    "        }\n" +
-                                    "    ],\n" +
-                                    "    \"stem\": \"<p><imgsrc=\"http://scc.jsyxw.cn/image/20160801/1470035634649646.png\"title=\"1470035634649646.png\"alt=\"blob.png\"/><br/>Tonyoften(_)(_)onSunday.<br/></p>\",\n" +
-                                    "    \"template\": \"fill\",\n" +
-                                    "    \"type_id\": \"3\"\n" +
-                                    "}" +
+                "               {\n" +
+                "                    \"difficulty\": 3,\n" +
+                "                    \"id\": 570354,\n" +
+                "                    \"isfavorite\": 0,\n" +
+                "                    \"knowledgepoint\": \"44463\",\n" +
+                "                    \"pad\": {\n" +
+                "                        \"answer\": \"[]\",\n" +
+                "                        \"costtime\": 0,\n" +
+                "                        \"id\": 390741,\n" +
+                "                        \"jsonAnswer\": [],\n" +
+                "                        \"ptid\": 570354,\n" +
+                "                        \"status\": 3,\n" +
+                "                        \"uid\": 6355\n" +
+                "                    },\n" +
+                "                    \"pid\": 88398,\n" +
+                "                    \"qid\": 2734957,\n" +
+                "                    \"qtype\": 0,\n" +
+                "                    \"questions\": {\n" +
+                "                        \"analysis\": \"考查对词组看电视的掌握。<p><br/></p>\",\n" +
+                "                        \"answer\": [\n" +
+                "                            \"watches\",\n" +
+                "                            \"TV\"\n" +
+                "                        ],\n" +
+                "                        \"difficulty\": \"1\",\n" +
+                "                        \"id\": \"2740230\",\n" +
+                "                        \"point\": [\n" +
+                "                            {\n" +
+                "                                \"id\": \"26021\",\n" +
+                "                                \"name\": \"watchTV(watchtelevision)\"\n" +
+                "                            }\n" +
+                "                        ],\n" +
+                "                        \"stem\": \"<p><br/>Tonyoften(_)(_)onSunday.<br/></p>\",\n" +
+                "                        \"template\": \"fill\",\n" +
+                "                        \"type_id\": \"3\"\n" +
+                "                    }\n" +
+                "                }," +
+                "               {\n" +
+                "                    \"difficulty\": 3,\n" +
+                "                    \"id\": 570354,\n" +
+                "                    \"isfavorite\": 0,\n" +
+                "                    \"knowledgepoint\": \"44463\",\n" +
+                "                    \"pad\": {\n" +
+                "                        \"answer\": \"[]\",\n" +
+                "                        \"costtime\": 0,\n" +
+                "                        \"id\": 390741,\n" +
+                "                        \"jsonAnswer\": [],\n" +
+                "                        \"ptid\": 570354,\n" +
+                "                        \"status\": 3,\n" +
+                "                        \"uid\": 6355\n" +
+                "                    },\n" +
+                "                    \"pid\": 88398,\n" +
+                "                    \"qid\": 2734957,\n" +
+                "                    \"qtype\": 0,\n" +
+                "                    \"questions\": {\n" +
+                "                        \"analysis\": \"考查对词组看电视的掌握。<p><br/></p>\",\n" +
+                "                        \"answer\": [\n" +
+                "                            \"watches\",\n" +
+                "                            \"TV\"\n" +
+                "                        ],\n" +
+                "                        \"difficulty\": \"1\",\n" +
+                "                        \"id\": \"2740230\",\n" +
+                "                        \"point\": [\n" +
+                "                            {\n" +
+                "                                \"id\": \"26021\",\n" +
+                "                                \"name\": \"watchTV(watchtelevision)\"\n" +
+                "                            }\n" +
+                "                        ],\n" +
+                "                        \"stem\": \"<p><br/>Tonyoften(_)(_)onSunday.<br/></p>\",\n" +
+                "                        \"template\": \"fill\",\n" +
+                "                        \"type_id\": \"3\"\n" +
+                "                    }\n" +
+                "                }," +
                 "                {\n" +
                 "                    \"difficulty\": 3,\n" +
                 "                    \"id\": 570354,\n" +
@@ -978,7 +1032,6 @@ public class Util {
                 "        \"desc\": \"get question list success\"\n" +
                 "    }\n" +
                 "}";
-
         return (SubjectExercisesItemBean) JSON.parseObject(str, SubjectExercisesItemBean.class);
     }
 
