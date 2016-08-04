@@ -79,6 +79,8 @@ public class ImagePicSelAdapter extends YXiuCustomerBaseAdapter<ImageItem> {
         mHolder.pic.setTag(item.getImagePath());
         cache.displayBmp(mHolder.pic, item.getThumbnailPath(), item.getImagePath(), callback);
         if(item.isSelected()){
+            lastSelectedItem =item;
+            lastSelectedHolder = mHolder;
             mHolder.picDecorate.setSelected(true);
         }else{
             mHolder.picDecorate.setSelected(false);
