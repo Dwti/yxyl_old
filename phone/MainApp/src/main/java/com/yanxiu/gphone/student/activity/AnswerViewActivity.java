@@ -522,10 +522,11 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
             sumIndex = sumIndex + fragment1.getChildCount();
         }
 
-        if (YanXiuConstant.OnClick_TYPE == 0) {
+        if (nextPager_onclick == 0) {
             tvPagerIndex.setText(String.valueOf(sumIndex + 1));
         } else {
-            tvPagerIndex.setText(String.valueOf(sumIndex + ((BaseQuestionFragment) list.get(position +1)).getChildCount()));
+            tvPagerIndex.setText(String.valueOf(sumIndex + ((BaseQuestionFragment) list.get(position +1)).getChildCount()  - 1));
+            nextPager_onclick = 0;
         }
 
 

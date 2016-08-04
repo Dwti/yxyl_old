@@ -66,6 +66,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 
     protected Button btnLastQuestion, btnNextQuestion;
     protected QuestionsListener listener;
+    protected int nextPager_onclick=0;
 
 
     @Override public void onCreate(Bundle savedInstanceState) {
@@ -259,6 +260,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
     @Override
     public void onClick(View v) {
         if(v == btnLastQuestion){
+            nextPager_onclick = 1;
             if(vpAnswer.getCurrentItem() != 0){
                 if (listener!=null) {
                     int tatle_count=((AnswerAdapter)listener).getCount();
