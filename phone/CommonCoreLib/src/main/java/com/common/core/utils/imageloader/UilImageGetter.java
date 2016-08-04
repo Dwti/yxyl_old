@@ -2,6 +2,7 @@ package com.common.core.utils.imageloader;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -41,17 +42,19 @@ public class UilImageGetter implements Html.ImageGetter {
 //    private CustomImageLoadingListener listener;
     private CommonCoreApplication application;
     private boolean first = true;
+    int height=-1;
 
     private int afterLine = -1;
     private int beforeLine = -1;
 
     public UilImageGetter(TextView view,Context context,CommonCoreApplication application) {
-
         this.application = application;
         this.context = context;
         this.view = view;
+    }
 
-
+    public void setTrueHeight(int height){
+        this.height=height;
     }
 
     @Override
@@ -208,11 +211,23 @@ public class UilImageGetter implements Html.ImageGetter {
                         }
                     }else {
                         if(loadedImageheight > UilImageGetter.this.view.getTextSize() && loadedImageWidth > CommonCoreUtil.getScreenWidth() * 0.55){
-                            UilImageGetter.this.viewWillResetHeight = UilImageGetter.this.view.getHeight() + loadedImageheight;
+                            if (height!=-1){
+                                UilImageGetter.this.viewWillResetHeight = height + loadedImageheight;
+                            }else {
+                                UilImageGetter.this.viewWillResetHeight = UilImageGetter.this.view.getHeight() + loadedImageheight;
+                            }
                         }else if(loadedImageheight > UilImageGetter.this.view.getTextSize()){
-                            UilImageGetter.this.viewWillResetHeight = (int) (UilImageGetter.this.view.getHeight() + loadedImageheight - UilImageGetter.this.view.getTextSize());
+                            if (height!=-1){
+                                UilImageGetter.this.viewWillResetHeight = (int) (height + loadedImageheight - UilImageGetter.this.view.getTextSize());
+                            }else {
+                                UilImageGetter.this.viewWillResetHeight = (int) (UilImageGetter.this.view.getHeight() + loadedImageheight - UilImageGetter.this.view.getTextSize());
+                            }
                         }else{
-                            UilImageGetter.this.viewWillResetHeight = UilImageGetter.this.view.getHeight();
+                            if (height!=-1){
+                                UilImageGetter.this.viewWillResetHeight = height;
+                            }else {
+                                UilImageGetter.this.viewWillResetHeight = UilImageGetter.this.view.getHeight();
+                            }
                         }
                     }
 

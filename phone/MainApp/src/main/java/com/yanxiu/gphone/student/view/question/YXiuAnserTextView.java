@@ -2,14 +2,19 @@ package com.yanxiu.gphone.student.view.question;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Paint;
 import android.text.Editable;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.style.ClickableSpan;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.common.core.utils.DensityUtils;
 import com.common.core.utils.imageloader.UilImageGetter;
@@ -26,6 +31,9 @@ public class YXiuAnserTextView extends HtmlTextView {
 
     public Context mCtx;
     private YanxiuApplication application;
+    private UilImageGetter imageGetter;
+    private int singline_height;
+
     public YXiuAnserTextView(Context context) {
         super(context);
         mCtx = context;
@@ -44,10 +52,7 @@ public class YXiuAnserTextView extends HtmlTextView {
         initView();
     }
 
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-    }
+
     private boolean mRelayout;
 
     @Override
@@ -67,15 +72,21 @@ public class YXiuAnserTextView extends HtmlTextView {
 
 
     public void setTextHtml(String text) {
-        mRelayout = true;
 
-        UilImageGetter imageGetter = new UilImageGetter(this, mCtx, this.application);
+        mRelayout = true;
+        text="某校从参加高一年级期末考试的学生中抽出60名学生，并统计了他们的物理成绩（成绩均为整数且满分为100分）<br><img src=\"http://scc.jsyxw.cn/tizi/qf1/images/3/c/1/3c186ffab98f01fdb04067d6364dda53b1c59f14.jpg\" >";
+        imageGetter = new UilImageGetter(this, mCtx, this.application);
         Spanned spanned = Html.fromHtml(text, imageGetter, null);
-//        Spanned spanned=Html.fromHtml(text);
-//        Log.d("asd",spanned.toString());
         this.setText(spanned);
 
+    }
 
+    public int getFontHeight(float fontSize)
+    {
+        Paint paint = new Paint();
+        paint.setTextSize(fontSize);
+        Paint.FontMetrics fm = paint.getFontMetrics();
+        return (int) Math.ceil(fm.descent - fm.ascent);
     }
 
     /**
@@ -85,6 +96,28 @@ public class YXiuAnserTextView extends HtmlTextView {
         this.application = (YanxiuApplication) ((Activity)mCtx).getApplication();
         this.setGravity(Gravity.CENTER_VERTICAL);
         this.setLineSpacing(DensityUtils.px2dip(this.getContext(), 15), 1);
+        this.setTextSize(TypedValue.COMPLEX_UNIT_PX, 32);
+        singline_height=getFontHeight(32);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        if (imageGetter!=null){
+            int linecount=getLineCount();
+            int tatle_height=getTrueHeight(linecount);
+            setHeight(tatle_height);
+            imageGetter.setTrueHeight(tatle_height);
+
+        }
+    }
+
+    private int getTrueHeight(int linecount){
+        int tatle_height=0;
+        for (int i=0;i<linecount-1;i++){
+            tatle_height=tatle_height+singline_height+30;
+        }
+        return tatle_height;
     }
 
     public class MxgsaTagHandler implements Html.TagHandler {
@@ -116,6 +149,5 @@ public class YXiuAnserTextView extends HtmlTextView {
         }
 
     }
-
 
 }

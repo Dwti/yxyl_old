@@ -62,8 +62,13 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
         if ((position + 1) >= getCount()) {
             holder.wrongDividerLine.setVisibility(View.GONE);
         }
-//        holder.answerExamContent.setText("");
+
+//        holder.answerExamContent.
+
         setData(entity, holder);
+
+        final YXiuAnserTextView textView=holder.answerExamContent;
+
         holder.answerExamDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
