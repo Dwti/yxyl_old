@@ -489,6 +489,9 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
     public void onPageSelected(int position) {
         super.onPageSelected(position);
         LogInfo.log(TAG,"onPageSelected position: "+position);
+        LogInfo.log("TTTT", "onPageSelected"+position);
+
+
         currentIndex = position;
         currentTime = totalTime;
         int costTime = currentTime - lastTime;
@@ -508,8 +511,13 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
             BaseQuestionFragment fragment1= (BaseQuestionFragment) list.get(i);
             sumIndex = sumIndex + fragment1.getChildCount();
         }
+        if (childPostion != -1) {
+            tvPagerIndex.setText(String.valueOf(sumIndex + 1));
+        } else {
+            tvPagerIndex.setText(String.valueOf(sumIndex + ((BaseQuestionFragment) list.get(position +1)).getChildCount()));
+        }
 
-        tvPagerIndex.setText(String.valueOf(sumIndex + 1));
+
         tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(adapter.getTotalCount())));
         viewPagerLastPosition = position;
         LogInfo.log("geny", costTime + "---mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm---" + ((PageIndex) fragment).getPageIndex() + "/" + adapter.getTotalCount());
