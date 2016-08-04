@@ -476,6 +476,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
 //        if (fragment instanceof SolveComplexQuestionFragment) {
 //            ((AnswerAdapter)listener.
 //        }
+        childPostion = position;
+        LogInfo.log("TTTT", "test"+position);
         tvPagerIndex.setText(position + "/" + adapter.getTotalCount());
     }
 

@@ -449,7 +449,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                         reserveHashMap.put(YanXiuConstant.editionID, dataSources.getData().get(i).getBedition());
                         reserveHashMap.put(YanXiuConstant.gradeID, String.valueOf(dataSources.getData().get(i).getGradeid()));
                         reserveHashMap.put(YanXiuConstant.subjectID, String.valueOf(dataSources.getData().get(i).getSubjectid()));
-                        reserveHashMap.put(YanXiuConstant.paperType, String.valueOf(dataSources.getData().get(i).getPtype()));
+                        reserveHashMap.put(YanXiuConstant.paperType, String.valueOf(comeFrom));
                         reserveHashMap.put(YanXiuConstant.quesNum, String.valueOf(dataSources.getData().get(i).getQuesnum()));
                         String questionId = "[";
                         for (int j=0; j<dataSources.getData().get(i).getPaperTest().size(); j++) {
