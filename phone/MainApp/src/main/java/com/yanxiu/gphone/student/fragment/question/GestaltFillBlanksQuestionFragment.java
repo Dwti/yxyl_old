@@ -175,6 +175,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
         if (vpAnswer!=null) {
             vpAnswer.setCurrentItem(0);
         }
+
 //        if(questionsEntity != null){
 //            if(questionsEntity.getChildPageIndex() != -1){
 //                vpAnswer.setCurrentItem(questionsEntity.getChildPageIndex());
@@ -221,6 +222,11 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
         if (isVisibleToUser&&!ischild){
             if (adapter!=null){
                 ((QuestionsListener)getActivity()).flipNextPager(adapter);
+            }
+        }
+        if (isVisibleToUser){
+            if (vpAnswer!=null) {
+                vpAnswer.setCurrentItem(0);
             }
         }
     }
