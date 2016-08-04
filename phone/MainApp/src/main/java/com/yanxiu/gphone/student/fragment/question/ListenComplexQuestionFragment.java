@@ -219,6 +219,8 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
      * 暂停播放
      */
     private void pause() {
+        if(mediaPlayer==null)
+            return;
         if (mediaPlayer.isPlaying()) {
             //暂停
             mediaPlayer.pause();
