@@ -93,7 +93,8 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
         this.comeFrom = (arguments == null? 0: arguments.getInt("comeFrom"));
         LogInfo.log("geny", "AnswerCardFragment comeFrom------" + comeFrom);
 
-        SubjectExercisesItemBean dataSources = (arguments == null? null:(SubjectExercisesItemBean) arguments.getSerializable("subjectExercisesItemBean"));
+        //SubjectExercisesItemBean dataSources = (arguments == null? null:(SubjectExercisesItemBean) arguments.getSerializable("subjectExercisesItemBean"));
+        SubjectExercisesItemBean dataSources = Util.getSubjectExercisesItemBean();
         if(dataSources != null && dataSources.getData() != null && !dataSources.getData().isEmpty()){
             dataList = dataSources.getData().get(0).getPaperTest();
             questionTitle = dataSources.getData().get(0).getName();
