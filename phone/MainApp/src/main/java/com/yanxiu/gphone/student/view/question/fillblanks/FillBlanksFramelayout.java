@@ -23,6 +23,7 @@ import com.common.core.utils.StringUtils;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
@@ -232,19 +233,19 @@ public class FillBlanksFramelayout extends FrameLayout implements
         RelativeLayout.LayoutParams params;
         if(bean!=null && String.valueOf(YanXiuConstant.SUBJECT.YINYU).equals(bean.getSubjectId())){
             if(CommonCoreUtil.getSDK() >= 21){
-                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() /2) * 15), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()));
+                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() /2) * 15), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize())+10);
             }else{
-                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() /2) * 15), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()*4/5));
+                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() /2) * 15), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()*4/5)+10);
             }
         }else{
             if(CommonCoreUtil.getSDK() >= 21){
-                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() /2) * 15), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()));
+                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() /2) * 15), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize())+10);
             }else{
-                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() /2) * 15), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()/3));
+                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() /2) * 15), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()/3)+10);
             }
         }
         params.leftMargin = (int)xAxisLeft;
-        params.topMargin = (int) (yAxisTop - tvFillBlank.getTextSize() / 2);
+        params.topMargin = (int) (yAxisTop - tvFillBlank.getTextSize() / 2)+ Util.dipToPx(10)-4;
         EditText et = new EditText(mCtx);
         et.setSingleLine();
         et.setTextColor(mCtx.getResources().getColor(R.color.color_ff40c0fd));

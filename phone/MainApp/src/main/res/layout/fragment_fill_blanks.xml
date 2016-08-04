@@ -1,72 +1,78 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <include layout="@layout/question_top_content_layout"
-             android:layout_height="wrap_content"
-             android:layout_width="match_parent"
-             android:id="@+id/rl_top" />
+    <include
+        android:id="@+id/rl_top"
+        layout="@layout/question_top_content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fillViewport="true"
-            android:layout_below="@id/rl_top">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_top"
+        android:fillViewport="true">
 
         <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/dimen_30">
+
+
+            <LinearLayout
+                android:id="@+id/ll_answer_content"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="@dimen/dimen_30">
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_20"
+                android:orientation="horizontal">
 
+                <FrameLayout
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="match_parent">
 
-            <LinearLayout android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:layout_margin="@dimen/dimen_20"
-                          android:orientation="horizontal"
-                          android:id="@+id/ll_answer_content">
-
-                <FrameLayout android:layout_width="@dimen/dimen_40"
-                             android:layout_height="match_parent">
-
-                    <ImageView android:layout_width="@dimen/dimen_28"
-                               android:layout_height="@dimen/dimen_30"
-                               android:layout_marginTop="@dimen/dimen_7"
-                               android:src="@drawable/icon_question_q"/>
+                    <ImageView
+                        android:layout_width="@dimen/dimen_28"
+                        android:layout_height="@dimen/dimen_30"
+                        android:layout_marginTop="@dimen/dimen_7"
+                        android:src="@drawable/icon_question_q" />
 
                 </FrameLayout>
 
-                <FrameLayout android:layout_width="match_parent"
-                             android:layout_height="wrap_content"
-                             android:background="@drawable/question_content_bg">
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/question_content_bg">
 
                     <com.yanxiu.gphone.student.view.question.fillblanks.FillBlanksFramelayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/fb_item" />
+                        android:id="@+id/fb_item"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
                 </FrameLayout>
 
             </LinearLayout>
 
 
-            <FrameLayout android:layout_width="match_parent"
-                         android:layout_height="match_parent"
-                         android:layout_below="@id/ll_answer_content">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/ll_answer_content">
 
                 <com.yanxiu.gphone.student.view.YanxiuTypefaceButton
-                        style="@style/btn_problem_analysis"
-                        app:type_face="fz.ttf"
-                        android:id="@+id/add_problem_analysis"/>
+                    android:id="@+id/add_problem_analysis"
+                    style="@style/btn_problem_analysis"
+                    app:type_face="fz.ttf" />
 
             </FrameLayout>
 
 
             <FrameLayout
-                    android:id="@+id/content_problem_analysis"
-                    android:layout_below="@id/ll_answer_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                android:id="@+id/content_problem_analysis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll_answer_content" />
 
         </RelativeLayout>
     </ScrollView>

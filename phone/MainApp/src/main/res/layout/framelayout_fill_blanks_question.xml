@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:lineSpacingExtra="@dimen/dimen_9"
-              android:textSize="@dimen/dimen_15"
+        android:id="@+id/tv_fill_blanks"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:lineSpacingExtra="@dimen/dimen_9"
         android:padding="@dimen/dimen_10"
-              android:textColor="@color/color_black"
-              android:id="@+id/tv_fill_blanks" />
+        android:textColor="@color/color_black"
+        android:textSize="@dimen/dimen_15" />
 
-    <RelativeLayout android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+    <RelativeLayout
+        android:id="@+id/rl_mark"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:paddingLeft="@dimen/dimen_10"
-        android:paddingRight="@dimen/dimen_10"
-                    android:id="@+id/rl_mark" />
+        android:paddingRight="@dimen/dimen_10" />
 
     <!--<TextView android:layout_width="match_parent"
               android:layout_height="match_parent"
