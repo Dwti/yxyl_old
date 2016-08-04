@@ -568,7 +568,7 @@ public class Util {
                 "                        ],\n" +
                 "                        \"stem\": \"<p><br/>Tonyoften(_)(_)onSunday.<br/></p>\",\n" +
                 "                        \"template\": \"fill\",\n" +
-                "                        \"type_id\": \"3\"\n" +
+                "                        \"type_id\": \"6\"\n" +
                 "                    }\n" +
                 "                }," +
                 "               {\n" +
