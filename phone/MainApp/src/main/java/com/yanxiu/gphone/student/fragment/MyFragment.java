@@ -238,10 +238,9 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             fin.read(buffer);
             res = EncodingUtils.getString(buffer, "UTF-8");
             fin.close();
-            }
-        catch(Exception e){
+        } catch(Exception e){
             e.printStackTrace();
-            }
+        }
         return res;
     }
 
