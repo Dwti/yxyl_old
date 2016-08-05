@@ -124,8 +124,8 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
 
 
     private void initData(){
-        //SubjectExercisesItemBean dataSources = ((BaseAnswerViewActivity)this.getActivity()).getDataSources();
-        SubjectExercisesItemBean dataSources = Util.getSubjectExercisesItemBean();
+        SubjectExercisesItemBean dataSources = ((BaseAnswerViewActivity)this.getActivity()).getDataSources();
+        //SubjectExercisesItemBean dataSources = Util.getSubjectExercisesItemBean();
         if (dataSources != null && dataSources.getData() != null && !dataSources.getData().isEmpty()) {
             stageId = LoginModel.getUserinfoEntity().getStageid();
             subjectId = dataSources.getData().get(0).getSubjectid();
