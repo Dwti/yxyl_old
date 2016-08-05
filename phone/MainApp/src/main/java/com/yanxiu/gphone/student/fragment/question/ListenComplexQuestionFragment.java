@@ -146,8 +146,8 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
             public void onClick(ImageView imageButton) {
                 if (mSimplePlayer.getProgress() == 0) {
                     //开始播放
-                    String path = "http://abv.cn/music/光辉岁月.mp3";
-//                    String path = "http://data.5sing.kgimg.com/G034/M05/16/17/ApQEAFXsgeqIXl7gAAVVd-n31lcAABOogKzlD4ABVWP363.mp3";
+//                    String path = "http://abv.cn/music/光辉岁月.mp3";
+                    String path = "http://data.5sing.kgimg.com/G034/M05/16/17/ApQEAFXsgeqIXl7gAAVVd-n31lcAABOogKzlD4ABVWP363.mp3";
                     try {
                         play(path);
                     } catch (Exception e) {

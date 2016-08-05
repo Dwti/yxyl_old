@@ -4,7 +4,9 @@ import android.net.Uri;
 import android.text.TextPaint;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -42,6 +44,7 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
     private boolean isAddList;
     private boolean isAttachMax=false;//已经达到最大值
     public final static int REQUEST_CODE=0X00;
+    private ImagePicSelAdapter adapter;
 
     @Override
     protected boolean isAttach() {
@@ -100,14 +103,33 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
         if(ShareBitmapUtils.getInstance().getDataList()==null||ShareBitmapUtils.getInstance().getDataList().size()==0){
             return;
         }
-        List<ImageItem> imageList = ShareBitmapUtils.getInstance().getDataList().get(bucketPos).getImageList();
+        final List<ImageItem> imageList = ShareBitmapUtils.getInstance().getDataList().get(bucketPos).getImageList();
         if(imageList ==null){
             return;
         }
-        ImagePicSelAdapter adapter = new ImagePicSelAdapter(this);
+        adapter = new ImagePicSelAdapter(this);
         gridView.setAdapter(adapter);
         adapter.setPicNumListener(this);
         adapter.setList(imageList);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ImageView iv_decorate = (ImageView) view.findViewById(R.id.imageDecorate);
+                ImageItem imageItem = imageList.get(position);
+                imageItem.setIsSelected(!imageItem.isSelected());
+                iv_decorate.setSelected(imageItem.isSelected());
+                if(imageItem.isSelected()){
+                    ImageBucketActivity.mTempDrrList.add(imageItem.getImagePath());
+                }
+                if( adapter.lastSelectedPosition!=position && imageList.get(adapter.lastSelectedPosition).isSelected()){
+                    imageList.get(adapter.lastSelectedPosition).setIsSelected(false);
+                    ImageBucketActivity.mTempDrrList.remove(imageList.get(adapter.lastSelectedPosition));
+                }
+                adapter.lastSelectedPosition = position;
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
