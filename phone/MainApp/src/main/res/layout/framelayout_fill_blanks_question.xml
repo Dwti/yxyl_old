@@ -10,6 +10,7 @@
         android:lineSpacingExtra="@dimen/dimen_9"
         android:padding="@dimen/dimen_10"
         android:textColor="@color/color_black" />
+    <!--android:textSize="@dimen/dimen_15" />-->
 
     <RelativeLayout
         android:id="@+id/rl_mark"

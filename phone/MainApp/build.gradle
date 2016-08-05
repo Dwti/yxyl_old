@@ -20,6 +20,7 @@ android {
         buildConfigField "boolean", "YANXIU_FORTEST", "${yanxiu_fortest}"
         buildConfigField "String", "YANXIU_PCODE", "\"${yanxiu_pcode}\""
         buildConfigField "boolean", "YANXIU_ANALYLAYOUTHIERARCHY","${yanxiu_analylayouthierarchy}"
+        buildConfigField "boolean", "YANXIU_MOKE", "${yanxiu_moke}"
     }
 
     lintOptions {

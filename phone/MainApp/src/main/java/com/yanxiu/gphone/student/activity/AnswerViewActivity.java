@@ -35,6 +35,7 @@ import com.yanxiu.gphone.student.preference.PreferencesManager;
 import com.yanxiu.gphone.student.requestTask.RequestSubmitQuesitonTask;
 import com.yanxiu.gphone.student.utils.Configuration;
 import com.yanxiu.gphone.student.utils.QuestionUtils;
+import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.CommonDialog;
 import com.yanxiu.gphone.student.view.DelDialog;
 import com.yanxiu.gphone.student.view.picsel.PicSelView;
@@ -476,6 +477,17 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
 //        if (fragment instanceof SolveComplexQuestionFragment) {
 //            ((AnswerAdapter)listener.
 //        }
+//        Fragment fragment = adapter.getItem(position);
+//        List<Fragment> list=((AnswerAdapter)vpAnswer.getAdapter()).getmFragments();
+//        int sumIndex = 0;
+//        for (int i=0;i<position;i++){
+//            BaseQuestionFragment fragment1= (BaseQuestionFragment) list.get(i);
+//            sumIndex = sumIndex + fragment1.getChildCount();
+//        }
+//
+//        tvPagerIndex.setText(String.valueOf(sumIndex + ((BaseQuestionFragment) list.get(position +1)).getChildCount()));
+//        tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(adapter.getTotalCount())));
+        LogInfo.log("TTTT", "test"+position);
         tvPagerIndex.setText(position + "/" + adapter.getTotalCount());
     }
 
@@ -487,6 +499,9 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
     public void onPageSelected(int position) {
         super.onPageSelected(position);
         LogInfo.log(TAG,"onPageSelected position: "+position);
+        LogInfo.log("TTTT", "onPageSelected"+position);
+
+
         currentIndex = position;
         currentTime = totalTime;
         int costTime = currentTime - lastTime;
@@ -507,7 +522,15 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
             sumIndex = sumIndex + fragment1.getChildCount();
         }
 
-        tvPagerIndex.setText(String.valueOf(sumIndex + 1));
+        LogInfo.log("TTT", "position"+((BaseQuestionFragment) list.get(position)).getChildCount());
+        if (nextPager_onclick == 0 || ((BaseQuestionFragment) list.get(position)).getChildCount() == 1) {
+            tvPagerIndex.setText(String.valueOf(sumIndex + 1));
+        } else {
+            tvPagerIndex.setText(String.valueOf(sumIndex + ((BaseQuestionFragment) list.get(position)).getChildCount()));
+            nextPager_onclick = 0;
+        }
+
+
         tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(adapter.getTotalCount())));
         viewPagerLastPosition = position;
         LogInfo.log("geny", costTime + "---mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm---" + ((PageIndex) fragment).getPageIndex() + "/" + adapter.getTotalCount());

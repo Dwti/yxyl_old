@@ -93,8 +93,8 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
         this.comeFrom = (arguments == null? 0: arguments.getInt("comeFrom"));
         LogInfo.log("geny", "AnswerCardFragment comeFrom------" + comeFrom);
 
-        //SubjectExercisesItemBean dataSources = (arguments == null? null:(SubjectExercisesItemBean) arguments.getSerializable("subjectExercisesItemBean"));
-        SubjectExercisesItemBean dataSources = Util.getSubjectExercisesItemBean();
+        SubjectExercisesItemBean dataSources = (arguments == null? null:(SubjectExercisesItemBean) arguments.getSerializable("subjectExercisesItemBean"));
+        //SubjectExercisesItemBean dataSources = Util.getSubjectExercisesItemBean();
         if(dataSources != null && dataSources.getData() != null && !dataSources.getData().isEmpty()){
             dataList = dataSources.getData().get(0).getPaperTest();
             questionTitle = dataSources.getData().get(0).getName();
@@ -449,7 +449,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                         reserveHashMap.put(YanXiuConstant.editionID, dataSources.getData().get(i).getBedition());
                         reserveHashMap.put(YanXiuConstant.gradeID, String.valueOf(dataSources.getData().get(i).getGradeid()));
                         reserveHashMap.put(YanXiuConstant.subjectID, String.valueOf(dataSources.getData().get(i).getSubjectid()));
-                        reserveHashMap.put(YanXiuConstant.paperType, String.valueOf(dataSources.getData().get(i).getPtype()));
+                        reserveHashMap.put(YanXiuConstant.paperType, String.valueOf(comeFrom));
                         reserveHashMap.put(YanXiuConstant.quesNum, String.valueOf(dataSources.getData().get(i).getQuesnum()));
                         String questionId = "[";
                         for (int j=0; j<dataSources.getData().get(i).getPaperTest().size(); j++) {

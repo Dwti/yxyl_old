@@ -16,10 +16,6 @@
                 <corners android:radius="12dp"/>
                 <!--<solid android:color="#ffe7e7e7"/>-->
                 <solid android:color="#40d5fa"/>
-                <!--<gradient-->
-                    <!--android:angle="0"-->
-                    <!--android:startColor="#40d5fa"-->
-                    <!--android:endColor="#4688f1"/>-->
             </shape>
         </clip>
 

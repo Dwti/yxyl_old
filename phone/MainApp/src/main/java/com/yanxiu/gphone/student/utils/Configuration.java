@@ -27,4 +27,8 @@ public class Configuration {
 	public static boolean isAnalyLayout(){
 		return BuildConfig.YANXIU_ANALYLAYOUTHIERARCHY;
 	}
+
+	public static boolean isTestData() {
+		return BuildConfig.YANXIU_MOKE;
+	}
 }

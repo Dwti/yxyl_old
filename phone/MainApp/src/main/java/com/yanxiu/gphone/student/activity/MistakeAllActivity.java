@@ -323,7 +323,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data.getIntExtra("wrongNum", 0) == 0) {
+        if (data != null && data.getIntExtra("wrongNum", 0) == 0) {
             this.finish();
         }
         wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, data.getIntExtra("wrongNum", 0)));
