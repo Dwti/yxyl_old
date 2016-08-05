@@ -1033,7 +1033,7 @@ public class Util {
                 "        \"desc\": \"get question list success\"\n" +
                 "    }\n" +
                 "}";
-        if (TextUtils.isEmpty(testDataStr)) {
+        if (!TextUtils.isEmpty(testDataStr)) {
             return (SubjectExercisesItemBean) JSON.parseObject(testDataStr, SubjectExercisesItemBean.class);
         } else {
             return (SubjectExercisesItemBean) JSON.parseObject(str, SubjectExercisesItemBean.class);
