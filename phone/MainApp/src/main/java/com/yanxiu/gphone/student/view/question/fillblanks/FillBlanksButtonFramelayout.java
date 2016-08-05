@@ -3,6 +3,7 @@ package com.yanxiu.gphone.student.view.question.fillblanks;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -11,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.Layout;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,10 +57,12 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
     private RelativeLayout rlMark;
     private YXiuAnserTextView tvFillBlank;
     private String data = "鲁迅，原名(_)字，他的代表作品是小说集，散文集。\n" +
-            "    鲁迅再《琐记》一文中，用了来讥讽洋务(_)派的办学。\n" +
+            "    鲁迅再《琐记》一文中，用了来讥讽asasasa洋务(_)派的办学。\n" +
             "    鲁迅写出了中国现代第一篇白话小说(_)，1918年在上发表其后又发表等著名小说。\n";
     private int answerViewTypyBean;
-    private int textSize = 0;
+    private float textSize = 32;
+    private int yAxisHeight;
+    private float offset_width;
 
     public FillBlanksButtonFramelayout(Context context) {
         super(context);
@@ -109,8 +113,10 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
                 R.layout.framelayout_fill_blanks_question, this);
         rlMark = (RelativeLayout) this.findViewById(R.id.rl_mark);
         tvFillBlank = (YXiuAnserTextView) this.findViewById(R.id.tv_fill_blanks);
-        int px = DensityUtils.dip2px(mCtx, 15);
-        textSize = DensityUtils.px2sp(mCtx, px);
+//        int px = DensityUtils.dip2px(mCtx, 15);
+//        textSize = DensityUtils.px2sp(mCtx, px);
+        tvFillBlank.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+        yAxisHeight=getFontHeight(textSize);
     }
 
     public void setAnswerViewTypyBean(int answerViewTypyBean) {
@@ -291,19 +297,35 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         @SuppressWarnings("deprecation")
         @Override
         public void onGlobalLayout() {
-            FillBlanksButtonFramelayout.this.getViewTreeObserver().removeGlobalOnLayoutListener(
-                    this);
+            FillBlanksButtonFramelayout.this.getViewTreeObserver().removeGlobalOnLayoutListener(this);
             Pattern pattern = Pattern.compile("                  ");
 //            Pattern pttern1 = Pattern.compile("                  ");
+            boolean flag=true;
             if (!StringUtils.isEmpty(data)) {
                 Matcher matcher = pattern.matcher(data);
                 while (matcher.find()) {
-                    addTextView(matcher.start());
-//                    setAnswers_cache();
+                    if (flag) {
+                        flag = CheckSpaceIsSuff(matcher.start(), matcher.end());
+                        if (flag) {
+                            addTextView(matcher.start(), matcher.end());
+                        }
+                    }
                 }
             }
-//            initViewWithData(bean);
             setData();
+        }
+    }
+
+    private boolean CheckSpaceIsSuff(int index_start,int index_end){
+        Layout layout = tvFillBlank.getLayout();
+        int line_start = layout.getLineForOffset(index_start);
+        int line_end = layout.getLineForOffset(index_end);
+        if (line_start!=line_end){
+            ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
+            this.getViewTreeObserver().addOnGlobalLayoutListener(listener);
+            return false;
+        }else {
+            return true;
         }
     }
 
@@ -339,39 +361,51 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
      * 然后算出字符距离左边的x坐标即为TextView的leftMargin
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    private void addTextView(int index) {
+    private void addTextView(int index_start,int index_end) {
         Layout layout = tvFillBlank.getLayout();
+
         Rect bound = new Rect();
-        int line = layout.getLineForOffset(index);
+        int line = layout.getLineForOffset(index_start);
         layout.getLineBounds(line, bound);
-        LogInfo.log("king", "line = " + line);
 
         int yAxisTop = bound.top;//字符顶部y坐标
         int yAxisBottom = bound.bottom;//字符底部y坐标
 
-        float xAxisLeft = layout.getPrimaryHorizontal(index);//字符左边x坐标
-//        float xAxisRight =  layout.getSecondaryHorizontal(index);//字符右边x坐标  (yAxisBottom - 5 - yAxisTop + tvFillBlank.getTextSize() / 2)
-        LogInfo.log("king", "yAxisTop = " + yAxisTop + " , yAxisBottom = " + yAxisBottom);
+        float xAxisLeft = layout.getPrimaryHorizontal(index_start);//字符左边x坐标
+        float xAxisRight = layout.getPrimaryHorizontal(index_end);//字符左边x坐标
+
         RelativeLayout.LayoutParams params;
+        float offset_heigh=0;
+        float textview_width=(textSize / 2) * 8;
+        if (offset_width==0) {
+            float xAxisWidth = xAxisRight - xAxisLeft;
+            offset_width = xAxisWidth - textview_width;
+        }
+
         if (bean != null && String.valueOf(YanXiuConstant.SUBJECT.YINYU).equals(bean.getSubjectId())) {
             if (CommonCoreUtil.getSDK() >= 21) {
-                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() / 2) * 8), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()));
+                offset_heigh=textSize;
+                params = new RelativeLayout.LayoutParams((int) textview_width, (int) (yAxisHeight + offset_heigh));
             } else {
-                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() / 2) * 8), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize() * 4 / 5));
+                offset_heigh=textSize * 4 / 5;
+                params = new RelativeLayout.LayoutParams((int) textview_width, (int) (yAxisHeight + offset_heigh));
             }
         } else {
             if (CommonCoreUtil.getSDK() >= 21) {
-                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() / 2) * 8), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()));
+                offset_heigh=textSize;
+                params = new RelativeLayout.LayoutParams((int) textview_width, (int) (yAxisHeight + offset_heigh));
             } else {
-                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() / 2) * 8), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize() / 3));
+                offset_heigh=textSize / 3;
+                params = new RelativeLayout.LayoutParams((int) textview_width, (int) (yAxisHeight + offset_heigh));
             }
         }
-        params.leftMargin = (int) xAxisLeft;
-        params.topMargin = (int) (yAxisTop - tvFillBlank.getTextSize() / 2)+ Util.dipToPx(10)+4;
+        params.leftMargin = (int) (xAxisLeft+offset_width/2);
+//        params.topMargin = (int) (yAxisTop - textSize / 2)+ Util.dipToPx(10)+4;
+        params.topMargin = (int) (yAxisTop+ Util.dipToPx(10)-offset_heigh/2);
         TextView tv = new TextView(mCtx);
         tv.setSingleLine();
         tv.setTextColor(mCtx.getResources().getColor(R.color.color_805500));
-        tv.setTextSize(textSize);
+        tvFillBlank.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
         tv.setBackgroundResource(R.drawable.gestalt_button_noanswer);
         tv.setOnClickListener(this);
         tv.setTag(list_textview.size());
@@ -411,5 +445,11 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         }
     }
 
+    public int getFontHeight(float fontSize){
+        Paint paint = new Paint();
+        paint.setTextSize(fontSize);
+        Paint.FontMetrics fm = paint.getFontMetrics();
+        return (int) Math.ceil(fm.descent - fm.ascent);
+    }
 
 }

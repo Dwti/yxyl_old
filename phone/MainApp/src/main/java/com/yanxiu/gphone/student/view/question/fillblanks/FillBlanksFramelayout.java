@@ -9,6 +9,7 @@ import android.os.Build;
 import android.text.Layout;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
@@ -233,13 +234,13 @@ public class FillBlanksFramelayout extends FrameLayout implements
         RelativeLayout.LayoutParams params;
         if(bean!=null && String.valueOf(YanXiuConstant.SUBJECT.YINYU).equals(bean.getSubjectId())){
             if(CommonCoreUtil.getSDK() >= 21){
-                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() /2) * 15), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize())+10);
+                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() /2) * 15), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()*3/2)+10);
             }else{
                 params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() /2) * 15), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()*4/5)+10);
             }
         }else{
             if(CommonCoreUtil.getSDK() >= 21){
-                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() /2) * 15), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize())+10);
+                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() /2) * 15), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()*3/2)+10);
             }else{
                 params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() /2) * 15), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()/3)+10);
             }
@@ -251,6 +252,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
         et.setTextColor(mCtx.getResources().getColor(R.color.color_ff40c0fd));
         et.setTextSize(textSize);
         et.setBackground(null);
+        et.setGravity(Gravity.BOTTOM);
         setEditTextCusrorDrawable(et);
         if(answerViewTypyBean == SubjectExercisesItemBean.RESOLUTION || answerViewTypyBean == SubjectExercisesItemBean.WRONG_SET){
             et.setEnabled(false);
