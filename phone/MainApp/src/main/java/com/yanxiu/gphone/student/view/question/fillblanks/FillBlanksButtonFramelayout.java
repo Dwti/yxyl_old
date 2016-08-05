@@ -303,30 +303,57 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
             boolean flag=true;
             if (!StringUtils.isEmpty(data)) {
                 Matcher matcher = pattern.matcher(data);
+                int i=0;
                 while (matcher.find()) {
                     if (flag) {
-                        flag = CheckSpaceIsSuff(matcher.start(), matcher.end());
-                        if (flag) {
-                            addTextView(matcher.start(), matcher.end());
-                        }
+                        flag = CheckSpaceIsSuff(i,matcher.start(), matcher.end());
+                        i++;
                     }
                 }
+                if (flag) {
+                    Matcher matcher1 = pattern.matcher(data);
+                    while (matcher1.find()) {
+                            addTextView(matcher1.start(), matcher1.end());
+                    }
+//                    for (int j=0;j<i;j++){
+//                        addTextView(matcher.start(j), matcher.end(j));
+//                    }
+                }
             }
-            setData();
+            if (flag) {
+                setData();
+            }
         }
     }
 
-    private boolean CheckSpaceIsSuff(int index_start,int index_end){
+    private boolean CheckSpaceIsSuff(int index,int index_start,int index_end){
         Layout layout = tvFillBlank.getLayout();
         int line_start = layout.getLineForOffset(index_start);
         int line_end = layout.getLineForOffset(index_end);
         if (line_start!=line_end){
+            setNewText(index);
             ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
             this.getViewTreeObserver().addOnGlobalLayoutListener(listener);
             return false;
         }else {
             return true;
         }
+    }
+
+    private void setNewText(int index){
+        String[] strings=data.split("                  ");
+        String mData="";
+        for (int i=0;i<strings.length;i++){
+            mData=mData+strings[i];
+            if (index==i){
+                mData=mData+"\n";
+            }
+            if (i!=strings.length-1) {
+                mData = mData + "                  ";
+            }
+        }
+        data=mData;
+        tvFillBlank.setText(data);
     }
 
     private void setData(){
