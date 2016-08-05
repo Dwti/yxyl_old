@@ -1,14 +1,19 @@
 package com.yanxiu.gphone.student.fragment;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.common.core.utils.CommonCoreUtil;
 import com.common.core.utils.LogInfo;
@@ -24,6 +29,14 @@ import com.yanxiu.gphone.student.activity.TeachingMaterialActivity;
 import com.yanxiu.gphone.student.activity.UserSettingActivity;
 import com.yanxiu.gphone.student.feedBack.AbstractFeedBack;
 import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
+import com.yanxiu.gphone.student.utils.Configuration;
+import com.yanxiu.gphone.student.utils.Util;
+
+import org.apache.http.util.EncodingUtils;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 
 /**
@@ -42,11 +55,14 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private TextView userName;
     private View teachingMaterialLayout;
     private View settingLayout;
+    private View testdataLayout;
     private View feedbackLayout;
     private TextView stdUidTv;
     private UserInfo mUserinfoEntity = LoginModel.getUserinfoEntity();
     private int stageId = MyStageSelectActivity.STAGE_TYPE_JUIN;
     private TextView titleView;
+
+    private int LAUNCH_TEST_DATA = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -101,6 +117,12 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         myStageLayout = rootView.findViewById(R.id.my_stage_layout);
         teachingMaterialLayout = rootView.findViewById(R.id.teaching_material_layout);
         settingLayout = rootView.findViewById(R.id.my_setting_layout);
+        testdataLayout = rootView.findViewById(R.id.my_test_data_layout);
+        if (Configuration.isTestData()) {
+            testdataLayout.setVisibility(View.VISIBLE);
+        } else {
+            testdataLayout.setVisibility(View.GONE);
+        }
         feedbackLayout=rootView.findViewById(R.id.feedback_layout);
 
         userInfoLayout.setOnClickListener(this);
@@ -111,6 +133,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         teachingMaterialLayout.setOnClickListener(this);
         settingLayout.setOnClickListener(this);
         feedbackLayout.setOnClickListener(this);
+        testdataLayout.setOnClickListener(this);
     }
 
     @Override
@@ -146,6 +169,16 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             case R.id.feedback_layout:  //意见反馈
                 ActivityJumpUtils.jumpToFeedBackActivity(getActivity(), AbstractFeedBack.ADVICE_FEED_BAck);
                 break;
+            case R.id.my_test_data_layout:  //使用测试数据
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("*/*");//设置类型，我这里是任意类型，任意后缀的可以这样写。
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                try {
+                    startActivityForResult(intent, Activity.RESULT_FIRST_USER);
+                }catch (ActivityNotFoundException ex) {
+                    Util.showToast(R.string.activity_not_found);
+                }
+                break;
         }
 
 
@@ -177,8 +210,41 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                     userHeadIv.setImageBitmap(CommonCoreUtil.getImage(headPath));
                 }
             }
+        } else if (data != null && requestCode == Activity.RESULT_FIRST_USER){
+            if (resultCode == Activity.RESULT_OK) {
+                //是否选择，没选择就不会继续
+                Uri uri = data.getData();
+                String[] proj = {MediaStore.Images.Media.DATA};
+                Cursor actualimagecursor = getActivity().getContentResolver().query(uri, proj, null, null, null);
+                int actual_image_column_index = actualimagecursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                actualimagecursor.moveToFirst();
+                String txt_path = actualimagecursor.getString(actual_image_column_index);
+                try {
+                    Util.testDataStr = readFileSdcardFile(txt_path);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Toast.makeText(getActivity(), txt_path, Toast.LENGTH_SHORT).show();
+            }
         }
     }
+
+    public String readFileSdcardFile(String fileName) throws IOException {
+        String res="";
+        try{
+            FileInputStream fin = new FileInputStream(fileName);
+            int length = fin.available();
+            byte [] buffer = new byte[length];
+            fin.read(buffer);
+            res = EncodingUtils.getString(buffer, "UTF-8");
+            fin.close();
+            }
+        catch(Exception e){
+            e.printStackTrace();
+            }
+        return res;
+    }
+
 
     private void setStageTxt(int type) {
         switch (type){

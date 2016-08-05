@@ -508,6 +508,7 @@ public class Util {
         listView.setLayoutParams(params);
     }
 
+    public static String testDataStr = "";
     public static SubjectExercisesItemBean getSubjectExercisesItemBean() {
         String str = "{\n" +
                 "    \"data\": [\n" +
@@ -1032,7 +1033,11 @@ public class Util {
                 "        \"desc\": \"get question list success\"\n" +
                 "    }\n" +
                 "}";
-        return (SubjectExercisesItemBean) JSON.parseObject(str, SubjectExercisesItemBean.class);
+        if (TextUtils.isEmpty(testDataStr)) {
+            return (SubjectExercisesItemBean) JSON.parseObject(testDataStr, SubjectExercisesItemBean.class);
+        } else {
+            return (SubjectExercisesItemBean) JSON.parseObject(str, SubjectExercisesItemBean.class);
+        }
     }
 
 

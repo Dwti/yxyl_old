@@ -390,11 +390,44 @@
                     />
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/my_test_data_layout"
+                style="@style/my_list_style"
+                android:layout_below="@id/my_setting_layout">
+
+
+                <ImageView
+                    android:id="@+id/my_test_data_right_arrow"
+                    style="@style/my_list_right_img_style"
+                    android:layout_width="@dimen/dimen_30"
+                    android:layout_height="@dimen/dimen_30"/>
+
+                <ImageView
+                    android:id="@+id/my_test_data_icon"
+                    style="@style/my_list_head_img_style"
+                    android:background="@drawable/set_icon"
+
+                    />
+
+                <TextView
+                    android:id="@+id/my_test_data_name"
+
+                    style="@style/my_list_center_text_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/my_test_data_right_arrow"
+                    android:layout_toRightOf="@id/my_test_data_icon"
+                    android:text="@string/my_test_data_name"
+                    />
+            </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_25"
-                android:layout_below="@id/my_setting_layout"/>
+                android:layout_below="@id/my_test_data_layout"/>
         </RelativeLayout>
+
+
     </ScrollView>
 
 </RelativeLayout>
