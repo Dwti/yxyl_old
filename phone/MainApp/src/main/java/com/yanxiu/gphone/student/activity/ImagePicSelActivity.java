@@ -120,11 +120,12 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
                 imageItem.setIsSelected(!imageItem.isSelected());
                 iv_decorate.setSelected(imageItem.isSelected());
                 if(imageItem.isSelected()){
-                    ImageBucketActivity.mTempDrrList.add(imageItem.getImagePath());
+//                    ImageBucketActivity.mTempDrrList.add(imageItem.getImagePath());
+                    ImageBucketActivity.mSelectedImagePath = imageItem.getImagePath();
                 }
                 if( adapter.lastSelectedPosition!=position && imageList.get(adapter.lastSelectedPosition).isSelected()){
                     imageList.get(adapter.lastSelectedPosition).setIsSelected(false);
-                    ImageBucketActivity.mTempDrrList.remove(imageList.get(adapter.lastSelectedPosition));
+//                    ImageBucketActivity.mTempDrrList.remove(imageList.get(adapter.lastSelectedPosition));
                 }
                 adapter.lastSelectedPosition = position;
                 adapter.notifyDataSetChanged();

@@ -2,6 +2,7 @@ package com.yanxiu.gphone.student.activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -33,6 +34,7 @@ public class ImageBucketActivity extends TopViewBaseActivity {
     private GridView mGridView;
     private ImageBucketAdapter adapter;
     public static List<String> mTempDrrList;
+    public static String mSelectedImagePath;
     private static final String TAG=ImageBucketActivity.class.getSimpleName();
 
     @Override
@@ -50,11 +52,11 @@ public class ImageBucketActivity extends TopViewBaseActivity {
         adapter=new ImageBucketAdapter(this);
         mGridView.setAdapter(adapter);
 
-        try {
-            initData();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            initData();
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
 
         //动态计算最大值并初始化相册选择计数
         ShareBitmapUtils.getInstance().recordBucketPicSelNums=0;
@@ -68,6 +70,16 @@ public class ImageBucketActivity extends TopViewBaseActivity {
                 ().getCurrentSbId()).size();
 
         return mGridView;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        try {
+            initData();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -112,6 +124,8 @@ public class ImageBucketActivity extends TopViewBaseActivity {
         if(ShareBitmapUtils.getInstance().getDataList()!=null && ShareBitmapUtils.getInstance().getDataList().size()>0){
             adapter.setList(ShareBitmapUtils.getInstance().getDataList());
         }
+
+        mSelectedImagePath=null;
     }
 
     @Override
@@ -159,8 +173,8 @@ public class ImageBucketActivity extends TopViewBaseActivity {
 //                        ActivityJumpUtils.jumpBackFromImageBucketActivity(this, RESULT_OK);
 //                        ShareBitmapUtils.getInstance().addAllPath(ShareBitmapUtils.getInstance().getCurrentSbId(),mTempDrrList);
 //                        executeFinish();
-                        if(mTempDrrList!=null&&mTempDrrList.size()>0)
-                            MediaUtils.cropImage(ImageBucketActivity.this, Uri.fromFile(new File(ImageBucketActivity.mTempDrrList.get(0))),MediaUtils.IMAGE_CROP);
+                        if(!TextUtils.isEmpty(mSelectedImagePath))
+                            MediaUtils.cropImage(ImageBucketActivity.this, Uri.fromFile(new File(mSelectedImagePath)),MediaUtils.IMAGE_CROP);
                     }else{
                         ActivityJumpUtils.jumpBackFromImageBucketActivity(this, RESULT_CANCELED);
                     }
