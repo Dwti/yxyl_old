@@ -93,7 +93,9 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 	}
 	@Override
 	public Fragment getItem(int position) {
-		return mFragments.get(position);
+		Fragment fragment=mFragments.get(position);
+		fragment.onResume();
+		return fragment;
 	}
 
 	public int getIndexPage(int position){
