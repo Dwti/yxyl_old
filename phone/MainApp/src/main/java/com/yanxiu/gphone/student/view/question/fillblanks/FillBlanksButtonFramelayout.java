@@ -99,8 +99,9 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
     public void setData(String stem) {
         data = stem + "  \n";
 //        data = data + "  \n";
-//        data = data.replace("(_)", "________________");
-        data = data.replace("(_)", "                  ");
+//        data = data.replace("(_)", "________________");_____
+//        data = data.replace("(_)", "                  ");
+        data = data.replace("_____", "                  ");
 //        tvFillBlank.setTextHtml(data);
         tvFillBlank.setText(data);
 //        Log.d("asd","data++++"+data);
