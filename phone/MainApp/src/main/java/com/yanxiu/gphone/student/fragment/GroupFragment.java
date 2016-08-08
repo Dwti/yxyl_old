@@ -243,6 +243,7 @@ public class GroupFragment extends Fragment {
         requestGroupListTask = new RequestGroupListTask(getActivity(), new AsyncCallBack() {
             @Override
             public void update (YanxiuBaseBean result) {
+
                 rootView.finish();
                 groupList.stopLoadMore();
                 groupList.stopRefresh();
@@ -311,8 +312,19 @@ public class GroupFragment extends Fragment {
                             updateRightUI(RIGHT_REFRESH);
                         } else {
                             //还未布置作业
-                            Util.showCustomToast(R.string.class_no_work);
-                            setNoGroupViewDisp(false);
+//                            Util.showCustomToast(R.string.class_no_work);
+                            noGroupTextView.setText(R.string.class_no_work);
+                            noGroupTopView.setVisibility(View.VISIBLE);
+                            noGroupView.setVisibility(View.VISIBLE);
+                            noGroupAddView.setText(R.string.class_cel_sure);
+                            noGroupAddView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    noGroupView.setVisibility(View.GONE);
+                                    noGroupTopView.setVisibility(View.GONE);
+                                }
+                            });
+//                            setNoGroupViewDisp(false);
                         }
                     }
                 }
@@ -368,15 +380,15 @@ public class GroupFragment extends Fragment {
     }
 
     private void setNoGroupViewDisp (boolean toDisp) {
-        if (toDisp) {
-            noGroupTopView.setVisibility(View.VISIBLE);
-            noGroupView.setVisibility(View.VISIBLE);
-
-        } else {
-            noGroupView.setVisibility(View.GONE);
-            noGroupTopView.setVisibility(View.GONE);
-
-        }
+//        if (toDisp) {
+//            noGroupTopView.setVisibility(View.VISIBLE);
+//            noGroupView.setVisibility(View.VISIBLE);
+//
+//        } else {
+//            noGroupView.setVisibility(View.GONE);
+//            noGroupTopView.setVisibility(View.GONE);
+//
+//        }
     }
 
     private void updateRightUI (int type) {

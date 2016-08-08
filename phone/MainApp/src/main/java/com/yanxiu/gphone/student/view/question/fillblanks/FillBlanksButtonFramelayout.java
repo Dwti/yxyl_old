@@ -57,12 +57,13 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
     private RelativeLayout rlMark;
     private YXiuAnserTextView tvFillBlank;
     private String data = "鲁迅，原名(_)字，他的代表作品是小说集，散文集。\n" +
-            "    鲁迅再《琐记》一文中，用了来讥讽asasasa洋务(_)派的办学。\n" +
+            "    鲁迅再《琐记》一文中，用了来讥讽洋务(_)派的办学。\n" +
             "    鲁迅写出了中国现代第一篇白话小说(_)，1918年在上发表其后又发表等著名小说。\n";
     private int answerViewTypyBean;
     private float textSize = 32;
     private int yAxisHeight;
     private float offset_width;
+    private float textview_width;
 
     public FillBlanksButtonFramelayout(Context context) {
         super(context);
@@ -117,6 +118,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
 //        textSize = DensityUtils.px2sp(mCtx, px);
         tvFillBlank.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
         yAxisHeight=getFontHeight(textSize);
+        textview_width=(textSize / 2) * 8;
     }
 
     public void setAnswerViewTypyBean(int answerViewTypyBean) {
@@ -325,16 +327,21 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
             }
         }
     }
-
     private boolean CheckSpaceIsSuff(int index,int index_start,int index_end){
         Layout layout = tvFillBlank.getLayout();
         int line_start = layout.getLineForOffset(index_start);
         int line_end = layout.getLineForOffset(index_end);
         if (line_start!=line_end){
-            setNewText(index);
-            ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
-            this.getViewTreeObserver().addOnGlobalLayoutListener(listener);
-            return false;
+            float width=tvFillBlank.getWidth();
+            float marginleft = layout.getPrimaryHorizontal(index_start);
+            if (width-marginleft>textview_width+16){
+                return true;
+            }else {
+                setNewText(index);
+                ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
+                this.getViewTreeObserver().addOnGlobalLayoutListener(listener);
+                return false;
+            }
         }else {
             return true;
         }
@@ -403,7 +410,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
 
         RelativeLayout.LayoutParams params;
         float offset_heigh=0;
-        float textview_width=(textSize / 2) * 8;
+//        float textview_width=(textSize / 2) * 8;
         if (offset_width==0) {
             float xAxisWidth = xAxisRight - xAxisLeft;
             offset_width = xAxisWidth - textview_width;
