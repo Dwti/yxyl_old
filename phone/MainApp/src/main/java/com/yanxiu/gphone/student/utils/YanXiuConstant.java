@@ -113,6 +113,25 @@ public class YanXiuConstant {
 		}
 	}
 
+	/*public enum QUESTION_TEMPLATE{
+		QUESTION_SINGLE_CHOICES(1,YanxiuApplication.getInstance().getResources().getString(R.string.question_choice_single)),
+		QUESTION_MULTI_CHOICES(2,YanxiuApplication.getInstance().getResources().getString(R.string.question_choice_multi)),
+		QUESTION_JUDGE(4,YanxiuApplication.getInstance().getResources().getString(R.string.question_judge)),
+		QUESTION_FILL_BLANKS(3,YanxiuApplication.getInstance().getResources().getString(R.string.question_fill_blanks)),
+		QUESTION_READING(5,YanxiuApplication.getInstance().getResources().getString(R.string.question_reading)),
+		QUESTION_SUBJECTIVE(6,YanxiuApplication.getInstance().getResources().getString(R.string.question_subjective)),
+		QUESTION_LISTEN_COMPLEX(13,YanxiuApplication.getInstance().getResources().getString(R.string.question_listen_complex)),
+		QUESTION_CLOZE_COMPLEX(15,YanxiuApplication.getInstance().getResources().getString(R.string.question_cloze_complex)),
+		QUESTION_READ_COMPLEX(16,YanxiuApplication.getInstance().getResources().getString(R.string.question_read_complex)),
+		QUESTION_SOLVE_COMPLEX(17,YanxiuApplication.getInstance().getResources().getString(R.string.question_solve_complex));
+		public String template;
+		public String template_name;
+		QUESTION_TEMPLATE(String template,String template_name) {
+			this.template = template;
+			this.template_name = template_name;
+		}
+	}*/
+
 
 	//作业报告截止时间
 	public static final int END_TIME = -1;
