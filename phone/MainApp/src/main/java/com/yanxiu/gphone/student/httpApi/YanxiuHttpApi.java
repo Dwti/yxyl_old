@@ -91,8 +91,8 @@ public class YanxiuHttpApi {
      * 测试接口
      */
     public interface TEST_URL {
-        //String DYNAMIC_TEST_BASE_URL = "http://dev.hwk.yanxiu.com/app";
-        String DYNAMIC_TEST_BASE_URL = "http://test.hwk.yanxiu.com/app";
+        String DYNAMIC_TEST_BASE_URL = "http://dev.hwk.yanxiu.com/app";
+        //String DYNAMIC_TEST_BASE_URL = "http://test.hwk.yanxiu.com/app";
 //        public final String DYNAMIC_TEST_BASE_URL = "http://122.11.49.79/app";
         String DYNAMIC_TEST_LOGIN_BASE_URL = "http://utest.yanxiu.com/";
         String DYNAMIC_TEST_APP_UPLOAD = "http://mobiletest.yanxiu.com/api";

@@ -2,6 +2,7 @@ package com.yanxiu.gphone.student.adapter;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -25,8 +26,7 @@ public class ImagePicSelAdapter extends YXiuCustomerBaseAdapter<ImageItem> {
     private int columNum=3;
     private int screentWidth;
     private int itemWidth;
-    private ImageItem lastSelectedItem;
-    private ViewHolder lastSelectedHolder;
+    public int lastSelectedPosition;   //记录上一次选中的位置
 
     public ImagePicSelAdapter(Activity context) {
         super(context);
@@ -79,51 +79,36 @@ public class ImagePicSelAdapter extends YXiuCustomerBaseAdapter<ImageItem> {
         mHolder.pic.setTag(item.getImagePath());
         cache.displayBmp(mHolder.pic, item.getThumbnailPath(), item.getImagePath(), callback);
         if(item.isSelected()){
-            lastSelectedItem =item;
-            lastSelectedHolder = mHolder;
+            lastSelectedPosition=position;
             mHolder.picDecorate.setSelected(true);
         }else{
             mHolder.picDecorate.setSelected(false);
         }
-        mHolder.picDecorate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(!  mHolder.picDecorate.isSelected()){
-                    if(ShareBitmapUtils.getInstance().getRecordBucketPicSelNums()== ShareBitmapUtils.getInstance().getCountMax()){
-                        notifyNumChange(ShareBitmapUtils.getInstance().getRecordBucketPicSelNums());
-                        return;
-                    }
-                    item.setIsSelected(true);
-                    mHolder.picDecorate.setSelected(true);
-                    ImageBucketActivity.mTempDrrList.add(item.getImagePath());
-                    ShareBitmapUtils.getInstance().recordBucketPicSelNums++;
+//        mHolder.picDecorate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                if(!mHolder.picDecorate.isSelected()){
+//                    if(ShareBitmapUtils.getInstance().getRecordBucketPicSelNums()== ShareBitmapUtils.getInstance().getCountMax()){
+//                        notifyNumChange(ShareBitmapUtils.getInstance().getRecordBucketPicSelNums());
+//                        return;
+//                    }
+//                    item.setIsSelected(true);
+//                    mHolder.picDecorate.setSelected(true);
+//                    ImageBucketActivity.mTempDrrList.add(item.getImagePath());
+//                    ShareBitmapUtils.getInstance().recordBucketPicSelNums++;
 //                    notifyNumChange(ShareBitmapUtils.getInstance().getRecordBucketPicSelNums());
-                    //此处为新增加的逻辑，不让多选，一次只能选择一个
-                    if(lastSelectedItem != null){
-                        lastSelectedItem.setIsSelected(false);
-                        lastSelectedHolder.picDecorate.setSelected(false);
-                        ImageBucketActivity.mTempDrrList.remove(lastSelectedItem.getImagePath());
-                        ShareBitmapUtils.getInstance().recordBucketPicSelNums--;
-                        //需要通知变化
-                    }
-                    lastSelectedItem=item;
-                    lastSelectedHolder=mHolder;
-                    notifyNumChange(ShareBitmapUtils.getInstance().getRecordBucketPicSelNums());
-                } else {
-                    item.setIsSelected(false);
-                    mHolder.picDecorate.setSelected(false);
-                    if(ImageBucketActivity.mTempDrrList.size()>0){
-                        ImageBucketActivity.mTempDrrList.remove(item.getImagePath());
-                        ShareBitmapUtils.getInstance().recordBucketPicSelNums--;
-                        notifyNumChange(ShareBitmapUtils.getInstance().getRecordBucketPicSelNums());
-                    }
-                    lastSelectedItem=null;
-                    lastSelectedHolder=null;
-                }
-
-            }
-        });
+//                } else {
+//                    item.setIsSelected(false);
+//                    mHolder.picDecorate.setSelected(false);
+//                    if(ImageBucketActivity.mTempDrrList.size()>0){
+//                        ImageBucketActivity.mTempDrrList.remove(item.getImagePath());
+//                        ShareBitmapUtils.getInstance().recordBucketPicSelNums--;
+//                        notifyNumChange(ShareBitmapUtils.getInstance().getRecordBucketPicSelNums());
+//                    }
+//                }
+//            }
+//        });
 
         return convertView;
     }
