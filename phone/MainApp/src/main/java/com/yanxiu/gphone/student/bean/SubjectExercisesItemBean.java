@@ -129,11 +129,4 @@ public class SubjectExercisesItemBean implements YanxiuBaseBean {
 //    public void setData(ExercisesDataEntity data) {
 //        this.data = data;
 //    }
-
-
-
-
-
-
-
 }
