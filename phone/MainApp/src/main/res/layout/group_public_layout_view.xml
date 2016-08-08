@@ -7,7 +7,7 @@
     android:layout_centerInParent="true"
     android:background="@drawable/my_list_bg_selector"
     android:paddingBottom="@dimen/dimen_15"
-    android:visibility="visible">
+    android:visibility="gone">
 
     <ImageView
         android:id="@+id/top_left_icon"
