@@ -97,8 +97,8 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
      * 设置数据源，替换字符
      */
     public void setData(String stem) {
-//        data = stem + "  \n";
-        data = data + "  \n";
+        data = stem + "  \n";
+//        data = data + "  \n";
 //        data = data.replace("(_)", "________________");
         data = data.replace("(_)", "                  ");
 //        tvFillBlank.setTextHtml(data);
