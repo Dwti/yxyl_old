@@ -380,7 +380,9 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         }
         /**设置默认选中第一个*/
         TextView textView_first = (TextView) rlMark.getChildAt(0);
-        textView_first.setBackgroundResource(R.drawable.gestalt_button_nowanswer);
+        if (textView_first != null) {
+            textView_first.setBackgroundResource(R.drawable.gestalt_button_nowanswer);
+        }
     }
 
     private void setAnswers_cache(){

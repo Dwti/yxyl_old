@@ -101,8 +101,8 @@ public class YanXiuConstant {
 		QUESTION_SUBJECTIVE(6,YanxiuApplication.getInstance().getResources().getString(R.string.question_subjective)),
 		QUESTION_LISTEN_COMPLEX(13,YanxiuApplication.getInstance().getResources().getString(R.string.question_listen_complex)),
 		QUESTION_CLOZE_COMPLEX(15,YanxiuApplication.getInstance().getResources().getString(R.string.question_cloze_complex)),
-		QUESTION_READ_COMPLEX(16,YanxiuApplication.getInstance().getResources().getString(R.string.question_read_complex)),
-		QUESTION_SOLVE_COMPLEX(17,YanxiuApplication.getInstance().getResources().getString(R.string.question_solve_complex));
+		QUESTION_READ_COMPLEX(14,YanxiuApplication.getInstance().getResources().getString(R.string.question_read_complex)),
+		QUESTION_SOLVE_COMPLEX(22,YanxiuApplication.getInstance().getResources().getString(R.string.question_solve_complex));
 
 		public int type;
 		public String name;
@@ -113,24 +113,16 @@ public class YanXiuConstant {
 		}
 	}
 
-	/*public enum QUESTION_TEMPLATE{
-		QUESTION_SINGLE_CHOICES(1,YanxiuApplication.getInstance().getResources().getString(R.string.question_choice_single)),
-		QUESTION_MULTI_CHOICES(2,YanxiuApplication.getInstance().getResources().getString(R.string.question_choice_multi)),
-		QUESTION_JUDGE(4,YanxiuApplication.getInstance().getResources().getString(R.string.question_judge)),
-		QUESTION_FILL_BLANKS(3,YanxiuApplication.getInstance().getResources().getString(R.string.question_fill_blanks)),
-		QUESTION_READING(5,YanxiuApplication.getInstance().getResources().getString(R.string.question_reading)),
-		QUESTION_SUBJECTIVE(6,YanxiuApplication.getInstance().getResources().getString(R.string.question_subjective)),
-		QUESTION_LISTEN_COMPLEX(13,YanxiuApplication.getInstance().getResources().getString(R.string.question_listen_complex)),
-		QUESTION_CLOZE_COMPLEX(15,YanxiuApplication.getInstance().getResources().getString(R.string.question_cloze_complex)),
-		QUESTION_READ_COMPLEX(16,YanxiuApplication.getInstance().getResources().getString(R.string.question_read_complex)),
-		QUESTION_SOLVE_COMPLEX(17,YanxiuApplication.getInstance().getResources().getString(R.string.question_solve_complex));
-		public String template;
-		public String template_name;
-		QUESTION_TEMPLATE(String template,String template_name) {
-			this.template = template;
-			this.template_name = template_name;
-		}
-	}*/
+	public final static String SINGLE_CHOICES = "choice";
+	public final static String MULTI_CHOICES = "multi-choice";
+	public final static String FILL_BLANK = "fill";
+	public final static String JUDGE_QUESTION = "alter";
+	public final static String CONNECT_QUESTION = "connect";
+	public final static String CLASSIFY_QUESTION = "classify";
+	public final static String ANSWER_QUESTION = "answer";
+	public final static String MULTI_QUESTION = "multi";
+	public final static String CLOZE_QUESTION = "cloze";
+	public final static String LISTEN_QUESTION = "listen";
 
 
 	//作业报告截止时间
