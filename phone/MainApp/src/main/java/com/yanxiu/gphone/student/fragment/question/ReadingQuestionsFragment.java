@@ -21,6 +21,7 @@ import com.yanxiu.gphone.student.activity.ResolutionAnswerViewActivity;
 import com.yanxiu.gphone.student.adapter.AnswerAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ChildIndexEvent;
+import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout;
 import com.yanxiu.gphone.student.view.YanxiuTypefaceTextView;
@@ -55,7 +56,7 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
 
     private ViewPager vpAnswer;
 
-    private List<QuestionEntity> children;
+    private List<PaperTestEntity> children;
 
     private AnswerAdapter adapter;
     private YanxiuTypefaceTextView tvReadItemQuesitonType;
@@ -165,7 +166,7 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
 
         }
         if(children != null && !children.isEmpty()){
-            tvReadItemQuesitonType.setText(children.get(0).getReadItemName());
+            tvReadItemQuesitonType.setText(children.get(0).getQuestions().getReadItemName());
         }
     }
     private boolean isVisibleToUser;
@@ -225,7 +226,7 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
             pageCountIndex = pageIndex + childPosition;
             tvPagerIndex.setText(String.valueOf(childPosition + 1));
             tvPagerCount.setText("/" + pageCount);
-            tvReadItemQuesitonType.setText(children.get(childPosition).getReadItemName());
+            tvReadItemQuesitonType.setText(children.get(childPosition).getQuestions().getReadItemName());
             if (this.getActivity() instanceof AnswerViewActivity && isVisibleToUser){
                 ((AnswerViewActivity) this.getActivity()).setIndexFromRead(pageCountIndex);
             }else if(this.getActivity() instanceof ResolutionAnswerViewActivity && isVisibleToUser){

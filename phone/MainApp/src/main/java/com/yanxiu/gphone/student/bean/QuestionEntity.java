@@ -35,7 +35,7 @@ public class QuestionEntity implements YanxiuBaseBean {
     private ContentEntity content;
     private List<PointEntity> point;
     private String stem;
-    private List<QuestionEntity> children;
+    private List<PaperTestEntity> children;
     private QuestionEntity questions;
     private AnswerBean answerBean ;//= new AnswerBean();
     private String titleName;
@@ -44,7 +44,16 @@ public class QuestionEntity implements YanxiuBaseBean {
 
     private ExtendEntity extend;
 
+    public PadBean getPad() {
+        return pad;
+    }
+
+    public void setPad(PadBean pad) {
+        this.pad = pad;
+    }
+
     private PadBean padBean;
+    private PadBean pad;
     private boolean readQuestion = false;
     private String readItemName;
 
@@ -80,11 +89,11 @@ public class QuestionEntity implements YanxiuBaseBean {
         this.extend = extend;
     }
 
-    public List<QuestionEntity> getChildren() {
+    public List<PaperTestEntity> getChildren() {
         return children;
     }
 
-    public void setChildren(List<QuestionEntity> children) {
+    public void setChildren(List<PaperTestEntity> children) {
         this.children = children;
     }
 

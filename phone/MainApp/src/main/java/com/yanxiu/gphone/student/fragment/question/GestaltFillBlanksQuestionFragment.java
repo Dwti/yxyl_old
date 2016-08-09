@@ -21,6 +21,7 @@ import com.yanxiu.gphone.student.activity.ResolutionAnswerViewActivity;
 import com.yanxiu.gphone.student.adapter.AnswerAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ChildIndexEvent;
+import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.inter.AnswerCallback;
 import com.yanxiu.gphone.student.inter.OnPushPullTouchListener;
@@ -45,7 +46,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
     private ViewPager vpAnswer;
     private AnswerAdapter adapter;
     private int pageCount = 1;
-    private List<QuestionEntity> children;
+    private List<PaperTestEntity> children;
 
     private ImageView ivBottomCtrl;
     private OnPushPullTouchListener mOnPushPullTouchListener;

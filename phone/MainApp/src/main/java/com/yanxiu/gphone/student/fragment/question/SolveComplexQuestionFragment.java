@@ -16,6 +16,7 @@ import com.yanxiu.gphone.student.activity.ResolutionAnswerViewActivity;
 import com.yanxiu.gphone.student.adapter.AnswerAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ChildIndexEvent;
+import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.inter.OnPushPullTouchListener;
 import com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout;
@@ -44,7 +45,7 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
     
     private int pageCountIndex;
     private ViewPager vpAnswer;
-    private List<QuestionEntity> children;
+    private List<PaperTestEntity> children;
 
     private AnswerAdapter adapter;
 

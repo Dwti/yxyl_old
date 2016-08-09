@@ -546,13 +546,13 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                 if (dataList.get(i).getQuestions().getChildren() != null &&
                         dataList.get(i).getQuestions().getType_id() == QUESTION_READING.type) {
 
-                    List<QuestionEntity> questionList = dataList.get(i).getQuestions().getChildren();
+                    List<PaperTestEntity> questionList = dataList.get(i).getQuestions().getChildren();
                     int childrenCount = questionList.size();
                     boolean isFalse = false;
                     for (int j = 0; j < childrenCount; j++) {
-                        costTime += questionList.get(j).getAnswerBean().getConsumeTime();
-                        LogInfo.log("geny", "getChildren time =====" + questionList.get(j).getAnswerBean().getConsumeTime());
-                        if (questionList.get(j).getAnswerBean().isRight()) {
+                        costTime += questionList.get(j).getQuestions().getAnswerBean().getConsumeTime();
+                        LogInfo.log("geny", "getChildren time =====" + questionList.get(j).getQuestions().getAnswerBean().getConsumeTime());
+                        if (questionList.get(j).getQuestions().getAnswerBean().isRight()) {
                             rightCount++;
                         } else {
                             isFalse = isFalse || true;

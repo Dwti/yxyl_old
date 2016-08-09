@@ -17,6 +17,7 @@ import com.yanxiu.basecore.impl.YanxiuHttpParameter;
 import com.yanxiu.basecore.impl.YanxiuHttpTool;
 import com.yanxiu.basecore.parse.YanxiuMainParser;
 import com.yanxiu.gphone.student.YanxiuApplication;
+import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.bean.UploadFileBean;
@@ -1241,6 +1242,7 @@ public class YanxiuHttpApi {
     //       http://mobile.hwk.yanxiu.com/app/common/getChapterList.do?stageId=1203&volume=31243&subjectId=1102&editionId=1406&token=ece8f582bfcf9c69d0caac6b05ad5c36
         String baseUrl = getStaticHead()+"/q/submitQ.do";
         String id = "-1";
+        String childId = "-1";
         String paperTestId = "-1";
         Bundle params = new Bundle();
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
@@ -1259,20 +1261,40 @@ public class YanxiuHttpApi {
             for(int i = 0; i < count; i++){
 //                LogInfo.log("geny", i + "---answer " + bean.getData().get(0).getPaperTest().get(i).getQuestions().getAnswerBean().getAnswerStr());
                 JSONObject questionBean = new JSONObject();
-                if(bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren() != null && bean.getData().get(0).getPaperTest().get(i).getQuestions().getType_id() == QUESTION_READING.type){
-                    List<QuestionEntity> questionList = bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren();
+                //if(bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren() != null && bean.getData().get(0).getPaperTest().get(i).getQuestions().getType_id() == QUESTION_READING.type){
+                if (bean.getData().get(0).getPaperTest().get(i).getQuestions().getTemplate().equals(YanXiuConstant.MULTI_QUESTION)
+                        || bean.getData().get(0).getPaperTest().get(i).getQuestions().getTemplate().equals(YanXiuConstant.CLOZE_QUESTION)
+                        || bean.getData().get(0).getPaperTest().get(i).getQuestions().getTemplate().equals(YanXiuConstant.LISTEN_QUESTION)) {
+                    List<PaperTestEntity> questionList = bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren();
                     int childrenCount = questionList.size();
                     boolean isFalse = false;
                     boolean isFinish = false;
                     JSONArray childrenQuestionBean = new JSONArray();
+                    JSONArray childrenBean = new JSONArray();
                     for(int j = 0; j < childrenCount; j++){
                         JSONObject answerJson = new JSONObject();
-                        answerJson.put("answer", Util.sortQuestionData(questionList.get(j)));
+                        answerJson.put("answer", Util.sortQuestionData(questionList.get(j).getQuestions()));
                         answerJson.put("qid", bean.getData().get(0).getPaperTest().get(i).getQuestions().getId());
                         childrenQuestionBean.put(answerJson);
                         questionBean.put("answer", childrenQuestionBean);
-                        isFinish = isFinish || questionList.get(j).getAnswerBean().isFinish();
-                        isFalse = isFalse || !questionList.get(j).getAnswerBean().isRight();
+                        isFinish = isFinish || questionList.get(j).getQuestions().getAnswerBean().isFinish();
+                        isFalse = isFalse || !questionList.get(j).getQuestions().getAnswerBean().isRight();
+                        JSONObject childJson = new JSONObject();
+                        if(bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getQuestions().getPad() != null  && bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getQuestions().getPad().getId() != -1){
+                            childId = String.valueOf(bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getQuestions().getPad().getId());
+                            childJson.put("id", childId);
+                        }else{
+                            childJson.put("id", childId);
+                        }
+                        childJson.put("qid", bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getQid());
+                        //childJson.put("qtype", bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j));
+                        childJson.put("costtime", bean.getData().get(0).getPaperTest().get(i).getQuestions().getAnswerBean().getConsumeTime());
+                        childJson.put("ptid", bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getId());
+                        childJson.put("status", bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getStatus());
+                        childJson.put("uid", LoginModel.getUid());
+                        childJson.put("answer", Util.sortQuestionData(questionList.get(j).getQuestions()));
+                        childrenBean.put(childJson);
+                        questionBean.put("children", childrenBean);
                     }
                     if(isFinish){
                         bean.getData().get(0).getPaperTest().get(i).getQuestions().getAnswerBean().setIsFinish(isFinish);
@@ -1287,14 +1309,15 @@ public class YanxiuHttpApi {
                 LogInfo.log("geny", i + "=====costtime =   " + bean.getData().get(0).getPaperTest().get(i).getQuestions().getAnswerBean().getConsumeTime());
                 questionBean.put("ptid", bean.getData().get(0).getPaperTest().get(i).getId());
                 questionBean.put("qid", bean.getData().get(0).getPaperTest().get(i).getQid());
-                if(bean.getData().get(0).getPaperTest().get(i).getPad() != null  && bean.getData().get(0).getPaperTest().get(i).getPad().getId() != -1){
-                    id = String.valueOf(bean.getData().get(0).getPaperTest().get(i).getPad().getId());
+                if(bean.getData().get(0).getPaperTest().get(i).getQuestions().getPad() != null  && bean.getData().get(0).getPaperTest().get(i).getQuestions().getPad().getId() != -1){
+                    id = String.valueOf(bean.getData().get(0).getPaperTest().get(i).getQuestions().getPad().getId());
                     questionBean.put("id", id);
                 }else{
                     questionBean.put("id", id);
                 }
                 questionBean.put("status", bean.getData().get(0).getPaperTest().get(i).getQuestions().getAnswerBean().getStatus());
                 questionBean.put("uid", LoginModel.getUid());
+                //questionBean.put("children", bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren());
                 array.put(questionBean);
 
 

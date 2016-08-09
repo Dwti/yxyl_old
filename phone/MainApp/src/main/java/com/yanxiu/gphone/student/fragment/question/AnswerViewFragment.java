@@ -14,6 +14,7 @@ import android.widget.Scroller;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.AnswerAdapter;
 import com.yanxiu.gphone.student.bean.ChildIndexEvent;
+import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 
 import de.greenrobot.event.EventBus;
@@ -32,7 +33,7 @@ public class AnswerViewFragment extends Fragment implements View.OnClickListener
 
     private QuestionEntity questionsEntity;
 
-    private List<QuestionEntity> children;
+    private List<PaperTestEntity> children;
 
     private AnswerAdapter childAnswerAdapter;
 

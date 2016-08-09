@@ -193,12 +193,12 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_READING, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
 
 						if (dataList.get(i).getQuestions() != null) {
-							List<QuestionEntity> childQuestion = dataList.get(i).getQuestions().getChildren();
+							List<PaperTestEntity> childQuestion = dataList.get(i).getQuestions().getChildren();
 							if (childQuestion != null ) {
 								int childCount = childQuestion.size();
 								for (int j = 0; j < childCount; j++) {
-									childQuestion.get(j).setPageIndex(i);
-									childQuestion.get(j).setChildPageIndex(j);
+									childQuestion.get(j).getQuestions().setPageIndex(i);
+									childQuestion.get(j).getQuestions().setChildPageIndex(j);
 								}
 							}
 						}
@@ -212,12 +212,12 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_LISTEN_COMPLEX, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
 
 						if (dataList.get(i).getQuestions() != null) {
-							List<QuestionEntity> childQuestion = dataList.get(i).getQuestions().getChildren();
+							List<PaperTestEntity> childQuestion = dataList.get(i).getQuestions().getChildren();
 							if (childQuestion != null) {
 								int childCount = childQuestion.size();
 								for (int j = 0; j < childCount; j++) {
-									childQuestion.get(j).setPageIndex(i);
-									childQuestion.get(j).setChildPageIndex(j);
+									childQuestion.get(j).getQuestions().setPageIndex(i);
+									childQuestion.get(j).getQuestions().setChildPageIndex(j);
 								}
 							}
 						}
@@ -231,12 +231,12 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_READ_COMPLEX, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
 
 						if (dataList.get(i).getQuestions() != null) {
-							List<QuestionEntity> childQuestion = dataList.get(i).getQuestions().getChildren();
+							List<PaperTestEntity> childQuestion = dataList.get(i).getQuestions().getChildren();
 							if (childQuestion != null ) {
 								int childCount = childQuestion.size();
 								for (int j = 0; j < childCount; j++) {
-									childQuestion.get(j).setPageIndex(i);
-									childQuestion.get(j).setChildPageIndex(j);
+									childQuestion.get(j).getQuestions().setPageIndex(i);
+									childQuestion.get(j).getQuestions().setChildPageIndex(j);
 								}
 							}
 						}
@@ -250,12 +250,12 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_SOLVE_COMPLEX, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
 
 						if (dataList.get(i).getQuestions() != null) {
-							List<QuestionEntity> childQuestion = dataList.get(i).getQuestions().getChildren();
+							List<PaperTestEntity> childQuestion = dataList.get(i).getQuestions().getChildren();
 							if (childQuestion != null ) {
 								int childCount = childQuestion.size();
 								for (int j = 0; j < childCount; j++) {
-									childQuestion.get(j).setPageIndex(i);
-									childQuestion.get(j).setChildPageIndex(j);
+									childQuestion.get(j).getQuestions().setPageIndex(i);
+									childQuestion.get(j).getQuestions().setChildPageIndex(j);
 								}
 							}
 						}
@@ -264,12 +264,12 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_CLOZE_COMPLEX, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
 
 						if (dataList.get(i).getQuestions() != null) {
-							List<QuestionEntity> childQuestion = dataList.get(i).getQuestions().getChildren();
+							List<PaperTestEntity> childQuestion = dataList.get(i).getQuestions().getChildren();
 							if (childQuestion != null ) {
 								int childCount = childQuestion.size();
 								for (int j = 0; j < childCount; j++) {
-									childQuestion.get(j).setPageIndex(i);
-									childQuestion.get(j).setChildPageIndex(j);
+									childQuestion.get(j).getQuestions().setPageIndex(i);
+									childQuestion.get(j).getQuestions().setChildPageIndex(j);
 								}
 							}
 						}
@@ -372,34 +372,34 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 		this.callback=callback;
 	}
 
-	public void addDataSourcesForReadingQuestion(List<QuestionEntity> dataList){
+	public void addDataSourcesForReadingQuestion(List<PaperTestEntity> dataList){
 		if(dataList != null){
 			int count = dataList.size();
 			List<QuestionEntity> dirtyData = new ArrayList<>();
 			for(int i = 0; i < count; i++){
 				if(dataList.get(i) !=null){
-					dataList.get(i).setReadQuestion(true);
-					int typeId = dataList.get(i).getType_id();
+					dataList.get(i).getQuestions().setReadQuestion(true);
+					int typeId = dataList.get(i).getQuestions().getType_id();
 
-					dataList.get(i).setReadItemName(getTypeName(typeId));
+					dataList.get(i).getQuestions().setReadItemName(getTypeName(typeId));
 					String template = dataList.get(i).getQuestions().getTemplate();
 
 					Fragment fragment = null;
 					if(template.equals(YanXiuConstant.SINGLE_CHOICES)) {
-						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_SINGLE_CHOICES, dataList.get(i).getQuestions(), answerViewTypyBean, dataList.get(i).getChildPageIndex());
+						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_SINGLE_CHOICES, dataList.get(i).getQuestions(), answerViewTypyBean, dataList.get(i).getQuestions().getChildPageIndex());
 						((ChoiceQuestionFragment)fragment).setAnswerCallback(i,callback);
 						((ChoiceQuestionFragment)fragment).setIsChild(true);
 					}else if(template.equals(YanXiuConstant.MULTI_CHOICES)){
-						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_MULTI_CHOICES, dataList.get(i).getQuestions(), answerViewTypyBean, dataList.get(i).getChildPageIndex());
+						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_MULTI_CHOICES, dataList.get(i).getQuestions(), answerViewTypyBean, dataList.get(i).getQuestions().getChildPageIndex());
 						((ChoiceQuestionFragment)fragment).setIsChild(true);
 					}else if(template.equals(YanXiuConstant.JUDGE_QUESTION)){
-						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_JUDGE, dataList.get(i).getQuestions(), answerViewTypyBean, dataList.get(i).getChildPageIndex());
+						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_JUDGE, dataList.get(i).getQuestions(), answerViewTypyBean, dataList.get(i).getQuestions().getChildPageIndex());
 						((JudgeQuestionFragment)fragment).setIsChild(true);
 					}else if(template.equals(YanXiuConstant.FILL_BLANK)){
-						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_FILL_BLANKS, dataList.get(i).getQuestions(), answerViewTypyBean, dataList.get(i).getChildPageIndex());
+						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_FILL_BLANKS, dataList.get(i).getQuestions(), answerViewTypyBean, dataList.get(i).getQuestions().getChildPageIndex());
 						((FillBlanksFragment)fragment).setIsChild(true);
 					}else{
-						dirtyData.add(dataList.get(i));
+						dirtyData.add(dataList.get(i).getQuestions());
 					}
 //					else if(typeId == QUESTION_READING.type){
 //						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_READING, dataList.get(i), answerViewTypyBean, dataList.get(i).getChildPageIndex());
@@ -407,7 +407,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 					if(fragment != null){
 						mFragments.add(fragment);
 						((QuestionsListener)fragment).flipNextPager(this);
-						((QuestionsListener)fragment).setDataSources(dataList.get(i).getAnswerBean());
+						((QuestionsListener)fragment).setDataSources(dataList.get(i).getQuestions().getAnswerBean());
 					}
 				}
 			}
