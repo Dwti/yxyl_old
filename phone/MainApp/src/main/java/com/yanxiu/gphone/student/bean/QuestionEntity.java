@@ -39,7 +39,7 @@ public class QuestionEntity implements YanxiuBaseBean {
     private QuestionEntity questions;
     private AnswerBean answerBean ;//= new AnswerBean();
     private String titleName;
-
+    private String url;   //听力的url播放地址
     private List<String> photoUri;
 
     private ExtendEntity extend;
@@ -47,6 +47,14 @@ public class QuestionEntity implements YanxiuBaseBean {
     private PadBean padBean;
     private boolean readQuestion = false;
     private String readItemName;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public int getPageIndex() {
         return pageIndex;

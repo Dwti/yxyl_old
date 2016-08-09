@@ -11,6 +11,7 @@ import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -68,6 +69,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     private int mMinutes;  //总的分钟数
     private CountDownTimer mDownTimer;   //倒计时器
     private long mMillisUntilFinished;
+    private String url;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         this.pageCountIndex = this.pageIndex;
         if (questionsEntity != null && questionsEntity.getChildren() != null) {
             children = questionsEntity.getChildren();
+            url = questionsEntity.getUrl();
         }
         //注册EventBus
         EventBus.getDefault().register(this);
@@ -148,8 +151,10 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                     //开始播放
 //                    String path = "http://abv.cn/music/光辉岁月.mp3";
                     String path = "http://data.5sing.kgimg.com/G034/M05/16/17/ApQEAFXsgeqIXl7gAAVVd-n31lcAABOogKzlD4ABVWP363.mp3";
+                    if(TextUtils.isEmpty(url))
+                        return;
                     try {
-                        play(path);
+                        play(url);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
