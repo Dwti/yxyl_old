@@ -13,6 +13,7 @@ import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.fragment.question.BaseQuestionFragment;
 import com.yanxiu.gphone.student.fragment.question.ChoiceQuestionFragment;
 import com.yanxiu.gphone.student.fragment.question.FillBlanksFragment;
 import com.yanxiu.gphone.student.fragment.question.JudgeQuestionFragment;
@@ -93,8 +94,8 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 	}
 	@Override
 	public Fragment getItem(int position) {
-		Fragment fragment=mFragments.get(position);
-		fragment.onResume();
+		BaseQuestionFragment fragment= (BaseQuestionFragment) mFragments.get(position);
+		fragment.setRefresh();
 		return fragment;
 	}
 
@@ -140,7 +141,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 
 	public void addDataSources(SubjectExercisesItemBean bean){
 		SubjectExercisesItemBean beanTmp = Util.getSubjectExercisesItemBean();
-
+		bean= Util.getSubjectExercisesItemBean();
 
 		if(bean!=null && bean.getData()!= null && !bean.getData().isEmpty()){
 			answerViewTypyBean = bean.getViewType();

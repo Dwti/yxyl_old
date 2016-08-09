@@ -317,9 +317,6 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
                     while (matcher1.find()) {
                             addTextView(matcher1.start(), matcher1.end());
                     }
-//                    for (int j=0;j<i;j++){
-//                        addTextView(matcher.start(j), matcher.end(j));
-//                    }
                 }
             }
             if (flag) {

@@ -96,6 +96,10 @@ public class BaseQuestionFragment extends Fragment {
 
     }
 
+    public void setRefresh(){
+
+    }
+
     public int getChildCount(){
         return 1;
     }

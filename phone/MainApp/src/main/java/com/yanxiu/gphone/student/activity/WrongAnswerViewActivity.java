@@ -111,6 +111,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
                 btnNextQuestion.setVisibility(View.VISIBLE);
             }
             pageIndex = position;
+            vpAnswer.setCurrentItem(position);
             tvPagerIndex.setText(String.valueOf(position + 1));
             //tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(adapter.getTotalCount())));
             tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), pageCount-delQueNum));
@@ -157,6 +158,11 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
             //requestWrongQuestion(subjectId, editionId, volumeId, chapterId, sectionId, currentPageIndex + 1, currentId);
             requestWrongAllQuestion(subjectId, currentPageIndex + 1, currentId);
         }
+    }
+
+    public void selectViewPager(){
+        LogInfo.log("geny","selectViewPager " + (vpAnswer.getCurrentItem() + 1));
+        vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
     }
 
     private void requestWrongAllQuestion(final String subjectId, final int currentPage, final String currentId) {
@@ -321,17 +327,18 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         if (v == ivBack) {
             finishResult(false);
-        }else if(v == btnLastQuestion){
-            if(vpAnswer.getCurrentItem() != 0){
-                vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() - 1));
-            }
-
-        }else if(v == btnNextQuestion){
-            if(vpAnswer.getCurrentItem() != pageCount - delQueNum - 1){
-                vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
-            }
+//        }else if(v == btnLastQuestion){
+//            if(vpAnswer.getCurrentItem() != 0){
+//                vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() - 1));
+//            }
+//
+//        }else if(v == btnNextQuestion){
+//            if(vpAnswer.getCurrentItem() != pageCount - delQueNum - 1){
+//                vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
+//            }
         }else if (v == ivAnswerCard) {
             getDelTaskInfo(pageIndex);
             LogInfo.log("haitian", "questionId =" + questionId);

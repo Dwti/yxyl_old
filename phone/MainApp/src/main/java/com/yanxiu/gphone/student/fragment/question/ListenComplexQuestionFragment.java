@@ -377,6 +377,18 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     }
 
     @Override
+    public void setRefresh() {
+        super.setRefresh();
+        if (vpAnswer != null) {
+            if (!is_reduction) {
+                vpAnswer.setCurrentItem(0);
+            } else {
+                vpAnswer.setCurrentItem(adapter.getCount() - 1);
+            }
+        }
+    }
+
+    @Override
     public void onClick(View view) {
 
     }

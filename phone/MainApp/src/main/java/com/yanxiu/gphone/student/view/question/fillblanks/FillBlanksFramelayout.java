@@ -201,14 +201,67 @@ public class FillBlanksFramelayout extends FrameLayout implements
             FillBlanksFramelayout.this.getViewTreeObserver().removeGlobalOnLayoutListener(
                     this);
             Pattern pattern = Pattern.compile("_______________");
-            if(!StringUtils.isEmpty(data)){
+//            if(!StringUtils.isEmpty(data)){
+//                Matcher matcher = pattern.matcher(data);
+//                while (matcher.find()) {
+//                    addEditText(matcher.start());
+//                }
+//            }
+//            initViewWithData(bean);
+
+
+            boolean flag=true;
+            if (!StringUtils.isEmpty(data)) {
                 Matcher matcher = pattern.matcher(data);
+                int i=0;
                 while (matcher.find()) {
-                    addEditText(matcher.start());
+                    if (flag) {
+                        flag = CheckSpaceIsSuff(i,matcher.start(), matcher.end());
+                        i++;
+                    }
+                }
+                if (flag) {
+                    Matcher matcher1 = pattern.matcher(data);
+                    while (matcher1.find()) {
+                        addEditText(matcher1.start());
+                    }
                 }
             }
-            initViewWithData(bean);
+            if (flag) {
+                initViewWithData(bean);
+            }
         }
+    }
+
+    private boolean CheckSpaceIsSuff(int index,int index_start,int index_end){
+        Layout layout = tvFillBlank.getLayout();
+        int line_start = layout.getLineForOffset(index_start);
+        int line_end = layout.getLineForOffset(index_end);
+        if (line_start!=line_end){
+            setNewText(index);
+            ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
+            this.getViewTreeObserver().addOnGlobalLayoutListener(listener);
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+    private void setNewText(int index){
+        String[] strings=data.split("\\(________________\\)");
+//        String[] strings=data.split("\\(");
+        String mData="";
+        for (int i=0;i<strings.length;i++){
+            mData=mData+strings[i];
+            if (index==i){
+                mData=mData+"\n";
+            }
+            if (i!=strings.length-1) {
+                mData = mData + "(________________)";
+            }
+        }
+        data=mData;
+        tvFillBlank.setText(data);
     }
 
     /**

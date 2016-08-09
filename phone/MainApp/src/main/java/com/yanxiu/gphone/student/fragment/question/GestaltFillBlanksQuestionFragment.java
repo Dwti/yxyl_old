@@ -189,6 +189,18 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
     }
 
     @Override
+    public void setRefresh() {
+        super.setRefresh();
+        if (vpAnswer != null) {
+            if (!is_reduction) {
+                vpAnswer.setCurrentItem(0);
+            } else {
+                vpAnswer.setCurrentItem(adapter.getCount() - 1);
+            }
+        }
+    }
+
+    @Override
     public void setDataSources(AnswerBean bean) {
         this.bean = bean;
         if (fill_blanks_button != null) {

@@ -116,8 +116,8 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                     if (subjectExercisesItemBeanIntent.getData() != null && subjectExercisesItemBeanIntent.getData().size() > 0) {
                         subjectExercisesItemBeanIntent.getData().get(0).setName("");
                     }
-                    if (list != null && list.size() > 0 && position < list.size()) {
-                        WrongAnswerViewActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, subjectId, pageIndex, list.get(position).getQuestions().getChildPageIndex(), YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position);
+                    if (list != null && list.size() > 0 && position>0 && position-1 < list.size()) {
+                        WrongAnswerViewActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, subjectId, pageIndex, list.get(position-1).getQuestions().getChildPageIndex(), YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position-1);
                         //ResolutionAnswerViewActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, YanXiuConstant.INTELLI_REPORT);
                     } else {
                         WrongAnswerViewActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, subjectId, pageIndex, 0, YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position);
@@ -323,7 +323,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data != null && data.getIntExtra("wrongNum", 0) == 0) {
+        if (data == null || data.getIntExtra("wrongNum", 0) == 0) {
             this.finish();
         }
         wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, data.getIntExtra("wrongNum", 0)));

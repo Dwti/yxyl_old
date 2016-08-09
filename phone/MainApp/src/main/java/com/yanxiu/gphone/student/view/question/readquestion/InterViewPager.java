@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 
 import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.activity.AnswerViewActivity;
+import com.yanxiu.gphone.student.activity.WrongAnswerViewActivity;
 
 
 /**
@@ -162,8 +163,12 @@ public class InterViewPager extends ViewPager {
     }
 
     public void toParentViewPager(){
-        if(mContext != null && mContext instanceof AnswerViewActivity){
-            ((AnswerViewActivity)mContext).selectViewPager();
+        if(mContext != null ){
+            if (mContext instanceof AnswerViewActivity) {
+                ((AnswerViewActivity) mContext).selectViewPager();
+            }else if (mContext instanceof WrongAnswerViewActivity){
+                ((WrongAnswerViewActivity) mContext).selectViewPager();
+            }
         }
 //        this.requestFocus();
 //        LogInfo.log("geny", "toParentViewPager last item");
