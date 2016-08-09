@@ -22,11 +22,21 @@ public class QuestionEntity implements YanxiuBaseBean {
     private List<String> answer;
     private int type_id;
     private String id;
+
+    public QuestionEntity getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(QuestionEntity questions) {
+        this.questions = questions;
+    }
+
     private String analysis;
     private ContentEntity content;
     private List<PointEntity> point;
     private String stem;
     private List<QuestionEntity> children;
+    private QuestionEntity questions;
     private AnswerBean answerBean ;//= new AnswerBean();
     private String titleName;
 

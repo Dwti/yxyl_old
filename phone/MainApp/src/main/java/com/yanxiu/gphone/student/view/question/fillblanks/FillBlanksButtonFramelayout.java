@@ -99,8 +99,9 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
     public void setData(String stem) {
         data = stem + "  \n";
 //        data = data + "  \n";
-//        data = data.replace("(_)", "________________");
-        data = data.replace("(_)", "                  ");
+//        data = data.replace("(_)", "________________");_____
+//        data = data.replace("(_)", "                  ");
+        data = data.replace("_____", "                  ");
 //        tvFillBlank.setTextHtml(data);
         tvFillBlank.setText(data);
 //        Log.d("asd","data++++"+data);
@@ -377,7 +378,9 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         }
         /**设置默认选中第一个*/
         TextView textView_first = (TextView) rlMark.getChildAt(0);
-        textView_first.setBackgroundResource(R.drawable.gestalt_button_nowanswer);
+        if (textView_first != null) {
+            textView_first.setBackgroundResource(R.drawable.gestalt_button_nowanswer);
+        }
     }
 
     private void setAnswers_cache(){

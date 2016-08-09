@@ -147,7 +147,9 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
         if(bean == null){
             bean = questionsEntity.getAnswerBean();
         }
-        choiceQuestions.setDataSources(bean);
+        if(choiceQuestions != null) {
+            choiceQuestions.setDataSources(bean);
+        }
     }
 
 
