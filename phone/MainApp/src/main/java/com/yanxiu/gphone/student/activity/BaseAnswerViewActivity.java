@@ -283,7 +283,6 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
                 LogInfo.log(vpAnswer.getCurrentItem()+"");
                 LogInfo.log(adapter.getTotalCount()+"");
                 if (listener!=null) {
-                    listener.flipNextPager(listener);
                     int tatle_count=((AnswerAdapter)listener).getCount();
                     int currenItem=((AnswerAdapter)listener).getViewPagerCurrentItem();
                     if (vpAnswer.getCurrentItem() == adapter.getCount() - 1&&tatle_count-1==currenItem){
@@ -291,6 +290,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
                     }else {
                         btnNextQuestion.setVisibility(View.VISIBLE);
                     }
+                    listener.flipNextPager(listener);
                 }else {
                     vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
                 }

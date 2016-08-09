@@ -163,14 +163,14 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
     public void onDestroy() {
         super.onDestroy();
         LogInfo.log("geny", "---onDestroy-------pageIndex----" + pageIndex);
-        choiceQuestions=null;
-//        listener=null;
-        bean=null;
-        addBtn=null;
-        yXiuAnserTextView=null;
-
-        resolutionFragment=null;
-        System.gc();
+//        choiceQuestions=null;
+////        listener=null;
+//        bean=null;
+//        addBtn=null;
+//        yXiuAnserTextView=null;
+//
+//        resolutionFragment=null;
+//        System.gc();
     }
 
     @Override
