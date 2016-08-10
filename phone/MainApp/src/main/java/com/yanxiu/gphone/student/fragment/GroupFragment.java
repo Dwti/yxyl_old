@@ -249,7 +249,7 @@ public class GroupFragment extends Fragment {
         requestGroupListTask = new RequestGroupListTask(getActivity(), new AsyncCallBack() {
             @Override
             public void update (YanxiuBaseBean result) {
-
+                no_class.setVisibility(View.GONE);
                 rootView.finish();
                 groupList.stopLoadMore();
                 groupList.stopRefresh();

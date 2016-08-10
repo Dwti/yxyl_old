@@ -97,7 +97,8 @@ public class BaseQuestionFragment extends Fragment {
     }
 
     public void setRefresh(){
-
+        String ss="";
+        ss="";
     }
 
     public int getChildCount(){

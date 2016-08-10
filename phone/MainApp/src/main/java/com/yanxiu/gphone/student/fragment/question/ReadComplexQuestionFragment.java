@@ -132,21 +132,22 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
         pageCount = count;
     }
 
+
     public void setUserVisibleHint(boolean isVisibleToUser) {
 //        LogInfo.log("geny", "setUserVisibleHint");
         super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
-        if (isVisibleToUser){
-            if (!ischild) {
-                if (adapter != null) {
-                    ((QuestionsListener) getActivity()).flipNextPager(adapter);
-                }
-            }
+        if (isVisibleToUser&&isVisible()){
             if (vpAnswer != null) {
                 if (!is_reduction) {
                     vpAnswer.setCurrentItem(0);
                 } else {
                     vpAnswer.setCurrentItem(adapter.getCount() - 1);
+                }
+            }
+            if (!ischild) {
+                if (adapter != null) {
+                    ((QuestionsListener) getActivity()).flipNextPager(adapter);
                 }
             }
         }
@@ -216,6 +217,12 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
                 vpAnswer.setCurrentItem(0);
             } else {
                 vpAnswer.setCurrentItem(adapter.getCount() - 1);
+            }
+        }
+
+        if (!ischild&&isVisibleToUser) {
+            if (adapter != null) {
+                ((QuestionsListener) getActivity()).flipNextPager(adapter);
             }
         }
     }

@@ -181,6 +181,14 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
             }
         }
 
+        if (!ischild&&isVisibleToUser){
+            if (!ischild) {
+                if (adapter != null) {
+                    ((QuestionsListener) getActivity()).flipNextPager(adapter);
+                }
+            }
+        }
+
 //        if(questionsEntity != null){
 //            if(questionsEntity.getChildPageIndex() != -1){
 //                vpAnswer.setCurrentItem(questionsEntity.getChildPageIndex());
@@ -240,11 +248,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
                 }
             }
         } else {
-            if (!ischild) {
-                if (adapter != null) {
-                    ((QuestionsListener) getActivity()).flipNextPager(adapter);
-                }
-            }
+
             if (vpAnswer != null) {
                 if (!is_reduction) {
                     vpAnswer.setCurrentItem(0);
@@ -252,6 +256,13 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
                     vpAnswer.setCurrentItem(adapter.getCount() - 1);
                 }
             }
+
+            if (!ischild) {
+                if (adapter != null) {
+                    ((QuestionsListener) getActivity()).flipNextPager(adapter);
+                }
+            }
+
         }
     }
 

@@ -176,16 +176,16 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
         if (isVisibleToUser) {
-            if (!ischild) {
-                if (adapter != null) {
-                    ((QuestionsListener) getActivity()).flipNextPager(adapter);
-                }
-            }
             if (vpAnswer != null) {
                 if (!is_reduction) {
                     vpAnswer.setCurrentItem(0);
                 } else {
                     vpAnswer.setCurrentItem(adapter.getCount() - 1);
+                }
+            }
+            if (!ischild) {
+                if (adapter != null) {
+                    ((QuestionsListener) getActivity()).flipNextPager(adapter);
                 }
             }
         } else {
@@ -378,6 +378,11 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                 vpAnswer.setCurrentItem(0);
             } else {
                 vpAnswer.setCurrentItem(adapter.getCount() - 1);
+            }
+        }
+        if (!ischild&&isVisibleToUser) {
+            if (adapter != null) {
+                ((QuestionsListener) getActivity()).flipNextPager(adapter);
             }
         }
     }

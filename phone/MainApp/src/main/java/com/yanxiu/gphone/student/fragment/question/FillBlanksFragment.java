@@ -28,6 +28,7 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
 //    private FragmentTransaction ft;
     private Fragment resolutionFragment;
     private Button addBtn;
+    private boolean isVisibleToUser;
 
 
     @Override
@@ -73,6 +74,9 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
         }
         setDataSources(bean);
         LogInfo.log("geny", "onResume");
+        if (!ischild&&isVisibleToUser) {
+            ((QuestionsListener) getActivity()).flipNextPager(null);
+        }
         //        LogInfo.log("geny", paperTestEntity.getQuestions().getStem());
     }
 

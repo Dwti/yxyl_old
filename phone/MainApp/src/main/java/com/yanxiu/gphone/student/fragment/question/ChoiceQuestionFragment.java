@@ -43,6 +43,7 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
     private Fragment resolutionFragment;
     private AnswerCallback callback;
     private int position;
+    private boolean isVisibleToUser;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,6 +92,7 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        this.isVisibleToUser=isVisibleToUser;
         if (isVisibleToUser&&!ischild){
 //            if (adapter!=null){
                 ((QuestionsListener)getActivity()).flipNextPager(null);
@@ -152,6 +154,9 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
         }
         if(choiceQuestions != null) {
             choiceQuestions.setDataSources(bean);
+        }
+        if (!ischild&&isVisibleToUser) {
+            ((QuestionsListener) getActivity()).flipNextPager(null);
         }
     }
 

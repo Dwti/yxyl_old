@@ -323,13 +323,15 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data == null || data.getIntExtra("wrongNum", 0) == 0) {
+        if (data != null && data.getIntExtra("wrongNum", 0) != 0) {
+            wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, data.getIntExtra("wrongNum", 0)));
+            mMistakeCount = data.getIntExtra("wrongNum", 0);
+            pageIndex = 1;
+            requestMistakeAllList(true, false, false);
+        }else {
             this.finish();
         }
-        wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, data.getIntExtra("wrongNum", 0)));
-        mMistakeCount = data.getIntExtra("wrongNum", 0);
-        pageIndex = 1;
-        requestMistakeAllList(true, false, false);
+
     }
 
     @Override protected void onDestroy() {

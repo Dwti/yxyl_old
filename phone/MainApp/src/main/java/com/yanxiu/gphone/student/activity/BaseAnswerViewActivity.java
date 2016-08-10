@@ -177,6 +177,11 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
             LogInfo.log(TAG,"dataSources： "+dataSources);
             List<PaperTestEntity> dataList = dataSources.getData().get(0).getPaperTest();
             if(dataList != null && !dataList.isEmpty()){
+                /**我的错题测试用*/
+                if (this instanceof WrongAnswerViewActivity){
+                    PaperTestEntity paperTestEntity=dataList.get(0);
+                    dataSources.getData().get(0).getPaperTest().add(paperTestEntity);
+                }
                 adapter.addDataSources(dataSources);
 //                JudgeQuestionFragment fragment = (JudgeQuestionFragment) adapter.getItem(0);
 //                if(fragment.bean != null)
@@ -243,13 +248,13 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
     public void onPageSelected(int position) {
         currentIndex = position;
 
-        btnLastQuestion.setVisibility(View.VISIBLE);
-        btnNextQuestion.setVisibility(View.VISIBLE);
-        if(vpAnswer.getCurrentItem() == 0){
-            btnLastQuestion.setVisibility(View.GONE);
-        }else if(vpAnswer.getCurrentItem() == adapter.getTotalCount() - 1){
-            btnNextQuestion.setVisibility(View.GONE);
-        }
+//        btnLastQuestion.setVisibility(View.VISIBLE);
+//        btnNextQuestion.setVisibility(View.VISIBLE);
+//        if(vpAnswer.getCurrentItem() == 0){
+//            btnLastQuestion.setVisibility(View.GONE);
+//        }else if(vpAnswer.getCurrentItem() == adapter.getTotalCount() - 1){
+//            btnNextQuestion.setVisibility(View.GONE);
+//        }
     }
 
     @Override
@@ -261,10 +266,18 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
     public void onClick(View v) {
         if(v == btnLastQuestion){
             nextPager_onclick = 1;
-            if(vpAnswer.getCurrentItem() != 0){
+            btnNextQuestion.setVisibility(View.VISIBLE);
+//            if(vpAnswer.getCurrentItem() != 0){
                 if (listener!=null) {
                     int tatle_count=((AnswerAdapter)listener).getCount();
                     int currenItem=((AnswerAdapter)listener).getViewPagerCurrentItem();
+
+                    if (currenItem==1&&vpAnswer.getCurrentItem()==0){
+                        btnLastQuestion.setVisibility(View.GONE);
+                    }else {
+                        btnLastQuestion.setVisibility(View.VISIBLE);
+                    }
+
                     if (currenItem==0){
                         YanXiuConstant.OnClick_TYPE=1;
                         vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() - 1));
@@ -275,27 +288,36 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
                     YanXiuConstant.OnClick_TYPE=1;
                     vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() - 1));
                 }
-            }
+//            }
 
 
         }else if(v == btnNextQuestion){
-            if(vpAnswer.getCurrentItem() != adapter.getTotalCount() - 1 || vpAnswer.getCurrentItem() != adapter.getListCount() - 1){
+            btnLastQuestion.setVisibility(View.VISIBLE);
+//            if(vpAnswer.getCurrentItem() != adapter.getTotalCount() - 1 || vpAnswer.getCurrentItem() != adapter.getListCount() - 1){
                 LogInfo.log(vpAnswer.getCurrentItem()+"");
                 LogInfo.log(adapter.getTotalCount()+"");
                 if (listener!=null) {
                     int tatle_count=((AnswerAdapter)listener).getCount();
                     int currenItem=((AnswerAdapter)listener).getViewPagerCurrentItem();
-                    if (vpAnswer.getCurrentItem() == adapter.getCount() - 1&&tatle_count-1==currenItem){
+                    if (vpAnswer.getCurrentItem() == adapter.getCount() - 1&&tatle_count-2==currenItem){
                         btnNextQuestion.setVisibility(View.GONE);
                     }else {
                         btnNextQuestion.setVisibility(View.VISIBLE);
                     }
-                    listener.flipNextPager(listener);
+                    if (currenItem<tatle_count-1) {
+                        listener.flipNextPager(listener);
+                    }else {
+                        if (vpAnswer.getCurrentItem()<adapter.getCount()-1) {
+                            vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
+                        }
+                    }
                 }else {
-                    vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
+                    if (vpAnswer.getCurrentItem()<adapter.getCount()-1) {
+                        vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
+                    }
                 }
 //                vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
-            }
+//            }
         }
     }
 
@@ -316,6 +338,23 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
             if (vpAnswer.getCurrentItem() == adapter.getCount() - 1 && tatle_count - 1 == currenItem) {
                 btnNextQuestion.setVisibility(View.GONE);
             } else {
+                btnNextQuestion.setVisibility(View.VISIBLE);
+            }
+            if (currenItem==0&&vpAnswer.getCurrentItem()==0){
+                btnLastQuestion.setVisibility(View.GONE);
+            }else {
+                btnLastQuestion.setVisibility(View.VISIBLE);
+            }
+        }else {
+            if(vpAnswer.getCurrentItem() == 0){
+                btnLastQuestion.setVisibility(View.GONE);
+            }else{
+                btnLastQuestion.setVisibility(View.VISIBLE);
+            }
+
+            if(vpAnswer.getCurrentItem() == adapter.getTotalCount() - 1){
+                btnNextQuestion.setVisibility(View.GONE);
+            }else {
                 btnNextQuestion.setVisibility(View.VISIBLE);
             }
         }
