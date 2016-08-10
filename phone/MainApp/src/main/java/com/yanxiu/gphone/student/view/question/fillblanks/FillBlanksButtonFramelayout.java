@@ -100,8 +100,8 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         data = stem + "  \n";
 //        data = data + "  \n";
 //        data = data.replace("(_)", "________________");_____
-//        data = data.replace("(_)", "                  ");
-        data = data.replace("_____", "                  ");
+        data = data.replace("_____", "(                 )");
+//        data = data.replace("_____", "_______________");
 //        tvFillBlank.setTextHtml(data);
         tvFillBlank.setText(data);
 //        Log.d("asd","data++++"+data);
@@ -301,8 +301,8 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         @Override
         public void onGlobalLayout() {
             FillBlanksButtonFramelayout.this.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-            Pattern pattern = Pattern.compile("                  ");
-//            Pattern pttern1 = Pattern.compile("                  ");
+//            Pattern pattern = Pattern.compile("_______________");
+            Pattern pattern = Pattern.compile("\\(                 \\)");
             boolean flag=true;
             if (!StringUtils.isEmpty(data)) {
                 Matcher matcher = pattern.matcher(data);
@@ -327,12 +327,12 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
     }
     private boolean CheckSpaceIsSuff(int index,int index_start,int index_end){
         Layout layout = tvFillBlank.getLayout();
-        int line_start = layout.getLineForOffset(index_start);
-        int line_end = layout.getLineForOffset(index_end);
-        if (line_start!=line_end){
+//        int line_start = layout.getLineForOffset(index_start);
+//        int line_end = layout.getLineForOffset(index_end);
+//        if (line_start!=line_end){
             float width=tvFillBlank.getWidth();
             float marginleft = layout.getPrimaryHorizontal(index_start);
-            if (width-marginleft>textview_width+16){
+            if (width-marginleft-20>textview_width+16){
                 return true;
             }else {
                 setNewText(index);
@@ -340,13 +340,14 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
                 this.getViewTreeObserver().addOnGlobalLayoutListener(listener);
                 return false;
             }
-        }else {
-            return true;
-        }
+//        }else {
+//            return true;
+//        }
     }
 
     private void setNewText(int index){
-        String[] strings=data.split("                  ");
+//        String[] strings=data.split("_______________");
+        String[] strings=data.split("\\(                 \\)");
         String mData="";
         for (int i=0;i<strings.length;i++){
             mData=mData+strings[i];
@@ -354,7 +355,8 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
                 mData=mData+"\n";
             }
             if (i!=strings.length-1) {
-                mData = mData + "                  ";
+//                mData = mData + "_______________";
+                mData = mData + "(                 )";
             }
         }
         data=mData;

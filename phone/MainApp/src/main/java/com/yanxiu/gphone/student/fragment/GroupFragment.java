@@ -89,6 +89,7 @@ public class GroupFragment extends Fragment {
 
     private final int NO_CLASS_FLAG=71;
     private final int HAS_CLASS_FLAG=72;
+    private RelativeLayout no_class;
 
     @Override
     public View onCreateView (LayoutInflater inflater,
@@ -115,6 +116,11 @@ public class GroupFragment extends Fragment {
         groupTitle = (TextView) rootView.findViewById(R.id.main_public_top_group).findViewById(R.id
                 .public_layout_top_tv);
         groupTitle.setText(R.string.navi_tbm_group);
+
+        no_class= (RelativeLayout) rootView.findViewById(R.id.no_class);
+        no_class.setVisibility(View.GONE);
+        TextView TextViewInfo= (TextView) rootView.findViewById(R.id.TextViewInfo);
+        TextViewInfo.setText(R.string.class_no_work);
 
         addGroupView = (ImageView) rootView.findViewById(R.id.main_public_top_group).findViewById(R.id
                 .public_layout_top_iv);
@@ -313,18 +319,8 @@ public class GroupFragment extends Fragment {
                         } else {
                             //还未布置作业
 //                            Util.showCustomToast(R.string.class_no_work);
-                            noGroupTextView.setText(R.string.class_no_work);
-                            noGroupTopView.setVisibility(View.VISIBLE);
-                            noGroupView.setVisibility(View.VISIBLE);
-                            noGroupAddView.setText(R.string.class_cel_sure);
-                            noGroupAddView.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    noGroupView.setVisibility(View.GONE);
-                                    noGroupTopView.setVisibility(View.GONE);
-                                }
-                            });
-//                            setNoGroupViewDisp(false);
+                            no_class.setVisibility(View.VISIBLE);
+                            setNoGroupViewDisp(false);
                         }
                     }
                 }
@@ -380,15 +376,15 @@ public class GroupFragment extends Fragment {
     }
 
     private void setNoGroupViewDisp (boolean toDisp) {
-//        if (toDisp) {
-//            noGroupTopView.setVisibility(View.VISIBLE);
-//            noGroupView.setVisibility(View.VISIBLE);
-//
-//        } else {
-//            noGroupView.setVisibility(View.GONE);
-//            noGroupTopView.setVisibility(View.GONE);
-//
-//        }
+        if (toDisp) {
+            noGroupTopView.setVisibility(View.VISIBLE);
+            noGroupView.setVisibility(View.VISIBLE);
+
+        } else {
+            noGroupView.setVisibility(View.GONE);
+            noGroupTopView.setVisibility(View.GONE);
+
+        }
     }
 
     private void updateRightUI (int type) {

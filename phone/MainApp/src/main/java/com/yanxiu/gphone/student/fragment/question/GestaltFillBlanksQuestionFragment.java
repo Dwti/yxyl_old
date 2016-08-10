@@ -104,7 +104,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
         if (questionsEntity != null && questionsEntity.getStem() != null) {
             fill_blanks_button.setQuestionsEntity(questionsEntity);
             fill_blanks_button.setData(questionsEntity.getStem());
-//            Log.d("asd","Stem+++++"+questionsEntity.getStem());
+            Log.d("asd","Stem+++++"+questionsEntity.getStem());
             fill_blanks_button.setAnswers(questionsEntity.getAnswer());
         }
 
