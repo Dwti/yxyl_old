@@ -366,6 +366,11 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
         } else {
             btnNextQuestion.setVisibility(View.VISIBLE);
         }
+        if (vpAnswer.getCurrentItem()==0&&position==0){
+            btnLastQuestion.setVisibility(View.GONE);
+        }else {
+            btnLastQuestion.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
