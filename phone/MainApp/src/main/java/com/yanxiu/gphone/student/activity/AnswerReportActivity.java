@@ -169,7 +169,6 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
     private LinearLayout llReportTab;
     private RelativeLayout rlObjectContainer, rlSubjectContainer;
 
-//    private int ptype;
 
     public static void launch(Activity context, SubjectExercisesItemBean dataSources, int comeFrom, int flags, boolean isGonePracticeAgain) {
         Intent intent = new Intent(context, AnswerReportActivity.class);
@@ -177,7 +176,6 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         intent.putExtra("comeFrom", comeFrom);
         intent.putExtra("isGonePracticeAgain", isGonePracticeAgain);
         intent.setFlags(flags);
-//        intent.putParcelableArrayListExtra("paperTestEntityList", (ArrayList<? extends Parcelable>) dataList);
         context.startActivity(intent);
     }
 
@@ -186,7 +184,6 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         Intent intent = new Intent(context, AnswerReportActivity.class);
         intent.putExtra("subjectExercisesItemBean", dataSources);
         intent.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
-//        intent.putParcelableArrayListExtra("paperTestEntityList", (ArrayList<? extends Parcelable>) dataList);
         context.startActivity(intent);
     }
 
@@ -403,16 +400,12 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
             }else{
                 setSubjectiveSelected();
             }
-//                int dataSize = dataList.size();
-
-//                tvReportNumTitle.setText(String.format(this.getResources().getString(R.string.hw_question_num),String.valueOf(adapter.getCount())));
             tvReportNumTitle.setText(this.getResources().getString(R.string.hw_question_finish_sccuracy));
             calculationSubQuestionTime(subDataList);
 
 
         }
         if(dataSources.getData().get(0) != null && dataSources.getData().get(0).getPaperStatus() != null){
-//                        costTime = (dataSources.getData().get(0).getPaperStatus().getEndtime() - dataSources.getData().get(0).getPaperStatus().getBegintime()) / 1000;
             tvReport.setText(this.getResources().getString(R.string.answer_report_time) + TimeUtils.getTimeLongYMD(dataSources.getData().get(0).getPaperStatus().getEndtime()));
         }
         tvReportTimeText.setText(this.getResources().getString(R.string.answer_cost_time) + formatTime(costTime));
@@ -453,12 +446,8 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         if(isGonePracticeAgain){
             btnPracticeAgain.setVisibility(View.GONE);
         }
-//            reportLine = this.findViewById(R.id.report_line);
-//            tvObjectiveLine = this.findViewById(R.id.tv_objective_line);
-//            tvSubjectiveLine = this.findViewById(R.id.tv_subjective_line);
         switch (comeFrom){
             case YanXiuConstant.HOMEWORK_REPORT:
-//                    reportLine.setVisibility(View.GONE);
                 tvReportToptitle.setText(getResources().getString(R.string.answer_report));
                 shareView.setVisibility(View.GONE);
                 ivReportStamp.setImageResource(R.drawable.gruop_report_stamp);
@@ -846,29 +835,12 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 
 
     private void setIsTestCenterOnclick(){
-
-//        switch (comeFrom){
-//            case YanXiuConstant.INTELLI_REPORT:
-//                dataSources.getData().get(0).setIsTestCenterOnclick(true);
-//                break;
-//            default:
-//                dataSources.getData().get(0).setIsTestCenterOnclick(false);
-//        }
-
         if (dataSources != null && dataSources.getData() != null && !dataSources.getData().isEmpty()) {
             if(comeFrom == YanXiuConstant.KPN_REPORT || comeFrom == YanXiuConstant.INTELLI_REPORT){
                 dataSources.getData().get(0).setIsTestCenterOnclick(true);
             }else{
                 dataSources.getData().get(0).setIsTestCenterOnclick(false);
             }
-//            switch (ptype){
-//                case YanXiuConstant.INTELLI_REPORT:
-//                    dataSources.getData().get(0).setIsTestCenterOnclick(true);
-//                    break;
-//                case YanXiuConstant.KPN_REPORT:
-//                    dataSources.getData().get(0).setIsTestCenterOnclick(false);
-//                    break;
-//            }
         }
     }
 

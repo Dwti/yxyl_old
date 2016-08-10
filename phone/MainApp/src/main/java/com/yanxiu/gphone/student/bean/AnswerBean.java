@@ -7,11 +7,12 @@ import java.util.ArrayList;
  */
 public class AnswerBean extends SrtBaseBean {
 
-    public static final int ANSER_RIGHT = 0;
-    public static final int ANSER_WRONG = 1;
-    public static final int ANSER_UNFINISH = 3;
-    public static final int ANSER_FINISH = 4;
-    public static final int ANSER_READED = 5;
+    public static final int ANSER_RIGHT = 0;     //正确
+    public static final int ANSER_WRONG = 1;     //错误
+    public static final int ANSER_HALF_RIGHT=2;  //半对
+    public static final int ANSER_UNFINISH = 3;  //未作答
+    public static final int ANSER_FINISH = 4;    //主观题已作答
+    public static final int ANSER_READED = 5;    //主观题已批改
 
     private boolean isCollectionn = false;
 
