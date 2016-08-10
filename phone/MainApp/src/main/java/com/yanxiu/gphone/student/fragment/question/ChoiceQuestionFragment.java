@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.common.core.utils.LogInfo;
+import com.common.core.utils.StringUtils;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
@@ -66,9 +67,11 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
         FragmentTransaction ft = ChoiceQuestionFragment.this.getChildFragmentManager().beginTransaction();
         ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
         selectTypeView();
-        if(questionsEntity != null && questionsEntity.getStem() != null){
+        if(questionsEntity != null){
             choiceQuestions.setAllDataSources(questionsEntity);
-            yXiuAnserTextView.setTextHtml(questionsEntity.getStem());
+            if (!StringUtils.isEmpty(questionsEntity.getStem())) {
+                yXiuAnserTextView.setTextHtml(questionsEntity.getStem());
+            }
 //            Log.d("asd",questionsEntity.getStem().toString());
         }
         choiceQuestions.setChoicesType(typeId);
