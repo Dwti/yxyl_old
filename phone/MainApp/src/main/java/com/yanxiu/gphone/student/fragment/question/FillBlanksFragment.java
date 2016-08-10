@@ -19,13 +19,13 @@ import com.yanxiu.gphone.student.view.question.fillblanks.FillBlanksFramelayout;
 /**
  * Created by Administrator on 2015/7/7.
  */
-public class FillBlanksFragment extends BaseQuestionFragment implements QuestionsListener , PageIndex {
+public class FillBlanksFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex {
 
     private FillBlanksFramelayout fillBlanksFramelayout;
 
     private AnswerBean bean;
 
-//    private FragmentTransaction ft;
+    //    private FragmentTransaction ft;
     private Fragment resolutionFragment;
     private Button addBtn;
     private boolean isVisibleToUser;
@@ -35,14 +35,15 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = LayoutInflater.from(getActivity()).inflate(
                 R.layout.fragment_fill_blanks, null);
-        fillBlanksFramelayout = (FillBlanksFramelayout)rootView.findViewById(R.id.fb_item);
-        if(questionsEntity != null && questionsEntity.getStem() != null){
+        fillBlanksFramelayout = (FillBlanksFramelayout) rootView.findViewById(R.id.fb_item);
+        if (questionsEntity != null && questionsEntity.getStem() != null) {
             fillBlanksFramelayout.setData(questionsEntity.getStem());
-            Log.d("asd","Stem+++++"+questionsEntity.getStem());
+            Log.d("asd", "Stem+++++" + questionsEntity.getStem());
             fillBlanksFramelayout.setAnswers(questionsEntity.getAnswer());
         }
 
@@ -53,15 +54,13 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
         return rootView;
     }
 
-    private void addAnalysisFragment(){
+    private void addAnalysisFragment() {
         rootView.setClickable(false);
         //            addBtn.setVisibility(View.VISIBLE);
 //        ft = FillBlanksFragment.this.getChildFragmentManager().beginTransaction();
         Bundle args = new Bundle();
         args.putSerializable("questions", questionsEntity);
-        resolutionFragment = Fragment.instantiate(
-                FillBlanksFragment.this.getActivity(),
-                ProblemAnalysisFragment.class.getName(), args);
+        resolutionFragment = Fragment.instantiate(FillBlanksFragment.this.getActivity(),ProblemAnalysisFragment.class.getName(), args);
         FragmentTransaction ft = FillBlanksFragment.this.getChildFragmentManager().beginTransaction();
         ft.replace(R.id.content_problem_analysis, resolutionFragment).commitAllowingStateLoss();
     }
@@ -69,29 +68,30 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
     @Override
     public void onResume() {
         super.onResume();
-        if(bean == null){
+        if (bean == null) {
             bean = questionsEntity.getAnswerBean();
         }
         setDataSources(bean);
         LogInfo.log("geny", "onResume");
-        if (!ischild&&isVisibleToUser) {
+        if (!ischild && isVisibleToUser) {
             ((QuestionsListener) getActivity()).flipNextPager(null);
         }
         //        LogInfo.log("geny", paperTestEntity.getQuestions().getStem());
     }
 
-    @Override public void setUserVisibleHint(boolean isVisibleToUser) {
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(!isVisibleToUser && fillBlanksFramelayout!=null){
+        if (!isVisibleToUser && fillBlanksFramelayout != null) {
             fillBlanksFramelayout.hideSoftInput();
-            if(bean!=null){
-                LogInfo.log("king","saveAnswers");
+            if (bean != null) {
+                LogInfo.log("king", "saveAnswers");
                 fillBlanksFramelayout.saveAnswers();
             }
         }
-        if (isVisibleToUser&&!ischild){
+        if (isVisibleToUser && !ischild) {
 //            if (adapter!=null){
-                ((QuestionsListener)getActivity()).flipNextPager(null);
+            ((QuestionsListener) getActivity()).flipNextPager(null);
 //            }
         }
     }
@@ -103,7 +103,7 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
     @Override
     public void setDataSources(AnswerBean bean) {
         this.bean = bean;
-        if(fillBlanksFramelayout!=null){
+        if (fillBlanksFramelayout != null) {
             fillBlanksFramelayout.setDataSources(bean);
         }
     }
@@ -113,19 +113,20 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
         this.bean = bean;
     }
 
-    @Override public void answerViewClick() {
-        if(fillBlanksFramelayout!=null){
+    @Override
+    public void answerViewClick() {
+        if (fillBlanksFramelayout != null) {
             fillBlanksFramelayout.hideSoftInput();
-            if(bean!=null){
-                LogInfo.log("king","answerViewClick saveAnswers");
+            if (bean != null) {
+                LogInfo.log("king", "answerViewClick saveAnswers");
                 fillBlanksFramelayout.saveAnswers();
             }
         }
     }
 
-    private void selectTypeView(){
+    private void selectTypeView() {
         fillBlanksFramelayout.setAnswerViewTypyBean(answerViewTypyBean);
-        switch (answerViewTypyBean){
+        switch (answerViewTypyBean) {
             case SubjectExercisesItemBean.RESOLUTION:
                 addAnalysisFragment();
                 break;
@@ -133,7 +134,8 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
                 addBtn = (Button) rootView.findViewById(R.id.add_problem_analysis);
                 addBtn.setVisibility(View.VISIBLE);
                 addBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override public void onClick(View v) {
+                    @Override
+                    public void onClick(View v) {
                         addBtn.setVisibility(View.GONE);
                         addAnalysisFragment();
                     }
@@ -153,20 +155,19 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
     }
 
 
-
     @Override
     public void onDestroy() {
         super.onDestroy();
-        rootView=null;
-        fillBlanksFramelayout=null;
-        bean=null;
-        resolutionFragment=null;
-        addBtn=null;
-        rootView=null;
-        fillBlanksFramelayout=null;
-        bean=null;
-        resolutionFragment=null;
-        addBtn=null;
+        rootView = null;
+        fillBlanksFramelayout = null;
+        bean = null;
+        resolutionFragment = null;
+        addBtn = null;
+        rootView = null;
+        fillBlanksFramelayout = null;
+        bean = null;
+        resolutionFragment = null;
+        addBtn = null;
 
         System.gc();
     }

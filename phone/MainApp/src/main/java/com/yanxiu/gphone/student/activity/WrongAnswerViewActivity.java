@@ -50,10 +50,11 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
 
     private int comeFrom = 0;
     private int position;
-    private String wrongCount;
+
 
     private boolean deleteAction = false;
     private ArrayList<String> delQuestionTmpList = new ArrayList<String>();
+    private int wrongCounts;
 
     public static void launch(Activity context, SubjectExercisesItemBean bean, String subjectId, String editionId, String volumeId, String chapterId, String sectionId, String uniteId, int isChapterSection, boolean isNetData) {
         Intent intent = new Intent(context, WrongAnswerViewActivity.class);
@@ -96,7 +97,12 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
         isNetData = getIntent().getBooleanExtra("isNetData", true);
         comeFrom = getIntent().getIntExtra("comeFrom", 0);
         position = getIntent().getIntExtra("position", 0);
-        wrongCount = getIntent().getStringExtra("wrongCount");
+        String wrongCount = getIntent().getStringExtra("wrongCount");
+        try {
+            wrongCounts=Integer.parseInt(wrongCount);
+        }catch (Exception e){
+
+        }
         initView();
         initData();
     }
@@ -105,7 +111,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
     public void initData() {
         super.initData();
         //if (dataSources != null && dataSources.getData() != null) {
-            if (position+1 == pageCount-delQueNum) {
+            if (position+1 == wrongCounts-delQueNum) {
                 btnNextQuestion.setVisibility(View.GONE);
             } else {
                 btnNextQuestion.setVisibility(View.VISIBLE);
@@ -114,7 +120,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
             vpAnswer.setCurrentItem(position);
             tvPagerIndex.setText(String.valueOf(position + 1));
             //tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(adapter.getTotalCount())));
-            tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), pageCount-delQueNum));
+            tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), wrongCounts-delQueNum));
             tvToptext.setText(this.getResources().getString(R.string.questiong_resolution));
             tvToptext.setCompoundDrawables(null, null, null, null);
 //            tvAnswerCard.setVisibility(View.GONE);
@@ -141,12 +147,12 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
 //            btnNextQuestion.setVisibility(View.VISIBLE);
 //        }
         tvPagerIndex.setText(String.valueOf(position + 1));
-        tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf((pageCount - delQueNum))));
+        tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf((wrongCounts - delQueNum))));
         pageIndex = position;
         int currentTotal = currentPageIndex * YanXiuConstant.YX_PAGESIZE_CONSTANT;
         LogInfo.log("haitian", "currentTotal =" + currentTotal + "   position=" + position + "   currentTotal - position - 1 - delQueNum="
                 + (currentTotal - position - 1 - delQueNum) + " adapter.getCount() - position - 1=" + (adapter.getCount() - position - 1));
-        if (pageCount > currentTotal && (adapter.getCount() - position - 1) == 3) {
+        if (wrongCounts > currentTotal && (adapter.getCount() - position - 1) == 3) {
             String currentId = null;
             try{
                 int size = dataSources.getData().get(0).getPaperTest().size();
@@ -376,7 +382,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
 
     private void deleteProcess(int index) {
         delQueNum++;
-        int currentPageCount = pageCount-delQueNum;
+        int currentPageCount = wrongCounts-delQueNum;
         if (dataSources.getData().get(0).getPaperTest() != null && dataSources.getData().get(0).getPaperTest().size() > index) {
             dataSources.getData().get(0).getPaperTest().remove(index);
         }
@@ -385,7 +391,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
             btnLastQuestion.setVisibility(View.GONE);
         }
 
-        if(vpAnswer.getCurrentItem() == pageCount - delQueNum - 1){
+        if(vpAnswer.getCurrentItem() == wrongCounts - delQueNum - 1){
             btnNextQuestion.setVisibility(View.GONE);
         }else{
             btnNextQuestion.setVisibility(View.VISIBLE);
@@ -401,7 +407,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
             if(adapter.getCount()%YanXiuConstant.YX_PAGESIZE_CONSTANT == 3 && currentPageCount > 3){
                 int currentTotal = (currentPageIndex + 1)* YanXiuConstant.YX_PAGESIZE_CONSTANT;
                 LogInfo.log("haitian", "currentTotal ="+(currentTotal-YanXiuConstant.YX_PAGESIZE_CONSTANT+1)+"----pageCount="+pageCount);
-                if (pageCount >= (currentTotal-YanXiuConstant.YX_PAGESIZE_CONSTANT+1)) {
+                if (wrongCounts >= (currentTotal-YanXiuConstant.YX_PAGESIZE_CONSTANT+1)) {
                     String currentId = null;
                     try{
                         int size = dataSources.getData().get(0).getPaperTest().size();

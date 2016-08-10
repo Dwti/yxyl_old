@@ -177,11 +177,11 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
             LogInfo.log(TAG,"dataSources： "+dataSources);
             List<PaperTestEntity> dataList = dataSources.getData().get(0).getPaperTest();
             if(dataList != null && !dataList.isEmpty()){
-                /**我的错题测试用*/
-                if (this instanceof WrongAnswerViewActivity){
-                    PaperTestEntity paperTestEntity=dataList.get(0);
-                    dataSources.getData().get(0).getPaperTest().add(paperTestEntity);
-                }
+//                /**我的错题测试用*/
+//                if (this instanceof WrongAnswerViewActivity){
+//                    PaperTestEntity paperTestEntity=dataList.get(0);
+//                    dataSources.getData().get(0).getPaperTest().add(paperTestEntity);
+//                }
                 adapter.addDataSources(dataSources);
 //                JudgeQuestionFragment fragment = (JudgeQuestionFragment) adapter.getItem(0);
 //                if(fragment.bean != null)
