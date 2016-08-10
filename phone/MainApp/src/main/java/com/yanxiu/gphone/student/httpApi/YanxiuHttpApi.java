@@ -1290,7 +1290,7 @@ public class YanxiuHttpApi {
                         //childJson.put("qtype", bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j));
                         childJson.put("costtime", bean.getData().get(0).getPaperTest().get(i).getQuestions().getAnswerBean().getConsumeTime());
                         childJson.put("ptid", bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getId());
-                        childJson.put("status", bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getStatus());
+                        childJson.put("status", bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getQuestions().getAnswerBean().getStatus());
                         childJson.put("uid", LoginModel.getUid());
                         childJson.put("answer", Util.sortQuestionData(questionList.get(j).getQuestions()));
                         childrenBean.put(childJson);
