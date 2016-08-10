@@ -142,6 +142,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 
 	public void addDataSources(SubjectExercisesItemBean bean){
 		SubjectExercisesItemBean beanTmp = Util.getSubjectExercisesItemBean();
+//		Util.testDataStr="";
 //		bean= Util.getSubjectExercisesItemBean();
 
 		if(bean!=null && bean.getData()!= null && !bean.getData().isEmpty()){
