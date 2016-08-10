@@ -59,6 +59,8 @@ public class QuestionUtils {
                                 }
                                 questionList.add(childQuestion.get(j).getQuestions());
                             }
+                        }else{
+                            questionList.add(questionEntity);
                         }
                     } else {
                         questionEntity.setPageIndex(index);
