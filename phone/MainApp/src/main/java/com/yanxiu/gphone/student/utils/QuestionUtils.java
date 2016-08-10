@@ -30,12 +30,12 @@ public class QuestionUtils {
     public static List<QuestionEntity> addChildQuestionToParent(List<PaperTestEntity> dataList) {
         List<QuestionEntity> questionList = new ArrayList<QuestionEntity>();
         List<PaperTestEntity> nullList = new ArrayList<PaperTestEntity>();
-        boolean flag ;
+        boolean flag;
         if (dataList != null) {
             int count = dataList.size();
             int index = 0;
             for (int i = 0; i < count; i++) {
-                flag=false;
+                flag = false;
                 if (dataList.get(i) != null && dataList.get(i).getQuestions() != null) {
                     QuestionEntity questionEntity = dataList.get(i).getQuestions();
                     int typeId = questionEntity.getType_id();
@@ -48,14 +48,14 @@ public class QuestionUtils {
                             int childCount = childQuestion.size();
                             for (int j = 0; j < childCount; j++) {
                                 childQuestion.get(j).getQuestions().setPageIndex(index);
-                                if (22 == typeId){
+                                if (22 == typeId) {
                                     //只有是复合题且是解答题的时候，才会有childPageIndex，否则childPageIndex为-1
                                     childQuestion.get(j).getQuestions().setChildPageIndex(j);
-                                }else{
+                                } else {
                                     childQuestion.get(j).getQuestions().setChildPageIndex(-1);
                                     index++;
                                     //如果是-1，下面不能再让index++
-                                    flag=true;
+                                    flag = true;
                                 }
                                 questionList.add(childQuestion.get(j).getQuestions());
                             }
@@ -64,8 +64,8 @@ public class QuestionUtils {
                         questionEntity.setPageIndex(index);
                         questionList.add(questionEntity);
                     }
-                    if(!flag)
-                    index++;
+                    if (!flag)
+                        index++;
                 } else {
                     LogInfo.log("geny-", "remove item quesition------");
                     nullList.add(dataList.get(i));
