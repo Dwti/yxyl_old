@@ -174,50 +174,20 @@ public class QuestionUtils {
                     if (paperTestEntity.getPad() == null) {
                         continue;
                     }
-                    String jsonAnswer = paperTestEntity.getPad().getJsonAnswer();
-                    int status = paperTestEntity.getPad().getStatus();
-                    int costTime = paperTestEntity.getPad().getCosttime();
-                    AnswerBean answerBean = questionEntity.getAnswerBean();
-                    answerBean.setConsumeTime(costTime);
-                    if (typeId != QUESTION_SUBJECTIVE.type) {
-                        switch (status) {
-                            case AnswerBean.ANSER_RIGHT:
-                                answerBean.setIsFinish(true);
-                                answerBean.setIsRight(true);
-                                break;
-                            case AnswerBean.ANSER_WRONG:
-                                answerBean.setIsFinish(true);
-                                answerBean.setIsRight(false);
-                                break;
-                            case AnswerBean.ANSER_UNFINISH:
-                                answerBean.setIsFinish(false);
-                                break;
-                        }
-                    } else {
-                        switch (status) {
-                            case AnswerBean.ANSER_UNFINISH:
-                                answerBean.setIsFinish(false);
-                                break;
-                            case AnswerBean.ANSER_FINISH:
-                                answerBean.setIsFinish(true);
-                                break;
-                            case AnswerBean.ANSER_READED:
-                                answerBean.setIsSubjective(true);
-                                break;
-                        }
-                    }
+                    String jsonAnswer = questionEntity.getPad().getJsonAnswer();
 
-                    //if(typeId == QUESTION_READING.type){
+                    //如果是复合类的题
                     if (questionEntity.getTemplate().equals(YanXiuConstant.MULTI_QUESTION)
                             || questionEntity.getTemplate().equals(YanXiuConstant.CLOZE_QUESTION)
                             || questionEntity.getTemplate().equals(YanXiuConstant.LISTEN_QUESTION)) {
+
                         List<ReadingAnswer> answerList = JSON.parseArray(jsonAnswer, ReadingAnswer.class);
                         if (answerList != null && !answerList.isEmpty()) {
-                            List<PaperTestEntity> questionList = questionEntity.getChildren();
-                            if (questionList == null) {
+                            List<PaperTestEntity> paperList = questionEntity.getChildren();
+                            if (paperList == null) {
                                 continue;
                             }
-                            int childrenCount = questionList.size();
+                            int childrenCount = paperList.size();
                             for (int j = 0; j < childrenCount; j++) {
                                 List<String> answerChildList;
                                 if (j >= answerList.size()) {
@@ -225,12 +195,12 @@ public class QuestionUtils {
                                 } else {
                                     answerChildList = answerList.get(j).getAnswer();
                                 }
-                                if (questionEntity.getChildren().get(j) == null) {
+                                if (paperList.get(j) == null) {
                                     continue;
                                 }
-                                List<String> rightAnswer = questionEntity.getChildren().get(j).getQuestions().getAnswer();
+                                List<String> rightAnswer = paperList.get(j).getQuestions().getAnswer();
                                 if (answerChildList != null && !answerChildList.isEmpty()) {
-                                    AnswerBean answerChildBean = questionList.get(j).getQuestions().getAnswerBean();
+                                    AnswerBean answerChildBean = paperList.get(j).getQuestions().getAnswerBean();
                                     typeId = questionEntity.getChildren().get(j).getQuestions().getType_id();
                                     if (typeId == QUESTION_SINGLE_CHOICES.type || typeId == QUESTION_JUDGE.type) {
                                         answerChildBean.setSelectType(answerChildList.get(0));
@@ -245,29 +215,87 @@ public class QuestionUtils {
                                         } else {
                                             answerChildBean.setIsFinish(false);
                                         }
-                                    } else if (typeId == QUESTION_MULTI_CHOICES.type || typeId == QUESTION_FILL_BLANKS.type) {
+                                    } else if (typeId == QUESTION_MULTI_CHOICES.type || typeId == QUESTION_FILL_BLANKS.type || typeId == QUESTION_SUBJECTIVE.type) {
                                         if (typeId == QUESTION_MULTI_CHOICES.type) {
                                             answerChildBean.setMultiSelect((ArrayList<String>) answerChildList);
                                         } else if (typeId == QUESTION_FILL_BLANKS.type) {
                                             answerChildBean.setFillAnswers((ArrayList<String>) answerChildList);
+                                        }else if (typeId == QUESTION_SUBJECTIVE.type){
+                                            answerChildBean.setSubjectivImageUri((ArrayList<String>) answerChildList);
                                         }
                                         if (rightAnswer == null || rightAnswer.isEmpty()) {
                                             answerChildBean.setIsFinish(false);
                                         } else {
-                                            if (compare(answerChildList, rightAnswer)) {
+                                            if(typeId != QUESTION_SUBJECTIVE.type){
+                                                //如果不是问答题（即主观题）
+                                                if (compare(answerChildList, rightAnswer)) {
+                                                    answerChildBean.setIsFinish(true);
+                                                    answerChildBean.setIsRight(true);
+                                                } else {
+                                                    answerChildBean.setIsFinish(true);
+                                                    answerChildBean.setIsRight(false);
+                                                }
+                                            }else{
+                                                //如果是问答题
+                                                int score = paperList.get(j).getQuestions().getPad().getTeachercheck().getScore();  //老师打的分数，数值范围0-5，0:错；0~5：半对； 5：对
+                                                if(score==0){
+                                                    answerChildBean.setIsRight(false);
+                                                }else if(score==5){
+                                                    answerChildBean.setIsRight(true);
+                                                }else if(score>0 && score<5){
+                                                    //TODO 此时设置半对状态  以前的复合题里面是不是没有问答题，如果没有的话，需要在下面把answerChildBean设置为问答题
+                                                }
                                                 answerChildBean.setIsFinish(true);
-                                                answerChildBean.setIsRight(true);
-                                            } else {
-                                                answerChildBean.setIsFinish(true);
-                                                answerChildBean.setIsRight(false);
                                             }
+
                                         }
                                     }
                                 }
                             }
                         }
                     } else {
+                        int status = questionEntity.getPad().getStatus();
+                        int costTime = questionEntity.getPad().getCosttime();
+                        int score = questionEntity.getPad().getTeachercheck().getScore();
+                        AnswerBean answerBean = questionEntity.getAnswerBean();
+                        answerBean.setConsumeTime(costTime);
                         List<String> answerList = JSON.parseArray(jsonAnswer, String.class);
+
+                        if (typeId != QUESTION_SUBJECTIVE.type) {
+                            switch (status) {
+                                case AnswerBean.ANSER_RIGHT:
+                                    answerBean.setIsFinish(true);
+                                    answerBean.setIsRight(true);
+                                    break;
+                                case AnswerBean.ANSER_WRONG:
+                                    answerBean.setIsFinish(true);
+                                    answerBean.setIsRight(false);
+                                    break;
+                                case AnswerBean.ANSER_UNFINISH:
+                                    answerBean.setIsFinish(false);
+                                    break;
+                            }
+                        } else {
+                            switch (status) {
+                                case AnswerBean.ANSER_UNFINISH:
+                                    answerBean.setIsFinish(false);
+                                    break;
+                                case AnswerBean.ANSER_FINISH:
+                                    answerBean.setIsFinish(true);
+                                    break;
+                                case AnswerBean.ANSER_READED:
+                                    if(score==0){
+                                        answerBean.setIsRight(false);
+                                    }else if(score==5){
+                                        answerBean.setIsRight(true);
+                                    }else if(score>0 && score<5){
+                                        //TODO 此时设置半对状态  此处为什么只有已批改状态才会设置为问答题？是否因为批改了才能跳转什么的？
+                                    }
+                                    answerBean.setIsFinish(true);
+                                    answerBean.setIsSubjective(true);
+                                    break;
+                            }
+                        }
 
                         if (typeId == QUESTION_SUBJECTIVE.type) {
                             if (answerList == null || answerList.isEmpty()) {
