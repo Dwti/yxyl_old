@@ -286,12 +286,15 @@ public class PublicErrorQuestionCollectionBean extends SrtBaseBean {
                         for (PaperTestEntity mPaperTestEntity : paperTestEntityList) {
                             boolean isFalse = false;
                             if (mPaperTestEntity.getQuestions() != null && mPaperTestEntity.getQuestions().getChildren() != null) {
-                                if (mPaperTestEntity.getQuestions().getType_id() == QUESTION_READING.type) {
-                                    List<QuestionEntity> questionList = mPaperTestEntity.getQuestions().getChildren();
+                                //if (mPaperTestEntity.getQuestions().getType_id() == QUESTION_READING.type) {
+                                if (mPaperTestEntity.getQuestions().getTemplate().equals(YanXiuConstant.MULTI_QUESTION)
+                                        || mPaperTestEntity.getQuestions().getTemplate().equals(YanXiuConstant.CLOZE_QUESTION)
+                                        || mPaperTestEntity.getQuestions().getTemplate().equals(YanXiuConstant.LISTEN_QUESTION)) {
+                                    List<PaperTestEntity> questionList = mPaperTestEntity.getQuestions().getChildren();
                                     int childrenCount = questionList.size();
                                     for (int j = 0; j < childrenCount; j++) {
                                         //add by v1.1 未作答的题目进入错题集
-                                        if (!questionList.get(j).getAnswerBean().isRight() || questionList.get(j).getAnswerBean().getStatus() == AnswerBean.ANSER_WRONG || questionList.get(j).getAnswerBean().getStatus() == AnswerBean.ANSER_UNFINISH) {
+                                        if (!questionList.get(j).getQuestions().getAnswerBean().isRight() || questionList.get(j).getQuestions().getAnswerBean().getStatus() == AnswerBean.ANSER_WRONG || questionList.get(j).getQuestions().getAnswerBean().getStatus() == AnswerBean.ANSER_UNFINISH) {
                                             isFalse = true;
                                             break;
                                         }

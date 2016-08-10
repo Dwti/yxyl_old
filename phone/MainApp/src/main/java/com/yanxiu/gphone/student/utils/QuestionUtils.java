@@ -36,17 +36,20 @@ public class QuestionUtils {
             for (int i = 0; i < count; i++) {
                 if (dataList.get(i) != null && dataList.get(i).getQuestions() != null) {
                     int typeId = dataList.get(i).getQuestions().getType_id();
-                    if (typeId == QUESTION_READING.type) {
+                    //if (typeId == QUESTION_READING.type) {
+                    if (dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.MULTI_QUESTION)
+                            || dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.CLOZE_QUESTION)
+                            || dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.LISTEN_QUESTION)) {
                         QuestionEntity questionEntity = dataList.get(i).getQuestions();
                         questionEntity.setPageIndex(index);
                         if (questionEntity != null) {
-                            List<QuestionEntity> childQuestion = questionEntity.getChildren();
+                            List<PaperTestEntity> childQuestion = questionEntity.getChildren();
                             if (childQuestion != null) {
-                                questionList.addAll(childQuestion);
+                                questionList.add(childQuestion.get(i).getQuestions());
                                 int childCount = childQuestion.size();
                                 for (int j = 0; j < childCount; j++) {
-                                    childQuestion.get(j).setPageIndex(index);
-                                    childQuestion.get(j).setChildPageIndex(j);
+                                    childQuestion.get(j).getQuestions().setPageIndex(index);
+                                    childQuestion.get(j).getQuestions().setChildPageIndex(j);
                                 }
                             }
                         }
@@ -192,10 +195,13 @@ public class QuestionUtils {
                         }
                     }
 
-                    if(typeId == QUESTION_READING.type){
+                    //if(typeId == QUESTION_READING.type){
+                    if (dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.MULTI_QUESTION)
+                            || dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.CLOZE_QUESTION)
+                            || dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.LISTEN_QUESTION)) {
                         List<ReadingAnswer> answerList = JSON.parseArray(jsonAnswer, ReadingAnswer.class);
                         if(answerList != null && !answerList.isEmpty()){
-                            List<QuestionEntity> questionList = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren();
+                            List<PaperTestEntity> questionList = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren();
                             if(questionList == null){
                                 continue;
                             }
@@ -210,10 +216,10 @@ public class QuestionUtils {
                                 if(subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j) == null){
                                     continue;
                                 }
-                                List<String> rightAnswer = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getAnswer();
+                                List<String> rightAnswer = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getQuestions().getAnswer();
                                 if(answerChildList != null && !answerChildList.isEmpty()){
-                                    AnswerBean answerChildBean = questionList.get(j).getAnswerBean();
-                                    typeId = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getType_id();
+                                    AnswerBean answerChildBean = questionList.get(j).getQuestions().getAnswerBean();
+                                    typeId = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getQuestions().getType_id();
                                     if(typeId == QUESTION_SINGLE_CHOICES.type || typeId == QUESTION_JUDGE.type) {
                                         answerChildBean.setSelectType(answerChildList.get(0));
                                         if(rightAnswer != null && !rightAnswer.isEmpty()){
@@ -297,19 +303,22 @@ public class QuestionUtils {
         }
         for(int i = 0; i < count; i++){
 
-            if(dataList.get(i).getQuestions() != null && dataList.get(i).getQuestions().getChildren() != null && dataList.get(i).getQuestions().getType_id() == QUESTION_READING.type){
-                List<QuestionEntity> questionList = dataList.get(i).getQuestions().getChildren();
+            //if(dataList.get(i).getQuestions() != null && dataList.get(i).getQuestions().getChildren() != null && dataList.get(i).getQuestions().getType_id() == QUESTION_READING.type){
+            if (dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.MULTI_QUESTION)
+                    || dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.CLOZE_QUESTION)
+                    || dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.LISTEN_QUESTION)) {
+                List<PaperTestEntity> questionList = dataList.get(i).getQuestions().getChildren();
                 int childrenCount = questionList.size();
                 boolean isFalse = false;
                 for(int j = 0; j < childrenCount; j++){
-                    if(!questionList.get(j).getAnswerBean().isFinish()){
+                    if(!questionList.get(j).getQuestions().getAnswerBean().isFinish()){
                         unfinishCount++;
                     }else{
                         //阅读题中 有一道题做过 就设置成完成
                         dataList.get(i).getQuestions().getAnswerBean().setIsFinish(true);
                     }
                     //阅读题中 有一道题错误 就设置成错误
-                    if(!questionList.get(j).getAnswerBean().isRight()){
+                    if(!questionList.get(j).getQuestions().getAnswerBean().isRight()){
                         isFalse = isFalse || true;
                         LogInfo.log("geny", "阅读题是错误的" + i);
                     }else{
@@ -342,15 +351,17 @@ public class QuestionUtils {
         for(int i = 0; i < count; i++){
 
             if(dataList.get(i) != null && dataList.get(i).getQuestions() != null) {
-                if (dataList.get(i).getQuestions().getChildren() != null &&
-                        dataList.get(i).getQuestions().getType_id() == QUESTION_READING.type) {
-
-                    List<QuestionEntity> questionList = dataList.get(i).getQuestions().getChildren();
+                //if (dataList.get(i).getQuestions().getChildren() != null &&
+                        //dataList.get(i).getQuestions().getType_id() == QUESTION_READING.type) {
+                if (dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.MULTI_QUESTION)
+                        || dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.CLOZE_QUESTION)
+                        || dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.LISTEN_QUESTION)) {
+                    List<PaperTestEntity> questionList = dataList.get(i).getQuestions().getChildren();
                     int childrenCount = questionList.size();
                     boolean isFalse = false;
                     boolean isFinish = false;
                     for (int j = 0; j < childrenCount; j++) {
-                        if (!questionList.get(j).getAnswerBean().isFinish()) {
+                        if (!questionList.get(j).getQuestions().getAnswerBean().isFinish()) {
 //                        unfinishCount++;
                             isFinish = false;
                         } else {
@@ -359,7 +370,7 @@ public class QuestionUtils {
                             isFinish = true;
                         }
                         //阅读题中 有一道题错误 就设置成错误
-                        if (!questionList.get(j).getAnswerBean().isRight()) {
+                        if (!questionList.get(j).getQuestions().getAnswerBean().isRight()) {
                             isFalse = true;
                         }
                     }
@@ -410,15 +421,18 @@ public class QuestionUtils {
             for (int i = 0; i < count; i++) {
                 if (dataList.get(i) != null && dataList.get(i).getQuestions() != null) {
                     int typeId = dataList.get(i).getQuestions().getType_id();
-                    if (typeId == QUESTION_READING.type) {
+                    //if (typeId == QUESTION_READING.type) {
+                    if (dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.MULTI_QUESTION)
+                            || dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.CLOZE_QUESTION)
+                            || dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.LISTEN_QUESTION)) {
                         QuestionEntity questionEntity = dataList.get(i).getQuestions();
                         questionEntity.setQuestionIndex(index);
                         if (questionEntity != null) {
-                            List<QuestionEntity> childQuestion = questionEntity.getChildren();
+                            List<PaperTestEntity> childQuestion = questionEntity.getChildren();
                             if (childQuestion != null) {
                                 int childCount = childQuestion.size();
                                 for (int j = 0; j < childCount; j++) {
-                                    childQuestion.get(j).setQuestionIndex(index);
+                                    childQuestion.get(j).getQuestions().setQuestionIndex(index);
                                 }
                             }
                         }

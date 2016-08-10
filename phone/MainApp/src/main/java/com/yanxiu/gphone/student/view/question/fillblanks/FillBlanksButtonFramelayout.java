@@ -27,6 +27,7 @@ import com.common.core.utils.LogInfo;
 import com.common.core.utils.StringUtils;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.AnswerBean;
+import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.utils.Util;
@@ -198,12 +199,12 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
             int fillCount = rlMark.getChildCount();
             int answerCount = bean.getFillAnswers().size();
             bean.setIsFinish(false);
-            List<QuestionEntity> list=questionsEntity.getChildren();
+            List<PaperTestEntity> list=questionsEntity.getChildren();
             for (int i = 0; i < fillCount; i++) {
                 String fillAnswer = "";
                 if (list!=null) {
-                    if (!StringUtils.isEmpty(list.get(i).getAnswerBean().getSelectType())) {
-                        fillAnswer = list.get(i).getAnswerBean().getSelectType();
+                    if (!StringUtils.isEmpty(list.get(i).getQuestions().getAnswerBean().getSelectType())) {
+                        fillAnswer = list.get(i).getQuestions().getAnswerBean().getSelectType();
                         bean.setIsFinish(true);
                     }
                 }
@@ -262,9 +263,9 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
                 textView.setBackgroundResource(R.drawable.gestalt_button_nowanswer);
                 textView.setTextColor(mCtx.getResources().getColor(R.color.color_805500));
             }else {
-                List<QuestionEntity> list=questionsEntity.getChildren();
-                if (list!=null&&list.get(i).getAnswerBean()!=null&&list.get(i).getAnswerBean().getSelectType()!=null){
-                    String answer=list.get(i).getAnswerBean().getSelectType();
+                List<PaperTestEntity> list=questionsEntity.getChildren();
+                if (list!=null&&list.get(i).getQuestions().getAnswerBean()!=null&&list.get(i).getQuestions().getAnswerBean().getSelectType()!=null){
+                    String answer=list.get(i).getQuestions().getAnswerBean().getSelectType();
                     setTextColor(textView,answer);
                 }else {
                     setTextColor(textView,null);
@@ -364,12 +365,12 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
     }
 
     private void setData(){
-        List<QuestionEntity> list=questionsEntity.getChildren();
+        List<PaperTestEntity> list=questionsEntity.getChildren();
         if (list!=null) {
             for (int i = 0; i < list.size(); i++) {
                 TextView textView = (TextView) rlMark.getChildAt(i);
-                if (!StringUtils.isEmpty(list.get(i).getAnswerBean().getSelectType())) {
-                    String answer = list.get(i).getAnswerBean().getSelectType();
+                if (!StringUtils.isEmpty(list.get(i).getQuestions().getAnswerBean().getSelectType())) {
+                    String answer = list.get(i).getQuestions().getAnswerBean().getSelectType();
                     setText(textView, answer);
                     setTextColor(textView,answer);
                 }else {
