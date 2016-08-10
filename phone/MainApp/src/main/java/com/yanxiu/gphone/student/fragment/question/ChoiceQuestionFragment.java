@@ -53,31 +53,33 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_choices_question,null);
-        LinearLayout ll_answer_content= (LinearLayout) rootView.findViewById(R.id.ll_answer_content);
-        View view_line_ccc4a3_2=rootView.findViewById(R.id.view_line_ccc4a3_2);
-        choiceQuestions = (ChoiceQuestions) rootView.findViewById(R.id.cq_item);
-        choiceQuestions.flipNextPager(listener);
-        ChoiceQuestionFragment context=this;
-        if (callback!=null) {
-            ll_answer_content.setVisibility(View.GONE);
-            view_line_ccc4a3_2.setVisibility(View.GONE);
-            choiceQuestions.setAnswerCallback(position, callback);
-        }
-        yXiuAnserTextView = (YXiuAnserTextView) rootView.findViewById(R.id.yxiu_tv);
-        FragmentTransaction ft = ChoiceQuestionFragment.this.getChildFragmentManager().beginTransaction();
-        ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
-        selectTypeView();
-        if(questionsEntity != null){
-            choiceQuestions.setAllDataSources(questionsEntity);
-            if (!StringUtils.isEmpty(questionsEntity.getStem())) {
-                yXiuAnserTextView.setTextHtml(questionsEntity.getStem());
+//        if (rootView==null) {
+            rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_choices_question, null);
+            LinearLayout ll_answer_content = (LinearLayout) rootView.findViewById(R.id.ll_answer_content);
+            View view_line_ccc4a3_2 = rootView.findViewById(R.id.view_line_ccc4a3_2);
+            choiceQuestions = (ChoiceQuestions) rootView.findViewById(R.id.cq_item);
+            choiceQuestions.flipNextPager(listener);
+            ChoiceQuestionFragment context = this;
+            if (callback != null) {
+                ll_answer_content.setVisibility(View.GONE);
+                view_line_ccc4a3_2.setVisibility(View.GONE);
+                choiceQuestions.setAnswerCallback(position, callback);
             }
+            yXiuAnserTextView = (YXiuAnserTextView) rootView.findViewById(R.id.yxiu_tv);
+            FragmentTransaction ft = ChoiceQuestionFragment.this.getChildFragmentManager().beginTransaction();
+            ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
+            selectTypeView();
+            if (questionsEntity != null) {
+                choiceQuestions.setAllDataSources(questionsEntity);
+                if (!StringUtils.isEmpty(questionsEntity.getStem())) {
+                    yXiuAnserTextView.setTextHtml(questionsEntity.getStem());
+                }
 //            Log.d("asd",questionsEntity.getStem().toString());
-        }
-        choiceQuestions.setChoicesType(typeId);
+            }
+            choiceQuestions.setChoicesType(typeId);
 
-        LogInfo.log("geny", "---onCreateView-------pageIndex----" + pageIndex);
+            LogInfo.log("geny", "---onCreateView-------pageIndex----" + pageIndex);
+//        }
         return rootView;
     }
 

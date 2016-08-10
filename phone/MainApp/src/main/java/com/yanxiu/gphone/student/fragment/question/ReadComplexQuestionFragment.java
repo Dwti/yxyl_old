@@ -73,10 +73,12 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_read_complex_question,null);
-        initView();
-        //initAnim();
-        initData();
+        if (rootView==null) {
+            rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_read_complex_question, null);
+            initView();
+            //initAnim();
+            initData();
+        }
         return rootView;
     }
 	
