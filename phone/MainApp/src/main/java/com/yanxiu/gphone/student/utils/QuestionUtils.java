@@ -159,20 +159,20 @@ public class QuestionUtils {
             int count = dataList.size();
             for (int i = 0; i < count; i++) {
                 if (dataList.get(i) != null && dataList.get(i).getQuestions() != null) {
-                    subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().setExtend(subjectEditionBean.getData().get(0).getPaperTest().get(i).getExtend());
-                    subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().setPadBean(subjectEditionBean.getData().get(0).getPaperTest().get(i).getPad());
-                    if (subjectEditionBean.getData().get(0).getPaperTest().get(i).getPad() != null) {
-                        LogInfo.log("geny", "----initDataWithAnswer getPad ----" + subjectEditionBean.getData().get(0).getPaperTest().get(i).getPad().toString());
+                    //subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().setExtend(subjectEditionBean.getData().get(0).getPaperTest().get(i).getExtend());
+                    //subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().setPadBean(subjectEditionBean.getData().get(0).getPaperTest().get(i).getPad());
+                    if (subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getPad() != null) {
+                        LogInfo.log("geny", "----initDataWithAnswer getPad ----" + subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getPad().toString());
                     } else {
                         LogInfo.log("geny", "----initDataWithAnswer getPad ---- null");
                     }
                     int typeId = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getType_id();
-                    if (subjectEditionBean.getData().get(0).getPaperTest().get(i).getPad() == null) {
+                    if (subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getPad() == null) {
                         continue;
                     }
-                    String jsonAnswer = subjectEditionBean.getData().get(0).getPaperTest().get(i).getPad().getJsonAnswer();
-                    int status = subjectEditionBean.getData().get(0).getPaperTest().get(i).getPad().getStatus();
-                    int costTime = subjectEditionBean.getData().get(0).getPaperTest().get(i).getPad().getCosttime();
+                    String jsonAnswer = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getPad().getJsonAnswer();
+                    int status = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getPad().getStatus();
+                    int costTime = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getPad().getCosttime();
                     AnswerBean answerBean = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getAnswerBean();
                     answerBean.setConsumeTime(costTime);
                     if (typeId != QUESTION_SUBJECTIVE.type) {
@@ -409,8 +409,8 @@ public class QuestionUtils {
         if (subDataList != null && !subDataList.isEmpty()) {
             for (PaperTestEntity paperTestEntity : subDataList) {
                 QuestionEntity questionsEntity = paperTestEntity.getQuestions();
-                if (questionsEntity != null && questionsEntity.getPadBean() != null && questionsEntity.getPadBean().getTeachercheck() != null && questionsEntity.getPadBean().getStatus() == AnswerBean.ANSER_READED) {
-                    totalScore += questionsEntity.getPadBean().getTeachercheck().getScore();
+                if (questionsEntity != null && questionsEntity.getPad() != null && questionsEntity.getPad().getTeachercheck() != null && questionsEntity.getPad().getStatus() == AnswerBean.ANSER_READED) {
+                    totalScore += questionsEntity.getPad().getTeachercheck().getScore();
                 }
             }
             float num = (float) totalScore / subDataList.size();

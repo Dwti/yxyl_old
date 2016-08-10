@@ -16,7 +16,6 @@ public class PaperTestEntity implements YanxiuBaseBean {
     private int sectionid;
     private int qid;
     private int status;
-    private PadBean pad;
 
     private ExtendEntity extend;
 
@@ -74,14 +73,6 @@ public class PaperTestEntity implements YanxiuBaseBean {
 
     public int getStatus() {
         return status;
-    }
-
-    public PadBean getPad() {
-        return pad;
-    }
-
-    public void setPad(PadBean pad) {
-        this.pad = pad;
     }
 
     public int getIsfavorite() {
