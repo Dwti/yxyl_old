@@ -1075,14 +1075,14 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                 holder = (ViewHolder) row.getTag();
             }
             QuestionEntity data = mList.get(position);
-            if(data != null && data.getPadBean() != null){
-                int status = data.getPadBean().getStatus();
+            if(data != null && data.getPad() != null){
+                int status = data.getPad().getStatus();
                 LogInfo.log("geny", "status AnswerCardSubAdapter =====" + status);
                 switch (status){
                     case AnswerBean.ANSER_READED:
                         holder.ivSign.setVisibility(View.VISIBLE);
-                        if(data.getPadBean().getTeachercheck() != null){
-                            holder.ivSign.setText(String.valueOf(data.getPadBean().getTeachercheck().getScore()));
+                        if(data.getPad().getTeachercheck() != null){
+                            holder.ivSign.setText(String.valueOf(data.getPad().getTeachercheck().getScore()));
                         }
                         holder.ivSign.setBackgroundResource(R.drawable.answer_report_read);
                         break;

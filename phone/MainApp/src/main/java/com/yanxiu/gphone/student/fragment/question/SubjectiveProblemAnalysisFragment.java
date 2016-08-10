@@ -164,10 +164,10 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
                 }
             });
 
-            if(questionsEntity.getPadBean() != null && questionsEntity.getPadBean().getTeachercheck() != null && questionsEntity.getPadBean().getStatus() == AnswerBean.ANSER_READED){
-                subjectiveStarLayout.selectStarCount(questionsEntity.getPadBean().getTeachercheck().getScore());
-                if(!TextUtils.isEmpty(questionsEntity.getPadBean().getTeachercheck().getQcomment())){
-                    tvCorrectionResultText.setTextHtml(questionsEntity.getPadBean().getTeachercheck().getQcomment());
+            if(questionsEntity.getPad() != null && questionsEntity.getPad().getTeachercheck() != null && questionsEntity.getPad().getStatus() == AnswerBean.ANSER_READED){
+                subjectiveStarLayout.selectStarCount(questionsEntity.getPad().getTeachercheck().getScore());
+                if(!TextUtils.isEmpty(questionsEntity.getPad().getTeachercheck().getQcomment())){
+                    tvCorrectionResultText.setTextHtml(questionsEntity.getPad().getTeachercheck().getQcomment());
                 }else{
                     ivIcon.setVisibility(View.GONE);
                     flCorrectionContent.setVisibility(View.GONE);

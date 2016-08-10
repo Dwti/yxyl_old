@@ -52,7 +52,6 @@ public class QuestionEntity implements YanxiuBaseBean {
         this.pad = pad;
     }
 
-    private PadBean padBean;
     private PadBean pad;
     private boolean readQuestion = false;
     private String readItemName;
@@ -110,14 +109,6 @@ public class QuestionEntity implements YanxiuBaseBean {
 
     public void setQuestionIndex(int questionIndex) {
         this.questionIndex = questionIndex;
-    }
-
-    public PadBean getPadBean() {
-        return padBean;
-    }
-
-    public void setPadBean(PadBean padBean) {
-        this.padBean = padBean;
     }
 
     public List<String> getPhotoUri() {
