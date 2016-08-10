@@ -95,7 +95,7 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
         this.isVisibleToUser=isVisibleToUser;
         if (isVisibleToUser&&!ischild){
 //            if (adapter!=null){
-                ((QuestionsListener)getActivity()).flipNextPager(null);
+                //((QuestionsListener)getActivity()).flipNextPager(null);
 //            }
         }
     }

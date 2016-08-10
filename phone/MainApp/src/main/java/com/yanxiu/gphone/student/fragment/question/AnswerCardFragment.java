@@ -586,7 +586,6 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
             }else{
                 holder.ivIcon.setBackgroundResource(R.drawable.answer_card_undone);
             }
-//            holder.tvIndex.setText(String.valueOf(position + 1));
             if( data.getChildPageIndex()==-1){             //等于-1表示不是复合题类型的解答题(只有是复合题且是解答题的时候才需要显示小题号)
                 holder.tvIndex.setText((data.getPageIndex()+1)+"");
             }else{

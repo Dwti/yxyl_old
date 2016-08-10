@@ -81,7 +81,7 @@ public class BaseQuestionFragment extends Fragment {
             }else if (typeId==QUESTION_CLOZE_COMPLEX.type){
                 //完形填空
                 ivTopIcon.setImageResource(R.drawable.gestalt_complex_title_bg);
-            }else if (typeId==QUESTION_LISTEN_COMPLEX.type){
+            }else if ((9<=typeId &&  typeId<=12) || (18<=typeId && typeId<=22)){
                 ivTopIcon.setImageResource(R.drawable.listen_complex_title_bg);
             }
             if(questionsEntity.isReadQuestion()){
