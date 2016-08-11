@@ -62,7 +62,7 @@ import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTI
 /**
  * Created by Administrator on 2015/7/6.
  */
-public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnClickListener{
+public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnClickListener {
 
 
     private ArrayList<PaperTestEntity> dataList;
@@ -77,7 +77,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
     private TextView tvReportNumTitle;
     private TextView tvReportNumText;
     private TextView tvReportSccuracy;
-//    private TextView tvReportTimeTitle;
+    //    private TextView tvReportTimeTitle;
     private TextView tvReportTimeText;
     private TextView tvReportToptitle;
 
@@ -143,7 +143,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 
     private ArrayList<PaperTestEntity> allDataList;
 
-//    private View reportLine;
+    //    private View reportLine;
     private PercentageBirdLayout pbNumText;
     private PercentageBirdLayout pbAccuracyText;
 
@@ -187,14 +187,15 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         context.startActivity(intent);
     }
 
-    @Override public void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer_report);
         initView();
         initData();
     }
 
-    private void initView(){
+    private void initView() {
         ivBack = (ImageView) findViewById(R.id.iv_top_back);
         shareView = (ImageView) findViewById(R.id.report_share);
         gridView = (GridView) this.findViewById(R.id.answer_report_grid);
@@ -241,13 +242,13 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         tvObjectTab.setOnClickListener(this);
     }
 
-    private void initData(){
+    private void initData() {
         rightQuestionNum = new ArrayList<Integer>();
-        dataSources =  (SubjectExercisesItemBean) getIntent().getSerializableExtra("subjectExercisesItemBean");
+        dataSources = (SubjectExercisesItemBean) getIntent().getSerializableExtra("subjectExercisesItemBean");
 //        ptype = dataSources.getData().get(0).getPtype();
         comeFrom = getIntent().getIntExtra("comeFrom", -1);
         isGonePracticeAgain = getIntent().getBooleanExtra("isGonePracticeAgain", false);
-        if(dataSources != null && dataSources.getData() != null && !dataSources.getData().isEmpty()){
+        if (dataSources != null && dataSources.getData() != null && !dataSources.getData().isEmpty()) {
 
 
             questionCount = dataSources.getData().get(0).getPaperTest().size();
@@ -255,16 +256,19 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
             // 主观题和客观题的完成度添加
             finishCount = questionCount - QuestionUtils.calculationUnFinishQuestion(dataSources.getData().get(0).getPaperTest());
             LogInfo.log("geny", "----finishCount ----" + finishCount);
-            //移除    主观题
-            subDataList = (ArrayList<PaperTestEntity>) QuestionUtils.removeSubjectiveQuesition(dataSources);
-            LogInfo.log("geny", "----sub data ----" + subDataList.size());
-
             //所有非主观题的集合
             dataList = new ArrayList<PaperTestEntity>();
             dataList.addAll(dataSources.getData().get(0).getPaperTest());
             LogInfo.log("geny", "----sub data ----" + dataList.size());
+
+
+            //移除    主观题
+            subDataList = (ArrayList<PaperTestEntity>) QuestionUtils.removeSubjectiveQuesition(dataSources);
+            LogInfo.log("geny", "----sub data ----" + subDataList.size());
+
+
             //错题集合
-            wrongList= new ArrayList<PaperTestEntity>();
+            wrongList = new ArrayList<PaperTestEntity>();
             wrongList.addAll(dataSources.getData().get(0).getPaperTest());
 
             allDataList = new ArrayList<PaperTestEntity>();
@@ -281,7 +285,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 
 //            long costTime;
 
-            if(!TextUtils.isEmpty(dataSources.getData().get(0).getName())){
+            if (!TextUtils.isEmpty(dataSources.getData().get(0).getName())) {
                 tvQuestionTitle.setText(dataSources.getData().get(0).getName());
             }
 
@@ -303,12 +307,12 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 
             adapter = new AnswerCardAdapter(this);
             subjectAdapter = new AnswerCardSubAdapter(this);
-            if(dataList != null) {
+            if (dataList != null) {
                 //初始化客观题 集合
                 questionList = QuestionUtils.addChildQuestionToParent(dataList);
                 String objectTitile;
                 LogInfo.log("geny", "----questionList data ----" + questionList.size());
-                if(questionList != null && !questionList.isEmpty()){
+                if (questionList != null && !questionList.isEmpty()) {
                     rightCount = calculationRightQuestion(wrongList);
                     int reportSccuracy = (finishCount * 100) / questionCount;
 
@@ -316,7 +320,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                     pbNumText.setAccuracyCount(reportSccuracy);
                     sccuracy = 0;
 
-                    if (questionList != null && !questionList.isEmpty()){
+                    if (questionList != null && !questionList.isEmpty()) {
                         objectiveCount = questionList.size();
                         sccuracy = (rightCount * 100) / objectiveCount;
                         pbAccuracyText.setAccuracyCount(sccuracy);
@@ -324,11 +328,11 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 
                     tvReportSccuracy.setText(sccuracy + "%");
 
-                    if(questionList.size() <= rightCount){
+                    if (questionList.size() <= rightCount) {
                         isAllRight = true;
                     }
 
-                    if(isAllRight){
+                    if (isAllRight) {
                         btnWrongQuestion.setVisibility(View.GONE);
                     }
                     LogInfo.log("geny", "----rightCount ----" + rightCount);
@@ -354,7 +358,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 
                     isObjectiveQuestion = true;
 
-                }else{
+                } else {
                     btnWrongQuestion.setVisibility(View.GONE);
                     gridView.setVisibility(View.GONE);
                     objectTitile = String.format(this.getResources().getString(R.string.report_no_data), 0);
@@ -365,7 +369,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
             }
 
             String subjectTitile;
-            if(subjectiveList != null && !subjectiveList.isEmpty()){
+            if (subjectiveList != null && !subjectiveList.isEmpty()) {
 
                 int subDataCount = subDataList.size();
                 subjectTitile = String.format(this.getResources().getString(R.string.subjective_title), subDataCount, QuestionUtils.calculationAverageSubejectScore(subDataList));
@@ -382,7 +386,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                         layoutFinishData();
                     }
                 });
-            }else{
+            } else {
                 subjectiveGrid.setVisibility(View.GONE);
                 subjectTitile = String.format(this.getResources().getString(R.string.report_no_data), 0);
                 tvSubjectiveLine.setText(subjectTitile);
@@ -392,12 +396,12 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
     }
 
 
-    private void layoutFinishData(){
-        if(dataList != null && !isFinishLayout) {
+    private void layoutFinishData() {
+        if (dataList != null && !isFinishLayout) {
             isFinishLayout = true;
-            if(isObjectiveQuestion){
+            if (isObjectiveQuestion) {
                 setObjectiveSelected();
-            }else{
+            } else {
                 setSubjectiveSelected();
             }
             tvReportNumTitle.setText(this.getResources().getString(R.string.hw_question_finish_sccuracy));
@@ -405,7 +409,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 
 
         }
-        if(dataSources.getData().get(0) != null && dataSources.getData().get(0).getPaperStatus() != null){
+        if (dataSources.getData().get(0) != null && dataSources.getData().get(0).getPaperStatus() != null) {
             tvReport.setText(this.getResources().getString(R.string.answer_report_time) + TimeUtils.getTimeLongYMD(dataSources.getData().get(0).getPaperStatus().getEndtime()));
         }
         tvReportTimeText.setText(this.getResources().getString(R.string.answer_cost_time) + formatTime(costTime));
@@ -413,10 +417,10 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         btnWrongQuestion.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
+                if (b) {
                     compoundButton.setTextColor(AnswerReportActivity.this.getResources().getColor(R.color.color_118989));
                     questionWrongList = QuestionUtils.addChildQuestionToParent(wrongList);
-                    if(questionWrongList != null && !questionWrongList.isEmpty()){
+                    if (questionWrongList != null && !questionWrongList.isEmpty()) {
                         adapter.setList(questionWrongList);
                     }
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -425,10 +429,10 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                             jumpType(position, wrongList);
                         }
                     });
-                }else{
+                } else {
                     compoundButton.setTextColor(AnswerReportActivity.this.getResources().getColor(R.color.color_99937a));
                     allList = QuestionUtils.addChildQuestionToParent(allDataList);
-                    if(questionList != null && !questionList.isEmpty()){
+                    if (questionList != null && !questionList.isEmpty()) {
                         adapter.setList(questionList);
                     }
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -443,10 +447,10 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 
         LogInfo.log("geny", "@#$%^&*!@#$%^&*@#$%^&*#$%^&---------" + isGonePracticeAgain);
 
-        if(isGonePracticeAgain){
+        if (isGonePracticeAgain) {
             btnPracticeAgain.setVisibility(View.GONE);
         }
-        switch (comeFrom){
+        switch (comeFrom) {
             case YanXiuConstant.HOMEWORK_REPORT:
                 tvReportToptitle.setText(getResources().getString(R.string.answer_report));
                 shareView.setVisibility(View.GONE);
@@ -466,7 +470,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
     }
 
 
-    private void jumpType(int position, ArrayList<PaperTestEntity> dataList){
+    private void jumpType(int position, ArrayList<PaperTestEntity> dataList) {
 
         QuestionEntity questionEntity = dataList.get(position).getQuestions();
 
@@ -474,7 +478,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
             if (dataList.get(questionEntity.getPageIndex()).getQuestions() != null) {
                 dataList.get(questionEntity.getPageIndex()).getQuestions().setChildPageIndex(questionEntity.getChildPageIndex());
                 dataSources.setIsResolution(true);
-                if(dataSources != null && dataSources.getData() != null && !dataSources.getData().isEmpty()){
+                if (dataSources != null && dataSources.getData() != null && !dataSources.getData().isEmpty()) {
                     dataSources.getData().get(0).setPaperTest(dataList);
 
                 }
@@ -486,7 +490,6 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         }
 
     }
-
 
 
     /**
@@ -512,25 +515,24 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         }
     }
 
-    private void calculationSubQuestionTime(ArrayList<PaperTestEntity> dataList){
+    private void calculationSubQuestionTime(ArrayList<PaperTestEntity> dataList) {
         int count = dataList.size();
         LogInfo.log("geny", "calculationRightQuestion count =====" + count);
-        for(int i = 0; i < count; i++){
-            if(dataList.get(i) != null && dataList.get(i).getQuestions() != null) {
+        for (int i = 0; i < count; i++) {
+            if (dataList.get(i) != null && dataList.get(i).getQuestions() != null) {
                 costTime += dataList.get(i).getQuestions().getAnswerBean().getConsumeTime();
             }
         }
     }
 
 
-
-    private int calculationRightQuestion(ArrayList<PaperTestEntity> dataList){
+    private int calculationRightQuestion(ArrayList<PaperTestEntity> dataList) {
         int rightCount = 0;
         int count = dataList.size();
         ArrayList<PaperTestEntity> dataRightList = new ArrayList<PaperTestEntity>();
         LogInfo.log("geny", "calculationRightQuestion count =====" + count);
-        for(int i = 0; i < count; i++){
-            if(dataList.get(i) != null && dataList.get(i).getQuestions() != null) {
+        for (int i = 0; i < count; i++) {
+            if (dataList.get(i) != null && dataList.get(i).getQuestions() != null) {
 
                 if (dataList.get(i).getQuestions().getChildren() != null &&
                         dataList.get(i).getQuestions().getType_id() == QUESTION_READING.type) {
@@ -568,14 +570,15 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         return rightCount;
     }
 
-    private void forResult(){
-        LogInfo.log("king","AnswerReportActivity forResult");
+    private void forResult() {
+        LogInfo.log("king", "AnswerReportActivity forResult");
         Intent intent = new Intent();
         setResult(RESULT_OK, intent);
     }
 
-    @Override public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK){
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             forResult();
         }
         return super.onKeyDown(keyCode, event);
@@ -583,193 +586,198 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        if(v == ivBack){
+        if (v == ivBack) {
             forResult();
             finish();
-        }else if(v == tvObjectTab){
+        } else if (v == tvObjectTab) {
             setObjectiveSelected();
-        }else if(v == tvSubjectTab){
+        } else if (v == tvSubjectTab) {
             setSubjectiveSelected();
-        }else if(v == shareView){
-            if(NetWorkTypeUtils.isNetAvailable()){
+        } else if (v == shareView) {
+            if (NetWorkTypeUtils.isNetAvailable()) {
                 Util.showToast(R.string.net_null);
                 return;
             }
             int count = 0;
-            if(dataList!=null){
+            if (dataList != null) {
                 count = dataList.size();
             }
 
-           String dis ="";
-           if(sccuracy<=20){
-               dis = getResources().getString(R.string.share_discription_one);
-           }else if(sccuracy<=60){
-               dis = getResources().getString(R.string.share_discription_two);
-           }else if(sccuracy<=80){
-               dis = getResources().getString(R.string.share_discription_three);
-           }else if(sccuracy<=100){
-               dis = getResources().getString(R.string.share_discription_four);
-           }
-           final String discription = dis;
-           if(dataSources!=null && dataSources.getData()!=null && dataSources.getData().get(0)!=null){
-               StringBuilder sb = new StringBuilder("http://wx.hwk.yanxiu.com/sharePage.do?");
-               sb.append("uid="+ LoginModel.getUid());
-               sb.append("&ppid="+dataSources.getData().get(0).getId());
-               sb.append("&buildtime="+dataSources.getData().get(0).getBuildtime());
-               sb.append("&ostype=gphone");
-               final String shareUrl = sb.toString();
-               if(shareDialog == null){
-                   shareDialog = new ShareDialog(this, new ShareDialog.ShareCallBack() {
-                       @Override public void cancel() {
+            String dis = "";
+            if (sccuracy <= 20) {
+                dis = getResources().getString(R.string.share_discription_one);
+            } else if (sccuracy <= 60) {
+                dis = getResources().getString(R.string.share_discription_two);
+            } else if (sccuracy <= 80) {
+                dis = getResources().getString(R.string.share_discription_three);
+            } else if (sccuracy <= 100) {
+                dis = getResources().getString(R.string.share_discription_four);
+            }
+            final String discription = dis;
+            if (dataSources != null && dataSources.getData() != null && dataSources.getData().get(0) != null) {
+                StringBuilder sb = new StringBuilder("http://wx.hwk.yanxiu.com/sharePage.do?");
+                sb.append("uid=" + LoginModel.getUid());
+                sb.append("&ppid=" + dataSources.getData().get(0).getId());
+                sb.append("&buildtime=" + dataSources.getData().get(0).getBuildtime());
+                sb.append("&ostype=gphone");
+                final String shareUrl = sb.toString();
+                if (shareDialog == null) {
+                    shareDialog = new ShareDialog(this, new ShareDialog.ShareCallBack() {
+                        @Override
+                        public void cancel() {
 
-                       }
+                        }
 
-                       @Override public void wechatShare() {
+                        @Override
+                        public void wechatShare() {
 
-                           Bundle bundle=createWeiShareParams(ShareConstants.WEIXIN_SHARE_TYPE_TALK ,ShareConstants.WEIXIN_SHARE_WAY_WEBPAGE , discription, shareUrl);
-                           ShareManager.getInstance().onShare(AnswerReportActivity.this, ShareEnums.WEIXIN, bundle, new ShareResultCallBackListener() {
-                               @Override
-                               public void notInstall() {
-                                   Util.showToast(R.string.no_install_weixin);
-                               }
-
-                               @Override
-                               public void shareException(ShareExceptionEnums exceptionEnums) {
-
-                               }
-
-                               @Override
-                               public void shareSuccess(Object o) {
-
-                               }
-
-                               @Override
-                               public void shareFailrue(Object o) {
-
-                               }
-                           });
-                       }
-
-                       @Override public void wechatFridsShare() {
-
-                          Bundle bundle= createWeiShareParams(ShareConstants.WEIXIN_SHARE_TYPE_FRENDS,ShareConstants.WEIXIN_SHARE_WAY_WEBPAGE , discription, shareUrl);
-                           ShareManager.getInstance().onShare(AnswerReportActivity.this, ShareEnums.WEIXIN_FRIENDS, bundle, new ShareResultCallBackListener() {
-                               @Override
-                               public void notInstall() {
+                            Bundle bundle = createWeiShareParams(ShareConstants.WEIXIN_SHARE_TYPE_TALK, ShareConstants.WEIXIN_SHARE_WAY_WEBPAGE, discription, shareUrl);
+                            ShareManager.getInstance().onShare(AnswerReportActivity.this, ShareEnums.WEIXIN, bundle, new ShareResultCallBackListener() {
+                                @Override
+                                public void notInstall() {
                                     Util.showToast(R.string.no_install_weixin);
-                               }
+                                }
 
-                               @Override
-                               public void shareException(ShareExceptionEnums exceptionEnums) {
+                                @Override
+                                public void shareException(ShareExceptionEnums exceptionEnums) {
 
-                               }
+                                }
 
-                               @Override
-                               public void shareSuccess(Object o) {
+                                @Override
+                                public void shareSuccess(Object o) {
 
-                               }
+                                }
 
-                               @Override
-                               public void shareFailrue(Object o) {
+                                @Override
+                                public void shareFailrue(Object o) {
 
-                               }
+                                }
+                            });
+                        }
 
-                           });
+                        @Override
+                        public void wechatFridsShare() {
 
-                       }
+                            Bundle bundle = createWeiShareParams(ShareConstants.WEIXIN_SHARE_TYPE_FRENDS, ShareConstants.WEIXIN_SHARE_WAY_WEBPAGE, discription, shareUrl);
+                            ShareManager.getInstance().onShare(AnswerReportActivity.this, ShareEnums.WEIXIN_FRIENDS, bundle, new ShareResultCallBackListener() {
+                                @Override
+                                public void notInstall() {
+                                    Util.showToast(R.string.no_install_weixin);
+                                }
 
-                       @Override public void qqShare() {
-                           Bundle bundle = new Bundle();
-                           bundle.putString(ShareConstants.QQ_APPID_KEY,ShareConstants.STUDENT_QQ_AppID);
-                           bundle.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT);
-                           //这条分享消息被好友点击后的跳转URL。
-                           bundle.putString(QQShare.SHARE_TO_QQ_TARGET_URL,shareUrl);
-                           //分享的标题。注：PARAM_TITLE、PARAM_IMAGE_URL、PARAM_	SUMMARY不能t全为空，最少必须有一个是有值的。
-                           bundle.putString(QQShare.SHARE_TO_QQ_TITLE, getResources().getString(
-                                   R.string.share_title));
-                           //分享的图片URL
-                           bundle.putString(QQShare.SHARE_TO_QQ_IMAGE_LOCAL_URL, YanXiuConstant.SHARE_ICON_PATH+ YanXiuConstant.SHARE_LOGO_NAME);
-                           //分享的消息摘要，最长50个字
-                           bundle.putString(QQShare.SHARE_TO_QQ_SUMMARY, discription);
-                           //手Q客户端顶部，替换“返回”按钮文字，如果为空，用返回代替
-                           bundle.putString(QQShare.SHARE_TO_QQ_APP_NAME, getResources().getString(R.string.app_name));
-                           //标识该消息的来源应用，值为应用名称+AppId。
-                           bundle.putInt(QQShare.SHARE_TO_QQ_EXT_INT,QQShare.SHARE_TO_QQ_FLAG_QZONE_ITEM_HIDE);
+                                @Override
+                                public void shareException(ShareExceptionEnums exceptionEnums) {
 
-                           ShareManager.getInstance().onShare(AnswerReportActivity.this, ShareEnums.QQ, bundle, new ShareResultCallBackListener() {
+                                }
 
-                               @Override
-                               public void notInstall() {
-                                     Util.showToast(R.string.no_install_qq);
-                               }
+                                @Override
+                                public void shareSuccess(Object o) {
 
-                               @Override
-                               public void shareException(ShareExceptionEnums exceptionEnums) {
+                                }
 
-                               }
+                                @Override
+                                public void shareFailrue(Object o) {
 
-                               @Override
-                               public void shareSuccess(Object o) {
+                                }
 
-                               }
+                            });
 
-                               @Override
-                               public void shareFailrue(Object o) {
+                        }
 
-                               }
-                           });
+                        @Override
+                        public void qqShare() {
+                            Bundle bundle = new Bundle();
+                            bundle.putString(ShareConstants.QQ_APPID_KEY, ShareConstants.STUDENT_QQ_AppID);
+                            bundle.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT);
+                            //这条分享消息被好友点击后的跳转URL。
+                            bundle.putString(QQShare.SHARE_TO_QQ_TARGET_URL, shareUrl);
+                            //分享的标题。注：PARAM_TITLE、PARAM_IMAGE_URL、PARAM_	SUMMARY不能t全为空，最少必须有一个是有值的。
+                            bundle.putString(QQShare.SHARE_TO_QQ_TITLE, getResources().getString(
+                                    R.string.share_title));
+                            //分享的图片URL
+                            bundle.putString(QQShare.SHARE_TO_QQ_IMAGE_LOCAL_URL, YanXiuConstant.SHARE_ICON_PATH + YanXiuConstant.SHARE_LOGO_NAME);
+                            //分享的消息摘要，最长50个字
+                            bundle.putString(QQShare.SHARE_TO_QQ_SUMMARY, discription);
+                            //手Q客户端顶部，替换“返回”按钮文字，如果为空，用返回代替
+                            bundle.putString(QQShare.SHARE_TO_QQ_APP_NAME, getResources().getString(R.string.app_name));
+                            //标识该消息的来源应用，值为应用名称+AppId。
+                            bundle.putInt(QQShare.SHARE_TO_QQ_EXT_INT, QQShare.SHARE_TO_QQ_FLAG_QZONE_ITEM_HIDE);
 
+                            ShareManager.getInstance().onShare(AnswerReportActivity.this, ShareEnums.QQ, bundle, new ShareResultCallBackListener() {
 
-                       }
-
-                       @Override public void qzoneShare() {
-                           Bundle bundle = new Bundle();
-                           bundle.putString(ShareConstants.QQ_APPID_KEY,ShareConstants.STUDENT_QQ_AppID);
-                           bundle.putInt(QzoneShare.SHARE_TO_QZONE_KEY_TYPE,
-                                   QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT);
-                           //这条分享消息被好友点击后的跳转URL。
-                           bundle.putString(QzoneShare.SHARE_TO_QQ_TARGET_URL, shareUrl);
-                           //分享的标题。注：PARAM_TITLE、PARAM_IMAGE_URL、PARAM_	SUMMARY不能全为空，最少必须有一个是有值的。
-                           bundle.putString(QzoneShare.SHARE_TO_QQ_TITLE,getResources().getString(R.string.share_title));
-                           //分享的图片URL
-                           ArrayList<String> icon = new ArrayList<String>();
-//        icon.add("http://img3.cache.netease.com/photo/0005/2013-03-07/8PBKS8G400BV0005.jpg");
-                           icon.add(YanXiuConstant.SHARE_ICON_PATH+YanXiuConstant.SHARE_LOGO_NAME);
-                           bundle.putStringArrayList(QzoneShare.SHARE_TO_QQ_IMAGE_URL, icon);
-                           //分享的消息摘要，最长50个字
-                           bundle.putString(QzoneShare.SHARE_TO_QQ_SUMMARY,discription);
-
-                           ShareManager.getInstance().onShare(AnswerReportActivity.this, ShareEnums.QQZONE, bundle, new ShareResultCallBackListener() {
-
-                               @Override
-                               public void notInstall() {
+                                @Override
+                                public void notInstall() {
                                     Util.showToast(R.string.no_install_qq);
-                               }
+                                }
 
-                               @Override
-                               public void shareException(ShareExceptionEnums exceptionEnums) {
+                                @Override
+                                public void shareException(ShareExceptionEnums exceptionEnums) {
 
-                               }
+                                }
 
-                               @Override
-                               public void shareSuccess(Object o) {
+                                @Override
+                                public void shareSuccess(Object o) {
 
-                               }
+                                }
 
-                               @Override
-                               public void shareFailrue(Object o) {
+                                @Override
+                                public void shareFailrue(Object o) {
 
-                               }
-                           });
+                                }
+                            });
 
-                       }
-                   });
-               }
-               shareDialog.show();
-           }
-        } else if(v == btnViewResolution){
+
+                        }
+
+                        @Override
+                        public void qzoneShare() {
+                            Bundle bundle = new Bundle();
+                            bundle.putString(ShareConstants.QQ_APPID_KEY, ShareConstants.STUDENT_QQ_AppID);
+                            bundle.putInt(QzoneShare.SHARE_TO_QZONE_KEY_TYPE,
+                                    QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT);
+                            //这条分享消息被好友点击后的跳转URL。
+                            bundle.putString(QzoneShare.SHARE_TO_QQ_TARGET_URL, shareUrl);
+                            //分享的标题。注：PARAM_TITLE、PARAM_IMAGE_URL、PARAM_	SUMMARY不能全为空，最少必须有一个是有值的。
+                            bundle.putString(QzoneShare.SHARE_TO_QQ_TITLE, getResources().getString(R.string.share_title));
+                            //分享的图片URL
+                            ArrayList<String> icon = new ArrayList<String>();
+//        icon.add("http://img3.cache.netease.com/photo/0005/2013-03-07/8PBKS8G400BV0005.jpg");
+                            icon.add(YanXiuConstant.SHARE_ICON_PATH + YanXiuConstant.SHARE_LOGO_NAME);
+                            bundle.putStringArrayList(QzoneShare.SHARE_TO_QQ_IMAGE_URL, icon);
+                            //分享的消息摘要，最长50个字
+                            bundle.putString(QzoneShare.SHARE_TO_QQ_SUMMARY, discription);
+
+                            ShareManager.getInstance().onShare(AnswerReportActivity.this, ShareEnums.QQZONE, bundle, new ShareResultCallBackListener() {
+
+                                @Override
+                                public void notInstall() {
+                                    Util.showToast(R.string.no_install_qq);
+                                }
+
+                                @Override
+                                public void shareException(ShareExceptionEnums exceptionEnums) {
+
+                                }
+
+                                @Override
+                                public void shareSuccess(Object o) {
+
+                                }
+
+                                @Override
+                                public void shareFailrue(Object o) {
+
+                                }
+                            });
+
+                        }
+                    });
+                }
+                shareDialog.show();
+            }
+        } else if (v == btnViewResolution) {
             dataSources.setIsResolution(true);
-            if(dataSources != null && dataSources.getData() != null && !dataSources.getData().isEmpty()){
+            if (dataSources != null && dataSources.getData() != null && !dataSources.getData().isEmpty()) {
 
                 dataSources.getData().get(0).setPaperTest(allDataList);
 
@@ -777,7 +785,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
             }
             setIsTestCenterOnclick();
             ResolutionAnswerViewActivity.launch(AnswerReportActivity.this, dataSources, comeFrom);
-        }else if(v == btnPracticeAgain){
+        } else if (v == btnPracticeAgain) {
 
             if (dataSources != null && dataSources.getData() != null && !dataSources.getData().isEmpty()) {
                 stageId = LoginModel.getUserinfoEntity().getStageid();
@@ -793,7 +801,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                 sectionName = dataSources.getData().get(0).getSectionName();
                 cellid = dataSources.getData().get(0).getCellid();
                 cellName = dataSources.getData().get(0).getCellName();
-                switch (comeFrom){
+                switch (comeFrom) {
                     case YanXiuConstant.INTELLI_REPORT:
                         LogInfo.log("geny", "-------YanXiuConstant.INTELLI_REPORT" + comeFrom);
                         requestSubjectExercises();
@@ -805,9 +813,9 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                 }
             }
 
-        }else if(v == btnErrorResolution){
+        } else if (v == btnErrorResolution) {
             //产品定义
-            if(isAllRight) {
+            if (isAllRight) {
                 Util.showToast(R.string.paper_test_all_right);
             } else {
                 dataSources.setIsResolution(true);
@@ -820,25 +828,24 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         }
     }
 
-    private Bundle createWeiShareParams(int shareType,int shareWayType,String discription,String shareUrl){
-            Bundle bundle=new Bundle();
-            bundle.putString(ShareConstants.WX_APPID_KEY,ShareConstants.STUDENT_WX_AppID);
-            bundle.putInt(ShareConstants.WEIXIN_SHARE_TYPE,shareType);
-            bundle.putInt(ShareConstants.WEIXIN_SHARE_WAY_TYPE,shareWayType);
-            bundle.putString(ShareConstants.WEIXIN_SHARE_TITLE_KEY,getResources().getString(R.string.share_title));
-            bundle.putString(ShareConstants.WEIXIN_SHARE_DES_KEY,discription);
-            bundle.putString(ShareConstants.WEIXIN_SHARE_IMG_URL, shareUrl);
-            bundle.putInt(ShareConstants.WEIXIN_SHARE_IMG_ICON,R.mipmap.share_app_icon);
-            return bundle;
+    private Bundle createWeiShareParams(int shareType, int shareWayType, String discription, String shareUrl) {
+        Bundle bundle = new Bundle();
+        bundle.putString(ShareConstants.WX_APPID_KEY, ShareConstants.STUDENT_WX_AppID);
+        bundle.putInt(ShareConstants.WEIXIN_SHARE_TYPE, shareType);
+        bundle.putInt(ShareConstants.WEIXIN_SHARE_WAY_TYPE, shareWayType);
+        bundle.putString(ShareConstants.WEIXIN_SHARE_TITLE_KEY, getResources().getString(R.string.share_title));
+        bundle.putString(ShareConstants.WEIXIN_SHARE_DES_KEY, discription);
+        bundle.putString(ShareConstants.WEIXIN_SHARE_IMG_URL, shareUrl);
+        bundle.putInt(ShareConstants.WEIXIN_SHARE_IMG_ICON, R.mipmap.share_app_icon);
+        return bundle;
     }
 
 
-
-    private void setIsTestCenterOnclick(){
+    private void setIsTestCenterOnclick() {
         if (dataSources != null && dataSources.getData() != null && !dataSources.getData().isEmpty()) {
-            if(comeFrom == YanXiuConstant.KPN_REPORT || comeFrom == YanXiuConstant.INTELLI_REPORT){
+            if (comeFrom == YanXiuConstant.KPN_REPORT || comeFrom == YanXiuConstant.INTELLI_REPORT) {
                 dataSources.getData().get(0).setIsTestCenterOnclick(true);
-            }else{
+            } else {
                 dataSources.getData().get(0).setIsTestCenterOnclick(false);
             }
         }
@@ -848,12 +855,12 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
     private void requestSubjectExercises() {
         LogInfo.log("geny", "requestSubjectExercises");
         loadingLayout.setViewType(StudentLoadingLayout.LoadingType.LAODING_INTELLI_EXE);
-        new RequestIntelliExeTask(this, stageId, subjectId, editionId, chapterId, sectionId, SubjectSectionActivity.QUESTON_COUNT, volume, cellid , new AsyncCallBack() {
+        new RequestIntelliExeTask(this, stageId, subjectId, editionId, chapterId, sectionId, SubjectSectionActivity.QUESTON_COUNT, volume, cellid, new AsyncCallBack() {
             @Override
             public void update(YanxiuBaseBean result) {
                 subjectExercisesItemBean = (SubjectExercisesItemBean) result;
-                if(subjectExercisesItemBean.getData() != null && subjectExercisesItemBean.getData().get(0).getPaperTest() != null && !subjectExercisesItemBean.getData().get(0).getPaperTest().isEmpty()){
-                    if(subjectExercisesItemBean.getData() != null && !subjectExercisesItemBean.getData().isEmpty()){
+                if (subjectExercisesItemBean.getData() != null && subjectExercisesItemBean.getData().get(0).getPaperTest() != null && !subjectExercisesItemBean.getData().get(0).getPaperTest().isEmpty()) {
+                    if (subjectExercisesItemBean.getData() != null && !subjectExercisesItemBean.getData().isEmpty()) {
                         subjectExercisesItemBean.getData().get(0).setStageid(stageId + "");
                         subjectExercisesItemBean.getData().get(0).setSubjectid(subjectId);
                         subjectExercisesItemBean.getData().get(0).setSubjectName(subjectName);
@@ -861,10 +868,10 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                         subjectExercisesItemBean.getData().get(0).setBedition(editionId);
                         subjectExercisesItemBean.getData().get(0).setEditionName(editionName);
 
-                        if(!TextUtils.isEmpty(volume)){
+                        if (!TextUtils.isEmpty(volume)) {
                             subjectExercisesItemBean.getData().get(0).setVolume(volume);
                         }
-                        if(!TextUtils.isEmpty(volumeName)){
+                        if (!TextUtils.isEmpty(volumeName)) {
                             subjectExercisesItemBean.getData().get(0).setVolumeName(volumeName);
                         }
 
@@ -878,7 +885,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 //                        AnswerViewActivity.launch(AnswerReportActivity.this, subjectExercisesItemBean);
                         AnswerReportActivity.this.finish();
                     }
-                }else{
+                } else {
                     Util.showToast(R.string.server_connection_erro);
                 }
 
@@ -914,10 +921,10 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                         subjectExercisesItemBean.getData().get(0).setBedition(editionId);
                         subjectExercisesItemBean.getData().get(0).setEditionName(editionName);
 
-                        if(!TextUtils.isEmpty(volume)){
+                        if (!TextUtils.isEmpty(volume)) {
                             subjectExercisesItemBean.getData().get(0).setVolume(volume);
                         }
-                        if(!TextUtils.isEmpty(volumeName)){
+                        if (!TextUtils.isEmpty(volumeName)) {
                             subjectExercisesItemBean.getData().get(0).setVolumeName(volumeName);
                         }
 
@@ -968,10 +975,14 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View row = convertView;
+            QuestionEntity data = mList.get(position);
+            if (data == null || data.getAnswerBean() == null)
+                return null;
+            AnswerBean answerBean = data.getAnswerBean();
             if (row == null) {
                 LayoutInflater inflater = mContext.getLayoutInflater();
                 row = inflater.inflate(R.layout.item_report_card, null);
-                holder  = new ViewHolder();
+                holder = new ViewHolder();
                 holder.flContent = (RelativeLayout) row.findViewById(R.id.rl_report_content);
                 FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) holder.flContent.getLayoutParams();
                 int gridViewWidth = AnswerReportActivity.this.gridViewWidth - (gridView.getHorizontalSpacing() * (gridCount + 1)) - gridView.getPaddingLeft() - gridView.getPaddingRight();
@@ -985,28 +996,43 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                 holder = (ViewHolder) row.getTag();
             }
 
-            QuestionEntity data = mList.get(position);
-            if(data != null && data.getAnswerBean().isFinish()){
-                if(data.getAnswerBean().isRight()){
-                    if(!rightQuestionNum.contains(position)){
-                        rightQuestionNum.add(position);
+            if (answerBean.isSubjective()) {                //如果是主观题
+                if (answerBean.getRealStatus() == AnswerBean.ANSER_READED) {                                   //如果已批改
+                    if (answerBean.isHalfRight()) {
+                        holder.ivSign.setBackgroundResource(R.drawable.answer_report_half_correct);
+                    } else if (answerBean.isRight()) {
+                        holder.ivSign.setBackgroundResource(R.drawable.answer_report_correct);
+                    } else if (!answerBean.isRight()) {
+                        holder.ivSign.setBackgroundResource(R.drawable.answer_report_wrong);
                     }
-                    holder.ivSign.setBackgroundResource(R.drawable.answer_report_correct);
-                }else{
+                }
+                //如果未批改，状态不做处理
+            } else {          //如果是客观题
+                if (answerBean.isFinish()) {
+                    if (answerBean.isRight()) {
+                        if (!rightQuestionNum.contains(position)) {
+                            rightQuestionNum.add(position);
+                        }
+                        holder.ivSign.setBackgroundResource(R.drawable.answer_report_correct);
+                    } else {
+                        holder.ivSign.setBackgroundResource(R.drawable.answer_report_wrong);
+                    }
+                } else {
+                    //客观题没做视为 错题
                     holder.ivSign.setBackgroundResource(R.drawable.answer_report_wrong);
                 }
-
-            }else{
-                //add by 1.1 答题卡没做视为 错题
-                holder.ivSign.setBackgroundResource(R.drawable.answer_report_wrong);
             }
-            int questionIndex = data.getQuestionIndex();
-            holder.tvIndex.setText(String.valueOf(questionIndex + 1));
+            if (data.getChildPageIndex() == -1) {             //等于-1表示不是复合题类型的解答题(只有是复合题且是解答题的时候才需要显示小题号)
+                holder.tvIndex.setText((data.getPageIndex() + 1) + "");
+            } else {
+                holder.tvIndex.setText((data.getPageIndex() + 1) + "-" + (data.getChildPageIndex() + 1));
+            }
             return row;
         }
 
 
     }
+
     private class ViewHolder {
         TextView ivSign;
         TextView tvIndex;
@@ -1029,7 +1055,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
             if (row == null) {
                 LayoutInflater inflater = mContext.getLayoutInflater();
                 row = inflater.inflate(R.layout.item_report_card, null);
-                holder  = new ViewHolder();
+                holder = new ViewHolder();
                 holder.flContent = (RelativeLayout) row.findViewById(R.id.rl_report_content);
                 FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) holder.flContent.getLayoutParams();
                 LogInfo.log("geny", "subjectiveGridWitdth ----" + subjectiveGridWitdth);
@@ -1047,13 +1073,13 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                 holder = (ViewHolder) row.getTag();
             }
             QuestionEntity data = mList.get(position);
-            if(data != null && data.getPadBean() != null){
+            if (data != null && data.getPadBean() != null) {
                 int status = data.getPadBean().getStatus();
                 LogInfo.log("geny", "status AnswerCardSubAdapter =====" + status);
-                switch (status){
+                switch (status) {
                     case AnswerBean.ANSER_READED:
                         holder.ivSign.setVisibility(View.VISIBLE);
-                        if(data.getPadBean().getTeachercheck() != null){
+                        if (data.getPadBean().getTeachercheck() != null) {
                             holder.ivSign.setText(String.valueOf(data.getPadBean().getTeachercheck().getScore()));
                         }
                         holder.ivSign.setBackgroundResource(R.drawable.answer_report_read);
@@ -1072,14 +1098,14 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        LogInfo.log("king","AnswerReportActivity onActivityResult");
-        if(requestCode == 10103){//QQ登陆界面返回码
-            if (resultCode == RESULT_CANCELED){
+        LogInfo.log("king", "AnswerReportActivity onActivityResult");
+        if (requestCode == 10103) {//QQ登陆界面返回码
+            if (resultCode == RESULT_CANCELED) {
                 LogInfo.log("king", "AnswerReportActivity onActivityResult 10103");
             }
         }
-        if(requestCode == 10104){//qq空间登陆界面返回码
-            if (resultCode == RESULT_CANCELED){
+        if (requestCode == 10104) {//qq空间登陆界面返回码
+            if (resultCode == RESULT_CANCELED) {
                 LogInfo.log("king", "AnswerReportActivity onActivityResult 10104");
             }
         }
@@ -1105,7 +1131,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
     }
 
 
-    private void setSubjectiveSelected(){
+    private void setSubjectiveSelected() {
         tvSubjectTab.setTextColor(getResources().getColor(R.color.color_666252));
         tvSubjectTab.setBackgroundResource(android.R.color.transparent);
         tvObjectTab.setTextColor(getResources().getColor(R.color.color_b2ab8f));
@@ -1114,7 +1140,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         rlSubjectContainer.setVisibility(View.VISIBLE);
     }
 
-    private void setObjectiveSelected(){
+    private void setObjectiveSelected() {
         tvObjectTab.setTextColor(getResources().getColor(R.color.color_666252));
         tvObjectTab.setBackgroundResource(android.R.color.transparent);
         tvSubjectTab.setTextColor(getResources().getColor(R.color.color_b2ab8f));

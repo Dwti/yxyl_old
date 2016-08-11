@@ -143,20 +143,6 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                     QuestionEntity questionEntity = answerCardAdapter.getItem(position);
                     ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).setViewPagerPosition(questionEntity.getPageIndex(), questionEntity.getChildPageIndex());
                 }
-//                else{
-//                    Intent intent = new Intent();
-//                    Bundle bundle = new Bundle();
-//                    bundle.putInt("position", position);
-//                    intent.putExtra("data", bundle);
-//                    AnswerCardFragment.this.getActivity().setResult(Activity.RESULT_OK, intent);
-//                    AnswerCardFragment.this.getActivity().finish();
-//
-//                    if(dataList != null && !dataList.isEmpty()){
-//                        AnswerBean bean = dataList.get(position).getQuestions().getAnswerBean();
-//                        int time = bean.getConsumeTime();
-//                        Util.showToast("此题花费-----" + time + "是否正确" + bean.isRight());
-//                    }
-//                }
             }
         });
         btnQuestionSubmit = (Button) rootView.findViewById(R.id.btn_question_submit);
@@ -195,31 +181,6 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
 
         if(dataList != null){
             questionList = QuestionUtils.addChildQuestionToParent(dataList);
-//                    new ArrayList<QuestionEntity>();
-//            int count = dataList.size();
-//            for(int i = 0; i < count; i++){
-//                if(dataList.get(i) != null && dataList.get(i).getQuestions() != null){
-//                    int typeId = dataList.get(i).getQuestions().getType_id();
-//                    if(typeId == QUESTION_READING.type){
-//                        QuestionEntity questionEntity = dataList.get(i).getQuestions();
-//                        if(questionEntity != null){
-//                            List<QuestionEntity> childQuestion = questionEntity.getChildren();
-//                            if(childQuestion != null){
-//                                questionList.addAll(childQuestion);
-//                            }
-//                            int childCount = childQuestion.size();
-//                            for(int j = 0; j < childCount; j++){
-//                                childQuestion.get(j).setPageIndex(i);
-//                                childQuestion.get(j).setChildPageIndex(j);
-//                            }
-//                        }
-//                    }else{
-//                        QuestionEntity questionEntity = dataList.get(i).getQuestions();
-//                        questionEntity.setPageIndex(i);
-//                        questionList.add(questionEntity);
-//                    }
-//                }
-//            }
         }
         if(!TextUtils.isEmpty(questionTitle)){
             tvQuestionTitle.setText(questionTitle);

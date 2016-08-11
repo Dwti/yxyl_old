@@ -9,7 +9,7 @@ public class AnswerBean extends SrtBaseBean {
 
     public static final int ANSER_RIGHT = 0;     //正确
     public static final int ANSER_WRONG = 1;     //错误
-    public static final int ANSER_HALF_RIGHT=2;  //半对
+    public static final int ANSER_HALF_RIGHT=2;  //半对         //只有主观题才有半对状态，服务器不会回传这个值，对于主观题的status服务器回传的只会是 3 4 5 ；
     public static final int ANSER_UNFINISH = 3;  //未作答
     public static final int ANSER_FINISH = 4;    //主观题已作答
     public static final int ANSER_READED = 5;    //主观题已批改
@@ -23,6 +23,8 @@ public class AnswerBean extends SrtBaseBean {
 
     //是否是主观题
     private boolean isSubjective = false;
+
+    private boolean isHalfRight = false;    //半对状态，只针对主观题(如果不是半对状态，再去判断isRight)
 
     private String selectType;
 
@@ -139,6 +141,18 @@ public class AnswerBean extends SrtBaseBean {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getRealStatus(){
+        return status;
+    }
+
+    public boolean isHalfRight() {
+        return isHalfRight;
+    }
+
+    public void setIsHalfRight(boolean halfRight) {
+        isHalfRight = halfRight;
     }
 
     public boolean isRight() {

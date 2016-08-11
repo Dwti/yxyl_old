@@ -227,7 +227,7 @@ public class QuestionUtils {
                                             answerChildBean.setIsFinish(false);
                                         } else {
                                             if(typeId != QUESTION_SUBJECTIVE.type){
-                                                //如果不是问答题（即主观题）
+                                                //如果不是问答题
                                                 if (compare(answerChildList, rightAnswer)) {
                                                     answerChildBean.setIsFinish(true);
                                                     answerChildBean.setIsRight(true);
@@ -235,17 +235,22 @@ public class QuestionUtils {
                                                     answerChildBean.setIsFinish(true);
                                                     answerChildBean.setIsRight(false);
                                                 }
-                                            }else{
+                                            }else {
                                                 //如果是问答题
                                                 int score = paperList.get(j).getQuestions().getPad().getTeachercheck().getScore();  //老师打的分数，数值范围0-5，0:错；0~5：半对； 5：对
-                                                if(score==0){
-                                                    answerChildBean.setIsRight(false);
-                                                }else if(score==5){
-                                                    answerChildBean.setIsRight(true);
-                                                }else if(score>0 && score<5){
-                                                    //TODO 此时设置半对状态  以前的复合题里面是不是没有问答题，如果没有的话，需要在下面把answerChildBean设置为问答题
+                                                int status = paperList.get(j).getQuestions().getPad().getStatus();
+                                                if (AnswerBean.ANSER_READED == status) {
+                                                    if (score == 0) {
+                                                        answerChildBean.setIsRight(false);
+                                                    } else if (score == 5) {
+                                                        answerChildBean.setIsRight(true);
+                                                    } else if (score > 0 && score < 5) {
+                                                        answerChildBean.setIsHalfRight(true);
+                                                    }
                                                 }
+                                                answerChildBean.setIsSubjective(true);
                                                 answerChildBean.setIsFinish(true);
+                                                answerChildBean.setStatus(status);
                                             }
 
                                         }
@@ -276,6 +281,9 @@ public class QuestionUtils {
                                     break;
                             }
                         } else {
+                            answerBean.setIsSubjective(true);
+                            //如果是主观题的话，需要给一个状态（批改还是未批改）
+                            answerBean.setStatus(status);
                             switch (status) {
                                 case AnswerBean.ANSER_UNFINISH:
                                     answerBean.setIsFinish(false);
@@ -289,10 +297,9 @@ public class QuestionUtils {
                                     }else if(score==5){
                                         answerBean.setIsRight(true);
                                     }else if(score>0 && score<5){
-                                        //TODO 此时设置半对状态  此处为什么只有已批改状态才会设置为问答题？是否因为批改了才能跳转什么的？
+                                        answerBean.setIsHalfRight(true);
                                     }
                                     answerBean.setIsFinish(true);
-                                    answerBean.setIsSubjective(true);
                                     break;
                             }
                         }
@@ -348,6 +355,8 @@ public class QuestionUtils {
                     || dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.CLOZE_QUESTION)
                     || dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.LISTEN_QUESTION)) {
                 List<PaperTestEntity> questionList = dataList.get(i).getQuestions().getChildren();
+                if(questionList == null)
+                    continue;
                 int childrenCount = questionList.size();
                 boolean isFalse = false;
                 for (int j = 0; j < childrenCount; j++) {
