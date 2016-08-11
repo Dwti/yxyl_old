@@ -231,6 +231,14 @@
     <string name="question_choice_single">单选题</string>
     <string name="question_choice_multi">多选题</string>
     <string name="question_subjective">主观题</string>
+    <string name="question_connect">连线题</string>
+    <string name="question_compute">计算题</string>
+    <string name="question_listen_video_choice">听音选择</string>
+    <string name="question_listen_video_judge">听音判断</string>
+    <string name="question_listen_video_connect">听音连线</string>
+    <string name="question_listen_video_fill">听音填空</string>
+    <string name="question_listen_choice">听力选择</string>
+    <string name="question_listen_fill">听力填空</string>
     <string name="subjective_add_text">上传答案</string>
     <string name="report_error">答案</string>
     <string name="question_judge">判断题</string>

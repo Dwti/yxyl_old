@@ -8,6 +8,17 @@ import java.util.List;
  * Created by Administrator on 2015/7/24.
  */
 public class QuestionEntity implements YanxiuBaseBean {
+    //父题第几页
+    private int parentIndex = -1;
+
+    public int getParentIndex() {
+        return parentIndex;
+    }
+
+    public void setParentIndex(int parentIndex) {
+        this.parentIndex = parentIndex;
+    }
+
     //智能答题第几页
     private int pageIndex = -1;
 
