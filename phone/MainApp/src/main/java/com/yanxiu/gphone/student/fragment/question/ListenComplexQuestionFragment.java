@@ -25,7 +25,9 @@ import android.widget.TextView;
 import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.AnswerViewActivity;
+import com.yanxiu.gphone.student.activity.BaseAnswerViewActivity;
 import com.yanxiu.gphone.student.activity.ResolutionAnswerViewActivity;
+import com.yanxiu.gphone.student.activity.WrongAnswerViewActivity;
 import com.yanxiu.gphone.student.adapter.AnswerAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ChildIndexEvent;
@@ -355,9 +357,11 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                 ((AnswerViewActivity) this.getActivity()).setIndexFromRead(pageCountIndex);
             } else if (this.getActivity() instanceof ResolutionAnswerViewActivity && isVisibleToUser) {
                 ((ResolutionAnswerViewActivity) this.getActivity()).setIndexFromRead(pageCountIndex);
+            }else if (this.getActivity() instanceof WrongAnswerViewActivity && isVisibleToUser) {
+                ((WrongAnswerViewActivity) this.getActivity()).setIndexFromRead(pageCountIndex);
             }
         }
-
+        ((BaseAnswerViewActivity) getActivity()).setPagerSelect(adapter.getCount(), childPosition);
     }
 
     @Override

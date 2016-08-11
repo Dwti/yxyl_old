@@ -18,6 +18,7 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.AnswerViewActivity;
 import com.yanxiu.gphone.student.activity.BaseAnswerViewActivity;
 import com.yanxiu.gphone.student.activity.ResolutionAnswerViewActivity;
+import com.yanxiu.gphone.student.activity.WrongAnswerViewActivity;
 import com.yanxiu.gphone.student.adapter.AnswerAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ChildIndexEvent;
@@ -280,6 +281,8 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
 //                ((AnswerViewActivity) this.getActivity()).setIndexNext(pageCountIndex+getChildCount());
             } else if (this.getActivity() instanceof ResolutionAnswerViewActivity && isVisibleToUser) {
                 ((ResolutionAnswerViewActivity) this.getActivity()).setIndexFromRead(pageCountIndex);
+            }else if (this.getActivity() instanceof WrongAnswerViewActivity && isVisibleToUser) {
+                ((WrongAnswerViewActivity) this.getActivity()).setIndexFromRead(pageCountIndex);
             }
             if (fill_blanks_button != null) {
                 fill_blanks_button.setTextViewSelect(position);

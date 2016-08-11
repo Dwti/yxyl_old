@@ -3,6 +3,7 @@ package com.yanxiu.gphone.student.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -13,10 +14,12 @@ import com.common.login.LoginModel;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.basecore.task.base.threadpool.YanxiuSimpleAsyncTask;
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.adapter.AnswerAdapter;
 import com.yanxiu.gphone.student.bean.ExercisesDataEntity;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.PublicErrorQuestionCollectionBean;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.fragment.question.BaseQuestionFragment;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
 import com.yanxiu.gphone.student.requestTask.RequestDelMistakeTask;
 import com.yanxiu.gphone.student.requestTask.RequestWrongAllQuestionTask;
@@ -26,6 +29,7 @@ import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2015/7/28.
@@ -147,7 +151,22 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
 //        }else{
 //            btnNextQuestion.setVisibility(View.VISIBLE);
 //        }
-        tvPagerIndex.setText(String.valueOf(position + 1));
+
+        List<Fragment> list=((AnswerAdapter)vpAnswer.getAdapter()).getmFragments();
+        int sumIndex = 0;
+        for (int i=0;i<position;i++){
+            BaseQuestionFragment fragment1= (BaseQuestionFragment) list.get(i);
+            sumIndex = sumIndex + fragment1.getChildCount();
+        }
+
+        if (nextPager_onclick == 0 || ((BaseQuestionFragment) list.get(position)).getChildCount() == 1) {
+            tvPagerIndex.setText(String.valueOf(sumIndex + 1));
+        } else {
+            tvPagerIndex.setText(String.valueOf(sumIndex + ((BaseQuestionFragment) list.get(position)).getChildCount()));
+            nextPager_onclick = 0;
+        }
+
+//        tvPagerIndex.setText(String.valueOf(position + 1));
         tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf((wrongCounts - delQueNum))));
         pageIndex = position;
         int currentTotal = currentPageIndex * YanXiuConstant.YX_PAGESIZE_CONSTANT;
@@ -165,6 +184,11 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
             //requestWrongQuestion(subjectId, editionId, volumeId, chapterId, sectionId, currentPageIndex + 1, currentId);
             requestWrongAllQuestion(subjectId, currentPageIndex + 1, currentId);
         }
+    }
+
+    public void setIndexFromRead(int position){
+        LogInfo.log("TTTT", "test"+position);
+        tvPagerIndex.setText(position+"");
     }
 
     public void selectViewPager(){

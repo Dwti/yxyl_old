@@ -197,7 +197,7 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
             }else if(this.getActivity() instanceof ResolutionAnswerViewActivity && isVisibleToUser){
                 ((ResolutionAnswerViewActivity)this.getActivity()).setIndexFromRead(pageCountIndex);
             }else if (this.getActivity() instanceof WrongAnswerViewActivity && isVisibleToUser){
-//                ((WrongAnswerViewActivity)this.getActivity()).setIndexFromRead(pageCountIndex);
+                ((WrongAnswerViewActivity)this.getActivity()).setIndexFromRead(pageCountIndex);
             }
         }
         ((BaseAnswerViewActivity) getActivity()).setPagerSelect(adapter.getCount(), childPosition);
