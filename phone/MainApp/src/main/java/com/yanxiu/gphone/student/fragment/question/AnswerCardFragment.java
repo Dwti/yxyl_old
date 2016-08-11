@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -259,6 +260,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                     if(dataList != null && !dataList.isEmpty()){
                         int unFinishCount = QuestionUtils.calculationUnFinishQuestion(dataList);
                         if(unFinishCount > 0){
+                            Log.i("unfinish",unFinishCount+"");
                             quitSubmmitDialog();
                         }else{
                             handleUploadSubjectiveImage();

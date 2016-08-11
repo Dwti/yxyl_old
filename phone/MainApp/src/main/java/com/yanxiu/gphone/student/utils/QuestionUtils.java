@@ -349,8 +349,6 @@ public class QuestionUtils {
             return 0;
         }
         for (int i = 0; i < count; i++) {
-
-            //if(dataList.get(i).getQuestions() != null && dataList.get(i).getQuestions().getChildren() != null && dataList.get(i).getQuestions().getType_id() == QUESTION_READING.type){
             if (dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.MULTI_QUESTION)
                     || dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.CLOZE_QUESTION)
                     || dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.LISTEN_QUESTION)) {

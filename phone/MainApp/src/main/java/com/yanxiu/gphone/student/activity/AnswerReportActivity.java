@@ -2,6 +2,7 @@ package com.yanxiu.gphone.student.activity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
@@ -25,6 +27,7 @@ import android.widget.TextView;
 import com.common.core.utils.LogInfo;
 import com.common.core.utils.NetWorkTypeUtils;
 import com.common.core.utils.TimeUtils;
+import com.common.core.view.UnMoveGridView;
 import com.common.login.LoginModel;
 import com.common.share.ShareEnums;
 import com.common.share.ShareExceptionEnums;
@@ -50,6 +53,8 @@ import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.ShareDialog;
 import com.yanxiu.gphone.student.view.StudentLoadingLayout;
+import com.yanxiu.gphone.student.view.TitleView;
+import com.yanxiu.gphone.student.view.XGridView;
 import com.yanxiu.gphone.student.view.question.report.PercentageBirdLayout;
 
 import java.util.ArrayList;
@@ -64,29 +69,24 @@ import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTI
  */
 public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnClickListener {
 
-
+    private Context mContext;
     private ArrayList<PaperTestEntity> dataList;
-    private ArrayList<PaperTestEntity> subDataList;
     private GridView gridView;
     private int gridViewWidth;
-    private GridView subjectiveGrid;
     private int gridCount = 5;
-    private int subjectiveGridWitdth;
     public static SubjectExercisesItemBean dataSources;
     private TextView tvReport;
     private TextView tvReportNumTitle;
     private TextView tvReportNumText;
     private TextView tvReportSccuracy;
-    //    private TextView tvReportTimeTitle;
     private TextView tvReportTimeText;
     private TextView tvReportToptitle;
 
-    private ArrayList<PaperTestEntity> wrongList;
     private List<QuestionEntity> questionWrongList;
 
     private int objectiveCount = 0;
 
-
+    private LinearLayout ll_grid;
     private Button btnViewResolution;
     private Button btnPracticeAgain;
     private Button btnErrorResolution;
@@ -108,10 +108,6 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
     private String cellName = "";
 
     private List<QuestionEntity> questionList;
-    //主观题的list
-    private List<QuestionEntity> subjectiveList;
-    //所有的题目list
-    private List<QuestionEntity> allList;
 
     //时候有客观题 默认是的时候有客观题
     private boolean isObjectiveQuestion = true;
@@ -133,7 +129,6 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 
     private AnswerCardAdapter adapter;
 
-    private AnswerCardSubAdapter subjectAdapter;
 
     private boolean isAllRight = false;
 
@@ -141,9 +136,6 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 
     private boolean isGonePracticeAgain;
 
-    private ArrayList<PaperTestEntity> allDataList;
-
-    //    private View reportLine;
     private PercentageBirdLayout pbNumText;
     private PercentageBirdLayout pbAccuracyText;
 
@@ -155,19 +147,13 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 
     private int finishCount;
 
-    private TextView tvObjectTab, tvSubjectTab;
-
-
     private boolean isFinishLayout = false;
 
     private TextView tvObjectiveLine;
-    private SwitchCompat btnWrongQuestion;
-    private TextView tvSubjectiveLine;
 
-    private int rightCount;
 
-    private LinearLayout llReportTab;
-    private RelativeLayout rlObjectContainer, rlSubjectContainer;
+    private RelativeLayout rlObjectContainer;
+    private int rightCount;    //TODO 需要计算值
 
 
     public static void launch(Activity context, SubjectExercisesItemBean dataSources, int comeFrom, int flags, boolean isGonePracticeAgain) {
@@ -191,6 +177,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer_report);
+        mContext=this;
         initView();
         initData();
     }
@@ -200,8 +187,6 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         shareView = (ImageView) findViewById(R.id.report_share);
         gridView = (GridView) this.findViewById(R.id.answer_report_grid);
         gridView.setFocusable(false);
-        subjectiveGrid = (GridView) this.findViewById(R.id.subjective_questions_grid);
-        subjectiveGrid.setFocusable(false);
         tvReport = (TextView) this.findViewById(R.id.tv_report_question);
         tvReportNumTitle = (TextView) this.findViewById(R.id.report_num_title_01);
         tvReportNumText = (TextView) this.findViewById(R.id.report_num_text);
@@ -210,7 +195,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         tvReportTimeText = (TextView) this.findViewById(R.id.report_time_text);
         ivReportStamp = (ImageView) this.findViewById(R.id.iv_report_stamp);
         this.findViewById(R.id.report_scrollview).setFocusable(true);
-
+        ll_grid = (LinearLayout) findViewById(R.id.ll_grid);
         btnViewResolution = (Button) this.findViewById(R.id.btn_view_resolution);
         loadingLayout = (StudentLoadingLayout) findViewById(R.id.loading_layout);
         btnPracticeAgain = (Button) this.findViewById(R.id.practice_again);
@@ -223,23 +208,15 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         pbAccuracyText = (PercentageBirdLayout) this.findViewById(R.id.pb_accuracy_text);
 
 
-        btnWrongQuestion = (SwitchCompat) this.findViewById(R.id.btn_subjective_wrong);
-        tvSubjectTab = (TextView) this.findViewById(R.id.tv_subjcetive_tab);
-        tvObjectTab = (TextView) this.findViewById(R.id.tv_objective_tab);
-        llReportTab = (LinearLayout) this.findViewById(R.id.ll_report_tab);
         rlObjectContainer = (RelativeLayout) this.findViewById(R.id.rl_object_tab);
-        rlSubjectContainer = (RelativeLayout) this.findViewById(R.id.rl_subject_tab);
 
         tvObjectiveLine = (TextView) this.findViewById(R.id.tv_objective_line);
-        tvSubjectiveLine = (TextView) this.findViewById(R.id.tv_subjective_line);
 
         ivBack.setOnClickListener(this);
         btnViewResolution.setOnClickListener(this);
         btnPracticeAgain.setOnClickListener(this);
         btnErrorResolution.setOnClickListener(this);
         shareView.setOnClickListener(this);
-        tvSubjectTab.setOnClickListener(this);
-        tvObjectTab.setOnClickListener(this);
     }
 
     private void initData() {
@@ -250,40 +227,18 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         isGonePracticeAgain = getIntent().getBooleanExtra("isGonePracticeAgain", false);
         if (dataSources != null && dataSources.getData() != null && !dataSources.getData().isEmpty()) {
 
-
             questionCount = dataSources.getData().get(0).getPaperTest().size();
             LogInfo.log("geny", "----questionCount ----" + questionCount);
             // 主观题和客观题的完成度添加
-            finishCount = questionCount - QuestionUtils.calculationUnFinishQuestion(dataSources.getData().get(0).getPaperTest());
+            //TODO 计算有问题 需要修改
+            finishCount = questionCount;
             LogInfo.log("geny", "----finishCount ----" + finishCount);
-            //所有非主观题的集合
+
             dataList = new ArrayList<PaperTestEntity>();
             dataList.addAll(dataSources.getData().get(0).getPaperTest());
             LogInfo.log("geny", "----sub data ----" + dataList.size());
 
 
-            //移除    主观题
-            subDataList = (ArrayList<PaperTestEntity>) QuestionUtils.removeSubjectiveQuesition(dataSources);
-            LogInfo.log("geny", "----sub data ----" + subDataList.size());
-
-
-            //错题集合
-            wrongList = new ArrayList<PaperTestEntity>();
-            wrongList.addAll(dataSources.getData().get(0).getPaperTest());
-
-            allDataList = new ArrayList<PaperTestEntity>();
-            allDataList.addAll(dataList);
-            allDataList.addAll(subDataList);
-
-            QuestionUtils.setQuestionIndex(allDataList);
-
-            allList = QuestionUtils.addChildQuestionToParent(allDataList);
-
-            //初始化主观题集合 ps： 用之前的客观题分页判断
-            subjectiveList = QuestionUtils.addChildQuestionToParent(subDataList);
-
-
-//            long costTime;
 
             if (!TextUtils.isEmpty(dataSources.getData().get(0).getName())) {
                 tvQuestionTitle.setText(dataSources.getData().get(0).getName());
@@ -292,28 +247,18 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    allList = QuestionUtils.addChildQuestionToParent(allDataList);
-                    jumpType(position, allDataList);
+                    //TODO 此处数据传递有问题 需要修改
+                    jumpType(position, null);
                 }
             });
 
-            subjectiveGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    QuestionUtils.addChildQuestionToParent(allDataList);
-                    jumpType(dataList.size() + position, allDataList);
-                }
-            });
-
-            adapter = new AnswerCardAdapter(this);
-            subjectAdapter = new AnswerCardSubAdapter(this);
             if (dataList != null) {
-                //初始化客观题 集合
+
                 questionList = QuestionUtils.addChildQuestionToParent(dataList);
                 String objectTitile;
                 LogInfo.log("geny", "----questionList data ----" + questionList.size());
                 if (questionList != null && !questionList.isEmpty()) {
-                    rightCount = calculationRightQuestion(wrongList);
+                    addGridView();
                     int reportSccuracy = (finishCount * 100) / questionCount;
 
                     tvReportNumText.setText(reportSccuracy + "%");
@@ -332,9 +277,6 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                         isAllRight = true;
                     }
 
-                    if (isAllRight) {
-                        btnWrongQuestion.setVisibility(View.GONE);
-                    }
                     LogInfo.log("geny", "----rightCount ----" + rightCount);
                     LogInfo.log("geny", "----sccuracy ----" + sccuracy);
                     LogInfo.log("geny", "----objectiveCount ----" + objectiveCount);
@@ -343,6 +285,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                     tvObjectiveLine.setText(objectTitile);
                     LogInfo.log("geny", "----objectTitile ----" + objectTitile);
 
+                    adapter = new AnswerCardAdapter(questionList);
                     gridView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 
                         @Override
@@ -351,7 +294,6 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                             gridViewWidth = gridView.getWidth();
                             LogInfo.log("geny", "----gridViewWidth ----" + gridViewWidth);
                             gridView.setAdapter(adapter);
-                            adapter.addMoreData(questionList);
                             layoutFinishData();
                         }
                     });
@@ -359,7 +301,6 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                     isObjectiveQuestion = true;
 
                 } else {
-                    btnWrongQuestion.setVisibility(View.GONE);
                     gridView.setVisibility(View.GONE);
                     objectTitile = String.format(this.getResources().getString(R.string.report_no_data), 0);
                     tvObjectiveLine.setText(objectTitile);
@@ -368,82 +309,37 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 
             }
 
-            String subjectTitile;
-            if (subjectiveList != null && !subjectiveList.isEmpty()) {
+        }
+    }
 
-                int subDataCount = subDataList.size();
-                subjectTitile = String.format(this.getResources().getString(R.string.subjective_title), subDataCount, QuestionUtils.calculationAverageSubejectScore(subDataList));
-                tvSubjectiveLine.setText(subjectTitile);
+    private void addGridView() {
+        int group = 1;
+        for (int i = 0; i < group; i++) {
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            TitleView titleView = new TitleView(mContext);
+            titleView.setLayoutParams(layoutParams);
 
-                subjectiveGrid.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            UnMoveGridView gridView = new UnMoveGridView(mContext);
+            gridView.setLayoutParams(layoutParams);
+            gridView.setAdapter(new AnswerCardAdapter(questionList));
+            gridView.setNumColumns(5);
+            gridView.setVerticalSpacing(20);
 
-                    @Override
-                    public void onGlobalLayout() {
-                        subjectiveGrid.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                        subjectiveGridWitdth = subjectiveGrid.getWidth();
-                        subjectiveGrid.setAdapter(subjectAdapter);
-                        subjectAdapter.addMoreData(subjectiveList);
-                        layoutFinishData();
-                    }
-                });
-            } else {
-                subjectiveGrid.setVisibility(View.GONE);
-                subjectTitile = String.format(this.getResources().getString(R.string.report_no_data), 0);
-                tvSubjectiveLine.setText(subjectTitile);
-            }
+            ll_grid.addView(titleView);
+            ll_grid.addView(gridView);
 
         }
     }
 
-
     private void layoutFinishData() {
         if (dataList != null && !isFinishLayout) {
             isFinishLayout = true;
-            if (isObjectiveQuestion) {
-                setObjectiveSelected();
-            } else {
-                setSubjectiveSelected();
-            }
             tvReportNumTitle.setText(this.getResources().getString(R.string.hw_question_finish_sccuracy));
-            calculationSubQuestionTime(subDataList);
-
-
         }
         if (dataSources.getData().get(0) != null && dataSources.getData().get(0).getPaperStatus() != null) {
             tvReport.setText(this.getResources().getString(R.string.answer_report_time) + TimeUtils.getTimeLongYMD(dataSources.getData().get(0).getPaperStatus().getEndtime()));
         }
         tvReportTimeText.setText(this.getResources().getString(R.string.answer_cost_time) + formatTime(costTime));
-
-        btnWrongQuestion.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    compoundButton.setTextColor(AnswerReportActivity.this.getResources().getColor(R.color.color_118989));
-                    questionWrongList = QuestionUtils.addChildQuestionToParent(wrongList);
-                    if (questionWrongList != null && !questionWrongList.isEmpty()) {
-                        adapter.setList(questionWrongList);
-                    }
-                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            jumpType(position, wrongList);
-                        }
-                    });
-                } else {
-                    compoundButton.setTextColor(AnswerReportActivity.this.getResources().getColor(R.color.color_99937a));
-                    allList = QuestionUtils.addChildQuestionToParent(allDataList);
-                    if (questionList != null && !questionList.isEmpty()) {
-                        adapter.setList(questionList);
-                    }
-                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            jumpType(position, allDataList);
-                        }
-                    });
-                }
-            }
-        });
 
         LogInfo.log("geny", "@#$%^&*!@#$%^&*@#$%^&*#$%^&---------" + isGonePracticeAgain);
 
@@ -455,16 +351,13 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                 tvReportToptitle.setText(getResources().getString(R.string.answer_report));
                 shareView.setVisibility(View.GONE);
                 ivReportStamp.setImageResource(R.drawable.gruop_report_stamp);
-                llReportTab.setVisibility(View.VISIBLE);
                 break;
             case YanXiuConstant.INTELLI_REPORT:
             case YanXiuConstant.KPN_REPORT:
             case YanXiuConstant.HISTORY_REPORT:
-                subjectiveGrid.setVisibility(View.GONE);
                 tvReportToptitle.setText(getResources().getString(R.string.exercises_report));
                 ivReportStamp.setImageResource(R.drawable.answer_report_stamp);
                 shareView.setVisibility(View.VISIBLE);
-                llReportTab.setVisibility(View.GONE);
                 break;
         }
     }
@@ -526,49 +419,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
     }
 
 
-    private int calculationRightQuestion(ArrayList<PaperTestEntity> dataList) {
-        int rightCount = 0;
-        int count = dataList.size();
-        ArrayList<PaperTestEntity> dataRightList = new ArrayList<PaperTestEntity>();
-        LogInfo.log("geny", "calculationRightQuestion count =====" + count);
-        for (int i = 0; i < count; i++) {
-            if (dataList.get(i) != null && dataList.get(i).getQuestions() != null) {
 
-                if (dataList.get(i).getQuestions().getChildren() != null &&
-                        dataList.get(i).getQuestions().getType_id() == QUESTION_READING.type) {
-
-                    List<PaperTestEntity> questionList = dataList.get(i).getQuestions().getChildren();
-                    int childrenCount = questionList.size();
-                    boolean isFalse = false;
-                    for (int j = 0; j < childrenCount; j++) {
-                        costTime += questionList.get(j).getQuestions().getAnswerBean().getConsumeTime();
-                        LogInfo.log("geny", "getChildren time =====" + questionList.get(j).getQuestions().getAnswerBean().getConsumeTime());
-                        if (questionList.get(j).getQuestions().getAnswerBean().isRight()) {
-                            rightCount++;
-                        } else {
-                            isFalse = isFalse || true;
-                        }
-                    }
-                    if (!isFalse) {
-                        dataRightList.add(dataList.get(i));
-                    }
-                } else {
-                    LogInfo.log("geny", "calculationQuestion time =====" + dataList.get(i).getQuestions().getAnswerBean().getConsumeTime());
-                    costTime += dataList.get(i).getQuestions().getAnswerBean().getConsumeTime();
-                    LogInfo.log("geny", "calculationRightQuestion null -----" + i);
-                    if (dataList.get(i).getQuestions().getAnswerBean().isRight()) {
-                        rightCount++;
-                        dataRightList.add(dataList.get(i));
-                    }
-                }
-            }
-        }
-        LogInfo.log("geny", "calculationRightQuestion count =====" + dataList.size());
-        dataList.removeAll(dataRightList);
-        LogInfo.log("geny", "dataRightList count =====" + dataRightList.size());
-        LogInfo.log("geny", "dataList count =====" + dataList.size());
-        return rightCount;
-    }
 
     private void forResult() {
         LogInfo.log("king", "AnswerReportActivity forResult");
@@ -589,10 +440,6 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         if (v == ivBack) {
             forResult();
             finish();
-        } else if (v == tvObjectTab) {
-            setObjectiveSelected();
-        } else if (v == tvSubjectTab) {
-            setSubjectiveSelected();
         } else if (v == shareView) {
             if (NetWorkTypeUtils.isNetAvailable()) {
                 Util.showToast(R.string.net_null);
@@ -779,7 +626,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
             dataSources.setIsResolution(true);
             if (dataSources != null && dataSources.getData() != null && !dataSources.getData().isEmpty()) {
 
-                dataSources.getData().get(0).setPaperTest(allDataList);
+//                dataSources.getData().get(0).setPaperTest(allDataList);
 
 //                LogInfo.log("geny", "-------------------->dataSources===" + dataList.get(0).toString());
             }
@@ -819,9 +666,6 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                 Util.showToast(R.string.paper_test_all_right);
             } else {
                 dataSources.setIsResolution(true);
-                if (dataSources != null && dataSources.getData() != null && !dataSources.getData().isEmpty()) {
-                    dataSources.getData().get(0).setPaperTest(wrongList);
-                }
                 setIsTestCenterOnclick();
                 ResolutionAnswerViewActivity.launch(AnswerReportActivity.this, dataSources, comeFrom);
             }
@@ -963,15 +807,30 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
     }
 
 
-    private class AnswerCardAdapter extends YXiuCustomerBaseAdapter<QuestionEntity> {
+    private class AnswerCardAdapter extends BaseAdapter {
 
         private ViewHolder holder;
+        private List<QuestionEntity> mList = new ArrayList<>();
 
-        public AnswerCardAdapter(Activity context) {
-            super(context);
+        public AnswerCardAdapter(List<QuestionEntity> mList) {
+            this.mList=mList;
         }
 
-        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+        @Override
+        public int getCount() {
+            return mList.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return mList.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View row = convertView;
@@ -980,7 +839,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                 return null;
             AnswerBean answerBean = data.getAnswerBean();
             if (row == null) {
-                LayoutInflater inflater = mContext.getLayoutInflater();
+                LayoutInflater inflater = LayoutInflater.from(mContext);
                 row = inflater.inflate(R.layout.item_report_card, null);
                 holder = new ViewHolder();
                 holder.flContent = (RelativeLayout) row.findViewById(R.id.rl_report_content);
@@ -1039,63 +898,6 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         RelativeLayout flContent;
     }
 
-
-    private class AnswerCardSubAdapter extends YXiuCustomerBaseAdapter<QuestionEntity> {
-
-        private ViewHolder holder;
-
-        public AnswerCardSubAdapter(Activity context) {
-            super(context);
-        }
-
-        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View row = convertView;
-            if (row == null) {
-                LayoutInflater inflater = mContext.getLayoutInflater();
-                row = inflater.inflate(R.layout.item_report_card, null);
-                holder = new ViewHolder();
-                holder.flContent = (RelativeLayout) row.findViewById(R.id.rl_report_content);
-                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) holder.flContent.getLayoutParams();
-                LogInfo.log("geny", "subjectiveGridWitdth ----" + subjectiveGridWitdth);
-                int subjectiveGridWitdth = AnswerReportActivity.this.subjectiveGridWitdth - (subjectiveGrid.getHorizontalSpacing() * (gridCount + 1)) - subjectiveGrid.getPaddingLeft() - subjectiveGrid.getPaddingRight();
-                LogInfo.log("geny", "subjectiveGridWitdth ----" + subjectiveGridWitdth);
-                LogInfo.log("geny", "subjectiveGrid.getHorizontalSpacing() ----" + subjectiveGrid.getHorizontalSpacing());
-                int width = subjectiveGridWitdth / gridCount;
-                lp.width = width;
-                lp.height = width;
-                holder.flContent.setLayoutParams(lp);
-                holder.ivSign = (TextView) row.findViewById(R.id.answer_report_icon);
-                holder.tvIndex = (TextView) row.findViewById(R.id.answer_report_text);
-                row.setTag(holder);
-            } else {
-                holder = (ViewHolder) row.getTag();
-            }
-            QuestionEntity data = mList.get(position);
-            if (data != null && data.getPadBean() != null) {
-                int status = data.getPadBean().getStatus();
-                LogInfo.log("geny", "status AnswerCardSubAdapter =====" + status);
-                switch (status) {
-                    case AnswerBean.ANSER_READED:
-                        holder.ivSign.setVisibility(View.VISIBLE);
-                        if (data.getPadBean().getTeachercheck() != null) {
-                            holder.ivSign.setText(String.valueOf(data.getPadBean().getTeachercheck().getScore()));
-                        }
-                        holder.ivSign.setBackgroundResource(R.drawable.answer_report_read);
-                        break;
-                    default:
-                        holder.ivSign.setVisibility(View.INVISIBLE);
-                        break;
-                }
-            }
-            int questionIndex = data.getQuestionIndex();
-            holder.tvIndex.setText(String.valueOf(questionIndex + 1));
-            return row;
-        }
-
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         LogInfo.log("king", "AnswerReportActivity onActivityResult");
@@ -1131,23 +933,6 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
     }
 
 
-    private void setSubjectiveSelected() {
-        tvSubjectTab.setTextColor(getResources().getColor(R.color.color_666252));
-        tvSubjectTab.setBackgroundResource(android.R.color.transparent);
-        tvObjectTab.setTextColor(getResources().getColor(R.color.color_b2ab8f));
-        tvObjectTab.setBackgroundResource(R.color.color_fff4d9);
-        rlObjectContainer.setVisibility(View.GONE);
-        rlSubjectContainer.setVisibility(View.VISIBLE);
-    }
-
-    private void setObjectiveSelected() {
-        tvObjectTab.setTextColor(getResources().getColor(R.color.color_666252));
-        tvObjectTab.setBackgroundResource(android.R.color.transparent);
-        tvSubjectTab.setTextColor(getResources().getColor(R.color.color_b2ab8f));
-        tvSubjectTab.setBackgroundResource(R.color.color_fff4d9);
-        rlObjectContainer.setVisibility(View.VISIBLE);
-        rlSubjectContainer.setVisibility(View.GONE);
-    }
 
 
 }

@@ -33,7 +33,7 @@
 
         <RelativeLayout android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/dimen_80"
+            android:layout_marginBottom="@dimen/dimen_30"
             android:layout_marginTop="@dimen/dimen_52"
             android:layout_marginLeft="@dimen/dimen_10"
             android:layout_marginRight="@dimen/dimen_10"
@@ -217,43 +217,10 @@
                          android:layout_below="@id/rl_answer_report_containter"
                          android:background="@drawable/zigzag_line"/>
 
-                    <LinearLayout android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_23"
-                        android:id="@+id/ll_report_tab"
-                        android:layout_below="@id/fl_zigzag_line"
-                        android:layout_centerInParent="true"
-                        android:background="@drawable/report_switch_border"
-                        android:orientation="horizontal" >
-
-                        <TextView android:layout_width="@dimen/dimen_110"
-                            android:layout_height="@dimen/dimen_30"
-                            android:id="@+id/tv_objective_tab"
-                            android:textColor="@color/color_666252"
-                            android:textSize="@dimen/dimen_13"
-                            android:text="客观题"
-                            android:gravity="center" />
-
-                        <View
-                            android:layout_width="@dimen/dimen_2px"
-                            android:layout_height="match_parent"
-                            android:background="@color/color_ccc4a3" />
-
-                        <TextView android:layout_width="@dimen/dimen_110"
-                            android:layout_height="@dimen/dimen_30"
-                            android:id="@+id/tv_subjcetive_tab"
-                            android:textSize="@dimen/dimen_13"
-                            android:text="主观题"
-                            android:textColor="@color/color_b2ab8f"
-                            android:background="@color/color_fff4d9"
-                            android:gravity="center" />
-
-                    </LinearLayout>
-
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_below="@id/ll_report_tab"
+                        android:layout_below="@id/fl_zigzag_line"
                         android:id="@+id/rl_object_tab">
 
                         <TextView android:text="@string/objective_title"
@@ -270,57 +237,23 @@
                             android:layout_marginRight="@dimen/dimen_25"
                             android:background="@color/color_ccc4a3" />
 
-
-                        <android.support.v7.widget.SwitchCompat
-                            android:id="@+id/btn_subjective_wrong"
-                            android:layout_below="@id/view_objective_line"
-                            android:layout_marginRight="@dimen/dimen_20"
-                            android:layout_marginTop="@dimen/dimen_20"
-                            android:layout_alignParentRight="true"
-                            android:textColor="@color/color_99937a"
-                            android:thumbTextPadding="@dimen/dimen_10"
-                            android:text="@string/wrong_question"
-                            android:background="@color/trans"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                        <com.common.core.view.UnMoveGridView
-                            android:id="@+id/answer_report_grid"
-                            android:layout_below="@id/btn_subjective_wrong"
-                            style="@style/report_grid_style" >
-                        </com.common.core.view.UnMoveGridView>
-
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_below="@id/ll_report_tab"
-                        android:id="@+id/rl_subject_tab">
-
-                        <TextView android:text="@string/subjective_title"
-                            android:id="@+id/tv_subjective_line"
-                            android:layout_marginTop="@dimen/dimen_10"
-                            style="@style/report_bar_txt_style" />
-
-                        <View
+                        <LinearLayout
+                            android:id="@+id/ll_grid"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/dimen_1"
-                            android:id="@+id/view_subjective_line"
-                            android:layout_below="@id/tv_subjective_line"
-                            android:layout_marginLeft="@dimen/dimen_25"
-                            android:layout_marginRight="@dimen/dimen_25"
-                            android:background="@color/color_ccc4a3" />
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_below="@id/tv_objective_line"
+                            android:layout_marginTop="20dp">
+                            <com.common.core.view.UnMoveGridView
+                                android:id="@+id/answer_report_grid"
+                                style="@style/report_grid_style"
+                                android:visibility="gone"/>
+                        </LinearLayout>
 
-                        <com.common.core.view.UnMoveGridView
-                            android:id="@+id/subjective_questions_grid"
-                            android:layout_below="@id/tv_subjective_line"
-                            style="@style/report_grid_style" >
-                        </com.common.core.view.UnMoveGridView>
 
 
                     </RelativeLayout>
+
 
                     <ImageView android:layout_width="@dimen/dimen_88"
                                android:layout_height="@dimen/dimen_88"
