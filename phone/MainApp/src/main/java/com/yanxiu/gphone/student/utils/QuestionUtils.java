@@ -12,17 +12,14 @@ import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.TreeMap;
 
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_FILL_BLANKS;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_JUDGE;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_MULTI_CHOICES;
-import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_READING;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SINGLE_CHOICES;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SUBJECTIVE;
 
@@ -171,16 +168,7 @@ public class QuestionUtils {
                     QuestionEntity questionEntity = paperTestEntity.getQuestions();
 
                     questionEntity.setExtend(paperTestEntity.getExtend());
-                    questionEntity.setPadBean(paperTestEntity.getPad());
-                    if (paperTestEntity.getPad() != null) {
-                        LogInfo.log("geny", "----initDataWithAnswer getPad ----" + questionEntity.getPad().toString());
-                    } else {
-                        LogInfo.log("geny", "----initDataWithAnswer getPad ---- null");
-                    }
                     int typeId = questionEntity.getType_id();
-                    if (paperTestEntity.getPad() == null) {
-                        continue;
-                    }
                     String jsonAnswer = questionEntity.getPad().getJsonAnswer();
 
                     //如果是复合类的题
@@ -268,7 +256,6 @@ public class QuestionUtils {
                     } else {
                         int status = questionEntity.getPad().getStatus();
                         int costTime = questionEntity.getPad().getCosttime();
-                        int score = questionEntity.getPad().getTeachercheck().getScore();
                         AnswerBean answerBean = questionEntity.getAnswerBean();
                         answerBean.setConsumeTime(costTime);
                         List<String> answerList = JSON.parseArray(jsonAnswer, String.class);
@@ -288,6 +275,7 @@ public class QuestionUtils {
                                     break;
                             }
                         } else {
+                            int score = questionEntity.getPad().getTeachercheck().getScore();
                             answerBean.setIsSubjective(true);
                             //如果是主观题的话，需要给一个状态（批改还是未批改）
                             answerBean.setStatus(status);
@@ -500,28 +488,29 @@ public class QuestionUtils {
         }
     }
 
-    public static LinkedHashMap<String,List<QuestionEntity>> classifyQuestionByType(List<QuestionEntity> list){
+    public static Map<String,List<QuestionEntity>> classifyQuestionByType(List<QuestionEntity> list){
         if(list == null || list.size() == 0)
             return null;
-        LinkedHashMap<String,List<QuestionEntity>> hashMap = new LinkedHashMap<>();
+        TreeMap<String,List<QuestionEntity>> treeMap = new TreeMap<>(new QuestionTypeComparator());
         int count = list.size();
         QuestionEntity questionEntity;
         for(int i =0;i<count;i++){
             questionEntity = list.get(i);
             String typeName = getQuestionTypeNameByParentTypeId(questionEntity.getParent_type_id());
-            if(!hashMap.containsKey(typeName)){
+            if(!treeMap.containsKey(typeName)){
                 List<QuestionEntity> tempList = new ArrayList<>();
                 tempList.add(questionEntity);
-                hashMap.put(typeName,tempList);
+                treeMap.put(typeName,tempList);
             }else{
-                List<QuestionEntity> valueList = hashMap.get(typeName);
+                List<QuestionEntity> valueList = treeMap.get(typeName);
                 valueList.add(questionEntity);
             }
         }
-        return hashMap;
+        return treeMap;
     }
 
     public static String getQuestionTypeNameByParentTypeId(int typeId){
+        TreeMap<String,String> treeMap = new TreeMap<>();
         String name="";
         switch (typeId){
             case 1:
@@ -558,10 +547,10 @@ public class QuestionUtils {
                 name="完形填空";
                 break;
             case 16:
-                name="翻译题";
+                name="翻译";
                 break;
             case 17:
-                name="改错题";
+                name="改错";
                 break;
             case 20:
                 name="排序题";
@@ -575,7 +564,7 @@ public class QuestionUtils {
             case 18:
             case 19:
             case 21:
-                name="听力题";
+                name="听力";
             break;
             default:
                 break;
@@ -583,4 +572,68 @@ public class QuestionUtils {
         }
         return name;
     }
+
+    public static int getIntValue(String str){
+        int result=0;
+        switch (str){
+            case "听力":
+                result=1;
+                break;
+            case "单选题":
+                result=2;
+                break;
+            case "多选题":
+                result=3;
+                break;
+            case "判断题":
+                result=4;
+                break;
+            case "连线题":
+                result=5;
+                break;
+            case "归类题":
+                result=6;
+                break;
+            case "排序题":
+                result=7;
+                break;
+            case "完形填空":
+                result=8;
+                break;
+            case "阅读理解":
+                result=9;
+                break;
+            case "填空题":
+                result=10;
+                break;
+            case "改错":
+                result=11;
+                break;
+            case "翻译":
+                result=12;
+                break;
+            case "计算题":
+                result=13;
+                break;
+            case "解答题":
+                result=14;
+                break;
+            case "问答题":
+                result=15;
+                break;
+            case "材料阅读":
+                result=16;
+                break;
+
+        }
+        return result;
+    }
+    public static class QuestionTypeComparator implements Comparator<String>{
+
+        @Override
+        public int compare(String lhs, String rhs) {
+            return getIntValue(lhs) - getIntValue(rhs);
+        }
+    }
+
 }

@@ -1,12 +1,9 @@
 package com.yanxiu.gphone.student.activity;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -16,8 +13,6 @@ import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,7 +34,6 @@ import com.tencent.connect.share.QQShare;
 import com.tencent.connect.share.QzoneShare;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
-import com.yanxiu.gphone.student.adapter.YXiuCustomerBaseAdapter;
 import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ExercisesDataEntity;
@@ -55,7 +49,6 @@ import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.ShareDialog;
 import com.yanxiu.gphone.student.view.StudentLoadingLayout;
 import com.yanxiu.gphone.student.view.TitleView;
-import com.yanxiu.gphone.student.view.XGridView;
 import com.yanxiu.gphone.student.view.question.report.PercentageBirdLayout;
 
 import java.util.ArrayList;
@@ -67,8 +60,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_READING;
-
 /**
  * Created by Administrator on 2015/7/6.
  */
@@ -77,7 +68,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
     private Context mContext;
     private ArrayList<PaperTestEntity> dataList;
     private ScrollView scrollView;
-    private GridView gridView;
+    private GridView gridView_old;
     private int gridViewWidth;
     private int gridCount = 5;
     public static SubjectExercisesItemBean dataSources;
@@ -192,8 +183,8 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
     private void initView() {
         ivBack = (ImageView) findViewById(R.id.iv_top_back);
         shareView = (ImageView) findViewById(R.id.report_share);
-        gridView = (GridView) this.findViewById(R.id.answer_report_grid);
-        gridView.setFocusable(false);
+        gridView_old = (GridView) this.findViewById(R.id.answer_report_grid);
+        gridView_old.setFocusable(false);
         tvReport = (TextView) this.findViewById(R.id.tv_report_question);
         tvReportNumTitle = (TextView) this.findViewById(R.id.report_num_title_01);
         tvReportNumText = (TextView) this.findViewById(R.id.report_num_text);
@@ -252,7 +243,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                 tvQuestionTitle.setText(dataSources.getData().get(0).getName());
             }
 
-            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            gridView_old.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     //TODO 此处数据传递有问题 需要修改
@@ -294,14 +285,14 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                     LogInfo.log("geny", "----objectTitile ----" + objectTitile);
 
                     adapter = new AnswerCardAdapter(questionList);
-                    gridView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    gridView_old.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 
                         @Override
                         public void onGlobalLayout() {
-                            gridView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                            gridViewWidth = gridView.getWidth();
+                            gridView_old.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                            gridViewWidth = gridView_old.getWidth();
                             LogInfo.log("geny", "----gridViewWidth ----" + gridViewWidth);
-                            gridView.setAdapter(adapter);
+                            gridView_old.setAdapter(adapter);
                             layoutFinishData();
                         }
                     });
@@ -309,7 +300,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                     isObjectiveQuestion = true;
 
                 } else {
-                    gridView.setVisibility(View.GONE);
+                    gridView_old.setVisibility(View.GONE);
                     objectTitile = String.format(this.getResources().getString(R.string.report_no_data), 0);
                     tvObjectiveLine.setText(objectTitile);
                     isObjectiveQuestion = false;
@@ -320,10 +311,10 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         }
     }
 
-    private void addGridView(LinkedHashMap<String,List<QuestionEntity>> linkedHashMap) {
-        if(linkedHashMap == null || linkedHashMap.size()==0)
+    private void addGridView(Map<String,List<QuestionEntity>> map) {
+        if(map == null || map.size()==0)
             return;
-        Set<Map.Entry<String,List<QuestionEntity>>> set  = linkedHashMap.entrySet();
+        Set<Map.Entry<String,List<QuestionEntity>>> set  = map.entrySet();
         Iterator<Map.Entry<String,List<QuestionEntity>>> iterator = set.iterator();
         while (iterator.hasNext()){
             Map.Entry<String,List<QuestionEntity>> entry = iterator.next();
@@ -336,7 +327,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
             gridView.setAdapter(new AnswerCardAdapter(entry.getValue()));
             gridView.setNumColumns(5);
             gridView.setHorizontalSpacing(20);
-//            gridView.setSelector();
+//            gridView_old.setSelector();
             gridView.setVerticalSpacing(20);
 
             ll_grid.addView(titleView);
