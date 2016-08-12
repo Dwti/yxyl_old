@@ -263,6 +263,25 @@ public class QuestionUtils {
                         AnswerBean answerBean = questionEntity.getAnswerBean();
                         answerBean.setConsumeTime(costTime);
                         List<String> answerList = JSON.parseArray(jsonAnswer, String.class);
+                        if (answerList == null || answerList.isEmpty()) {
+                            answerBean.setIsFinish(false);
+                        } else {
+                            answerBean.setIsFinish(true);
+                        }
+
+                        if (answerList != null && !answerList.isEmpty()) {
+                            if (typeId == QUESTION_SINGLE_CHOICES.type) {
+                                answerBean.setSelectType(answerList.get(0));
+                            } else if (typeId == QUESTION_MULTI_CHOICES.type) {
+                                answerBean.setMultiSelect((ArrayList<String>) answerList);
+                            } else if (typeId == QUESTION_JUDGE.type) {
+                                answerBean.setSelectType(answerList.get(0));
+                            } else if (typeId == QUESTION_FILL_BLANKS.type) {
+                                answerBean.setFillAnswers((ArrayList<String>) answerList);
+                            } else if(typeId == QUESTION_SUBJECTIVE.type){
+                                answerBean.setSubjectivImageUri((ArrayList<String>) answerList);
+                            }
+                        }
 
                         if (!YanXiuConstant.ANSWER_QUESTION.equals(template)) {
                             switch (status) {
@@ -300,25 +319,6 @@ public class QuestionUtils {
                                     }
                                     answerBean.setIsFinish(true);
                                     break;
-                            }
-                        }
-
-                        if (answerList == null || answerList.isEmpty()) {
-                            answerBean.setIsFinish(false);
-                        } else {
-                            answerBean.setIsFinish(true);
-                            answerBean.setSubjectivImageUri((ArrayList<String>) answerList);
-                        }
-
-                        if (answerList != null && !answerList.isEmpty()) {
-                            if (typeId == QUESTION_SINGLE_CHOICES.type) {
-                                answerBean.setSelectType(answerList.get(0));
-                            } else if (typeId == QUESTION_MULTI_CHOICES.type) {
-                                answerBean.setMultiSelect((ArrayList<String>) answerList);
-                            } else if (typeId == QUESTION_JUDGE.type) {
-                                answerBean.setSelectType(answerList.get(0));
-                            } else if (typeId == QUESTION_FILL_BLANKS.type) {
-                                answerBean.setFillAnswers((ArrayList<String>) answerList);
                             }
                         }
                     }
