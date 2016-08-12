@@ -169,6 +169,8 @@ public class QuestionUtils {
 
                     questionEntity.setExtend(paperTestEntity.getExtend());
                     int typeId = questionEntity.getType_id();
+                    if(questionEntity.getPad()==null)
+                        continue;
                     String jsonAnswer = questionEntity.getPad().getJsonAnswer();
 
                     //如果是复合类的题
@@ -196,6 +198,7 @@ public class QuestionUtils {
                                 List<String> rightAnswer = paperList.get(j).getQuestions().getAnswer();
                                 if (answerChildList != null && !answerChildList.isEmpty()) {
                                     AnswerBean answerChildBean = paperList.get(j).getQuestions().getAnswerBean();
+                                    String childTemplate = questionEntity.getChildren().get(j).getQuestions().getTemplate();
                                     typeId = questionEntity.getChildren().get(j).getQuestions().getType_id();
                                     if (typeId == QUESTION_SINGLE_CHOICES.type || typeId == QUESTION_JUDGE.type) {
                                         answerChildBean.setSelectType(answerChildList.get(0));
@@ -221,7 +224,7 @@ public class QuestionUtils {
                                         if (rightAnswer == null || rightAnswer.isEmpty()) {
                                             answerChildBean.setIsFinish(false);
                                         } else {
-                                            if(typeId != QUESTION_SUBJECTIVE.type){
+                                            if(!YanXiuConstant.ANSWER_QUESTION.equals(childTemplate)){
                                                 //如果不是问答题
                                                 if (compare(answerChildList, rightAnswer)) {
                                                     answerChildBean.setIsFinish(true);
@@ -256,11 +259,12 @@ public class QuestionUtils {
                     } else {
                         int status = questionEntity.getPad().getStatus();
                         int costTime = questionEntity.getPad().getCosttime();
+                        String template = questionEntity.getTemplate();
                         AnswerBean answerBean = questionEntity.getAnswerBean();
                         answerBean.setConsumeTime(costTime);
                         List<String> answerList = JSON.parseArray(jsonAnswer, String.class);
 
-                        if (typeId != QUESTION_SUBJECTIVE.type) {
+                        if (!YanXiuConstant.ANSWER_QUESTION.equals(template)) {
                             switch (status) {
                                 case AnswerBean.ANSER_RIGHT:
                                     answerBean.setIsFinish(true);
@@ -299,12 +303,11 @@ public class QuestionUtils {
                             }
                         }
 
-                        if (typeId == QUESTION_SUBJECTIVE.type) {
-                            if (answerList == null || answerList.isEmpty()) {
-                                answerBean.setIsFinish(false);
-                            } else {
-                                answerBean.setIsFinish(true);
-                            }
+                        if (answerList == null || answerList.isEmpty()) {
+                            answerBean.setIsFinish(false);
+                        } else {
+                            answerBean.setIsFinish(true);
+                            answerBean.setSubjectivImageUri((ArrayList<String>) answerList);
                         }
 
                         if (answerList != null && !answerList.isEmpty()) {
@@ -316,8 +319,6 @@ public class QuestionUtils {
                                 answerBean.setSelectType(answerList.get(0));
                             } else if (typeId == QUESTION_FILL_BLANKS.type) {
                                 answerBean.setFillAnswers((ArrayList<String>) answerList);
-                            } else if (typeId == QUESTION_SUBJECTIVE.type) {
-                                answerBean.setSubjectivImageUri((ArrayList<String>) answerList);
                             }
                         }
                     }
