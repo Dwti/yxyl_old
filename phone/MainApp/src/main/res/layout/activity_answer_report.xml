@@ -288,7 +288,7 @@
 
         <ImageView android:layout_width="@dimen/dimen_88"
                    android:layout_height="@dimen/dimen_98"
-                   android:layout_marginBottom="@dimen/dimen_60"
+                   android:layout_marginBottom="@dimen/dimen_30"
                    android:layout_alignParentBottom="true"
                    android:layout_marginLeft="@dimen/dimen_60"
                    android:src="@drawable/answer_report_pencil"/>

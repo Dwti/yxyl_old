@@ -20,6 +20,7 @@ public class QuestionEntity implements YanxiuBaseBean {
 
     private String template;
     private List<String> answer;
+    private int parent_type_id=-1;  //父题的typeid，如果当前题目没有子题的话，parent_type_id等于type_id (此字段主要提供给答题报告按题型分类的时候用)
     private int type_id;
     private String id;
 
@@ -182,6 +183,14 @@ public class QuestionEntity implements YanxiuBaseBean {
 
     public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
+    }
+
+    public int getParent_type_id() {
+        return parent_type_id;
+    }
+
+    public void setParent_type_id(int parent_type_id) {
+        this.parent_type_id = parent_type_id;
     }
 
     public int getType_id() {

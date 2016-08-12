@@ -22,6 +22,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.common.core.utils.LogInfo;
@@ -59,8 +60,12 @@ import com.yanxiu.gphone.student.view.question.report.PercentageBirdLayout;
 
 import java.util.ArrayList;
 import java.util.Formatter;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_READING;
 
@@ -71,6 +76,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 
     private Context mContext;
     private ArrayList<PaperTestEntity> dataList;
+    private ScrollView scrollView;
     private GridView gridView;
     private int gridViewWidth;
     private int gridCount = 5;
@@ -182,6 +188,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         initData();
     }
 
+
     private void initView() {
         ivBack = (ImageView) findViewById(R.id.iv_top_back);
         shareView = (ImageView) findViewById(R.id.report_share);
@@ -194,7 +201,8 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 //        tvReportTimeTitle = (TextView) this.findViewById(R.id.report_time_title);
         tvReportTimeText = (TextView) this.findViewById(R.id.report_time_text);
         ivReportStamp = (ImageView) this.findViewById(R.id.iv_report_stamp);
-        this.findViewById(R.id.report_scrollview).setFocusable(true);
+        scrollView= (ScrollView) findViewById(R.id.report_scrollview);
+        scrollView.setFocusable(true);
         ll_grid = (LinearLayout) findViewById(R.id.ll_grid);
         btnViewResolution = (Button) this.findViewById(R.id.btn_view_resolution);
         loadingLayout = (StudentLoadingLayout) findViewById(R.id.loading_layout);
@@ -258,7 +266,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                 String objectTitile;
                 LogInfo.log("geny", "----questionList data ----" + questionList.size());
                 if (questionList != null && !questionList.isEmpty()) {
-                    addGridView();
+                    addGridView(QuestionUtils.classifyQuestionByType(questionList));
                     int reportSccuracy = (finishCount * 100) / questionCount;
 
                     tvReportNumText.setText(reportSccuracy + "%");
@@ -312,22 +320,27 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         }
     }
 
-    private void addGridView() {
-        int group = 1;
-        for (int i = 0; i < group; i++) {
+    private void addGridView(LinkedHashMap<String,List<QuestionEntity>> linkedHashMap) {
+        if(linkedHashMap == null || linkedHashMap.size()==0)
+            return;
+        Set<Map.Entry<String,List<QuestionEntity>>> set  = linkedHashMap.entrySet();
+        Iterator<Map.Entry<String,List<QuestionEntity>>> iterator = set.iterator();
+        while (iterator.hasNext()){
+            Map.Entry<String,List<QuestionEntity>> entry = iterator.next();
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             TitleView titleView = new TitleView(mContext);
             titleView.setLayoutParams(layoutParams);
-
+            titleView.setTitle(entry.getKey().toString());
             UnMoveGridView gridView = new UnMoveGridView(mContext);
             gridView.setLayoutParams(layoutParams);
-            gridView.setAdapter(new AnswerCardAdapter(questionList));
+            gridView.setAdapter(new AnswerCardAdapter(entry.getValue()));
             gridView.setNumColumns(5);
+            gridView.setHorizontalSpacing(20);
+//            gridView.setSelector();
             gridView.setVerticalSpacing(20);
 
             ll_grid.addView(titleView);
             ll_grid.addView(gridView);
-
         }
     }
 
@@ -840,14 +853,9 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
             AnswerBean answerBean = data.getAnswerBean();
             if (row == null) {
                 LayoutInflater inflater = LayoutInflater.from(mContext);
-                row = inflater.inflate(R.layout.item_report_card, null);
+                row = inflater.inflate(R.layout.item_report_card,null);
                 holder = new ViewHolder();
                 holder.flContent = (RelativeLayout) row.findViewById(R.id.rl_report_content);
-                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) holder.flContent.getLayoutParams();
-                int gridViewWidth = AnswerReportActivity.this.gridViewWidth - (gridView.getHorizontalSpacing() * (gridCount + 1)) - gridView.getPaddingLeft() - gridView.getPaddingRight();
-                int width = gridViewWidth / gridCount;
-                lp.width = width;
-                lp.height = width;
                 holder.ivSign = (TextView) row.findViewById(R.id.answer_report_icon);
                 holder.tvIndex = (TextView) row.findViewById(R.id.answer_report_text);
                 row.setTag(holder);

@@ -12,7 +12,12 @@ import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_FILL_BLANKS;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_JUDGE;
@@ -57,12 +62,14 @@ public class QuestionUtils {
                                     //如果是-1，下面不能再让index++
                                     flag = true;
                                 }
+                                childQuestion.get(j).getQuestions().setParent_type_id(questionEntity.getType_id());
                                 questionList.add(childQuestion.get(j).getQuestions());
                             }
                         }else{
                             questionList.add(questionEntity);
                         }
                     } else {
+                        questionEntity.setParent_type_id(questionEntity.getType_id());
                         questionEntity.setPageIndex(index);
                         questionList.add(questionEntity);
                     }
@@ -493,4 +500,87 @@ public class QuestionUtils {
         }
     }
 
+    public static LinkedHashMap<String,List<QuestionEntity>> classifyQuestionByType(List<QuestionEntity> list){
+        if(list == null || list.size() == 0)
+            return null;
+        LinkedHashMap<String,List<QuestionEntity>> hashMap = new LinkedHashMap<>();
+        int count = list.size();
+        QuestionEntity questionEntity;
+        for(int i =0;i<count;i++){
+            questionEntity = list.get(i);
+            String typeName = getQuestionTypeNameByParentTypeId(questionEntity.getParent_type_id());
+            if(!hashMap.containsKey(typeName)){
+                List<QuestionEntity> tempList = new ArrayList<>();
+                tempList.add(questionEntity);
+                hashMap.put(typeName,tempList);
+            }else{
+                List<QuestionEntity> valueList = hashMap.get(typeName);
+                valueList.add(questionEntity);
+            }
+        }
+        return hashMap;
+    }
+
+    public static String getQuestionTypeNameByParentTypeId(int typeId){
+        String name="";
+        switch (typeId){
+            case 1:
+                name="单选题";
+                break;
+            case 2:
+                name="多选题";
+                break;
+            case 3:
+                name="填空题";
+                break;
+            case 4:
+                name="判断题";
+                break;
+            case 5:
+                name="材料阅读";
+                break;
+            case 6:
+                name="问答题";
+                break;
+            case 7:
+                name="连线题";
+                break;
+            case 8:
+                name="计算题";
+                break;
+            case 13:
+                name="归类题";
+                break;
+            case 14:
+                name="阅读理解";
+                break;
+            case 15:
+                name="完形填空";
+                break;
+            case 16:
+                name="翻译题";
+                break;
+            case 17:
+                name="改错题";
+                break;
+            case 20:
+                name="排序题";
+                break;
+            case 22:
+                name="解答题";
+                break;
+            case 9:
+            case 10:
+            case 11:
+            case 18:
+            case 19:
+            case 21:
+                name="听力题";
+            break;
+            default:
+                break;
+
+        }
+        return name;
+    }
 }
