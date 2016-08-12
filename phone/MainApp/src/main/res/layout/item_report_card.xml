@@ -29,7 +29,6 @@
             android:layout_height="@dimen/dimen_24"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:background="@drawable/answer_report_read"
             android:gravity="center"
             android:textColor="@color/color_white"
             android:textSize="@dimen/dimen_14"

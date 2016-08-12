@@ -54,7 +54,6 @@ import com.yanxiu.gphone.student.view.question.report.PercentageBirdLayout;
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -81,7 +80,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 
     private List<QuestionEntity> questionWrongList;
 
-    private int objectiveCount = 0;
+    private int questionCount = 0;    //题目总数
 
     private LinearLayout ll_grid;
     private Button btnViewResolution;
@@ -138,11 +137,9 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 
     private ShareDialog shareDialog;
 
-    private int sccuracy;
+    private int sccuracy;  //正确率
 
-    private int questionCount;
 
-    private int finishCount;
 
     private boolean isFinishLayout = false;
 
@@ -150,7 +147,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 
 
     private RelativeLayout rlObjectContainer;
-    private int rightCount;    //TODO 需要计算值
+    private int rightCount;
 
 
     public static void launch(Activity context, SubjectExercisesItemBean dataSources, int comeFrom, int flags, boolean isGonePracticeAgain) {
@@ -221,21 +218,13 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
     private void initData() {
         rightQuestionNum = new ArrayList<Integer>();
         dataSources = (SubjectExercisesItemBean) getIntent().getSerializableExtra("subjectExercisesItemBean");
-//        ptype = dataSources.getData().get(0).getPtype();
         comeFrom = getIntent().getIntExtra("comeFrom", -1);
         isGonePracticeAgain = getIntent().getBooleanExtra("isGonePracticeAgain", false);
         if (dataSources != null && dataSources.getData() != null && !dataSources.getData().isEmpty()) {
 
-            questionCount = dataSources.getData().get(0).getPaperTest().size();
-            LogInfo.log("geny", "----questionCount ----" + questionCount);
-            // 主观题和客观题的完成度添加
-            //TODO 计算有问题 需要修改
-            finishCount = questionCount;
-            LogInfo.log("geny", "----finishCount ----" + finishCount);
 
             dataList = new ArrayList<PaperTestEntity>();
             dataList.addAll(dataSources.getData().get(0).getPaperTest());
-            LogInfo.log("geny", "----sub data ----" + dataList.size());
 
 
 
@@ -255,20 +244,21 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 
                 questionList = QuestionUtils.addChildQuestionToParent(dataList);
                 String objectTitile;
-                LogInfo.log("geny", "----questionList data ----" + questionList.size());
                 if (questionList != null && !questionList.isEmpty()) {
+
                     addGridView(QuestionUtils.classifyQuestionByType(questionList));
-                    int reportSccuracy = (finishCount * 100) / questionCount;
+                    //TODO 完成度
+//                    int reportSccuracy = (finishCount * 100) / questionCount;
+                    int reportSccuracy = 20;
 
                     tvReportNumText.setText(reportSccuracy + "%");
                     pbNumText.setAccuracyCount(reportSccuracy);
                     sccuracy = 0;
 
-                    if (questionList != null && !questionList.isEmpty()) {
-                        objectiveCount = questionList.size();
-                        sccuracy = (rightCount * 100) / objectiveCount;
-                        pbAccuracyText.setAccuracyCount(sccuracy);
-                    }
+                    questionCount = questionList.size();
+                    rightCount = QuestionUtils.calculateRightCount(questionList);
+                    sccuracy = (int) (QuestionUtils.calculateRightRate(questionList)*100);
+                    pbAccuracyText.setAccuracyCount(sccuracy);
 
                     tvReportSccuracy.setText(sccuracy + "%");
 
@@ -276,13 +266,8 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                         isAllRight = true;
                     }
 
-                    LogInfo.log("geny", "----rightCount ----" + rightCount);
-                    LogInfo.log("geny", "----sccuracy ----" + sccuracy);
-                    LogInfo.log("geny", "----objectiveCount ----" + objectiveCount);
-
-                    objectTitile = String.format(this.getResources().getString(R.string.objective_title), rightCount, objectiveCount, sccuracy);
+                    objectTitile = String.format(this.getResources().getString(R.string.objective_title), rightCount, questionCount, sccuracy);
                     tvObjectiveLine.setText(objectTitile);
-                    LogInfo.log("geny", "----objectTitile ----" + objectTitile);
 
                     adapter = new AnswerCardAdapter(questionList);
                     gridView_old.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -291,7 +276,6 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                         public void onGlobalLayout() {
                             gridView_old.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                             gridViewWidth = gridView_old.getWidth();
-                            LogInfo.log("geny", "----gridViewWidth ----" + gridViewWidth);
                             gridView_old.setAdapter(adapter);
                             layoutFinishData();
                         }
@@ -345,7 +329,6 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         }
         tvReportTimeText.setText(this.getResources().getString(R.string.answer_cost_time) + formatTime(costTime));
 
-        LogInfo.log("geny", "@#$%^&*!@#$%^&*@#$%^&*#$%^&---------" + isGonePracticeAgain);
 
         if (isGonePracticeAgain) {
             btnPracticeAgain.setVisibility(View.GONE);

@@ -62,7 +62,7 @@ public class QuestionUtils {
                                 childQuestion.get(j).getQuestions().setParent_type_id(questionEntity.getType_id());
                                 questionList.add(childQuestion.get(j).getQuestions());
                             }
-                        }else{
+                        } else {
                             questionList.add(questionEntity);
                         }
                     } else {
@@ -169,7 +169,7 @@ public class QuestionUtils {
 
                     questionEntity.setExtend(paperTestEntity.getExtend());
                     int typeId = questionEntity.getType_id();
-                    if(questionEntity.getPad()==null)
+                    if (questionEntity.getPad() == null)
                         continue;
                     String jsonAnswer = questionEntity.getPad().getJsonAnswer();
 
@@ -218,13 +218,13 @@ public class QuestionUtils {
                                             answerChildBean.setMultiSelect((ArrayList<String>) answerChildList);
                                         } else if (typeId == QUESTION_FILL_BLANKS.type) {
                                             answerChildBean.setFillAnswers((ArrayList<String>) answerChildList);
-                                        }else if (typeId == QUESTION_SUBJECTIVE.type){
+                                        } else if (typeId == QUESTION_SUBJECTIVE.type) {
                                             answerChildBean.setSubjectivImageUri((ArrayList<String>) answerChildList);
                                         }
                                         if (rightAnswer == null || rightAnswer.isEmpty()) {
                                             answerChildBean.setIsFinish(false);
                                         } else {
-                                            if(!YanXiuConstant.ANSWER_QUESTION.equals(childTemplate)){
+                                            if (!YanXiuConstant.ANSWER_QUESTION.equals(childTemplate)) {
                                                 //如果不是问答题
                                                 if (compare(answerChildList, rightAnswer)) {
                                                     answerChildBean.setIsFinish(true);
@@ -233,21 +233,27 @@ public class QuestionUtils {
                                                     answerChildBean.setIsFinish(true);
                                                     answerChildBean.setIsRight(false);
                                                 }
-                                            }else {
-                                                //如果是问答题
-                                                int score = paperList.get(j).getQuestions().getPad().getTeachercheck().getScore();  //老师打的分数，数值范围0-5，0:错；0~5：半对； 5：对
+                                            } else {
+                                                //如果是主观题
                                                 int status = paperList.get(j).getQuestions().getPad().getStatus();
-                                                if (AnswerBean.ANSER_READED == status) {
-                                                    if (score == 0) {
-                                                        answerChildBean.setIsRight(false);
-                                                    } else if (score == 5) {
-                                                        answerChildBean.setIsRight(true);
-                                                    } else if (score > 0 && score < 5) {
-                                                        answerChildBean.setIsHalfRight(true);
+                                                if (paperList.get(j).getQuestions().getPad().getTeachercheck() != null) {
+                                                    int score = paperList.get(j).getQuestions().getPad().getTeachercheck().getScore();  //老师打的分数，数值范围0-5，0:错；0~5：半对； 5：对
+                                                    if (AnswerBean.ANSER_READED == status) {
+                                                        if (score == 0) {
+                                                            answerChildBean.setIsRight(false);
+                                                        } else if (score == 5) {
+                                                            answerChildBean.setIsRight(true);
+                                                        } else if (score > 0 && score < 5) {
+                                                            answerChildBean.setIsHalfRight(true);
+                                                        }
                                                     }
                                                 }
+                                                if (status != AnswerBean.ANSER_UNFINISH) {
+                                                    answerChildBean.setIsFinish(true);
+                                                } else {
+                                                    answerChildBean.setIsFinish(false);
+                                                }
                                                 answerChildBean.setIsSubjective(true);
-                                                answerChildBean.setIsFinish(true);
                                                 answerChildBean.setStatus(status);
                                             }
 
@@ -262,14 +268,11 @@ public class QuestionUtils {
                         String template = questionEntity.getTemplate();
                         AnswerBean answerBean = questionEntity.getAnswerBean();
                         answerBean.setConsumeTime(costTime);
+                        answerBean.setStatus(status);
                         List<String> answerList = JSON.parseArray(jsonAnswer, String.class);
-                        if (answerList == null || answerList.isEmpty()) {
-                            answerBean.setIsFinish(false);
-                        } else {
-                            answerBean.setIsFinish(true);
-                        }
 
                         if (answerList != null && !answerList.isEmpty()) {
+                            answerBean.setIsFinish(true);
                             if (typeId == QUESTION_SINGLE_CHOICES.type) {
                                 answerBean.setSelectType(answerList.get(0));
                             } else if (typeId == QUESTION_MULTI_CHOICES.type) {
@@ -278,19 +281,19 @@ public class QuestionUtils {
                                 answerBean.setSelectType(answerList.get(0));
                             } else if (typeId == QUESTION_FILL_BLANKS.type) {
                                 answerBean.setFillAnswers((ArrayList<String>) answerList);
-                            } else if(typeId == QUESTION_SUBJECTIVE.type){
+                            } else if (typeId == QUESTION_SUBJECTIVE.type) {
                                 answerBean.setSubjectivImageUri((ArrayList<String>) answerList);
                             }
+                        } else {
+                            answerBean.setIsFinish(false);
                         }
 
                         if (!YanXiuConstant.ANSWER_QUESTION.equals(template)) {
                             switch (status) {
                                 case AnswerBean.ANSER_RIGHT:
-                                    answerBean.setIsFinish(true);
                                     answerBean.setIsRight(true);
                                     break;
                                 case AnswerBean.ANSER_WRONG:
-                                    answerBean.setIsFinish(true);
                                     answerBean.setIsRight(false);
                                     break;
                                 case AnswerBean.ANSER_UNFINISH:
@@ -298,27 +301,27 @@ public class QuestionUtils {
                                     break;
                             }
                         } else {
-                            int score = questionEntity.getPad().getTeachercheck().getScore();
                             answerBean.setIsSubjective(true);
-                            //如果是主观题的话，需要给一个状态（批改还是未批改）
-                            answerBean.setStatus(status);
-                            switch (status) {
-                                case AnswerBean.ANSER_UNFINISH:
-                                    answerBean.setIsFinish(false);
-                                    break;
-                                case AnswerBean.ANSER_FINISH:
-                                    answerBean.setIsFinish(true);
-                                    break;
-                                case AnswerBean.ANSER_READED:
-                                    if(score==0){
-                                        answerBean.setIsRight(false);
-                                    }else if(score==5){
-                                        answerBean.setIsRight(true);
-                                    }else if(score>0 && score<5){
-                                        answerBean.setIsHalfRight(true);
-                                    }
-                                    answerBean.setIsFinish(true);
-                                    break;
+                            if (questionEntity.getPad().getTeachercheck() != null) {
+                                int score = questionEntity.getPad().getTeachercheck().getScore();
+                                switch (status) {
+                                    case AnswerBean.ANSER_UNFINISH:
+                                        answerBean.setIsFinish(false);
+                                        break;
+                                    case AnswerBean.ANSER_FINISH:
+                                        answerBean.setIsFinish(true);
+                                        break;
+                                    case AnswerBean.ANSER_READED:
+                                        if (score == 0) {
+                                            answerBean.setIsRight(false);
+                                        } else if (score == 5) {
+                                            answerBean.setIsRight(true);
+                                        } else if (score > 0 && score < 5) {
+                                            answerBean.setIsHalfRight(true);
+                                        }
+                                        answerBean.setIsFinish(true);
+                                        break;
+                                }
                             }
                         }
                     }
@@ -349,7 +352,7 @@ public class QuestionUtils {
                     || dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.CLOZE_QUESTION)
                     || dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.LISTEN_QUESTION)) {
                 List<PaperTestEntity> questionList = dataList.get(i).getQuestions().getChildren();
-                if(questionList == null)
+                if (questionList == null)
                     continue;
                 int childrenCount = questionList.size();
                 boolean isFalse = false;
@@ -489,20 +492,68 @@ public class QuestionUtils {
         }
     }
 
-    public static Map<String,List<QuestionEntity>> classifyQuestionByType(List<QuestionEntity> list){
-        if(list == null || list.size() == 0)
+    /**
+     * 计算正确率,计算规则：主观题只有被批改之后，才会计入在内
+     *
+     * @param list  拆分处理之后的单题集合
+     * @return
+     */
+    public static float calculateRightRate(List<QuestionEntity> list) {
+        if (list == null || list.size() == 0)
+            return 0;
+        float totalCount = 0;
+        float rightCount = 0;
+        float result = 0;
+        for (QuestionEntity entity : list) {
+            if (entity == null)
+                continue;
+            if (YanXiuConstant.ANSWER_QUESTION.equals(entity.getTemplate())) {
+                if (AnswerBean.ANSER_READED == entity.getAnswerBean().getRealStatus()) {
+                    if (entity.getAnswerBean().isRight()) {
+                        rightCount += 1;
+                    } else if (entity.getAnswerBean().isHalfRight()) {
+                        //半对状态算50%正确率
+                        rightCount += 0.5;
+                    }
+                    totalCount += 1;
+                }
+            } else {
+                if (entity.getAnswerBean().isRight()) {
+                    rightCount += 1;
+                }
+                totalCount += 1;
+            }
+        }
+        return Float.parseFloat(String.format("%.2f", rightCount / totalCount));
+    }
+
+    public static int calculateRightCount(List<QuestionEntity> list){
+        if (list == null || list.size() == 0)
+            return 0;
+        int rightCount = 0;
+        for (QuestionEntity entity : list) {
+            if (entity == null)
+                continue;
+            if (entity.getAnswerBean().isRight()) {
+                rightCount += 1;
+            }
+        }
+        return rightCount;
+    }
+    public static Map<String, List<QuestionEntity>> classifyQuestionByType(List<QuestionEntity> list) {
+        if (list == null || list.size() == 0)
             return null;
-        TreeMap<String,List<QuestionEntity>> treeMap = new TreeMap<>(new QuestionTypeComparator());
+        TreeMap<String, List<QuestionEntity>> treeMap = new TreeMap<>(new QuestionTypeComparator());
         int count = list.size();
         QuestionEntity questionEntity;
-        for(int i =0;i<count;i++){
+        for (int i = 0; i < count; i++) {
             questionEntity = list.get(i);
             String typeName = getQuestionTypeNameByParentTypeId(questionEntity.getParent_type_id());
-            if(!treeMap.containsKey(typeName)){
+            if (!treeMap.containsKey(typeName)) {
                 List<QuestionEntity> tempList = new ArrayList<>();
                 tempList.add(questionEntity);
-                treeMap.put(typeName,tempList);
-            }else{
+                treeMap.put(typeName, tempList);
+            } else {
                 List<QuestionEntity> valueList = treeMap.get(typeName);
                 valueList.add(questionEntity);
             }
@@ -510,54 +561,54 @@ public class QuestionUtils {
         return treeMap;
     }
 
-    public static String getQuestionTypeNameByParentTypeId(int typeId){
-        TreeMap<String,String> treeMap = new TreeMap<>();
-        String name="";
-        switch (typeId){
+    public static String getQuestionTypeNameByParentTypeId(int typeId) {
+        TreeMap<String, String> treeMap = new TreeMap<>();
+        String name = "";
+        switch (typeId) {
             case 1:
-                name="单选题";
+                name = "单选题";
                 break;
             case 2:
-                name="多选题";
+                name = "多选题";
                 break;
             case 3:
-                name="填空题";
+                name = "填空题";
                 break;
             case 4:
-                name="判断题";
+                name = "判断题";
                 break;
             case 5:
-                name="材料阅读";
+                name = "材料阅读";
                 break;
             case 6:
-                name="问答题";
+                name = "问答题";
                 break;
             case 7:
-                name="连线题";
+                name = "连线题";
                 break;
             case 8:
-                name="计算题";
+                name = "计算题";
                 break;
             case 13:
-                name="归类题";
+                name = "归类题";
                 break;
             case 14:
-                name="阅读理解";
+                name = "阅读理解";
                 break;
             case 15:
-                name="完形填空";
+                name = "完形填空";
                 break;
             case 16:
-                name="翻译";
+                name = "翻译";
                 break;
             case 17:
-                name="改错";
+                name = "改错";
                 break;
             case 20:
-                name="排序题";
+                name = "排序题";
                 break;
             case 22:
-                name="解答题";
+                name = "解答题";
                 break;
             case 9:
             case 10:
@@ -565,8 +616,8 @@ public class QuestionUtils {
             case 18:
             case 19:
             case 21:
-                name="听力";
-            break;
+                name = "听力";
+                break;
             default:
                 break;
 
@@ -574,62 +625,63 @@ public class QuestionUtils {
         return name;
     }
 
-    public static int getIntValue(String str){
-        int result=0;
-        switch (str){
+    public static int getIntValue(String str) {
+        int result = 0;
+        switch (str) {
             case "听力":
-                result=1;
+                result = 1;
                 break;
             case "单选题":
-                result=2;
+                result = 2;
                 break;
             case "多选题":
-                result=3;
+                result = 3;
                 break;
             case "判断题":
-                result=4;
+                result = 4;
                 break;
             case "连线题":
-                result=5;
+                result = 5;
                 break;
             case "归类题":
-                result=6;
+                result = 6;
                 break;
             case "排序题":
-                result=7;
+                result = 7;
                 break;
             case "完形填空":
-                result=8;
+                result = 8;
                 break;
             case "阅读理解":
-                result=9;
+                result = 9;
                 break;
             case "填空题":
-                result=10;
+                result = 10;
                 break;
             case "改错":
-                result=11;
+                result = 11;
                 break;
             case "翻译":
-                result=12;
+                result = 12;
                 break;
             case "计算题":
-                result=13;
+                result = 13;
                 break;
             case "解答题":
-                result=14;
+                result = 14;
                 break;
             case "问答题":
-                result=15;
+                result = 15;
                 break;
             case "材料阅读":
-                result=16;
+                result = 16;
                 break;
 
         }
         return result;
     }
-    public static class QuestionTypeComparator implements Comparator<String>{
+
+    public static class QuestionTypeComparator implements Comparator<String> {
 
         @Override
         public int compare(String lhs, String rhs) {
