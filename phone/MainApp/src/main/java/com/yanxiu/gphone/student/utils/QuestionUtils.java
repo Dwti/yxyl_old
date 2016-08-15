@@ -60,7 +60,7 @@ public class QuestionUtils {
                                 } else {
                                     childQuestion.get(j).getQuestions().setChildPositionForCard(-1);
                                     position++;
-                                    //如果是-1，下面不能再让index++
+                                    //如果是-1，下面不能再让position++
                                     flag = true;
                                 }
                                 childQuestion.get(j).getQuestions().setParent_type_id(questionEntity.getType_id());
