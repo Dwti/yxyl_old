@@ -35,27 +35,31 @@ public class QuestionUtils {
         boolean flag;
         if (dataList != null) {
             int count = dataList.size();
-            int index = 0;
+            int position = 0;    //记录答题卡的题号之用
+            int index = 0;       //记录题目的真实序号之用
             for (int i = 0; i < count; i++) {
                 flag = false;
                 if (dataList.get(i) != null && dataList.get(i).getQuestions() != null) {
                     QuestionEntity questionEntity = dataList.get(i).getQuestions();
                     int typeId = questionEntity.getType_id();
+                    questionEntity.setPositionForCard(position);
+                    questionEntity.setPageIndex(index);
                     if (questionEntity.getTemplate().equals(YanXiuConstant.MULTI_QUESTION)
                             || questionEntity.getTemplate().equals(YanXiuConstant.CLOZE_QUESTION)
                             || questionEntity.getTemplate().equals(YanXiuConstant.LISTEN_QUESTION)) {
-                        questionEntity.setPageIndex(index);
                         List<PaperTestEntity> childQuestion = questionEntity.getChildren();
                         if (childQuestion != null) {
                             int childCount = childQuestion.size();
                             for (int j = 0; j < childCount; j++) {
+                                childQuestion.get(j).getQuestions().setPositionForCard(position);
                                 childQuestion.get(j).getQuestions().setPageIndex(index);
+                                childQuestion.get(j).getQuestions().setChildPageIndex(j);
                                 if (22 == typeId) {
-                                    //只有是复合题且是解答题的时候，才会有childPageIndex，否则childPageIndex为-1
-                                    childQuestion.get(j).getQuestions().setChildPageIndex(j);
+                                    //只有是复合题且是解答题的时候，才会有childPositionForCard，否则childPositionForCard为-1
+                                    childQuestion.get(j).getQuestions().setChildPositionForCard(j);
                                 } else {
-                                    childQuestion.get(j).getQuestions().setChildPageIndex(-1);
-                                    index++;
+                                    childQuestion.get(j).getQuestions().setChildPositionForCard(-1);
+                                    position++;
                                     //如果是-1，下面不能再让index++
                                     flag = true;
                                 }
@@ -67,11 +71,11 @@ public class QuestionUtils {
                         }
                     } else {
                         questionEntity.setParent_type_id(questionEntity.getType_id());
-                        questionEntity.setPageIndex(index);
                         questionList.add(questionEntity);
                     }
+                    index++;
                     if (!flag)
-                        index++;
+                        position++;
                 } else {
                     LogInfo.log("geny-", "remove item quesition------");
                     nullList.add(dataList.get(i));

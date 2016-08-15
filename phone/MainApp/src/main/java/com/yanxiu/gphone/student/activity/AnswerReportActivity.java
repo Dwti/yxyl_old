@@ -863,10 +863,10 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                     holder.ivSign.setBackgroundResource(R.drawable.answer_report_wrong);
                 }
             }
-            if (data.getChildPageIndex() == -1) {             //等于-1表示不是复合题类型的解答题(只有是复合题且是解答题的时候才需要显示小题号)
-                holder.tvIndex.setText((data.getPageIndex() + 1) + "");
+            if (data.getChildPositionForCard() == -1) {             //等于-1表示不是复合题类型的解答题(只有是复合题且是解答题的时候才需要显示小题号)
+                holder.tvIndex.setText((data.getPositionForCard() + 1) + "");
             } else {
-                holder.tvIndex.setText((data.getPageIndex() + 1) + "-" + (data.getChildPageIndex() + 1));
+                holder.tvIndex.setText((data.getPositionForCard() + 1) + "-" + (data.getChildPositionForCard() + 1));
             }
             return row;
         }

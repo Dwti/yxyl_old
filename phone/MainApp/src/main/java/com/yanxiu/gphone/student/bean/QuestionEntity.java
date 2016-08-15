@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Administrator on 2015/7/24.
  */
 public class QuestionEntity implements YanxiuBaseBean {
-    //智能答题第几页
+    //智能答题第几页 真实的位置，如果有children 就是父题的位置，没有的话就是子题的位置
     private int pageIndex = -1;
 
     private int questionIndex;
@@ -17,6 +17,9 @@ public class QuestionEntity implements YanxiuBaseBean {
 
     //child 第几页
     private int childPageIndex = -1;
+
+    private int positionForCard = -1;   //此位置用于答题卡题号显示
+    private int childPositionForCard = -1; //此位置用于答题卡题号显示
 
     private String template;
     private List<String> answer;
@@ -127,6 +130,22 @@ public class QuestionEntity implements YanxiuBaseBean {
 
     public void setPhotoUri(List<String> photoUri) {
         this.photoUri = photoUri;
+    }
+
+    public int getPositionForCard() {
+        return positionForCard;
+    }
+
+    public void setPositionForCard(int positionForCard) {
+        this.positionForCard = positionForCard;
+    }
+
+    public int getChildPositionForCard() {
+        return childPositionForCard;
+    }
+
+    public void setChildPositionForCard(int childPositionForCard) {
+        this.childPositionForCard = childPositionForCard;
     }
 
     public void setAnswerBean(AnswerBean answerBean) {
