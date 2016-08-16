@@ -228,22 +228,12 @@
                             android:layout_marginTop="@dimen/dimen_10"
                             style="@style/report_bar_txt_style" />
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dimen_1"
-                            android:id="@+id/view_objective_line"
-                            android:layout_below="@id/tv_objective_line"
-                            android:layout_marginLeft="@dimen/dimen_25"
-                            android:layout_marginRight="@dimen/dimen_25"
-                            android:background="@color/color_ccc4a3" />
-
                         <LinearLayout
                             android:id="@+id/ll_grid"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:layout_below="@id/tv_objective_line"
-                            android:layout_marginTop="20dp">
+                            android:layout_below="@id/tv_objective_line">
                             <com.common.core.view.UnMoveGridView
                                 android:id="@+id/answer_report_grid"
                                 style="@style/report_grid_style"
