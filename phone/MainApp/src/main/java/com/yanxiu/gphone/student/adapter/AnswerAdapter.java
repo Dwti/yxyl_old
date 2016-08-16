@@ -158,10 +158,13 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 			int count = dataList.size();
 			mFragments.clear();
 			int pageIndex = 1;
+			int parentIndex = -1;
 			boolean isFirstSub = false;
 			//dataList.get(0).getQuestions().setType_id(16);
 			for(int i = 0; i < count; i++){
 				if(dataList.get(i) != null && dataList.get(i).getQuestions() != null){
+					parentIndex = parentIndex + 1;
+					dataList.get(i).getQuestions().setParentIndex(parentIndex);
 					dataList.get(i).getQuestions().setPageIndex(i);
 					int typeId = dataList.get(i).getQuestions().getType_id();
 					String template = dataList.get(i).getQuestions().getTemplate();
@@ -198,6 +201,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 							if (childQuestion != null ) {
 								int childCount = childQuestion.size();
 								for (int j = 0; j < childCount; j++) {
+									childQuestion.get(j).getQuestions().setParentIndex(parentIndex);
 									childQuestion.get(j).getQuestions().setPageIndex(i);
 									childQuestion.get(j).getQuestions().setChildPageIndex(j);
 								}
@@ -217,6 +221,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 							if (childQuestion != null) {
 								int childCount = childQuestion.size();
 								for (int j = 0; j < childCount; j++) {
+									childQuestion.get(j).getQuestions().setParentIndex(parentIndex);
 									childQuestion.get(j).getQuestions().setPageIndex(i);
 									childQuestion.get(j).getQuestions().setChildPageIndex(j);
 								}
@@ -236,6 +241,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 							if (childQuestion != null ) {
 								int childCount = childQuestion.size();
 								for (int j = 0; j < childCount; j++) {
+									childQuestion.get(j).getQuestions().setParentIndex(parentIndex);
 									childQuestion.get(j).getQuestions().setPageIndex(i);
 									childQuestion.get(j).getQuestions().setChildPageIndex(j);
 								}
@@ -255,6 +261,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 							if (childQuestion != null ) {
 								int childCount = childQuestion.size();
 								for (int j = 0; j < childCount; j++) {
+									childQuestion.get(j).getQuestions().setParentIndex(parentIndex);
 									childQuestion.get(j).getQuestions().setPageIndex(i);
 									childQuestion.get(j).getQuestions().setChildPageIndex(j);
 								}
@@ -269,6 +276,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 							if (childQuestion != null ) {
 								int childCount = childQuestion.size();
 								for (int j = 0; j < childCount; j++) {
+									childQuestion.get(j).getQuestions().setParentIndex(parentIndex);
 									childQuestion.get(j).getQuestions().setPageIndex(i);
 									childQuestion.get(j).getQuestions().setChildPageIndex(j);
 								}
