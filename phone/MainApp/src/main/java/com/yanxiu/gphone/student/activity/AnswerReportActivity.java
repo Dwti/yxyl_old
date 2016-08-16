@@ -3,6 +3,7 @@ package com.yanxiu.gphone.student.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -294,15 +295,19 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         while (iterator.hasNext()){
             Map.Entry<String,List<QuestionEntity>> entry = iterator.next();
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.topMargin=20;
+
             TitleView titleView = new TitleView(mContext);
-            titleView.setLayoutParams(layoutParams);
-            titleView.setTitle(entry.getKey().toString());
+//            titleView.setLayoutParams(layoutParams);
+            titleView.setTitleImage(QuestionUtils.getBmpResIdByName(entry.getKey().toString()));
+
             UnMoveGridView gridView = new UnMoveGridView(mContext);
+            Drawable itemDrawable = getResources().getDrawable(R.drawable.report_grid_item_selector);
             gridView.setLayoutParams(layoutParams);
             gridView.setAdapter(new AnswerCardAdapter(entry.getValue()));
             gridView.setNumColumns(5);
             gridView.setHorizontalSpacing(20);
-//            gridView_old.setSelector();
+            gridView.setSelector(itemDrawable);
             gridView.setVerticalSpacing(20);
 
             ll_grid.addView(titleView);

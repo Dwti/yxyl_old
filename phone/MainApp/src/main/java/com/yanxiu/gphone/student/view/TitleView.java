@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yanxiu.gphone.student.R;
@@ -13,8 +14,8 @@ import com.yanxiu.gphone.student.R;
  * Created by sunpeng on 2016/7/26.
  */
 public class TitleView extends FrameLayout {
-    private TextView tv_text;
 
+    private ImageView iv_title;
     public TitleView(Context context) {
         super(context);
         initView(context);
@@ -32,19 +33,13 @@ public class TitleView extends FrameLayout {
 
     private void initView(Context context){
         View view = LayoutInflater.from(context).inflate(R.layout.titleview,this,true);
-        tv_text = (TextView) view.findViewById(R.id.tv_text);
+        iv_title = (ImageView) view.findViewById(R.id.iv_title);
     }
 
-    public void setTitle(String text){
-        if(tv_text!=null){
-            tv_text.setText(text);
+    public void setTitleImage(int resId){
+        if(iv_title!=null){
+            iv_title.setImageResource(resId);
         }
     }
 
-    public String getTitle(){
-        if(tv_text != null){
-            return tv_text.getText().toString();
-        }
-        return null;
-    }
 }

@@ -24,6 +24,7 @@ import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.utils.Configuration;
 import com.yanxiu.gphone.student.utils.PublicLoadUtils;
+import com.yanxiu.gphone.student.utils.QuestionUtils;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.PublicLoadLayout;
@@ -182,6 +183,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 //                    PaperTestEntity paperTestEntity=dataList.get(0);
 //                    dataSources.getData().get(0).getPaperTest().add(paperTestEntity);
 //                }
+                QuestionUtils.addChildQuestionToParent(dataList);     //对题目的pageIndex childPageIndex,positionForCard,childPositionForCard进行赋值
                 adapter.addDataSources(dataSources);
 //                JudgeQuestionFragment fragment = (JudgeQuestionFragment) adapter.getItem(0);
 //                if(fragment.bean != null)

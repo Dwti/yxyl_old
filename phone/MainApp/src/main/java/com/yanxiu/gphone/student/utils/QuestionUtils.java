@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.common.core.utils.LogInfo;
+import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
@@ -602,10 +603,10 @@ public class QuestionUtils {
                 name = "完形填空";
                 break;
             case 16:
-                name = "翻译";
+                name = "翻译题";
                 break;
             case 17:
-                name = "改错";
+                name = "改错题";
                 break;
             case 20:
                 name = "排序题";
@@ -619,7 +620,7 @@ public class QuestionUtils {
             case 18:
             case 19:
             case 21:
-                name = "听力";
+                name = "听力题";
                 break;
             default:
                 break;
@@ -631,7 +632,7 @@ public class QuestionUtils {
     public static int getIntValue(String str) {
         int result = 0;
         switch (str) {
-            case "听力":
+            case "听力题":
                 result = 1;
                 break;
             case "单选题":
@@ -661,10 +662,10 @@ public class QuestionUtils {
             case "填空题":
                 result = 10;
                 break;
-            case "改错":
+            case "改错题":
                 result = 11;
                 break;
-            case "翻译":
+            case "翻译题":
                 result = 12;
                 break;
             case "计算题":
@@ -684,6 +685,61 @@ public class QuestionUtils {
         return result;
     }
 
+    public static int getBmpResIdByName(String str) {
+        int result = 0;
+        switch (str) {
+            case "听力题":
+                result = R.drawable.tingliti;
+                break;
+            case "单选题":
+                result = R.drawable.danxuanti;
+                break;
+            case "多选题":
+                result = R.drawable.duoxuanti;
+                break;
+            case "判断题":
+                result = R.drawable.panduanti;
+                break;
+            case "连线题":
+                result = R.drawable.lianxianti;
+                break;
+            case "归类题":
+                result = R.drawable.guileiti;
+                break;
+            case "排序题":
+                result = R.drawable.paixuti;
+                break;
+            case "完形填空":
+                result = R.drawable.wanxingtiankong;
+                break;
+            case "阅读理解":
+                result = R.drawable.yuedulijie;
+                break;
+            case "填空题":
+                result = R.drawable.tiankongti;
+                break;
+            case "改错题":
+                result = R.drawable.gaicuoti;
+                break;
+            case "翻译题":
+                result = R.drawable.fanyiti;
+                break;
+            case "计算题":
+                result = R.drawable.jisuanti;
+                break;
+            case "解答题":
+                result = R.drawable.jiedati;
+                break;
+            case "问答题":
+                result = R.drawable.wendati;
+                break;
+            case "材料阅读":
+                result = R.drawable.cailiaoyuedu;
+                break;
+
+        }
+        return result;
+    }
     public static class QuestionTypeComparator implements Comparator<String> {
 
         @Override
