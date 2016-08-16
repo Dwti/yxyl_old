@@ -459,6 +459,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
 
     public void setViewPagerPosition(int position, int childPosition){
         vpAnswer.setCurrentItem(position);
+        ((BaseQuestionFragment)adapter.getmFragments().get(position)).setChildPagerIndex(childPosition);
 //        LogInfo.log("geny", "position" + position + "----childPosition" + childPosition + "----childPosition" + childPosition);
         if(childPosition != -1){
             Fragment fragment = adapter.getItem(position);
@@ -514,7 +515,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
         if(Configuration.isDebug() && btnWrongError != null){
             btnWrongError.setVisibility(View.VISIBLE);
         }
-        Fragment fragment = adapter.getItem(position);
+//        Fragment fragment = adapter.getItem(position);
         List<Fragment> list=((AnswerAdapter)vpAnswer.getAdapter()).getmFragments();
         int sumIndex = 0;
         for (int i=0;i<position;i++){
@@ -524,7 +525,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
 
         LogInfo.log("TTT", "position"+((BaseQuestionFragment) list.get(position)).getChildCount());
         if (nextPager_onclick == 0 || ((BaseQuestionFragment) list.get(position)).getChildCount() == 1) {
-            tvPagerIndex.setText(String.valueOf(sumIndex + 1));
+            tvPagerIndex.setText(String.valueOf(dataSources.getData().get(0).getPaperTest().get(position).getQuestions().getPositionForCard()+1));
         } else {
             tvPagerIndex.setText(String.valueOf(sumIndex + ((BaseQuestionFragment) list.get(position)).getChildCount()));
             nextPager_onclick = 0;
@@ -533,7 +534,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
 
         tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(adapter.getTotalCount())));
         viewPagerLastPosition = position;
-        LogInfo.log("geny", costTime + "---mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm---" + ((PageIndex) fragment).getPageIndex() + "/" + adapter.getTotalCount());
+//        LogInfo.log("geny", costTime + "---mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm---" + ((PageIndex) fragment).getPageIndex() + "/" + adapter.getTotalCount());
         changeCurrentSelData();
 
 

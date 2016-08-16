@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -143,20 +144,6 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                     QuestionEntity questionEntity = answerCardAdapter.getItem(position);
                     ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).setViewPagerPosition(questionEntity.getPageIndex(), questionEntity.getChildPageIndex());
                 }
-//                else{
-//                    Intent intent = new Intent();
-//                    Bundle bundle = new Bundle();
-//                    bundle.putInt("position", position);
-//                    intent.putExtra("data", bundle);
-//                    AnswerCardFragment.this.getActivity().setResult(Activity.RESULT_OK, intent);
-//                    AnswerCardFragment.this.getActivity().finish();
-//
-//                    if(dataList != null && !dataList.isEmpty()){
-//                        AnswerBean bean = dataList.get(position).getQuestions().getAnswerBean();
-//                        int time = bean.getConsumeTime();
-//                        Util.showToast("此题花费-----" + time + "是否正确" + bean.isRight());
-//                    }
-//                }
             }
         });
         btnQuestionSubmit = (Button) rootView.findViewById(R.id.btn_question_submit);
@@ -195,31 +182,6 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
 
         if(dataList != null){
             questionList = QuestionUtils.addChildQuestionToParent(dataList);
-//                    new ArrayList<QuestionEntity>();
-//            int count = dataList.size();
-//            for(int i = 0; i < count; i++){
-//                if(dataList.get(i) != null && dataList.get(i).getQuestions() != null){
-//                    int typeId = dataList.get(i).getQuestions().getType_id();
-//                    if(typeId == QUESTION_READING.type){
-//                        QuestionEntity questionEntity = dataList.get(i).getQuestions();
-//                        if(questionEntity != null){
-//                            List<QuestionEntity> childQuestion = questionEntity.getChildren();
-//                            if(childQuestion != null){
-//                                questionList.addAll(childQuestion);
-//                            }
-//                            int childCount = childQuestion.size();
-//                            for(int j = 0; j < childCount; j++){
-//                                childQuestion.get(j).setPageIndex(i);
-//                                childQuestion.get(j).setChildPageIndex(j);
-//                            }
-//                        }
-//                    }else{
-//                        QuestionEntity questionEntity = dataList.get(i).getQuestions();
-//                        questionEntity.setPageIndex(i);
-//                        questionList.add(questionEntity);
-//                    }
-//                }
-//            }
         }
         if(!TextUtils.isEmpty(questionTitle)){
             tvQuestionTitle.setText(questionTitle);
@@ -298,6 +260,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                     if(dataList != null && !dataList.isEmpty()){
                         int unFinishCount = QuestionUtils.calculationUnFinishQuestion(dataList);
                         if(unFinishCount > 0){
+                            Log.i("unfinish",unFinishCount+"");
                             quitSubmmitDialog();
                         }else{
                             handleUploadSubjectiveImage();
@@ -586,10 +549,10 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
             }else{
                 holder.ivIcon.setBackgroundResource(R.drawable.answer_card_undone);
             }
-            if( data.getChildPageIndex()==-1){             //等于-1表示不是复合题类型的解答题(只有是复合题且是解答题的时候才需要显示小题号)
-                holder.tvIndex.setText((data.getPageIndex()+1)+"");
+            if( data.getChildPositionForCard()==-1){             //等于-1表示不是复合题类型的解答题(只有是复合题且是解答题的时候才需要显示小题号)
+                holder.tvIndex.setText((data.getPositionForCard()+1)+"");
             }else{
-                holder.tvIndex.setText((data.getPageIndex()+1)+"-"+(data.getChildPageIndex()+1));
+                holder.tvIndex.setText((data.getPositionForCard()+1)+"-"+(data.getChildPositionForCard()+1));
             }
             return row;
         }

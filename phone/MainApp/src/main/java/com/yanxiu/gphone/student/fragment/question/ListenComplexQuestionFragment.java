@@ -87,6 +87,14 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     }
 
     @Override
+    public void setChildPagerIndex(int childPagerIndex) {
+        super.setChildPagerIndex(childPagerIndex);
+        if (vpAnswer!=null){
+            vpAnswer.setCurrentItem(childPagerIndex);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (rootView==null) {
             rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_listen_complex_question, null);
@@ -379,7 +387,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         }
         if (vpAnswer != null) {
             if (!is_reduction) {
-                vpAnswer.setCurrentItem(0);
+                vpAnswer.setCurrentItem(childPagerIndex);
             } else {
                 vpAnswer.setCurrentItem(adapter.getCount() - 1);
             }
@@ -396,7 +404,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         super.setRefresh();
         if (vpAnswer != null) {
             if (!is_reduction) {
-                vpAnswer.setCurrentItem(0);
+                vpAnswer.setCurrentItem(childPagerIndex);
             } else {
                 vpAnswer.setCurrentItem(adapter.getCount() - 1);
             }

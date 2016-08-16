@@ -19,7 +19,7 @@ public class QuestionEntity implements YanxiuBaseBean {
         this.parentIndex = parentIndex;
     }
 
-    //智能答题第几页
+    //智能答题第几页 真实的位置，如果有children 就是父题的位置，没有的话就是子题的位置
     private int pageIndex = -1;
 
     private int questionIndex;
@@ -29,8 +29,12 @@ public class QuestionEntity implements YanxiuBaseBean {
     //child 第几页
     private int childPageIndex = -1;
 
+    private int positionForCard = -1;   //此位置用于答题卡题号显示
+    private int childPositionForCard = -1; //此位置用于答题卡题号显示
+
     private String template;
     private List<String> answer;
+    private int parent_type_id=-1;  //父题的typeid，如果当前题目没有子题的话，parent_type_id等于type_id (此字段主要提供给答题报告按题型分类的时候用)
     private int type_id;
     private String id;
 
@@ -130,6 +134,22 @@ public class QuestionEntity implements YanxiuBaseBean {
         this.photoUri = photoUri;
     }
 
+    public int getPositionForCard() {
+        return positionForCard;
+    }
+
+    public void setPositionForCard(int positionForCard) {
+        this.positionForCard = positionForCard;
+    }
+
+    public int getChildPositionForCard() {
+        return childPositionForCard;
+    }
+
+    public void setChildPositionForCard(int childPositionForCard) {
+        this.childPositionForCard = childPositionForCard;
+    }
+
     public void setAnswerBean(AnswerBean answerBean) {
         this.answerBean = answerBean;
     }
@@ -184,6 +204,14 @@ public class QuestionEntity implements YanxiuBaseBean {
 
     public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
+    }
+
+    public int getParent_type_id() {
+        return parent_type_id;
+    }
+
+    public void setParent_type_id(int parent_type_id) {
+        this.parent_type_id = parent_type_id;
     }
 
     public int getType_id() {

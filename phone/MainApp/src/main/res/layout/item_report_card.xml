@@ -1,46 +1,40 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:gravity="center"
+    android:orientation="vertical">
 
 
-    <RelativeLayout android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/rl_report_content"
-                    android:layout_gravity="center">
+    <RelativeLayout
+        android:id="@+id/rl_report_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TextView android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:layout_marginBottom="@dimen/dimen_5"
-                  android:layout_marginRight="@dimen/dimen_5"
-                  android:textColor="@color/color_805500"
-                  android:textStyle="bold"
-                  android:gravity="center"
-                  android:background="@drawable/answer_report_card_bg"
-                  android:textSize="@dimen/dimen_20"
-                  android:id="@+id/answer_report_text" />
+        <TextView
+            android:id="@+id/answer_report_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/dimen_5"
+            android:layout_marginRight="@dimen/dimen_5"
+            android:background="@drawable/answer_report_card_bg"
+            android:gravity="center"
+            android:textColor="@color/color_805500"
+            android:textSize="@dimen/dimen_20"
+            android:textStyle="bold" />
 
         <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
+            android:id="@+id/answer_report_icon"
             android:layout_width="@dimen/dimen_24"
             android:layout_height="@dimen/dimen_24"
-            android:gravity="center"
-            app:type_face="arial_runded_bold.ttf"
-            android:textSize="@dimen/dimen_14"
-            android:textColor="@color/color_white"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:background="@drawable/answer_report_read"
-            android:id="@+id/answer_report_icon"
-            android:layout_gravity="center" />
+            android:gravity="center"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/dimen_14"
+            app:type_face="arial_runded_bold.ttf" />
 
     </RelativeLayout>
 
 
-    <!--<ImageView android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:id="@+id/iv_sub_readed"
-               android:visibility="gone"
-               android:src="@drawable/subject_question_read"
-               android:layout_gravity="right|top" />-->
-
-</FrameLayout>
+</LinearLayout>

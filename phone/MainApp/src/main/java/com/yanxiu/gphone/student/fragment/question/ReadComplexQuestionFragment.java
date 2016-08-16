@@ -81,8 +81,14 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
         }
         return rootView;
     }
-	
-	
+
+    @Override
+    public void setChildPagerIndex(int childPagerIndex) {
+        super.setChildPagerIndex(childPagerIndex);
+        if (vpAnswer!=null){
+            vpAnswer.setCurrentItem(childPagerIndex);
+        }
+    }
 
     private void initData() {
         mResources = getActivity().getResources();
@@ -128,6 +134,7 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
         onPageCount(count);
         vpAnswer.setAdapter(adapter);
         adapter.setViewPager(vpAnswer);
+        vpAnswer.setCurrentItem(childPagerIndex);
 
     }
 
@@ -221,7 +228,7 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
 
         if (vpAnswer != null) {
             if (!is_reduction) {
-                vpAnswer.setCurrentItem(0);
+                vpAnswer.setCurrentItem(childPagerIndex);
             } else {
                 vpAnswer.setCurrentItem(adapter.getCount() - 1);
             }
@@ -239,7 +246,7 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
         super.setRefresh();
         if (vpAnswer != null) {
             if (!is_reduction) {
-                vpAnswer.setCurrentItem(0);
+                vpAnswer.setCurrentItem(childPagerIndex);
             } else {
                 vpAnswer.setCurrentItem(adapter.getCount() - 1);
             }

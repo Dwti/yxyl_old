@@ -12,12 +12,14 @@ import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_FILL_BLANKS;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_JUDGE;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_MULTI_CHOICES;
-import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_READING;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SINGLE_CHOICES;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SUBJECTIVE;
 
@@ -33,41 +35,47 @@ public class QuestionUtils {
         boolean flag;
         if (dataList != null) {
             int count = dataList.size();
-            int index = 0;
+            int position = 0;    //记录答题卡的题号之用
+            int index = 0;       //记录题目的真实序号之用
             for (int i = 0; i < count; i++) {
                 flag = false;
                 if (dataList.get(i) != null && dataList.get(i).getQuestions() != null) {
                     QuestionEntity questionEntity = dataList.get(i).getQuestions();
                     int typeId = questionEntity.getType_id();
+                    questionEntity.setPositionForCard(position);
+                    questionEntity.setPageIndex(index);
                     if (questionEntity.getTemplate().equals(YanXiuConstant.MULTI_QUESTION)
                             || questionEntity.getTemplate().equals(YanXiuConstant.CLOZE_QUESTION)
                             || questionEntity.getTemplate().equals(YanXiuConstant.LISTEN_QUESTION)) {
-                        questionEntity.setPageIndex(index);
                         List<PaperTestEntity> childQuestion = questionEntity.getChildren();
                         if (childQuestion != null) {
                             int childCount = childQuestion.size();
                             for (int j = 0; j < childCount; j++) {
+                                childQuestion.get(j).getQuestions().setPositionForCard(position);
                                 childQuestion.get(j).getQuestions().setPageIndex(index);
+                                childQuestion.get(j).getQuestions().setChildPageIndex(j);
                                 if (22 == typeId) {
-                                    //只有是复合题且是解答题的时候，才会有childPageIndex，否则childPageIndex为-1
-                                    childQuestion.get(j).getQuestions().setChildPageIndex(j);
+                                    //只有是复合题且是解答题的时候，才会有childPositionForCard，否则childPositionForCard为-1
+                                    childQuestion.get(j).getQuestions().setChildPositionForCard(j);
                                 } else {
-                                    childQuestion.get(j).getQuestions().setChildPageIndex(-1);
-                                    index++;
-                                    //如果是-1，下面不能再让index++
+                                    childQuestion.get(j).getQuestions().setChildPositionForCard(-1);
+                                    position++;
+                                    //如果是-1，下面不能再让position++
                                     flag = true;
                                 }
+                                childQuestion.get(j).getQuestions().setParent_type_id(questionEntity.getType_id());
                                 questionList.add(childQuestion.get(j).getQuestions());
                             }
-                        }else{
+                        } else {
                             questionList.add(questionEntity);
                         }
                     } else {
-                        questionEntity.setPageIndex(index);
+                        questionEntity.setParent_type_id(questionEntity.getType_id());
                         questionList.add(questionEntity);
                     }
+                    index++;
                     if (!flag)
-                        index++;
+                        position++;
                 } else {
                     LogInfo.log("geny-", "remove item quesition------");
                     nullList.add(dataList.get(i));
@@ -159,18 +167,13 @@ public class QuestionUtils {
             int count = dataList.size();
             for (int i = 0; i < count; i++) {
                 if (dataList.get(i) != null && dataList.get(i).getQuestions() != null) {
-                    //subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().setExtend(subjectEditionBean.getData().get(0).getPaperTest().get(i).getExtend());
-                    //subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().setPadBean(subjectEditionBean.getData().get(0).getPaperTest().get(i).getPad());
-                    if (subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getPad() != null) {
-                        LogInfo.log("geny", "----initDataWithAnswer getPad ----" + subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getPad().toString());
-                    } else {
-                        LogInfo.log("geny", "----initDataWithAnswer getPad ---- null");
-                    }
-                    int typeId = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getType_id();
                     if (subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getPad() == null) {
                         continue;
                     }
-                    String jsonAnswer = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getPad().getJsonAnswer();
+                    PaperTestEntity paperTestEntity = dataList.get(i);
+                    QuestionEntity questionEntity = paperTestEntity.getQuestions();
+                    questionEntity.setExtend(paperTestEntity.getExtend());
+                    int typeId = questionEntity.getType_id();
                     int status = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getPad().getStatus();
                     int costTime = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getPad().getCosttime();
                     AnswerBean answerBean = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getAnswerBean();
@@ -202,18 +205,22 @@ public class QuestionUtils {
                                 break;
                         }
                     }
+                    if (questionEntity.getPad() == null)
+                        continue;
+                    String jsonAnswer = questionEntity.getPad().getJsonAnswer();
 
-                    //if(typeId == QUESTION_READING.type){
-                    if (dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.MULTI_QUESTION)
-                            || dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.CLOZE_QUESTION)
-                            || dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.LISTEN_QUESTION)) {
+                    //如果是复合类的题
+                    if (questionEntity.getTemplate().equals(YanXiuConstant.MULTI_QUESTION)
+                            || questionEntity.getTemplate().equals(YanXiuConstant.CLOZE_QUESTION)
+                            || questionEntity.getTemplate().equals(YanXiuConstant.LISTEN_QUESTION)) {
+
                         List<ReadingAnswer> answerList = JSON.parseArray(jsonAnswer, ReadingAnswer.class);
                         if (answerList != null && !answerList.isEmpty()) {
-                            List<PaperTestEntity> questionList = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren();
-                            if (questionList == null) {
+                            List<PaperTestEntity> paperList = questionEntity.getChildren();
+                            if (paperList == null) {
                                 continue;
                             }
-                            int childrenCount = questionList.size();
+                            int childrenCount = paperList.size();
                             for (int j = 0; j < childrenCount; j++) {
                                 List<String> answerChildList;
                                 if (j >= answerList.size()) {
@@ -221,13 +228,14 @@ public class QuestionUtils {
                                 } else {
                                     answerChildList = answerList.get(j).getAnswer();
                                 }
-                                if (subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j) == null) {
+                                if (paperList.get(j) == null) {
                                     continue;
                                 }
-                                List<String> rightAnswer = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getQuestions().getAnswer();
+                                List<String> rightAnswer = paperList.get(j).getQuestions().getAnswer();
                                 if (answerChildList != null && !answerChildList.isEmpty()) {
-                                    AnswerBean answerChildBean = questionList.get(j).getQuestions().getAnswerBean();
-                                    typeId = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getQuestions().getType_id();
+                                    AnswerBean answerChildBean = paperList.get(j).getQuestions().getAnswerBean();
+                                    String childTemplate = questionEntity.getChildren().get(j).getQuestions().getTemplate();
+                                    typeId = questionEntity.getChildren().get(j).getQuestions().getType_id();
                                     if (typeId == QUESTION_SINGLE_CHOICES.type || typeId == QUESTION_JUDGE.type) {
                                         answerChildBean.setSelectType(answerChildList.get(0));
                                         if (rightAnswer != null && !rightAnswer.isEmpty()) {
@@ -241,39 +249,62 @@ public class QuestionUtils {
                                         } else {
                                             answerChildBean.setIsFinish(false);
                                         }
-                                    } else if (typeId == QUESTION_MULTI_CHOICES.type || typeId == QUESTION_FILL_BLANKS.type) {
+                                    } else if (typeId == QUESTION_MULTI_CHOICES.type || typeId == QUESTION_FILL_BLANKS.type || typeId == QUESTION_SUBJECTIVE.type) {
                                         if (typeId == QUESTION_MULTI_CHOICES.type) {
                                             answerChildBean.setMultiSelect((ArrayList<String>) answerChildList);
                                         } else if (typeId == QUESTION_FILL_BLANKS.type) {
                                             answerChildBean.setFillAnswers((ArrayList<String>) answerChildList);
+                                        } else if (typeId == QUESTION_SUBJECTIVE.type) {
+                                            answerChildBean.setSubjectivImageUri((ArrayList<String>) answerChildList);
                                         }
                                         if (rightAnswer == null || rightAnswer.isEmpty()) {
                                             answerChildBean.setIsFinish(false);
                                         } else {
-                                            if (compare(answerChildList, rightAnswer)) {
-                                                answerChildBean.setIsFinish(true);
-                                                answerChildBean.setIsRight(true);
+                                            if (!YanXiuConstant.ANSWER_QUESTION.equals(childTemplate)) {
+                                                //如果不是问答题
+                                                if (compare(answerChildList, rightAnswer)) {
+                                                    answerChildBean.setIsFinish(true);
+                                                    answerChildBean.setIsRight(true);
+                                                } else {
+                                                    answerChildBean.setIsFinish(true);
+                                                    answerChildBean.setIsRight(false);
+                                                }
                                             } else {
-                                                answerChildBean.setIsFinish(true);
-                                                answerChildBean.setIsRight(false);
+                                                //如果是主观题
+                                                if (paperList.get(j).getQuestions().getPad().getTeachercheck() != null) {
+                                                    int score = paperList.get(j).getQuestions().getPad().getTeachercheck().getScore();  //老师打的分数，数值范围0-5，0:错；0~5：半对； 5：对
+                                                    if (AnswerBean.ANSER_READED == status) {
+                                                        if (score == 0) {
+                                                            answerChildBean.setIsRight(false);
+                                                        } else if (score == 5) {
+                                                            answerChildBean.setIsRight(true);
+                                                        } else if (score > 0 && score < 5) {
+                                                            answerChildBean.setIsHalfRight(true);
+                                                        }
+                                                    }
+                                                }
+                                                if (status != AnswerBean.ANSER_UNFINISH) {
+                                                    answerChildBean.setIsFinish(true);
+                                                } else {
+                                                    answerChildBean.setIsFinish(false);
+                                                }
+                                                answerChildBean.setIsSubjective(true);
+                                                answerChildBean.setStatus(status);
                                             }
+
                                         }
                                     }
                                 }
                             }
                         }
                     } else {
+                        String template = questionEntity.getTemplate();
+                        answerBean.setConsumeTime(costTime);
+                        answerBean.setStatus(status);
                         List<String> answerList = JSON.parseArray(jsonAnswer, String.class);
 
-                        if (typeId == QUESTION_SUBJECTIVE.type) {
-                            if (answerList == null || answerList.isEmpty()) {
-                                answerBean.setIsFinish(false);
-                            } else {
-                                answerBean.setIsFinish(true);
-                            }
-                        }
-
                         if (answerList != null && !answerList.isEmpty()) {
+                            answerBean.setIsFinish(true);
                             if (typeId == QUESTION_SINGLE_CHOICES.type) {
                                 answerBean.setSelectType(answerList.get(0));
                             } else if (typeId == QUESTION_MULTI_CHOICES.type) {
@@ -284,6 +315,45 @@ public class QuestionUtils {
                                 answerBean.setFillAnswers((ArrayList<String>) answerList);
                             } else if (typeId == QUESTION_SUBJECTIVE.type) {
                                 answerBean.setSubjectivImageUri((ArrayList<String>) answerList);
+                            }
+                        } else {
+                            answerBean.setIsFinish(false);
+                        }
+
+                        if (!YanXiuConstant.ANSWER_QUESTION.equals(template)) {
+                            switch (status) {
+                                case AnswerBean.ANSER_RIGHT:
+                                    answerBean.setIsRight(true);
+                                    break;
+                                case AnswerBean.ANSER_WRONG:
+                                    answerBean.setIsRight(false);
+                                    break;
+                                case AnswerBean.ANSER_UNFINISH:
+                                    answerBean.setIsFinish(false);
+                                    break;
+                            }
+                        } else {
+                            answerBean.setIsSubjective(true);
+                            if (questionEntity.getPad().getTeachercheck() != null) {
+                                int score = questionEntity.getPad().getTeachercheck().getScore();
+                                switch (status) {
+                                    case AnswerBean.ANSER_UNFINISH:
+                                        answerBean.setIsFinish(false);
+                                        break;
+                                    case AnswerBean.ANSER_FINISH:
+                                        answerBean.setIsFinish(true);
+                                        break;
+                                    case AnswerBean.ANSER_READED:
+                                        if (score == 0) {
+                                            answerBean.setIsRight(false);
+                                        } else if (score == 5) {
+                                            answerBean.setIsRight(true);
+                                        } else if (score > 0 && score < 5) {
+                                            answerBean.setIsHalfRight(true);
+                                        }
+                                        answerBean.setIsFinish(true);
+                                        break;
+                                }
                             }
                         }
                     }
@@ -310,13 +380,11 @@ public class QuestionUtils {
             return 0;
         }
         for (int i = 0; i < count; i++) {
-
-            //if(dataList.get(i).getQuestions() != null && dataList.get(i).getQuestions().getChildren() != null && dataList.get(i).getQuestions().getType_id() == QUESTION_READING.type){
             if (dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.MULTI_QUESTION)
                     || dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.CLOZE_QUESTION)
                     || dataList.get(i).getQuestions().getTemplate().equals(YanXiuConstant.LISTEN_QUESTION)) {
                 List<PaperTestEntity> questionList = dataList.get(i).getQuestions().getChildren();
-                if(questionList==null)
+                if (questionList == null)
                     continue;
                 int childrenCount = questionList.size();
                 boolean isFalse = false;
@@ -453,6 +521,203 @@ public class QuestionUtils {
                     index++;
                 }
             }
+        }
+    }
+
+    /**
+     * 计算正确率,计算规则：主观题只有被批改之后，才会计入在内
+     *
+     * @param list  拆分处理之后的单题集合
+     * @return
+     */
+    public static float calculateRightRate(List<QuestionEntity> list) {
+        if (list == null || list.size() == 0)
+            return 0;
+        float totalCount = 0;
+        float rightCount = 0;
+        float result = 0;
+        for (QuestionEntity entity : list) {
+            if (entity == null)
+                continue;
+            if (YanXiuConstant.ANSWER_QUESTION.equals(entity.getTemplate())) {
+                if (AnswerBean.ANSER_READED == entity.getAnswerBean().getRealStatus()) {
+                    if (entity.getAnswerBean().isRight()) {
+                        rightCount += 1;
+                    } else if (entity.getAnswerBean().isHalfRight()) {
+                        //半对状态算50%正确率
+                        rightCount += 0.5;
+                    }
+                    totalCount += 1;
+                }
+            } else {
+                if (entity.getAnswerBean().isRight()) {
+                    rightCount += 1;
+                }
+                totalCount += 1;
+            }
+        }
+        return Float.parseFloat(String.format("%.2f", rightCount / totalCount));
+    }
+
+    public static int calculateRightCount(List<QuestionEntity> list){
+        if (list == null || list.size() == 0)
+            return 0;
+        int rightCount = 0;
+        for (QuestionEntity entity : list) {
+            if (entity == null)
+                continue;
+            if (entity.getAnswerBean().isRight()) {
+                rightCount += 1;
+            }
+        }
+        return rightCount;
+    }
+    public static Map<String, List<QuestionEntity>> classifyQuestionByType(List<QuestionEntity> list) {
+        if (list == null || list.size() == 0)
+            return null;
+        TreeMap<String, List<QuestionEntity>> treeMap = new TreeMap<>(new QuestionTypeComparator());
+        int count = list.size();
+        QuestionEntity questionEntity;
+        for (int i = 0; i < count; i++) {
+            questionEntity = list.get(i);
+            String typeName = getQuestionTypeNameByParentTypeId(questionEntity.getParent_type_id());
+            if (!treeMap.containsKey(typeName)) {
+                List<QuestionEntity> tempList = new ArrayList<>();
+                tempList.add(questionEntity);
+                treeMap.put(typeName, tempList);
+            } else {
+                List<QuestionEntity> valueList = treeMap.get(typeName);
+                valueList.add(questionEntity);
+            }
+        }
+        return treeMap;
+    }
+
+    public static String getQuestionTypeNameByParentTypeId(int typeId) {
+        TreeMap<String, String> treeMap = new TreeMap<>();
+        String name = "";
+        switch (typeId) {
+            case 1:
+                name = "单选题";
+                break;
+            case 2:
+                name = "多选题";
+                break;
+            case 3:
+                name = "填空题";
+                break;
+            case 4:
+                name = "判断题";
+                break;
+            case 5:
+                name = "材料阅读";
+                break;
+            case 6:
+                name = "问答题";
+                break;
+            case 7:
+                name = "连线题";
+                break;
+            case 8:
+                name = "计算题";
+                break;
+            case 13:
+                name = "归类题";
+                break;
+            case 14:
+                name = "阅读理解";
+                break;
+            case 15:
+                name = "完形填空";
+                break;
+            case 16:
+                name = "翻译";
+                break;
+            case 17:
+                name = "改错";
+                break;
+            case 20:
+                name = "排序题";
+                break;
+            case 22:
+                name = "解答题";
+                break;
+            case 9:
+            case 10:
+            case 11:
+            case 18:
+            case 19:
+            case 21:
+                name = "听力";
+                break;
+            default:
+                break;
+
+        }
+        return name;
+    }
+
+    public static int getIntValue(String str) {
+        int result = 0;
+        switch (str) {
+            case "听力":
+                result = 1;
+                break;
+            case "单选题":
+                result = 2;
+                break;
+            case "多选题":
+                result = 3;
+                break;
+            case "判断题":
+                result = 4;
+                break;
+            case "连线题":
+                result = 5;
+                break;
+            case "归类题":
+                result = 6;
+                break;
+            case "排序题":
+                result = 7;
+                break;
+            case "完形填空":
+                result = 8;
+                break;
+            case "阅读理解":
+                result = 9;
+                break;
+            case "填空题":
+                result = 10;
+                break;
+            case "改错":
+                result = 11;
+                break;
+            case "翻译":
+                result = 12;
+                break;
+            case "计算题":
+                result = 13;
+                break;
+            case "解答题":
+                result = 14;
+                break;
+            case "问答题":
+                result = 15;
+                break;
+            case "材料阅读":
+                result = 16;
+                break;
+
+        }
+        return result;
+    }
+
+    public static class QuestionTypeComparator implements Comparator<String> {
+
+        @Override
+        public int compare(String lhs, String rhs) {
+            return getIntValue(lhs) - getIntValue(rhs);
         }
     }
 

@@ -73,8 +73,14 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
         initData();
         return rootView;
     }
-	
-	
+
+    @Override
+    public void setChildPagerIndex(int childPagerIndex) {
+        super.setChildPagerIndex(childPagerIndex);
+        if (vpAnswer!=null){
+            vpAnswer.setCurrentItem(childPagerIndex);
+        }
+    }
 
     private void initData() {
         mResources = getActivity().getResources();
@@ -120,7 +126,7 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
         onPageCount(count);
         vpAnswer.setAdapter(adapter);
         adapter.setViewPager(vpAnswer);
-
+        vpAnswer.setCurrentItem(childPagerIndex);
     }
 
     public void onPageCount(int count) {
@@ -211,7 +217,10 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
 
         if (vpAnswer != null) {
             if (!is_reduction) {
-                vpAnswer.setCurrentItem(0);
+//                if (childPagerIndex!=0){
+//
+//                }
+                vpAnswer.setCurrentItem(childPagerIndex);
             } else {
                 vpAnswer.setCurrentItem(adapter.getCount() - 1);
             }
