@@ -167,44 +167,11 @@ public class QuestionUtils {
             int count = dataList.size();
             for (int i = 0; i < count; i++) {
                 if (dataList.get(i) != null && dataList.get(i).getQuestions() != null) {
-                    if (subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getPad() == null) {
-                        continue;
-                    }
+
                     PaperTestEntity paperTestEntity = dataList.get(i);
                     QuestionEntity questionEntity = paperTestEntity.getQuestions();
                     questionEntity.setExtend(paperTestEntity.getExtend());
                     int typeId = questionEntity.getType_id();
-                    int status = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getPad().getStatus();
-                    int costTime = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getPad().getCosttime();
-                    AnswerBean answerBean = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getAnswerBean();
-                    answerBean.setConsumeTime(costTime);
-                    if (typeId != QUESTION_SUBJECTIVE.type) {
-                        switch (status) {
-                            case AnswerBean.ANSER_RIGHT:
-                                answerBean.setIsFinish(true);
-                                answerBean.setIsRight(true);
-                                break;
-                            case AnswerBean.ANSER_WRONG:
-                                answerBean.setIsFinish(true);
-                                answerBean.setIsRight(false);
-                                break;
-                            case AnswerBean.ANSER_UNFINISH:
-                                answerBean.setIsFinish(false);
-                                break;
-                        }
-                    } else {
-                        switch (status) {
-                            case AnswerBean.ANSER_UNFINISH:
-                                answerBean.setIsFinish(false);
-                                break;
-                            case AnswerBean.ANSER_FINISH:
-                                answerBean.setIsFinish(true);
-                                break;
-                            case AnswerBean.ANSER_READED:
-                                answerBean.setIsSubjective(true);
-                                break;
-                        }
-                    }
                     if (questionEntity.getPad() == null)
                         continue;
                     String jsonAnswer = questionEntity.getPad().getJsonAnswer();
@@ -271,6 +238,7 @@ public class QuestionUtils {
                                                 }
                                             } else {
                                                 //如果是主观题
+                                                int status = paperList.get(j).getQuestions().getPad().getStatus();
                                                 if (paperList.get(j).getQuestions().getPad().getTeachercheck() != null) {
                                                     int score = paperList.get(j).getQuestions().getPad().getTeachercheck().getScore();  //老师打的分数，数值范围0-5，0:错；0~5：半对； 5：对
                                                     if (AnswerBean.ANSER_READED == status) {
@@ -298,7 +266,10 @@ public class QuestionUtils {
                             }
                         }
                     } else {
+                        int status = questionEntity.getPad().getStatus();
+                        int costTime = questionEntity.getPad().getCosttime();
                         String template = questionEntity.getTemplate();
+                        AnswerBean answerBean = questionEntity.getAnswerBean();
                         answerBean.setConsumeTime(costTime);
                         answerBean.setStatus(status);
                         List<String> answerList = JSON.parseArray(jsonAnswer, String.class);
