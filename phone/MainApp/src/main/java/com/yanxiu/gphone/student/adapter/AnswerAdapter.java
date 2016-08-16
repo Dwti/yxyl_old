@@ -304,7 +304,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 			//data 中数据为数组 只是去数组中的第一个item
 			int count = paperList.size();
 			dataList.addAll(paperList);
-			mFragments.clear();
+//			mFragments.clear();
 			for(int i = 0; i < count; i++){
 				if(paperList.get(i) != null && paperList.get(i).getQuestions() != null){
 					int typeId = paperList.get(i).getQuestions().getType_id();
@@ -330,17 +330,19 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 					}else if (template.equals(YanXiuConstant.CLOZE_QUESTION)){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_CLOZE_COMPLEX, paperList.get(i).getQuestions(), answerViewTypyBean, 0);
 					}
-					((QuestionsListener)fragment).flipNextPager(this);
-					((QuestionsListener)fragment).setDataSources(
-							paperList.get(i).getQuestions().getAnswerBean());
-					mFragments.add(fragment);
+					if (fragment!=null) {
+						((QuestionsListener) fragment).flipNextPager(this);
+						((QuestionsListener) fragment).setDataSources(
+								paperList.get(i).getQuestions().getAnswerBean());
+						mFragments.add(fragment);
+					}
 				}
 			}
 //			if(!isResolution && !isWrongSet){
 //				mFragments.add(new AnswerCardFragment());
 //				((AnswerCardFragment)mFragments.get(count)).setDataSources(subjectExercisesItemBean);
 //			}
-			notifyDataSetChanged();
+			this.notifyDataSetChanged();
 		}
 	}
 

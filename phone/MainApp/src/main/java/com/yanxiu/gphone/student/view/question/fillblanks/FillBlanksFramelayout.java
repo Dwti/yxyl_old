@@ -102,6 +102,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
         tvFillBlank = (YXiuAnserTextView) this.findViewById(R.id.tv_fill_blanks);
         int px = DensityUtils.dip2px(mCtx, 15);
         textSize = DensityUtils.px2sp(mCtx,px);
+        tvFillBlank.setTextSize(textSize);
     }
 
     public void setAnswerViewTypyBean(int answerViewTypyBean) {
@@ -293,9 +294,9 @@ public class FillBlanksFramelayout extends FrameLayout implements
             }
         }else{
             if(CommonCoreUtil.getSDK() >= 21){
-                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() /2) * 15), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()*3/2)+10);
+                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() /2) * 15), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()*3/2));
             }else{
-                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() /2) * 15), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()/3)+10);
+                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() /2) * 15), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()*2/3)+10);
             }
         }
         params.leftMargin = (int)xAxisLeft;

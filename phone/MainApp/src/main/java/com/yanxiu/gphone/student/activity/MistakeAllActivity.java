@@ -182,6 +182,9 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                     for (int i = 0; i < exerciseData.size(); i++) {
                         data.addAll(exerciseData.get(i).getPaperTest());
                     }
+
+                    CleanData(data);
+
                     if (data != null && data.size() > 0) {
                         if (isLoaderMore) {
                             pageIndex += 1;
@@ -274,6 +277,17 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                     }
                 }
             }.start();
+        }
+    }
+
+    private void CleanData(List<PaperTestEntity> data) {
+        for (int i=0;i<data.size();){
+            if (data.get(i).getQuestions().getExtend()==null){
+                data.remove(i);
+                i=i;
+            }else {
+                i++;
+            }
         }
     }
 

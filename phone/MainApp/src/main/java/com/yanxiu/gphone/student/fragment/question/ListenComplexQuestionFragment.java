@@ -533,7 +533,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
 
     @Override
     public int getChildCount() {
-        if (adapter != null) {
+        if (adapter != null&&adapter.getCount()!=0) {
             return adapter.getCount();
         } else {
             return super.getChildCount();

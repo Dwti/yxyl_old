@@ -152,21 +152,22 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
 //            btnNextQuestion.setVisibility(View.VISIBLE);
 //        }
 
-        List<Fragment> list=((AnswerAdapter)vpAnswer.getAdapter()).getmFragments();
-        int sumIndex = 0;
-        for (int i=0;i<position;i++){
-            BaseQuestionFragment fragment1= (BaseQuestionFragment) list.get(i);
-            sumIndex = sumIndex + fragment1.getChildCount();
-        }
+//        List<Fragment> list=((AnswerAdapter)vpAnswer.getAdapter()).getmFragments();
+//        int sumIndex = 0;
+//        for (int i=0;i<position;i++){
+//            BaseQuestionFragment fragment1= (BaseQuestionFragment) list.get(i);
+//            sumIndex = sumIndex + fragment1.getChildCount();
+//        }
 
-        if (nextPager_onclick == 0 || ((BaseQuestionFragment) list.get(position)).getChildCount() == 1) {
-            tvPagerIndex.setText(String.valueOf(sumIndex + 1));
-        } else {
-            tvPagerIndex.setText(String.valueOf(sumIndex + ((BaseQuestionFragment) list.get(position)).getChildCount()));
-            nextPager_onclick = 0;
-        }
+        /**按牛的逻辑需要去掉这个页码显示问题*/
+//        if (nextPager_onclick == 0 || ((BaseQuestionFragment) list.get(position)).getChildCount() == 1) {
+//            tvPagerIndex.setText(String.valueOf(sumIndex + 1));
+//        } else {
+//            tvPagerIndex.setText(String.valueOf(sumIndex + ((BaseQuestionFragment) list.get(position)).getChildCount()));
+//            nextPager_onclick = 0;
+//        }
+        tvPagerIndex.setText(String.valueOf(position + 1));
 
-//        tvPagerIndex.setText(String.valueOf(position + 1));
         tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf((wrongCounts - delQueNum))));
         pageIndex = position;
         int currentTotal = currentPageIndex * YanXiuConstant.YX_PAGESIZE_CONSTANT;
@@ -188,7 +189,8 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
 
     public void setIndexFromRead(int position){
         LogInfo.log("TTTT", "test"+position);
-        tvPagerIndex.setText(position+"");
+        /**按牛的逻辑需要去掉这个页码显示问题*/
+//        tvPagerIndex.setText(position+"/"+String.valueOf((wrongCounts - delQueNum)));
     }
 
     public void selectViewPager(){
@@ -235,7 +237,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
             }.start();
         } else {
             mRequestWrongQuestionTask = new RequestWrongAllQuestionTask(WrongAnswerViewActivity.this, stageId,
-                    subjectId, currentPage, currentId, 2, mWrongQuesAsyncCallBack);
+                    subjectId, currentPage, "0", 2, mWrongQuesAsyncCallBack);
             mRequestWrongQuestionTask.start();
             /*mRequestWrongQuestionTask = new RequestWrongQuestionTask(WrongAnswerViewActivity.this, stageId,
                     subjectId, editionId, chapterId, sectionId, volumeId, currentPage, currentId, uniteId, isChapterSection, mWrongQuesAsyncCallBack);
@@ -320,6 +322,9 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
             if (subjectExercisesItemBean.getData() != null && subjectExercisesItemBean.getData().size() >= 1) {
                 QuestionUtils.initDataWithAnswer(subjectExercisesItemBean);
                 currentPageIndex++;
+
+                CleanData(subjectExercisesItemBean.getData().get(0).getPaperTest());
+
                 dataSources.getData().get(0).getPaperTest().addAll(subjectExercisesItemBean.getData().get(0).getPaperTest());
                 adapter.addDataSourcesMore(subjectExercisesItemBean.getData().get(0).getPaperTest());
             } else {
@@ -336,6 +341,18 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
             }
         }
     };
+
+    private void CleanData(List<PaperTestEntity> data) {
+        for (int i=0;i<data.size();){
+            if (data.get(i).getQuestions().getExtend()==null){
+                data.remove(i);
+                i=i;
+            }else {
+                i++;
+            }
+        }
+    }
+
     private void finishResult(boolean isDelAll){
         if(delQuestionTmpList != null && delQuestionTmpList.size() > 0){
             PublicErrorQuestionCollectionBean.deleteItemList(volumeId, delQuestionTmpList);

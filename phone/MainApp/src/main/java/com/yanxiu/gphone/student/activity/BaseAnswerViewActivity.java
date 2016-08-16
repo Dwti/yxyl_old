@@ -352,7 +352,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
                 btnLastQuestion.setVisibility(View.VISIBLE);
             }
 
-            if(vpAnswer.getCurrentItem() == adapter.getTotalCount() - 1){
+            if(vpAnswer.getCurrentItem() == adapter.getCount() - 1){
                 btnNextQuestion.setVisibility(View.GONE);
             }else {
                 btnNextQuestion.setVisibility(View.VISIBLE);
