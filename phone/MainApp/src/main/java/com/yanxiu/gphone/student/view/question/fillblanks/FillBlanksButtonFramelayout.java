@@ -255,7 +255,6 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         setTextViewSelect(position);
     }
 
-
     public void setTextViewSelect(int position){
         for (int i=0;i<list_textview.size();i++){
             TextView textView=list_textview.get(i);

@@ -83,6 +83,12 @@ public class BaseQuestionFragment extends Fragment {
                 ivTopIcon.setImageResource(R.drawable.gestalt_complex_title_bg);
             }else if ((9<=typeId && typeId<=12) || typeId==18 || typeId==19 || typeId==21){
                 ivTopIcon.setImageResource(R.drawable.listen_complex_title_bg);
+            }else if (typeId==16){
+                ivTopIcon.setImageResource(R.drawable.translation_title_bg);
+            }else if (typeId==17){
+                ivTopIcon.setImageResource(R.drawable.subjects_title_bg);
+            }else if (typeId==20){
+                ivTopIcon.setImageResource(R.drawable.sorting_title_bg);
             }
             if(questionsEntity.isReadQuestion()){
                 rlTopView.setVisibility(View.GONE);
