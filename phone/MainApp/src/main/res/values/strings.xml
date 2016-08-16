@@ -374,7 +374,8 @@
     <string name="hw_report_parse_title">题目解析</string>
     <string name="hw_report_parse_knowledge_title">考&#160;点</string>
     <string name="hw_report_parse_diffcullity_title">难&#160;度</string>
-    <string name="objective_title">答对&#160;%1$d&#160;题，共&#160;%2$d&#160;题，正确率&#160;%3$d%%</string>
+    <!--<string name="objective_title">答对&#160;%1$d&#160;题，共&#160;%2$d&#160;题，正确率&#160;%3$d%%</string>-->
+    <string name="objective_title">正确率&#160;%1$d%%</string>
     <string name="subjective_title">共&#160;%1$d&#160;题，平均得分&#160;%2$s&#160;分</string>
     <string name="report_no_data">共&#160;%1$d&#160;题</string>
     <string name="hw_report_parse_knowledge_tip">点击考点，可以去加强练习哦 ^_^ </string>

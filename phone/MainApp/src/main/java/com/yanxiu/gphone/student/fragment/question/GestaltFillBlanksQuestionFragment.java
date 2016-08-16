@@ -74,6 +74,13 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
         }
         return rootView;
     }
+    @Override
+    public void setChildPagerIndex(int childPagerIndex) {
+        super.setChildPagerIndex(childPagerIndex);
+        if (vpAnswer!=null){
+            vpAnswer.setCurrentItem(childPagerIndex);
+        }
+    }
 
     private void listener() {
         fill_blanks_button.setListener(new FillBlanksButtonFramelayout.QuestionPositionSelectListener() {
@@ -175,7 +182,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
         LogInfo.log("geny", "onResume");
         if (vpAnswer != null) {
             if (!is_reduction) {
-                vpAnswer.setCurrentItem(0);
+                vpAnswer.setCurrentItem(childPagerIndex);
             } else {
                 vpAnswer.setCurrentItem(adapter.getCount() - 1);
             }
@@ -194,7 +201,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
         super.setRefresh();
         if (vpAnswer != null) {
             if (!is_reduction) {
-                vpAnswer.setCurrentItem(0);
+                vpAnswer.setCurrentItem(childPagerIndex);
             } else {
                 vpAnswer.setCurrentItem(adapter.getCount() - 1);
             }

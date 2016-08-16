@@ -232,14 +232,6 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                 tvQuestionTitle.setText(dataSources.getData().get(0).getName());
             }
 
-            gridView_old.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    //TODO 此处数据传递有问题 需要修改
-                    jumpType(position, null);
-                }
-            });
-
             if (dataList != null) {
 
                 questionList = QuestionUtils.addChildQuestionToParent(dataList);
@@ -266,7 +258,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                         isAllRight = true;
                     }
 
-                    objectTitile = String.format(this.getResources().getString(R.string.objective_title), rightCount, questionCount, sccuracy);
+                    objectTitile = String.format(this.getResources().getString(R.string.objective_title), sccuracy);
                     tvObjectiveLine.setText(objectTitile);
 
                     adapter = new AnswerCardAdapter(questionList);
@@ -316,6 +308,14 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 
             ll_grid.addView(titleView);
             ll_grid.addView(gridView);
+
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    QuestionEntity questionEntity = (QuestionEntity) parent.getAdapter().getItem(position);
+                    jumpType(questionEntity, dataList);
+                }
+            });
         }
     }
 
@@ -350,9 +350,8 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
     }
 
 
-    private void jumpType(int position, ArrayList<PaperTestEntity> dataList) {
+    private void jumpType(QuestionEntity questionEntity, ArrayList<PaperTestEntity> dataList) {
 
-        QuestionEntity questionEntity = dataList.get(position).getQuestions();
 
         if (dataList != null && !dataList.isEmpty()) {
             if (dataList.get(questionEntity.getPageIndex()).getQuestions() != null) {

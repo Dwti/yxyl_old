@@ -41,7 +41,7 @@ public class BaseQuestionFragment extends Fragment {
     protected boolean ischild=false;
     /**是否小题需要显示最后一个*/
     protected boolean is_reduction=false;
-
+    protected int childPagerIndex;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,6 +94,10 @@ public class BaseQuestionFragment extends Fragment {
             }
         }
 
+    }
+
+    public void setChildPagerIndex(int childPagerIndex){
+        this.childPagerIndex=childPagerIndex;
     }
 
     public void setRefresh(){

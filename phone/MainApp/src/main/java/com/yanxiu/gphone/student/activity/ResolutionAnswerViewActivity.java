@@ -12,8 +12,10 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.ExercisesDataEntity;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.PublicFavouriteQuestionBean;
+import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.RequestBean;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.fragment.question.BaseQuestionFragment;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
 import com.yanxiu.gphone.student.requestTask.RequestDelFavouriteTask;
 import com.yanxiu.gphone.student.requestTask.RequestSubmitFavouriteTask;
@@ -67,7 +69,6 @@ public class ResolutionAnswerViewActivity extends BaseAnswerViewActivity {
         pagerIndex = getIntent().getIntExtra("pagerIndex", 0);
         childIndex = getIntent().getIntExtra("childIndex", 0);
         comeFrom = getIntent().getIntExtra("comeFrom", 0);
-
         LogInfo.log("geny-", "childIndex------" + childIndex + "----pagerIndex-----" + pagerIndex);
         if(dataSources != null && dataSources.getData() != null){
             tvPagerIndex.setText("1");
@@ -155,7 +156,7 @@ public class ResolutionAnswerViewActivity extends BaseAnswerViewActivity {
     public void setViewPagerPosition(int position, int childPosition){
 //        LogInfo.log("geny-", "position" + position + "----childPosition" + childPosition + "----childPosition" + childPosition);
         vpAnswer.setCurrentItem(position);
-
+        ((BaseQuestionFragment)adapter.getmFragments().get(position)).setChildPagerIndex(childPosition);
     }
 
     public void setIndexFromRead(int position){
@@ -166,7 +167,8 @@ public class ResolutionAnswerViewActivity extends BaseAnswerViewActivity {
     @Override
     public void onPageSelected(int position) {
         super.onPageSelected(position);
-        tvPagerIndex.setText(String.valueOf(position + 1));
+        QuestionEntity questionEntity = dataSources.getData().get(0).getPaperTest().get(position).getQuestions();
+        tvPagerIndex.setText(questionEntity.getPositionForCard()+1+"");
         tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(adapter.getTotalCount())));
 
         switch (comeFrom){
