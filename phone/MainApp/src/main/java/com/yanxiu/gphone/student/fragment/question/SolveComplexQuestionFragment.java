@@ -2,6 +2,7 @@ package com.yanxiu.gphone.student.fragment.question;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -146,12 +147,19 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
             }
             if (vpAnswer != null) {
                 if (!is_reduction) {
-                    vpAnswer.setCurrentItem(0);
+                    vpAnswer.setCurrentItem(childPagerIndex);
                 } else {
                     vpAnswer.setCurrentItem(adapter.getCount() - 1);
                 }
             }
         }
+    }
+
+    @Override
+    public Fragment getChildFragment() {
+        int position=vpAnswer.getCurrentItem();
+        Fragment fragment=adapter.getmFragments().get(position);
+        return fragment;
     }
 
     @Override
@@ -189,6 +197,7 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
 //        pagerIndex = position;
         if(questionsEntity != null){
             pageCountIndex = pageIndex + childPosition;
+            childPagerIndex=childPosition;
             if (this.getActivity() instanceof AnswerViewActivity && isVisibleToUser){
                 ((AnswerViewActivity) this.getActivity()).setIndexFromRead(pageIndex);
             }else if(this.getActivity() instanceof ResolutionAnswerViewActivity && isVisibleToUser){
@@ -217,9 +226,6 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
 
         if (vpAnswer != null) {
             if (!is_reduction) {
-//                if (childPagerIndex!=0){
-//
-//                }
                 vpAnswer.setCurrentItem(childPagerIndex);
             } else {
                 vpAnswer.setCurrentItem(adapter.getCount() - 1);

@@ -560,6 +560,11 @@ public class QuestionUtils {
         return Float.parseFloat(String.format("%.2f", rightCount / totalCount));
     }
 
+    /**
+     * 计算做对的题目数
+     * @param list
+     * @return
+     */
     public static int calculateRightCount(List<QuestionEntity> list){
         if (list == null || list.size() == 0)
             return 0;
@@ -573,6 +578,12 @@ public class QuestionUtils {
         }
         return rightCount;
     }
+
+    /**
+     * 对题目按照题型进行分类
+     * @param list
+     * @return
+     */
     public static Map<String, List<QuestionEntity>> classifyQuestionByType(List<QuestionEntity> list) {
         if (list == null || list.size() == 0)
             return null;

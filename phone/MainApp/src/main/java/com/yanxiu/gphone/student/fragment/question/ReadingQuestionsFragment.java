@@ -2,6 +2,7 @@ package com.yanxiu.gphone.student.fragment.question;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -111,6 +112,12 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
         }
     }
 
+    @Override
+    public Fragment getChildFragment() {
+        int position=vpAnswer.getCurrentItem();
+        Fragment fragment=adapter.getmFragments().get(position);
+        return fragment;
+    }
 
     private void initView(){
         llTopView = (ExpandableRelativeLayoutlayout) rootView.findViewById(R.id.rl_top_view);

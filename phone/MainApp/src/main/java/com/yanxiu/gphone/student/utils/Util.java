@@ -304,15 +304,14 @@ public class Util {
 
 
     public static JSONArray sortQuestionData(QuestionEntity entity){
-        int typeId = entity.getType_id();
         String template = entity.getTemplate();
         AnswerBean answerBean = entity.getAnswerBean();
         JSONArray array = new JSONArray();
-        if(typeId == YanXiuConstant.QUESTION_TYP.QUESTION_SINGLE_CHOICES.type || typeId == YanXiuConstant.QUESTION_TYP.QUESTION_JUDGE.type) {
+        if(YanXiuConstant.SINGLE_CHOICES.equals(template) || YanXiuConstant.JUDGE_QUESTION.equals(template)) {
             if(!TextUtils.isEmpty(answerBean.getSelectType())){
                 array.put(answerBean.getSelectType());
             }
-        }else if(typeId == YanXiuConstant.QUESTION_TYP.QUESTION_MULTI_CHOICES.type){
+        }else if(YanXiuConstant.MULTI_CHOICES.equals(template)){
             int countMulti = answerBean.getMultiSelect().size();
             Collections.sort(answerBean.getMultiSelect());
             for(int j = 0; j < countMulti; j++){
@@ -322,7 +321,7 @@ public class Util {
                     e.printStackTrace();
                 }
             }
-        }else if(typeId == YanXiuConstant.QUESTION_TYP.QUESTION_FILL_BLANKS.type){
+        }else if(YanXiuConstant.FILL_BLANK.equals(template)){
             int countFill = answerBean.getFillAnswers().size();
             for(int j = 0; j < countFill; j++){
                 try {

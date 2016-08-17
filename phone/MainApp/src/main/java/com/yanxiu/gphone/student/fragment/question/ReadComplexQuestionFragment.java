@@ -2,6 +2,7 @@ package com.yanxiu.gphone.student.fragment.question;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -88,6 +89,13 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
         if (vpAnswer!=null){
             vpAnswer.setCurrentItem(childPagerIndex);
         }
+    }
+
+    @Override
+    public Fragment getChildFragment() {
+        int position=vpAnswer.getCurrentItem();
+        Fragment fragment=adapter.getmFragments().get(position);
+        return fragment;
     }
 
     private void initData() {

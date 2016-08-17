@@ -111,6 +111,10 @@ public class BaseQuestionFragment extends Fragment {
         ss="";
     }
 
+    public Fragment getChildFragment(){
+        return null;
+    }
+
     public int getChildCount(){
         return 1;
     }
