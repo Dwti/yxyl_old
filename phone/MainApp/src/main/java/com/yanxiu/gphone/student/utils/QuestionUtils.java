@@ -14,6 +14,7 @@ import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -29,6 +30,23 @@ import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTI
  */
 public class QuestionUtils {
 
+    /**
+     * 移除归类跟连线题
+     * @param bean
+     */
+    public static void removeQuestions(SubjectExercisesItemBean bean){
+        if(bean==null || bean.getData() == null || bean.getData().get(0).getPaperTest().isEmpty()){
+            return;
+        }
+        List<PaperTestEntity> list  = bean.getData().get(0).getPaperTest();
+        Iterator<PaperTestEntity> iterator = list.listIterator();
+        PaperTestEntity paperTestEntity;
+        while (iterator.hasNext()){
+            paperTestEntity = iterator.next();
+            if(paperTestEntity.getQuestions().getTemplate().equals(YanXiuConstant.CONNECT_QUESTION) || paperTestEntity.getQuestions().getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION))
+                iterator.remove();
+        }
+    }
 
     public static List<QuestionEntity> addChildQuestionToParent(List<PaperTestEntity> dataList) {
         List<QuestionEntity> questionList = new ArrayList<QuestionEntity>();
@@ -185,8 +203,7 @@ public class QuestionUtils {
 
                     PaperTestEntity paperTestEntity = dataList.get(i);
                     QuestionEntity questionEntity = paperTestEntity.getQuestions();
-                    questionEntity.setExtend(paperTestEntity.getExtend());
-                    int typeId = questionEntity.getType_id();
+                    String template = questionEntity.getTemplate();
                     if (questionEntity.getPad() == null)
                         continue;
                     String jsonAnswer = questionEntity.getPad().getJsonAnswer();
@@ -217,8 +234,7 @@ public class QuestionUtils {
                                 if (answerChildList != null && !answerChildList.isEmpty()) {
                                     AnswerBean answerChildBean = paperList.get(j).getQuestions().getAnswerBean();
                                     String childTemplate = questionEntity.getChildren().get(j).getQuestions().getTemplate();
-                                    typeId = questionEntity.getChildren().get(j).getQuestions().getType_id();
-                                    if (typeId == QUESTION_SINGLE_CHOICES.type || typeId == QUESTION_JUDGE.type) {
+                                    if (YanXiuConstant.SINGLE_CHOICES.equals(childTemplate) || YanXiuConstant.JUDGE_QUESTION.equals(childTemplate)) {
                                         answerChildBean.setSelectType(answerChildList.get(0));
                                         if (rightAnswer != null && !rightAnswer.isEmpty()) {
                                             if (!TextUtils.isEmpty(answerChildList.get(0)) && answerChildList.get(0).equals(rightAnswer.get(0))) {
@@ -231,19 +247,19 @@ public class QuestionUtils {
                                         } else {
                                             answerChildBean.setIsFinish(false);
                                         }
-                                    } else if (typeId == QUESTION_MULTI_CHOICES.type || typeId == QUESTION_FILL_BLANKS.type || typeId == QUESTION_SUBJECTIVE.type) {
-                                        if (typeId == QUESTION_MULTI_CHOICES.type) {
+                                    } else if (YanXiuConstant.MULTI_CHOICES.equals(childTemplate) || YanXiuConstant.FILL_BLANK.equals(childTemplate) || YanXiuConstant.ANSWER_QUESTION.equals(childTemplate)) {
+                                        if (YanXiuConstant.MULTI_CHOICES.equals(childTemplate) ) {
                                             answerChildBean.setMultiSelect((ArrayList<String>) answerChildList);
-                                        } else if (typeId == QUESTION_FILL_BLANKS.type) {
+                                        } else if (YanXiuConstant.FILL_BLANK.equals(childTemplate)) {
                                             answerChildBean.setFillAnswers((ArrayList<String>) answerChildList);
-                                        } else if (YanXiuConstant.ANSWER_QUESTION.equals(paperList.get(j).getQuestions().getTemplate())) {
+                                        } else if (YanXiuConstant.ANSWER_QUESTION.equals(childTemplate)) {
                                             answerChildBean.setSubjectivImageUri((ArrayList<String>) answerChildList);
                                         }
                                         if (rightAnswer == null || rightAnswer.isEmpty()) {
                                             answerChildBean.setIsFinish(false);
                                         } else {
                                             if (!YanXiuConstant.ANSWER_QUESTION.equals(childTemplate)) {
-                                                //如果不是问答题
+                                                //如果不是主观题
                                                 if (compare(answerChildList, rightAnswer)) {
                                                     answerChildBean.setIsFinish(true);
                                                     answerChildBean.setIsRight(true);
@@ -283,7 +299,6 @@ public class QuestionUtils {
                     } else {
                         int status = questionEntity.getPad().getStatus();
                         int costTime = questionEntity.getPad().getCosttime();
-                        String template = questionEntity.getTemplate();
                         AnswerBean answerBean = questionEntity.getAnswerBean();
                         answerBean.setConsumeTime(costTime);
                         answerBean.setStatus(status);
@@ -291,16 +306,15 @@ public class QuestionUtils {
 
                         if (answerList != null && !answerList.isEmpty()) {
                             answerBean.setIsFinish(true);
-                            if (typeId == QUESTION_SINGLE_CHOICES.type) {
+                            if (YanXiuConstant.SINGLE_CHOICES.equals(template)) {
                                 answerBean.setSelectType(answerList.get(0));
-                            } else if (typeId == QUESTION_MULTI_CHOICES.type) {
+                            } else if (YanXiuConstant.MULTI_CHOICES.equals(template)) {
                                 answerBean.setMultiSelect((ArrayList<String>) answerList);
-                            } else if (typeId == QUESTION_JUDGE.type) {
+                            } else if (YanXiuConstant.JUDGE_QUESTION.equals(template)) {
                                 answerBean.setSelectType(answerList.get(0));
-                            } else if (typeId == QUESTION_FILL_BLANKS.type) {
+                            } else if (YanXiuConstant.FILL_BLANK.equals(template)) {
                                 answerBean.setFillAnswers((ArrayList<String>) answerList);
-                            } else if (YanXiuConstant.ANSWER_QUESTION.equals(questionEntity.getTemplate())) {
-                                //根据template判断是不是主观题 就是answer
+                            } else if (YanXiuConstant.ANSWER_QUESTION.equals(template)) {
                                 answerBean.setSubjectivImageUri((ArrayList<String>) answerList);
                             }
                         } else {

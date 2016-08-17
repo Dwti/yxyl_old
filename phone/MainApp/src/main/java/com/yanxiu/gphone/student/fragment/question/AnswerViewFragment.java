@@ -50,15 +50,10 @@ public class AnswerViewFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-//        LogInfo.log("geny-", "AnswerViewFragment   onCreate");
         this.questionsEntity = (getArguments() != null) ? (QuestionEntity) getArguments().getSerializable("questions") : null;
         this.answerViewTypyBean = (getArguments() != null) ? getArguments().getInt("answerViewTypyBean") : null;
-//        isResolution =(getArguments() != null) ?  getArguments().getBoolean("isResolution") : false;
-//        isWrongSet =(getArguments() != null) ?  getArguments().getBoolean("isWrongSet") : false;
-
         if(questionsEntity != null && questionsEntity.getChildren() != null){
             children = questionsEntity.getChildren();
-//            LogInfo.log("geny", "chilid" + children.size());
         }
         super.onCreate(savedInstanceState);
     }
@@ -67,12 +62,9 @@ public class AnswerViewFragment extends Fragment implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
-//        LogInfo.log("geny-", "questionsEntity.getChildPageIndex()" + questionsEntity.getChildPageIndex());
         if(questionsEntity != null){
             if(questionsEntity.getChildPageIndex() != -1){
                 vpAnswer.setCurrentItem(questionsEntity.getChildPageIndex());
-//                LogInfo.log("geny-", "questionsEntity.getChildPageIndex()" + questionsEntity.getChildPageIndex());
-//                questionsEntity.setChildPageIndex(-1);
             }
         }
     }
@@ -83,52 +75,8 @@ public class AnswerViewFragment extends Fragment implements View.OnClickListener
         initView();
         return rootView;
     }
-
-//    private float DOWN_X = 0;
-//    private float DOWN_Y = 0;
-//    private static final int HORIZONTAL_DISTANCE = 30;
-//    private static final int VERTICAL_DISTANCE = 50;
     private void initView(){
         vpAnswer = (ViewPager) rootView.findViewById(R.id.answer_viewpager);
-//        vpAnswer.setOnTouchListener(new View.OnTouchListener() {
-//
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event)
-//            {
-//                // 在这里做手势的判断
-//                // 如果是左边滑动
-//
-//                // 记住手指点下去的那个点
-//                // 判断移动的位置和距离
-//                switch (event.getAction())
-//                {
-//                    case MotionEvent.ACTION_DOWN:
-//
-//                        DOWN_X = event.getX();
-//                        DOWN_Y = event.getY();
-//                        break;
-//                    case MotionEvent.ACTION_MOVE:
-//                        float currentX = event.getX();
-//                        float currentY = event.getY();
-//                        if ((Math.abs((DOWN_Y - currentY)) > VERTICAL_DISTANCE
-//                                && Math.abs(DOWN_X - currentX) < HORIZONTAL_DISTANCE)){
-//                            v.getParent().requestDisallowInterceptTouchEvent(false);
-//                            return true;
-//                        }
-//                        break;
-//
-//                    case MotionEvent.ACTION_UP:// 如果按下的地方和手指起来的地方在一起的话就认为是用户进行了点击
-//                        break;
-//
-//                    default:
-//                        break;
-//                }
-//                v.getParent().requestDisallowInterceptTouchEvent(true);//
-//                // 让事件交给父控件来处理，整个Tab就可以滑动了。
-//                return false;
-//            }
-//        });
-        //=============================================
         //反射viewPager里面的mScroller
         try {
             Field mField = ViewPager.class.getDeclaredField("mScroller");
@@ -174,7 +122,6 @@ public class AnswerViewFragment extends Fragment implements View.OnClickListener
     public void onPageSelected(int position) {
         if(this.getParentFragment() != null && this.getParentFragment() instanceof  ReadingQuestionsFragment){
             if(questionsEntity != null){
-//                LogInfo.log("geny-", "questionsEntity.getPageIndex()" + questionsEntity.getPageIndex() + "position" + position);
                 ((ReadingQuestionsFragment)this.getParentFragment()).onPageSelected(position);
             }
         }
@@ -183,8 +130,6 @@ public class AnswerViewFragment extends Fragment implements View.OnClickListener
 
     public void onEventMainThread(ChildIndexEvent event) {
         if(event != null && vpAnswer != null){
-//            String msg = "onEventMainThread收到了消息：" + event.getIndex();
-//            Toast.makeText(this.getActivity(), msg, Toast.LENGTH_LONG).show();
             vpAnswer.setCurrentItem(event.getIndex());
         }
     }

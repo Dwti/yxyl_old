@@ -151,7 +151,6 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
             if(photosList == null || photosList.isEmpty()){
                 subjectiveGrid.setVisibility(View.GONE);
                 rlSubjectNoanswer.setVisibility(View.VISIBLE);
-//                tvMyAnswer.setTextHtml(this.getActivity().getResources().getString(R.string.subjective_questions_unanwser));
             }else{
                 subjectiveGrid.setVisibility(View.VISIBLE);
                 rlSubjectNoanswer.setVisibility(View.GONE);
@@ -182,38 +181,15 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
             if(questionsEntity != null){
                 difficultyStart.selectStarCount(questionsEntity.getDifficulty());
                 tvDifficulltyText.setTextHtml(getTypeKey(String.valueOf(questionsEntity.getDifficulty())));
-//                Util.getDataRelationMap(String.valueOf(questionsEntity.getDifficulty()));
             }
-//            else{
-//                llDifficullty.setVisibility(View.GONE);
-//            }
-
-
-//            if(questionsEntity.getPadBean() != null && questionsEntity.getPadBean().ge() != null && questionsEntity.getPadBean().getStatus() == AnswerBean.ANSER_READED){
-//                subjectiveStarLayout.selectStarCount(questionsEntity.getPadBean().getTeachercheck().getScore());
-//                tvCorrectionResultText.setTextHtml(questionsEntity.getPadBean().getTeachercheck().getQcomment());
-//            }else{
-//                subjectiveStarLayout.setVisibility(View.GONE);
-//                tvCorrectionResultText.setTextHtml(this.getActivity().getResources().getString(R.string.subjective_questions_unread));
-//            }
 
 
            if(questionsEntity.getPoint() != null && !questionsEntity.getPoint().isEmpty()){
                 List<QuestionEntity.PointEntity> pointList = questionsEntity.getPoint();
                 int count = pointList.size();
-//                StringBuffer sb = new StringBuffer();
                 for(int i = 0; i < count; i++){
                     addPointBtn(pointList.get(i));
-//                    sb.append(pointList.get(i).getName());
-//                    if(i != count - 1){
-//                        sb.append(",");
-//                    }
                 }
-//               if(TextUtils.isEmpty(sb.toString())){
-//                   llParseKnowledge.setVisibility(View.GONE);
-//               }else{
-//                   tvKnowledgePoint.setTextHtml(sb.toString());
-//               }
            }else{
                llParseKnowledge.setVisibility(View.GONE);
            }

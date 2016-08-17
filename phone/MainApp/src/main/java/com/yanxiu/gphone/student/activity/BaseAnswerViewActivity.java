@@ -185,11 +185,6 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 //                }
                 QuestionUtils.addChildQuestionToParent(dataList);     //对题目的pageIndex childPageIndex,positionForCard,childPositionForCard进行赋值
                 adapter.addDataSources(dataSources);
-//                JudgeQuestionFragment fragment = (JudgeQuestionFragment) adapter.getItem(0);
-//                if(fragment.bean != null)
-//                    LogInfo.log("geny", "BaseAnswerViewActivity   initData--------" + fragment.bean.toString());
-//                else
-//                    LogInfo.log("geny", "BaseAnswerViewActivity   initData-------- null");
                 vpAnswer.setAdapter(adapter);
                 adapter.setViewPager(vpAnswer);
                 LogInfo.log(TAG, "Adapter Refresh ");

@@ -154,7 +154,6 @@ public class ResolutionAnswerViewActivity extends BaseAnswerViewActivity {
     }
 
     public void setViewPagerPosition(int position, int childPosition){
-//        LogInfo.log("geny-", "position" + position + "----childPosition" + childPosition + "----childPosition" + childPosition);
         vpAnswer.setCurrentItem(position);
         ((BaseQuestionFragment)adapter.getmFragments().get(position)).setChildPagerIndex(childPosition);
     }

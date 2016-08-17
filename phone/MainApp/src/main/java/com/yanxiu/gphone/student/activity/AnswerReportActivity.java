@@ -220,6 +220,8 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
     private void initData() {
         rightQuestionNum = new ArrayList<Integer>();
         dataSources = (SubjectExercisesItemBean) getIntent().getSerializableExtra("subjectExercisesItemBean");
+        //移除归类连线题
+        QuestionUtils.removeQuestions(dataSources);
         comeFrom = getIntent().getIntExtra("comeFrom", -1);
         isGonePracticeAgain = getIntent().getBooleanExtra("isGonePracticeAgain", false);
         if (dataSources != null && dataSources.getData() != null && !dataSources.getData().isEmpty()) {
