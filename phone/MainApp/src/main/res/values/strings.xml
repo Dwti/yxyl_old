@@ -445,4 +445,8 @@
     <string name="parent">我是家长</string>
 
     <string name="activity_not_found">没找到文件管理器</string>
+    
+    
+    <item type="id" name="TAG_NUMBERPAGER"/>
+    <item type="id" name="TAG_PAGER"/>
 </resources>

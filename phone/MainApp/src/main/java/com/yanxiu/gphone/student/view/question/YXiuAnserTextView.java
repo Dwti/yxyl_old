@@ -78,6 +78,7 @@ public class YXiuAnserTextView extends HtmlTextView {
         imageGetter = new UilImageGetter(this, mCtx, this.application);
         Spanned spanned = Html.fromHtml(text, imageGetter, null);
         this.setText(spanned);
+//        setHtmlFromString();
 //        this.setText(text);
     }
 

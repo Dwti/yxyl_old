@@ -47,6 +47,9 @@ import java.util.regex.Pattern;
 public class FillBlanksButtonFramelayout extends FrameLayout implements
         QuestionsListener, View.OnClickListener {
 
+    private int NUMBERPAGER=R.id.TAG_NUMBERPAGER;
+    private int PAGER=R.id.TAG_PAGER;
+
     private QuestionsListener listener;
     private QuestionPositionSelectListener selectListener;
     protected QuestionEntity questionsEntity;
@@ -65,6 +68,8 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
     private int yAxisHeight;
     private float offset_width;
     private float textview_width;
+    private int question_position;
+    private int select_position;
 
     public FillBlanksButtonFramelayout(Context context) {
         super(context);
@@ -161,19 +166,19 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         String text="";
         switch (answer){
             case "0":
-                text=(int)textView.getTag()+1+".A";
+                text=(int)textView.getTag(PAGER)+1+".A";
                 break;
             case "1":
-                text=(int)textView.getTag()+1+".B";
+                text=(int)textView.getTag(PAGER)+1+".B";
                 break;
             case "2":
-                text=(int)textView.getTag()+1+".C";
+                text=(int)textView.getTag(PAGER)+1+".C";
                 break;
             case "3":
-                text=(int)textView.getTag()+1+".D";
+                text=(int)textView.getTag(PAGER)+1+".D";
                 break;
             default:
-                text=(int)textView.getTag()+1+"";
+                text=(int)textView.getTag(PAGER)+1+"";
                 break;
         }
         textView.setText(text);
@@ -185,6 +190,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
 
     public void setQuestionsEntity(QuestionEntity questionsEntity){
         this.questionsEntity=questionsEntity;
+        question_position=questionsEntity.getChildren().get(0).getQuestions().getPositionForCard();
     }
 
     /**
@@ -248,7 +254,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
 
     @Override
     public void onClick(View v) {
-        int position= (int) v.getTag();
+        int position= (int) v.getTag(NUMBERPAGER);
         if (selectListener!=null){
             selectListener.QuestionPosition(position);
         }
@@ -256,9 +262,10 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
     }
 
     public void setTextViewSelect(int position){
+        select_position=position;
         for (int i=0;i<list_textview.size();i++){
             TextView textView=list_textview.get(i);
-            if ((int)textView.getTag()==position){
+            if ((int)textView.getTag(NUMBERPAGER)==position){
                 textView.setBackgroundResource(R.drawable.gestalt_button_nowanswer);
                 textView.setTextColor(mCtx.getResources().getColor(R.color.color_805500));
             }else {
@@ -373,13 +380,13 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
                     setText(textView, answer);
                     setTextColor(textView,answer);
                 }else {
-                    int answer_id=(int)textView.getTag()+1;
+                    int answer_id=(int)textView.getTag(PAGER)+1;
                     textView.setText(answer_id+"");
                 }
             }
         }
         /**设置默认选中第一个*/
-        TextView textView_first = (TextView) rlMark.getChildAt(0);
+        TextView textView_first = (TextView) rlMark.getChildAt(select_position);
         if (textView_first != null) {
             textView_first.setBackgroundResource(R.drawable.gestalt_button_nowanswer);
         }
@@ -444,7 +451,11 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         tvFillBlank.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
         tv.setBackgroundResource(R.drawable.gestalt_button_noanswer);
         tv.setOnClickListener(this);
-        tv.setTag(list_textview.size());
+//        tv.setTag(question_position);
+
+        tv.setTag(NUMBERPAGER,list_textview.size());
+        tv.setTag(PAGER,question_position);
+        question_position++;
 //        tv.setText(list_textview.size()+1+"");
         tv.setGravity(Gravity.CENTER);
 //        tv.setBackgroundColor(Color.parseColor(Color_00FF00));
