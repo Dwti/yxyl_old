@@ -260,23 +260,10 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 
                     objectTitile = String.format(this.getResources().getString(R.string.objective_title), sccuracy);
                     tvObjectiveLine.setText(objectTitile);
-
-                    adapter = new AnswerCardAdapter(questionList);
-                    gridView_old.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-
-                        @Override
-                        public void onGlobalLayout() {
-                            gridView_old.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                            gridViewWidth = gridView_old.getWidth();
-                            gridView_old.setAdapter(adapter);
-                            layoutFinishData();
-                        }
-                    });
-
+                    layoutFinishData();
                     isObjectiveQuestion = true;
 
                 } else {
-                    gridView_old.setVisibility(View.GONE);
                     objectTitile = String.format(this.getResources().getString(R.string.report_no_data), 0);
                     tvObjectiveLine.setText(objectTitile);
                     isObjectiveQuestion = false;
@@ -331,6 +318,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         if (dataSources.getData().get(0) != null && dataSources.getData().get(0).getPaperStatus() != null) {
             tvReport.setText(this.getResources().getString(R.string.answer_report_time) + TimeUtils.getTimeLongYMD(dataSources.getData().get(0).getPaperStatus().getEndtime()));
         }
+        costTime = calculationCostTime(questionList);
         tvReportTimeText.setText(this.getResources().getString(R.string.answer_cost_time) + formatTime(costTime));
 
 
@@ -398,14 +386,15 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         }
     }
 
-    private void calculationSubQuestionTime(ArrayList<PaperTestEntity> dataList) {
-        int count = dataList.size();
-        LogInfo.log("geny", "calculationRightQuestion count =====" + count);
+    private int calculationCostTime(List<QuestionEntity> list) {
+        int total=0;
+        int count = list.size();
         for (int i = 0; i < count; i++) {
-            if (dataList.get(i) != null && dataList.get(i).getQuestions() != null) {
-                costTime += dataList.get(i).getQuestions().getAnswerBean().getConsumeTime();
+            if (list.get(i) != null && list.get(i).getPad() != null) {
+                total += list.get(i).getPad().getCosttime();
             }
         }
+        return total;
     }
 
 

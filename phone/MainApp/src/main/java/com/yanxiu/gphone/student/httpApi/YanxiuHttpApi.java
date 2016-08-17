@@ -1280,12 +1280,10 @@ public class YanxiuHttpApi {
                         isFinish = isFinish || questionList.get(j).getQuestions().getAnswerBean().isFinish();
                         isFalse = isFalse || !questionList.get(j).getQuestions().getAnswerBean().isRight();
                         JSONObject childJson = new JSONObject();
-                        if(bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getQuestions().getPad() != null  && bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getQuestions().getPad().getId() != -1){
+                        if(bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getQuestions().getPad() != null) {
                             childId = String.valueOf(bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getQuestions().getPad().getId());
-                            childJson.put("id", childId);
-                        }else{
-                            childJson.put("id", childId);
                         }
+                        childJson.put("id", childId);
                         childJson.put("qid", bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getQid());
                         //childJson.put("qtype", bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j));
                         childJson.put("costtime", bean.getData().get(0).getPaperTest().get(i).getQuestions().getAnswerBean().getConsumeTime());

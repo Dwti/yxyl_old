@@ -52,20 +52,21 @@ public class QuestionUtils {
                         if (childQuestion != null) {
                             int childCount = childQuestion.size();
                             for (int j = 0; j < childCount; j++) {
-                                childQuestion.get(j).getQuestions().setPositionForCard(position);
-                                childQuestion.get(j).getQuestions().setPageIndex(index);
-                                childQuestion.get(j).getQuestions().setChildPageIndex(j);
+                                QuestionEntity question = childQuestion.get(j).getQuestions();
+                                question.setPositionForCard(position);
+                                question.setPageIndex(index);
+                                question.setChildPageIndex(j);
                                 if (22 == typeId) {
                                     //只有是复合题且是解答题的时候，才会有childPositionForCard，否则childPositionForCard为-1
-                                    childQuestion.get(j).getQuestions().setChildPositionForCard(j);
+                                    question.setChildPositionForCard(j);
                                 } else {
-                                    childQuestion.get(j).getQuestions().setChildPositionForCard(-1);
+                                    question.setChildPositionForCard(-1);
                                     position++;
                                     //如果是-1，下面不能再让position++
                                     flag = true;
                                 }
-                                childQuestion.get(j).getQuestions().setParent_type_id(questionEntity.getType_id());
-                                questionList.add(childQuestion.get(j).getQuestions());
+                                question.setParent_type_id(questionEntity.getType_id());
+                                questionList.add(question);
                             }
                         } else {
                             questionList.add(questionEntity);
@@ -135,25 +136,38 @@ public class QuestionUtils {
     }
 
     public static List<QuestionEntity> findSubjectiveQuesition(SubjectExercisesItemBean subjectEditionBean) {
-        List<QuestionEntity> questionEntities = new ArrayList<QuestionEntity>();
+        List<QuestionEntity> list = new ArrayList<QuestionEntity>();
         if (subjectEditionBean != null && subjectEditionBean.getData() != null && !subjectEditionBean.getData().isEmpty()) {
             List<PaperTestEntity> dataList = subjectEditionBean.getData().get(0).getPaperTest();
-
             if (dataList == null) {
                 return null;
             }
-
             int count = dataList.size();
             for (int i = 0; i < count; i++) {
+                QuestionEntity questionEntity ;
                 if (dataList.get(i) != null && dataList.get(i).getQuestions() != null) {
-                    int typeId = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getType_id();
-                    if (QUESTION_SUBJECTIVE.type == typeId) {
-                        questionEntities.add(subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions());
+                    questionEntity = dataList.get(i).getQuestions();
+                    if(questionEntity.getChildren()!=null && questionEntity.getChildren().size()!=0){
+                       List<PaperTestEntity> paperList = questionEntity.getChildren();
+                        int childCount = paperList.size();
+                        for (int j=0 ;j<childCount;j++){
+                            QuestionEntity child = paperList.get(j).getQuestions();
+                            if(child !=null){
+                                if (YanXiuConstant.ANSWER_QUESTION.equals(child.getTemplate())) {
+                                    list.add(child);
+                                }
+                            }
+                        }
+                    }else{
+                        if (YanXiuConstant.ANSWER_QUESTION.equals(questionEntity.getTemplate())) {
+                            list.add(questionEntity);
+                        }
                     }
+
                 }
             }
         }
-        return questionEntities;
+        return list;
     }
 
 
@@ -222,7 +236,7 @@ public class QuestionUtils {
                                             answerChildBean.setMultiSelect((ArrayList<String>) answerChildList);
                                         } else if (typeId == QUESTION_FILL_BLANKS.type) {
                                             answerChildBean.setFillAnswers((ArrayList<String>) answerChildList);
-                                        } else if (typeId == QUESTION_SUBJECTIVE.type) {
+                                        } else if (YanXiuConstant.ANSWER_QUESTION.equals(paperList.get(j).getQuestions().getTemplate())) {
                                             answerChildBean.setSubjectivImageUri((ArrayList<String>) answerChildList);
                                         }
                                         if (rightAnswer == null || rightAnswer.isEmpty()) {
@@ -285,7 +299,8 @@ public class QuestionUtils {
                                 answerBean.setSelectType(answerList.get(0));
                             } else if (typeId == QUESTION_FILL_BLANKS.type) {
                                 answerBean.setFillAnswers((ArrayList<String>) answerList);
-                            } else if (typeId == QUESTION_SUBJECTIVE.type) {
+                            } else if (YanXiuConstant.ANSWER_QUESTION.equals(questionEntity.getTemplate())) {
+                                //根据template判断是不是主观题 就是answer
                                 answerBean.setSubjectivImageUri((ArrayList<String>) answerList);
                             }
                         } else {
