@@ -51,9 +51,9 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by Administrator on 2015/7/6.
  */
-public class AnswerViewActivity extends BaseAnswerViewActivity{
+public class AnswerViewActivity extends BaseAnswerViewActivity {
 
-    private static final String TAG=AnswerViewActivity.class.getSimpleName();
+    private static final String TAG = AnswerViewActivity.class.getSimpleName();
 
     private int comeFrom;
     public static final int GROUP = 0x01;
@@ -131,10 +131,12 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
         intent.putExtra("comeFrom", comeFrom);
         context.startActivityForResult(intent, LAUNCHER_FROM_GROUP);
     }
-    @Override public void onCreate(Bundle savedInstanceState) {
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LogInfo.log(TAG, "onCreate");
-        LogInfo.log("lee","onCreate");
+        LogInfo.log("lee", "onCreate");
         ActivityManager.destoryAllEntelliTopActivity();
         PicSelView.resetAllData();
 //        setContentView(R.layout.activity_answer_question);
@@ -191,7 +193,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
     }
 
     @Override
-    public void initData(){
+    public void initData() {
         super.initData();
         comeFrom = this.getIntent().getIntExtra("comeFrom", -1);
         adapter.setComeFrom(comeFrom);
@@ -219,7 +221,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
             }
 
         });
-        if(dataSources != null && dataSources.getData() != null){
+        if (dataSources != null && dataSources.getData() != null) {
             long begintime = System.currentTimeMillis();
             dataSources.setBegintime(begintime);
 //            progressLayout.setWeight(1, adapter.getTotalCount());
@@ -227,7 +229,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
             tvToptext.setText(stringForTimeNoHour(0));
             tvPagerIndex.setText("1");
             tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(adapter.getTotalCount())));
-            if(PreferencesManager.getInstance().getFirstQuestion()){
+            if (PreferencesManager.getInstance().getFirstQuestion()) {
                 decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
                 mGuideQuestionView = new GuideQuestionView(this);
@@ -240,7 +242,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
     }
 
 
-    protected void upAnswerCard(){
+    protected void upAnswerCard() {
         adapter.answerViewClick();
         addFragment();
     }
@@ -264,32 +266,32 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
         removeTimeHandler();
     }
 
-    private void quitSubmmitDialog(){
-        if(comeFrom == GROUP){
+    private void quitSubmmitDialog() {
+        if (comeFrom == GROUP) {
             submitAnswer();
             Intent intent = new Intent();
-            setResult(RESULT_OK,intent);
+            setResult(RESULT_OK, intent);
             this.finish();
             return;
         }
-        if(dataSources != null && dataSources.getData() != null){
-            if(!dataSources.getData().isEmpty() && dataSources.getData().get(0) != null && dataSources.getData().get(0).getPaperTest() != null && !dataSources.getData().get(0).getPaperTest().isEmpty()){
+        if (dataSources != null && dataSources.getData() != null) {
+            if (!dataSources.getData().isEmpty() && dataSources.getData().get(0) != null && dataSources.getData().get(0).getPaperTest() != null && !dataSources.getData().get(0).getPaperTest().isEmpty()) {
                 int unFinishCount = QuestionUtils.calculationUnFinishAndWrongQuestion(dataSources.getData().get(0).getPaperTest());
-                if(unFinishCount == dataSources.getData().get(0).getPaperTest().size()){
+                if (unFinishCount == dataSources.getData().get(0).getPaperTest().size()) {
                     this.finish();
                     return;
                 }
             }
         }
-        dialog = new CommonDialog(this,this.getResources().getString(R.string.question_no_finish_live),
+        dialog = new CommonDialog(this, this.getResources().getString(R.string.question_no_finish_live),
                 this.getResources().getString(R.string.question_live),
                 this.getResources().getString(R.string.question_cancel),
-                new DelDialog.DelCallBack(){
+                new DelDialog.DelCallBack() {
                     @Override
                     public void del() {
                         //2
                         Intent intent = new Intent();
-                        setResult(RESULT_OK,intent);
+                        setResult(RESULT_OK, intent);
                         AnswerViewActivity.this.finish();
                         submitAnswer();
                     }
@@ -308,15 +310,15 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
     }
 
 
-    public void hideFragment(){
-        if(Configuration.isDebug() && btnWrongError != null){
+    public void hideFragment() {
+        if (Configuration.isDebug() && btnWrongError != null) {
             btnWrongError.setVisibility(View.VISIBLE);
         }
         isShowAnswerCard = false;
 
 
         FragmentTransaction ft = this.getSupportFragmentManager().beginTransaction();
-        if(answerCardFragment != null){
+        if (answerCardFragment != null) {
             ft.hide(answerCardFragment);
         }
         ft.commit();
@@ -325,9 +327,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
     }
 
 
-
-    private void submitAnswer(){
-        if(dataSources==null){
+    private void submitAnswer() {
+        if (dataSources == null) {
             return;
         }
         long endtime = System.currentTimeMillis();
@@ -347,15 +348,15 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
         requestSubmitQuesitonTask.start();
     }
 
-    private void addTimeHandler(){
-        if(handler != null){
+    private void addTimeHandler() {
+        if (handler != null) {
             handler.removeMessages(HANDLER_TIME);
             handler.sendEmptyMessageDelayed(HANDLER_TIME, HANDLER_TIME_DELAYED);
         }
     }
 
-    private void removeTimeHandler(){
-        if(handler != null){
+    private void removeTimeHandler() {
+        if (handler != null) {
             handler.removeMessages(HANDLER_TIME);
         }
     }
@@ -363,14 +364,14 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
 
     @Override
     public void onBackPressed() {
-        if(mGuideQuestionView!=null && mGuideQuestionView.isShown()){
+        if (mGuideQuestionView != null && mGuideQuestionView.isShown()) {
             mGuideQuestionView.setVisibility(View.GONE);
-        }else if(isShowAnswerCard){
+        } else if (isShowAnswerCard) {
             ivAnswerCard.setVisibility(View.VISIBLE);
             removeFragment();
-        }else if(isSubmitFinish){
+        } else if (isSubmitFinish) {
             super.onBackPressed();
-        }else{
+        } else {
             quitSubmmitDialog();
         }
     }
@@ -378,15 +379,15 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        if(v == ivBack){
-            if(isShowAnswerCard){
+        if (v == ivBack) {
+            if (isShowAnswerCard) {
 //                tvAnswerCard.setVisibility(View.VISIBLE);
                 removeFragment();
-            }else{
+            } else {
                 quitSubmmitDialog();
             }
-        }else if (v == ivAnswerCard) {
-            if(!isShowAnswerCard){
+        } else if (v == ivAnswerCard) {
+            if (!isShowAnswerCard) {
                 adapter.answerViewClick();
                 addFragment();
             }
@@ -394,11 +395,12 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
     }
 
     AnswerCardFragment answerCardFragment;
-    private void addFragment(){
-        if(isShowAnswerCard){
+
+    private void addFragment() {
+        if (isShowAnswerCard) {
             return;
         }
-        if(Configuration.isDebug() && btnWrongError != null){
+        if (Configuration.isDebug() && btnWrongError != null) {
             btnWrongError.setVisibility(View.GONE);
         }
         isShowAnswerCard = true;
@@ -415,7 +417,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
     }
 
 
-    public void addFinishFragment(SubjectExercisesItemBean bean, int comeFrom){
+    public void addFinishFragment(SubjectExercisesItemBean bean, int comeFrom) {
         FragmentTransaction ft = this.getSupportFragmentManager().beginTransaction();
 
         AnswerFinishFragment answerFinishFragment = new AnswerFinishFragment();
@@ -431,15 +433,15 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
     }
 
 
-    public void removeFragment(){
-        if(Configuration.isDebug() && btnWrongError != null){
+    public void removeFragment() {
+        if (Configuration.isDebug() && btnWrongError != null) {
             btnWrongError.setVisibility(View.VISIBLE);
         }
         isShowAnswerCard = false;
 
 
         FragmentTransaction ft = this.getSupportFragmentManager().beginTransaction();
-        if(answerCardFragment != null){
+        if (answerCardFragment != null) {
             ft.remove(answerCardFragment);
         }
         ft.commit();
@@ -449,21 +451,21 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         super.onPageScrolled(position, positionOffset, positionOffsetPixels);
         //判断是否是最后一页，偏移量都为零  弹出答题卡
-        if(position == adapter.getCount() - 1 && !isSubmitFinish){
-            if (positionOffset == 0 && positionOffsetPixels ==0 && vpState == ViewPager.SCROLL_STATE_DRAGGING){
+        if (position == adapter.getCount() - 1 && !isSubmitFinish) {
+            if (positionOffset == 0 && positionOffsetPixels == 0 && vpState == ViewPager.SCROLL_STATE_DRAGGING) {
                 upAnswerCard();
             }
         }
         LogInfo.log("geny", "position" + position + "----positionOffset" + positionOffset + "----positionOffsetPixels" + positionOffsetPixels);
     }
 
-    public void setViewPagerPosition(int position, int childPosition){
+    public void setViewPagerPosition(int position, int childPosition) {
         vpAnswer.setCurrentItem(position);
-        ((BaseQuestionFragment)adapter.getmFragments().get(position)).setChildPagerIndex(childPosition);
+        ((BaseQuestionFragment) adapter.getmFragments().get(position)).setChildPagerIndex(childPosition);
 //        LogInfo.log("geny", "position" + position + "----childPosition" + childPosition + "----childPosition" + childPosition);
-        if(childPosition != -1){
+        if (childPosition != -1) {
             Fragment fragment = adapter.getItem(position);
-            if(fragment instanceof ReadingQuestionsFragment){
+            if (fragment instanceof ReadingQuestionsFragment) {
                 //发送消息通知子viewpager滑到指定的位置
 //                LogInfo.log("geny-", "position" + position + "----childPosition" + childPosition + "----childPosition" + childPosition);
                 EventBus.getDefault().post(new ChildIndexEvent(childPosition));
@@ -472,7 +474,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
         removeFragment();
     }
 
-    public void setIndexFromRead(int position){
+    public void setIndexFromRead(int position) {
 //        ((AnswerAdapter)listen
 //        Fragment fragment=((AnswerAdapter)vpAnswer.getAdapter()).getmFragments().get(vpAnswer.getCurrentItem());
 //        if (fragment instanceof SolveComplexQuestionFragment) {
@@ -488,19 +490,19 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
 //
 //        tvPagerIndex.setText(String.valueOf(sumIndex + ((BaseQuestionFragment) list.get(position +1)).getChildCount()));
 //        tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(adapter.getTotalCount())));
-        LogInfo.log("TTTT", "test"+position);
+        LogInfo.log("TTTT", "test" + position);
         tvPagerIndex.setText(position + "/" + adapter.getTotalCount());
     }
 
-    public void setIndexNext(int index){
+    public void setIndexNext(int index) {
         mNextIndex = index;
     }
 
     @Override
     public void onPageSelected(int position) {
         super.onPageSelected(position);
-        LogInfo.log(TAG,"onPageSelected position: "+position);
-        LogInfo.log("TTTT", "onPageSelected"+position);
+        LogInfo.log(TAG, "onPageSelected position: " + position);
+        LogInfo.log("TTTT", "onPageSelected" + position);
 
 
         currentIndex = position;
@@ -512,20 +514,20 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
 
         tvPagerIndex.setVisibility(View.VISIBLE);
         ivAnswerCard.setVisibility(View.VISIBLE);
-        if(Configuration.isDebug() && btnWrongError != null){
+        if (Configuration.isDebug() && btnWrongError != null) {
             btnWrongError.setVisibility(View.VISIBLE);
         }
 //        Fragment fragment = adapter.getItem(position);
-        List<Fragment> list=((AnswerAdapter)vpAnswer.getAdapter()).getmFragments();
+        List<Fragment> list = ((AnswerAdapter) vpAnswer.getAdapter()).getmFragments();
         int sumIndex = 0;
-        for (int i=0;i<position;i++){
-            BaseQuestionFragment fragment1= (BaseQuestionFragment) list.get(i);
+        for (int i = 0; i < position; i++) {
+            BaseQuestionFragment fragment1 = (BaseQuestionFragment) list.get(i);
             sumIndex = sumIndex + fragment1.getChildCount();
         }
 
-        LogInfo.log("TTT", "position"+((BaseQuestionFragment) list.get(position)).getChildCount());
+        LogInfo.log("TTT", "position" + ((BaseQuestionFragment) list.get(position)).getChildCount());
         if (nextPager_onclick == 0 || ((BaseQuestionFragment) list.get(position)).getChildCount() == 1) {
-            tvPagerIndex.setText(String.valueOf(dataSources.getData().get(0).getPaperTest().get(position).getQuestions().getPositionForCard()+1));
+            tvPagerIndex.setText(String.valueOf(dataSources.getData().get(0).getPaperTest().get(position).getQuestions().getPositionForCard() + 1));
         } else {
             tvPagerIndex.setText(String.valueOf(sumIndex + ((BaseQuestionFragment) list.get(position)).getChildCount()));
             nextPager_onclick = 0;
@@ -546,8 +548,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
     }
 
 
-    public void selectViewPager(){
-        LogInfo.log("geny","selectViewPager " + (vpAnswer.getCurrentItem() + 1));
+    public void selectViewPager() {
+        LogInfo.log("geny", "selectViewPager " + (vpAnswer.getCurrentItem() + 1));
         vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
     }
 
@@ -563,16 +565,16 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
      * 切换ViewPager
      * 切换当前选择设置数据
      */
-    private void changeCurrentSelData(){
-        Fragment currentFragment  = adapter.getItem(currentIndex);
-        if(currentFragment != null && currentFragment instanceof SubjectiveQuestionFragment){
+    private void changeCurrentSelData() {
+        Fragment currentFragment = adapter.getItem(currentIndex);
+        if (currentFragment != null && currentFragment instanceof SubjectiveQuestionFragment) {
             QuestionEntity questionsEntity = null;
-            if(dataSources != null && dataSources.getData() != null && dataSources.getData().get(0) != null){
-                if(dataSources.getData().get(0).getPaperTest() != null && dataSources.getData().get(0).getPaperTest().get(currentIndex) != null){
+            if (dataSources != null && dataSources.getData() != null && dataSources.getData().get(0) != null) {
+                if (dataSources.getData().get(0).getPaperTest() != null && dataSources.getData().get(0).getPaperTest().get(currentIndex) != null) {
                     questionsEntity = dataSources.getData().get(0).getPaperTest().get(currentIndex).getQuestions();
                 }
             }
-            ((SubjectiveQuestionFragment)currentFragment).changeCurrentSelData(questionsEntity);
+            ((SubjectiveQuestionFragment) currentFragment).changeCurrentSelData(questionsEntity);
         }
     }
 
@@ -589,9 +591,11 @@ public class AnswerViewActivity extends BaseAnswerViewActivity{
         LogInfo.log(TAG, "resultCode = " + resultCode + " ,requestCode = " + requestCode);
 
         if (resultCode == RESULT_OK) {
-            LogInfo.log(TAG,"CURRENTINDEX: "+currentIndex);
-            Fragment currentFragment  = adapter.getItem(currentIndex);
-            if(currentFragment != null && currentFragment instanceof SubjectiveQuestionFragment){
+            LogInfo.log(TAG, "CURRENTINDEX: " + currentIndex);
+            BaseQuestionFragment currentFragment = (BaseQuestionFragment) adapter.getItem(currentIndex);
+            if (dataSources.getData().get(0).getPaperTest().get(currentIndex).getQuestions().getChildren() != null && !dataSources.getData().get(0).getPaperTest().get(currentIndex).getQuestions().getChildren().isEmpty())
+                currentFragment= (BaseQuestionFragment) currentFragment.getChildFragment();
+            if (currentFragment != null && currentFragment instanceof SubjectiveQuestionFragment) {
                 currentFragment.onActivityResult(requestCode, resultCode, data);
             }
         }

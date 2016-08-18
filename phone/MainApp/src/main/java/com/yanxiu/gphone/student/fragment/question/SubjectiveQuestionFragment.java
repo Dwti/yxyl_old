@@ -262,13 +262,6 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
             case MediaUtils.IMAGE_CROP:
                 if(resultCode==mActivity.RESULT_OK){
                     if(data!=null){
-//                        Bundle extras = data.getExtras();
-//                        if(extras!=null){
-//                            Bitmap bmp = extras.getParcelable("data");
-//                            String filePath =  MediaUtils.saveCroppedImage(bmp);
-//                            ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), filePath);
-//                            mPicSelView.updateImage(ShareBitmapUtils.getInstance().getCurrentSbId());
-//                        }
                         String filePath = PictureHelper.getPath(mActivity,MediaUtils.currentCroppedImageUri);
                         ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), filePath);
                         mPicSelView.updateImage(ShareBitmapUtils.getInstance().getCurrentSbId());

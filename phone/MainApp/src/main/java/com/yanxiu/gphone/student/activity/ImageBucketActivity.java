@@ -66,8 +66,12 @@ public class ImageBucketActivity extends TopViewBaseActivity {
         if(ShareBitmapUtils.getInstance().getCurrentSbId()==null){
             LogInfo.log(TAG,"ShareBitmapUtils.getInstance().getCurrentSbId()==null");
         }
-        ShareBitmapUtils.getInstance().countMax =ShareBitmapUtils.MAX_SEL_SIZE-ShareBitmapUtils.getInstance().getDrrMaps().get(ShareBitmapUtils.getInstance
-                ().getCurrentSbId()).size();
+        if(ShareBitmapUtils.getInstance().getDrrMaps()!=null && !TextUtils.isEmpty(ShareBitmapUtils.getInstance
+                ().getCurrentSbId()) && ShareBitmapUtils.getInstance().getDrrMaps().get(ShareBitmapUtils.getInstance
+                ().getCurrentSbId()) !=null ){
+            ShareBitmapUtils.getInstance().countMax =ShareBitmapUtils.MAX_SEL_SIZE-ShareBitmapUtils.getInstance().getDrrMaps().get(ShareBitmapUtils.getInstance
+                    ().getCurrentSbId()).size();
+        }
 
         return mGridView;
     }
