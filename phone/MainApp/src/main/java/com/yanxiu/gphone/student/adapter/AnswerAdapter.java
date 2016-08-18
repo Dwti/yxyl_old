@@ -89,6 +89,17 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 		return mFragments.size();
 	}
 
+	@Override
+	public Object instantiateItem(ViewGroup container, int position) {
+//		return getItem(position);
+		return super.instantiateItem(container, position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		int hashCode = mFragments.get(position).hashCode();
+		return hashCode;
+	}
 
 	public int getListCount() {
 		return dataList.size();
@@ -432,6 +443,9 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 		}
 		notifyDataSetChanged();
 	}
+
+
+
 	@Override
 	public void setDataSources(AnswerBean bean) {
 		// do nothing
