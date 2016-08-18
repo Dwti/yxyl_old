@@ -7,6 +7,7 @@ import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -1039,6 +1040,13 @@ public class Util {
         } else {
             return (SubjectExercisesItemBean) JSON.parseObject(str, SubjectExercisesItemBean.class);
         }
+    }
+
+    public static int convertDpToPx(Context context, int dp) {
+        if (context == null)
+            return 0;
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return Math.round(dp * displayMetrics.density);
     }
 
 }

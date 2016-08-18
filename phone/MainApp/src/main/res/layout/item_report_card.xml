@@ -1,38 +1,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
     android:orientation="vertical">
 
 
     <RelativeLayout
         android:id="@+id/rl_report_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
 
         <TextView
             android:id="@+id/answer_report_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/dimen_5"
-            android:layout_marginRight="@dimen/dimen_5"
             android:background="@drawable/answer_report_card_bg"
             android:gravity="center"
             android:textColor="@color/color_805500"
             android:textSize="@dimen/dimen_20"
             android:textStyle="bold" />
 
-        <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
+        <ImageView
             android:id="@+id/answer_report_icon"
-            android:layout_width="@dimen/dimen_24"
-            android:layout_height="@dimen/dimen_24"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:gravity="center"
-            android:textColor="@color/color_white"
-            android:textSize="@dimen/dimen_14"
-            app:type_face="arial_runded_bold.ttf" />
+            android:layout_alignParentRight="true"/>
 
     </RelativeLayout>
 
