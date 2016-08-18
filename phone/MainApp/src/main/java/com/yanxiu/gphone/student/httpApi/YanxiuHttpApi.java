@@ -1266,6 +1266,8 @@ public class YanxiuHttpApi {
                         || bean.getData().get(0).getPaperTest().get(i).getQuestions().getTemplate().equals(YanXiuConstant.CLOZE_QUESTION)
                         || bean.getData().get(0).getPaperTest().get(i).getQuestions().getTemplate().equals(YanXiuConstant.LISTEN_QUESTION)) {
                     List<PaperTestEntity> questionList = bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren();
+                    if(questionList==null || questionList.isEmpty())
+                        continue;
                     int childrenCount = questionList.size();
                     boolean isFalse = false;
                     boolean isFinish = false;

@@ -833,7 +833,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                 holder = (ViewHolder) row.getTag();
             }
 
-            if (answerBean.isSubjective()) {                //如果是主观题
+            if (YanXiuConstant.ANSWER_QUESTION.equals(data.getTemplate())) {                //如果是主观题
                 if (answerBean.getRealStatus() == AnswerBean.ANSER_READED) {                                   //如果已批改
                     if (answerBean.isHalfRight()) {
                         holder.ivSign.setImageResource(R.drawable.answer_report_half_correct);
