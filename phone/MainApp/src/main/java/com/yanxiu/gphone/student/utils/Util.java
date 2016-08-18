@@ -305,6 +305,7 @@ public class Util {
 
     public static JSONArray sortQuestionData(QuestionEntity entity){
         int typeId = entity.getType_id();
+        String template = entity.getTemplate();
         AnswerBean answerBean = entity.getAnswerBean();
         JSONArray array = new JSONArray();
         if(typeId == YanXiuConstant.QUESTION_TYP.QUESTION_SINGLE_CHOICES.type || typeId == YanXiuConstant.QUESTION_TYP.QUESTION_JUDGE.type) {
@@ -330,7 +331,8 @@ public class Util {
                     e.printStackTrace();
                 }
             }
-        }else if(typeId == YanXiuConstant.QUESTION_TYP.QUESTION_SUBJECTIVE.type){
+        }
+        if(YanXiuConstant.ANSWER_QUESTION.equals(template)){
             int imageUri = answerBean.getSubjectivImageUri().size();
             for(int j = 0; j < imageUri; j++){
                 try {

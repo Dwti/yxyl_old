@@ -18,9 +18,12 @@ import com.yanxiu.gphone.student.fragment.question.ChoiceQuestionFragment;
 import com.yanxiu.gphone.student.fragment.question.FillBlanksFragment;
 import com.yanxiu.gphone.student.fragment.question.JudgeQuestionFragment;
 import com.yanxiu.gphone.student.fragment.question.QuestionFragmentFactory;
+import com.yanxiu.gphone.student.fragment.question.SubjectiveQuestionFragment;
 import com.yanxiu.gphone.student.inter.AnswerCallback;
+import com.yanxiu.gphone.student.utils.QuestionUtils;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
+import com.yanxiu.gphone.student.utils.YanxiuLogApiTool;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.readquestion.InterViewPager;
 
@@ -157,6 +160,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 //		bean= Util.getSubjectExercisesItemBean();
 
 		if(bean!=null && bean.getData()!= null && !bean.getData().isEmpty()){
+			QuestionUtils.removeQuestions(bean);
 			answerViewTypyBean = bean.getViewType();
 //			isResolution = bean.getIsResolution();
 //			isWrongSet = bean.isWrongSet();
@@ -179,11 +183,8 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 					dataList.get(i).getQuestions().setPageIndex(i);
 					int typeId = dataList.get(i).getQuestions().getType_id();
 					String template = dataList.get(i).getQuestions().getTemplate();
-//					typeId = 4;
 					dataList.get(i).getQuestions().setTitleName(bean.getData().get(0).getName());
 					Fragment fragment = null;
-//					fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_FILL_BLANKS, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
-//					pageIndexList.add(pageIndex++);
 					if(template.equals(YanXiuConstant.ANSWER_QUESTION)){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_SUBJECTIVE, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
 						if(!isFirstSub){
@@ -420,6 +421,9 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 					}else if(template.equals(YanXiuConstant.FILL_BLANK)){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_FILL_BLANKS, dataList.get(i).getQuestions(), answerViewTypyBean, dataList.get(i).getQuestions().getChildPageIndex());
 						((FillBlanksFragment)fragment).setIsChild(true);
+					}else if(template.equals(YanXiuConstant.ANSWER_QUESTION)){
+						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_SUBJECTIVE, dataList.get(i).getQuestions(), answerViewTypyBean, dataList.get(i).getQuestions().getChildPageIndex());
+						((SubjectiveQuestionFragment)fragment).setIsChild(true);
 					}else{
 						dirtyData.add(dataList.get(i).getQuestions());
 					}

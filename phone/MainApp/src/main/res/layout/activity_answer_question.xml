@@ -159,47 +159,6 @@
             android:text="@string/next_question"
             tool:text="下一题" />
 
-        <!--<com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dimen_10"
-            android:visibility="gone"
-            android:id="@+id/tv_answer_question_tips"
-            style="@style/shadow_answer_view_index_text_style"
-            android:layout_centerVertical="true"
-            android:text="@string/answer_view_tips"
-            android:textStyle="italic"
-            app:type_face="metor_bold.OTF"
-            android:gravity="center"
-            android:textSize="@dimen/dimen_20"
-            android:textColor="@color/color_b3ab8f" />-->
-
-        <!--<com.common.core.view.ProgressLayout
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dimen_7"
-            android:visibility="gone"
-            android:id="@+id/ll_answer_view_progress"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dimen_10"
-            android:layout_marginRight="@dimen/dimen_10"
-            android:layout_toRightOf="@id/tv_answer_question_tips"
-            android:layout_toLeftOf="@+id/tv_pager_index"
-            android:background="@drawable/answer_view_progress_bg">
-
-            <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_7"
-                    android:layout_weight="1"
-                    android:scaleType="fitXY"
-                    android:background="@drawable/answer_view_progress_front"  />
-
-            <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_7"
-                    android:layout_weight="3" />
-
-        </com.common.core.view.ProgressLayout>-->
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

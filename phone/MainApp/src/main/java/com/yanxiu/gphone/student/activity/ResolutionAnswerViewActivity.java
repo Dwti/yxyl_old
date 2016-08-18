@@ -154,7 +154,6 @@ public class ResolutionAnswerViewActivity extends BaseAnswerViewActivity {
     }
 
     public void setViewPagerPosition(int position, int childPosition){
-//        LogInfo.log("geny-", "position" + position + "----childPosition" + childPosition + "----childPosition" + childPosition);
         vpAnswer.setCurrentItem(position);
         ((BaseQuestionFragment)adapter.getmFragments().get(position)).setChildPagerIndex(childPosition);
     }
@@ -175,7 +174,6 @@ public class ResolutionAnswerViewActivity extends BaseAnswerViewActivity {
             case YanXiuConstant.INTELLI_REPORT:
             case YanXiuConstant.KPN_REPORT:
             case YanXiuConstant.HISTORY_REPORT:
-                //setIsFavorite();
                 break;
         }
 
@@ -183,7 +181,6 @@ public class ResolutionAnswerViewActivity extends BaseAnswerViewActivity {
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//        LogInfo.log("geny", "position" + position + "----positionOffset" + positionOffset + "----positionOffsetPixels" + positionOffsetPixels);
     }
 
 
