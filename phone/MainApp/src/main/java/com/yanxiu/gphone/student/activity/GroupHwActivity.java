@@ -349,7 +349,6 @@ public class GroupHwActivity extends YanxiuBaseActivity{
                             && subjectExercisesItemBean.getData().size()>0 && subjectExercisesItemBean.getData().get(0).getPaperTest()!=null){
                         if (showana == HAS_FINISH_CHECK_REPORT){
                             subjectExercisesItemBean.setIsResolution(true);
-                            QuestionUtils.initDataWithAnswer(subjectExercisesItemBean);
                             AnswerReportActivity.launch(GroupHwActivity.this, subjectExercisesItemBean,YanXiuConstant.HOMEWORK_REPORT,Intent.FLAG_ACTIVITY_FORWARD_RESULT, true);
                         }else{
                             String toast1 = GroupHwActivity.this.getResources().getString(R.string.group_hw_done_not_cat_ana,endTime);

@@ -284,7 +284,9 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         while (iterator.hasNext()){
             Map.Entry<String,List<QuestionEntity>> entry = iterator.next();
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutParams.topMargin=20;
+            layoutParams.topMargin=Util.convertDpToPx(mContext,5);
+            layoutParams.leftMargin = Util.convertDpToPx(mContext,15);
+            layoutParams.rightMargin = Util.convertDpToPx(mContext,15);
 
             TitleView titleView = new TitleView(mContext);
 //            titleView.setLayoutParams(layoutParams);
@@ -295,9 +297,9 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
             gridView.setLayoutParams(layoutParams);
             gridView.setAdapter(new AnswerCardAdapter(entry.getValue()));
             gridView.setNumColumns(5);
-            gridView.setHorizontalSpacing(20);
+            gridView.setHorizontalSpacing(Util.convertDpToPx(mContext,5));
             gridView.setSelector(itemDrawable);
-            gridView.setVerticalSpacing(20);
+            gridView.setVerticalSpacing(Util.convertDpToPx(mContext,10));
 
             ll_grid.addView(titleView);
             ll_grid.addView(gridView);
@@ -821,24 +823,24 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
             AnswerBean answerBean = data.getAnswerBean();
             if (row == null) {
                 LayoutInflater inflater = LayoutInflater.from(mContext);
-                row = inflater.inflate(R.layout.item_report_card,null);
+                row = inflater.inflate(R.layout.item_report_card,parent,false);
                 holder = new ViewHolder();
                 holder.flContent = (RelativeLayout) row.findViewById(R.id.rl_report_content);
-                holder.ivSign = (TextView) row.findViewById(R.id.answer_report_icon);
+                holder.ivSign = (ImageView) row.findViewById(R.id.answer_report_icon);
                 holder.tvIndex = (TextView) row.findViewById(R.id.answer_report_text);
                 row.setTag(holder);
             } else {
                 holder = (ViewHolder) row.getTag();
             }
 
-            if (answerBean.isSubjective()) {                //如果是主观题
+            if (YanXiuConstant.ANSWER_QUESTION.equals(data.getTemplate())) {                //如果是主观题
                 if (answerBean.getRealStatus() == AnswerBean.ANSER_READED) {                                   //如果已批改
                     if (answerBean.isHalfRight()) {
-                        holder.ivSign.setBackgroundResource(R.drawable.answer_report_half_correct);
+                        holder.ivSign.setImageResource(R.drawable.answer_report_half_correct);
                     } else if (answerBean.isRight()) {
-                        holder.ivSign.setBackgroundResource(R.drawable.answer_report_correct);
+                        holder.ivSign.setImageResource(R.drawable.answer_report_correct);
                     } else if (!answerBean.isRight()) {
-                        holder.ivSign.setBackgroundResource(R.drawable.answer_report_wrong);
+                        holder.ivSign.setImageResource(R.drawable.answer_report_wrong);
                     }
                 }
                 //如果未批改，状态不做处理
@@ -848,13 +850,13 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                         if (!rightQuestionNum.contains(position)) {
                             rightQuestionNum.add(position);
                         }
-                        holder.ivSign.setBackgroundResource(R.drawable.answer_report_correct);
+                        holder.ivSign.setImageResource(R.drawable.answer_report_correct);
                     } else {
-                        holder.ivSign.setBackgroundResource(R.drawable.answer_report_wrong);
+                        holder.ivSign.setImageResource(R.drawable.answer_report_wrong);
                     }
                 } else {
                     //客观题没做视为 错题
-                    holder.ivSign.setBackgroundResource(R.drawable.answer_report_wrong);
+                    holder.ivSign.setImageResource(R.drawable.answer_report_wrong);
                 }
             }
             if (data.getChildPositionForCard() == -1) {             //等于-1表示不是复合题类型的解答题(只有是复合题且是解答题的时候才需要显示小题号)
@@ -869,7 +871,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
     }
 
     private class ViewHolder {
-        TextView ivSign;
+        ImageView ivSign;
         TextView tvIndex;
         RelativeLayout flContent;
     }
