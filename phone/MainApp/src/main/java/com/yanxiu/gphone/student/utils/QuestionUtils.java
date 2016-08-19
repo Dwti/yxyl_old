@@ -31,6 +31,29 @@ import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTI
 public class QuestionUtils {
 
     /**
+     * 我的错题移除无关题目
+     * */
+    public static void CleanData(List<PaperTestEntity> data) {
+        Iterator<PaperTestEntity> iterator = data.listIterator();
+        PaperTestEntity paperTestEntity;
+        while (iterator.hasNext()){
+            paperTestEntity = iterator.next();
+            if(paperTestEntity.getQuestions().getTemplate().equals(YanXiuConstant.CONNECT_QUESTION) || paperTestEntity.getQuestions().getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION))
+                iterator.remove();
+        }
+
+        for (int i=0;i<data.size();){
+            if (data.get(i).getQuestions().getExtend()==null){
+                data.remove(i);
+                i=i;
+            }else {
+                i++;
+            }
+        }
+    }
+
+
+    /**
      * 移除归类跟连线题
      * @param bean
      */

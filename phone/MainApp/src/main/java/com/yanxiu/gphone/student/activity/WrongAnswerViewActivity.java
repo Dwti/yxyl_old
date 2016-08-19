@@ -29,6 +29,7 @@ import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -323,7 +324,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
                 QuestionUtils.initDataWithAnswer(subjectExercisesItemBean);
                 currentPageIndex++;
 
-                CleanData(subjectExercisesItemBean.getData().get(0).getPaperTest());
+                QuestionUtils.CleanData(subjectExercisesItemBean.getData().get(0).getPaperTest());
 
                 dataSources.getData().get(0).getPaperTest().addAll(subjectExercisesItemBean.getData().get(0).getPaperTest());
                 adapter.addDataSourcesMore(subjectExercisesItemBean.getData().get(0).getPaperTest());
@@ -342,16 +343,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
         }
     };
 
-    private void CleanData(List<PaperTestEntity> data) {
-        for (int i=0;i<data.size();){
-            if (data.get(i).getQuestions().getExtend()==null){
-                data.remove(i);
-                i=i;
-            }else {
-                i++;
-            }
-        }
-    }
+
 
     private void finishResult(boolean isDelAll){
         if(delQuestionTmpList != null && delQuestionTmpList.size() > 0){

@@ -110,12 +110,13 @@ public class YXiuAnserTextView extends HtmlTextView {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        if (imageGetter!=null&&isSendheight){
-            int linecount=getLineCount();
-            int tatle_height=getTrueHeight(linecount);
+        if (isSendheight) {
+            int linecount = getLineCount();
+            int tatle_height = getTrueHeight(linecount);
             setHeight(tatle_height);
-            imageGetter.setTrueHeight(tatle_height);
-
+            if (imageGetter!=null&&isSendheight){
+                imageGetter.setTrueHeight(tatle_height);
+            }
         }
     }
 

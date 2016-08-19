@@ -36,6 +36,7 @@ import com.yanxiu.gphone.student.view.ChapterTabTitleLayout;
 import com.yanxiu.gphone.student.view.PublicLoadLayout;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
@@ -183,7 +184,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                         data.addAll(exerciseData.get(i).getPaperTest());
                     }
 
-                    CleanData(data);
+                    QuestionUtils.CleanData(data);
 
                     if (data != null && data.size() > 0) {
                         if (isLoaderMore) {
@@ -280,16 +281,6 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
         }
     }
 
-    private void CleanData(List<PaperTestEntity> data) {
-        for (int i=0;i<data.size();){
-            if (data.get(i).getQuestions().getExtend()==null){
-                data.remove(i);
-                i=i;
-            }else {
-                i++;
-            }
-        }
-    }
 
     /**
      * 更新列表UI

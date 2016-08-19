@@ -179,7 +179,10 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
         if (bean == null) {
             bean = questionsEntity.getAnswerBean();
         }
-        setDataSources(bean);
+//        setDataSources(bean);
+        if (fill_blanks_button != null) {
+            fill_blanks_button.setDataSources(bean);
+        }
         LogInfo.log("geny", "onResume");
         if (vpAnswer != null) {
             if (!is_reduction) {
@@ -219,10 +222,10 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
 
     @Override
     public void setDataSources(AnswerBean bean) {
-        this.bean = bean;
-        if (fill_blanks_button != null) {
-            fill_blanks_button.setDataSources(bean);
-        }
+//        this.bean = bean;
+//        if (fill_blanks_button != null) {
+//            fill_blanks_button.setDataSources(bean);
+//        }
     }
 
     @Override

@@ -63,26 +63,43 @@ public class BaseQuestionFragment extends Fragment {
 
             int typeId = questionsEntity.getType_id();
             if(typeId == QUESTION_SUBJECTIVE.type){
+                //    6
                 ivTopIcon.setImageResource(R.drawable.subjective_title_bg);
             }else if(typeId == QUESTION_SINGLE_CHOICES.type) {
+                //    1
                 ivTopIcon.setImageResource(R.drawable.choice_single_title_bg);
             }else if(typeId == QUESTION_MULTI_CHOICES.type){
+                //    2
                 ivTopIcon.setImageResource(R.drawable.choice_multi_title_bg);
             }else if(typeId == QUESTION_JUDGE.type){
+                //    4
                 ivTopIcon.setImageResource(R.drawable.judge_title_bg);
             }else if(typeId == QUESTION_FILL_BLANKS.type){
+                //    3
                 ivTopIcon.setImageResource(R.drawable.fill_blanks_bg);
             }else if(typeId == QUESTION_READING.type){
+                //    5
                 ivTopIcon.setImageResource(R.drawable.reading_title_bg);
             }else if(typeId == QUESTION_READ_COMPLEX.type){
+                //    14
                 ivTopIcon.setImageResource(R.drawable.read_complex_title_bg);
             }else if(typeId == QUESTION_SOLVE_COMPLEX.type){
+                //    22
                 ivTopIcon.setImageResource(R.drawable.solve_complex_title_bg);
             }else if (typeId==QUESTION_CLOZE_COMPLEX.type){
-                //完形填空
+                //    15
                 ivTopIcon.setImageResource(R.drawable.gestalt_complex_title_bg);
+            }else if (typeId==QUESTION_LISTEN_COMPLEX.type){
+                //    13
+                ivTopIcon.setImageResource(R.drawable.listen_complex_title_bg);
             }else if ((9<=typeId && typeId<=12) || typeId==18 || typeId==19 || typeId==21){
                 ivTopIcon.setImageResource(R.drawable.listen_complex_title_bg);
+            }else if (typeId== QUESTION_CONNECT.type){
+                //    7
+                ivTopIcon.setImageResource(R.drawable.attachment_title_bg);
+            }else if (typeId== QUESTION_COMPUTE.type){
+                //    8
+                ivTopIcon.setImageResource(R.drawable.calculate_title_bg);
             }else if (typeId==16){
                 ivTopIcon.setImageResource(R.drawable.translation_title_bg);
             }else if (typeId==17){

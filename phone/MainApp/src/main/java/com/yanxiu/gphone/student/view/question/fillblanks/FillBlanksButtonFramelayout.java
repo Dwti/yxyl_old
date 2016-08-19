@@ -140,7 +140,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
     @Override
     public void setDataSources(AnswerBean bean) {
         this.bean = bean;
-//        initViewWithData(bean);
+        initViewWithData(bean);
     }
 
     /**

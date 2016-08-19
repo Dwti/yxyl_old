@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.common.core.utils.LogInfo;
@@ -27,11 +28,17 @@ import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 
 import de.greenrobot.event.EventBus;
 
+import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_CLOZE_COMPLEX;
+import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_COMPUTE;
+import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_CONNECT;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_FILL_BLANKS;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_JUDGE;
+import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_LISTEN_COMPLEX;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_MULTI_CHOICES;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_READING;
+import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_READ_COMPLEX;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SINGLE_CHOICES;
+import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SOLVE_COMPLEX;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SUBJECTIVE;
 
 /**
@@ -47,7 +54,7 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
     public View getView(final int position, View convertView, ViewGroup parent) {
         final PaperTestEntity entity = getItem(position);
         ViewHolder holder = null;
-        if (convertView == null) {
+//        if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.item_wrong_answer, null);
             holder = new ViewHolder();
             holder.answerExamType = (ImageView) convertView.findViewById(R.id.answer_exam_type_text);
@@ -55,13 +62,14 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
             holder.answerExamDelete = (ImageView) convertView.findViewById(R.id.iv_answer_exam_delete);
             holder.wrongDividerLine = (ImageView) convertView.findViewById(R.id.item_divider_line);
 
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-        if ((position + 1) >= getCount()) {
-            holder.wrongDividerLine.setVisibility(View.GONE);
-        }
+//            convertView.setTag(holder);
+//        } else {
+//            holder = (ViewHolder) convertView.getTag();
+//        }
+//        if ((position + 1) >= getCount()) {
+//            holder.wrongDividerLine.setVisibility(View.GONE);
+//        }
+
         holder.answerExamContent.setIsSendHeight(true);
         setData(entity, holder);
         holder.answerExamDelete.setOnClickListener(new View.OnClickListener() {
@@ -116,17 +124,49 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
         if (entity != null && entity.getQuestions() != null) {
             int typeId = entity.getQuestions().getType_id();
             if(typeId == QUESTION_SUBJECTIVE.type){
+                //    6
                 holder.answerExamType.setImageResource(R.drawable.subjective_title_bg);
             }else if(typeId == QUESTION_SINGLE_CHOICES.type) {
+                //    1
                 holder.answerExamType.setImageResource(R.drawable.choice_single_title_bg);
             }else if(typeId == QUESTION_MULTI_CHOICES.type){
+                //    2
                 holder.answerExamType.setImageResource(R.drawable.choice_multi_title_bg);
             }else if(typeId == QUESTION_JUDGE.type){
+                //    4
                 holder.answerExamType.setImageResource(R.drawable.judge_title_bg);
             }else if(typeId == QUESTION_FILL_BLANKS.type){
+                //    3
                 holder.answerExamType.setImageResource(R.drawable.fill_blanks_bg);
             }else if(typeId == QUESTION_READING.type){
+                //    5
                 holder.answerExamType.setImageResource(R.drawable.reading_title_bg);
+            }else if(typeId == QUESTION_READ_COMPLEX.type){
+                //    14
+                holder.answerExamType.setImageResource(R.drawable.read_complex_title_bg);
+            }else if(typeId == QUESTION_SOLVE_COMPLEX.type){
+                //    22
+                holder.answerExamType.setImageResource(R.drawable.solve_complex_title_bg);
+            }else if (typeId==QUESTION_CLOZE_COMPLEX.type){
+                //    15
+                holder.answerExamType.setImageResource(R.drawable.gestalt_complex_title_bg);
+            }else if (typeId==QUESTION_LISTEN_COMPLEX.type){
+                //    13
+                holder.answerExamType.setImageResource(R.drawable.listen_complex_title_bg);
+            }else if ((9<=typeId && typeId<=12) || typeId==18 || typeId==19 || typeId==21){
+                holder.answerExamType.setImageResource(R.drawable.listen_complex_title_bg);
+            }else if (typeId== QUESTION_CONNECT.type){
+                //    7
+                holder.answerExamType.setImageResource(R.drawable.attachment_title_bg);
+            }else if (typeId== QUESTION_COMPUTE.type){
+                //    8
+                holder.answerExamType.setImageResource(R.drawable.calculate_title_bg);
+            }else if (typeId==16){
+                holder.answerExamType.setImageResource(R.drawable.translation_title_bg);
+            }else if (typeId==17){
+                holder.answerExamType.setImageResource(R.drawable.subjects_title_bg);
+            }else if (typeId==20){
+                holder.answerExamType.setImageResource(R.drawable.sorting_title_bg);
             }
             if(entity.getQuestions().isReadQuestion()){
                 holder.answerExamType.setVisibility(View.GONE);
