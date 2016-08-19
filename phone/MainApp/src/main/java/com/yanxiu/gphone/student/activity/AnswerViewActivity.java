@@ -60,14 +60,13 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 
     private FrameLayout decorView;
 
-    private int lastTime;
-    private int currentTime;
-
+    public static int totalTime=0;
+    public static int lastTime=0;
     public int currentIndex = 0;
-    private int totalTime;
 
     private CommonDialog dialog;
 
+    public static int childIndex=0;   //当前显示的子题的位置（如果有子题的话）
     private int viewPagerLastPosition;
     /**
      * 刷新进度
@@ -87,8 +86,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     private boolean isShowAnswerCard = false;
 
     private boolean isSubmitFinish = false;
-
-    private int childPostion;
 
     private int mNextIndex;
 
@@ -506,11 +503,11 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 
 
         currentIndex = position;
-        currentTime = totalTime;
-        int costTime = currentTime - lastTime;
-        lastTime = currentTime;
+        int costTime = totalTime - lastTime;
+        lastTime = totalTime;
         LogInfo.log("geny", costTime + "---costTime-------viewPagerLastPosition----" + viewPagerLastPosition);
-        adapter.setCostTime(costTime, viewPagerLastPosition);
+        adapter.setCostTime(costTime, viewPagerLastPosition,childIndex);
+        childIndex=0;
 
         tvPagerIndex.setVisibility(View.VISIBLE);
         ivAnswerCard.setVisibility(View.VISIBLE);
@@ -553,11 +550,16 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
     }
 
-    public void calculationTime() {
+    public void calculateLastQuestionTime() {
         int costTime = totalTime - lastTime;
         lastTime = totalTime;
-        LogInfo.log("geny", costTime + "---costTime-------viewPagerLastPosition----" + viewPagerLastPosition);
-        adapter.setCostTime(costTime, viewPagerLastPosition);
+        int size = dataSources.getData().get(0).getPaperTest().size();
+        QuestionEntity questionEntity = dataSources.getData().get(0).getPaperTest().get(size-1).getQuestions();
+        if(questionEntity.getChildren()!=null && !questionEntity.getChildren().isEmpty()){
+            adapter.setCostTime(costTime,viewPagerLastPosition,childIndex);
+        }else {
+            adapter.setCostTime(costTime, viewPagerLastPosition,-1);
+        }
     }
 
 
@@ -582,6 +584,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     protected void onDestroy() {
         super.onDestroy();
         LogInfo.log(TAG, "onDestroy");
+        totalTime=0;
+        lastTime=0;
         PicSelView.resetAllData();
     }
 

@@ -1288,7 +1288,7 @@ public class YanxiuHttpApi {
                         childJson.put("id", childId);
                         childJson.put("qid", bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getQuestions().getId());
                         //childJson.put("qtype", bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j));
-                        childJson.put("costtime", bean.getData().get(0).getPaperTest().get(i).getQuestions().getAnswerBean().getConsumeTime());
+                        childJson.put("costtime", bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getQuestions().getAnswerBean().getConsumeTime());
                         childJson.put("ptid", bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getId());
                         childJson.put("status", bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getQuestions().getAnswerBean().getStatus());
                         childJson.put("uid", LoginModel.getUid());
@@ -1327,7 +1327,8 @@ public class YanxiuHttpApi {
             JSONObject paperStatusNode = new JSONObject();
             paperStatusNode.put("begintime", bean.getBegintime());
             paperStatusNode.put("endtime", bean.getEndtime());
-            paperStatusNode.put("costtime", bean.getEndtime() - bean.getBegintime());
+//            paperStatusNode.put("costtime", bean.getEndtime() - bean.getBegintime());
+            paperStatusNode.put("costtime", bean.getData().get(0).getPaperStatus().getCosttime());
             paperStatusNode.put("ppid", bean.getData().get(0).getId());
             if(bean.getData().get(0).getPaperStatus() != null && bean.getData().get(0).getPaperStatus().getId() != 0){
                 paperTestId = String.valueOf(bean.getData().get(0).getPaperStatus().getId());

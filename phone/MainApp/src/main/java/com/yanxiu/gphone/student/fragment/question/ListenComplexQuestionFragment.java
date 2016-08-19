@@ -33,6 +33,7 @@ import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ChildIndexEvent;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
+import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout;
 import com.yanxiu.gphone.student.view.SimpleAudioPlayer;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
@@ -358,7 +359,13 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     }
 
     public void onPageSelected(int childPosition) {
-//        pagerIndex = position;
+        if(answerViewTypyBean == SubjectExercisesItemBean.ANSWER_QUESTION) {
+            int costtime = AnswerViewActivity.totalTime - AnswerViewActivity.lastTime;
+            AnswerViewActivity.lastTime = AnswerViewActivity.totalTime;
+            adapter.setCostTime(costtime, questionsEntity.getPageIndex(), childPagerIndex);
+            childPagerIndex = childPosition;
+            AnswerViewActivity.childIndex = childPosition;
+        }
         if (questionsEntity != null) {
             pageCountIndex = pageIndex + childPosition;
             if (this.getActivity() instanceof AnswerViewActivity && isVisibleToUser) {

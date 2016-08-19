@@ -53,10 +53,6 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
     protected String cellName = "";
     protected boolean isTestCenterOnclick = false;
 
-//    private String currentState1 = "正确答案<font color=\\\"#70cf1c\\\">B</font>，您的答案<font color=\\\"#40c0fc\\\">C</font>, 用时<font color=\\\"#ff9400\\\">20</font>秒";
-//    private String currentState2 = "累计作答本题<font color=\\\"#40c0fc\\\">4</font>次，做错<font color=\\\"#f6158b\\\">3</font>次, 平均用时<font color=\\\"#ff9400\\\">20</font>秒";
-//
-//    private String problemAnalysis1, problemAnalysis2, problemAnalysis3;
 
     private YXiuAnserTextView tvKnowledgePoint;
     private YXiuAnserTextView tvReportParseText;
@@ -206,7 +202,6 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                 }else{
                     llReportParseStatistics.setVisibility(View.GONE);
                 }
-//                LogInfo.log("geny", dataEntity.getAnswerCompare());
 
             }else{
                 llReportParseStatue.setVisibility(View.GONE);

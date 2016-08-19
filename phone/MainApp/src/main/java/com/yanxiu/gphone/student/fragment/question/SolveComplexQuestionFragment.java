@@ -21,6 +21,7 @@ import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ChildIndexEvent;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
+import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.inter.OnPushPullTouchListener;
 import com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
@@ -137,7 +138,6 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
     private boolean isVisibleToUser;
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-//        LogInfo.log("geny", "setUserVisibleHint");
         this.isVisibleToUser = isVisibleToUser;
         if (isVisibleToUser){
             if (!ischild) {
@@ -166,19 +166,6 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);//反注册EventBus
-//        rootView=null;
-//        llTopView=null;
-//        ivBottomCtrl=null;
-//        //animUp=null;
-//        //listener=null;
-//        mResources=null;
-//        tvYanxiu=null;
-//        vpAnswer=null;
-//
-//        children=null;
-//
-//        adapter=null;
-//        System.gc();
     }
 
     public void onEventMainThread(ChildIndexEvent event) {
@@ -194,7 +181,13 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
 
     }
     public void onPageSelected(int childPosition) {
-//        pagerIndex = position;
+        if(answerViewTypyBean == SubjectExercisesItemBean.ANSWER_QUESTION) {
+            int costtime = AnswerViewActivity.totalTime - AnswerViewActivity.lastTime;
+            AnswerViewActivity.lastTime = AnswerViewActivity.totalTime;
+            adapter.setCostTime(costtime, questionsEntity.getPageIndex(), childPagerIndex);
+            childPagerIndex = childPosition;
+            AnswerViewActivity.childIndex = childPosition;
+        }
         if(questionsEntity != null){
             pageCountIndex = pageIndex + childPosition;
             childPagerIndex=childPosition;

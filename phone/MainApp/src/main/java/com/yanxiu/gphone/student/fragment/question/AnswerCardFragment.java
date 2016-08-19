@@ -19,7 +19,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.common.core.utils.LogInfo;
-import com.common.login.LoginModel;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.YanxiuApplication;
@@ -366,12 +365,13 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
             requestSubmitQuesitonTask.cancel();
         }
         if(AnswerCardFragment.this.getActivity() instanceof AnswerViewActivity){
-            ((AnswerViewActivity)AnswerCardFragment.this.getActivity()).calculationTime();
+            ((AnswerViewActivity)AnswerCardFragment.this.getActivity()).calculateLastQuestionTime();
         }
         long endtime = System.currentTimeMillis();
         final long groupStartTime = dataSources.getData().get(0).getBegintime();
         final long groupEndtime = dataSources.getData().get(0).getEndtime();//作业练习截止时间
         dataSources.setEndtime(endtime);
+        dataSources.getData().get(0).getPaperStatus().setCosttime(AnswerViewActivity.totalTime);
         requestSubmitQuesitonTask = new RequestSubmitQuesitonTask(YanxiuApplication.getContext(), dataSources, RequestSubmitQuesitonTask.SUBMIT_CODE, new AsyncCallBack() {
             @Override
             public void update(YanxiuBaseBean result) {
@@ -396,6 +396,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                         jumpReport();
                     }else{
                         Util.showToast(R.string.update_sucess);
+
                         EventBus.getDefault().post(new ThridExamiEvent(true));
                         EventBus.getDefault().post(new GroupEventHWRefresh());
                         getActivity().finish();
@@ -409,6 +410,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                         StatisticHashMap statisticHashMap = new StatisticHashMap();
                         statisticHashMap.put(YanXiuConstant.eventID, "20:event_3");//3:提交练习/作业
                         HashMap reserveHashMap = new HashMap();
+
                         reserveHashMap.put(YanXiuConstant.editionID, dataSources.getData().get(i).getBedition());
                         reserveHashMap.put(YanXiuConstant.gradeID, String.valueOf(dataSources.getData().get(i).getGradeid()));
                         reserveHashMap.put(YanXiuConstant.subjectID, String.valueOf(dataSources.getData().get(i).getSubjectid()));
