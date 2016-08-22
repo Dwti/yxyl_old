@@ -324,6 +324,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
                 QuestionUtils.initDataWithAnswer(subjectExercisesItemBean);
                 currentPageIndex++;
 
+                QuestionUtils.settingAnswer(subjectExercisesItemBean);
                 QuestionUtils.CleanData(subjectExercisesItemBean.getData().get(0).getPaperTest());
 
                 dataSources.getData().get(0).getPaperTest().addAll(subjectExercisesItemBean.getData().get(0).getPaperTest());
@@ -356,6 +357,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
         intent.putExtra("sectionId", sectionId);
         intent.putExtra("uniteId", uniteId);
         intent.putExtra("isChapterSection", isChapterSection);
+        intent.putExtra("wrongNum",wrongCounts-delQueNum);
         setResult(RESULT_OK, intent);
         finish();
     }

@@ -226,6 +226,9 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
 
     public void setAnswersToPosition(int position,String answer){
         TextView textView=(TextView) rlMark.getChildAt(position);
+        ArrayList<String> answer_list=bean.getFillAnswers();
+        answer_list.add(position,answer);
+//        asd
         setText(textView,answer);
     }
 
@@ -269,9 +272,10 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
                 textView.setBackgroundResource(R.drawable.gestalt_button_nowanswer);
                 textView.setTextColor(mCtx.getResources().getColor(R.color.color_805500));
             }else {
-                List<PaperTestEntity> list=questionsEntity.getChildren();
-                if (list!=null&&list.get(i).getQuestions().getAnswerBean()!=null&&list.get(i).getQuestions().getAnswerBean().getSelectType()!=null){
-                    String answer=list.get(i).getQuestions().getAnswerBean().getSelectType();
+//                List<PaperTestEntity> list=questionsEntity.getChildren();
+                List<String> list=bean.getFillAnswers();
+                if (list!=null&&list.size()>=i){
+                    String answer=list.get(i);
                     setTextColor(textView,answer);
                 }else {
                     setTextColor(textView,null);
@@ -321,14 +325,23 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
                     }
                 }
                 if (flag) {
+                    i=0;
                     Matcher matcher1 = pattern.matcher(data);
                     while (matcher1.find()) {
-                            addTextView(matcher1.start(), matcher1.end());
+                        addTextView(matcher1.start(), matcher1.end());
+                        setAnswers_cache(i);
+                        i++;
                     }
                 }
             }
             if (flag) {
-                setData();
+//                setData();
+                initViewWithData(bean);
+                /**设置默认选中第一个*/
+                TextView textView_first = (TextView) rlMark.getChildAt(select_position);
+                if (textView_first != null) {
+                    textView_first.setBackgroundResource(R.drawable.gestalt_button_nowanswer);
+                }
             }
         }
     }
@@ -371,12 +384,14 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
     }
 
     private void setData(){
-        List<PaperTestEntity> list=questionsEntity.getChildren();
+//        int ss=bean.getFillAnswers().size();
+//        List<PaperTestEntity> list=questionsEntity.getChildren();
+        List<String> list=bean.getFillAnswers();
         if (list!=null) {
             for (int i = 0; i < list.size(); i++) {
                 TextView textView = (TextView) rlMark.getChildAt(i);
-                if (!StringUtils.isEmpty(list.get(i).getQuestions().getAnswerBean().getSelectType())) {
-                    String answer = list.get(i).getQuestions().getAnswerBean().getSelectType();
+                if (!StringUtils.isEmpty(list.get(i))) {
+                    String answer = list.get(i);
                     setText(textView, answer);
                     setTextColor(textView,answer);
                 }else {
@@ -385,16 +400,21 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
                 }
             }
         }
-        /**设置默认选中第一个*/
-        TextView textView_first = (TextView) rlMark.getChildAt(select_position);
-        if (textView_first != null) {
-            textView_first.setBackgroundResource(R.drawable.gestalt_button_nowanswer);
-        }
     }
 
-    private void setAnswers_cache(){
+    private void setAnswers_cache(int i){
 //        answers_cache.add("");
-        bean.getFillAnswers().add("");
+        if (bean.getFillAnswers().size()>i){
+
+        }else {
+            List<PaperTestEntity> list=questionsEntity.getChildren();
+            String select=list.get(i).getQuestions().getAnswerBean().getSelectType();
+            if (!TextUtils.isEmpty(select)){
+                bean.getFillAnswers().add(select);
+            }else {
+                bean.getFillAnswers().add("");
+            }
+        }
     }
 
     /**

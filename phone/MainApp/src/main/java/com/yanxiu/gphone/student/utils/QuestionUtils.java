@@ -11,6 +11,9 @@ import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.ReadingAnswer;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -52,6 +55,23 @@ public class QuestionUtils {
         }
     }
 
+    public static void settingAnswer(SubjectExercisesItemBean bean){
+        List<PaperTestEntity> list=bean.getData().get(0).getPaperTest();
+        for (PaperTestEntity entity:list){
+            ArrayList<String> answer_list=entity.getQuestions().getAnswerBean().getFillAnswers();
+            String jsonanswer=entity.getQuestions().getPad().getJsonAnswer();
+            try {
+                JSONArray array=new JSONArray(jsonanswer);
+                for (int i=0; i<array.length();i++){
+                    JSONObject object=array.getJSONObject(i);
+                    String answer=object.getJSONArray("answer").getString(0);
+                    answer_list.add(answer);
+                }
+            }catch (Exception e){
+
+            }
+        }
+    }
 
     /**
      * 移除归类跟连线题

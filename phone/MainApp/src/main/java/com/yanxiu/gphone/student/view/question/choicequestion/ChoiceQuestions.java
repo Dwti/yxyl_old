@@ -230,6 +230,13 @@ public class ChoiceQuestions extends LinearLayout implements ChoiceQuestionsItem
                             if(answer.get(k).equals(((ChoiceQuestionsItem) view).getSelectType())){
                                 ((ChoiceQuestionsItem) view).setSelectedRight();
                             }
+                            if (bean.getFillAnswers()!=null&&bean.getFillAnswers().size()>0) {
+                                if (bean.getFillAnswers().get(0).equals(((ChoiceQuestionsItem) view).getSelectType())) {
+                                    if (!bean.getFillAnswers().get(0).equals(answer.get(k))) {
+                                        ((ChoiceQuestionsItem) view).setSelectedWrong();
+                                    }
+                                }
+                            }
                         }
                     }
                 }

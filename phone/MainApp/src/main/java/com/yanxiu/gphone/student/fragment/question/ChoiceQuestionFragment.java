@@ -22,6 +22,10 @@ import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 import com.yanxiu.gphone.student.view.question.choicequestion.ChoiceQuestions;
 
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+
 /**
  * Created by Administrator on 2015/7/7.
  */
@@ -118,6 +122,21 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
                     @Override
                     public void onClick(View v) {
                         addBtn.setVisibility(View.GONE);
+                        try {
+                            ArrayList<String> answer_list=bean.getFillAnswers();
+                            answer_list.clear();
+                            String jsonanswer=questionsEntity.getPad().getJsonAnswer();
+                            JSONArray array=new JSONArray(jsonanswer);
+                            for (int i=0;i<array.length();i++){
+                                String answer=array.getString(i);
+                                answer_list.add(answer);
+                            }
+                            if (answer_list.size()==1){
+                                bean.setSelectType(answer_list.get(0));
+                            }
+                        }catch (Exception e){
+
+                        }
                         choiceQuestions.initViewWithData(bean);
                         addAnalysisFragment();
                     }
