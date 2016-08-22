@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,14 +64,13 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         this.answerViewTypyBean = (getArguments() != null) ? getArguments().getInt("answerViewTypyBean") : null;
         this.pageIndex = (getArguments() != null) ? getArguments().getInt("pageIndex") : 0;
         this.isFirstSub = (getArguments() != null) ? getArguments().getBoolean("isFirstSub", false) : false;
-        if (isFirstSub) {
-            if (!ShareBitmapUtils.getInstance().isInitCurrentId()) {
-                LogInfo.log("geny", "come from onCreate");
-                changeCurrentSelData(questionsEntity);
-                ShareBitmapUtils.getInstance().setIsInitCurrentId(true);
-            }
-        }
-
+//        if (isFirstSub) {
+//            if (!ShareBitmapUtils.getInstance().isInitCurrentId()) {
+//                LogInfo.log("geny", "come from onCreate");
+//                changeCurrentSelData(questionsEntity);
+//                ShareBitmapUtils.getInstance().setIsInitCurrentId(true);
+//            }
+//        }
 
     }
 
@@ -85,6 +86,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         }
 
         setPicSelViewId();
+        changeCurrentSelData(questionsEntity);
         selectTypeView();
 
         return rootView;
@@ -160,7 +162,6 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     @Override
     public void onStart() {
         super.onStart();
-        LogInfo.log("geny", "---onStart-------pageIndex----" + pageIndex);
     }
 
     @Override
@@ -189,26 +190,9 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
      * 1. 首个主观题执行 2 . onPageSelected 执行
      */
     public void changeCurrentSelData(QuestionEntity entity) {
-        LogInfo.log(TAG, "changeCurrentSelData");
-        if (this.questionsEntity == null && entity != null) {
-            this.questionsEntity = entity;
-            LogInfo.log(TAG, "entity != null");
-        }
-
-        if (this.questionsEntity == null) {
+        if(entity==null || TextUtils.isEmpty(entity.getId()))
             return;
-        }
-
-        if (StringUtils.isEmpty(questionsEntity.getId())) {
-            LogInfo.log(TAG, "StringUtils.isEmpty(questionsEntity.getId())");
-            return;
-        }
-        LogInfo.log(TAG, "Change Id is : " + this.questionsEntity.getId());
-        String id = this.questionsEntity.getId();
-        if (StringUtils.isEmpty(id)) {
-            return;
-        }
-        ShareBitmapUtils.getInstance().setCurrentSbId(id);
+        ShareBitmapUtils.getInstance().setCurrentSbId(entity.getId());
         if (mPicSelView != null) {
             mPicSelView.changeData();
         }

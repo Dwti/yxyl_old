@@ -231,8 +231,8 @@ public class MediaUtils {
 //        intent.putExtra("aspectX", 1);
 //        intent.putExtra("aspectY", 1);
         // outputX outputY 是裁剪图片宽高
-        intent.putExtra("outputX", 600);
-        intent.putExtra("outputY", 600);
+//        intent.putExtra("outputX", 600);
+//        intent.putExtra("outputY", 600);
         intent.putExtra("return-data", false);
         intent.putExtra(MediaStore.EXTRA_OUTPUT,currentCroppedImageUri);
         activity.startActivityForResult(intent, requestCode);
