@@ -70,7 +70,7 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
 //            holder.wrongDividerLine.setVisibility(View.GONE);
 //        }
 
-        holder.answerExamContent.setIsSendHeight(true);
+//        holder.answerExamContent.setIsSendHeight(true);
         setData(entity, holder);
         holder.answerExamDelete.setOnClickListener(new View.OnClickListener() {
             @Override

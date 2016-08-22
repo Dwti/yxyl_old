@@ -177,9 +177,11 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                     rootView.finish();
                     listView.stopRefresh();
                     listView.stopLoadMore();
+
                     mSubjectExercisesItemBean = (SubjectExercisesItemBean) result;
 
                     QuestionUtils.settingAnswer(mSubjectExercisesItemBean);
+                    QuestionUtils.initDataWithAnswer(mSubjectExercisesItemBean);
 
                     ArrayList<ExercisesDataEntity> exerciseData = mSubjectExercisesItemBean.getData();
                     List<PaperTestEntity> data = new ArrayList<PaperTestEntity>();

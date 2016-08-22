@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <include layout="@layout/question_top_content_layout"
@@ -57,10 +58,12 @@
                      android:layout_below="@+id/ll_answer_content"
                      android:id="@+id/rl_answer" />
 
-            <Button
-                    style="@style/btn_problem_analysis"
-                    android:layout_below="@+id/rl_answer"
-                    android:id="@+id/add_problem_analysis"/>
+
+            <com.yanxiu.gphone.student.view.YanxiuTypefaceButton
+                android:id="@+id/add_problem_analysis"
+                android:layout_below="@+id/rl_answer"
+                style="@style/btn_problem_analysis"
+                app:type_face="fz.ttf" />
 
             <FrameLayout
                     android:id="@+id/content_problem_analysis"

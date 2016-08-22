@@ -154,6 +154,8 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 		}
 	}
 
+	boolean isFirstSub = false;
+
 	public void addDataSources(SubjectExercisesItemBean bean){
 		SubjectExercisesItemBean beanTmp = Util.getSubjectExercisesItemBean();
 //		Util.testDataStr="";
@@ -174,7 +176,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 			mFragments.clear();
 			int pageIndex = 1;
 			int parentIndex = -1;
-			boolean isFirstSub = false;
+
 			//dataList.get(0).getQuestions().setType_id(16);
 			for(int i = 0; i < count; i++){
 				if(dataList.get(i) != null && dataList.get(i).getQuestions() != null){
@@ -325,30 +327,121 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 			int count = paperList.size();
 			dataList.addAll(paperList);
 //			mFragments.clear();
+			int pageIndex = 1;
+			int parentIndex = -1;
 			for(int i = 0; i < count; i++){
 				if(paperList.get(i) != null && paperList.get(i).getQuestions() != null){
 					int typeId = paperList.get(i).getQuestions().getType_id();
-					String template = dataList.get(i).getQuestions().getTemplate();
+					String template = paperList.get(i).getQuestions().getTemplate();
 					Fragment fragment = null;
 					LogInfo.log("geny-", "typeId------" + typeId + "----pagerIndex-----" + i);
-					if(template.equals(YanXiuConstant.SINGLE_CHOICES)) {
+					if(template.equals(YanXiuConstant.ANSWER_QUESTION)){
+						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_SUBJECTIVE, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
+						if(!isFirstSub){
+							isFirstSub = true;
+							fragment.getArguments().putBoolean("isFirstSub", isFirstSub);
+						}
+						pageIndexList.add(pageIndex++);
+					}else if(template.equals(YanXiuConstant.SINGLE_CHOICES)) {
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_SINGLE_CHOICES, paperList.get(i).getQuestions(), answerViewTypyBean, 0);
 					}else if(template.equals(YanXiuConstant.MULTI_CHOICES)){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_MULTI_CHOICES, paperList.get(i).getQuestions(), answerViewTypyBean, 0);
 					}else if(template .equals(YanXiuConstant.JUDGE_QUESTION)){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_JUDGE, paperList.get(i).getQuestions(), answerViewTypyBean, 0);
 					}else if(template.equals(YanXiuConstant.FILL_BLANK)){
+//						dataList.get(i).getQuestions().getAnswerBean().setSubjectId(bean.getData().get(0).getSubjectid());
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_FILL_BLANKS, paperList.get(i).getQuestions(), answerViewTypyBean, 0);
 					}else if(template.equals(YanXiuConstant.MULTI_QUESTION) && typeId == QUESTION_READING.type && 1==2){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_READING, paperList.get(i).getQuestions(), answerViewTypyBean, 0);
+						if (dataList.get(i).getQuestions() != null) {
+							List<PaperTestEntity> childQuestion = dataList.get(i).getQuestions().getChildren();
+							if (childQuestion != null ) {
+								int childCount = childQuestion.size();
+								for (int j = 0; j < childCount; j++) {
+									childQuestion.get(j).getQuestions().setParentIndex(parentIndex);
+									childQuestion.get(j).getQuestions().setPageIndex(i);
+									childQuestion.get(j).getQuestions().setChildPageIndex(j);
+								}
+							}
+						}
+						if(dataList.get(i).getQuestions() != null && dataList.get(i).getQuestions().getChildren() != null){
+							pageIndexList.add(pageIndex);
+							pageIndex = dataList.get(i).getQuestions().getChildren().size() + pageIndex;
+						}else {
+							pageIndexList.add(pageIndex++);
+						}
 					}else if(template.equals(YanXiuConstant.LISTEN_QUESTION)){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_LISTEN_COMPLEX, paperList.get(i).getQuestions(), answerViewTypyBean, 0);
+						if (dataList.get(i).getQuestions() != null) {
+							List<PaperTestEntity> childQuestion = dataList.get(i).getQuestions().getChildren();
+							if (childQuestion != null) {
+								int childCount = childQuestion.size();
+								for (int j = 0; j < childCount; j++) {
+									childQuestion.get(j).getQuestions().setParentIndex(parentIndex);
+									childQuestion.get(j).getQuestions().setPageIndex(i);
+									childQuestion.get(j).getQuestions().setChildPageIndex(j);
+								}
+							}
+						}
+						if (dataList.get(i).getQuestions() != null && dataList.get(i).getQuestions().getChildren() != null) {
+							pageIndexList.add(pageIndex);
+							pageIndex = dataList.get(i).getQuestions().getChildren().size() + pageIndex;
+						} else {
+							pageIndexList.add(pageIndex++);
+						}
 					}else if(template.equals(YanXiuConstant.MULTI_QUESTION) && (typeId == QUESTION_READ_COMPLEX.type || typeId == QUESTION_READING.type)){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_READ_COMPLEX, paperList.get(i).getQuestions(), answerViewTypyBean, 0);
+						if (dataList.get(i).getQuestions() != null) {
+							List<PaperTestEntity> childQuestion = dataList.get(i).getQuestions().getChildren();
+							if (childQuestion != null ) {
+								int childCount = childQuestion.size();
+								for (int j = 0; j < childCount; j++) {
+									childQuestion.get(j).getQuestions().setParentIndex(parentIndex);
+									childQuestion.get(j).getQuestions().setPageIndex(i);
+									childQuestion.get(j).getQuestions().setChildPageIndex(j);
+								}
+							}
+						}
+						if(dataList.get(i).getQuestions() != null && dataList.get(i).getQuestions().getChildren() != null){
+							pageIndexList.add(pageIndex);
+							pageIndex = dataList.get(i).getQuestions().getChildren().size() + pageIndex;
+						}else {
+							pageIndexList.add(pageIndex++);
+						}
 					}else if(template.equals(YanXiuConstant.MULTI_QUESTION) && typeId == QUESTION_SOLVE_COMPLEX.type){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_SOLVE_COMPLEX, paperList.get(i).getQuestions(), answerViewTypyBean, 0);
+						if (dataList.get(i).getQuestions() != null) {
+							List<PaperTestEntity> childQuestion = dataList.get(i).getQuestions().getChildren();
+							if (childQuestion != null ) {
+								int childCount = childQuestion.size();
+								for (int j = 0; j < childCount; j++) {
+									childQuestion.get(j).getQuestions().setParentIndex(parentIndex);
+									childQuestion.get(j).getQuestions().setPageIndex(i);
+									childQuestion.get(j).getQuestions().setChildPageIndex(j);
+								}
+							}
+						}
+						pageIndexList.add(pageIndex++);
 					}else if (template.equals(YanXiuConstant.CLOZE_QUESTION)){
 						fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_CLOZE_COMPLEX, paperList.get(i).getQuestions(), answerViewTypyBean, 0);
+						if (dataList.get(i).getQuestions() != null) {
+							List<PaperTestEntity> childQuestion = dataList.get(i).getQuestions().getChildren();
+							if (childQuestion != null ) {
+								int childCount = childQuestion.size();
+								for (int j = 0; j < childCount; j++) {
+									childQuestion.get(j).getQuestions().setParentIndex(parentIndex);
+									childQuestion.get(j).getQuestions().setPageIndex(i);
+									childQuestion.get(j).getQuestions().setChildPageIndex(j);
+								}
+							}
+						}
+						if(dataList.get(i).getQuestions() != null && dataList.get(i).getQuestions().getChildren() != null){
+							pageIndexList.add(pageIndex);
+							pageIndex = dataList.get(i).getQuestions().getChildren().size() + pageIndex;
+						}else {
+							pageIndexList.add(pageIndex++);
+						}
+//						pageIndexList.add(pageIndex++);
 					}
 					if (fragment!=null) {
 						((QuestionsListener) fragment).flipNextPager(this);
@@ -362,6 +455,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 //				mFragments.add(new AnswerCardFragment());
 //				((AnswerCardFragment)mFragments.get(count)).setDataSources(subjectExercisesItemBean);
 //			}
+			pageIndexList.add(pageIndex - 1);
 			this.notifyDataSetChanged();
 		}
 	}

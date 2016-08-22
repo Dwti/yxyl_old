@@ -321,14 +321,18 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
             isGetDataNow=true;
             SubjectExercisesItemBean subjectExercisesItemBean = (SubjectExercisesItemBean) result;
             if (subjectExercisesItemBean.getData() != null && subjectExercisesItemBean.getData().size() >= 1) {
-                QuestionUtils.initDataWithAnswer(subjectExercisesItemBean);
                 currentPageIndex++;
 
-                QuestionUtils.settingAnswer(subjectExercisesItemBean);
+                QuestionUtils.initDataWithAnswer(subjectExercisesItemBean);
                 QuestionUtils.CleanData(subjectExercisesItemBean.getData().get(0).getPaperTest());
+                QuestionUtils.settingAnswer(subjectExercisesItemBean);
 
-                dataSources.getData().get(0).getPaperTest().addAll(subjectExercisesItemBean.getData().get(0).getPaperTest());
-                adapter.addDataSourcesMore(subjectExercisesItemBean.getData().get(0).getPaperTest());
+                List<PaperTestEntity> paperTestEntities=subjectExercisesItemBean.getData().get(0).getPaperTest();
+                dataSources.getData().get(0).getPaperTest().addAll(paperTestEntities);
+                adapter.addDataSourcesMore(paperTestEntities);
+                if (paperTestEntities!=null&&paperTestEntities.size()>0){
+                    setNextShow();
+                }
             } else {
                 Util.showToast(R.string.server_connection_erro);
             }

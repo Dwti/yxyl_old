@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <include layout="@layout/question_top_content_layout"
@@ -60,7 +61,7 @@
             </LinearLayout>
 
 
-            <Button android:layout_width="match_parent"
+            <!--<Button android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_45"
                     android:layout_below="@+id/ll_answer_content"
                     android:visibility="gone"
@@ -68,7 +69,13 @@
                     android:textColor="@color/color_white"
                     android:background="@drawable/selector_question_submit"
                     android:text="@string/view_resolution"
-                    android:id="@+id/add_problem_analysis"/>
+                    android:id="@+id/add_problem_analysis"/>-->
+
+            <com.yanxiu.gphone.student.view.YanxiuTypefaceButton
+                android:id="@+id/add_problem_analysis"
+                android:layout_below="@+id/ll_answer_content"
+                style="@style/btn_problem_analysis"
+                app:type_face="fz.ttf" />
 
             <FrameLayout
                     android:id="@+id/content_problem_analysis"

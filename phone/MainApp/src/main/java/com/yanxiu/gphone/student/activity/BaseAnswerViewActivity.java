@@ -409,4 +409,8 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
     public void onConfigurationChanged(android.content.res.Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
+
+    protected void setNextShow(){
+        btnNextQuestion.setVisibility(View.VISIBLE);
+    }
 }

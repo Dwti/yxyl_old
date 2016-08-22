@@ -1,5 +1,6 @@
 package com.yanxiu.gphone.student.fragment.question;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -60,7 +61,7 @@ public class BaseQuestionFragment extends Fragment {
         rlTopView = (RelativeLayout) view.findViewById(R.id.rl_top);
         ivTopIcon = (ImageView) view.findViewById(R.id.iv_answer_top_icon);
         if(questionsEntity != null){
-
+            BaseQuestionFragment fragment=this;
             int typeId = questionsEntity.getType_id();
             if(typeId == QUESTION_SUBJECTIVE.type){
                 //    6
@@ -142,6 +143,7 @@ public class BaseQuestionFragment extends Fragment {
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
+        BaseQuestionFragment context=this;
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             if (YanXiuConstant.OnClick_TYPE == 0) {

@@ -58,13 +58,20 @@ public class QuestionUtils {
     public static void settingAnswer(SubjectExercisesItemBean bean){
         List<PaperTestEntity> list=bean.getData().get(0).getPaperTest();
         for (PaperTestEntity entity:list){
-            ArrayList<String> answer_list=entity.getQuestions().getAnswerBean().getFillAnswers();
-            String jsonanswer=entity.getQuestions().getPad().getJsonAnswer();
             try {
+                ArrayList<String> answer_list=entity.getQuestions().getAnswerBean().getFillAnswers();
+                String jsonanswer=entity.getQuestions().getPad().getJsonAnswer();
                 JSONArray array=new JSONArray(jsonanswer);
                 for (int i=0; i<array.length();i++){
                     JSONObject object=array.getJSONObject(i);
-                    String answer=object.getJSONArray("answer").getString(0);
+                    JSONArray jsonArray=object.optJSONArray("answer");
+                    String answer="";
+                    if (jsonArray!=null){
+                        answer=jsonArray.optString(0);
+                        if (answer==null){
+                            answer="";
+                        }
+                    }
                     answer_list.add(answer);
                 }
             }catch (Exception e){
