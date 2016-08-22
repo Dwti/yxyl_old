@@ -4,9 +4,11 @@ import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.common.core.utils.LogInfo;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.view.picsel.bean.LocalImageView;
 import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
@@ -25,6 +27,8 @@ public class LocalPhotoViewAdapter extends PagerAdapter {
         options = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)                        // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true)                       // 设置下载的图片是否缓存在SD卡中
+                .showImageOnFail(R.drawable.image_default)
+                .showImageForEmptyUri(R.drawable.image_default)
                 .build();                                   // 创建配置过得DisplayImageOption对象
     }
 
@@ -44,13 +48,11 @@ public class LocalPhotoViewAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View view=View.inflate(context, R.layout.item_photo_view,null);
-        LocalImageView imageView=(LocalImageView)view.findViewById(R.id.iv_photo_view);
+        ImageView imageView=(ImageView) view.findViewById(R.id.iv_photo_view);
         if(ShareBitmapUtils.getInstance().getDrrMaps().get(ShareBitmapUtils.getInstance().getCurrentSbId()).size()>0){
             String path=ShareBitmapUtils.getInstance().getDrrMaps().get(ShareBitmapUtils.getInstance().getCurrentSbId()).get(position);
 
             com.nostra13.universalimageloader.core.ImageLoader.getInstance().displayImage("file://" + path, imageView, options);
-//            UniversalImageLoadTool.disPlay("file://" + path,
-//                    new RotateImageViewAware(imageView, path), R.drawable.image_default);
         }
         container.addView(view, 0);
         return view;

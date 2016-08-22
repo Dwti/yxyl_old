@@ -120,6 +120,7 @@ public class QuestionUtils {
                                 if (22 == typeId) {
                                     //只有是复合题且是解答题的时候，才会有childPositionForCard，否则childPositionForCard为-1
                                     question.setChildPositionForCard(j);
+                                    question.setStem("("+(j+1)+")"+question.getStem());
                                 } else {
                                     question.setChildPositionForCard(-1);
                                     position++;
