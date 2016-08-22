@@ -322,7 +322,8 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         if (dataSources.getData().get(0) != null && dataSources.getData().get(0).getPaperStatus() != null) {
             tvReport.setText(this.getResources().getString(R.string.answer_report_time) + TimeUtils.getTimeLongYMD(dataSources.getData().get(0).getPaperStatus().getEndtime()));
         }
-        costTime = calculationCostTime(questionList);
+//        costTime = calculationCostTime(questionList);
+        costTime=dataSources.getData().get(0).getPaperStatus().getCosttime();
         tvReportTimeText.setText(this.getResources().getString(R.string.answer_cost_time) + formatTime(costTime));
 
 
@@ -818,8 +819,9 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         public View getView(int position, View convertView, ViewGroup parent) {
             View row = convertView;
             QuestionEntity data = mList.get(position);
-            if (data == null || data.getAnswerBean() == null)
+            if (data == null)
                 return null;
+            //此处getAnswerBean方法比较特殊，以前里面做了非空判断，为null 的话new了一个
             AnswerBean answerBean = data.getAnswerBean();
             if (row == null) {
                 LayoutInflater inflater = LayoutInflater.from(mContext);

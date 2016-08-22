@@ -100,6 +100,11 @@ public class TitleTabLayout extends LinearLayout implements View.OnClickListener
         }
     }
 
+    public void setRightTabInvisible(boolean b){
+        if(tvTabRight!=null && b){
+            tvTabRight.setVisibility(INVISIBLE);
+        }
+    }
 
     private OnTitleTabClick onTitleTabClick;
 

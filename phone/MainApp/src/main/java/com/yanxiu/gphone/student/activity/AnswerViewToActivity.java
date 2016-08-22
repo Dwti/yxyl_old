@@ -281,7 +281,7 @@ public class AnswerViewToActivity extends YanxiuBaseActivity implements View.OnC
             currentTime = totalTime;
             int costTime = currentTime - lastTime;
             lastTime = currentTime;
-            adapter.setCostTime(costTime, viewPagerLastPosition);
+            adapter.setCostTime(costTime, viewPagerLastPosition,-1);
             viewPagerLastPosition = position;
         }
     }

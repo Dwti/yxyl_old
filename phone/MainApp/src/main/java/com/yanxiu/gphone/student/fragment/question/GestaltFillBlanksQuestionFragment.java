@@ -24,6 +24,7 @@ import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ChildIndexEvent;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
+import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.inter.AnswerCallback;
 import com.yanxiu.gphone.student.inter.OnPushPullTouchListener;
 import com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout;
@@ -284,6 +285,13 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
 
     @Override
     public void onPageSelected(int position) {
+        if(answerViewTypyBean == SubjectExercisesItemBean.ANSWER_QUESTION) {
+            int costtime = AnswerViewActivity.totalTime - AnswerViewActivity.lastTime;
+            AnswerViewActivity.lastTime = AnswerViewActivity.totalTime;
+            adapter.setCostTime(costtime, questionsEntity.getPageIndex(), childPagerIndex);
+            childPagerIndex = position;
+            AnswerViewActivity.childIndex = position;
+        }
         if (questionsEntity != null) {
             pageCountIndex = pageIndex + position;
             if (this.getActivity() instanceof AnswerViewActivity && isVisibleToUser) {

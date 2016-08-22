@@ -210,6 +210,11 @@ public class SubjectSectionActivity extends YanxiuBaseActivity implements View.O
             subjectId = entity.getId();
 //            subjectName = entity.getName();
             editionId = entity.getData().getEditionId();
+            //如果是小学英语跟初中英语，屏蔽掉考点切换
+            if("1104".equals(subjectId)){
+                if(1202==stageId || 1203==stageId)
+                    titleTabLayout.setRightTabInvisible(true);
+            }
 //            editionName = entity.getData().getEditionName();
         }
 

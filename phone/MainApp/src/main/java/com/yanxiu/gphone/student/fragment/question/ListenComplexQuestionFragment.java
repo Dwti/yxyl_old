@@ -33,6 +33,7 @@ import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ChildIndexEvent;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
+import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout;
 import com.yanxiu.gphone.student.view.SimpleAudioPlayer;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
@@ -89,14 +90,14 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     @Override
     public void setChildPagerIndex(int childPagerIndex) {
         super.setChildPagerIndex(childPagerIndex);
-        if (vpAnswer!=null){
+        if (vpAnswer != null) {
             vpAnswer.setCurrentItem(childPagerIndex);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (rootView==null) {
+        if (rootView == null) {
             rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_listen_complex_question, null);
             isNeedUpdate = true;
             mContext = getActivity();
@@ -162,7 +163,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                     //开始播放
 //                    String path = "http://abv.cn/music/光辉岁月.mp3";
                     String path = "http://data.5sing.kgimg.com/G034/M05/16/17/ApQEAFXsgeqIXl7gAAVVd-n31lcAABOogKzlD4ABVWP363.mp3";
-                    if(TextUtils.isEmpty(url))
+                    if (TextUtils.isEmpty(url))
                         return;
                     try {
                         play(url);
@@ -224,6 +225,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
             }
         }
     };
+
     /**
      * 暂停播放
      */
@@ -258,7 +260,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
 
             public void onPrepared(MediaPlayer mp) {
-                isNeedUpdate=true;
+                isNeedUpdate = true;
                 mediaPlayer.start();
                 mSimplePlayer.setMax(mediaPlayer.getDuration());
                 mDuration = mediaPlayer.getDuration() / 1000;
@@ -275,9 +277,9 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
             public void onCompletion(MediaPlayer mp) {
-                isNeedUpdate=false;
+                isNeedUpdate = false;
                 mediaPlayer.release();
-                mediaPlayer=null;    //此处不置空，播放完了不能播放第二次,这是因为mediaPlayer.release()之后，mediaPlayer并不为空，导致上面没有重新create，然后又释放了，所以不能播放第二次
+                mediaPlayer = null;    //此处不置空，播放完了不能播放第二次,这是因为mediaPlayer.release()之后，mediaPlayer并不为空，导致上面没有重新create，然后又释放了，所以不能播放第二次
                 mSimplePlayer.setPlayOver();
             }
         });
@@ -324,7 +326,8 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
             mediaPlayer.release();
             mediaPlayer = null;
         }
-        mSimplePlayer.setPlayOver();
+        if (mSimplePlayer != null)
+            mSimplePlayer.setPlayOver();
     }
 
     @Override
@@ -358,14 +361,20 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     }
 
     public void onPageSelected(int childPosition) {
-//        pagerIndex = position;
+        if (answerViewTypyBean == SubjectExercisesItemBean.ANSWER_QUESTION) {
+            int costtime = AnswerViewActivity.totalTime - AnswerViewActivity.lastTime;
+            AnswerViewActivity.lastTime = AnswerViewActivity.totalTime;
+            adapter.setCostTime(costtime, questionsEntity.getPageIndex(), childPagerIndex);
+            childPagerIndex = childPosition;
+            AnswerViewActivity.childIndex = childPosition;
+        }
         if (questionsEntity != null) {
             pageCountIndex = pageIndex + childPosition;
             if (this.getActivity() instanceof AnswerViewActivity && isVisibleToUser) {
                 ((AnswerViewActivity) this.getActivity()).setIndexFromRead(pageCountIndex);
             } else if (this.getActivity() instanceof ResolutionAnswerViewActivity && isVisibleToUser) {
                 ((ResolutionAnswerViewActivity) this.getActivity()).setIndexFromRead(pageCountIndex);
-            }else if (this.getActivity() instanceof WrongAnswerViewActivity && isVisibleToUser) {
+            } else if (this.getActivity() instanceof WrongAnswerViewActivity && isVisibleToUser) {
                 ((WrongAnswerViewActivity) this.getActivity()).setIndexFromRead(pageCountIndex);
             }
         }
@@ -392,7 +401,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                 vpAnswer.setCurrentItem(adapter.getCount() - 1);
             }
         }
-        if (!ischild&&isVisibleToUser) {
+        if (!ischild && isVisibleToUser) {
             if (adapter != null) {
                 ((QuestionsListener) getActivity()).flipNextPager(adapter);
             }
@@ -541,7 +550,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
 
     @Override
     public int getChildCount() {
-        if (adapter != null&&adapter.getCount()!=0) {
+        if (adapter != null && adapter.getCount() != 0) {
             return adapter.getCount();
         } else {
             return super.getChildCount();

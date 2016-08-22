@@ -72,29 +72,12 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        if(adapter != null){
-//            int count = adapter.getCount();
-//            for(int i = 0; i < count; i++){
-//                adapter.getItem(i).onDestroy();
-//            }
-//        }
-//        if(act != null){
-//            LogInfo.log("geny", "BaseAnswerViewActivity   onCreate--------act != null");
-//            if(act == this)
-//                LogInfo.log("geny", "BaseAnswerViewActivity   onCreate--------act == this");
-//        }
-//        act = this;
-        LogInfo.log("geny", "BaseAnswerViewActivity   onCreate--------");
-
         mRootView = PublicLoadUtils.createPage(this, R.layout.activity_answer_question);
         loadingLayout = (StudentLoadingLayout) mRootView.findViewById(R.id.loading_layout);
         setContentView(mRootView);
         if(savedInstanceState!=null){
             onRestoreInstanceState(savedInstanceState);
         }
-//        initView();
-//        initData();
     }
 
 
