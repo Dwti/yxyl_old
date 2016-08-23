@@ -87,7 +87,6 @@ public class FillBlanksFramelayout extends FrameLayout implements
         data = stem + "  \n";
         data = data + "  \n";
         data = data.replace("(_)","(________________)");
-//        tvFillBlank.setTextHtml(data);
         tvFillBlank.setText(data);
 //        Log.d("asd","data++++"+data);
         ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();

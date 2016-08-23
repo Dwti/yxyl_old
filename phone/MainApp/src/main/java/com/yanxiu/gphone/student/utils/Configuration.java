@@ -2,8 +2,10 @@ package com.yanxiu.gphone.student.utils;
 
 
 import com.yanxiu.gphone.student.BuildConfig;
+import com.yanxiu.gphone.student.preference.PreferencesManager;
 
 public class Configuration {
+
 
 	public static boolean isDebug() {
 		return BuildConfig.YANXIU_DEBUG;

@@ -194,7 +194,7 @@ public class QuestionEntity implements YanxiuBaseBean {
         return template;
     }
 
-//        public List<String> getAnswer() {
+//        public List<String> getAnswerList() {
 //            return answer;
 //        }
 

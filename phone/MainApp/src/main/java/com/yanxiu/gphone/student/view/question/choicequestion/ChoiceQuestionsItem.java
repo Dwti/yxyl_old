@@ -139,10 +139,6 @@ public class ChoiceQuestionsItem extends AbsChoiceQuestionsItem implements View.
         }
     }
 
-//    public OnChoicesItemClickListener getChoicesItemClickListener() {
-//        return choicesItemClickListener;
-//    }
-
     public void setChoicesItemClickListener(OnChoicesItemClickListener choicesItemClickListener) {
         this.choicesItemClickListener = choicesItemClickListener;
     }
@@ -199,7 +195,6 @@ public class ChoiceQuestionsItem extends AbsChoiceQuestionsItem implements View.
 
     @Override
     protected String  getSelectType() {
-//        String type = tvItemText.getText().toString();
         return selectTpye;
     }
 
@@ -210,51 +205,8 @@ public class ChoiceQuestionsItem extends AbsChoiceQuestionsItem implements View.
 
     @Override
     protected void setItemContentText(String str) {
-//        ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
-//        tvItemContentText.getViewTreeObserver().addOnGlobalLayoutListener(listener);
-
         if(!TextUtils.isEmpty(str)){
             tvItemContentText.setTextHtml(str);
         }
-//        ivRepeat = new ImageView(mCtx);
-
-//
-//        flItemMiddleBg.addView(ivRepeat);
-
-//        ivRepeat.setBackgroundColor(getResources().getColor(R.color.color_005959));
-//        flItemMiddleBg.addView(ivRepeat, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 80));
     }
-
-//    ImageView ivRepeat;
-//    class MyOnGlobalLayoutListener implements ViewTreeObserver.OnGlobalLayoutListener {
-//
-//        @Override
-//        public void onGlobalLayout() {
-//            ivRepeat.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-//            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-//            ivRepeat.setLayoutParams(lp);
-//            ivRepeat.requestLayout();
-//            ivRepeat.setImageResource(R.drawable.repeat_answer_line);
-//            ivRepeat.setBackgroundColor(getResources().getColor(R.color.color_b3476b));
-////            LogInfo.log("lidm", "MyOnGlobalLayoutListener--------");
-////            ivRepeat.setBackgroundColor(getResources().getColor(R.color.color_005959));
-////            ivRepeat.setImageResource(R.drawable.repeat_answer_line);
-//        }
-//    }
-//
-//
-//    class MyOnGlobalLayoutListener implements ViewTreeObserver.OnGlobalLayoutListener {
-//
-//        @Override
-//        public void onGlobalLayout() {
-//            tvItemContentText.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-//            RelativeLayout.LayoutParams ivLp = (RelativeLayout.LayoutParams) ivMiddleIcon.getLayoutParams();
-//            ivLp.height = Util.getScreenHeight();
-//            ivMiddleIcon.requestLayout();
-//        }
-//    }
-
-
-
-
 }
