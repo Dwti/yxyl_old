@@ -192,6 +192,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     @Override
     public void initData() {
         super.initData();
+        childIndex=0;
         comeFrom = this.getIntent().getIntExtra("comeFrom", -1);
         adapter.setComeFrom(comeFrom);
         adapter.setFlip(new QuestionsListener() {
