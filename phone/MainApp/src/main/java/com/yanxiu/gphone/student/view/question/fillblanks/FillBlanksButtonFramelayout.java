@@ -53,6 +53,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
     private QuestionsListener listener;
     private QuestionPositionSelectListener selectListener;
     protected QuestionEntity questionsEntity;
+    private int position_index;
     private AnswerBean bean;
     private List<String> answers = new ArrayList<String>();
     private List<TextView> list_textview = new ArrayList<TextView>();
@@ -188,9 +189,14 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
     public void answerViewClick() {
     }
 
-    public void setQuestionsEntity(QuestionEntity questionsEntity){
+    public void setQuestionsEntity(QuestionEntity questionsEntity,int position_index){
         this.questionsEntity=questionsEntity;
-        question_position=questionsEntity.getChildren().get(0).getQuestions().getPositionForCard();
+        this.position_index=position_index;
+        if (position_index==-1){
+            question_position=questionsEntity.getChildren().get(0).getQuestions().getPositionForCard();
+        }else {
+            question_position=position_index;
+        }
     }
 
     /**
@@ -407,13 +413,18 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         if (bean.getFillAnswers().size()>i){
 
         }else {
-            List<PaperTestEntity> list=questionsEntity.getChildren();
-            String select=list.get(i).getQuestions().getAnswerBean().getSelectType();
-            if (!TextUtils.isEmpty(select)){
-                bean.getFillAnswers().add(select);
-            }else {
+            if (position_index==0){
                 bean.getFillAnswers().add("");
+            }else {
+                List<PaperTestEntity> list=questionsEntity.getChildren();
+                String select=list.get(i).getQuestions().getAnswerBean().getSelectType();
+                if (!TextUtils.isEmpty(select)){
+                    bean.getFillAnswers().add(select);
+                }else {
+                    bean.getFillAnswers().add("");
+                }
             }
+
         }
     }
 
@@ -447,15 +458,15 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
 
         if (bean != null && String.valueOf(YanXiuConstant.SUBJECT.YINYU).equals(bean.getSubjectId())) {
             if (CommonCoreUtil.getSDK() >= 21) {
-                offset_heigh=textSize;
+                offset_heigh=textSize/3;
                 params = new RelativeLayout.LayoutParams((int) textview_width, (int) (yAxisHeight + offset_heigh));
             } else {
-                offset_heigh=textSize * 4 / 5;
+                offset_heigh=textSize/3;
                 params = new RelativeLayout.LayoutParams((int) textview_width, (int) (yAxisHeight + offset_heigh));
             }
         } else {
             if (CommonCoreUtil.getSDK() >= 21) {
-                offset_heigh=textSize;
+                offset_heigh=textSize/3;
                 params = new RelativeLayout.LayoutParams((int) textview_width, (int) (yAxisHeight + offset_heigh));
             } else {
                 offset_heigh=textSize / 3;

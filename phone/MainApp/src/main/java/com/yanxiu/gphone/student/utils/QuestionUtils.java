@@ -56,6 +56,11 @@ public class QuestionUtils {
     }
 
     public static void settingAnswer(SubjectExercisesItemBean bean){
+        /**因产品需求变更，需要暂时去掉这个功能*/
+        if (true){
+            return;
+        }
+
         List<PaperTestEntity> list=bean.getData().get(0).getPaperTest();
         for (PaperTestEntity entity:list){
             try {

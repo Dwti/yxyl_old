@@ -16,8 +16,17 @@ public class PaperTestEntity implements YanxiuBaseBean {
     private int sectionid;
     private int qid;
     private int status;
+    private String wqid;
 
     private ExtendEntity extend;
+
+    public String getWqid() {
+        return wqid;
+    }
+
+    public void setWqid(String wqid) {
+        this.wqid = wqid;
+    }
 
     public ExtendEntity getExtend() {
         return extend;

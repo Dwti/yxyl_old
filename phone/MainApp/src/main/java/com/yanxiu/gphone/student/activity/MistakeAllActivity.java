@@ -191,13 +191,21 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
 
                     QuestionUtils.CleanData(data);
 
+                    if (isLoaderMore) {
+//                        pageIndex += 1;
+                    } else if (isRefresh) {
+//                        pageIndex = 1;
+                        dataList.clear();
+                        exercisesList.clear();
+                    }
+
                     if (data != null && data.size() > 0) {
                         if (isLoaderMore) {
                             pageIndex += 1;
                         } else if (isRefresh) {
                             pageIndex = 1;
-                            dataList.clear();
-                            exercisesList.clear();
+//                            dataList.clear();
+//                            exercisesList.clear();
                         }
                         if (exercisesList.size() != 0) {
                             exercisesList.get(0).getPaperTest().addAll(exerciseData.get(0).getPaperTest());

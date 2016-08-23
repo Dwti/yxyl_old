@@ -134,7 +134,6 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
         //}
     }
 
-
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         LogInfo.log("geny", "position" + position + "----positionOffset" + positionOffset + "----positionOffsetPixels" + positionOffsetPixels);
@@ -142,7 +141,6 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
     }
 
     public void method() throws Exception {};
-
 
     @Override
     public void onPageSelected(int position) {
@@ -179,7 +177,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
             try{
                 int size = dataSources.getData().get(0).getPaperTest().size();
                 PaperTestEntity mPaperTestEntity = dataSources.getData().get(0).getPaperTest().get(size - 1);
-                currentId = mPaperTestEntity.getId()+"";
+                currentId = mPaperTestEntity.getWqid()+"";
             } catch (Exception e){
             }
             LogInfo.log("haitian", "onPageSelected currentId ="+currentId);
@@ -238,7 +236,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
             }.start();
         } else {
             mRequestWrongQuestionTask = new RequestWrongAllQuestionTask(WrongAnswerViewActivity.this, stageId,
-                    subjectId, currentPage, "0", 2, mWrongQuesAsyncCallBack);
+                    subjectId, currentPage, currentId, 2, mWrongQuesAsyncCallBack);
             mRequestWrongQuestionTask.start();
             /*mRequestWrongQuestionTask = new RequestWrongQuestionTask(WrongAnswerViewActivity.this, stageId,
                     subjectId, editionId, chapterId, sectionId, volumeId, currentPage, currentId, uniteId, isChapterSection, mWrongQuesAsyncCallBack);
@@ -348,8 +346,6 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
         }
     };
 
-
-
     private void finishResult(boolean isDelAll){
         if(delQuestionTmpList != null && delQuestionTmpList.size() > 0){
             PublicErrorQuestionCollectionBean.deleteItemList(volumeId, delQuestionTmpList);
@@ -408,6 +404,16 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
                         Util.showToast(R.string.mistake_question_del_done);
                         PublicErrorQuestionCollectionBean.updateDelData(questionId);
                         deleteProcess(pageIndex);
+
+                        try{
+                            int size = dataSources.getData().get(0).getPaperTest().size();
+                            if (size<6) {
+                                PaperTestEntity mPaperTestEntity = dataSources.getData().get(0).getPaperTest().get(size - 1);
+                                String currentId = mPaperTestEntity.getWqid() + "";
+                                requestWrongAllQuestion(subjectId, currentPageIndex + 1, currentId);
+                            }
+                        } catch (Exception e){
+                        }
                     }
 
                     @Override

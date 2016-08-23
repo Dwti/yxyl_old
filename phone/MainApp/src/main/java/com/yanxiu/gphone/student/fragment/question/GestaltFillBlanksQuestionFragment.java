@@ -112,9 +112,15 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
         ExpandableRelativeLayoutlayout rl_top_view = (ExpandableRelativeLayoutlayout) rootView.findViewById(R.id.rl_top_view);
         fill_blanks_button = (FillBlanksButtonFramelayout) rootView.findViewById(R.id.fill_blanks_button);
         if (questionsEntity != null && questionsEntity.getStem() != null) {
-            fill_blanks_button.setQuestionsEntity(questionsEntity);
+            int position_index;
+            if (getActivity() instanceof WrongAnswerViewActivity){
+                position_index=0;
+            }else {
+                position_index=-1;
+            }
+            fill_blanks_button.setQuestionsEntity(questionsEntity,position_index);
             fill_blanks_button.setData(questionsEntity.getStem());
-            Log.d("asd","Stem+++++"+questionsEntity.getStem());
+//            Log.d("asd","Stem+++++"+questionsEntity.getStem());
             fill_blanks_button.setAnswers(questionsEntity.getAnswer());
         }
 
