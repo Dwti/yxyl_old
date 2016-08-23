@@ -265,9 +265,7 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
         super.onResume();
 //
         if(questionsEntity != null){
-            if(questionsEntity.getChildPageIndex() != -1){
-                vpAnswer.setCurrentItem(questionsEntity.getChildPageIndex());
-            }
+            vpAnswer.setCurrentItem(childPagerIndex);
         }
     }
 

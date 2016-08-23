@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -49,6 +50,7 @@ public class PicSelView extends RelativeLayout {
     private static final String TAG = PicSelView.class.getSimpleName();
     private NoScrollGridView noScrollGridView;
     private final int MAX_PIC_SIZE = 9;//最大图片显示个数
+    private String currentQuestionId;    //当前题目的id 用来跟上传的图片绑定
     private GridAdapter gridAdapter;
     private BasePopupWindow pop;
     private final int updateCode = 0;
@@ -159,6 +161,8 @@ public class PicSelView extends RelativeLayout {
 
     private void showPicSelPop(View view){
         pop.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+        if(!TextUtils.isEmpty(currentQuestionId))
+            ShareBitmapUtils.getInstance().setCurrentSbId(currentQuestionId);
     }
 
     private void controllShowGridAndHideAddAnswView(boolean isShowGrid){
@@ -229,11 +233,10 @@ public class PicSelView extends RelativeLayout {
     }
 
     public void setSubjectiveId(String id) {
-        LogInfo.log(TAG, "setSubjectiveId: " + id);
         if (StringUtils.isEmpty(id)) {
-            LogInfo.log(TAG, "id is error");
             return;
         }
+        currentQuestionId=id;
         if (ShareBitmapUtils.getInstance().getDrrMaps().get(id) == null) {
 
             currentDrrList = new ArrayList<>();

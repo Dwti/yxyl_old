@@ -20,19 +20,17 @@ public class DefineViewPager extends ViewPager {
     public boolean onTouchEvent(MotionEvent ev) {
         try {
             return super.onTouchEvent(ev);
-        } catch (IllegalArgumentException ex) {
-            ex.printStackTrace();
+        } catch (Exception ex) {
+            return false;
         }
-        return false;
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         try {
             return super.onInterceptTouchEvent(ev);
-        } catch (IllegalArgumentException ex) {
-            ex.printStackTrace();
+        } catch (Exception ex) {
+            return false;
         }
-        return false;
     }
 }

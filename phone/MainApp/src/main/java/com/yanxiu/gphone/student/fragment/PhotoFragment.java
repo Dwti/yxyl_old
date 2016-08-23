@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.view.ZoomImageView;
 import com.yanxiu.gphone.student.view.picsel.bean.LocalImageView;
 
 /**
@@ -21,7 +22,7 @@ public class PhotoFragment extends Fragment implements View.OnClickListener{
 
     private String uri;
 
-    private LocalImageView ivPhotoView;
+    private ZoomImageView ivPhotoView;
 
     private DisplayImageOptions options;                                 // 创建配置过得DisplayImageOption对象
 
@@ -43,7 +44,7 @@ public class PhotoFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ivPhotoView = (LocalImageView) rootView.findViewById(R.id.iv_photo_view);
+        ivPhotoView = (ZoomImageView) rootView.findViewById(R.id.iv_photo_view);
 //        ivPhotoView.setScaleType(ImageView.ScaleType.CENTER);
 
     }

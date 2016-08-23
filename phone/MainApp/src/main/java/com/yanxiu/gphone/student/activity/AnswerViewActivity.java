@@ -472,23 +472,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     }
 
     public void setIndexFromRead(int position) {
-//        ((AnswerAdapter)listen
-//        Fragment fragment=((AnswerAdapter)vpAnswer.getAdapter()).getmFragments().get(vpAnswer.getCurrentItem());
-//        if (fragment instanceof SolveComplexQuestionFragment) {
-//            ((AnswerAdapter)listener.
-//        }
-//        Fragment fragment = adapter.getItem(position);
-//        List<Fragment> list=((AnswerAdapter)vpAnswer.getAdapter()).getmFragments();
-//        int sumIndex = 0;
-//        for (int i=0;i<position;i++){
-//            BaseQuestionFragment fragment1= (BaseQuestionFragment) list.get(i);
-//            sumIndex = sumIndex + fragment1.getChildCount();
-//        }
-//
-//        tvPagerIndex.setText(String.valueOf(sumIndex + ((BaseQuestionFragment) list.get(position +1)).getChildCount()));
-//        tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(adapter.getTotalCount())));
-        LogInfo.log("TTTT", "test" + position);
-        tvPagerIndex.setText(position + "/" + adapter.getTotalCount());
+        tvPagerIndex.setText(position + "" );
     }
 
     public void setIndexNext(int index) {

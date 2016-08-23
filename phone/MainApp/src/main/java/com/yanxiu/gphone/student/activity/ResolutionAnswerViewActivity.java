@@ -159,7 +159,8 @@ public class ResolutionAnswerViewActivity extends BaseAnswerViewActivity {
     }
 
     public void setIndexFromRead(int position){
-        tvPagerIndex.setText(position + "/" + adapter.getTotalCount());
+//        tvPagerIndex.setText(position + "/" + adapter.getTotalCount());
+        tvPagerIndex.setText(position + "");
     }
 
 

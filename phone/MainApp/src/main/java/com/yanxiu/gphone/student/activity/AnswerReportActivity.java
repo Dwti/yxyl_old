@@ -69,7 +69,6 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
     private Context mContext;
     private ArrayList<PaperTestEntity> dataList;
     private ScrollView scrollView;
-    private GridView gridView_old;
     private int gridViewWidth;
     private int gridCount = 5;
     public static SubjectExercisesItemBean dataSources;
@@ -182,8 +181,6 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
     private void initView() {
         ivBack = (ImageView) findViewById(R.id.iv_top_back);
         shareView = (ImageView) findViewById(R.id.report_share);
-        gridView_old = (GridView) this.findViewById(R.id.answer_report_grid);
-        gridView_old.setFocusable(false);
         tvReport = (TextView) this.findViewById(R.id.tv_report_question);
         tvReportNumTitle = (TextView) this.findViewById(R.id.report_num_title_01);
         tvReportNumText = (TextView) this.findViewById(R.id.report_num_text);

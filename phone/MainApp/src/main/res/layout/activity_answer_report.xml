@@ -233,11 +233,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:layout_below="@id/tv_objective_line">
-                            <com.common.core.view.UnMoveGridView
-                                android:id="@+id/answer_report_grid"
-                                style="@style/report_grid_style"
-                                android:visibility="gone"/>
+                            android:layout_below="@id/tv_objective_line"
+                            android:paddingBottom="30dp">
                         </LinearLayout>
 
 
@@ -278,7 +275,7 @@
 
         <ImageView android:layout_width="@dimen/dimen_88"
                    android:layout_height="@dimen/dimen_98"
-                   android:layout_marginBottom="@dimen/dimen_30"
+                   android:layout_marginBottom="@dimen/dimen_10"
                    android:layout_alignParentBottom="true"
                    android:layout_marginLeft="@dimen/dimen_60"
                    android:src="@drawable/answer_report_pencil"/>

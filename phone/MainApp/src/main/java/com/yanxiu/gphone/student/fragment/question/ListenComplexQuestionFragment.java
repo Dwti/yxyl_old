@@ -390,9 +390,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     public void onResume() {
         super.onResume();
         if (questionsEntity != null) {
-            if (questionsEntity.getChildPageIndex() != -1) {
-                vpAnswer.setCurrentItem(questionsEntity.getChildPageIndex());
-            }
+            vpAnswer.setCurrentItem(childPagerIndex);
         }
         if (vpAnswer != null) {
             if (!is_reduction) {

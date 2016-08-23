@@ -236,9 +236,7 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
         super.onResume();
 //
         if(questionsEntity != null){
-            if(questionsEntity.getChildPageIndex() != -1){
-                vpAnswer.setCurrentItem(questionsEntity.getChildPageIndex());
-            }
+            vpAnswer.setCurrentItem(childPagerIndex);
         }
 
         if (vpAnswer != null) {

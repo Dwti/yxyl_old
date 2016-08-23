@@ -4,25 +4,12 @@
         android:background="@color/color_008080">
 
 
-    <!--<ImageView android:layout_width="wrap_content"-->
-               <!--android:layout_height="wrap_content"-->
-               <!--android:layout_gravity="center"-->
-               <!--android:src="@drawable/image_default"/>-->
-
-    <!--<com.yanxiu.gphone.student.view.picsel.bean.LocalImageView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:id="@+id/iv_photo_view"-->
-            <!--android:layout_centerInParent="true"/>-->
-
-    <ImageView
+    <com.yanxiu.gphone.student.view.ZoomImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/iv_photo_view"
-        android:layout_centerInParent="true"
-        android:scaleType="centerInside"/>
+        android:layout_centerInParent="true"/>
 
-        <!--ndroid:src="@drawable/image_default"-->
 
 
 </RelativeLayout>
