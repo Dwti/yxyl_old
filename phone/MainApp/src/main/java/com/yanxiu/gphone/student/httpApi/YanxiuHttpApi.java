@@ -3,7 +3,6 @@ package com.yanxiu.gphone.student.httpApi;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.common.core.utils.BitmapUtil;
 import com.common.core.utils.CommonCoreUtil;
@@ -18,7 +17,6 @@ import com.yanxiu.basecore.impl.YanxiuHttpTool;
 import com.yanxiu.basecore.parse.YanxiuMainParser;
 import com.yanxiu.gphone.student.YanxiuApplication;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
-import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.bean.UploadFileBean;
 import com.yanxiu.gphone.student.bean.UploadImageBean;
@@ -40,13 +38,10 @@ import java.io.InputStream;
 import java.io.InterruptedIOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_READING;
 
 /**
  * Created by Administrator on 2015/5/19.
@@ -56,6 +51,10 @@ public class YanxiuHttpApi {
     public static final String STAGE_ID="stageId";
     //一级考点ID
     public static final String CHAPTER_ID="chapterId";
+
+    public static final boolean isTest = true;   //是否是测试环境
+    public static final boolean isDev = true;    //是否是测试环境中的开发环境
+
 
     /**
      * 公共参数  KEY
@@ -92,16 +91,28 @@ public class YanxiuHttpApi {
      * 测试接口
      */
     public interface TEST_URL {
-        String DYNAMIC_TEST_BASE_URL = "http://dev.hwk.yanxiu.com/app";
-        //String DYNAMIC_TEST_BASE_URL = "http://test.hwk.yanxiu.com/app";
-//        public final String DYNAMIC_TEST_BASE_URL = "http://122.11.49.79/app";
+        String DYNAMIC_DEV_BASE_URL = "http://dev.hwk.yanxiu.com/app";
+        String DYNAMIC_TEST_BASE_URL = "http://test.hwk.yanxiu.com/app";
+//        public final String DYNAMIC_DEV_BASE_URL = "http://122.11.49.79/app";
         String DYNAMIC_TEST_LOGIN_BASE_URL = "http://utest.yanxiu.com/";
         String DYNAMIC_TEST_APP_UPLOAD = "http://mobiletest.yanxiu.com/api";
     }
 
+//    public static String getPublicUrl() {
+//        if (Configuration.isForTest()) {
+//            return TEST_URL.DYNAMIC_DEV_BASE_URL;
+//        } else {
+//            return OFFICIAL_URL.DYNAMIC_APP_USERURL;
+//        }
+//    }
+
     public static String getPublicUrl() {
-        if (Configuration.isForTest()) {
-            return TEST_URL.DYNAMIC_TEST_BASE_URL;
+        if (isTest) {
+            if(isDev){
+                return TEST_URL.DYNAMIC_DEV_BASE_URL;
+            }else {
+                return TEST_URL.DYNAMIC_TEST_BASE_URL;
+            }
         } else {
             return OFFICIAL_URL.DYNAMIC_APP_USERURL;
         }

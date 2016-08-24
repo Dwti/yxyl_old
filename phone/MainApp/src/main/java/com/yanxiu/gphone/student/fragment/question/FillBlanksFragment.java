@@ -43,7 +43,7 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
         fillBlanksFramelayout = (FillBlanksFramelayout) rootView.findViewById(R.id.fb_item);
         if (questionsEntity != null && questionsEntity.getStem() != null) {
             fillBlanksFramelayout.setData(questionsEntity.getStem());
-            Log.d("asd", "Stem+++++" + questionsEntity.getStem());
+//            Log.d("asd", "Stem+++++" + questionsEntity.getStem());
             fillBlanksFramelayout.setAnswers(questionsEntity.getAnswer());
         }
 

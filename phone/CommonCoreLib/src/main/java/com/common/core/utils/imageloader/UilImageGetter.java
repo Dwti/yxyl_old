@@ -195,6 +195,16 @@ public class UilImageGetter implements Html.ImageGetter {
                         double scale = (double)loadedImageWidth / (double)oLoadedImageWidth;
                         loadedImageheight = (int) (scale * loadedImageheight);
                     }
+
+//                    int width=UilImageGetter.this.view.getWidth();
+                    int width=CommonCoreUtil.getWidth();
+                    if (width!=-1) {
+                        if (loadedImageWidth > width) {
+                            loadedImageheight = loadedImageheight * width / loadedImageWidth;
+                            loadedImageWidth = width;
+                        }
+                    }
+
                     Drawable result = new BitmapDrawable(context.getResources(), loadedImage);
                     result.setBounds(0, 0, loadedImageWidth, loadedImageheight);
                     urlDrawable.setBounds(0, 0, loadedImageWidth, loadedImageheight);
@@ -233,7 +243,7 @@ public class UilImageGetter implements Html.ImageGetter {
 
                     //http://stackoverflow.com/questions/7870312/android-imagegetter-images-overlapping-text
                     // For ICS
-                    UilImageGetter.this.view.setHeight(UilImageGetter.this.viewWillResetHeight);
+                    UilImageGetter.this.view.setHeight(UilImageGetter.this.viewWillResetHeight+30);
 //                    LogInfo.log("geny", "change viewWillResetHeight-- " + viewWillResetHeight);
                     beforeLine = UilImageGetter.this.view.getLineCount();
 //                    LogInfo.log("geny", "change beforeLine-- " + beforeLine);

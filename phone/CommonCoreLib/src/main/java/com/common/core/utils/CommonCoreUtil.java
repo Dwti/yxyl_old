@@ -1,6 +1,8 @@
 package com.common.core.utils;
 
 
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -10,6 +12,7 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.NetworkInfo;
@@ -165,6 +168,28 @@ public class CommonCoreUtil {
     public static int getSDK() {
         return Build.VERSION.SDK_INT;
     }
+    private static int width=0;
+
+    public static int getWidth(){
+        return width;
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public static void getDisplayInfomation(Activity aa) {
+        try {
+            Point point = new Point();
+            aa.getWindowManager().getDefaultDisplay().getRealSize(point);
+            if (point.x<=480){
+                width=180;
+            }else if (point.x>480&&point.x<=640){
+                width=250;
+            }else {
+                width=-1;
+            }
+        }catch (Exception e){
+        }
+    }
+
     /**
      * 得到客户端版本名
      */

@@ -101,6 +101,7 @@ public class YXiuAnserTextView extends HtmlTextView {
         singline_height=getFontHeight(32);
     }
 
+
     private boolean isSendheight=false;
 
     public void setIsSendHeight(boolean isSendheight){

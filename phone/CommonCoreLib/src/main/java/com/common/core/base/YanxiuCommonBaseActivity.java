@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.WindowManager;
 
+import com.common.core.utils.CommonCoreUtil;
 import com.tencent.android.tpush.XGPushManager;
 
 import java.util.List;
@@ -20,6 +21,9 @@ public class YanxiuCommonBaseActivity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (CommonCoreUtil.getWidth()==0) {
+            CommonCoreUtil.getDisplayInfomation(this);
+        }
         Log.i("当前",this.getClass().getName());
     }
 
