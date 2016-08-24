@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.common.core.utils.LogInfo;
 
@@ -86,7 +87,10 @@ public class OnPushPullTouchListener implements View.OnTouchListener {
         LogInfo.log("move",height+"+YYYYYYYYY");
         if (yy-move_y < height*3/5) {
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(xx, yy - move_y);
+//            LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(xx,0,1.0f);
+//            RelativeLayout.LayoutParams layoutParams2=new RelativeLayout.LayoutParams()
             linearLayout.setLayoutParams(layoutParams);
+//            linearLayout.setLayout
         }
         //layoutParams.addRule(LinearLayout., RelativeLayout.TRUE);
     }
