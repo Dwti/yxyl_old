@@ -670,7 +670,6 @@ public class QuestionUtils {
     }
 
     public static String getQuestionTypeNameByParentTypeId(int typeId) {
-        TreeMap<String, String> treeMap = new TreeMap<>();
         String name = "";
         switch (typeId) {
             case 1:
@@ -721,6 +720,7 @@ public class QuestionUtils {
             case 9:
             case 10:
             case 11:
+            case 12:
             case 18:
             case 19:
             case 21:
