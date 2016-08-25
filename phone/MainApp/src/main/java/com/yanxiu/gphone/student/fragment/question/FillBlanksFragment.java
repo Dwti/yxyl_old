@@ -80,6 +80,14 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        if (fillBlanksFramelayout!=null){
+            fillBlanksFramelayout.hideSoftInput();
+        }
+    }
+
+    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (!isVisibleToUser && fillBlanksFramelayout != null) {

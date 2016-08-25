@@ -578,6 +578,9 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 	 * @param childPosition
      */
 	public void setCostTime(int costTime, int position, int childPosition) {
+		if (true){
+			return;
+		}
 		if(dataList != null && !dataList.isEmpty() && dataList.get(position) != null && dataList.get(position).getQuestions() != null){
 			List<PaperTestEntity> children = dataList.get(position).getQuestions().getChildren();
 			AnswerBean bean;

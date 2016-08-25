@@ -27,33 +27,24 @@ public class OnPushPullTouchListener implements View.OnTouchListener ,View.OnCli
         height = wm.getDefaultDisplay().getHeight();
     }
 
-    public float x;//触点X坐标
     public float y;//触点Y坐标
 
     public float yy;//控件高度
-    public float bottom_xx;//控件宽度
-    public float top_xx;//控件宽度
 
-    private float move_x;//x轴移动距离
     private float move_y;//y轴移动距离
 
-    private float tital_height;
+    private float tital_height;//总高度
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         switch (motionEvent.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                x = (int) motionEvent.getRawX();
                 y = (int) motionEvent.getRawY();
-                bottom_xx = (int) bottom_view.getWidth();
-                top_xx = (int) top_view.getWidth();
                 yy = (int) bottom_view.getHeight();
                 tital_height = yy + top_view.getHeight();
                 break;
             case MotionEvent.ACTION_MOVE:
-                int x_now = (int) motionEvent.getRawX();
                 int y_now = (int) motionEvent.getRawY();
-                move_x = x_now - x;
                 move_y = y_now - y;
                 setMove(bottom_view, top_view);
                 break;

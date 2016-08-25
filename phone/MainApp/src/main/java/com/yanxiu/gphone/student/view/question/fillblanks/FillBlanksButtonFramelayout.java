@@ -126,7 +126,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
 //        textSize = DensityUtils.px2sp(mCtx, px);
         tvFillBlank.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
         yAxisHeight=getFontHeight(textSize);
-        textview_width=(textSize / 2) * 8;
+        textview_width=(textSize / 2) * 10;
     }
 
     public void setAnswerViewTypyBean(int answerViewTypyBean) {
@@ -474,6 +474,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
             }
         }
         params.leftMargin = (int) (xAxisLeft+offset_width/2);
+        params.leftMargin = (int)xAxisLeft;
 //        params.topMargin = (int) (yAxisTop - textSize / 2)+ Util.dipToPx(10)+4;
         params.topMargin = (int) (yAxisTop+ Util.dipToPx(10)-offset_heigh/2);
         TextView tv = new TextView(mCtx);
