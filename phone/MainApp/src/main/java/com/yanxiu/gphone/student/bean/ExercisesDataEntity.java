@@ -39,7 +39,7 @@ public class ExercisesDataEntity implements YanxiuBaseBean {
     private int quesnum;
     private List<PaperTestEntity> paperTest;
     private int id;
-    private PaperStatusBean paperStatus;
+    private PaperStatusBean paperStatus = new PaperStatusBean();
     private String stageid;
     private String stageName;
     private int status;

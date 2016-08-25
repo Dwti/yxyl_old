@@ -1,0 +1,52 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:layout_margin="@dimen/dimen_40"
+    android:background="@drawable/share_dialog_bg">
+
+    <ImageView
+        android:id="@+id/iv_guide_gesture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/warm" />
+
+
+    <TextView
+        android:id="@+id/tv_guide_text"
+        style="@style/shadow_answer_view_text_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_guide_gesture"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:text="提示"
+        android:textColor="@color/color_805500"
+        android:textSize="@dimen/dimen_15" />
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1"
+        android:layout_below="@+id/tv_guide_text"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:background="@drawable/repeat_common_line" />
+
+    <Button
+        android:id="@+id/btn_guide_btn"
+        style="@style/shadow_answer_view_text_style"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/view_line"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_10"
+        android:background="@drawable/register_code_selector"
+        android:text="@string/question_know"
+        android:textColor="@color/color_805500"
+        android:textSize="@dimen/dimen_17"
+        android:textStyle="bold" />
+
+</RelativeLayout>

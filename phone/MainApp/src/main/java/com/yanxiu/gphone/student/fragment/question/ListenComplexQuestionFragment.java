@@ -18,6 +18,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,8 +36,10 @@ import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.inter.OnPushPullTouchListener;
+import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout;
 import com.yanxiu.gphone.student.view.SimpleAudioPlayer;
+import com.yanxiu.gphone.student.view.question.GuideQuestionView;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 
@@ -274,6 +277,13 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                 Log.i("max", mediaPlayer.getDuration() + "");
 //                handler.post(updateThread);
                 handler.sendEmptyMessageDelayed(UPDATE_PROGRESS, 100);
+            }
+        });
+        mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                Util.showToast("加载失败");
+                return false;
             }
         });
         // 注册播放完毕后的监听事件
