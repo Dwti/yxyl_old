@@ -125,7 +125,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
         }
 
         ll_bottom_view = (LinearLayout) rootView.findViewById(R.id.ll_bottom_view);
-        mOnPushPullTouchListener = new OnPushPullTouchListener(ll_bottom_view, getActivity());
+        mOnPushPullTouchListener = new OnPushPullTouchListener(ll_bottom_view,rl_top_view, getActivity());
         ivBottomCtrl = (ImageView) rootView.findViewById(R.id.iv_bottom_ctrl);
         ivBottomCtrl.setOnTouchListener(mOnPushPullTouchListener);
 

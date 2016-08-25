@@ -13,85 +13,72 @@ import com.common.core.utils.LogInfo;
 /**
  * Created by JS-00 on 2016/8/3.
  */
-public class OnPushPullTouchListener implements View.OnTouchListener {
-    private LinearLayout mLinearLayout;
-    private Context mContext;
-    public OnPushPullTouchListener(LinearLayout linearLayout, Activity activity) {
-        mLinearLayout = linearLayout;
-        mContext = activity;
+public class OnPushPullTouchListener implements View.OnTouchListener ,View.OnClickListener{
+
+    private final int height;
+    private LinearLayout bottom_view;
+    private RelativeLayout top_view;
+
+    public OnPushPullTouchListener(LinearLayout bottom_view, RelativeLayout top_view, Activity activity) {
+        this.bottom_view = bottom_view;
+        this.top_view = top_view;
+        WindowManager wm = (WindowManager) activity.getSystemService(activity.WINDOW_SERVICE);
+        height = wm.getDefaultDisplay().getHeight();
     }
-    public int x;//触点X坐标
-    public int y;//触点Y坐标
 
-    public int yy;//控件高度
-    public int xx;//控件宽度
+    public float x;//触点X坐标
+    public float y;//触点Y坐标
 
-    private int move_x;//x轴移动距离
-    private int move_y;//y轴移动距离
+    public float yy;//控件高度
+    public float xx;//控件宽度
+
+    private float move_x;//x轴移动距离
+    private float move_y;//y轴移动距离
+
+    private float tital_height;
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        switch (motionEvent.getAction()){
+        switch (motionEvent.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                x= (int) motionEvent.getRawX();
-                y= (int) motionEvent.getRawY();
-                xx= (int) mLinearLayout.getWidth();
-                yy= (int) mLinearLayout.getHeight();
+                x = (int) motionEvent.getRawX();
+                y = (int) motionEvent.getRawY();
+                xx = (int) bottom_view.getWidth();
+                yy = (int) bottom_view.getHeight();
+                tital_height = yy + top_view.getHeight();
                 break;
             case MotionEvent.ACTION_MOVE:
-                int x_now= (int) motionEvent.getRawX();
-                int y_now= (int) motionEvent.getRawY();
-
-                //用来说明滑动情况，无意义
-                if (Math.abs(x_now)>Math.abs(x)) {
-                    //right
-                    LogInfo.log("flip","right");
-                    if (Math.abs(y_now)>Math.abs(y)){
-                        //down
-                        LogInfo.log("flip","down");
-                    }else {
-                        //up
-                        LogInfo.log("flip","up");
-                    }
-                }else {
-                    //left
-                    LogInfo.log("flip","left");
-                    if (Math.abs(y_now)>Math.abs(y)){
-                        //down
-                        LogInfo.log("flip","down");
-                    }else {
-                        //up
-                        LogInfo.log("flip","up");
-                    }
-                }
-
-                move_x=x_now-x;
-                move_y=y_now-y;
-                setMove(mLinearLayout);
+                int x_now = (int) motionEvent.getRawX();
+                int y_now = (int) motionEvent.getRawY();
+                move_x = x_now - x;
+                move_y = y_now - y;
+                setMove(bottom_view, top_view);
                 break;
             case MotionEvent.ACTION_UP:
                 break;
             case MotionEvent.ACTION_CANCEL:
                 break;
         }
-
         return true;
     }
 
-    private void setMove(LinearLayout linearLayout){
-        LogInfo.log("move",xx+"+XXXXXXXXX");
-        LogInfo.log("move",yy-move_y+"+YYYYYYYYY");
-        WindowManager wm = (WindowManager) mContext
-                .getSystemService(mContext.WINDOW_SERVICE);
-        int height = wm.getDefaultDisplay().getHeight();
-        LogInfo.log("move",height+"+YYYYYYYYY");
-        if (yy-move_y < height*3/5) {
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(xx, yy - move_y);
-//            LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(xx,0,1.0f);
-//            RelativeLayout.LayoutParams layoutParams2=new RelativeLayout.LayoutParams()
-            linearLayout.setLayoutParams(layoutParams);
-//            linearLayout.setLayout
+    private void setMove(LinearLayout bottom_view, RelativeLayout top_view) {
+
+        if (yy - move_y>height * 1 / 20&&yy - move_y < height * 3 / 5) {
+            float bottom_weight=(yy - move_y)/tital_height;
+            float top_weight=1-bottom_weight;
+//            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(xx, yy - move_y);
+            LinearLayout.LayoutParams layoutParams= new LinearLayout.LayoutParams((int) xx,0,bottom_weight);
+            bottom_view.setLayoutParams(layoutParams);
+
+            LinearLayout.LayoutParams layoutParams1= new LinearLayout.LayoutParams((int) xx,0,top_weight);
+            top_view.setLayoutParams(layoutParams1);
+
         }
-        //layoutParams.addRule(LinearLayout., RelativeLayout.TRUE);
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

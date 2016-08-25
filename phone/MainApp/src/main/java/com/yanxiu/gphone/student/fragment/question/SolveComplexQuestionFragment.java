@@ -104,7 +104,7 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
             }
         });
         ll_bottom_view = (LinearLayout) rootView.findViewById(R.id.ll_bottom_view);
-        mOnPushPullTouchListener = new OnPushPullTouchListener(ll_bottom_view, getActivity());
+        mOnPushPullTouchListener = new OnPushPullTouchListener(ll_bottom_view,llTopView, getActivity());
         ivBottomCtrl = (ImageView) rootView.findViewById(R.id.iv_bottom_ctrl);
         ivBottomCtrl.setOnTouchListener(mOnPushPullTouchListener);
         tvYanxiu = (YXiuAnserTextView) rootView.findViewById(R.id.yxiu_tv);

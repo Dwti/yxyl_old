@@ -134,7 +134,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
             }
         });
         ll_bottom_view = (LinearLayout) rootView.findViewById(R.id.ll_bottom_view);
-        OnPushPullTouchListener mOnPushPullTouchListener = new OnPushPullTouchListener(ll_bottom_view, getActivity());
+        OnPushPullTouchListener mOnPushPullTouchListener = new OnPushPullTouchListener(ll_bottom_view,llTopView, getActivity());
         ivBottomCtrl = (ImageView) rootView.findViewById(R.id.iv_bottom_ctrl);
         ivBottomCtrl.setOnTouchListener(mOnPushPullTouchListener);
 //        ivBottomCtrl.setOnTouchListener(this);

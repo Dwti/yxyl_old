@@ -230,6 +230,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
             }
             if (flag) {
                 initViewWithData(bean);
+                ((EditText) rlMark.getChildAt(0)).requestFocus();
             }
         }
     }
@@ -307,6 +308,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
         et.setTextSize(textSize);
         et.setBackground(null);
         et.setGravity(Gravity.BOTTOM);
+
         setEditTextCusrorDrawable(et);
         if(answerViewTypyBean == SubjectExercisesItemBean.RESOLUTION || answerViewTypyBean == SubjectExercisesItemBean.WRONG_SET){
             et.setEnabled(false);

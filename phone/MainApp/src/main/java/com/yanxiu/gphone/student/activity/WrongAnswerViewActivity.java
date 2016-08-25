@@ -172,7 +172,8 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
         int currentTotal = currentPageIndex * YanXiuConstant.YX_PAGESIZE_CONSTANT;
         LogInfo.log("haitian", "currentTotal =" + currentTotal + "   position=" + position + "   currentTotal - position - 1 - delQueNum="
                 + (currentTotal - position - 1 - delQueNum) + " adapter.getCount() - position - 1=" + (adapter.getCount() - position - 1));
-        if (wrongCounts > currentTotal && (adapter.getCount() - position - 1) < 4&&isGetDataNow) {
+        if (wrongCounts > currentTotal && (adapter.getCount() - position - 1) < 2&&isGetDataNow) {
+            isGetDataNow=false;
             String currentId = null;
             try{
                 int size = dataSources.getData().get(0).getPaperTest().size();
@@ -183,6 +184,8 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
             LogInfo.log("haitian", "onPageSelected currentId ="+currentId);
             //requestWrongQuestion(subjectId, editionId, volumeId, chapterId, sectionId, currentPageIndex + 1, currentId);
             requestWrongAllQuestion(subjectId, currentPageIndex + 1, currentId);
+        }else if ((adapter.getCount() - position - 1) >2){
+            isGetDataNow=true;
         }
     }
 
@@ -198,7 +201,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
     }
 
     private void requestWrongAllQuestion(final String subjectId, final int currentPage, final String currentId) {
-        isGetDataNow=false;
+//        isGetDataNow=false;
         cancelWrongQuestionTask();
         if (!isNetData) {
             new YanxiuSimpleAsyncTask<SubjectExercisesItemBean>(this) {
@@ -221,7 +224,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
 
                 @Override
                 public void onPostExecute(SubjectExercisesItemBean result) {
-                    isGetDataNow=true;
+//                    isGetDataNow=true;
                     if (result != null && result.getData() != null) {
                         QuestionUtils.initDataWithAnswer(result);
                         currentPageIndex++;
@@ -316,7 +319,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
     private AsyncCallBack mWrongQuesAsyncCallBack = new AsyncCallBack() {
         @Override
         public void update(YanxiuBaseBean result) {
-            isGetDataNow=true;
+//            isGetDataNow=true;
             SubjectExercisesItemBean subjectExercisesItemBean = (SubjectExercisesItemBean) result;
             if (subjectExercisesItemBean.getData() != null && subjectExercisesItemBean.getData().size() >= 1) {
                 currentPageIndex++;
@@ -337,7 +340,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
         }
         @Override
         public void dataError(int type, String msg) {
-            isGetDataNow=true;
+//            isGetDataNow=true;
             if (TextUtils.isEmpty(msg)) {
                 Util.showToast(R.string.server_connection_erro);
             } else {
