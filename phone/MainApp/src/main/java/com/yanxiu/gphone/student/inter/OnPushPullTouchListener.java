@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -30,7 +31,8 @@ public class OnPushPullTouchListener implements View.OnTouchListener ,View.OnCli
     public float y;//触点Y坐标
 
     public float yy;//控件高度
-    public float xx;//控件宽度
+    public float bottom_xx;//控件宽度
+    public float top_xx;//控件宽度
 
     private float move_x;//x轴移动距离
     private float move_y;//y轴移动距离
@@ -43,7 +45,8 @@ public class OnPushPullTouchListener implements View.OnTouchListener ,View.OnCli
             case MotionEvent.ACTION_DOWN:
                 x = (int) motionEvent.getRawX();
                 y = (int) motionEvent.getRawY();
-                xx = (int) bottom_view.getWidth();
+                bottom_xx = (int) bottom_view.getWidth();
+                top_xx = (int) top_view.getWidth();
                 yy = (int) bottom_view.getHeight();
                 tital_height = yy + top_view.getHeight();
                 break;
@@ -67,13 +70,14 @@ public class OnPushPullTouchListener implements View.OnTouchListener ,View.OnCli
         if (yy - move_y>height * 1 / 20&&yy - move_y < height * 3 / 5) {
             float bottom_weight=(yy - move_y)/tital_height;
             float top_weight=1-bottom_weight;
-//            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(xx, yy - move_y);
-            LinearLayout.LayoutParams layoutParams= new LinearLayout.LayoutParams((int) xx,0,bottom_weight);
+
+            LinearLayout.LayoutParams layoutParams= (LinearLayout.LayoutParams) bottom_view.getLayoutParams();
+            layoutParams.weight=bottom_weight;
             bottom_view.setLayoutParams(layoutParams);
 
-            LinearLayout.LayoutParams layoutParams1= new LinearLayout.LayoutParams((int) xx,0,top_weight);
+            LinearLayout.LayoutParams layoutParams1= (LinearLayout.LayoutParams) top_view.getLayoutParams();
+            layoutParams1.weight=top_weight;
             top_view.setLayoutParams(layoutParams1);
-
         }
     }
 
