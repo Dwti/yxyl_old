@@ -1,6 +1,7 @@
 package com.yanxiu.gphone.student.view;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,18 +53,24 @@ public class FillBlankAnswerView extends LinearLayout {
         }
     }
 
-    public List<String> getAnswerList() {
-        List<String> listAnswer = new ArrayList<>();
+    public ArrayList<String> getAnswerList() {
+        ArrayList<String> listAnswer = new ArrayList<>();
         int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
             View itemView = getChildAt(i);
             EditText et_answer = (EditText) itemView.findViewById(R.id.et_answer);
-            listAnswer.add(et_answer.getText().toString());
+            String answer = et_answer.getText().toString();
+            if (!TextUtils.isEmpty(answer))
+                listAnswer.add(et_answer.getText().toString());
         }
         return listAnswer;
     }
 
     public void setAnswerList(List<String> list) {
+        setAnswerList(list, true);
+    }
+
+    public void setAnswerList(List<String> list, boolean editable) {
         if (list == null || list.isEmpty())
             return;
         int count;
@@ -76,6 +83,7 @@ public class FillBlankAnswerView extends LinearLayout {
             View itemView = getChildAt(i);
             EditText et_answer = (EditText) itemView.findViewById(R.id.et_answer);
             et_answer.setText(list.get(i));
+            et_answer.setEnabled(editable);
         }
     }
 

@@ -3,16 +3,20 @@ package com.yanxiu.gphone.student.fragment.question;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.common.core.utils.StringUtils;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
+import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.inter.AnswerCallback;
+import com.yanxiu.gphone.student.utils.QuestionUtils;
 import com.yanxiu.gphone.student.view.FillBlankAnswerView;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
@@ -24,7 +28,6 @@ import java.util.List;
  * Created by sunpeng on 2016/8/23.
  */
 public class NewFillBlanksFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex {
-    private View mView;
     private FillBlankAnswerView answerView;
     private QuestionsListener listener;
     //本地的保存数据bean
@@ -32,9 +35,11 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
     private int typeId;
     private AnswerCallback callback;
     private int position;
+    private Fragment resolutionFragment;
+    private Button addBtn;
+    private boolean isWrongSetOrAnalysis = false;
     private YXiuAnserTextView tvQuestion;
-    private List<String> listAnswer = new ArrayList<>();
-    private String data = "这是一道填空题：请填第一个空(_)，请填第二个空(_)，请填第三个空(_)<span style=\\\"color: #333333; font-family: 宋体, 'Microsoft YaHei', arial, sans-serif; font-size: 12px; line-height: 26px; background-color: #FFFFFF;\\\">如图，在等腰梯形ABCD中，AB∥DC，AD=BC=5cm，AB=12cm，CD=6cm，点Q从C开始沿CD边向D移动，速度是每秒1厘米，点P从A开始沿AB向B移动，速度是点Q速度的a倍，如果点P，Q分别从A，C同时出发，当其中一点到达终点时运动停止．设运动时间为t秒．已知当t=</span><img src=\\\"http://tiku.21cnjy.com/tikupic/c1/a2/c1da22e63296ca27f7a073a711490e33.png\\\" style=\\\"border: 0px; color: rgb(51, 51, 51); font-family: 宋体, 'Microsoft YaHei', arial, sans-serif; font-size: 12px; line-height: 26px; white-space: normal; vertical-align: middle; -webkit-user-select: text !important; background-color: rgb(255, 255, 255);\\\"/><span style=\\\"color: #333333; font-family: 宋体, 'Microsoft YaHei', arial, sans-serif; font-size: 12px; line-height: 26px; background-color: #FFFFFF;\\\">时，四边形APQD是平行四边形．<br/><img src=\\\"http://tiku.21cnjy.com/tikupic/b8/45/b80458c951161c0dd5fa1a5ed13252e3.png\\\"/></span>";
+    private ArrayList<String> listAnswer = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,19 +49,20 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_new_fill_blank_question, null);
-        LinearLayout ll_answer_content = (LinearLayout) mView.findViewById(R.id.ll_answer_content);
-        View view_line_ccc4a3_2 = mView.findViewById(R.id.view_line_ccc4a3_2);
-        answerView = (FillBlankAnswerView) mView.findViewById(R.id.cq_item);
+        rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_new_fill_blank_question, null);
+        LinearLayout ll_answer_content = (LinearLayout) rootView.findViewById(R.id.ll_answer_content);
+        View view_line_ccc4a3_2 = rootView.findViewById(R.id.view_line_ccc4a3_2);
+        answerView = (FillBlankAnswerView) rootView.findViewById(R.id.cq_item);
         if (callback != null) {
             ll_answer_content.setVisibility(View.GONE);
             view_line_ccc4a3_2.setVisibility(View.GONE);
         }
-        tvQuestion = (YXiuAnserTextView) mView.findViewById(R.id.yxiu_tv);
+        tvQuestion = (YXiuAnserTextView) rootView.findViewById(R.id.yxiu_tv);
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
+        selectTypeView();
         setStemAndAnswerTemplate(questionsEntity);
-        return mView;
+        return rootView;
     }
 
     private void setStemAndAnswerTemplate(QuestionEntity question) {
@@ -73,21 +79,73 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
                 }
                 tvQuestion.setTextHtml(sb.toString());
                 answerView.setAnswerTemplate(blankCount);
+                if (isWrongSetOrAnalysis) {    //是否是错题或者是解析界面,如果是，则下面答案不可编辑
+                    answerView.setAnswerList(question.getAnswerBean().getFillAnswers(), false);
+                } else {
+                    answerView.setAnswerList(listAnswer);
+                }
             }
         }
+    }
+
+    private void selectTypeView() {
+        switch (answerViewTypyBean) {
+            case SubjectExercisesItemBean.RESOLUTION:
+                isWrongSetOrAnalysis = true;
+                addAnalysisFragment();
+                break;
+            case SubjectExercisesItemBean.WRONG_SET:
+                isWrongSetOrAnalysis = true;
+                addBtn = (Button) rootView.findViewById(R.id.add_problem_analysis);
+                addBtn.setVisibility(View.VISIBLE);
+                addBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        addBtn.setVisibility(View.GONE);
+                        addAnalysisFragment();
+                    }
+                });
+                break;
+            default:
+                isWrongSetOrAnalysis = false;
+                break;
+        }
+    }
+
+    private void addAnalysisFragment() {
+        rootView.setClickable(false);
+        Bundle args = new Bundle();
+        args.putSerializable("questions", questionsEntity);
+        resolutionFragment = Fragment.instantiate(getActivity(), ProblemAnalysisFragment.class.getName(), args);
+        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+        ft.replace(R.id.content_problem_analysis, resolutionFragment).commitAllowingStateLoss();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if(listAnswer.size()>0)
+        if (listAnswer.size() > 0)
             answerView.setAnswerList(listAnswer);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        listAnswer=answerView.getAnswerList();
+        saveAnswer();
+    }
+
+    private void saveAnswer() {
+        if(answerView == null || questionsEntity == null)
+            return;
+        if (!isWrongSetOrAnalysis) {
+            listAnswer = answerView.getAnswerList();
+            questionsEntity.getAnswerBean().setFillAnswers(listAnswer);
+            if(!listAnswer.isEmpty()){
+                questionsEntity.getAnswerBean().setIsFinish(true);
+                if(QuestionUtils.compare(listAnswer,questionsEntity.getAnswer()))
+                    questionsEntity.getAnswerBean().setIsRight(true);
+            }
+        }
     }
 
     @Override
@@ -117,6 +175,6 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
 
     @Override
     public void answerViewClick() {
-
+        saveAnswer();
     }
 }

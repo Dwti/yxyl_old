@@ -29,7 +29,7 @@ public class NetWorkTypeUtils {
      * @return
      */
 	public static boolean isNetAvailable() {
-		return NetWorkTypeUtils.getAvailableNetWorkInfo() == null;
+		return NetWorkTypeUtils.getAvailableNetWorkInfo() != null;
 	}
     /**
      * 判断是否是3g网络

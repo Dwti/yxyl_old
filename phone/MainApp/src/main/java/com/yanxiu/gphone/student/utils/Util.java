@@ -322,7 +322,7 @@ public class Util {
                     e.printStackTrace();
                 }
             }
-        }else if(YanXiuConstant.FILL_BLANK.equals(template)){
+        }else if(YanXiuConstant.FILL_BLANK.equals(template) || YanXiuConstant.NEW_FILL_BLANK.equals(template) ){
             int countFill = answerBean.getFillAnswers().size();
             for(int j = 0; j < countFill; j++){
                 try {

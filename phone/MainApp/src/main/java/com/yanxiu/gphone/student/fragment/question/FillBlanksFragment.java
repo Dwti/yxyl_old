@@ -47,7 +47,6 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
             fillBlanksFramelayout.setAnswers(questionsEntity.getAnswer());
         }
 
-
         FragmentTransaction ft = FillBlanksFragment.this.getChildFragmentManager().beginTransaction();
         ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
         selectTypeView();

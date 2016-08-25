@@ -307,10 +307,10 @@ public class QuestionUtils {
                                         } else {
                                             answerChildBean.setIsFinish(false);
                                         }
-                                    } else if (YanXiuConstant.MULTI_CHOICES.equals(childTemplate) || YanXiuConstant.FILL_BLANK.equals(childTemplate) || YanXiuConstant.ANSWER_QUESTION.equals(childTemplate)) {
+                                    } else if (YanXiuConstant.MULTI_CHOICES.equals(childTemplate) || YanXiuConstant.FILL_BLANK.equals(childTemplate) || YanXiuConstant.ANSWER_QUESTION.equals(childTemplate) ||YanXiuConstant.NEW_FILL_BLANK.equals(childTemplate)) {
                                         if (YanXiuConstant.MULTI_CHOICES.equals(childTemplate)) {
                                             answerChildBean.setMultiSelect((ArrayList<String>) answerChildList);
-                                        } else if (YanXiuConstant.FILL_BLANK.equals(childTemplate)) {
+                                        } else if (YanXiuConstant.FILL_BLANK.equals(childTemplate) || YanXiuConstant.NEW_FILL_BLANK.equals(childTemplate)) {
                                             answerChildBean.setFillAnswers((ArrayList<String>) answerChildList);
                                         } else if (YanXiuConstant.ANSWER_QUESTION.equals(childTemplate)) {
                                             answerChildBean.setSubjectivImageUri((ArrayList<String>) answerChildList);
@@ -372,7 +372,7 @@ public class QuestionUtils {
                                 answerBean.setMultiSelect((ArrayList<String>) answerList);
                             } else if (YanXiuConstant.JUDGE_QUESTION.equals(template)) {
                                 answerBean.setSelectType(answerList.get(0));
-                            } else if (YanXiuConstant.FILL_BLANK.equals(template)) {
+                            } else if (YanXiuConstant.FILL_BLANK.equals(template) || YanXiuConstant.NEW_FILL_BLANK.equals(template)) {
                                 answerBean.setFillAnswers((ArrayList<String>) answerList);
                             } else if (YanXiuConstant.ANSWER_QUESTION.equals(template)) {
                                 answerBean.setSubjectivImageUri((ArrayList<String>) answerList);
