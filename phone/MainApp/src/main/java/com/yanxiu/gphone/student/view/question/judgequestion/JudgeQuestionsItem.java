@@ -1,6 +1,7 @@
 package com.yanxiu.gphone.student.view.question.judgequestion;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -31,6 +32,7 @@ public class JudgeQuestionsItem extends AbsChoiceQuestionsItem implements View.O
     private JudgeQuestions.JUDGE_TYPE judgeType;
 
     private OnChoicesItemClickListener choicesItemClickListener;
+    private ImageView iv_item_img;
 
     public JudgeQuestionsItem(Context context) {
         super(context);
@@ -50,9 +52,17 @@ public class JudgeQuestionsItem extends AbsChoiceQuestionsItem implements View.O
         ivChoiceIcon = (ImageView) this.findViewById(R.id.iv_choice_icon_item);
 //        flItemBg = (FrameLayout) this.findViewById(R.id.fl_choice_text_item_bg);
         llParentBg = (LinearLayout) this.findViewById(R.id.ll_parent_bg);
+        iv_item_img= (ImageView) this.findViewById(R.id.iv_item_img);
         tvItemTxt = (TextView) this.findViewById(R.id.tv_item_text);
     }
 
+
+    public void setShadow(int textcolor,int shadowcolor){
+        if (tvItemTxt!=null) {
+            tvItemTxt.setTextColor(textcolor);
+            tvItemTxt.setShadowLayer(1, 0, 2, shadowcolor);
+        }
+    }
 
     public int getDrawableNormalId() {
         return drawableNormalId;
@@ -87,6 +97,12 @@ public class JudgeQuestionsItem extends AbsChoiceQuestionsItem implements View.O
         }
     }
 
+    public void setItemImg(int resId){
+        if (iv_item_img!=null) {
+            iv_item_img.setImageResource(resId);
+        }
+    }
+
     /**
      */
     public void setSelectedBg(int id){
@@ -101,9 +117,11 @@ public class JudgeQuestionsItem extends AbsChoiceQuestionsItem implements View.O
         switch (judgeType) {
             case RIGHT:
                 llParentBg.setBackgroundResource(R.drawable.selector_judge_correct);
+                setShadow(Color.parseColor("#006666"),Color.parseColor("#33ffff"));
                 break;
             case WRONG:
                 llParentBg.setBackgroundResource(R.drawable.selector_judge_wrong);
+                setShadow(Color.parseColor("#80334d"),Color.parseColor("#ffe5ee"));
                 break;
         }
         ivChoiceIcon.setVisibility(View.VISIBLE);
@@ -117,9 +135,11 @@ public class JudgeQuestionsItem extends AbsChoiceQuestionsItem implements View.O
         switch (judgeType) {
             case RIGHT:
                 llParentBg.setBackgroundResource(R.drawable.selector_judge_correct);
+                setShadow(Color.parseColor("#006666"),Color.parseColor("#33ffff"));
                 break;
             case WRONG:
                 llParentBg.setBackgroundResource(R.drawable.selector_judge_wrong);
+                setShadow(Color.parseColor("#80334d"),Color.parseColor("#ffe5ee"));
                 break;
         }
         ivChoiceIcon.setVisibility(View.VISIBLE);
@@ -144,9 +164,11 @@ public class JudgeQuestionsItem extends AbsChoiceQuestionsItem implements View.O
         switch (judgeType) {
             case RIGHT:
                 llParentBg.setBackgroundResource(R.drawable.selector_judge_correct);
+                setShadow(Color.parseColor("#006666"),Color.parseColor("#33ffff"));
                 break;
             case WRONG:
                 llParentBg.setBackgroundResource(R.drawable.selector_judge_wrong);
+                setShadow(Color.parseColor("#80334d"),Color.parseColor("#ffe5ee"));
                 break;
         }
     }
@@ -159,6 +181,7 @@ public class JudgeQuestionsItem extends AbsChoiceQuestionsItem implements View.O
 //        flItemBg.setBackgroundResource(R.drawable.choice_question_unselect);
 //        ivChoiceIcon.setImageResource(drawableNormalId);
         llParentBg.setBackgroundResource(R.drawable.selector_judge_item);
+        setShadow(Color.parseColor("#805500"),Color.parseColor("#ffff99"));
 //        switch (judgeType) {
 //            case RIGHT:
 //                llParentBg.setBackgroundResource(R.drawable.judge_question_right_bg_normal);
