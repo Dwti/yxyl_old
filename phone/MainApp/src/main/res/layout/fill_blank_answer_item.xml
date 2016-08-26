@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/dimen_7">
+
+    <FrameLayout
+        android:id="@+id/fl_choice_text_item_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/rl_choice_content_item"
+        android:layout_alignTop="@+id/rl_choice_content_item"
+        android:layout_marginLeft="@dimen/dimen_12"
+        android:background="@drawable/answer_left_bg_nor">
+
+        <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
+            android:id="@+id/tv_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="(1)"
+            android:textColor="@color/color_00cccc"
+            android:textSize="@dimen/dimen_15" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/view_middle_content"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/rl_choice_content_item"
+        android:layout_alignTop="@+id/rl_choice_content_item"
+        android:layout_toRightOf="@+id/fl_choice_text_item_bg"
+        android:background="@drawable/answer_middle_bg_nor">
+
+        <ImageView
+            android:id="@+id/iv_middle_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/repeat_answer_line" />
+    </FrameLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_choice_content_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/view_middle_content"
+        android:background="@drawable/answer_right_bg">
+
+        <EditText
+            android:id="@+id/et_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="@dimen/dimen_4"
+            android:background="@null"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/dimen_15" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

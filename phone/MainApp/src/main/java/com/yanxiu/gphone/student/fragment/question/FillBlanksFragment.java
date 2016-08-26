@@ -47,7 +47,6 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
             fillBlanksFramelayout.setAnswers(questionsEntity.getAnswer());
         }
 
-
         FragmentTransaction ft = FillBlanksFragment.this.getChildFragmentManager().beginTransaction();
         ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
         selectTypeView();
@@ -56,8 +55,6 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
 
     private void addAnalysisFragment() {
         rootView.setClickable(false);
-        //            addBtn.setVisibility(View.VISIBLE);
-//        ft = FillBlanksFragment.this.getChildFragmentManager().beginTransaction();
         Bundle args = new Bundle();
         args.putSerializable("questions", questionsEntity);
         resolutionFragment = Fragment.instantiate(FillBlanksFragment.this.getActivity(),ProblemAnalysisFragment.class.getName(), args);
@@ -76,7 +73,6 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
         if (!ischild && isVisibleToUser) {
             ((QuestionsListener) getActivity()).flipNextPager(null);
         }
-        //        LogInfo.log("geny", paperTestEntity.getQuestions().getStem());
     }
 
     @Override

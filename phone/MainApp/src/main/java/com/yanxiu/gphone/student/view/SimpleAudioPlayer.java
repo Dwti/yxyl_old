@@ -9,7 +9,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.common.core.utils.NetWorkTypeUtils;
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.YanxiuApplication;
+import com.yanxiu.gphone.student.utils.Util;
 
 /**
  * Created by sunpeng on 2016/7/28.
@@ -21,6 +24,7 @@ public class SimpleAudioPlayer extends FrameLayout {
     public boolean isPlaying = false;  //当前是否是播放状态
     private int totalLength=0;
     public static final int PLAY=0,RESUME=1,PAUSE=-1;
+    private boolean flag=true;   //设置标记位，避免多次点击卡死界面
 
     private OnControlButtonClickListener onControlButtonClickListener;
 
@@ -46,19 +50,38 @@ public class SimpleAudioPlayer extends FrameLayout {
         mIvControl.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isPlaying) {
-                    mIvControl.setImageResource(R.drawable.play);
-                } else {
-                    mIvControl.setImageResource(R.drawable.pause);
-                }
+                if (flag) {
+                    flag=false;
+                    checkNetWorkState();
+                    if (isPlaying) {
+                        mIvControl.setImageResource(R.drawable.play);
+                    } else {
+                        mIvControl.setImageResource(R.drawable.pause);
+                    }
 
-                if (onControlButtonClickListener != null) {
-                    onControlButtonClickListener.onClick(mIvControl);
+                    if (onControlButtonClickListener != null) {
+                        onControlButtonClickListener.onClick(mIvControl);
+                    }
+                    isPlaying = !isPlaying;
+                    flag=true;
                 }
-                isPlaying = !isPlaying;
             }
         });
         Log.i("init",mProgressBar.getProgress()+"");
+    }
+
+    private void checkNetWorkState() {
+        if(!NetWorkTypeUtils.isNetAvailable()){
+            Util.showToast("网络无法连接");
+            //这里return了 但是播放没有return 不能这样写
+            return;
+        }else{
+            if(!NetWorkTypeUtils.isWifi() && !YanxiuApplication.hasShowed){
+                YanxiuApplication.hasShowed=true;
+                Util.showToast("当前网络非wifi状态");
+                //弹框 如果确定 就继续播放，取消的话就返回
+            }
+        }
     }
 
 

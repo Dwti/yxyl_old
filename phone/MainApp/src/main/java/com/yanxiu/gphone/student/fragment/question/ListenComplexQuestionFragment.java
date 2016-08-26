@@ -252,7 +252,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     }
 
     /**
-     * 播放指定地址的音乐文件 .mp3 .wav .amr
+     * 播放指定地址的音乐文件 .mp3 .wav
      *
      * @param url
      */
@@ -276,7 +276,6 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                 handler.sendEmptyMessageDelayed(UPDATE_PROGRESS, 100);
             }
         });
-
         // 注册播放完毕后的监听事件
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 

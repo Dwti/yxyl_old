@@ -53,6 +53,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
     protected TextView tvPagerCount;
     protected ImageView ivAnswerCard;
     protected ImageView ivFavCard;
+    protected boolean flag=false;   //是否点了上一题按钮切换
 //    private static BaseAnswerViewActivity act;
 
     protected int pageCount;
@@ -245,6 +246,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
     @Override
     public void onClick(View v) {
         if(v == btnLastQuestion){
+            flag=true;
             nextPager_onclick = 1;
             btnNextQuestion.setVisibility(View.VISIBLE);
 //            if(vpAnswer.getCurrentItem() != 0){

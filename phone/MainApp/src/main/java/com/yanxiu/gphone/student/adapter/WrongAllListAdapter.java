@@ -88,7 +88,7 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
         if (TextUtils.isEmpty(questionId)) {
             Util.showToast(R.string.select_location_data_error);
         } else {
-            if (NetWorkTypeUtils.isNetAvailable()) {
+            if (!NetWorkTypeUtils.isNetAvailable()) {
                 Util.showToast(R.string.public_loading_net_null_errtxt);
                 return;
             }

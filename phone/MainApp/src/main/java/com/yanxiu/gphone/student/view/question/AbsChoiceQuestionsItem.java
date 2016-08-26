@@ -76,30 +76,4 @@ public abstract class AbsChoiceQuestionsItem extends FrameLayout implements Chec
 
 
     protected abstract void setItemContentText(String str);
-
-
-
-//    protected boolean isChoice(){
-//        return isChoice;
-//    }
-
-//    protected void setIsChoice(boolean isChoice) {
-//        this.isChoice = isChoice;
-//    }
-//
-//    /**
-//     * 设置选中状态
-//     */
-//    protected void setSelected(){
-//        setIsChoice(true);
-//    }
-//
-//    /**
-//     * 设置未选中状态
-//     */
-//    protected void setUnSelected(){
-//        setIsChoice(false);
-//    }
-
-
 }

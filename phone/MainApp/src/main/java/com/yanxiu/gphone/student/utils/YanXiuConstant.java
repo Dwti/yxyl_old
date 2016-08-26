@@ -118,6 +118,7 @@ public class YanXiuConstant {
 	public final static String SINGLE_CHOICES = "choice";
 	public final static String MULTI_CHOICES = "multi-choice";
 	public final static String FILL_BLANK = "fill";
+	public final static String NEW_FILL_BLANK="newfill";
 	public final static String JUDGE_QUESTION = "alter";
 	public final static String CONNECT_QUESTION = "connect";
 	public final static String CLASSIFY_QUESTION = "classify";

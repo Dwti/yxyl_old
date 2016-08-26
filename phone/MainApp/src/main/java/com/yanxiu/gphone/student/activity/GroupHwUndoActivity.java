@@ -123,7 +123,7 @@ public class GroupHwUndoActivity extends YanxiuBaseActivity {
 
         @Override
         public void onRefresh (XListView view) {
-            if (!NetWorkTypeUtils.isNetAvailable()) {
+            if (NetWorkTypeUtils.isNetAvailable()) {
                 pageIndex = 1;
                 requestHwUndoList(true, false, false);
             } else {
@@ -134,7 +134,7 @@ public class GroupHwUndoActivity extends YanxiuBaseActivity {
 
         @Override
         public void onLoadMore (XListView view) {
-            if (!NetWorkTypeUtils.isNetAvailable()) {
+            if (NetWorkTypeUtils.isNetAvailable()) {
                 requestHwUndoList(false, false, true);
             } else {
                 listView.stopLoadMore();

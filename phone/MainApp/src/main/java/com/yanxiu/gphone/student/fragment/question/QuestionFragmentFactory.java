@@ -60,6 +60,7 @@ public class QuestionFragmentFactory {
                 break;
             case QUESTION_FILL_BLANKS:
                 fragment = new FillBlanksFragment();
+//                fragment=new NewFillBlanksFragment();
                 break;
             case QUESTION_READING:
                 fragment = new ReadingQuestionsFragment();

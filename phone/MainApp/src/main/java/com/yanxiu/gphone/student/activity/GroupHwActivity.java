@@ -157,7 +157,7 @@ public class GroupHwActivity extends YanxiuBaseActivity{
     private XListView.IXListViewListener ixListViewListener = new XListView.IXListViewListener(){
 
         @Override public void onRefresh(XListView view) {
-            if(!NetWorkTypeUtils.isNetAvailable()){
+            if(NetWorkTypeUtils.isNetAvailable()){
                 pageIndex = 1;
                 requestHwList(true, false, false);
             }else {
@@ -167,7 +167,7 @@ public class GroupHwActivity extends YanxiuBaseActivity{
         }
 
         @Override public void onLoadMore(XListView view) {
-            if(!NetWorkTypeUtils.isNetAvailable()){
+            if(NetWorkTypeUtils.isNetAvailable()){
                 requestHwList(false, false, true);
             }else {
                 listView.stopLoadMore();

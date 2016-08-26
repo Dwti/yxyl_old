@@ -212,7 +212,7 @@ public class GroupFragment extends Fragment {
 
         @Override
         public void onRefresh (XListView view) {
-            if (!NetWorkTypeUtils.isNetAvailable()) {
+            if (NetWorkTypeUtils.isNetAvailable()) {
                 LogInfo.log("king", "onRefresh");
                 requestGroupData(true, false);
                 EventBus.getDefault().post(new GroupHwwaitFinishBean());//刷新重试更新小红点

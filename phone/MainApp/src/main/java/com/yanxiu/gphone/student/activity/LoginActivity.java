@@ -221,7 +221,7 @@ public class LoginActivity extends YanxiuBaseActivity implements
         wechatLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                if (NetWorkTypeUtils.isNetAvailable()) {
+                if (!NetWorkTypeUtils.isNetAvailable()) {
                     Util.showToast(R.string.net_null);
                 } else {
                     PreferencesManager.getInstance().setIsThirdLogIn(true);
@@ -233,7 +233,7 @@ public class LoginActivity extends YanxiuBaseActivity implements
         qqLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                if (NetWorkTypeUtils.isNetAvailable()) {
+                if (!NetWorkTypeUtils.isNetAvailable()) {
                     Util.showToast(R.string.net_null);
                 } else {
                     PreferencesManager.getInstance().setIsThirdLogIn(true);

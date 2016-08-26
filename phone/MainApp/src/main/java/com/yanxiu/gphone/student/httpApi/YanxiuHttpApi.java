@@ -53,8 +53,7 @@ public class YanxiuHttpApi {
     public static final String CHAPTER_ID="chapterId";
 
     public static final boolean isTest = true;   //是否是测试环境
-    public static final boolean isDev = false;    //是否是测试环境中的开发环境
-
+    public static final boolean isDev = true;    //是否是测试环境中的开发环境
 
     /**
      * 公共参数  KEY
@@ -82,7 +81,6 @@ public class YanxiuHttpApi {
      */
     public interface OFFICIAL_URL {
         String DYNAMIC_APP_USERURL = "http://mobile.hwk.yanxiu.com/app";
-        String DYNAMIC_LOGIN_USERURL = "http://u.yanxiu.com/";
         String DYNAMIC_APP_UPLOAD = "http://mobile.yanxiu.com/api";
     }
 
@@ -93,9 +91,6 @@ public class YanxiuHttpApi {
     public interface TEST_URL {
         String DYNAMIC_DEV_BASE_URL = "http://dev.hwk.yanxiu.com/app";
         String DYNAMIC_TEST_BASE_URL = "http://test.hwk.yanxiu.com/app";
-//        public final String DYNAMIC_DEV_BASE_URL = "http://122.11.49.79/app";
-        String DYNAMIC_TEST_LOGIN_BASE_URL = "http://utest.yanxiu.com/";
-        String DYNAMIC_TEST_APP_UPLOAD = "http://mobiletest.yanxiu.com/api";
     }
 
 //    public static String getPublicUrl() {

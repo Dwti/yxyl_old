@@ -335,7 +335,7 @@ public class TeachingMaterialActivity extends YanxiuBaseActivity {
     private void requestMyFavouriteTask(final String stageId) {
         mRootView.loading(true);
         cancelMyFavouriteTask();
-        if (NetWorkTypeUtils.isNetAvailable()) {
+        if (!NetWorkTypeUtils.isNetAvailable()) {
             new YanxiuSimpleAsyncTask<MistakeEditionBean>(this) {
                 @Override
                 public MistakeEditionBean doInBackground() {
@@ -374,7 +374,7 @@ public class TeachingMaterialActivity extends YanxiuBaseActivity {
     private void requestMistakeEditionTask(final String stageId) {
         mRootView.loading(true);
         cancelMistakeEditionTask();
-        if (NetWorkTypeUtils.isNetAvailable()) {
+        if (!NetWorkTypeUtils.isNetAvailable()) {
             new YanxiuSimpleAsyncTask<MistakeEditionBean>(this) {
                 @Override
                 public MistakeEditionBean doInBackground() {

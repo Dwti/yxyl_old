@@ -43,6 +43,7 @@ public class YanxiuApplication extends CommonCoreApplication {
     public LruDiskCache discCache;
     private static YanxiuApplication instance;
     protected RequestQueue volleryRequest;
+    public static boolean hasShowed=false;  //播放听力的时候，非wifi网络下面是否提示过（APP运行期间只提示一次）
 
     /**
      * 图片下载器

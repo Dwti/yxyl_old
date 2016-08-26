@@ -231,7 +231,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
                         dataSources.getData().get(0).getPaperTest().addAll(result.getData().get(0).getPaperTest());
                         adapter.addDataSourcesMore(result.getData().get(0).getPaperTest());
                     } else {
-                        if (NetWorkTypeUtils.isNetAvailable()) {
+                        if (!NetWorkTypeUtils.isNetAvailable()) {
                             Util.showToast(R.string.server_connection_erro);
                         }
                     }
@@ -294,7 +294,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
                         dataSources.getData().get(0).getPaperTest().addAll(result.getData().get(0).getPaperTest());
                         adapter.addDataSourcesMore(result.getData().get(0).getPaperTest());
                     } else {
-                        if (NetWorkTypeUtils.isNetAvailable()) {
+                        if (!NetWorkTypeUtils.isNetAvailable()) {
                             Util.showToast(R.string.server_connection_erro);
                         }
                     }
@@ -394,7 +394,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
             if (TextUtils.isEmpty(questionId)) {
                 Util.showToast(R.string.select_location_data_error);
             } else {
-                if (NetWorkTypeUtils.isNetAvailable()) {
+                if (!NetWorkTypeUtils.isNetAvailable()) {
                     Util.showToast(R.string.public_loading_net_null_errtxt);
                     return;
                 }

@@ -150,12 +150,10 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
         args.putSerializable("questions", questionsEntity);
         resolutionFragment = Fragment.instantiate(ChoiceQuestionFragment.this.getActivity(), ProblemAnalysisFragment.class.getName(), args);
         FragmentTransaction ft = ChoiceQuestionFragment.this.getChildFragmentManager().beginTransaction();
-       //ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
 //         标准动画
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
 
-//        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
         ft.replace(R.id.content_problem_analysis, resolutionFragment).commitAllowingStateLoss();
     }
 

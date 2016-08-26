@@ -87,7 +87,6 @@ public class FillBlanksFramelayout extends FrameLayout implements
         data = stem + "  \n";
         data = data + "  \n";
         data = data.replace("(_)","(________________)");
-//        tvFillBlank.setTextHtml(data);
         tvFillBlank.setText(data);
 //        Log.d("asd","data++++"+data);
         ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
@@ -148,21 +147,26 @@ public class FillBlanksFramelayout extends FrameLayout implements
         if(rlMark!=null && rlMark.getChildCount()>0){
             int fillCount = rlMark.getChildCount();
             int answerCount = bean.getFillAnswers().size();
-            bean.setIsFinish(false);
+
+            boolean flag=true;
             for(int i = 0;i<fillCount;i++)
             {
                 String fillAnswer = "";
                 if(!StringUtils.isEmpty(
                         ((EditText) rlMark.getChildAt(i)).getText().toString())){
                    fillAnswer =  ((EditText)rlMark.getChildAt(i)).getText().toString();
-                    bean.setIsFinish(true);
+//                    bean.setIsFinish(true);
+                }else {
+                    flag=false;
                 }
+
                 if(answerCount == fillCount ){
                     bean.getFillAnswers().set(i,fillAnswer);
                 }else{
                     bean.getFillAnswers().add(fillAnswer);
                 }
             }
+            bean.setIsFinish(flag);
             bean.setIsRight(judgeAnswerIsRight());
         }
     }
@@ -230,7 +234,11 @@ public class FillBlanksFramelayout extends FrameLayout implements
             }
             if (flag) {
                 initViewWithData(bean);
-                ((EditText) rlMark.getChildAt(0)).requestFocus();
+                try {
+                    ((EditText) rlMark.getChildAt(0)).requestFocus();
+                }catch (Exception e){
+
+                }
             }
         }
     }
@@ -304,7 +312,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
         params.topMargin = (int) (yAxisTop - tvFillBlank.getTextSize() / 2)+ Util.dipToPx(10)-4;
         EditText et = new EditText(mCtx);
         et.setSingleLine();
-        et.setTextColor(mCtx.getResources().getColor(R.color.color_ff40c0fd));
+        et.setTextColor(mCtx.getResources().getColor(R.color.color_00cccc));
         et.setTextSize(textSize);
         et.setBackground(null);
         et.setGravity(Gravity.BOTTOM);

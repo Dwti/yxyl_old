@@ -422,7 +422,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
             forResult();
             finish();
         } else if (v == shareView) {
-            if (NetWorkTypeUtils.isNetAvailable()) {
+            if (!NetWorkTypeUtils.isNetAvailable()) {
                 Util.showToast(R.string.net_null);
                 return;
             }

@@ -491,8 +491,15 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         int costTime = totalTime - lastTime;
         lastTime = totalTime;
         LogInfo.log("geny", costTime + "---costTime-------viewPagerLastPosition----" + viewPagerLastPosition);
-        adapter.setCostTime(costTime, viewPagerLastPosition,childIndex);
-        childIndex=0;
+        if(dataSources.getData().get(0).getPaperTest().get(position).getQuestions().getChildren()!=null && flag ){
+            //flag表示 是不是按的上一题按钮切换的题目；此处这样处理的原因是因为，如果当前题目是复合题，然后点上一题按钮切换到上一道复合题的话，会切换到上一道复合题的最
+            //后一道小题，切换的时候会先调用小题的viewPager的onPageSelected方法，然后chilidIndex被设为小题的index，此时在这儿再去保存上一道题的小题的答题时间，可能
+            //会导致childIndex越界
+            flag=false;
+        }else{
+            adapter.setCostTime(costTime, viewPagerLastPosition,childIndex);
+            childIndex=0;
+        }
 
         tvPagerIndex.setVisibility(View.VISIBLE);
         ivAnswerCard.setVisibility(View.VISIBLE);

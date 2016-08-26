@@ -1,88 +1,73 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/dimen_7">
-
-    <!--<RelativeLayout android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignBottom="@+id/rl_choice_content_item"
-                    android:id="@+id/rl_choice_item">
-
-        &lt;!&ndash;<View android:layout_width="@dimen/dimen_25"
-              android:layout_height="@dimen/dimen_1"
-              android:background="@color/color_ffe2e2e2"
-              android:layout_toRightOf="@+id/fl_choice_text_item_bg"
-              android:layout_centerVertical="true"/>&ndash;&gt;
-
-    </RelativeLayout>-->
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/dimen_7">
 
     <FrameLayout android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_marginLeft="@dimen/dimen_12"
-                 android:layout_alignTop="@+id/rl_choice_content_item"
-                 android:layout_alignBottom="@+id/rl_choice_content_item"
-                 android:id="@+id/fl_choice_text_item_bg"
-                 android:background="@drawable/answer_left_bg_nor">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_12"
+        android:layout_alignTop="@+id/rl_choice_content_item"
+        android:layout_alignBottom="@+id/rl_choice_content_item"
+        android:id="@+id/fl_choice_text_item_bg"
+        android:background="@drawable/answer_left_bg_nor">
 
         <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/tv_choice_text_item"
-                  android:text="B"
-                  android:textSize="@dimen/dimen_15"
-                  android:layout_gravity="center"
-                  android:textColor="@color/color_00cccc" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_choice_text_item"
+            android:text="B"
+            android:textSize="@dimen/dimen_15"
+            android:layout_gravity="center"
+            android:textColor="@color/color_00cccc" />
 
     </FrameLayout>
 
     <FrameLayout android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_alignTop="@+id/rl_choice_content_item"
-                 android:layout_alignBottom="@+id/rl_choice_content_item"
-                 android:layout_marginBottom="@dimen/dimen_5"
-                 android:layout_marginLeft="@dimen/dimen_5">
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/rl_choice_content_item"
+        android:layout_alignBottom="@+id/rl_choice_content_item"
+        android:layout_marginBottom="@dimen/dimen_5"
+        android:layout_marginLeft="@dimen/dimen_5">
 
         <ImageView android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:visibility="gone"
-                   android:layout_gravity="center"
-                   android:id="@+id/iv_choice_icon_item"
-                   android:src="@drawable/answer_correct"/>
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:id="@+id/iv_choice_icon_item"
+            android:src="@drawable/answer_correct"/>
 
 
     </FrameLayout>
 
     <FrameLayout android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_alignTop="@+id/rl_choice_content_item"
-                 android:layout_alignBottom="@+id/rl_choice_content_item"
-                 android:id="@+id/view_middle_content"
-                 android:layout_toRightOf="@+id/fl_choice_text_item_bg"
-                 android:background="@drawable/answer_middle_bg_nor">
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/rl_choice_content_item"
+        android:layout_alignBottom="@+id/rl_choice_content_item"
+        android:id="@+id/view_middle_content"
+        android:layout_toRightOf="@+id/fl_choice_text_item_bg"
+        android:background="@drawable/answer_middle_bg_nor">
 
         <ImageView android:layout_width="wrap_content"
-                   android:layout_height="match_parent"
-                   android:background="@drawable/repeat_answer_line"
-                   android:id="@+id/iv_middle_icon" />
-        <!--<View android:layout_width="@dimen/dimen_1" android:layout_height="match_parent"-->
-              <!--android:background="@color/color_ffe580" />-->
+            android:layout_height="match_parent"
+            android:background="@drawable/repeat_answer_line"
+            android:id="@+id/iv_middle_icon" />
     </FrameLayout>
 
 
     <RelativeLayout android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/view_middle_content"
-            android:background="@drawable/answer_right_bg"
-            android:id="@+id/rl_choice_content_item">
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/view_middle_content"
+        android:background="@drawable/answer_right_bg"
+        android:id="@+id/rl_choice_content_item">
 
         <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/tv_item_content_text"
-                  android:padding="@dimen/dimen_4"
-                  android:textSize="@dimen/dimen_15"
-                  android:layout_gravity="center"
-                  android:textColor="@color/color_black" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_item_content_text"
+            android:padding="@dimen/dimen_4"
+            android:textSize="@dimen/dimen_15"
+            android:layout_gravity="center"
+            android:textColor="@color/color_black" />
 
     </RelativeLayout>
 

@@ -121,7 +121,7 @@ public abstract class AbsHistoryFragment extends Fragment {
         @Override
         public void onRefresh(XListView view) {//刷新
             //更新当前的新闻列表
-            if(NetWorkTypeUtils.isNetAvailable()){
+            if(!NetWorkTypeUtils.isNetAvailable()){
                 xListView.stopRefresh();
                 xListView.stopLoadMore();
                 Util.showToast(R.string.no_net_tag);
@@ -132,7 +132,7 @@ public abstract class AbsHistoryFragment extends Fragment {
         @Override
         public void onLoadMore(XListView view) {//加载更多
             //加载下面20条
-            if(NetWorkTypeUtils.isNetAvailable()){
+            if(!NetWorkTypeUtils.isNetAvailable()){
                 xListView.stopRefresh();
                 xListView.stopLoadMore();
                 Util.showToast(R.string.no_net_tag);

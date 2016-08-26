@@ -71,7 +71,7 @@ public class MistakeChapterFragment extends AbsChapterFragment {
         if (mAdaper != null) {
             ((FavouriteAndMistakeChapterAdapter) mAdaper).setList(null);
         }
-        if (NetWorkTypeUtils.isNetAvailable()) {
+        if (!NetWorkTypeUtils.isNetAvailable()) {
             new YanxiuSimpleAsyncTask<SectionMistakeBean>(getActivity()) {
                 @Override
                 public SectionMistakeBean doInBackground() {
@@ -94,7 +94,7 @@ public class MistakeChapterFragment extends AbsChapterFragment {
                         rootView.finish();
                         updateView(result);
                     } else {
-                        if (NetWorkTypeUtils.isNetAvailable()) {
+                        if (!NetWorkTypeUtils.isNetAvailable()) {
                             if (isChapterSection == 1) {
                                 rootView.dataNull(isChapterSection, R.drawable.public_no_qus_bg);
                             } else {
@@ -302,7 +302,7 @@ public class MistakeChapterFragment extends AbsChapterFragment {
         LogInfo.log("geny", "requestMistakeQuestion");
         rootView.loading(true);
         cancelWrongQuestionTask();
-        if (NetWorkTypeUtils.isNetAvailable()) {
+        if (!NetWorkTypeUtils.isNetAvailable()) {
             new YanxiuSimpleAsyncTask<SubjectExercisesItemBean>(getActivity()) {
                 @Override
                 public SubjectExercisesItemBean doInBackground() {

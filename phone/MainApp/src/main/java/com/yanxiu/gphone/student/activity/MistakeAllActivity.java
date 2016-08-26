@@ -137,7 +137,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
     private XListView.IXListViewListener ixListViewListener = new XListView.IXListViewListener(){
 
         @Override public void onRefresh(XListView view) {
-            if(!NetWorkTypeUtils.isNetAvailable()){
+            if(NetWorkTypeUtils.isNetAvailable()){
                 pageIndex = 1;
                 requestMistakeAllList(true, false, false);
             }else {
@@ -147,7 +147,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
         }
 
         @Override public void onLoadMore(XListView view) {
-            if(!NetWorkTypeUtils.isNetAvailable()){
+            if(NetWorkTypeUtils.isNetAvailable()){
                 requestMistakeAllList(false, false, true);
             }else {
                 listView.stopLoadMore();
@@ -166,7 +166,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
             page +=1;
         }
         final int currentPage = page;
-        if (!NetWorkTypeUtils.isNetAvailable()) {
+        if (NetWorkTypeUtils.isNetAvailable()) {
             if (mRequestWrongAllQuestionTask != null) {
                 mRequestWrongAllQuestionTask.cancel();
                 mRequestWrongAllQuestionTask = null;
@@ -285,7 +285,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                             wrongAllListAdapter.setList(dataList);
                         }
                     } else {
-                        if (NetWorkTypeUtils.isNetAvailable()) {
+                        if (!NetWorkTypeUtils.isNetAvailable()) {
                             Util.showToast(R.string.server_connection_erro);
                         }
                     }

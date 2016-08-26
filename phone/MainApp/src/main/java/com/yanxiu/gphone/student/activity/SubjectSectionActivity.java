@@ -329,7 +329,7 @@ public class SubjectSectionActivity extends YanxiuBaseActivity implements View.O
                 public void updateLocal(YanxiuBaseBean result) {
                     SubjectEditionBean subjectEditionBean = (SubjectEditionBean) result;
                     if (subjectEditionBean != null && subjectEditionBean.getData() != null) {
-                        if (NetWorkTypeUtils.isNetAvailable()) {
+                        if (!NetWorkTypeUtils.isNetAvailable()) {
                             rootView.netError(true);
                         } else {
                             LogInfo.log("geny", "updateLocal");
