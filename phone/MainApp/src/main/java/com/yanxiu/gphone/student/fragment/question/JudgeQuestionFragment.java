@@ -3,6 +3,7 @@ package com.yanxiu.gphone.student.fragment.question;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,6 +109,8 @@ public class JudgeQuestionFragment extends BaseQuestionFragment implements Quest
                 ((QuestionsListener)getActivity()).flipNextPager(null);
 //            }
         }
+        if(isVisibleToUser && isResumed())
+        Log.i("life","onVisible");
     }
 
     private void addAnalysisFragment(){
@@ -125,8 +128,14 @@ public class JudgeQuestionFragment extends BaseQuestionFragment implements Quest
             bean = questionsEntity.getAnswerBean();
         }
         judgeQuestions.setDataSources(bean);
+        Log.i("life","onResume");
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.i("life","onPause");
+    }
 
     @Override
     public void flipNextPager(QuestionsListener listener) {

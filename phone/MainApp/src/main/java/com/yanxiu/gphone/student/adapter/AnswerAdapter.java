@@ -44,7 +44,6 @@ import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTI
 public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsListener {
 	private ArrayList<Fragment> mFragments;
 	private ViewPager mViewPager;
-//	private SubjectExercisesItemBean subjectExercisesItemBean;
 	private List<PaperTestEntity> dataList = new ArrayList<PaperTestEntity>() ;
 	private int answerViewTypyBean = 0;
 
@@ -147,10 +146,6 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 		}else{
 			this.flip.flipNextPager(null);
 			mViewPager.setCurrentItem((mViewPager.getCurrentItem() + 1));
-//			Fragment lastFragment = getItem(mViewPager.getAdapter().getCount() - 1);
-//				if(lastFragment != null && lastFragment instanceof AnswerCardFragment){
-//					((AnswerCardFragment)lastFragment).refreshAnswerCard();
-//				}
 		}
 	}
 
@@ -578,9 +573,6 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 	 * @param childPosition
      */
 	public void setCostTime(int costTime, int position, int childPosition) {
-		if (true){
-			return;
-		}
 		if(dataList != null && !dataList.isEmpty() && dataList.get(position) != null && dataList.get(position).getQuestions() != null){
 			List<PaperTestEntity> children = dataList.get(position).getQuestions().getChildren();
 			AnswerBean bean;

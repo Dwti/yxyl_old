@@ -89,6 +89,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 
     private int mNextIndex;
 
+    private BaseQuestionFragment lastFragment;
+
 
 //    private ProgressLayout progressLayout;
 
@@ -332,6 +334,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         long endtime = System.currentTimeMillis();
         dataSources.setEndtime(endtime);
         QuestionUtils.clearSubjectiveQuesition(dataSources);
+        dataSources.getData().get(0).getPaperStatus().setCosttime(dataSources.getData().get(0).getPaperStatus().getCosttime()+AnswerViewActivity.totalTime);
         RequestSubmitQuesitonTask requestSubmitQuesitonTask = new RequestSubmitQuesitonTask(this, dataSources, RequestSubmitQuesitonTask.LIVE_CODE, new AsyncCallBack() {
             @Override
             public void update(YanxiuBaseBean result) {
@@ -485,8 +488,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         super.onPageSelected(position);
         LogInfo.log(TAG, "onPageSelected position: " + position);
         LogInfo.log("TTTT", "onPageSelected" + position);
-
-
         currentIndex = position;
         int costTime = totalTime - lastTime;
         lastTime = totalTime;
