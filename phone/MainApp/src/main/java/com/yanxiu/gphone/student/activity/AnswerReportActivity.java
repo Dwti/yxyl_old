@@ -78,7 +78,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
     private TextView tvReportSccuracy;
     private TextView tvReportTimeText;
     private TextView tvReportToptitle;
-
+    private View common_line;
     private List<QuestionEntity> questionWrongList;
 
     private int questionCount = 0;    //题目总数
@@ -181,6 +181,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
     private void initView() {
         ivBack = (ImageView) findViewById(R.id.iv_top_back);
         shareView = (ImageView) findViewById(R.id.report_share);
+        common_line = findViewById(R.id.view_repeat_common_line);
         tvReport = (TextView) this.findViewById(R.id.tv_report_question);
         tvReportNumTitle = (TextView) this.findViewById(R.id.report_num_title_01);
         tvReportNumText = (TextView) this.findViewById(R.id.report_num_text);
@@ -206,7 +207,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
         rlObjectContainer = (RelativeLayout) this.findViewById(R.id.rl_object_tab);
 
         tvObjectiveLine = (TextView) this.findViewById(R.id.tv_objective_line);
-
+        common_line.requestFocus();
         ivBack.setOnClickListener(this);
         btnViewResolution.setOnClickListener(this);
         btnPracticeAgain.setOnClickListener(this);

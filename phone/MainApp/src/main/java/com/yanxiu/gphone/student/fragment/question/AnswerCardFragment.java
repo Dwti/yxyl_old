@@ -371,7 +371,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
         final long groupStartTime = dataSources.getData().get(0).getBegintime();
         final long groupEndtime = dataSources.getData().get(0).getEndtime();//作业练习截止时间
         dataSources.setEndtime(endtime);
-        dataSources.getData().get(0).getPaperStatus().setCosttime(dataSources.getData().get(0).getPaperStatus().getCosttime()+AnswerViewActivity.totalTime);
+        dataSources.getData().get(0).getPaperStatus().setCosttime(AnswerViewActivity.totalTime);
         requestSubmitQuesitonTask = new RequestSubmitQuesitonTask(YanxiuApplication.getContext(), dataSources, RequestSubmitQuesitonTask.SUBMIT_CODE, new AsyncCallBack() {
             @Override
             public void update(YanxiuBaseBean result) {
