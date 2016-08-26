@@ -33,7 +33,7 @@
 
         <RelativeLayout android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/dimen_30"
+            android:layout_marginBottom="@dimen/dimen_20"
             android:layout_marginTop="@dimen/dimen_52"
             android:layout_marginLeft="@dimen/dimen_10"
             android:layout_marginRight="@dimen/dimen_10"
@@ -237,8 +237,6 @@
                             android:paddingBottom="30dp">
                         </LinearLayout>
 
-
-
                     </RelativeLayout>
 
 
@@ -253,6 +251,11 @@
                 </RelativeLayout>
 
             </ScrollView>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/answer_report_bottom_gradient"
+                android:layout_alignParentBottom="true"/>
 
         </RelativeLayout>
 
@@ -275,7 +278,7 @@
 
         <ImageView android:layout_width="@dimen/dimen_88"
                    android:layout_height="@dimen/dimen_98"
-                   android:layout_marginBottom="@dimen/dimen_10"
+                   android:layout_marginBottom="@dimen/dimen_5"
                    android:layout_alignParentBottom="true"
                    android:layout_marginLeft="@dimen/dimen_60"
                    android:src="@drawable/answer_report_pencil"/>
