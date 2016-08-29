@@ -148,25 +148,26 @@ public class FillBlanksFramelayout extends FrameLayout implements
             int fillCount = rlMark.getChildCount();
             int answerCount = bean.getFillAnswers().size();
 
-            boolean flag=true;
-            for(int i = 0;i<fillCount;i++)
-            {
-                String fillAnswer = "";
-                if(!StringUtils.isEmpty(
-                        ((EditText) rlMark.getChildAt(i)).getText().toString())){
-                   fillAnswer =  ((EditText)rlMark.getChildAt(i)).getText().toString();
+            if (fillCount > 0) {
+                boolean flag = true;
+                for (int i = 0; i < fillCount; i++) {
+                    String fillAnswer = "";
+                    if (!StringUtils.isEmpty(
+                            ((EditText) rlMark.getChildAt(i)).getText().toString())) {
+                        fillAnswer = ((EditText) rlMark.getChildAt(i)).getText().toString();
 //                    bean.setIsFinish(true);
-                }else {
-                    flag=false;
-                }
+                    } else {
+                        flag = false;
+                    }
 
-                if(answerCount == fillCount ){
-                    bean.getFillAnswers().set(i,fillAnswer);
-                }else{
-                    bean.getFillAnswers().add(fillAnswer);
+                    if (answerCount == fillCount) {
+                        bean.getFillAnswers().set(i, fillAnswer);
+                    } else {
+                        bean.getFillAnswers().add(fillAnswer);
+                    }
                 }
+                bean.setIsFinish(flag);
             }
-            bean.setIsFinish(flag);
             bean.setIsRight(judgeAnswerIsRight());
         }
     }

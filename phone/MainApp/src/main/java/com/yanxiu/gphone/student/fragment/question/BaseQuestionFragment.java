@@ -150,11 +150,6 @@ public class BaseQuestionFragment extends Fragment {
 
     }
 
-
-    public void saveAnwser(){
-
-    }
-
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
