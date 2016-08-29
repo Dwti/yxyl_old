@@ -370,6 +370,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         super.onDestroy();
         releaseMediaPlayer();
         EventBus.getDefault().unregister(this);//反注册EventBus
+        //children=null;
     }
 
     public void onEventMainThread(ChildIndexEvent event) {
