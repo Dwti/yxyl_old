@@ -1,11 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dimen_130">
-
-    <RelativeLayout
+    android:layout_height="wrap_content">
+    <com.yanxiu.gphone.student.view.MyRelativeLayout
         android:id="@+id/rl_answer_exam_wrong"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_130"
+        android:layout_height="wrap_content"
         android:background="@drawable/my_list_bg_selector">
 
         <ImageView
@@ -13,7 +12,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:maxHeight="@dimen/dimen_130"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="@dimen/dimen_12"
             android:layout_marginTop="@dimen/dimen_15" />
@@ -23,7 +21,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:maxHeight="@dimen/dimen_130"
             android:layout_alignTop="@id/answer_exam_type_text"
             android:layout_gravity="center_horizontal"
             android:layout_marginRight="@dimen/dimen_10"
@@ -35,17 +32,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/answer_exam_type_text"
-            android:maxHeight="@dimen/dimen_130"
+            android:layout_centerVertical="true"
             android:layout_marginBottom="@dimen/dimen_15"
             android:layout_marginLeft="@dimen/dimen_20"
-
+            android:layout_gravity="center"
             android:layout_marginRight="@dimen/dimen_17"
             android:layout_toLeftOf="@id/iv_answer_exam_delete"
             android:layout_toRightOf="@id/answer_exam_type_text"
             android:textColor="@color/color_666252" />
         <!--android:textSize="@dimen/dimen_16"-->
         <!--android:layout_gravity="center"-->
-    </RelativeLayout>
+    </com.yanxiu.gphone.student.view.MyRelativeLayout>
 
     <ImageView
         android:id="@+id/item_divider_line"

@@ -235,10 +235,11 @@ public class FillBlanksFramelayout extends FrameLayout implements
             if (flag) {
                 initViewWithData(bean);
                 try {
-                    ((EditText) rlMark.getChildAt(0)).requestFocus();
+//                    ((EditText) rlMark.getChildAt(0)).requestFocus();
                 }catch (Exception e){
 
                 }
+                hideSoftInput();
             }
         }
     }

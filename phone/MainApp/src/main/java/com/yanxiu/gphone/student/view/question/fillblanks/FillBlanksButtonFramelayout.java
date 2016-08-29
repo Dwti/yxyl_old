@@ -233,9 +233,15 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
     public void setAnswersToPosition(int position,String answer){
         TextView textView=(TextView) rlMark.getChildAt(position);
         ArrayList<String> answer_list=bean.getFillAnswers();
-        answer_list.add(position,answer);
+        if (answer_list.size()<position){
+
+        }else {
+            answer_list.remove(position);
+            answer_list.add(position,answer);
+            setText(textView,answer);
+        }
 //        asd
-        setText(textView,answer);
+
     }
 
     /**
@@ -291,7 +297,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
     }
 
     private void setTextColor(TextView textView,String answer){
-        if (TextUtils.isEmpty(answer)){
+        if (TextUtils.isEmpty(answer)||answer.equals("-1")){
             textView.setBackgroundResource(R.drawable.gestalt_button_noanswer);
             textView.setTextColor(mCtx.getResources().getColor(R.color.color_805500));
         }else {

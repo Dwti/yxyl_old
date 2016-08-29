@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
@@ -44,6 +45,7 @@ import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
@@ -207,6 +209,14 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                 }
             }
         } else {
+//            try {
+//                ArrayList<Fragment> list= adapter.getmFragments();
+//                for (int i=0;i<list.size();i++){
+//                    BaseQuestionFragment fragment= (BaseQuestionFragment) list.get(i);
+//                    fragment.saveAnwser();
+//                }
+//            }catch (Exception e){}
+            answerViewClick();
             isNeedUpdate = false;
         }
         if (!isVisibleToUser && mediaPlayer != null && mediaPlayer.isPlaying()) {
@@ -455,7 +465,10 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
 
     @Override
     public void answerViewClick() {
-
+        try {
+            BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getmFragments().get(vpAnswer.getCurrentItem());
+            fragment.saveAnwser();
+        }catch (Exception e){}
     }
 
     @Override

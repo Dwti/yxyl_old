@@ -57,8 +57,19 @@ public class OnPushPullTouchListener implements View.OnTouchListener ,View.OnCli
     }
 
     private void setMove(LinearLayout bottom_view, RelativeLayout top_view) {
+        int top_height=top_view.getHeight();
+        int bottom_height=bottom_view.getHeight();
+//        if (yy - move_y>height * 1 / 20&&yy - move_y < height * 3 / 5) {
 
-        if (yy - move_y>height * 1 / 20&&yy - move_y < height * 3 / 5) {
+        if (move_y>0&&bottom_height>100){
+
+        }else if (move_y<0&&top_height>200){
+
+        }else {
+            return;
+        }
+
+//        if (top_height>200&&bottom_height>200){
             float bottom_weight=(yy - move_y)/tital_height;
             float top_weight=1-bottom_weight;
 
@@ -69,7 +80,7 @@ public class OnPushPullTouchListener implements View.OnTouchListener ,View.OnCli
             LinearLayout.LayoutParams layoutParams1= (LinearLayout.LayoutParams) top_view.getLayoutParams();
             layoutParams1.weight=top_weight;
             top_view.setLayoutParams(layoutParams1);
-        }
+//        }
     }
 
     @Override

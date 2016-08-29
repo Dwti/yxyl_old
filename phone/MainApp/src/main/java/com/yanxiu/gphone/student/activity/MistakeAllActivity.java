@@ -229,7 +229,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                         }
                         updateUI();
                     } else {
-                        rootView.dataNull(getResources().getString(R.string.no_group_hw_list_tip));
+//                        rootView.dataNull(getResources().getString(R.string.no_group_hw_list_tip));
 //                    noCommentView.setVisibility(View.VISIBLE;);
                     }
 

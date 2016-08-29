@@ -80,6 +80,7 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
         super.onPause();
         if (fillBlanksFramelayout!=null){
             fillBlanksFramelayout.hideSoftInput();
+//            answerViewClick();
         }
     }
 
@@ -102,6 +103,12 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
 
     @Override
     public void flipNextPager(QuestionsListener flip) {
+    }
+
+    @Override
+    public void saveAnwser() {
+        super.saveAnwser();
+        answerViewClick();
     }
 
     @Override
