@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
+import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.*;
@@ -28,7 +29,7 @@ public class BaseQuestionFragment extends Fragment {
     protected QuestionEntity questionsEntity;
 
     protected int answerViewTypyBean;
-
+    private long startTime, endTime;
     protected int pageIndex;
 
     protected View rootView;
@@ -40,15 +41,17 @@ public class BaseQuestionFragment extends Fragment {
 
     private RelativeLayout rlTopView;
 
-    protected boolean ischild=false;
-    /**是否小题需要显示最后一个*/
-    protected boolean is_reduction=false;
+    protected boolean ischild = false;
+    /**
+     * 是否小题需要显示最后一个
+     */
+    protected boolean is_reduction = false;
     protected int childPagerIndex;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("当前",this.getClass().getName());
+        Log.d("当前", this.getClass().getName());
         this.questionsEntity = (getArguments() != null) ? (QuestionEntity) getArguments().getSerializable("questions") : null;
         this.answerViewTypyBean = (getArguments() != null) ? getArguments().getInt("answerViewTypyBean") : null;
         this.pageIndex = (getArguments() != null) ? getArguments().getInt("pageIndex") : 0;
@@ -61,59 +64,59 @@ public class BaseQuestionFragment extends Fragment {
         tvQuestionTitle = (TextView) view.findViewById(R.id.tv_title_name);
         rlTopView = (RelativeLayout) view.findViewById(R.id.rl_top);
         ivTopIcon = (ImageView) view.findViewById(R.id.iv_answer_top_icon);
-        if(questionsEntity != null){
-            BaseQuestionFragment fragment=this;
+        if (questionsEntity != null) {
+            BaseQuestionFragment fragment = this;
             int typeId = questionsEntity.getType_id();
-            if(typeId == QUESTION_SUBJECTIVE.type){
+            if (typeId == QUESTION_SUBJECTIVE.type) {
                 //    6
                 ivTopIcon.setImageResource(R.drawable.subjective_title_bg);
-            }else if(typeId == QUESTION_SINGLE_CHOICES.type) {
+            } else if (typeId == QUESTION_SINGLE_CHOICES.type) {
                 //    1
                 ivTopIcon.setImageResource(R.drawable.choice_single_title_bg);
-            }else if(typeId == QUESTION_MULTI_CHOICES.type){
+            } else if (typeId == QUESTION_MULTI_CHOICES.type) {
                 //    2
                 ivTopIcon.setImageResource(R.drawable.choice_multi_title_bg);
-            }else if(typeId == QUESTION_JUDGE.type){
+            } else if (typeId == QUESTION_JUDGE.type) {
                 //    4
                 ivTopIcon.setImageResource(R.drawable.judge_title_bg);
-            }else if(typeId == QUESTION_FILL_BLANKS.type){
+            } else if (typeId == QUESTION_FILL_BLANKS.type) {
                 //    3
                 ivTopIcon.setImageResource(R.drawable.fill_blanks_bg);
-            }else if(typeId == QUESTION_READING.type){
+            } else if (typeId == QUESTION_READING.type) {
                 //    5
                 ivTopIcon.setImageResource(R.drawable.reading_title_bg);
-            }else if(typeId == QUESTION_READ_COMPLEX.type){
+            } else if (typeId == QUESTION_READ_COMPLEX.type) {
                 //    14
                 ivTopIcon.setImageResource(R.drawable.read_complex_title_bg);
-            }else if(typeId == QUESTION_SOLVE_COMPLEX.type){
+            } else if (typeId == QUESTION_SOLVE_COMPLEX.type) {
                 //    22
                 ivTopIcon.setImageResource(R.drawable.solve_complex_title_bg);
-            }else if (typeId==QUESTION_CLOZE_COMPLEX.type){
+            } else if (typeId == QUESTION_CLOZE_COMPLEX.type) {
                 //    15
                 ivTopIcon.setImageResource(R.drawable.gestalt_complex_title_bg);
-            }else if (typeId==QUESTION_LISTEN_COMPLEX.type){
+            } else if (typeId == QUESTION_LISTEN_COMPLEX.type) {
                 //    13
                 ivTopIcon.setImageResource(R.drawable.listen_complex_title_bg);
-            }else if ((9<=typeId && typeId<=12) || typeId==18 || typeId==19 || typeId==21){
+            } else if ((9 <= typeId && typeId <= 12) || typeId == 18 || typeId == 19 || typeId == 21) {
                 ivTopIcon.setImageResource(R.drawable.listen_complex_title_bg);
-            }else if (typeId== QUESTION_CONNECT.type){
+            } else if (typeId == QUESTION_CONNECT.type) {
                 //    7
                 ivTopIcon.setImageResource(R.drawable.attachment_title_bg);
-            }else if (typeId== QUESTION_COMPUTE.type){
+            } else if (typeId == QUESTION_COMPUTE.type) {
                 //    8
                 ivTopIcon.setImageResource(R.drawable.calculate_title_bg);
-            }else if (typeId==16){
+            } else if (typeId == 16) {
                 ivTopIcon.setImageResource(R.drawable.translation_title_bg);
-            }else if (typeId==17){
+            } else if (typeId == 17) {
                 ivTopIcon.setImageResource(R.drawable.subjects_title_bg);
-            }else if (typeId==20){
+            } else if (typeId == 20) {
                 ivTopIcon.setImageResource(R.drawable.sorting_title_bg);
             }
-            if(questionsEntity.isReadQuestion()){
+            if (questionsEntity.isReadQuestion()) {
                 rlTopView.setVisibility(View.GONE);
-            }else{
+            } else {
                 questionTitle = questionsEntity.getTitleName();
-                if(!TextUtils.isEmpty(questionTitle)){
+                if (!TextUtils.isEmpty(questionTitle)) {
                     tvQuestionTitle.setText(questionTitle);
                 }
             }
@@ -121,25 +124,25 @@ public class BaseQuestionFragment extends Fragment {
 
     }
 
-    public void setChildPagerIndex(int childPagerIndex){
-        this.childPagerIndex=childPagerIndex;
+    public void setChildPagerIndex(int childPagerIndex) {
+        this.childPagerIndex = childPagerIndex;
     }
 
-    public void setRefresh(){
-        String ss="";
-        ss="";
+    public void setRefresh() {
+        String ss = "";
+        ss = "";
     }
 
-    public Fragment getChildFragment(){
+    public Fragment getChildFragment() {
         return null;
     }
 
-    public int getChildCount(){
+    public int getChildCount() {
         return 1;
     }
 
-    public void setIsChild(boolean ischild){
-        this.ischild=ischild;
+    public void setIsChild(boolean ischild) {
+        this.ischild = ischild;
     }
 
 
@@ -149,7 +152,6 @@ public class BaseQuestionFragment extends Fragment {
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        BaseQuestionFragment context=this;
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             if (YanXiuConstant.OnClick_TYPE == 0) {
@@ -158,7 +160,24 @@ public class BaseQuestionFragment extends Fragment {
                 YanXiuConstant.OnClick_TYPE = 0;
                 is_reduction = true;
             }
+//            startTime = System.currentTimeMillis();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+//        endTime = System.currentTimeMillis();
+//        if (questionsEntity != null && answerViewTypyBean == SubjectExercisesItemBean.ANSWER_QUESTION) {
+//            int costTime = (int) ((endTime - startTime) / 1000);
+//            questionsEntity.getAnswerBean().setConsumeTime(questionsEntity.getAnswerBean().getConsumeTime() + costTime);
+//            startTime = endTime = 0;
+//        }
     }
 
     @Override

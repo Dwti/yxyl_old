@@ -18,7 +18,8 @@ import com.common.core.utils.TimeUtils;
  * Created by Administrator on 2015/7/6.
  * 答题卡界面
  */
-public class AnswerCardActivity extends YanxiuBaseActivity implements View.OnClickListener{
+public class
+AnswerCardActivity extends YanxiuBaseActivity implements View.OnClickListener{
     public final static int LAUNCHER_CARD_INDEX_ACTIVITY = 0x11;
     private ImageView ivBack;
     private TextView tvToptext;

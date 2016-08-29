@@ -55,26 +55,26 @@ public class QuestionUtils {
         }
     }
 
-    public static void settingAnswer(SubjectExercisesItemBean bean){
+    public static void settingAnswer(SubjectExercisesItemBean bean) {
         /**因产品需求变更，需要暂时去掉这个功能*/
-        if (true){
+        if (true) {
             return;
         }
 
-        List<PaperTestEntity> list=bean.getData().get(0).getPaperTest();
-        for (PaperTestEntity entity:list){
+        List<PaperTestEntity> list = bean.getData().get(0).getPaperTest();
+        for (PaperTestEntity entity : list) {
             try {
-                ArrayList<String> answer_list=entity.getQuestions().getAnswerBean().getFillAnswers();
-                String jsonanswer=entity.getQuestions().getPad().getJsonAnswer();
-                JSONArray array=new JSONArray(jsonanswer);
-                for (int i=0; i<array.length();i++){
-                    JSONObject object=array.getJSONObject(i);
-                    JSONArray jsonArray=object.optJSONArray("answer");
-                    String answer="";
-                    if (jsonArray!=null){
-                        answer=jsonArray.optString(0);
-                        if (answer==null){
-                            answer="";
+                ArrayList<String> answer_list = entity.getQuestions().getAnswerBean().getFillAnswers();
+                String jsonanswer = entity.getQuestions().getPad().getJsonAnswer();
+                JSONArray array = new JSONArray(jsonanswer);
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject object = array.getJSONObject(i);
+                    JSONArray jsonArray = object.optJSONArray("answer");
+                    String answer = "";
+                    if (jsonArray != null) {
+                        answer = jsonArray.optString(0);
+                        if (answer == null) {
+                            answer = "";
                         }
                     }
                     answer_list.add(answer);
@@ -135,7 +135,7 @@ public class QuestionUtils {
                                     question.setChildPositionForCard(j);
                                     //子题是解答题的时候，添加小题号
                                     int startIndex = question.getStem().indexOf("(");
-                                    if (startIndex!=0)
+                                    if (startIndex != 0)
                                         question.setStem("(" + (j + 1) + ")" + question.getStem());
                                 } else {
                                     question.setChildPositionForCard(-1);
@@ -174,13 +174,23 @@ public class QuestionUtils {
             if (dataList == null) {
                 return;
             }
-
             int count = dataList.size();
             for (int i = 0; i < count; i++) {
                 if (dataList.get(i) != null && dataList.get(i).getQuestions() != null) {
-                    int typeId = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getType_id();
-                    if (QUESTION_SUBJECTIVE.type == typeId) {
-                        subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().setAnswerBean(new AnswerBean());
+                    List<PaperTestEntity> childQuestion = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren();
+                    if (childQuestion == null || childQuestion.isEmpty()) {
+                        String template = subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().getTemplate();
+                        if (YanXiuConstant.ANSWER_QUESTION.equals(template)) {
+                            subjectEditionBean.getData().get(0).getPaperTest().get(i).getQuestions().setAnswerBean(new AnswerBean());
+                        }
+                    } else {
+                        int chilidCount = childQuestion.size();
+                        for (int j = 0; j < chilidCount; j++) {
+                            String childTemplate = childQuestion.get(j).getQuestions().getTemplate();
+                            if(YanXiuConstant.ANSWER_QUESTION.equals(childTemplate)){
+                                childQuestion.get(j).getQuestions().setAnswerBean(new AnswerBean());
+                            }
+                        }
                     }
                 }
             }
@@ -307,7 +317,7 @@ public class QuestionUtils {
                                         } else {
                                             answerChildBean.setIsFinish(false);
                                         }
-                                    } else if (YanXiuConstant.MULTI_CHOICES.equals(childTemplate) || YanXiuConstant.FILL_BLANK.equals(childTemplate) || YanXiuConstant.ANSWER_QUESTION.equals(childTemplate) ||YanXiuConstant.NEW_FILL_BLANK.equals(childTemplate)) {
+                                    } else if (YanXiuConstant.MULTI_CHOICES.equals(childTemplate) || YanXiuConstant.FILL_BLANK.equals(childTemplate) || YanXiuConstant.ANSWER_QUESTION.equals(childTemplate) || YanXiuConstant.NEW_FILL_BLANK.equals(childTemplate)) {
                                         if (YanXiuConstant.MULTI_CHOICES.equals(childTemplate)) {
                                             answerChildBean.setMultiSelect((ArrayList<String>) answerChildList);
                                         } else if (YanXiuConstant.FILL_BLANK.equals(childTemplate) || YanXiuConstant.NEW_FILL_BLANK.equals(childTemplate)) {

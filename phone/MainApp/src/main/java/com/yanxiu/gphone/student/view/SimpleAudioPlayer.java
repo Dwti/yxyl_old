@@ -28,6 +28,9 @@ public class SimpleAudioPlayer extends FrameLayout {
 
     private OnControlButtonClickListener onControlButtonClickListener;
 
+    private CommonDialog dialog;
+    private Context mContext;
+
     public SimpleAudioPlayer(Context context) {
         super(context);
         init(context);
@@ -44,6 +47,7 @@ public class SimpleAudioPlayer extends FrameLayout {
     }
 
     private void init(Context context) {
+        mContext= context;
         view = LayoutInflater.from(context).inflate(R.layout.simple_audio_player, this, true);
         mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         mIvControl = (ImageView) view.findViewById(R.id.iv_control);
@@ -53,16 +57,6 @@ public class SimpleAudioPlayer extends FrameLayout {
                 if (flag) {
                     flag=false;
                     checkNetWorkState();
-                    if (isPlaying) {
-                        mIvControl.setImageResource(R.drawable.play);
-                    } else {
-                        mIvControl.setImageResource(R.drawable.pause);
-                    }
-
-                    if (onControlButtonClickListener != null) {
-                        onControlButtonClickListener.onClick(mIvControl);
-                    }
-                    isPlaying = !isPlaying;
                     flag=true;
                 }
             }
@@ -70,16 +64,30 @@ public class SimpleAudioPlayer extends FrameLayout {
         Log.i("init",mProgressBar.getProgress()+"");
     }
 
+    private void playOrPause() {
+        if (isPlaying) {
+            mIvControl.setImageResource(R.drawable.play);
+        } else {
+            mIvControl.setImageResource(R.drawable.pause);
+        }
+
+        if (onControlButtonClickListener != null) {
+            onControlButtonClickListener.onClick(mIvControl);
+        }
+        isPlaying = !isPlaying;
+    }
+
     private void checkNetWorkState() {
         if(!NetWorkTypeUtils.isNetAvailable()){
             Util.showToast("网络无法连接");
-            //这里return了 但是播放没有return 不能这样写
             return;
         }else{
             if(!NetWorkTypeUtils.isWifi() && !YanxiuApplication.hasShowed){
                 YanxiuApplication.hasShowed=true;
-                Util.showToast("当前网络非wifi状态");
-                //弹框 如果确定 就继续播放，取消的话就返回
+                TipsDialog tipsDialog = new TipsDialog(mContext);
+                tipsDialog.show("当前非Wi-Fi,继续试听将会消耗手机流量");
+            }else{
+                playOrPause();
             }
         }
     }
@@ -93,7 +101,6 @@ public class SimpleAudioPlayer extends FrameLayout {
         mProgressBar.setProgress(progress);
         if (totalLength == 0)
             totalLength = mProgressBar.getWidth()-mIvControl.getWidth();
-//        float xRatio = Float.parseFloat(mProgressBar.getProgress()+"")/Float.parseFloat(mProgressBar.getMax()+"");
         float xRatio = (float) progress / mProgressBar.getMax();
         translateIvControl(totalLength * xRatio);
 
@@ -123,6 +130,28 @@ public class SimpleAudioPlayer extends FrameLayout {
         mIvControl.setTranslationX(x);
     }
 
+    private void showDialog(){
+        dialog = new CommonDialog(mContext,"当前非WiFi网络，继续试听将会消耗手机流量",
+                "继续",
+                "取消",
+                new DelDialog.DelCallBack(){
+                    @Override
+                    public void del() {
+                        playOrPause();
+                    }
+
+                    @Override
+                    public void sure() {
+                    }
+
+                    @Override
+                    public void cancel() {
+                        //取消播放
+                    }
+                });
+        dialog.show();
+    }
+
     public OnControlButtonClickListener getOnControlButtonClickListener() {
         return onControlButtonClickListener;
     }
@@ -134,4 +163,6 @@ public class SimpleAudioPlayer extends FrameLayout {
     public interface OnControlButtonClickListener {
         void onClick(ImageView imageButton);
     }
+
+
 }

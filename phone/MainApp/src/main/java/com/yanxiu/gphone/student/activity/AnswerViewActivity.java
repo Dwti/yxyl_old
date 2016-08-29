@@ -89,6 +89,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 
     private int mNextIndex;
 
+    private BaseQuestionFragment lastFragment;
+
 
 //    private ProgressLayout progressLayout;
 
@@ -224,7 +226,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
             dataSources.setBegintime(begintime);
 //            progressLayout.setWeight(1, adapter.getTotalCount());
             LogInfo.log("geny", "1.0 / adapter.getTotalCount()" + 1.0 / adapter.getTotalCount() + "---- adapter.getTotalCount(" + adapter.getTotalCount());
-            tvToptext.setText(stringForTimeNoHour(0));
+            totalTime=dataSources.getData().get(0).getPaperStatus().getCosttime();
+            tvToptext.setText(stringForTimeNoHour(totalTime));
             tvPagerIndex.setText("1");
             tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(adapter.getTotalCount())));
             if (PreferencesManager.getInstance().getFirstQuestion()) {
@@ -331,7 +334,9 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         }
         long endtime = System.currentTimeMillis();
         dataSources.setEndtime(endtime);
+        calculateLastQuestionTime();
         QuestionUtils.clearSubjectiveQuesition(dataSources);
+        dataSources.getData().get(0).getPaperStatus().setCosttime(AnswerViewActivity.totalTime);
         RequestSubmitQuesitonTask requestSubmitQuesitonTask = new RequestSubmitQuesitonTask(this, dataSources, RequestSubmitQuesitonTask.LIVE_CODE, new AsyncCallBack() {
             @Override
             public void update(YanxiuBaseBean result) {
@@ -485,8 +490,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         super.onPageSelected(position);
         LogInfo.log(TAG, "onPageSelected position: " + position);
         LogInfo.log("TTTT", "onPageSelected" + position);
-
-
         currentIndex = position;
         int costTime = totalTime - lastTime;
         lastTime = totalTime;
@@ -546,7 +549,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         int costTime = totalTime - lastTime;
         lastTime = totalTime;
         int size = dataSources.getData().get(0).getPaperTest().size();
-        QuestionEntity questionEntity = dataSources.getData().get(0).getPaperTest().get(size-1).getQuestions();
+        QuestionEntity questionEntity = dataSources.getData().get(0).getPaperTest().get(vpAnswer.getCurrentItem()).getQuestions();
         if(questionEntity.getChildren()!=null && !questionEntity.getChildren().isEmpty()){
             adapter.setCostTime(costTime,viewPagerLastPosition,childIndex);
         }else {
