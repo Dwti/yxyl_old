@@ -150,6 +150,9 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
             }else if (typeId==QUESTION_CLOZE_COMPLEX.type){
                 //    15
                 holder.answerExamType.setImageResource(R.drawable.gestalt_complex_title_bg);
+
+                String stem=entity.getQuestions().getStem().replace("(_)_","___");
+                entity.getQuestions().setStem(stem);
             }else if (typeId==QUESTION_LISTEN_COMPLEX.type){
                 //    13
                 holder.answerExamType.setImageResource(R.drawable.listen_complex_title_bg);

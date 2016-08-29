@@ -313,7 +313,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
         params.topMargin = (int) (yAxisTop - tvFillBlank.getTextSize() / 2)+ Util.dipToPx(10)-4;
         EditText et = new EditText(mCtx);
         et.setSingleLine();
-        et.setTextColor(mCtx.getResources().getColor(R.color.color_00cccc));
+        et.setTextColor(mCtx.getResources().getColor(R.color.color_00b8b8));
         et.setTextSize(textSize);
         et.setBackground(null);
         et.setGravity(Gravity.BOTTOM);
