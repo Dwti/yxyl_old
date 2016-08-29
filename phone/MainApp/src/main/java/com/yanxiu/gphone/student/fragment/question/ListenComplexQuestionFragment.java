@@ -216,6 +216,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
 //                    fragment.saveAnwser();
 //                }
 //            }catch (Exception e){}
+            super.saveAnwser();
             answerViewClick();
             isNeedUpdate = false;
         }
