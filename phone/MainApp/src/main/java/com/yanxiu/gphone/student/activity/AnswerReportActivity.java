@@ -287,18 +287,17 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
             layoutParams.rightMargin = Util.convertDpToPx(mContext,15);
 
             TitleView titleView = new TitleView(mContext);
-//            titleView.setLayoutParams(layoutParams);
             titleView.setTitleImage(QuestionUtils.getBmpResIdByName(entry.getKey().toString()));
 
             UnMoveGridView gridView = new UnMoveGridView(mContext);
             Drawable itemDrawable = getResources().getDrawable(R.drawable.report_grid_item_selector);
-            gridView.setLayoutParams(layoutParams);
-            gridView.setAdapter(new AnswerCardAdapter(entry.getValue()));
             gridView.setNumColumns(5);
             gridView.setHorizontalSpacing(Util.convertDpToPx(mContext,5));
             gridView.setSelector(itemDrawable);
             gridView.setVerticalSpacing(Util.convertDpToPx(mContext,10));
-
+//            gridView.setStretchMode(GridView.STRETCH_SPACING);
+            gridView.setLayoutParams(layoutParams);
+            gridView.setAdapter(new AnswerCardAdapter(entry.getValue()));
             ll_grid.addView(titleView);
             ll_grid.addView(gridView);
 
@@ -823,7 +822,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
             AnswerBean answerBean = data.getAnswerBean();
             if (row == null) {
                 LayoutInflater inflater = LayoutInflater.from(mContext);
-                row = inflater.inflate(R.layout.item_report_card,parent,false);
+                row = inflater.inflate(R.layout.item_report_card,null);
                 holder = new ViewHolder();
                 holder.flContent = (RelativeLayout) row.findViewById(R.id.rl_report_content);
                 holder.ivSign = (ImageView) row.findViewById(R.id.answer_report_icon);

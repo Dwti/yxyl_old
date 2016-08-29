@@ -1,24 +1,21 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="50dp"
-    android:layout_height="50dp"
-    android:orientation="vertical">
-
 
     <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/rl_report_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/answer_report_card_bg">
 
         <TextView
             android:id="@+id/answer_report_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/answer_report_card_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="@color/color_805500"
             android:textSize="@dimen/dimen_20"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:text="2"
+            android:layout_centerInParent="true"/>
 
         <ImageView
             android:id="@+id/answer_report_icon"
@@ -30,4 +27,3 @@
     </RelativeLayout>
 
 
-</LinearLayout>
