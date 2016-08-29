@@ -5,7 +5,6 @@
         android:id="@+id/rl_answer_exam_wrong"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/dimen_5"
         android:background="@drawable/my_list_bg_selector">
 
         <ImageView
@@ -47,7 +46,7 @@
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_5"
+            android:layout_height="@dimen/dimen_0"
             android:layout_alignParentBottom="true"/>
     </com.yanxiu.gphone.student.view.MyRelativeLayout>
 

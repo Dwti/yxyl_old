@@ -130,6 +130,10 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
         vpAnswer.setAdapter(adapter);
         adapter.setViewPager(vpAnswer);
         vpAnswer.setCurrentItem(childPagerIndex);
+        if (flag){
+            flag=false;
+            ((QuestionsListener) getActivity()).flipNextPager(adapter);
+        }
     }
 
     public void onPageCount(int count) {
@@ -137,6 +141,7 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
         pageCount = count;
     }
     private boolean isVisibleToUser;
+    private boolean flag=false;
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
@@ -144,6 +149,8 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
             if (!ischild) {
                 if (adapter != null) {
                     ((QuestionsListener) getActivity()).flipNextPager(adapter);
+                }else {
+                    flag=true;
                 }
             }
             if (vpAnswer != null) {
