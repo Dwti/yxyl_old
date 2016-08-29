@@ -182,8 +182,6 @@ public class PicSelView extends RelativeLayout {
                 break;
             case MediaUtils.OPEN_SYSTEM_CAMERA:
                 handlerCameraBit(activity,id);
-//                currentDrrList = ShareBitmapUtils.getInstance().getDrrMaps().get(id);
-//                handler.sendEmptyMessage(updateCode);
                 break;
             case MediaUtils.OPEN_DEFINE_PIC_BUILD :
                 currentDrrList = ShareBitmapUtils.getInstance().getDrrMaps().get(id);

@@ -236,7 +236,7 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:layout_below="@id/tv_objective_line"
-                            android:paddingBottom="30dp">
+                            android:paddingBottom="50dp">
                         </LinearLayout>
 
                     </RelativeLayout>

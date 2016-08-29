@@ -54,24 +54,11 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogInfo.log(TAG, "SubjectiveQuestionFragment on Create： ");
         mActivity = getActivity();
         this.questionsEntity = (getArguments() != null) ? (QuestionEntity) getArguments().getSerializable("questions") : null;
-        if (questionsEntity == null) {
-            LogInfo.log(TAG, "questionsEntity==null");
-        }
-
         this.answerViewTypyBean = (getArguments() != null) ? getArguments().getInt("answerViewTypyBean") : null;
         this.pageIndex = (getArguments() != null) ? getArguments().getInt("pageIndex") : 0;
         this.isFirstSub = (getArguments() != null) ? getArguments().getBoolean("isFirstSub", false) : false;
-//        if (isFirstSub) {
-//            if (!ShareBitmapUtils.getInstance().isInitCurrentId()) {
-//                LogInfo.log("geny", "come from onCreate");
-//                changeCurrentSelData(questionsEntity);
-//                ShareBitmapUtils.getInstance().setIsInitCurrentId(true);
-//            }
-//        }
-
     }
 
     @Override
@@ -178,11 +165,6 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     public void onPause() {
         super.onPause();
         LogInfo.log("geny", "---onPause-------pageIndex----" + pageIndex);
-//        LogInfo.log("geny", "onPause");
-//        if (resolutionFragment != null) {
-//            ft = ChoiceQuestionFragment.this.getChildFragmentManager().beginTransaction();
-//            ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
-//        }
     }
 
     /**
@@ -201,33 +183,21 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
 
 
     public void updataPhotoView(int type) {
-        LogInfo.log(TAG, "updataPhotoView");
         if (questionsEntity == null || StringUtils.isEmpty(questionsEntity.getId())) {
-            LogInfo.log(TAG, "questionsEntity==null||StringUtils.isEmpty(questionsEntity.getId())");
-            questionsEntity = (getArguments() != null) ? (QuestionEntity) getArguments().getSerializable("questions") : null;
-            if (questionsEntity == null || StringUtils.isEmpty(questionsEntity.getId())) {
-                LogInfo.log(TAG, "getArguments(): questionsEntity==null||StringUtils.isEmpty(questionsEntity.getId())");
-                return;
-            }
+            return;
         }
-
-        ShareBitmapUtils.getInstance().setCurrentSbId(questionsEntity.getId());
-        LogInfo.log(TAG, "mPicSelView: " + mPicSelView);
         if (mPicSelView != null) {
             mPicSelView.upDate(getActivity(),type, questionsEntity.getId());
         }
 
         if (!ShareBitmapUtils.getInstance().isCurrentListIsEmpty(questionsEntity.getId())) {
-            LogInfo.log(TAG, "setPhotoUri");
             questionsEntity.setPhotoUri(ShareBitmapUtils.getInstance().getPathList(questionsEntity.getId()));
         }
         questionsEntity.getAnswerBean().setIsSubjective(true);
         //add by lidm 判断是否完成主观题
         if (!ShareBitmapUtils.getInstance().isCurrentListIsEmpty(questionsEntity.getId())) {
-            LogInfo.log(TAG, "questionsEntity.getAnswerBean().setIsFinish(true)");
             questionsEntity.getAnswerBean().setIsFinish(true);
         } else {
-            LogInfo.log(TAG, "questionsEntity.getAnswerBean().setIsFinish(false)");
             questionsEntity.getAnswerBean().setIsFinish(false);
         }
 
@@ -237,18 +207,34 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         switch (requestCode) {
+            //点击拍照，拍照完了点击确定会走这儿（此时还没有进入裁剪页面）
             case MediaUtils.OPEN_SYSTEM_CAMERA:
-                updataPhotoView(MediaUtils.OPEN_SYSTEM_CAMERA);
+                if(questionsEntity==null || StringUtils.isEmpty(questionsEntity.getId()))
+                    return;
+                mPicSelView.upDate(getActivity(),MediaUtils.OPEN_SYSTEM_CAMERA, questionsEntity.getId());
                 break;
+            //进入照片选择页面，并且裁剪完了，会走这儿
             case MediaUtils.OPEN_DEFINE_PIC_BUILD:
                 updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
                 break;
+            //拍照时候的裁剪走这个地方，如果是从相册选择的话，走的是ImageBucketActivity的onActivityResult
             case MediaUtils.IMAGE_CROP:
                 if(resultCode==mActivity.RESULT_OK){
                     if(data!=null){
                         String filePath = PictureHelper.getPath(mActivity,MediaUtils.currentCroppedImageUri);
                         ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), filePath);
                         mPicSelView.updateImage(ShareBitmapUtils.getInstance().getCurrentSbId());
+
+                        if (!ShareBitmapUtils.getInstance().isCurrentListIsEmpty(questionsEntity.getId())) {
+                            questionsEntity.setPhotoUri(ShareBitmapUtils.getInstance().getPathList(questionsEntity.getId()));
+                        }
+                        questionsEntity.getAnswerBean().setIsSubjective(true);
+                        //判断是否完成主观题
+                        if (!ShareBitmapUtils.getInstance().isCurrentListIsEmpty(questionsEntity.getId())) {
+                            questionsEntity.getAnswerBean().setIsFinish(true);
+                        } else {
+                            questionsEntity.getAnswerBean().setIsFinish(false);
+                        }
                     }
                 }
                 break;
