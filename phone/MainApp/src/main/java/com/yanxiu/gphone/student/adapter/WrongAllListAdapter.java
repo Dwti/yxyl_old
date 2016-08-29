@@ -151,8 +151,8 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
                 //    15
                 holder.answerExamType.setImageResource(R.drawable.gestalt_complex_title_bg);
 
-                String stem=entity.getQuestions().getStem().replace("(_)_","___");
-                entity.getQuestions().setStem(stem);
+//                String stem=entity.getQuestions().getStem().replace("(_)_","___");
+//                entity.getQuestions().setStem(stem);
             }else if (typeId==QUESTION_LISTEN_COMPLEX.type){
                 //    13
                 holder.answerExamType.setImageResource(R.drawable.listen_complex_title_bg);
@@ -180,7 +180,11 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
                 }
             }*/
             if (entity.getQuestions().getStem() != null) {
-                holder.answerExamContent.setTextHtml(entity.getQuestions().getStem());
+                if (typeId==15){
+                    holder.answerExamContent.setTextHtml(entity.getQuestions().getStem().replace("(_)_","___"));
+                }else {
+                    holder.answerExamContent.setTextHtml(entity.getQuestions().getStem());
+                }
             }
         }
     }

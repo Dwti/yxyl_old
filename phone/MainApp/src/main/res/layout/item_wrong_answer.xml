@@ -5,6 +5,7 @@
         android:id="@+id/rl_answer_exam_wrong"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="@dimen/dimen_5"
         android:background="@drawable/my_list_bg_selector">
 
         <ImageView
@@ -39,15 +40,14 @@
             android:layout_marginRight="@dimen/dimen_17"
             android:layout_toLeftOf="@id/iv_answer_exam_delete"
             android:layout_toRightOf="@id/answer_exam_type_text"
-            android:layout_above="@+id/view"
             android:textColor="@color/color_666252" />
         <!--android:textSize="@dimen/dimen_16"-->
         <!--android:layout_gravity="center"-->
-        <View
+       <!-- <View
             android:id="@+id/view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_0"
-            android:layout_alignParentBottom="true"/>
+            android:layout_height="@dimen/dimen_5"
+            android:layout_alignParentBottom="true"/>-->
     </com.yanxiu.gphone.student.view.MyRelativeLayout>
 
     <ImageView

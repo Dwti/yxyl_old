@@ -107,7 +107,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         data = stem + "  \n";
 //        data = data + "  \n";
 //        data = data.replace("(_)", "________________");_____
-        data = data.replace("(_)", "(                 )");
+        data = data.replace("(_)", "  (               ) ");
 //        data = data.replace("_____", "_______________");
 //        tvFillBlank.setTextHtml(data);
         tvFillBlank.setText(data);
@@ -326,7 +326,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         public void onGlobalLayout() {
             FillBlanksButtonFramelayout.this.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 //            Pattern pattern = Pattern.compile("_______________");
-            Pattern pattern = Pattern.compile("\\(                 \\)");
+            Pattern pattern = Pattern.compile("  \\(               \\) ");
             boolean flag=true;
             if (!StringUtils.isEmpty(data)) {
                 Matcher matcher = pattern.matcher(data);
@@ -381,7 +381,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
 
     private void setNewText(int index){
 //        String[] strings=data.split("_______________");
-        String[] strings=data.split("\\(                 \\)");
+        String[] strings=data.split("  \\(               \\) ");
         String mData="";
         for (int i=0;i<strings.length;i++){
             mData=mData+strings[i];
@@ -390,7 +390,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
             }
             if (i!=strings.length-1) {
 //                mData = mData + "_______________";
-                mData = mData + "(                 )";
+                mData = mData + "  (               ) ";
             }
         }
         data=mData;
