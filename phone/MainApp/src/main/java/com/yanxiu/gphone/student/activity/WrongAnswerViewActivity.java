@@ -169,7 +169,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
 
         tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf((wrongCounts - delQueNum))));
         pageIndex = position;
-        int currentTotal = currentPageIndex * YanXiuConstant.YX_PAGESIZE_CONSTANT;
+        int currentTotal = adapter.getCount();
         LogInfo.log("haitian", "currentTotal =" + currentTotal + "   position=" + position + "   currentTotal - position - 1 - delQueNum="
                 + (currentTotal - position - 1 - delQueNum) + " adapter.getCount() - position - 1=" + (adapter.getCount() - position - 1));
         if (wrongCounts > currentTotal && (adapter.getCount() - position - 1) < 2&&isGetDataNow) {

@@ -34,6 +34,7 @@ import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
@@ -171,6 +172,16 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
                 }
             }
         }
+        if (!isVisibleToUser){
+//            try {
+//                ArrayList<Fragment> list= adapter.getmFragments();
+//                for (int i=0;i<list.size();i++){
+//                    BaseQuestionFragment fragment= (BaseQuestionFragment) list.get(i);
+//                    fragment.saveAnwser();
+//                }
+//            }catch (Exception e){}
+            answerViewClick();
+        }
     }
 
     @Override
@@ -289,7 +300,12 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
     }
 
     @Override public void answerViewClick() {
+        try {
+            BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getmFragments().get(vpAnswer.getCurrentItem());
+            fragment.saveAnwser();
+        }catch (Exception e){
 
+        }
     }
 
     @Override

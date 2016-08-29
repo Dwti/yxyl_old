@@ -142,6 +142,11 @@ public class BaseQuestionFragment extends Fragment {
         this.ischild=ischild;
     }
 
+
+    public void saveAnwser(){
+
+    }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         BaseQuestionFragment context=this;
