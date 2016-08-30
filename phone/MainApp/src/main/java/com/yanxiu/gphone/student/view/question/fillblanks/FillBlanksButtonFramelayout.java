@@ -125,7 +125,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
 //        int px = DensityUtils.dip2px(mCtx, 15);
 //        textSize = DensityUtils.px2sp(mCtx, px);
         tvFillBlank.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
-        tvFillBlank.setVisibility(INVISIBLE);
+//        tvFillBlank.setVisibility(INVISIBLE);
         yAxisHeight=getFontHeight(textSize);
         textview_width=(textSize / 2) * 10;
     }
@@ -355,7 +355,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
                 if (textView_first != null) {
                     textView_first.setBackgroundResource(R.drawable.gestalt_button_nowanswer);
                 }
-                tvFillBlank.setVisibility(VISIBLE);
+//                tvFillBlank.setVisibility(VISIBLE);
             }
         }
     }
