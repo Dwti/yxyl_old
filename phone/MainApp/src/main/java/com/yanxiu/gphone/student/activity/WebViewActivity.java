@@ -88,6 +88,7 @@ public class WebViewActivity extends YanxiuBaseActivity implements OnClickListen
 		backView.setOnClickListener(this);
 		mWebView = (WebView) findViewById(R.id.webView);
 		mWebView.getSettings().setUseWideViewPort(true);
+		mWebView.getSettings().setLoadWithOverviewMode(true);
 		mWebView.getSettings().setSupportZoom(true);
 		mWebView.getSettings().setBuiltInZoomControls(true);
 		mWebView.getSettings().setUserAgentString(CommonCoreUtil.createUA(this));
@@ -113,8 +114,17 @@ public class WebViewActivity extends YanxiuBaseActivity implements OnClickListen
 		@Override
 		public void onPageFinished (WebView view, String url) {
 			super.onPageFinished(view, url);
-			titleName = view.getTitle();
-			titleView.setText(titleName);
+			String title = view.getTitle();
+			if (title.equals("- no title specified")){
+				if(TextUtils.isEmpty(titleName)) {
+					titleView.setText(R.string.privacy_policy_txt);
+				} else {
+					titleView.setText(titleName);
+				}
+			}else {
+				titleView.setText(title);
+			}
+
 		}
 	}
 

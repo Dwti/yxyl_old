@@ -101,7 +101,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
         titleView.setText(title);
         wrongNumView = (TextView)findViewById(R.id.answer_exam_wrong_num_text);
         mMistakeCount = new Integer(wrongNum);
-        wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mMistakeCount));
+        wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, 0));
         listView = (XListView) findViewById(R.id.mistack_all_list);
         wrongAllListAdapter = new WrongAllListAdapter(this);
         listView.setAdapter(wrongAllListAdapter);
@@ -179,6 +179,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                     listView.stopLoadMore();
 
                     mSubjectExercisesItemBean = (SubjectExercisesItemBean) result;
+                    wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mSubjectExercisesItemBean.getPage().getTotalCou()));
 
                     QuestionUtils.settingAnswer(mSubjectExercisesItemBean);
                     QuestionUtils.initDataWithAnswer(mSubjectExercisesItemBean);

@@ -37,6 +37,12 @@ public class QuestionUtils {
      * 我的错题移除无关题目
      */
     public static void CleanData(List<PaperTestEntity> data) {
+
+        //需求变更
+        if (true){
+            return;
+        }
+
         Iterator<PaperTestEntity> iterator = data.listIterator();
         PaperTestEntity paperTestEntity;
         while (iterator.hasNext()) {
@@ -297,7 +303,7 @@ public class QuestionUtils {
                                 } else {
                                     answerChildList = answerList.get(j).getAnswer();
                                 }
-                                if (paperList.get(j) == null) {
+                                if (paperList.get(j) == null || paperList.get(j).getQuestions() == null || paperList.get(j).getQuestions().getPad()==null) {
                                     continue;
                                 }
                                 List<String> rightAnswer = paperList.get(j).getQuestions().getAnswer();

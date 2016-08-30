@@ -148,8 +148,8 @@ public class YanXiuConstant {
 	//作业报告
 	public static final int HOMEWORK_WRONG = 6;
 
-
-	public static final String PRIVACY_POLICY_URL="http://www.yanxiu.com/common/agreement.html";
+//	public static final String PRIVACY_POLICY_URL="http://www.yanxiu.com/common/agreement.html";
+	public static final String PRIVACY_POLICY_URL="http://mobile.hwk.yanxiu.com/privacy_policy.html";
 
 	//我的资料个人头像保存
 	public static final String HEAD_IMAGE_SAVE_DIR = YanXiuConstant.SDCARD_ROOT_PATH +"bitMapSave/";
