@@ -283,6 +283,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
             Map.Entry<String,List<QuestionEntity>> entry = iterator.next();
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             layoutParams.topMargin=Util.convertDpToPx(mContext,5);
+            layoutParams.bottomMargin=Util.convertDpToPx(mContext,7);
             layoutParams.leftMargin = Util.convertDpToPx(mContext,15);
             layoutParams.rightMargin = Util.convertDpToPx(mContext,15);
 
@@ -294,7 +295,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
             gridView.setNumColumns(5);
             gridView.setHorizontalSpacing(Util.convertDpToPx(mContext,5));
             gridView.setSelector(itemDrawable);
-            gridView.setVerticalSpacing(Util.convertDpToPx(mContext,10));
+            gridView.setVerticalSpacing(Util.convertDpToPx(mContext,20));
 //            gridView.setStretchMode(GridView.STRETCH_SPACING);
             gridView.setLayoutParams(layoutParams);
             gridView.setAdapter(new AnswerCardAdapter(entry.getValue()));
