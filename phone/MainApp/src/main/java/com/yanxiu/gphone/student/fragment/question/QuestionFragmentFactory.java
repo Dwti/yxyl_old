@@ -62,6 +62,9 @@ public class QuestionFragmentFactory {
                 fragment = new FillBlanksFragment();
 //                fragment=new NewFillBlanksFragment();
                 break;
+            case QUESTION_CLASSFY:
+                fragment = new ClassfyQuestionFragment();
+                break;
             case QUESTION_READING:
                 fragment = new ReadingQuestionsFragment();
                 break;

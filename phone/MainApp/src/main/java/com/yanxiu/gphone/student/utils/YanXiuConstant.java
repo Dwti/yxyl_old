@@ -101,7 +101,8 @@ public class YanXiuConstant {
 		QUESTION_SUBJECTIVE(6,YanxiuApplication.getInstance().getResources().getString(R.string.question_subjective)),
 		QUESTION_CONNECT(7,"连线题"),
 		QUESTION_COMPUTE(8,"计算题"),
-		QUESTION_LISTEN_COMPLEX(13,YanxiuApplication.getInstance().getResources().getString(R.string.question_listen_complex)),
+		QUESTION_LISTEN_COMPLEX(9,YanxiuApplication.getInstance().getResources().getString(R.string.question_listen_complex)),
+		QUESTION_CLASSFY(13,YanxiuApplication.getInstance().getResources().getString(R.string.question_classfy)),
 		QUESTION_CLOZE_COMPLEX(15,YanxiuApplication.getInstance().getResources().getString(R.string.question_cloze_complex)),
 		QUESTION_READ_COMPLEX(14,YanxiuApplication.getInstance().getResources().getString(R.string.question_read_complex)),
 		QUESTION_SOLVE_COMPLEX(22,YanxiuApplication.getInstance().getResources().getString(R.string.question_solve_complex));
