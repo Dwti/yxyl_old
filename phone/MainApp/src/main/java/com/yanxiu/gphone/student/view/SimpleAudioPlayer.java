@@ -85,7 +85,7 @@ public class SimpleAudioPlayer extends FrameLayout {
             if(!NetWorkTypeUtils.isWifi() && !YanxiuApplication.hasShowed){
                 YanxiuApplication.hasShowed=true;
                 TipsDialog tipsDialog = new TipsDialog(mContext);
-                tipsDialog.show("当前非Wi-Fi,继续试听将会消耗手机流量");
+                tipsDialog.show("当前非WiFi网络,继续试听将会消耗手机流量");
             }else{
                 playOrPause();
             }
