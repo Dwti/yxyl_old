@@ -44,36 +44,15 @@
                             android:textColor="@color/color_black"
                             android:textSize="@dimen/dimen_15" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="5dp">
-
-                            <com.yanxiu.gphone.student.view.SimpleAudioPlayer
-                                android:id="@+id/audioPlayer"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"/>
-
-                            <TextView
-                                android:id="@+id/tv_timer"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="5dp"
-                                android:text="00:00"
-                                android:textColor="#999999"
-                                android:singleLine="true"
-                                android:textSize="14sp"
-                                android:layout_gravity="center_vertical"/>
-
-                        </LinearLayout>
-
                     </LinearLayout>
                 </ScrollView>
             </FrameLayout>
+
+
+            <com.common.core.view.UnMoveGridView
+                android:id="@+id/classfy_question_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -98,15 +77,16 @@
             android:layout_margin="@dimen/dimen_20"
             android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="@dimen/dimen_26"
-                android:layout_height="@dimen/dimen_28"
-                android:src="@drawable/icon_question_a" />
-
-            <com.yanxiu.gphone.student.view.question.choicequestion.ChoiceQuestions
-                android:id="@+id/cq_item"
+            <com.yanxiu.gphone.student.view.question.classfy.ClassfyAnswers
+                android:id="@+id/classfy_text_item"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+            <com.common.core.view.LineGridView
+                android:id="@+id/classfy_icon_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
 
         </LinearLayout>
 

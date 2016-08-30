@@ -27,7 +27,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_choices_question, null);
+        rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_classfy_question, null);
         return rootView;
     }
 
