@@ -140,8 +140,16 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
         if (!isWrongSetOrAnalysis) {
             listAnswer = answerView.getAnswerList();
             questionsEntity.getAnswerBean().setFillAnswers(listAnswer);
-            if(!listAnswer.isEmpty()){
-                questionsEntity.getAnswerBean().setIsFinish(true);
+            boolean flag = true;
+            if(listAnswer != null && !listAnswer.isEmpty()){
+                for (int i=0; i<listAnswer.size(); i++) {
+                    if (listAnswer.get(i).isEmpty()) {
+                        flag = false;
+                    }
+                }
+                if (flag) {
+                    questionsEntity.getAnswerBean().setIsFinish(true);
+                }
                 if(QuestionUtils.compare(listAnswer,questionsEntity.getAnswer()))
                     questionsEntity.getAnswerBean().setIsRight(true);
             }
