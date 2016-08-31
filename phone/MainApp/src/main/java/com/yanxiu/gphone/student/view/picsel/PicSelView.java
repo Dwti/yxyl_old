@@ -80,7 +80,6 @@ public class PicSelView extends RelativeLayout {
     private void updateUI() {
         if (gridAdapter != null) {
             if (currentDrrList != null) {
-                LogInfo.log(TAG, "Handler update Size: " + currentDrrList.size());
                 if(currentDrrList.size()==0){
                     controllShowGridAndHideAddAnswView(false);
                 }else{
@@ -154,6 +153,7 @@ public class PicSelView extends RelativeLayout {
                 if (currentDrrList == null) {
                     return;
                 }
+                ShareBitmapUtils.getInstance().setCurrentSbId(currentQuestionId);
                 ActivityJumpUtils.jumpToLocalPhotoViewActivityForResult((Activity) mContext, i, LocalPhotoViewActivity.REQUEST_CODE);
             }
         }

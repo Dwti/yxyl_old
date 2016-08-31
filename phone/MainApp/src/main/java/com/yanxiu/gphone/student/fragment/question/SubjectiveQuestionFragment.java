@@ -129,7 +129,6 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
                 });
                 break;
             default:
-//                addAnalysisFragment();
                 break;
         }
     }
@@ -174,7 +173,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     public void changeCurrentSelData(QuestionEntity entity) {
         if(entity==null || TextUtils.isEmpty(entity.getId()))
             return;
-        ShareBitmapUtils.getInstance().setCurrentSbId(entity.getId());
+//        ShareBitmapUtils.getInstance().setCurrentSbId(entity.getId());
         if (mPicSelView != null) {
             mPicSelView.changeData();
         }

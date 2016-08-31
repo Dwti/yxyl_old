@@ -327,7 +327,6 @@ public class QuestionUtils {
                                                 answerChildBean.setMultiSelect((ArrayList<String>) answerChildList);
                                             } else if (YanXiuConstant.FILL_BLANK.equals(childTemplate) || YanXiuConstant.NEW_FILL_BLANK.equals(childTemplate)) {
                                                 answerChildBean.setFillAnswers((ArrayList<String>) answerChildList);
-                                            } else if (YanXiuConstant.ANSWER_QUESTION.equals(childTemplate)) {
                                             }
                                             if (compare(answerChildList, rightAnswer)) {
                                                 answerChildBean.setIsRight(true);
@@ -384,7 +383,6 @@ public class QuestionUtils {
                                     answerBean.setSelectType(answerList.get(0));
                                 } else if (YanXiuConstant.FILL_BLANK.equals(template) || YanXiuConstant.NEW_FILL_BLANK.equals(template)) {
                                     answerBean.setFillAnswers((ArrayList<String>) answerList);
-                                } else if (YanXiuConstant.ANSWER_QUESTION.equals(template)) {
                                 }
                             } else {
                                 answerBean.setIsFinish(false);
