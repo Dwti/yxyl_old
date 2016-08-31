@@ -160,7 +160,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 //		bean= Util.getSubjectExercisesItemBean();
 
         if (bean != null && bean.getData() != null && !bean.getData().isEmpty()) {
-            QuestionUtils.removeQuestions(bean);
+            //QuestionUtils.removeQuestions(bean);
             answerViewTypyBean = bean.getViewType();
 //			isResolution = bean.getIsResolution();
 //			isWrongSet = bean.isWrongSet();
