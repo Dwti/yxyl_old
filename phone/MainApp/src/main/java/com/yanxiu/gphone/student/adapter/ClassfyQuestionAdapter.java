@@ -12,7 +12,7 @@ import com.yanxiu.gphone.student.bean.SubjectVersionBean;
 /**
  * Created by Administrator on 2016/8/31.
  */
-public class ClassfyQuestionAdapter extends  YXiuCustomerBaseAdapter<QuestionEntity> {
+public class ClassfyQuestionAdapter extends  YXiuCustomerBaseAdapter<QuestionEntity.PointEntity> {
     public ClassfyQuestionAdapter(Activity context) {
         super(context);
     }
@@ -22,19 +22,22 @@ public class ClassfyQuestionAdapter extends  YXiuCustomerBaseAdapter<QuestionEnt
         ViewHolder holder;
         if(convertView==null){
             holder=new ViewHolder();
-            convertView=View.inflate(mContext, R.layout.subject_list_adapter_layout,null);
-            holder.text= (TextView) convertView.findViewById(R.id.subjectName);
+            convertView=View.inflate(mContext, R.layout.classfy_question_list_adapter,null);
+            holder.classfyQuestionName= (TextView) convertView.findViewById(R.id.classfyQuestionName);
+            holder.classfyQuestionNum= (TextView) convertView.findViewById(R.id.classfyQuestionNum);
             convertView.setTag(holder);
         }else{
             holder= (ViewHolder) convertView.getTag();
         }
-        QuestionEntity entity=getItem(position);
-        //holder.text.setText(entity.getName());
+        QuestionEntity.PointEntity entity=getItem(position);
+        holder.classfyQuestionName.setText(entity.getName());
+        holder.classfyQuestionNum.setText("(0)");
         return convertView;
     }
 
     class ViewHolder{
-        private TextView text;
+        private TextView classfyQuestionName;
+        private TextView classfyQuestionNum;
     }
 
 }

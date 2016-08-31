@@ -46,7 +46,10 @@
             <com.common.core.view.UnMoveGridView
                 android:id="@+id/classfy_question_item"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                style="@style/report_grid_style"
+                android:padding="@dimen/dimen_10"
+                android:numColumns="2"/>
 
         </LinearLayout>
 
@@ -76,10 +79,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"/>
-            <com.common.core.view.LineGridView
+            <com.common.core.view.UnMoveGridView
                 android:id="@+id/classfy_icon_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/report_grid_style"
+                android:padding="@dimen/dimen_10"
+                android:numColumns="4"
                 android:visibility="gone"/>
 
         </LinearLayout>
