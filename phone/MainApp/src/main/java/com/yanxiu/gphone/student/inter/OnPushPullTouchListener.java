@@ -63,7 +63,7 @@ public class OnPushPullTouchListener implements View.OnTouchListener ,View.OnCli
 
         if (move_y>0&&bottom_height>100){
 
-        }else if (move_y<0&&top_height>200){
+        }else if (move_y<0&&top_height>300){
 
         }else {
             return;

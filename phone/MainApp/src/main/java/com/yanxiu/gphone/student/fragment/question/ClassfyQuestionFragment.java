@@ -72,7 +72,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             }
             if (questionsEntity.getContent() != null && questionsEntity.getContent().getChoices() != null
                     && questionsEntity.getContent().getChoices().size() > 0) {
-                if (questionsEntity.getContent().getChoices().get(0).contains(IMG_SRC)) {
+                if (questionsEntity.getContent().getChoices().get(0).contains(IMG_SRC+"ttt")) {
                     classfyAnswerAdapter.setData(questionsEntity.getContent().getChoices());
                     lgClassfyAnswers.setVisibility(View.VISIBLE);
                     vgClassfyAnswers.setVisibility(View.GONE);
@@ -85,6 +85,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                         lp.setMargins(8, 8, 8, 8);
                         view.setLayoutParams(lp);
+                        vgClassfyAnswers.addView(view);
                     }
                     lgClassfyAnswers.setVisibility(View.GONE);
                     vgClassfyAnswers.setVisibility(View.VISIBLE);
