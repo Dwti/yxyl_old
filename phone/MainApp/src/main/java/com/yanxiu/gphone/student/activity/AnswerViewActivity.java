@@ -528,8 +528,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 
         tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(adapter.getTotalCount())));
         viewPagerLastPosition = position;
-//        LogInfo.log("geny", costTime + "---mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm---" + ((PageIndex) fragment).getPageIndex() + "/" + adapter.getTotalCount());
-        changeCurrentSelData();
+//        changeCurrentSelData();
 
 
     }

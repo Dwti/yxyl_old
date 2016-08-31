@@ -94,9 +94,9 @@ public class BaseQuestionFragment extends Fragment {
             } else if (typeId == QUESTION_CLOZE_COMPLEX.type) {
                 //    15
                 ivTopIcon.setImageResource(R.drawable.gestalt_complex_title_bg);
-            } else if (typeId == QUESTION_LISTEN_COMPLEX.type) {
+            } else if (typeId == QUESTION_CLASSFY.type) {
                 //    13
-                ivTopIcon.setImageResource(R.drawable.listen_complex_title_bg);
+                ivTopIcon.setImageResource(R.drawable.classfy_title_bg);
             } else if ((9 <= typeId && typeId <= 12) || typeId == 18 || typeId == 19 || typeId == 21) {
                 ivTopIcon.setImageResource(R.drawable.listen_complex_title_bg);
             } else if (typeId == QUESTION_CONNECT.type) {

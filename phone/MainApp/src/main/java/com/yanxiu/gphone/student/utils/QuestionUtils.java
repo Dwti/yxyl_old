@@ -37,12 +37,10 @@ public class QuestionUtils {
      * 我的错题移除无关题目
      */
     public static void CleanData(List<PaperTestEntity> data) {
-
 //        //需求变更
 //        if (true){
 //            return;
 //        }
-
         Iterator<PaperTestEntity> iterator = data.listIterator();
         PaperTestEntity paperTestEntity;
         while (iterator.hasNext()) {
@@ -193,7 +191,7 @@ public class QuestionUtils {
                         int chilidCount = childQuestion.size();
                         for (int j = 0; j < chilidCount; j++) {
                             String childTemplate = childQuestion.get(j).getQuestions().getTemplate();
-                            if(YanXiuConstant.ANSWER_QUESTION.equals(childTemplate)){
+                            if (YanXiuConstant.ANSWER_QUESTION.equals(childTemplate)) {
                                 childQuestion.get(j).getQuestions().setAnswerBean(new AnswerBean());
                             }
                         }
@@ -303,72 +301,63 @@ public class QuestionUtils {
                                 } else {
                                     answerChildList = answerList.get(j).getAnswer();
                                 }
-                                if (paperList.get(j) == null || paperList.get(j).getQuestions() == null || paperList.get(j).getQuestions().getPad()==null) {
+                                if (paperList.get(j) == null || paperList.get(j).getQuestions() == null || paperList.get(j).getQuestions().getPad() == null) {
                                     continue;
                                 }
                                 List<String> rightAnswer = paperList.get(j).getQuestions().getAnswer();
-                                if (answerChildList != null && !answerChildList.isEmpty()) {
-                                    AnswerBean answerChildBean = paperList.get(j).getQuestions().getAnswerBean();
-                                    String childTemplate = questionEntity.getChildren().get(j).getQuestions().getTemplate();
-                                    if (YanXiuConstant.SINGLE_CHOICES.equals(childTemplate) || YanXiuConstant.JUDGE_QUESTION.equals(childTemplate)) {
-                                        answerChildBean.setSelectType(answerChildList.get(0));
-                                        if (rightAnswer != null && !rightAnswer.isEmpty()) {
-                                            if (!TextUtils.isEmpty(answerChildList.get(0)) && answerChildList.get(0).equals(rightAnswer.get(0))) {
-                                                answerChildBean.setIsFinish(true);
-                                                answerChildBean.setIsRight(true);
-                                            } else {
-                                                answerChildBean.setIsFinish(true);
-                                                answerChildBean.setIsRight(false);
-                                            }
-                                        } else {
-                                            answerChildBean.setIsFinish(false);
-                                        }
-                                    } else if (YanXiuConstant.MULTI_CHOICES.equals(childTemplate) || YanXiuConstant.FILL_BLANK.equals(childTemplate) || YanXiuConstant.ANSWER_QUESTION.equals(childTemplate) || YanXiuConstant.NEW_FILL_BLANK.equals(childTemplate)) {
-                                        if (YanXiuConstant.MULTI_CHOICES.equals(childTemplate)) {
-                                            answerChildBean.setMultiSelect((ArrayList<String>) answerChildList);
-                                        } else if (YanXiuConstant.FILL_BLANK.equals(childTemplate) || YanXiuConstant.NEW_FILL_BLANK.equals(childTemplate)) {
-                                            answerChildBean.setFillAnswers((ArrayList<String>) answerChildList);
-                                        } else if (YanXiuConstant.ANSWER_QUESTION.equals(childTemplate)) {
-                                            answerChildBean.setSubjectivImageUri((ArrayList<String>) answerChildList);
-                                        }
-                                        if (rightAnswer == null || rightAnswer.isEmpty()) {
-                                            answerChildBean.setIsFinish(false);
-                                        } else {
-                                            if (!YanXiuConstant.ANSWER_QUESTION.equals(childTemplate)) {
-                                                //如果不是主观题
-                                                if (compare(answerChildList, rightAnswer)) {
-                                                    answerChildBean.setIsFinish(true);
+                                AnswerBean answerChildBean = paperList.get(j).getQuestions().getAnswerBean();
+                                int status = paperList.get(j).getQuestions().getPad().getStatus();
+                                String childTemplate = questionEntity.getChildren().get(j).getQuestions().getTemplate();
+                                answerChildBean.setStatus(status);
+                                //此处分为需要老师批改跟不需要老师批改两种情况处理（即主观题与非主观题）
+                                if (!YanXiuConstant.ANSWER_QUESTION.equals(childTemplate)) {
+                                    //非主观题（就是有正确答案，直接能在客户端判定的题）
+                                    if (answerChildList != null && !answerChildList.isEmpty()) {
+                                        if (YanXiuConstant.SINGLE_CHOICES.equals(childTemplate) || YanXiuConstant.JUDGE_QUESTION.equals(childTemplate)) {
+                                            answerChildBean.setSelectType(answerChildList.get(0));
+                                            if (rightAnswer != null && !rightAnswer.isEmpty()) {
+                                                if (!TextUtils.isEmpty(answerChildList.get(0)) && answerChildList.get(0).equals(rightAnswer.get(0))) {
                                                     answerChildBean.setIsRight(true);
                                                 } else {
-                                                    answerChildBean.setIsFinish(true);
                                                     answerChildBean.setIsRight(false);
                                                 }
-                                            } else {
-                                                //如果是主观题
-                                                int status = paperList.get(j).getQuestions().getPad().getStatus();
-                                                if (paperList.get(j).getQuestions().getPad().getTeachercheck() != null) {
-                                                    int score = paperList.get(j).getQuestions().getPad().getTeachercheck().getScore();  //老师打的分数，数值范围0-5，0:错；0~5：半对； 5：对
-                                                    if (AnswerBean.ANSER_READED == status) {
-                                                        if (score == 0) {
-                                                            answerChildBean.setIsRight(false);
-                                                        } else if (score == 5) {
-                                                            answerChildBean.setIsRight(true);
-                                                        } else if (score > 0 && score < 5) {
-                                                            answerChildBean.setIsHalfRight(true);
-                                                        }
-                                                    }
-                                                }
-                                                if (status != AnswerBean.ANSER_UNFINISH) {
-                                                    answerChildBean.setIsFinish(true);
-                                                } else {
-                                                    answerChildBean.setIsFinish(false);
-                                                }
-                                                answerChildBean.setIsSubjective(true);
-                                                answerChildBean.setStatus(status);
                                             }
-
+                                        } else {
+                                            if (YanXiuConstant.MULTI_CHOICES.equals(childTemplate)) {
+                                                answerChildBean.setMultiSelect((ArrayList<String>) answerChildList);
+                                            } else if (YanXiuConstant.FILL_BLANK.equals(childTemplate) || YanXiuConstant.NEW_FILL_BLANK.equals(childTemplate)) {
+                                                answerChildBean.setFillAnswers((ArrayList<String>) answerChildList);
+                                            }
+                                            if (compare(answerChildList, rightAnswer)) {
+                                                answerChildBean.setIsRight(true);
+                                            } else {
+                                                answerChildBean.setIsRight(false);
+                                            }
+                                        }
+                                        answerChildBean.setIsFinish(true);
+                                    } else {
+                                        answerChildBean.setIsFinish(false);
+                                    }
+                                } else {
+                                    //如果是主观题
+                                    if (paperList.get(j).getQuestions().getPad().getTeachercheck() != null) {
+                                        int score = paperList.get(j).getQuestions().getPad().getTeachercheck().getScore();  //老师打的分数，数值范围0-5，0:错；0~5：半对； 5：对
+                                        if (AnswerBean.ANSER_READED == status) {
+                                            if (score == 0) {
+                                                answerChildBean.setIsRight(false);
+                                            } else if (score == 5) {
+                                                answerChildBean.setIsRight(true);
+                                            } else if (score > 0 && score < 5) {
+                                                answerChildBean.setIsHalfRight(true);
+                                            }
+                                            answerChildBean.setIsFinish(true);
                                         }
                                     }
+                                    if (answerChildList != null && !answerChildList.isEmpty()) {
+                                        answerChildBean.setIsFinish(true);
+                                        answerChildBean.setSubjectivImageUri((ArrayList<String>) answerChildList);
+                                    }
+                                    answerChildBean.setIsSubjective(true);
                                 }
                             }
                         }
@@ -379,47 +368,31 @@ public class QuestionUtils {
                         answerBean.setConsumeTime(costTime);
                         answerBean.setStatus(status);
                         List<String> answerList = JSON.parseArray(jsonAnswer, String.class);
-
-                        if (answerList != null && !answerList.isEmpty()) {
-                            answerBean.setIsFinish(true);
-                            if (YanXiuConstant.SINGLE_CHOICES.equals(template)) {
-                                answerBean.setSelectType(answerList.get(0));
-                            } else if (YanXiuConstant.MULTI_CHOICES.equals(template)) {
-                                answerBean.setMultiSelect((ArrayList<String>) answerList);
-                            } else if (YanXiuConstant.JUDGE_QUESTION.equals(template)) {
-                                answerBean.setSelectType(answerList.get(0));
-                            } else if (YanXiuConstant.FILL_BLANK.equals(template) || YanXiuConstant.NEW_FILL_BLANK.equals(template)) {
-                                answerBean.setFillAnswers((ArrayList<String>) answerList);
-                            } else if (YanXiuConstant.ANSWER_QUESTION.equals(template)) {
-                                answerBean.setSubjectivImageUri((ArrayList<String>) answerList);
-                            }
-                        } else {
-                            answerBean.setIsFinish(false);
-                        }
-
+                        //此处分为需要老师批改跟不需要老师批改两种情况处理（即主观题与非主观题）
                         if (!YanXiuConstant.ANSWER_QUESTION.equals(template)) {
-                            switch (status) {
-                                case AnswerBean.ANSER_RIGHT:
+                            //非主观题
+                            if (answerList != null && !answerList.isEmpty()) {
+                                if (status == AnswerBean.ANSER_RIGHT)
                                     answerBean.setIsRight(true);
-                                    break;
-                                case AnswerBean.ANSER_WRONG:
-                                    answerBean.setIsRight(false);
-                                    break;
-                                case AnswerBean.ANSER_UNFINISH:
-                                    answerBean.setIsFinish(false);
-                                    break;
+                                answerBean.setIsFinish(true);
+                                if (YanXiuConstant.SINGLE_CHOICES.equals(template)) {
+                                    answerBean.setSelectType(answerList.get(0));
+                                } else if (YanXiuConstant.MULTI_CHOICES.equals(template)) {
+                                    answerBean.setMultiSelect((ArrayList<String>) answerList);
+                                } else if (YanXiuConstant.JUDGE_QUESTION.equals(template)) {
+                                    answerBean.setSelectType(answerList.get(0));
+                                } else if (YanXiuConstant.FILL_BLANK.equals(template) || YanXiuConstant.NEW_FILL_BLANK.equals(template)) {
+                                    answerBean.setFillAnswers((ArrayList<String>) answerList);
+                                }
+                            } else {
+                                answerBean.setIsFinish(false);
                             }
                         } else {
-                            answerBean.setIsSubjective(true);
+                            //主观题
                             if (questionEntity.getPad().getTeachercheck() != null) {
                                 int score = questionEntity.getPad().getTeachercheck().getScore();
                                 switch (status) {
-                                    case AnswerBean.ANSER_UNFINISH:
-                                        answerBean.setIsFinish(false);
-                                        break;
-                                    case AnswerBean.ANSER_FINISH:
-                                        answerBean.setIsFinish(true);
-                                        break;
+                                    //已批改状态，未批改的话不做处理
                                     case AnswerBean.ANSER_READED:
                                         if (score == 0) {
                                             answerBean.setIsRight(false);
@@ -432,9 +405,14 @@ public class QuestionUtils {
                                         break;
                                 }
                             }
+                            if (answerList != null && !answerList.isEmpty()) {
+                                answerBean.setIsFinish(true);
+                                answerBean.setSubjectivImageUri((ArrayList<String>) answerList);
+                            }
+                            answerBean.setIsSubjective(true);
+
                         }
                     }
-
                 }
             }
         }
