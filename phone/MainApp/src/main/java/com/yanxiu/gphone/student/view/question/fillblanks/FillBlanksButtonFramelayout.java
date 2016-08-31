@@ -72,6 +72,14 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
     private int question_position;
     private int select_position;
 
+    private int nowanswer=R.drawable.nowanswer;
+    private int noanswer=R.drawable.noanswer;
+    private int answer=R.drawable.answer;
+
+//    private int nowanswer=R.drawable.gestalt_button_nowanswer;
+//    private int noanswer=R.drawable.gestalt_button_noanswer;
+//    private int answer=R.drawable.gestalt_button_answer;
+
     public FillBlanksButtonFramelayout(Context context) {
         super(context);
         mCtx = context;
@@ -282,7 +290,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         for (int i=0;i<list_textview.size();i++){
             TextView textView=list_textview.get(i);
             if ((int)textView.getTag(NUMBERPAGER)==position){
-                textView.setBackgroundResource(R.drawable.gestalt_button_nowanswer);
+                textView.setBackgroundResource(nowanswer);
                 textView.setTextColor(mCtx.getResources().getColor(R.color.color_805500));
             }else {
 //                List<PaperTestEntity> list=questionsEntity.getChildren();
@@ -297,12 +305,12 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         }
     }
 
-    private void setTextColor(TextView textView,String answer){
-        if (TextUtils.isEmpty(answer)||answer.equals("-1")){
-            textView.setBackgroundResource(R.drawable.gestalt_button_noanswer);
+    private void setTextColor(TextView textView,String answers){
+        if (TextUtils.isEmpty(answers)||answers.equals("-1")){
+            textView.setBackgroundResource(noanswer);
             textView.setTextColor(mCtx.getResources().getColor(R.color.color_805500));
         }else {
-            textView.setBackgroundResource(R.drawable.gestalt_button_answer);
+            textView.setBackgroundResource(answer);
             textView.setTextColor(mCtx.getResources().getColor(R.color.color_black));
         }
     }
@@ -353,7 +361,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
                 /**设置默认选中第一个*/
                 TextView textView_first = (TextView) rlMark.getChildAt(select_position);
                 if (textView_first != null) {
-                    textView_first.setBackgroundResource(R.drawable.gestalt_button_nowanswer);
+                    textView_first.setBackgroundResource(nowanswer);
                 }
 //                tvFillBlank.setVisibility(VISIBLE);
             }
@@ -489,7 +497,7 @@ public class FillBlanksButtonFramelayout extends FrameLayout implements
         tv.setSingleLine();
         tv.setTextColor(mCtx.getResources().getColor(R.color.color_805500));
         tvFillBlank.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
-        tv.setBackgroundResource(R.drawable.gestalt_button_noanswer);
+        tv.setBackgroundResource(noanswer);
         tv.setOnClickListener(this);
 //        tv.setTag(question_position);
 

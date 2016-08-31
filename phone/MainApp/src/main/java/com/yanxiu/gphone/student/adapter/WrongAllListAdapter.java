@@ -182,7 +182,7 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
             if (entity.getQuestions().getStem() != null) {
                 holder.answerExamContent.setHtmlFlag(false);
                 if (typeId==15){
-                    holder.answerExamContent.setTextHtml(entity.getQuestions().getStem().replace("(_)_","___"));
+                    holder.answerExamContent.setTextHtml(entity.getQuestions().getStem().replace("(_)","___"));
                 }else {
                     holder.answerExamContent.setTextHtml(entity.getQuestions().getStem());
                 }

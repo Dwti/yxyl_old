@@ -4,7 +4,7 @@
     <RelativeLayout
         android:id="@+id/rl_answer_exam_wrong"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dimen_130"
         android:layout_alignParentBottom="@dimen/dimen_5"
         android:background="@drawable/my_list_bg_selector">
 
@@ -34,9 +34,9 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/answer_exam_type_text"
             android:layout_centerVertical="true"
-            android:layout_marginBottom="@dimen/dimen_5"
+            android:layout_marginBottom="@dimen/dimen_15"
             android:layout_marginLeft="@dimen/dimen_20"
-            android:maxHeight="@dimen/dimen_120"
+            android:maxHeight="@dimen/dimen_130"
             android:layout_gravity="center"
             android:layout_marginRight="@dimen/dimen_17"
             android:layout_toLeftOf="@id/iv_answer_exam_delete"

@@ -80,16 +80,15 @@ public class YXiuAnserTextView extends HtmlTextView {
         /**
          * 因原始框架问题，为暂时避免bug，先用以下方式处理，以后重构时修复
          * */
-        if (htmlFlag) {
+
+//        if (htmlFlag){
+//            String[] message=text.split("<br/>");
+//            text=message[0];
+//        }
 //        text="某校从参加高一年级期末考试的学生中抽出60名学生，并统计了他们的物理成绩（成绩均为整数且满分为100分）<br><img src=\"http://scc.jsyxw.cn/tizi/qf1/images/3/c/1/3c186ffab98f01fdb04067d6364dda53b1c59f14.jpg\" >";
             imageGetter = new UilImageGetter(this, mCtx, this.application);
             Spanned spanned = Html.fromHtml(text, imageGetter, null);
             this.setText(spanned);
-        }else {
-            String[] message=text.split("<br/>");
-            Spanned spanned1=Html.fromHtml(message[0]);
-            this.setText(spanned1);
-        }
 //        setHtmlFromString();
 //        this.setText(text);
     }

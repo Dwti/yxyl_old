@@ -38,10 +38,10 @@ public class QuestionUtils {
      */
     public static void CleanData(List<PaperTestEntity> data) {
 
-        //需求变更
-        if (true){
-            return;
-        }
+//        //需求变更
+//        if (true){
+//            return;
+//        }
 
         Iterator<PaperTestEntity> iterator = data.listIterator();
         PaperTestEntity paperTestEntity;
@@ -50,15 +50,15 @@ public class QuestionUtils {
             if (paperTestEntity.getQuestions().getTemplate().equals(YanXiuConstant.CONNECT_QUESTION) || paperTestEntity.getQuestions().getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION))
                 iterator.remove();
         }
-
-        for (int i = 0; i < data.size(); ) {
-            if (data.get(i).getQuestions().getExtend() == null) {
-                data.remove(i);
-                i = i;
-            } else {
-                i++;
-            }
-        }
+            //需求变更
+//        for (int i = 0; i < data.size(); ) {
+//            if (data.get(i).getQuestions().getExtend() == null) {
+//                data.remove(i);
+//                i = i;
+//            } else {
+//                i++;
+//            }
+//        }
     }
 
     public static void settingAnswer(SubjectExercisesItemBean bean) {

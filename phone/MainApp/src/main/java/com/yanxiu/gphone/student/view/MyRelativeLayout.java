@@ -2,6 +2,7 @@ package com.yanxiu.gphone.student.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.RelativeLayout;
 
 /**
@@ -32,11 +33,11 @@ public class MyRelativeLayout extends RelativeLayout{
             public void run() {
                 int height=getHeight();
                 int width=getWidth();
-                if (height>260){
+                if (heightMeasureSpec>260){
                     LayoutParams params=new LayoutParams(width,260);
                     setLayoutParams(params);
                 }else {
-                    LayoutParams params=new LayoutParams(width,height);
+                    LayoutParams params=new LayoutParams(width,heightMeasureSpec);
                     setLayoutParams(params);
                 }
             }
@@ -56,10 +57,13 @@ public class MyRelativeLayout extends RelativeLayout{
 
 
     }
-
+int heightMeasureSpec;
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
+        if (heightMeasureSpec!=0){
+            this.heightMeasureSpec=heightMeasureSpec;
+            Log.d("asd",heightMeasureSpec+"");
+        }
     }
 }
