@@ -17,16 +17,16 @@
             android:text="@string/xlistview_footer_hint_normal"
             android:shadowColor="@color/color_ffff99"
             style="@style/shadow_text_style"
-            android:textColor="@color/color_805500"/>
+            android:textColor="@color/color_805500"
+            />
 
         <ProgressBar
             android:id="@+id/xlistview_footer_progressbar"
             style="@style/CustomProgressStyle_31dip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_marginRight="10dip"
-            android:layout_toLeftOf="@id/xlistview_footer_hint_textview"
+            android:layout_centerInParent="true"
             android:indeterminateDrawable="@anim/xlistview_progress"
             android:visibility="invisible"/>
     </RelativeLayout>
