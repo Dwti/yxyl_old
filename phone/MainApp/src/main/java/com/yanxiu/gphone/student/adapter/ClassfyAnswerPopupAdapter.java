@@ -4,13 +4,9 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yanxiu.gphone.student.R;
-import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 
 import java.util.ArrayList;
@@ -19,11 +15,11 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/8/31.
  */
-public class ClassfyAnswerAdapter extends BaseAdapter {
+public class ClassfyAnswerPopupAdapter extends BaseAdapter {
     private DisplayImageOptions options;
     private Activity mContext;
     private List<String> mEntity = new ArrayList<>();
-    public ClassfyAnswerAdapter(Activity context) {
+    public ClassfyAnswerPopupAdapter(Activity context) {
         mContext = context;
         options = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)                        // 设置下载的图片是否缓存在内存中

@@ -24,14 +24,12 @@ public class ClassfyQuestionAdapter extends  YXiuCustomerBaseAdapter<QuestionEnt
             holder=new ViewHolder();
             convertView=View.inflate(mContext, R.layout.classfy_question_list_adapter,null);
             holder.classfyQuestionName= (TextView) convertView.findViewById(R.id.classfyQuestionName);
-            holder.classfyQuestionNum= (TextView) convertView.findViewById(R.id.classfyQuestionNum);
             convertView.setTag(holder);
         }else{
             holder= (ViewHolder) convertView.getTag();
         }
         QuestionEntity.PointEntity entity=getItem(position);
-        holder.classfyQuestionName.setText(entity.getName());
-        holder.classfyQuestionNum.setText("(0)");
+        holder.classfyQuestionName.setText(entity.getName()+"(0)");
         return convertView;
     }
 

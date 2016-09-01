@@ -20,7 +20,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/dimen_50"
+                android:layout_marginBottom="@dimen/dimen_25"
                 android:layout_marginTop="@dimen/dimen_10"
                 android:background="@drawable/question_read_content_bg">
 
@@ -33,7 +33,6 @@
                         android:id="@+id/yxiu_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/rl_anwser_pen"
                         android:layout_gravity="center"
                         android:padding="@dimen/dimen_10"
                         android:textColor="@color/color_black"
@@ -47,8 +46,9 @@
                 android:id="@+id/classfy_question_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/report_grid_style"
                 android:padding="@dimen/dimen_10"
+                android:verticalSpacing="@dimen/dimen_5"
+                android:layout_gravity="center"
                 android:numColumns="2"/>
 
         </LinearLayout>
@@ -59,7 +59,7 @@
             android:layout_height="@dimen/dimen_1"
             android:layout_below="@id/ll_answer_content"
             android:layout_marginBottom="@dimen/dimen_20"
-            android:layout_marginLeft="@dimen/dimen_60"
+            android:layout_marginLeft="@dimen/dimen_20"
             android:layout_marginRight="@dimen/dimen_10"
             android:layout_marginTop="@dimen/dimen_20"
             android:background="@drawable/repeat_common_line"
@@ -78,12 +78,12 @@
                 android:id="@+id/classfy_text_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="12dp"
                 android:visibility="gone"/>
             <com.common.core.view.UnMoveGridView
                 android:id="@+id/classfy_icon_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/report_grid_style"
                 android:padding="@dimen/dimen_10"
                 android:numColumns="4"
                 android:visibility="gone"/>

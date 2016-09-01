@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.common.core.utils.BasePopupWindow;
 import com.common.core.view.LineGridView;
 import com.common.core.view.UnMoveGridView;
 import com.yanxiu.gphone.student.R;
@@ -16,6 +17,7 @@ import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 import com.yanxiu.gphone.student.view.question.classfy.ClassfyAnswers;
+import com.yanxiu.gphone.student.view.question.classfy.ClassfyDelPopupWindow;
 
 /**
  * Created by Yangjj on 2016/8/30.
@@ -34,6 +36,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
 
     private ClassfyQuestionAdapter classfyQuestionAdapter;
     private ClassfyAnswerAdapter classfyAnswerAdapter;
+    private BasePopupWindow classfyPopupWindow;
 
     private static final String IMG_SRC = "<img src=";
 
@@ -62,6 +65,8 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
         lgClassfyAnswers = (UnMoveGridView) rootView.findViewById(R.id.classfy_icon_item);
         classfyAnswerAdapter = new ClassfyAnswerAdapter(getActivity());
         lgClassfyAnswers.setAdapter(classfyAnswerAdapter);
+
+        classfyPopupWindow = new ClassfyDelPopupWindow(getActivity());
     }
 
     private void initData() {
@@ -72,7 +77,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             }
             if (questionsEntity.getContent() != null && questionsEntity.getContent().getChoices() != null
                     && questionsEntity.getContent().getChoices().size() > 0) {
-                if (questionsEntity.getContent().getChoices().get(0).contains(IMG_SRC+"ttt")) {
+                if (questionsEntity.getContent().getChoices().get(0).contains(IMG_SRC+"TTT")) {
                     classfyAnswerAdapter.setData(questionsEntity.getContent().getChoices());
                     lgClassfyAnswers.setVisibility(View.VISIBLE);
                     vgClassfyAnswers.setVisibility(View.GONE);
@@ -80,11 +85,17 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                     LayoutInflater inflater = getActivity().getLayoutInflater();
                     for (int i=0; i<questionsEntity.getContent().getChoices().size(); i++) {
                         TextView view = (TextView) inflater.inflate(R.layout.layout_textview, null);
-                        view.setText(questionsEntity.getContent().getChoices().get(i));
+                        view.setText(questionsEntity.getContent().getChoices().get(i).substring(5, 20+2*i));
                         view.getLayoutParams();
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                         lp.setMargins(8, 8, 8, 8);
                         view.setLayoutParams(lp);
+                        view.setOnClickListener(new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View v) {
+
+                                                    }
+                                                });
                         vgClassfyAnswers.addView(view);
                     }
                     lgClassfyAnswers.setVisibility(View.GONE);
