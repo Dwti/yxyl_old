@@ -1,9 +1,11 @@
 package com.yanxiu.gphone.student.fragment.question;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -74,10 +76,16 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             tvYanxiu.setTextHtml(questionsEntity.getStem());
             if (questionsEntity.getPoint() != null) {
                 classfyQuestionAdapter.setList(questionsEntity.getPoint());
+                gvClassfyQuestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        classfyPopupWindow.showAtLocation(view, Gravity.CENTER,0,0);
+                    }
+                });
             }
             if (questionsEntity.getContent() != null && questionsEntity.getContent().getChoices() != null
                     && questionsEntity.getContent().getChoices().size() > 0) {
-                if (questionsEntity.getContent().getChoices().get(0).contains(IMG_SRC+"TTT")) {
+                if (questionsEntity.getContent().getChoices().get(0).contains(IMG_SRC)) {
                     classfyAnswerAdapter.setData(questionsEntity.getContent().getChoices());
                     lgClassfyAnswers.setVisibility(View.VISIBLE);
                     vgClassfyAnswers.setVisibility(View.GONE);
@@ -85,7 +93,8 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                     LayoutInflater inflater = getActivity().getLayoutInflater();
                     for (int i=0; i<questionsEntity.getContent().getChoices().size(); i++) {
                         TextView view = (TextView) inflater.inflate(R.layout.layout_textview, null);
-                        view.setText(questionsEntity.getContent().getChoices().get(i).substring(5, 20+2*i));
+                        //view.setText(questionsEntity.getContent().getChoices().get(i).substring(5, 20+2*i));
+                        view.setText(questionsEntity.getContent().getChoices().get(i));
                         view.getLayoutParams();
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                         lp.setMargins(8, 8, 8, 8);

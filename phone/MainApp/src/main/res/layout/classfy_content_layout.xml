@@ -19,9 +19,7 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/dimen_25"
-                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_height="wrap_content"
                 android:background="@drawable/question_read_content_bg">
 
                 <ScrollView
@@ -84,7 +82,6 @@
                 android:id="@+id/classfy_icon_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dimen_10"
                 android:numColumns="4"
                 android:visibility="gone"/>
 

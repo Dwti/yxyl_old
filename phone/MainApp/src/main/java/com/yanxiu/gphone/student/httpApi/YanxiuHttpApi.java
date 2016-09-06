@@ -1,5 +1,6 @@
 package com.yanxiu.gphone.student.httpApi;
 
+import android.media.MediaRecorder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -52,7 +53,7 @@ public class YanxiuHttpApi {
     //一级考点ID
     public static final String CHAPTER_ID="chapterId";
 
-    public static final boolean isTest = false;   //是否是测试环境
+    public static final boolean isTest = true;   //是否是测试环境
     public static final boolean isDev = true;    //是否是测试环境中的开发环境
 
     /**

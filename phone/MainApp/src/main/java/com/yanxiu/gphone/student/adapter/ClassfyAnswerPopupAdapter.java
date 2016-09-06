@@ -4,13 +4,17 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Administrator on 2016/8/31.
@@ -40,12 +44,16 @@ public class ClassfyAnswerPopupAdapter extends BaseAdapter {
         if(convertView == null){
             holder=new ViewHolder();
             convertView=View.inflate(mContext, R.layout.classfy_answer_list_adapter,null);
-            holder.classfyAnswerImg= (YXiuAnserTextView) convertView.findViewById(R.id.classfyAnswerImg);
+            holder.classfyAnswerImg= (ImageView) convertView.findViewById(R.id.classfyAnswerImg);
             convertView.setTag(holder);
         }else{
             holder= (ViewHolder) convertView.getTag();
         }
-        holder.classfyAnswerImg.setTextHtml(mEntity.get(position));
+        Pattern pattern = Pattern.compile("<img src=\\\"(.*?)\\\"");
+        Matcher matcher = pattern.matcher(mEntity.get(position));
+        while(matcher.find()){
+            ImageLoader.getInstance().displayImage(matcher.group(1), holder.classfyAnswerImg, options);
+        }
         return convertView;
     }
 
@@ -65,7 +73,7 @@ public class ClassfyAnswerPopupAdapter extends BaseAdapter {
     }
 
     class ViewHolder{
-        private YXiuAnserTextView classfyAnswerImg;
+        private ImageView classfyAnswerImg;
     }
 
 }

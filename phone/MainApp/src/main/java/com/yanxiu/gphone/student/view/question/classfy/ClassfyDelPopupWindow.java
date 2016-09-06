@@ -17,7 +17,7 @@ public class ClassfyDelPopupWindow extends BasePopupWindow {
 
     @Override
     protected void initView(Context mContext) {
-        View view=View.inflate(mContext, R.layout.pic_sel_pop_view,null);
+        View view=View.inflate(mContext, R.layout.classfy_del_pop_view,null);
         this.pop.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
         this.pop.setContentView(view);
     }
