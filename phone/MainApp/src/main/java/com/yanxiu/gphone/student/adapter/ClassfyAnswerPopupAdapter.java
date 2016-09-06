@@ -1,6 +1,7 @@
 package com.yanxiu.gphone.student.adapter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -21,9 +22,9 @@ import java.util.regex.Pattern;
  */
 public class ClassfyAnswerPopupAdapter extends BaseAdapter {
     private DisplayImageOptions options;
-    private Activity mContext;
+    private Context mContext;
     private List<String> mEntity = new ArrayList<>();
-    public ClassfyAnswerPopupAdapter(Activity context) {
+    public ClassfyAnswerPopupAdapter(Context context) {
         mContext = context;
         options = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)                        // 设置下载的图片是否缓存在内存中
@@ -43,7 +44,7 @@ public class ClassfyAnswerPopupAdapter extends BaseAdapter {
         ViewHolder holder;
         if(convertView == null){
             holder=new ViewHolder();
-            convertView=View.inflate(mContext, R.layout.classfy_answer_list_adapter,null);
+            convertView=View.inflate(mContext, R.layout.classfy_answer_list_popup_adapter,null);
             holder.classfyAnswerImg= (ImageView) convertView.findViewById(R.id.classfyAnswerImg);
             convertView.setTag(holder);
         }else{

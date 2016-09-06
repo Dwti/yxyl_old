@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:padding="@dimen/dimen_10"
-              android:background="@drawable/classfy_text_item_bg"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="80dp"
           >
         <ImageView
             android:id="@+id/classfyAnswerImg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="@dimen/dimen_10"
+            android:background="@drawable/classfy_text_item_bg"
             />
-</LinearLayout>
+        <ImageView
+            android:id="@+id/widget_title_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
+            android:adjustViewBounds="true"
+            android:paddingTop="-10dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/classfy_del_icon" />
+</FrameLayout>

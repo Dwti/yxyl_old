@@ -210,4 +210,6 @@ public class YanXiuConstant {
 	public static final String yxyl_statistic = "yxyl_statistic";
 
 	public final static int LAUNCHER_FROM_MISTAKE = 0x12;
+
+	public static final String IMG_SRC = "<img src=";
 }

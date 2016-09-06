@@ -38,6 +38,16 @@ public class AnswerBean extends SrtBaseBean {
 
     private ArrayList<String> fillAnswers = new ArrayList<String>();
 
+    private ArrayList<ArrayList<String>> connect_classfy_answer = new ArrayList<ArrayList<String>>();
+
+    public ArrayList<ArrayList<String>> getConnect_classfy_answer() {
+        return connect_classfy_answer;
+    }
+
+    public void setConnect_classfy_answer(ArrayList<ArrayList<String>> connect_classfy_answer) {
+        this.connect_classfy_answer = connect_classfy_answer;
+    }
+    
     private ArrayList<String> subjectivImageUri = new ArrayList<String>();
     //学科id
     private String subjectId;

@@ -5,7 +5,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_margin="@dimen/dimen_50"
-              android:background="@color/color_99000000">
+              android:background="@drawable/login_and_pwd_selector">
 
     <TextView
           android:layout_marginLeft="@dimen/dimen_15"
@@ -15,9 +15,7 @@
           android:id="@+id/classfyDelPopText"
           android:gravity="center"
           android:textColor="@color/color_805500"
-          android:background="@drawable/btn_line_bg"
           android:textSize="@dimen/dimen_17"
-          android:visibility="gone"
         />
 
 

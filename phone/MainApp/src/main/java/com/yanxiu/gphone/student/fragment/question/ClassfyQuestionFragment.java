@@ -1,6 +1,8 @@
 package com.yanxiu.gphone.student.fragment.question;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +12,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.common.core.utils.BasePopupWindow;
+import com.common.core.utils.LogInfo;
 import com.common.core.view.LineGridView;
 import com.common.core.view.UnMoveGridView;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.ClassfyAnswerAdapter;
 import com.yanxiu.gphone.student.adapter.ClassfyQuestionAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
+import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 import com.yanxiu.gphone.student.view.question.classfy.ClassfyAnswers;
@@ -38,9 +42,10 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
 
     private ClassfyQuestionAdapter classfyQuestionAdapter;
     private ClassfyAnswerAdapter classfyAnswerAdapter;
-    private BasePopupWindow classfyPopupWindow;
+    private ClassfyDelPopupWindow classfyPopupWindow;
 
-    private static final String IMG_SRC = "<img src=";
+    private boolean isVisibleToUser;
+    private Fragment resolutionFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,8 +72,6 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
         lgClassfyAnswers = (UnMoveGridView) rootView.findViewById(R.id.classfy_icon_item);
         classfyAnswerAdapter = new ClassfyAnswerAdapter(getActivity());
         lgClassfyAnswers.setAdapter(classfyAnswerAdapter);
-
-        classfyPopupWindow = new ClassfyDelPopupWindow(getActivity());
     }
 
     private void initData() {
@@ -79,13 +82,15 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                 gvClassfyQuestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        classfyPopupWindow = new ClassfyDelPopupWindow(getActivity());
+                        classfyPopupWindow.init(questionsEntity, questionsEntity.getPoint().get(i).getName());
                         classfyPopupWindow.showAtLocation(view, Gravity.CENTER,0,0);
                     }
                 });
             }
             if (questionsEntity.getContent() != null && questionsEntity.getContent().getChoices() != null
                     && questionsEntity.getContent().getChoices().size() > 0) {
-                if (questionsEntity.getContent().getChoices().get(0).contains(IMG_SRC)) {
+                if (questionsEntity.getContent().getChoices().get(0).contains(YanXiuConstant.IMG_SRC)) {
                     classfyAnswerAdapter.setData(questionsEntity.getContent().getChoices());
                     lgClassfyAnswers.setVisibility(View.VISIBLE);
                     vgClassfyAnswers.setVisibility(View.GONE);
@@ -115,14 +120,41 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
         }
     }
 
+
+
     @Override
-    public int getPageIndex() {
-        return pageIndex;
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        this.isVisibleToUser=isVisibleToUser;
+        if (isVisibleToUser&&!ischild){
+//            if (adapter!=null){
+            ((QuestionsListener)getActivity()).flipNextPager(null);
+//            }
+        }
+    }
+
+    private void addAnalysisFragment(){
+        Bundle args = new Bundle();
+        args.putSerializable("questions", questionsEntity);
+        resolutionFragment = Fragment.instantiate(getActivity(), ProblemAnalysisFragment.class.getName(), args);
+        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+//         标准动画
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
+
+        ft.replace(R.id.content_problem_analysis, resolutionFragment).commitAllowingStateLoss();
     }
 
     @Override
-    public void setPageIndex(int pageIndex) {
-        this.pageIndex = pageIndex;
+    public void onResume() {
+        super.onResume();
+        LogInfo.log("geny", "---onResume-------pageIndex----" + pageIndex);
+        if(bean == null){
+            bean = questionsEntity.getAnswerBean();
+        }
+        if (!ischild&&isVisibleToUser) {
+            ((QuestionsListener) getActivity()).flipNextPager(null);
+        }
     }
 
     @Override
@@ -143,5 +175,15 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     @Override
     public void answerViewClick() {
 
+    }
+
+    @Override
+    public int getPageIndex() {
+        return pageIndex;
+    }
+
+    @Override
+    public void setPageIndex(int pageIndex) {
+        this.pageIndex = pageIndex;
     }
 }
