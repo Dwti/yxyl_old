@@ -1,5 +1,6 @@
 package com.yanxiu.gphone.student.fragment.question;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -7,8 +8,10 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.common.core.utils.StringUtils;
 import com.yanxiu.gphone.student.R;
@@ -29,6 +32,7 @@ import java.util.List;
  */
 public class NewFillBlanksFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex {
     private FillBlankAnswerView answerView;
+    private View line;
     private QuestionsListener listener;
     //本地的保存数据bean
     private AnswerBean bean;
@@ -40,6 +44,9 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
     private boolean isWrongSetOrAnalysis = false;
     private YXiuAnserTextView tvQuestion;
     private ArrayList<String> listAnswer = new ArrayList<>();
+    private InputMethodManager imm;
+    private Context mContext;
+    private LinearLayout ll_answer_content;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,8 +56,10 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mContext = getActivity();
         rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_new_fill_blank_question, null);
-        LinearLayout ll_answer_content = (LinearLayout) rootView.findViewById(R.id.ll_answer_content);
+        line = rootView.findViewById(R.id.view_line_ccc4a3_2);
+        ll_answer_content = (LinearLayout) rootView.findViewById(R.id.ll_answer_content);
         View view_line_ccc4a3_2 = rootView.findViewById(R.id.view_line_ccc4a3_2);
         answerView = (FillBlankAnswerView) rootView.findViewById(R.id.cq_item);
         if (callback != null) {
@@ -135,14 +144,14 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
     }
 
     private void saveAnswer() {
-        if(answerView == null || questionsEntity == null)
+        if (answerView == null || questionsEntity == null)
             return;
         if (!isWrongSetOrAnalysis) {
             listAnswer = answerView.getAnswerList();
             questionsEntity.getAnswerBean().setFillAnswers(listAnswer);
             boolean flag = true;
-            if(listAnswer != null && !listAnswer.isEmpty()){
-                for (int i=0; i<listAnswer.size(); i++) {
+            if (listAnswer != null && !listAnswer.isEmpty()) {
+                for (int i = 0; i < listAnswer.size(); i++) {
                     if (listAnswer.get(i).isEmpty()) {
                         flag = false;
                     }
@@ -150,7 +159,7 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
                 if (flag) {
                     questionsEntity.getAnswerBean().setIsFinish(true);
                 }
-                if(QuestionUtils.compare(listAnswer,questionsEntity.getAnswer()))
+                if (QuestionUtils.compare(listAnswer, questionsEntity.getAnswer()))
                     questionsEntity.getAnswerBean().setIsRight(true);
             }
         }
@@ -184,5 +193,16 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
     @Override
     public void answerViewClick() {
         saveAnswer();
+        hideSoftInput();
+    }
+
+    public void hideSoftInput() {
+        if (imm == null && mContext != null) {
+            imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        }
+        if (imm != null){
+            imm.hideSoftInputFromWindow(ll_answer_content.getWindowToken(), 0);
+            line.requestFocus();
+        }
     }
 }

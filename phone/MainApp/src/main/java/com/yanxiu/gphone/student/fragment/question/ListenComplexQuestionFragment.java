@@ -274,6 +274,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         Uri uri = Uri.parse(url);
         if (mediaPlayer == null)
             mediaPlayer = MediaPlayer.create(mContext, uri);
+        
         // 为播放器注册
         mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
 

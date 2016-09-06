@@ -51,6 +51,8 @@
             android:layout_marginLeft="@dimen/dimen_60"
             android:layout_marginRight="@dimen/dimen_10"
             android:layout_marginTop="@dimen/dimen_20"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:background="@drawable/repeat_common_line"
             android:layerType="software" />
 

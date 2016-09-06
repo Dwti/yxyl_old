@@ -25,6 +25,7 @@ import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.fragment.question.AnswerCardFragment;
 import com.yanxiu.gphone.student.fragment.question.AnswerFinishFragment;
 import com.yanxiu.gphone.student.fragment.question.BaseQuestionFragment;
+import com.yanxiu.gphone.student.fragment.question.NewFillBlanksFragment;
 import com.yanxiu.gphone.student.fragment.question.PageIndex;
 import com.yanxiu.gphone.student.fragment.question.ReadingQuestionsFragment;
 import com.yanxiu.gphone.student.fragment.question.SolveComplexQuestionFragment;
@@ -516,7 +517,10 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
             BaseQuestionFragment fragment1 = (BaseQuestionFragment) list.get(i);
             sumIndex = sumIndex + fragment1.getChildCount();
         }
-
+        Fragment fragment = adapter.getItem(viewPagerLastPosition);
+        if(fragment instanceof NewFillBlanksFragment){
+            ((NewFillBlanksFragment) fragment).hideSoftInput();
+        }
         LogInfo.log("TTT", "position" + ((BaseQuestionFragment) list.get(position)).getChildCount());
         if (nextPager_onclick == 0 || ((BaseQuestionFragment) list.get(position)).getChildCount() == 1) {
             tvPagerIndex.setText(String.valueOf(dataSources.getData().get(0).getPaperTest().get(position).getQuestions().getPositionForCard() + 1));
