@@ -5,13 +5,16 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.common.core.utils.StringUtils;
 import com.yanxiu.gphone.student.R;
@@ -25,7 +28,6 @@ import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by sunpeng on 2016/8/23.
@@ -34,6 +36,7 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
     private FillBlankAnswerView answerView;
     private View line;
     private QuestionsListener listener;
+    private Boolean isKeyBoardActive = false;   //键盘是否弹起
     //本地的保存数据bean
     private AnswerBean bean;
     private int typeId;
@@ -43,10 +46,11 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
     private Button addBtn;
     private boolean isWrongSetOrAnalysis = false;
     private YXiuAnserTextView tvQuestion;
-    private ArrayList<String> listAnswer = new ArrayList<>();
+    //    private ArrayList<String> listAnswer = new ArrayList<>();
     private InputMethodManager imm;
     private Context mContext;
     private LinearLayout ll_answer_content;
+    private View focusedView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,21 +60,34 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mContext = getActivity();
-        rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_new_fill_blank_question, null);
-        line = rootView.findViewById(R.id.view_line_ccc4a3_2);
-        ll_answer_content = (LinearLayout) rootView.findViewById(R.id.ll_answer_content);
-        View view_line_ccc4a3_2 = rootView.findViewById(R.id.view_line_ccc4a3_2);
-        answerView = (FillBlankAnswerView) rootView.findViewById(R.id.cq_item);
-        if (callback != null) {
-            ll_answer_content.setVisibility(View.GONE);
-            view_line_ccc4a3_2.setVisibility(View.GONE);
+        if (rootView == null) {
+            mContext = getActivity();
+            imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+            rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_new_fill_blank_question, null);
+            line = rootView.findViewById(R.id.view_line_ccc4a3_2);
+            ll_answer_content = (LinearLayout) rootView.findViewById(R.id.ll_answer_content);
+            View view_line_ccc4a3_2 = rootView.findViewById(R.id.view_line_ccc4a3_2);
+            answerView = (FillBlankAnswerView) rootView.findViewById(R.id.cq_item);
+            if (callback != null) {
+                ll_answer_content.setVisibility(View.GONE);
+                view_line_ccc4a3_2.setVisibility(View.GONE);
+            }
+            tvQuestion = (YXiuAnserTextView) rootView.findViewById(R.id.yxiu_tv);
+            FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+            ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
+            selectTypeView();
+            setStemAndAnswerTemplate(questionsEntity);
+            rootView.getRootView().addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+                @Override
+                public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                    if (bottom < oldBottom) {
+                        isKeyBoardActive = true;
+                    } else {
+                        isKeyBoardActive = false;
+                    }
+                }
+            });
         }
-        tvQuestion = (YXiuAnserTextView) rootView.findViewById(R.id.yxiu_tv);
-        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-        ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
-        selectTypeView();
-        setStemAndAnswerTemplate(questionsEntity);
         return rootView;
     }
 
@@ -91,9 +108,20 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
                 if (isWrongSetOrAnalysis) {    //是否是错题或者是解析界面,如果是，则下面答案不可编辑
                     answerView.setAnswerList(question.getAnswerBean().getFillAnswers(), false);
                 } else {
-                    answerView.setAnswerList(listAnswer);
+                    answerView.setAnswerList(question.getAnswerBean().getFillAnswers());
                 }
             }
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (!isVisibleToUser) {
+            hideSoftInput();
+        }
+        if (isVisibleToUser && !ischild) {
+            ((QuestionsListener) getActivity()).flipNextPager(null);
         }
     }
 
@@ -133,13 +161,21 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
     @Override
     public void onResume() {
         super.onResume();
-        if (listAnswer.size() > 0)
-            answerView.setAnswerList(listAnswer);
+        if (questionsEntity.getAnswerBean().getFillAnswers() != null && questionsEntity.getAnswerBean().getFillAnswers().size() > 0) {
+            if (isWrongSetOrAnalysis) {    //是否是错题或者是解析界面,如果是，则下面答案不可编辑
+                answerView.setAnswerList(questionsEntity.getAnswerBean().getFillAnswers(), false);
+            } else {
+                answerView.setAnswerList(questionsEntity.getAnswerBean().getFillAnswers());
+            }
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        if (imm != null && !isKeyBoardActive) {
+            line.requestFocus();
+        }
         saveAnswer();
     }
 
@@ -147,20 +183,38 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
         if (answerView == null || questionsEntity == null)
             return;
         if (!isWrongSetOrAnalysis) {
+            ArrayList<String> listAnswer;
             listAnswer = answerView.getAnswerList();
             questionsEntity.getAnswerBean().setFillAnswers(listAnswer);
-            boolean flag = true;
+            boolean isFinish = true;
             if (listAnswer != null && !listAnswer.isEmpty()) {
-                for (int i = 0; i < listAnswer.size(); i++) {
-                    if (listAnswer.get(i).isEmpty()) {
-                        flag = false;
+                if (listAnswer.size() == answerView.getChildCount()) {
+                    for (int i = 0; i < listAnswer.size(); i++) {
+                        if (TextUtils.isEmpty(listAnswer.get(i))) {
+                            isFinish = false;
+                            break;
+                        }
                     }
+                } else {
+                    isFinish = false;
                 }
-                if (flag) {
+                if (isFinish) {
                     questionsEntity.getAnswerBean().setIsFinish(true);
+                    if (QuestionUtils.compare(listAnswer, questionsEntity.getAnswer())){
+                        questionsEntity.getAnswerBean().setIsRight(true);
+                        questionsEntity.getAnswerBean().setStatus(AnswerBean.ANSER_RIGHT);
+                    }else {
+                        questionsEntity.getAnswerBean().setIsRight(false);
+                        questionsEntity.getAnswerBean().setStatus(AnswerBean.ANSER_WRONG);
+                    }
+                }else{
+                    questionsEntity.getAnswerBean().setStatus(AnswerBean.ANSER_UNFINISH);
+                    questionsEntity.getAnswerBean().setIsFinish(false);
                 }
-                if (QuestionUtils.compare(listAnswer, questionsEntity.getAnswer()))
-                    questionsEntity.getAnswerBean().setIsRight(true);
+
+            }else {
+                questionsEntity.getAnswerBean().setStatus(AnswerBean.ANSER_UNFINISH);
+                questionsEntity.getAnswerBean().setIsFinish(false);
             }
         }
     }
@@ -197,10 +251,7 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
     }
 
     public void hideSoftInput() {
-        if (imm == null && mContext != null) {
-            imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-        }
-        if (imm != null){
+        if (imm != null) {
             imm.hideSoftInputFromWindow(ll_answer_content.getWindowToken(), 0);
             line.requestFocus();
         }

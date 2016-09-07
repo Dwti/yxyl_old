@@ -335,6 +335,15 @@ public class QuestionUtils {
                                             }
                                         }
                                         answerChildBean.setIsFinish(true);
+                                        //如果是填空题，需要再次确认一下是不是所有的空全填完了（没填完的空是""）
+                                        if (YanXiuConstant.FILL_BLANK.equals(childTemplate) || YanXiuConstant.NEW_FILL_BLANK.equals(childTemplate)){
+                                            for(String str: answerChildList){
+                                                if (TextUtils.isEmpty(str)){
+                                                    answerChildBean.setIsFinish(false);
+                                                    break;
+                                                }
+                                            }
+                                        }
                                     } else {
                                         answerChildBean.setIsFinish(false);
                                     }
@@ -383,6 +392,15 @@ public class QuestionUtils {
                                     answerBean.setSelectType(answerList.get(0));
                                 } else if (YanXiuConstant.FILL_BLANK.equals(template) || YanXiuConstant.NEW_FILL_BLANK.equals(template)) {
                                     answerBean.setFillAnswers((ArrayList<String>) answerList);
+                                }
+                                //如果是填空题，需要再次确认一下是不是所有的空全填完了（没填完的空是""）
+                                if (YanXiuConstant.FILL_BLANK.equals(template) || YanXiuConstant.NEW_FILL_BLANK.equals(template)){
+                                    for(String str: answerList){
+                                        if (TextUtils.isEmpty(str)){
+                                            answerBean.setIsFinish(false);
+                                            break;
+                                        }
+                                    }
                                 }
                             } else {
                                 answerBean.setIsFinish(false);

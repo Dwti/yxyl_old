@@ -38,7 +38,7 @@ public class ClassfyDelPopupWindow extends BasePopupWindow {
     @Override
     protected void initView(Context mContext) {
         View view=View.inflate(mContext, R.layout.classfy_del_pop_view,null);
-        this.pop.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+        //this.pop.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
         this.pop.setContentView(view);
 
         classfyDelPopText = (TextView)view.findViewById(R.id.classfyDelPopText);
@@ -46,6 +46,13 @@ public class ClassfyDelPopupWindow extends BasePopupWindow {
         lgClassfyAnswers = (UnMoveGridView) view.findViewById(R.id.classfy_icon_item);
         classfyAnswerPopupAdapter = new ClassfyAnswerPopupAdapter(mContext);
         lgClassfyAnswers.setAdapter(classfyAnswerPopupAdapter);
+        lgClassfyAnswers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                mQuestionsEntity.getContent().getChoices().remove(i);
+                classfyAnswerPopupAdapter.setData(mQuestionsEntity.getContent().getChoices());
+            }
+        });
         loadingData();
     }
 
@@ -68,20 +75,24 @@ public class ClassfyDelPopupWindow extends BasePopupWindow {
                 } else {
                     LayoutInflater inflater = LayoutInflater.from(mContext);
                     for (int i=0; i<mQuestionsEntity.getContent().getChoices().size(); i++) {
-                        TextView view = (TextView) inflater.inflate(R.layout.layout_textview, null);
-                        view.setText(mQuestionsEntity.getContent().getChoices().get(i).substring(5, 20+2*i));
+                        final View containerView = inflater.inflate(R.layout.layout_textview, null);
+                        TextView classfy_answer_popup_text = (TextView) containerView.findViewById(R.id.classfy_answer_popup_text);
+                        classfy_answer_popup_text.setText(mQuestionsEntity.getContent().getChoices().get(i).substring(5, 20+2*i));
                         //view.setText(mQuestionsEntity.getContent().getChoices().get(i));
-                        view.getLayoutParams();
+
+                        ImageView widget_title_icon = (ImageView) containerView.findViewById(R.id.widget_title_icon);
+                        widget_title_icon.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                vgClassfyAnswers.removeView(containerView);
+                            }
+                        });
+                        containerView.getLayoutParams();
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                         lp.setMargins(8, 8, 8, 8);
-                        view.setLayoutParams(lp);
-                        final ImageView removeButton = new ImageView(mContext);
-                        RelativeLayout.LayoutParams exitParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        removeButton.setImageDrawable(mContext.getResources().getDrawable(R.drawable.classfy_del_icon));
-                        exitParams.addRule(RelativeLayout.ALIGN_RIGHT,R.drawable.classfy_del_icon);
-                        exitParams.addRule(RelativeLayout.ALIGN_TOP,R.drawable.classfy_del_icon);
-                        vgClassfyAnswers.addView(removeButton, exitParams);
-                        vgClassfyAnswers.addView(view);
+                        containerView.setLayoutParams(lp);
+                        vgClassfyAnswers.addView(containerView);
+
                     }
                     lgClassfyAnswers.setVisibility(View.GONE);
                     vgClassfyAnswers.setVisibility(View.VISIBLE);

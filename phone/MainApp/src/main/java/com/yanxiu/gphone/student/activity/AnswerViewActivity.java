@@ -517,10 +517,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
             BaseQuestionFragment fragment1 = (BaseQuestionFragment) list.get(i);
             sumIndex = sumIndex + fragment1.getChildCount();
         }
-        Fragment fragment = adapter.getItem(viewPagerLastPosition);
-        if(fragment instanceof NewFillBlanksFragment){
-            ((NewFillBlanksFragment) fragment).hideSoftInput();
-        }
         LogInfo.log("TTT", "position" + ((BaseQuestionFragment) list.get(position)).getChildCount());
         if (nextPager_onclick == 0 || ((BaseQuestionFragment) list.get(position)).getChildCount() == 1) {
             tvPagerIndex.setText(String.valueOf(dataSources.getData().get(0).getPaperTest().get(position).getQuestions().getPositionForCard() + 1));

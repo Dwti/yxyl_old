@@ -17,6 +17,7 @@ import com.yanxiu.gphone.student.fragment.question.BaseQuestionFragment;
 import com.yanxiu.gphone.student.fragment.question.ChoiceQuestionFragment;
 import com.yanxiu.gphone.student.fragment.question.FillBlanksFragment;
 import com.yanxiu.gphone.student.fragment.question.JudgeQuestionFragment;
+import com.yanxiu.gphone.student.fragment.question.NewFillBlanksFragment;
 import com.yanxiu.gphone.student.fragment.question.QuestionFragmentFactory;
 import com.yanxiu.gphone.student.fragment.question.SubjectiveQuestionFragment;
 import com.yanxiu.gphone.student.inter.AnswerCallback;
@@ -552,7 +553,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
                         ((JudgeQuestionFragment) fragment).setIsChild(true);
                     } else if (template.equals(YanXiuConstant.FILL_BLANK)) {
                         fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_FILL_BLANKS, list.get(i).getQuestions(), answerViewTypyBean, list.get(i).getQuestions().getChildPageIndex());
-                        ((FillBlanksFragment) fragment).setIsChild(true);
+                        ((NewFillBlanksFragment) fragment).setIsChild(true);
                     } else if (template.equals(YanXiuConstant.ANSWER_QUESTION)) {
                         fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_SUBJECTIVE, list.get(i).getQuestions(), answerViewTypyBean, list.get(i).getQuestions().getChildPageIndex());
                         ((SubjectiveQuestionFragment) fragment).setIsChild(true);

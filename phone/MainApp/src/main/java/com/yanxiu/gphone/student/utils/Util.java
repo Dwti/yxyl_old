@@ -331,6 +331,15 @@ public class Util {
                     e.printStackTrace();
                 }
             }
+        } else if (YanXiuConstant.CONNECT_QUESTION.equals(template) || YanXiuConstant.CLASSIFY_QUESTION.equals(template) ){
+            int count_connect_classfy = answerBean.getConnect_classfy_answer().size();
+            for(int j = 0; j < count_connect_classfy; j++){
+                try {
+                    array.put(answerBean.getConnect_classfy_answer().get(j));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
         if(YanXiuConstant.ANSWER_QUESTION.equals(template)){
             int imageUri = answerBean.getSubjectivImageUri().size();

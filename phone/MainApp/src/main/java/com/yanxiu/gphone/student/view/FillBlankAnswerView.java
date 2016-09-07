@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class FillBlankAnswerView extends LinearLayout {
     private Context mContext;
-
+    private List<View> itemViewList = new ArrayList<>();
     public FillBlankAnswerView(Context context) {
         super(context);
         mContext = context;
@@ -60,8 +60,8 @@ public class FillBlankAnswerView extends LinearLayout {
             View itemView = getChildAt(i);
             EditText et_answer = (EditText) itemView.findViewById(R.id.et_answer);
             String answer = et_answer.getText().toString();
-            if (!TextUtils.isEmpty(answer))
-                listAnswer.add(et_answer.getText().toString());
+//            if (!TextUtils.isEmpty(answer))
+                listAnswer.add(answer.trim());
         }
         return listAnswer;
     }
