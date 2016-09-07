@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.common.core.utils.BasePopupWindow;
 import com.common.core.utils.LogInfo;
+import com.common.core.utils.StringUtils;
 import com.common.core.view.LineGridView;
 import com.common.core.view.UnMoveGridView;
 import com.yanxiu.gphone.student.R;
@@ -24,6 +25,11 @@ import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 import com.yanxiu.gphone.student.view.question.classfy.ClassfyAnswers;
 import com.yanxiu.gphone.student.view.question.classfy.ClassfyDelPopupWindow;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
 
 /**
  * Created by Yangjj on 2016/8/30.
@@ -46,6 +52,8 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
 
     private boolean isVisibleToUser;
     private Fragment resolutionFragment;
+
+    private String choiceTmpString;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,21 +78,48 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
         gvClassfyQuestion.setAdapter(classfyQuestionAdapter);
         vgClassfyAnswers = (ClassfyAnswers) rootView.findViewById(R.id.classfy_text_item);
         lgClassfyAnswers = (UnMoveGridView) rootView.findViewById(R.id.classfy_icon_item);
+        lgClassfyAnswers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                choiceTmpString = String.valueOf(i);
+            }
+        });
         classfyAnswerAdapter = new ClassfyAnswerAdapter(getActivity());
         lgClassfyAnswers.setAdapter(classfyAnswerAdapter);
     }
 
     private void initData() {
         if (questionsEntity != null && questionsEntity.getStem() != null) {
+            questionsEntity.getAnswerBean().getConnect_classfy_answer().clear();
             tvYanxiu.setTextHtml(questionsEntity.getStem());
             if (questionsEntity.getPoint() != null) {
-                classfyQuestionAdapter.setList(questionsEntity.getPoint());
+                for (int i=0; i<questionsEntity.getPoint().size(); i++) {
+                    ArrayList<String> answerList = new ArrayList<String>();
+                    String jsonanswer=questionsEntity.getPad().getJsonAnswer();
+                    JSONArray array= null;
+                    try {
+                        array = new JSONArray(jsonanswer);
+                        String answer=array.getString(i);
+                        answerList.add(answer);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    questionsEntity.getAnswerBean().getConnect_classfy_answer().add(answerList);
+                }
+                classfyQuestionAdapter.setData(questionsEntity);
                 gvClassfyQuestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        classfyPopupWindow = new ClassfyDelPopupWindow(getActivity());
-                        classfyPopupWindow.init(questionsEntity, questionsEntity.getPoint().get(i).getName());
-                        classfyPopupWindow.showAtLocation(view, Gravity.CENTER,0,0);
+                        if (StringUtils.isEmpty(choiceTmpString)) {
+                            classfyPopupWindow = new ClassfyDelPopupWindow(getActivity());
+                            classfyPopupWindow.init(questionsEntity, questionsEntity.getPoint().get(i).getName());
+                            classfyPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+                        } else {
+                            questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).add(choiceTmpString);
+                            questionsEntity.getContent().getChoices().remove(i);
+                            classfyAnswerAdapter.setData(questionsEntity.getContent().getChoices());
+                            choiceTmpString = null;
+                        }
                     }
                 });
             }
@@ -104,10 +139,11 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                         lp.setMargins(8, 8, 8, 8);
                         view.setLayoutParams(lp);
+                        final int finalInt = i;
                         view.setOnClickListener(new View.OnClickListener() {
                                                     @Override
                                                     public void onClick(View v) {
-
+                                                        choiceTmpString = String.valueOf(finalInt);
                                                     }
                                                 });
                         vgClassfyAnswers.addView(view);

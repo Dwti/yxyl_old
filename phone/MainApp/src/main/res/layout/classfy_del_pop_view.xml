@@ -14,7 +14,7 @@
           android:layout_height="@dimen/dimen_41"
           android:id="@+id/classfyDelPopText"
           android:gravity="center"
-          android:textColor="@color/color_805500"
+          android:textColor="@color/color_333333"
           android:textSize="@dimen/dimen_17"
         />
 

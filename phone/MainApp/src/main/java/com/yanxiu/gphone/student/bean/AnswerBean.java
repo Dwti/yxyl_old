@@ -47,7 +47,7 @@ public class AnswerBean extends SrtBaseBean {
     public void setConnect_classfy_answer(ArrayList<ArrayList<String>> connect_classfy_answer) {
         this.connect_classfy_answer = connect_classfy_answer;
     }
-    
+
     private ArrayList<String> subjectivImageUri = new ArrayList<String>();
     //学科id
     private String subjectId;

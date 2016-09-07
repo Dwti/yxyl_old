@@ -1,20 +1,27 @@
 package com.yanxiu.gphone.student.adapter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectVersionBean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Administrator on 2016/8/31.
  */
-public class ClassfyQuestionAdapter extends  YXiuCustomerBaseAdapter<QuestionEntity.PointEntity> {
-    public ClassfyQuestionAdapter(Activity context) {
-        super(context);
+public class ClassfyQuestionAdapter extends BaseAdapter {
+    private Context mContext;
+    private QuestionEntity questionsEntity;
+    public ClassfyQuestionAdapter(Context context) {
+        mContext = context;
     }
 
     @Override
@@ -29,10 +36,33 @@ public class ClassfyQuestionAdapter extends  YXiuCustomerBaseAdapter<QuestionEnt
         }else{
             holder= (ViewHolder) convertView.getTag();
         }
-        QuestionEntity.PointEntity entity=getItem(position);
-        holder.classfyQuestionName.setText(entity.getName());
-        holder.classfyQuestionNum.setText("(0)");
+        holder.classfyQuestionName.setText(questionsEntity.getPoint().get(position).getName());
+        Object[] answerArray = questionsEntity.getAnswerBean().getConnect_classfy_answer().get(position).toString().split(",");
+        holder.classfyQuestionNum.setText("("+answerArray.length+")");
         return convertView;
+    }
+
+    public void setData(QuestionEntity questionEntity) {
+        questionsEntity = questionEntity;
+        notifyDataSetInvalidated();
+    }
+
+    @Override
+    public int getCount() {
+        if (questionsEntity == null) {
+            return 0;
+        }
+        return questionsEntity.getPoint().size();//返回数组的长度
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return null;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return 0;
     }
 
     class ViewHolder{
