@@ -14,7 +14,7 @@ import com.common.core.R;
 import com.common.core.utils.LogInfo;
 
 public class URLDrawable extends BitmapDrawable {
-    protected Drawable drawable;
+    public Drawable drawable;
 
     @SuppressWarnings("deprecation")
     public URLDrawable(Context context)

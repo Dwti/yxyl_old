@@ -38,9 +38,9 @@ public class QuestionUtils {
      */
     public static void CleanData(List<PaperTestEntity> data) {
 //        //需求变更
-//        if (true){
-//            return;
-//        }
+        if (true){
+            return;
+        }
         Iterator<PaperTestEntity> iterator = data.listIterator();
         PaperTestEntity paperTestEntity;
         while (iterator.hasNext()) {

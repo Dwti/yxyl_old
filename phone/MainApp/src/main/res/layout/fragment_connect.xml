@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/rl_top"
+        layout="@layout/question_top_content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_marginRight="@dimen/dimen_10">
+
+            <FrameLayout
+                android:id="@+id/ll_answer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_50"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:background="@drawable/question_read_content_bg">
+
+                <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+                    android:id="@+id/connect_question"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </FrameLayout>
+
+            <com.yanxiu.gphone.student.view.ConnectLinesLinearLayout
+                android:id="@+id/connect_lineslinearlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_answer"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/ll_answer">
+
+                <com.yanxiu.gphone.student.view.YanxiuTypefaceButton
+                    android:id="@+id/add_problem_analysis"
+                    style="@style/btn_problem_analysis"
+                    app:type_face="fz.ttf" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/content_problem_analysis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_answer" />
+        </RelativeLayout>
+
+    </ScrollView>
+
+</LinearLayout>
