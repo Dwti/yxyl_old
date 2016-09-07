@@ -80,6 +80,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     private CountDownTimer mDownTimer;   //倒计时器
     private long mMillisUntilFinished;
     private String url;
+    private int lastViewPagerPosition=0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

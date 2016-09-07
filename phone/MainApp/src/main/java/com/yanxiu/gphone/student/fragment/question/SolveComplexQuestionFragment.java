@@ -55,6 +55,7 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
     private AnswerAdapter adapter;
 
     private LinearLayout ll_bottom_view;
+    private int lastViewPagerPosition=0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -198,6 +199,7 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
 
     }
     public void onPageSelected(int childPosition) {
+        lastViewPagerPosition=childPosition;
         if(answerViewTypyBean == SubjectExercisesItemBean.ANSWER_QUESTION) {
             int costtime = AnswerViewActivity.totalTime - AnswerViewActivity.lastTime;
             AnswerViewActivity.lastTime = AnswerViewActivity.totalTime;

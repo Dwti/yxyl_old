@@ -48,7 +48,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 
     protected ImageView ivBack;
     protected ViewPager vpAnswer;
-    protected YanxiuTypefaceTextView tvToptext;
+    public YanxiuTypefaceTextView tvToptext;
     protected TextView tvPagerIndex;
     protected TextView tvPagerCount;
     protected ImageView ivAnswerCard;
@@ -59,7 +59,13 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
     protected int pageCount;
     protected int currentIndex;
 
+    public YanxiuTypefaceTextView getTvToptext() {
+        return tvToptext;
+    }
 
+    public void setTvToptext(YanxiuTypefaceTextView tvToptext) {
+        this.tvToptext = tvToptext;
+    }
 //    protected StudentLoadingLayout loadingLayout;
 
     protected TextView tvQuestionTitle;

@@ -272,10 +272,10 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 
     private void quitSubmmitDialog() {
         if (comeFrom == GROUP) {
-            submitAnswer();
             Intent intent = new Intent();
             setResult(RESULT_OK, intent);
             this.finish();
+            submitAnswer();
             return;
         }
         if (dataSources != null && dataSources.getData() != null) {
@@ -506,7 +506,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
             adapter.setCostTime(costTime, viewPagerLastPosition,childIndex);
             childIndex=0;
         }
-
         tvPagerIndex.setVisibility(View.VISIBLE);
         ivAnswerCard.setVisibility(View.VISIBLE);
         if (Configuration.isDebug() && btnWrongError != null) {

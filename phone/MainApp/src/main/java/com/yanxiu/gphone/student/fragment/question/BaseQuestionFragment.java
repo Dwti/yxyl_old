@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.activity.AnswerViewActivity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
@@ -56,6 +57,7 @@ public class BaseQuestionFragment extends Fragment {
         this.questionsEntity = (getArguments() != null) ? (QuestionEntity) getArguments().getSerializable("questions") : null;
         this.answerViewTypyBean = (getArguments() != null) ? getArguments().getInt("answerViewTypyBean") : null;
         this.pageIndex = (getArguments() != null) ? getArguments().getInt("pageIndex") : 0;
+        imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 
     }
 
@@ -161,11 +163,8 @@ public class BaseQuestionFragment extends Fragment {
                 YanXiuConstant.OnClick_TYPE = 0;
                 is_reduction = true;
             }
-//            startTime = System.currentTimeMillis();
         }
-        if (!isVisibleToUser){
-            hideSoftInput();
-        }
+        hideSoftInput();
     }
 
     @Override
@@ -191,11 +190,12 @@ public class BaseQuestionFragment extends Fragment {
 
 
     public void hideSoftInput() {
-        if (imm != null) {
-            rlTopView.setFocusable(true);
-            rlTopView.setFocusableInTouchMode(true);
-            imm.hideSoftInputFromWindow(rlTopView.getWindowToken(), 0);
-            rlTopView.requestFocus();
+//        answerViewTypyBean == SubjectExercisesItemBean.ANSWER_QUESTION
+        if (imm != null && getActivity() instanceof AnswerViewActivity) {
+            ((AnswerViewActivity)getActivity()).getTvToptext().setFocusable(true);
+            ((AnswerViewActivity)getActivity()).getTvToptext().setFocusableInTouchMode(true);
+            imm.hideSoftInputFromWindow(((AnswerViewActivity)getActivity()).getTvToptext().getWindowToken(), 0);
+            ((AnswerViewActivity)getActivity()).getTvToptext().requestFocus();
         }
     }
 
