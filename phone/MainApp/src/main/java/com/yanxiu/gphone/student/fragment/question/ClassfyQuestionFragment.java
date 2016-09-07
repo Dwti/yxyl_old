@@ -143,10 +143,9 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                     }
                 });
             }
-            if (questionsEntity.getContent() != null && questionsEntity.getContent().getChoices() != null
-                    && questionsEntity.getContent().getChoices().size() > 0) {
+            if (classfyItem.size() > 0) {
 
-                if (questionsEntity.getContent().getChoices().get(0).contains(YanXiuConstant.IMG_SRC)) {
+                if (classfyItem.get(0).getName().contains(YanXiuConstant.IMG_SRC)) {
                     classfyAnswerAdapter.setData(questionsEntity.getContent().getChoices());
                     lgClassfyAnswers.setVisibility(View.VISIBLE);
                     vgClassfyAnswers.setVisibility(View.GONE);
