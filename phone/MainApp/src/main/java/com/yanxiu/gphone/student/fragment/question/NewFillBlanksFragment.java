@@ -120,6 +120,9 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
         if (!isVisibleToUser) {
             hideSoftInput();
         }
+        if (isVisibleToUser && !ischild) {
+            ((QuestionsListener) getActivity()).flipNextPager(null);
+        }
     }
 
     private void selectTypeView() {
