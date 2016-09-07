@@ -116,15 +116,17 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                         String answer=array.getString(i);
                         String[] answerStr = answer.split(",");
                         for (String index : answerStr) {
-                            classfyBeanArrayList.add(classfyItem.get(new Integer(index)));
-                            classfyItem.remove(new Integer(index));
+                            //classfyBeanArrayList.add(classfyItem.get(new Integer(index)));
+                            //classfyItem.remove(new Integer(index));
                         }
                         answerList.add(answer);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     pointItem.add(classfyBeanArrayList);
+
                     questionsEntity.getAnswerBean().getConnect_classfy_answer().add(answerList);
+                    questionsEntity.getAnswerBean().getConnect_classfy_answer().clear();
                 }
                 classfyQuestionAdapter.setData(questionsEntity);
                 gvClassfyQuestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -137,7 +139,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                         } else {
                             questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).add(choiceTmpString);
                             questionsEntity.getContent().getChoices().remove(i);
-                            classfyAnswerAdapter.setData(questionsEntity.getContent().getChoices());
+                            classfyQuestionAdapter.setData(questionsEntity);
                             choiceTmpString = null;
                         }
                     }
@@ -146,7 +148,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             if (classfyItem.size() > 0) {
 
                 if (classfyItem.get(0).getName().contains(YanXiuConstant.IMG_SRC)) {
-                    classfyAnswerAdapter.setData(questionsEntity.getContent().getChoices());
+                    classfyAnswerAdapter.setData(classfyItem);
                     lgClassfyAnswers.setVisibility(View.VISIBLE);
                     vgClassfyAnswers.setVisibility(View.GONE);
                 } else {
