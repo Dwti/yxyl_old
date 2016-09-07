@@ -20,6 +20,7 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.ClassfyAnswerAdapter;
 import com.yanxiu.gphone.student.adapter.ClassfyQuestionAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
+import com.yanxiu.gphone.student.bean.ClassfyBean;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
@@ -30,6 +31,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Yangjj on 2016/8/30.
@@ -54,6 +56,9 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     private Fragment resolutionFragment;
 
     private String choiceTmpString;
+
+    private List<ClassfyBean> classfyItem = new ArrayList<ClassfyBean>();
+    private List<ArrayList<ClassfyBean>> pointItem = new ArrayList<ArrayList<ClassfyBean>>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,21 +94,36 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     }
 
     private void initData() {
+        if (questionsEntity.getContent() != null && questionsEntity.getContent().getChoices() != null
+                && questionsEntity.getContent().getChoices().size() > 0) {
+            for (int i = 0; i < questionsEntity.getContent().getChoices().size(); i++) {
+                ClassfyBean classfyBean = new ClassfyBean(i, questionsEntity.getContent().getChoices().get(i));
+                classfyItem.add(classfyBean);
+            }
+        }
         if (questionsEntity != null && questionsEntity.getStem() != null) {
             questionsEntity.getAnswerBean().getConnect_classfy_answer().clear();
             tvYanxiu.setTextHtml(questionsEntity.getStem());
             if (questionsEntity.getPoint() != null) {
+
                 for (int i=0; i<questionsEntity.getPoint().size(); i++) {
                     ArrayList<String> answerList = new ArrayList<String>();
+                    ArrayList<ClassfyBean> classfyBeanArrayList = new ArrayList<ClassfyBean>();
                     String jsonanswer=questionsEntity.getPad().getJsonAnswer();
                     JSONArray array= null;
                     try {
                         array = new JSONArray(jsonanswer);
                         String answer=array.getString(i);
+                        String[] answerStr = answer.split(",");
+                        for (String index : answerStr) {
+                            classfyBeanArrayList.add(classfyItem.get(new Integer(index)));
+                            classfyItem.remove(new Integer(index));
+                        }
                         answerList.add(answer);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    pointItem.add(classfyBeanArrayList);
                     questionsEntity.getAnswerBean().getConnect_classfy_answer().add(answerList);
                 }
                 classfyQuestionAdapter.setData(questionsEntity);
@@ -112,7 +132,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         if (StringUtils.isEmpty(choiceTmpString)) {
                             classfyPopupWindow = new ClassfyDelPopupWindow(getActivity());
-                            classfyPopupWindow.init(questionsEntity, questionsEntity.getPoint().get(i).getName());
+                            classfyPopupWindow.init(questionsEntity, classfyItem.get(i).getName());
                             classfyPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
                         } else {
                             questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).add(choiceTmpString);
@@ -125,6 +145,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             }
             if (questionsEntity.getContent() != null && questionsEntity.getContent().getChoices() != null
                     && questionsEntity.getContent().getChoices().size() > 0) {
+
                 if (questionsEntity.getContent().getChoices().get(0).contains(YanXiuConstant.IMG_SRC)) {
                     classfyAnswerAdapter.setData(questionsEntity.getContent().getChoices());
                     lgClassfyAnswers.setVisibility(View.VISIBLE);
