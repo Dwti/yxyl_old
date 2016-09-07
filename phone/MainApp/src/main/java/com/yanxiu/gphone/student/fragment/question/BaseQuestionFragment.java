@@ -47,6 +47,7 @@ public class BaseQuestionFragment extends Fragment {
      */
     protected boolean is_reduction = false;
     protected int childPagerIndex;
+    public InputMethodManager imm;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -162,6 +163,9 @@ public class BaseQuestionFragment extends Fragment {
             }
 //            startTime = System.currentTimeMillis();
         }
+        if (!isVisibleToUser){
+            hideSoftInput();
+        }
     }
 
     @Override
@@ -183,6 +187,16 @@ public class BaseQuestionFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+
+    public void hideSoftInput() {
+        if (imm != null) {
+            rlTopView.setFocusable(true);
+            rlTopView.setFocusableInTouchMode(true);
+            imm.hideSoftInputFromWindow(rlTopView.getWindowToken(), 0);
+            rlTopView.requestFocus();
+        }
     }
 
 

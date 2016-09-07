@@ -47,7 +47,7 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
     private boolean isWrongSetOrAnalysis = false;
     private YXiuAnserTextView tvQuestion;
     //    private ArrayList<String> listAnswer = new ArrayList<>();
-    private InputMethodManager imm;
+
     private Context mContext;
     private LinearLayout ll_answer_content;
     private View focusedView;
@@ -250,10 +250,10 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
         hideSoftInput();
     }
 
-    public void hideSoftInput() {
-        if (imm != null) {
-            imm.hideSoftInputFromWindow(ll_answer_content.getWindowToken(), 0);
-            line.requestFocus();
-        }
-    }
+//    public void hideSoftInput() {
+//        if (imm != null) {
+//            imm.hideSoftInputFromWindow(ll_answer_content.getWindowToken(), 0);
+//            line.requestFocus();
+//        }
+//    }
 }
