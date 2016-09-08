@@ -335,6 +335,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         if (dataSources == null) {
             return;
         }
+        adapter.answerViewClick();
         long endtime = System.currentTimeMillis();
         dataSources.setEndtime(endtime);
         calculateLastQuestionTime();
@@ -345,8 +346,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
             public void update(YanxiuBaseBean result) {
                 EventBus.getDefault().post(new GroupEventHWRefresh());
             }
-
-
             @Override
             public void dataError(int type, String msg) {
             }
