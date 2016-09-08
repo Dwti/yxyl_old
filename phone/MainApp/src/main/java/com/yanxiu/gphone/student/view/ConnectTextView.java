@@ -29,6 +29,7 @@ public class ConnectTextView extends TextView implements View.OnClickListener{
     private OnCheckListener listener;
     private ConnectLinesLinearLayout.BaseBean bean;
     private ConnectImageGetter imageGetter;
+    private OnLayoutSuccessListener successListener;
 
     public ConnectTextView(Context context) {
         this(context,null);
@@ -69,6 +70,14 @@ public class ConnectTextView extends TextView implements View.OnClickListener{
         void OnCheckListener(ConnectLinesLinearLayout.BaseBean bean);
     }
 
+    public interface OnLayoutSuccessListener{
+        void OnLayoutSuccessListener();
+    }
+
+    public void setOnLayoutSuccessListener(OnLayoutSuccessListener successListener){
+        this.successListener=successListener;
+    }
+
     public void setCheckListener(OnCheckListener listener){
         this.listener=listener;
     }
@@ -84,6 +93,7 @@ public class ConnectTextView extends TextView implements View.OnClickListener{
         super.onLayout(changed, left, top, right, bottom);
         int y=(top+bottom)/2;
         bean.setY(y);
+        successListener.OnLayoutSuccessListener();
     }
 
     @Override

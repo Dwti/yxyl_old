@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/9/1.
  */
-public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTextView.OnCheckListener{
+public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTextView.OnCheckListener, ConnectTextView.OnLayoutSuccessListener {
 
     public static final String LOCATION_LEFT="location_left";
     public static final String LOCATION_RIGHT="location_right";
@@ -32,6 +32,7 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
     private List<String> mDatas=new ArrayList<String>();
     private List<String> answerData=new ArrayList<String>();
     private AnswerBean answerBean;
+    private int layout_number;
 
     public ConnectLinesLinearLayout(Context context) {
         this(context,null);
@@ -141,6 +142,7 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
         ConnectTextView textView=new ConnectTextView(context);
         bean.setTextView(textView);
         textView.setHtmlText(text);
+        textView.setOnLayoutSuccessListener(this);
         textView.setBaseBean(bean);
         textView.setCheckListener(this);
         textView.setBackgroundResource(checked_no);
@@ -234,6 +236,14 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
                 bean.getTextView().setBackgroundResource(checked_no);
                 bean.getTextView().setTextColor(context.getResources().getColor(R.color.color_333333));
             }
+        }
+    }
+
+    @Override
+    public void OnLayoutSuccessListener() {
+        layout_number++;
+        if (layout_number>=list.size()){
+            setDefault();
         }
     }
 
