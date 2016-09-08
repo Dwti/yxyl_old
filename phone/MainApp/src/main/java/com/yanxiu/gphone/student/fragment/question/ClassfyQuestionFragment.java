@@ -117,8 +117,8 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                         String answer=array.getString(i);
                         String[] answerStr = Util.splitMiddleChar(answer).split(",");
                         for (String index : answerStr) {
-                            questionsEntity.getContent().getChoices().remove(index);
-                            classfyItem.remove(index);
+                            //questionsEntity.getContent().getChoices().remove(index);
+                            classfyItem.remove(Integer.parseInt(index));
                             //classfyItem.remove(new Integer(index));
                         }
                         answerList.add(answer);
@@ -128,6 +128,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                     //pointItem.add(classfyBeanArrayList);
 
                     questionsEntity.getAnswerBean().getConnect_classfy_answer().add(answerList);
+                    //questionsEntity.getAnswerBean().getConnect_classfy_answer().clear();
                 }
                 classfyQuestionAdapter.setData(questionsEntity);
                 gvClassfyQuestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -139,8 +140,8 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                             classfyPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
                         } else {
                             questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).add(choiceTmpString);
-                            questionsEntity.getContent().getChoices().remove(i);
-                            classfyQuestionAdapter.setData(questionsEntity);
+                            classfyItem.remove(Integer.parseInt(choiceTmpString));
+                            classfyAnswerAdapter.setData(classfyItem);
                             choiceTmpString = null;
                         }
                     }
@@ -154,10 +155,10 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                     vgClassfyAnswers.setVisibility(View.GONE);
                 } else {
                     LayoutInflater inflater = getActivity().getLayoutInflater();
-                    for (int i=0; i<questionsEntity.getContent().getChoices().size(); i++) {
+                    for (int i=0; i<classfyItem.size(); i++) {
                         TextView view = (TextView) inflater.inflate(R.layout.layout_textview, null);
                         //view.setText(questionsEntity.getContent().getChoices().get(i).substring(5, 20+2*i));
-                        view.setText(questionsEntity.getContent().getChoices().get(i));
+                        view.setText(classfyItem.get(i).getName());
                         view.getLayoutParams();
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                         lp.setMargins(8, 8, 8, 8);
