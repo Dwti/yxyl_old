@@ -1,11 +1,14 @@
 package com.yanxiu.gphone.student.view;
 
 import android.content.Context;
+import android.graphics.Shader;
+import android.graphics.drawable.BitmapDrawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -47,6 +50,9 @@ public class FillBlankAnswerView extends LinearLayout {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         for (int i = 0; i < count; i++) {
             View itemView = inflater.inflate(R.layout.fill_blank_answer_item, this, false);
+//            ImageView iv = (ImageView) itemView.findViewById(R.id.iv_middle_icon);
+//            BitmapDrawable drawable= (BitmapDrawable) iv.getBackground();
+//            drawable.setTileModeXY(Shader.TileMode.REPEAT,Shader.TileMode.REPEAT);
             TextView tv_num = (TextView) itemView.findViewById(R.id.tv_num);
             tv_num.setText("(" + (i + 1) + ")");
             this.addView(itemView);
