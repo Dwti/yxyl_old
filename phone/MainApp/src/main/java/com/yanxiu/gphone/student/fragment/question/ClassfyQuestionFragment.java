@@ -115,10 +115,10 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                     try {
                         array = new JSONArray(jsonanswer);
                         String answer=array.getString(i);
-                        String[] answerStr = Util.splitMiddleChar(answer).split(",");
-                        for (String index : answerStr) {
+                        JSONArray answerArray = new JSONArray(answer);
+                        for (int k=0; k<answerArray.length(); k++) {
                             //questionsEntity.getContent().getChoices().remove(index);
-                            classfyItem.remove(Integer.parseInt(index));
+                            classfyItem.remove(answerArray.getInt(k));
                             //classfyItem.remove(new Integer(index));
                         }
                         answerList.add(answer);

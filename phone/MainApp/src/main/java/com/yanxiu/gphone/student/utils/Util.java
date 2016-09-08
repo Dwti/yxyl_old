@@ -1067,7 +1067,7 @@ public class Util {
     }
 
     public static String splitMiddleChar(String string) {
-        Pattern pattern = Pattern.compile("(\\[[^\\]]*\\])");
+        Pattern pattern = Pattern.compile("\"[[.*?]]\"");
         Matcher matcher = pattern.matcher(string);
         while(matcher.find()){
             return matcher.group(1);
