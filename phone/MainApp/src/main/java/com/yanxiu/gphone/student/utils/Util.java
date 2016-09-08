@@ -332,10 +332,16 @@ public class Util {
                 }
             }
         } else if (YanXiuConstant.CONNECT_QUESTION.equals(template) || YanXiuConstant.CLASSIFY_QUESTION.equals(template) ){
-            int count_connect_classfy = answerBean.getConnect_classfy_answer().size();
+            ArrayList<ArrayList<String>> arrayLists=answerBean.getConnect_classfy_answer();
+            int count_connect_classfy = arrayLists.size();
             for(int j = 0; j < count_connect_classfy; j++){
                 try {
-                    array.put(answerBean.getConnect_classfy_answer().get(j));
+                    ArrayList<String> stringArrayList=arrayLists.get(j);
+                    JSONArray jsonArray=new JSONArray();
+                    for (int k=0;k<stringArrayList.size();k++){
+                        jsonArray.put(stringArrayList.get(k));
+                    }
+                    array.put(jsonArray);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

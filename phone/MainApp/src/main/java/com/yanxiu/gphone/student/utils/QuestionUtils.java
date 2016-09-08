@@ -370,7 +370,24 @@ public class QuestionUtils {
                                 }
                             }
                         }
-                    } else {
+                    } else if (questionEntity.getTemplate().equals(YanXiuConstant.CONNECT_QUESTION)
+                            || questionEntity.getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)){
+                        AnswerBean answerChildBean = questionEntity.getAnswerBean();
+                        try {
+                            JSONArray array=new JSONArray(jsonAnswer);
+                            for (int k=0;k<array.length();k++){
+                                JSONArray arrayJSONArray= array.getJSONArray(k);
+                                ArrayList<String> list=new ArrayList<String>();
+                                for (int l=0;l<arrayJSONArray.length();l++){
+                                    list.add(arrayJSONArray.getString(l));
+                                }
+                                answerChildBean.getConnect_classfy_answer().add(list);
+                            }
+                            answerChildBean.setStatus(questionEntity.getPad().getStatus());
+                        }catch (Exception e){
+
+                        }
+                    }else {
                         int status = questionEntity.getPad().getStatus();
                         int costTime = questionEntity.getPad().getCosttime();
                         AnswerBean answerBean = questionEntity.getAnswerBean();

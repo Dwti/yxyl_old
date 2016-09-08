@@ -74,6 +74,7 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
         }
 
         ArrayList<ArrayList<String>> answerlist=answerBean.getConnect_classfy_answer();
+        answerlist.clear();
         for (BaseBean basebean:list){
             if (basebean.getLocation().equals(LOCATION_LEFT)){
                 if (basebean.isSelect()){
@@ -86,20 +87,34 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
         }
     }
 
-    public void setDatas(List<String> list){
+    public void setDatas(final List<String> lists){
         try {
-            mDatas.addAll(list);
+            mDatas.addAll(lists);
             int position=mDatas.size();
             setData(position/2);
         }catch (Exception e){
 
         }
-        post(new Runnable() {
-            @Override
-            public void run() {
+    }
 
+    public void setDefault(){
+        ArrayList<ArrayList<String>> answerlist=answerBean.getConnect_classfy_answer();
+        for (ArrayList<String> arrayList:answerlist){
+            if (arrayList.size()>0){
+                int id_left=Integer.parseInt(arrayList.get(0));
+                int id_right=Integer.parseInt(arrayList.get(1));
+
+                BaseBean bean=list.get(id_left);
+                bean.setSelect(true);
+                bean.setSelect_id(id_right);
+
+                BaseBean bean1=list.get(id_right);
+                bean1.setSelect(true);
+                bean1.setSelect_id(id_left);
             }
-        });
+        }
+        mylines.setDatas(list);
+        setMyTextviewColor();
     }
 
     private void setData(int position){

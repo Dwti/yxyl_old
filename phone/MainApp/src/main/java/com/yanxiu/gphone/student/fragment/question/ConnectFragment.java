@@ -46,11 +46,11 @@ public class ConnectFragment extends BaseQuestionFragment implements QuestionsLi
         connect_lineslinearlayout= (ConnectLinesLinearLayout) rootView.findViewById(R.id.connect_lineslinearlayout);
         if (questionsEntity!=null) {
             connect_question.setTextHtml(questionsEntity.getStem());
-            connect_lineslinearlayout.setDatas(questionsEntity.getContent().getChoices());
             connect_lineslinearlayout.setAnswers(questionsEntity.getAnswer());
             if (bean!=null) {
                 connect_lineslinearlayout.setAnswerBean(bean);
             }
+            connect_lineslinearlayout.setDatas(questionsEntity.getContent().getChoices());
         }
     }
 
@@ -67,10 +67,13 @@ public class ConnectFragment extends BaseQuestionFragment implements QuestionsLi
                 connect_lineslinearlayout.saveAnswers();
             }
         }
-        if (isVisibleToUser && !ischild) {
-//            if (adapter!=null){
-            ((QuestionsListener) getActivity()).flipNextPager(null);
-//            }
+        if (isVisibleToUser) {
+            if (!ischild){
+                ((QuestionsListener) getActivity()).flipNextPager(null);
+            }
+            if (connect_lineslinearlayout!=null) {
+                connect_lineslinearlayout.setDefault();
+            }
         }
     }
 
