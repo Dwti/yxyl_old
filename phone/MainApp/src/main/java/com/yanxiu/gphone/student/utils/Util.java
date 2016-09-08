@@ -1066,14 +1066,5 @@ public class Util {
         return Math.round(dp * displayMetrics.density);
     }
 
-    public static String splitMiddleChar(String string) {
-        Pattern pattern = Pattern.compile("\"[[.*?]]\"");
-        Matcher matcher = pattern.matcher(string);
-        while(matcher.find()){
-            return matcher.group(1);
-        }
-        return null;
-    }
-
 }
 
