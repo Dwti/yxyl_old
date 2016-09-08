@@ -37,8 +37,8 @@ public class ClassfyQuestionAdapter extends BaseAdapter {
             holder= (ViewHolder) convertView.getTag();
         }
         holder.classfyQuestionName.setText(questionsEntity.getPoint().get(position).getName());
-        Object[] answerArray = questionsEntity.getAnswerBean().getConnect_classfy_answer().get(position).toString().split(",");
-        holder.classfyQuestionNum.setText("("+answerArray.length+")");
+        //Object[] answerArray = questionsEntity.getAnswerBean().getConnect_classfy_answer().get(position).toString().split(",");
+        //holder.classfyQuestionNum.setText("("+answerArray.length+")");
         return convertView;
     }
 

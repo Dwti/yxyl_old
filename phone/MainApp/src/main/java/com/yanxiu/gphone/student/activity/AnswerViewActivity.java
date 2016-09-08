@@ -272,10 +272,10 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 
     private void quitSubmmitDialog() {
         if (comeFrom == GROUP) {
-            submitAnswer();
             Intent intent = new Intent();
             setResult(RESULT_OK, intent);
             this.finish();
+            submitAnswer();
             return;
         }
         if (dataSources != null && dataSources.getData() != null) {
@@ -335,6 +335,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         if (dataSources == null) {
             return;
         }
+        adapter.answerViewClick();
         long endtime = System.currentTimeMillis();
         dataSources.setEndtime(endtime);
         calculateLastQuestionTime();
@@ -345,8 +346,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
             public void update(YanxiuBaseBean result) {
                 EventBus.getDefault().post(new GroupEventHWRefresh());
             }
-
-
             @Override
             public void dataError(int type, String msg) {
             }
@@ -506,7 +505,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
             adapter.setCostTime(costTime, viewPagerLastPosition,childIndex);
             childIndex=0;
         }
-
         tvPagerIndex.setVisibility(View.VISIBLE);
         ivAnswerCard.setVisibility(View.VISIBLE);
         if (Configuration.isDebug() && btnWrongError != null) {

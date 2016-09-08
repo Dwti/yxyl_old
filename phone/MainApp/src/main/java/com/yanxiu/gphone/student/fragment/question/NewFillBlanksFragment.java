@@ -60,9 +60,7 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (rootView == null) {
             mContext = getActivity();
-            imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
             rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_new_fill_blank_question, null);
             line = rootView.findViewById(R.id.view_line_ccc4a3_2);
             ll_answer_content = (LinearLayout) rootView.findViewById(R.id.ll_answer_content);
@@ -87,7 +85,6 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
                     }
                 }
             });
-        }
         return rootView;
     }
 
@@ -117,12 +114,10 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (!isVisibleToUser) {
-            hideSoftInput();
-        }
         if (isVisibleToUser && !ischild) {
             ((QuestionsListener) getActivity()).flipNextPager(null);
         }
+        saveAnwser();
     }
 
     private void selectTypeView() {
@@ -176,10 +171,11 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
         if (imm != null && !isKeyBoardActive) {
             line.requestFocus();
         }
-        saveAnswer();
+        saveAnwser();
     }
 
-    private void saveAnswer() {
+    @Override
+    public void saveAnwser() {
         if (answerView == null || questionsEntity == null)
             return;
         if (!isWrongSetOrAnalysis) {
@@ -246,7 +242,7 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
 
     @Override
     public void answerViewClick() {
-        saveAnswer();
+        saveAnwser();
         hideSoftInput();
     }
 
