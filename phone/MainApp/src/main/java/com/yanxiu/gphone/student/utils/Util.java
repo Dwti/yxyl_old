@@ -37,6 +37,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class Util {
@@ -1056,6 +1058,15 @@ public class Util {
             return 0;
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return Math.round(dp * displayMetrics.density);
+    }
+
+    public static String splitMiddleChar(String string) {
+        Pattern pattern = Pattern.compile("(\\[[^\\]]*\\])");
+        Matcher matcher = pattern.matcher(string);
+        while(matcher.find()){
+            return matcher.group(1);
+        }
+        return null;
     }
 
 }

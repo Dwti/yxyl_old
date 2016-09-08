@@ -21,6 +21,7 @@ import com.yanxiu.gphone.student.adapter.ClassfyAnswerAdapter;
 import com.yanxiu.gphone.student.adapter.ClassfyQuestionAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ClassfyBean;
+import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
@@ -58,7 +59,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     private String choiceTmpString;
 
     private List<ClassfyBean> classfyItem = new ArrayList<ClassfyBean>();
-    private List<ArrayList<ClassfyBean>> pointItem = new ArrayList<ArrayList<ClassfyBean>>();
+    //private List<ArrayList<ClassfyBean>> pointItem = new ArrayList<ArrayList<ClassfyBean>>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,7 +87,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
         lgClassfyAnswers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                choiceTmpString = String.valueOf(i);
+                choiceTmpString = String.valueOf(classfyItem.get(i).getId());
             }
         });
         classfyAnswerAdapter = new ClassfyAnswerAdapter(getActivity());
@@ -114,19 +115,19 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                     try {
                         array = new JSONArray(jsonanswer);
                         String answer=array.getString(i);
-                        String[] answerStr = answer.split(",");
+                        String[] answerStr = Util.splitMiddleChar(answer).split(",");
                         for (String index : answerStr) {
-                            //classfyBeanArrayList.add(classfyItem.get(new Integer(index)));
+                            questionsEntity.getContent().getChoices().remove(index);
+                            classfyItem.remove(index);
                             //classfyItem.remove(new Integer(index));
                         }
                         answerList.add(answer);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    pointItem.add(classfyBeanArrayList);
+                    //pointItem.add(classfyBeanArrayList);
 
                     questionsEntity.getAnswerBean().getConnect_classfy_answer().add(answerList);
-                    questionsEntity.getAnswerBean().getConnect_classfy_answer().clear();
                 }
                 classfyQuestionAdapter.setData(questionsEntity);
                 gvClassfyQuestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {

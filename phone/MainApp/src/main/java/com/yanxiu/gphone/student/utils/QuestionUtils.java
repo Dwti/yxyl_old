@@ -370,7 +370,10 @@ public class QuestionUtils {
                                 }
                             }
                         }
-                    } else {
+                    }else if (questionEntity.getTemplate().equals(YanXiuConstant.CONNECT_QUESTION)
+                            || questionEntity.getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)){
+
+                    }else {
                         int status = questionEntity.getPad().getStatus();
                         int costTime = questionEntity.getPad().getCosttime();
                         AnswerBean answerBean = questionEntity.getAnswerBean();
