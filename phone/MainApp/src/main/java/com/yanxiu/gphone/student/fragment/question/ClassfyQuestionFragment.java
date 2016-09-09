@@ -32,6 +32,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -57,6 +58,8 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     private Fragment resolutionFragment;
 
     private String choiceTmpString;
+    private int position;
+    private View mRemoveView;
 
     private List<ClassfyBean> classfyItem = new ArrayList<ClassfyBean>();
     //private List<ArrayList<ClassfyBean>> pointItem = new ArrayList<ArrayList<ClassfyBean>>();
@@ -97,86 +100,94 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     private void initData() {
         if (questionsEntity.getContent() != null && questionsEntity.getContent().getChoices() != null
                 && questionsEntity.getContent().getChoices().size() > 0) {
+            classfyItem.clear();
             for (int i = 0; i < questionsEntity.getContent().getChoices().size(); i++) {
                 ClassfyBean classfyBean = new ClassfyBean(i, questionsEntity.getContent().getChoices().get(i));
                 classfyItem.add(classfyBean);
             }
         }
+        //questionsEntity.getAnswerBean().getConnect_classfy_answer().clear();
         if (questionsEntity != null && questionsEntity.getStem() != null) {
-            questionsEntity.getAnswerBean().getConnect_classfy_answer().clear();
             tvYanxiu.setTextHtml(questionsEntity.getStem());
-            if (questionsEntity.getPoint() != null) {
-
-                for (int i=0; i<questionsEntity.getPoint().size(); i++) {
-                    ArrayList<String> answerList = new ArrayList<String>();
-                    ArrayList<ClassfyBean> classfyBeanArrayList = new ArrayList<ClassfyBean>();
-                    String jsonanswer=questionsEntity.getPad().getJsonAnswer();
-                    JSONArray array= null;
-                    try {
-                        array = new JSONArray(jsonanswer);
-                        String answer=array.getString(i);
-                        String[] answerStr = Util.splitMiddleChar(answer).split(",");
-                        for (String index : answerStr) {
-                            //questionsEntity.getContent().getChoices().remove(index);
-                            classfyItem.remove(Integer.parseInt(index));
-                            //classfyItem.remove(new Integer(index));
+            ArrayList<ArrayList<String>> answerList = questionsEntity.getAnswerBean().getConnect_classfy_answer();
+            for (int i=0; i<answerList.size(); i++) {
+                ArrayList<String> answerListStr = answerList.get(i);
+                for (int j=0; j<answerListStr.size(); j++) {
+                    Iterator<ClassfyBean> classfyBean = classfyItem.iterator();
+                    while (classfyBean.hasNext()) {
+                        if (Integer.parseInt(answerListStr.get(j)) == classfyBean.next().getId()){
+                            classfyBean.remove();
                         }
-                        answerList.add(answer);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
-                    //pointItem.add(classfyBeanArrayList);
-
-                    questionsEntity.getAnswerBean().getConnect_classfy_answer().add(answerList);
-                    //questionsEntity.getAnswerBean().getConnect_classfy_answer().clear();
+                    //classfyItem.remove(Integer.parseInt(answerListStr.get(j)));
                 }
-                classfyQuestionAdapter.setData(questionsEntity);
-                gvClassfyQuestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        if (StringUtils.isEmpty(choiceTmpString)) {
-                            classfyPopupWindow = new ClassfyDelPopupWindow(getActivity());
-                            classfyPopupWindow.init(questionsEntity, classfyItem.get(i).getName());
-                            classfyPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+            }
+            if (questionsEntity.getPoint() != null) {
+                if (questionsEntity.getAnswerBean().getConnect_classfy_answer().size() == 0){
+                    for (int j=0; j<questionsEntity.getPoint().size(); j++) {
+                        ArrayList<String> list = new ArrayList<String>();
+                        questionsEntity.getAnswerBean().getConnect_classfy_answer().add(list);
+                    }
+                }
+            }
+            classfyQuestionAdapter.setData(questionsEntity);
+            gvClassfyQuestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    if (StringUtils.isEmpty(choiceTmpString)) {
+                        classfyPopupWindow = new ClassfyDelPopupWindow(getActivity());
+                        classfyPopupWindow.init(questionsEntity, questionsEntity.getPoint().get(i).getName(), i);
+                        classfyPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+                    } else {
+                        if (classfyItem.get(0).getName().contains(YanXiuConstant.IMG_SRC+"TT")) {
+                            questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).add(choiceTmpString);
+                            classfyItem.remove(position);
+                            classfyAnswerAdapter.setData(classfyItem);
+                            classfyQuestionAdapter.setData(questionsEntity);
+                            choiceTmpString = null;
                         } else {
                             questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).add(choiceTmpString);
-                            classfyItem.remove(Integer.parseInt(choiceTmpString));
-                            classfyAnswerAdapter.setData(classfyItem);
+                            classfyItem.remove(position);
+                            classfyQuestionAdapter.setData(questionsEntity);
+                            vgClassfyAnswers.removeView(mRemoveView);
                             choiceTmpString = null;
                         }
                     }
-                });
-            }
-            if (classfyItem.size() > 0) {
-
-                if (classfyItem.get(0).getName().contains(YanXiuConstant.IMG_SRC)) {
-                    classfyAnswerAdapter.setData(classfyItem);
-                    lgClassfyAnswers.setVisibility(View.VISIBLE);
-                    vgClassfyAnswers.setVisibility(View.GONE);
-                } else {
-                    LayoutInflater inflater = getActivity().getLayoutInflater();
-                    for (int i=0; i<classfyItem.size(); i++) {
-                        TextView view = (TextView) inflater.inflate(R.layout.layout_textview, null);
-                        //view.setText(questionsEntity.getContent().getChoices().get(i).substring(5, 20+2*i));
-                        view.setText(classfyItem.get(i).getName());
-                        view.getLayoutParams();
-                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        lp.setMargins(8, 8, 8, 8);
-                        view.setLayoutParams(lp);
-                        final int finalInt = i;
-                        view.setOnClickListener(new View.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(View v) {
-                                                        choiceTmpString = String.valueOf(finalInt);
-                                                    }
-                                                });
-                        vgClassfyAnswers.addView(view);
-                    }
-                    lgClassfyAnswers.setVisibility(View.GONE);
-                    vgClassfyAnswers.setVisibility(View.VISIBLE);
                 }
+            });
+        }
+        if (classfyItem.size() > 0) {
 
+            if (classfyItem.get(0).getName().contains(YanXiuConstant.IMG_SRC+"TT")) {
+                classfyAnswerAdapter.setData(classfyItem);
+                lgClassfyAnswers.setVisibility(View.VISIBLE);
+                vgClassfyAnswers.setVisibility(View.GONE);
+            } else {
+                LayoutInflater inflater = getActivity().getLayoutInflater();
+                for (int i=0; i<classfyItem.size(); i++) {
+                    final TextView view = (TextView) inflater.inflate(R.layout.layout_textview, null);
+                    view.setText(classfyItem.get(i).getName().substring(5, 20+2*i));
+                    //view.setText(classfyItem.get(i).getName());
+                    view.getLayoutParams();
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    lp.setMargins(8, 8, 8, 8);
+                    view.setLayoutParams(lp);
+                    final int finalInt = i;
+                    view.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    choiceTmpString = String.valueOf(classfyItem.get(finalInt).getId());
+                                                    position = finalInt;
+                                                    mRemoveView = view;
+                                                }
+                                            });
+                    vgClassfyAnswers.addView(view);
+                }
+                lgClassfyAnswers.setVisibility(View.GONE);
+                vgClassfyAnswers.setVisibility(View.VISIBLE);
             }
+
         }
     }
 

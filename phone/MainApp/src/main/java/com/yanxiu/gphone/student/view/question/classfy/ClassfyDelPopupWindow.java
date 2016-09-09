@@ -17,8 +17,12 @@ import com.common.core.view.UnMoveGridView;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.ClassfyAnswerAdapter;
 import com.yanxiu.gphone.student.adapter.ClassfyAnswerPopupAdapter;
+import com.yanxiu.gphone.student.bean.ClassfyBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/9/1.
@@ -27,8 +31,11 @@ public class ClassfyDelPopupWindow extends BasePopupWindow {
     private QuestionEntity mQuestionsEntity;
     private TextView classfyDelPopText;
     private String classfyDelPopString;
+    private int position;
     private ClassfyAnswers vgClassfyAnswers;
     private UnMoveGridView lgClassfyAnswers;
+
+    private List<ClassfyBean> classfyPopItem = new ArrayList<ClassfyBean>();
 
     private ClassfyAnswerPopupAdapter classfyAnswerPopupAdapter;
     public ClassfyDelPopupWindow(Context mContext) {
@@ -49,16 +56,23 @@ public class ClassfyDelPopupWindow extends BasePopupWindow {
         lgClassfyAnswers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                mQuestionsEntity.getContent().getChoices().remove(i);
-                classfyAnswerPopupAdapter.setData(mQuestionsEntity.getContent().getChoices());
+                classfyPopItem.remove(i);
+                mQuestionsEntity.getAnswerBean().getConnect_classfy_answer().get(position).remove(i);
+                classfyAnswerPopupAdapter.setData(classfyPopItem);
             }
         });
         loadingData();
     }
 
-    public void init(QuestionEntity questionsEntity, String str){
+    public void init(QuestionEntity questionsEntity, String str, int i){
         mQuestionsEntity = questionsEntity;
         classfyDelPopString = str;
+        position = i;
+        classfyPopItem.clear();
+        for (String string: mQuestionsEntity.getAnswerBean().getConnect_classfy_answer().get(position)) {
+            ClassfyBean classfyBean = new ClassfyBean(Integer.parseInt(string), mQuestionsEntity.getContent().getChoices().get(Integer.parseInt(string)));
+            classfyPopItem.add(classfyBean);
+        }
         this.initView(mContext);
     }
 
@@ -69,22 +83,24 @@ public class ClassfyDelPopupWindow extends BasePopupWindow {
             if (mQuestionsEntity.getContent() != null && mQuestionsEntity.getContent().getChoices() != null
                     && mQuestionsEntity.getContent().getChoices().size() > 0) {
                 if (mQuestionsEntity.getContent().getChoices().get(0).contains(YanXiuConstant.IMG_SRC+"UU")) {
-                    classfyAnswerPopupAdapter.setData(mQuestionsEntity.getContent().getChoices());
+                    classfyAnswerPopupAdapter.setData(classfyPopItem);
                     lgClassfyAnswers.setVisibility(View.VISIBLE);
                     vgClassfyAnswers.setVisibility(View.GONE);
                 } else {
                     LayoutInflater inflater = LayoutInflater.from(mContext);
-                    for (int i=0; i<mQuestionsEntity.getContent().getChoices().size(); i++) {
-                        final View containerView = inflater.inflate(R.layout.layout_textview, null);
+                    for (int i=0; i<classfyPopItem.size(); i++) {
+                        final View containerView = inflater.inflate(R.layout.layout_textview_image, null);
                         TextView classfy_answer_popup_text = (TextView) containerView.findViewById(R.id.classfy_answer_popup_text);
-                        classfy_answer_popup_text.setText(mQuestionsEntity.getContent().getChoices().get(i).substring(5, 20+2*i));
+                        classfy_answer_popup_text.setText(classfyPopItem.get(i).getName().substring(5, 20+2*i));
                         //view.setText(mQuestionsEntity.getContent().getChoices().get(i));
 
                         ImageView widget_title_icon = (ImageView) containerView.findViewById(R.id.widget_title_icon);
+                        final int finalInt = i;
                         widget_title_icon.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 vgClassfyAnswers.removeView(containerView);
+                                mQuestionsEntity.getAnswerBean().getConnect_classfy_answer().get(position).remove(finalInt);
                             }
                         });
                         containerView.getLayoutParams();

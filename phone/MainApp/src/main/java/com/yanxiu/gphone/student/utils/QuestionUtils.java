@@ -287,27 +287,20 @@ public class QuestionUtils {
                             || questionEntity.getTemplate().equals(YanXiuConstant.CLOZE_QUESTION)
                             || questionEntity.getTemplate().equals(YanXiuConstant.LISTEN_QUESTION)) {
 
-                        List<ReadingAnswer> answerList = JSON.parseArray(jsonAnswer, ReadingAnswer.class);
-                        if (answerList != null && !answerList.isEmpty()) {
-                            List<PaperTestEntity> paperList = questionEntity.getChildren();
-                            if (paperList == null) {
-                                continue;
-                            }
+                        List<PaperTestEntity> paperList = questionEntity.getChildren();
+                        if (paperList != null && !paperList.isEmpty()) {
                             int childrenCount = paperList.size();
                             for (int j = 0; j < childrenCount; j++) {
-                                List<String> answerChildList;
-                                if (j >= answerList.size()) {
-                                    answerChildList = null;
-                                } else {
-                                    answerChildList = answerList.get(j).getAnswer();
-                                }
-                                if (paperList.get(j) == null || paperList.get(j).getQuestions() == null || paperList.get(j).getQuestions().getPad() == null) {
+                                QuestionEntity childQuestion = paperList.get(j).getQuestions();
+                                if(childQuestion == null || childQuestion.getPad()==null)
                                     continue;
-                                }
-                                List<String> rightAnswer = paperList.get(j).getQuestions().getAnswer();
-                                AnswerBean answerChildBean = paperList.get(j).getQuestions().getAnswerBean();
-                                int status = paperList.get(j).getQuestions().getPad().getStatus();
-                                String childTemplate = questionEntity.getChildren().get(j).getQuestions().getTemplate();
+                                List<String> answerChildList;
+                                String childJsonAnswer =childQuestion.getPad().getJsonAnswer();
+                                answerChildList = JSON.parseArray(childJsonAnswer,String.class);
+                                List<String> rightAnswer = childQuestion.getAnswer();
+                                AnswerBean answerChildBean = childQuestion.getAnswerBean();
+                                int status = childQuestion.getPad().getStatus();
+                                String childTemplate = childQuestion.getTemplate();
                                 answerChildBean.setStatus(status);
                                 //此处分为需要老师批改跟不需要老师批改两种情况处理（即主观题与非主观题）
                                 if (!YanXiuConstant.ANSWER_QUESTION.equals(childTemplate)) {
