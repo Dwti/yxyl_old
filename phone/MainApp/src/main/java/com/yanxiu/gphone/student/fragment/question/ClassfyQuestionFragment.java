@@ -59,6 +59,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
 
     private String choiceTmpString;
     private int position;
+    private View mRemoveView;
 
     private List<ClassfyBean> classfyItem = new ArrayList<ClassfyBean>();
     //private List<ArrayList<ClassfyBean>> pointItem = new ArrayList<ArrayList<ClassfyBean>>();
@@ -139,27 +140,35 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                         classfyPopupWindow.init(questionsEntity, questionsEntity.getPoint().get(i).getName(), i);
                         classfyPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
                     } else {
-                        questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).add(choiceTmpString);
-                        classfyItem.remove(position);
-                        classfyAnswerAdapter.setData(classfyItem);
-                        classfyQuestionAdapter.setData(questionsEntity);
-                        choiceTmpString = null;
+                        if (classfyItem.get(0).getName().contains(YanXiuConstant.IMG_SRC+"TT")) {
+                            questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).add(choiceTmpString);
+                            classfyItem.remove(position);
+                            classfyAnswerAdapter.setData(classfyItem);
+                            classfyQuestionAdapter.setData(questionsEntity);
+                            choiceTmpString = null;
+                        } else {
+                            questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).add(choiceTmpString);
+                            classfyItem.remove(position);
+                            classfyQuestionAdapter.setData(questionsEntity);
+                            vgClassfyAnswers.removeView(mRemoveView);
+                            choiceTmpString = null;
+                        }
                     }
                 }
             });
         }
         if (classfyItem.size() > 0) {
 
-            if (classfyItem.get(0).getName().contains(YanXiuConstant.IMG_SRC)) {
+            if (classfyItem.get(0).getName().contains(YanXiuConstant.IMG_SRC+"TT")) {
                 classfyAnswerAdapter.setData(classfyItem);
                 lgClassfyAnswers.setVisibility(View.VISIBLE);
                 vgClassfyAnswers.setVisibility(View.GONE);
             } else {
                 LayoutInflater inflater = getActivity().getLayoutInflater();
                 for (int i=0; i<classfyItem.size(); i++) {
-                    TextView view = (TextView) inflater.inflate(R.layout.layout_textview, null);
-                    //view.setText(questionsEntity.getContent().getChoices().get(i).substring(5, 20+2*i));
-                    view.setText(classfyItem.get(i).getName());
+                    final TextView view = (TextView) inflater.inflate(R.layout.layout_textview, null);
+                    view.setText(classfyItem.get(i).getName().substring(5, 20+2*i));
+                    //view.setText(classfyItem.get(i).getName());
                     view.getLayoutParams();
                     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     lp.setMargins(8, 8, 8, 8);
@@ -168,8 +177,9 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                     view.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    choiceTmpString = String.valueOf(finalInt);
+                                                    choiceTmpString = String.valueOf(classfyItem.get(finalInt).getId());
                                                     position = finalInt;
+                                                    mRemoveView = view;
                                                 }
                                             });
                     vgClassfyAnswers.addView(view);

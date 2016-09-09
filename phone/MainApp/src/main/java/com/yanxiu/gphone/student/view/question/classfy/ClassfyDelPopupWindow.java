@@ -82,23 +82,25 @@ public class ClassfyDelPopupWindow extends BasePopupWindow {
         if (mQuestionsEntity != null && mQuestionsEntity.getStem() != null) {
             if (mQuestionsEntity.getContent() != null && mQuestionsEntity.getContent().getChoices() != null
                     && mQuestionsEntity.getContent().getChoices().size() > 0) {
-                if (mQuestionsEntity.getContent().getChoices().get(0).contains(YanXiuConstant.IMG_SRC)) {
+                if (mQuestionsEntity.getContent().getChoices().get(0).contains(YanXiuConstant.IMG_SRC+"UU")) {
                     classfyAnswerPopupAdapter.setData(classfyPopItem);
                     lgClassfyAnswers.setVisibility(View.VISIBLE);
                     vgClassfyAnswers.setVisibility(View.GONE);
                 } else {
                     LayoutInflater inflater = LayoutInflater.from(mContext);
-                    for (int i=0; i<mQuestionsEntity.getContent().getChoices().size(); i++) {
-                        final View containerView = inflater.inflate(R.layout.layout_textview, null);
+                    for (int i=0; i<classfyPopItem.size(); i++) {
+                        final View containerView = inflater.inflate(R.layout.layout_textview_image, null);
                         TextView classfy_answer_popup_text = (TextView) containerView.findViewById(R.id.classfy_answer_popup_text);
-                        classfy_answer_popup_text.setText(mQuestionsEntity.getContent().getChoices().get(i).substring(5, 20+2*i));
+                        classfy_answer_popup_text.setText(classfyPopItem.get(i).getName().substring(5, 20+2*i));
                         //view.setText(mQuestionsEntity.getContent().getChoices().get(i));
 
                         ImageView widget_title_icon = (ImageView) containerView.findViewById(R.id.widget_title_icon);
+                        final int finalInt = i;
                         widget_title_icon.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 vgClassfyAnswers.removeView(containerView);
+                                mQuestionsEntity.getAnswerBean().getConnect_classfy_answer().get(position).remove(finalInt);
                             }
                         });
                         containerView.getLayoutParams();
