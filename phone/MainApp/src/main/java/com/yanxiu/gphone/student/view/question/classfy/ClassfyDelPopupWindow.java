@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/9/1.
  */
-public class ClassfyDelPopupWindow extends BasePopupWindow {
+public class ClassfyDelPopupWindow extends BasePopupWindow  {
     private QuestionEntity mQuestionsEntity;
     private TextView classfyDelPopText;
     private String classfyDelPopString;
@@ -87,28 +87,27 @@ public class ClassfyDelPopupWindow extends BasePopupWindow {
                     lgClassfyAnswers.setVisibility(View.VISIBLE);
                     vgClassfyAnswers.setVisibility(View.GONE);
                 } else {
-                    LayoutInflater inflater = LayoutInflater.from(mContext);
                     for (int i=0; i<classfyPopItem.size(); i++) {
+                        LayoutInflater inflater = LayoutInflater.from(mContext);
                         final View containerView = inflater.inflate(R.layout.layout_textview_image, null);
                         TextView classfy_answer_popup_text = (TextView) containerView.findViewById(R.id.classfy_answer_popup_text);
                         classfy_answer_popup_text.setText(classfyPopItem.get(i).getName().substring(5, 20+2*i));
                         //view.setText(mQuestionsEntity.getContent().getChoices().get(i));
 
                         ImageView widget_title_icon = (ImageView) containerView.findViewById(R.id.widget_title_icon);
-                        final int finalInt = i;
                         widget_title_icon.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 vgClassfyAnswers.removeView(containerView);
-                                mQuestionsEntity.getAnswerBean().getConnect_classfy_answer().get(position).remove(finalInt);
+                                mQuestionsEntity.getAnswerBean().getConnect_classfy_answer().get(position).remove(String.valueOf(((ClassfyBean)containerView.getTag()).getId()));
                             }
                         });
                         containerView.getLayoutParams();
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                         lp.setMargins(8, 8, 8, 8);
                         containerView.setLayoutParams(lp);
+                        containerView.setTag(classfyPopItem.get(i));
                         vgClassfyAnswers.addView(containerView);
-
                     }
                     lgClassfyAnswers.setVisibility(View.GONE);
                     vgClassfyAnswers.setVisibility(View.VISIBLE);
