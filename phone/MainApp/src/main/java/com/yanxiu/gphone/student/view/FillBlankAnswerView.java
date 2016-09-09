@@ -3,15 +3,19 @@ package com.yanxiu.gphone.student.view;
 import android.content.Context;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.common.core.utils.CommonCoreUtil;
 import com.yanxiu.gphone.student.R;
 
 import java.util.ArrayList;
@@ -49,14 +53,35 @@ public class FillBlankAnswerView extends LinearLayout {
         removeAllViews();
         LayoutInflater inflater = LayoutInflater.from(mContext);
         for (int i = 0; i < count; i++) {
-            View itemView = inflater.inflate(R.layout.fill_blank_answer_item, this, false);
-//            ImageView iv = (ImageView) itemView.findViewById(R.id.iv_middle_icon);
+            final View itemView = inflater.inflate(R.layout.fill_blank_answer_item, this, false);
+            final ImageView iv = (ImageView) itemView.findViewById(R.id.iv_middle_icon);
 //            BitmapDrawable drawable= (BitmapDrawable) iv.getBackground();
 //            drawable.setTileModeXY(Shader.TileMode.REPEAT,Shader.TileMode.REPEAT);
+//            iv.setImageDrawable(drawable);
             TextView tv_num = (TextView) itemView.findViewById(R.id.tv_num);
             tv_num.setText("(" + (i + 1) + ")");
             this.addView(itemView);
+
+            //由于5.0以下的 .9图平铺的时候监听不到填充改变，所以设置高度为屏幕的高度，并重新layout
+            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP){
+                itemView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+                    @Override
+                    public void onGlobalLayout() {
+                        itemView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                        setLineHeight(iv);
+
+                    }
+                });
+            }
+
         }
+    }
+
+    public void setLineHeight(ImageView iv) {
+        FrameLayout.LayoutParams ivLp = (FrameLayout.LayoutParams) iv.getLayoutParams();
+        ivLp.height = CommonCoreUtil.getScreenHeight();
+        iv.requestLayout();
     }
 
     public ArrayList<String> getAnswerList() {
