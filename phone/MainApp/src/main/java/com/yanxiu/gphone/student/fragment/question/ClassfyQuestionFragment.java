@@ -103,19 +103,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
         //questionsEntity.getAnswerBean().getConnect_classfy_answer().clear();
         if (questionsEntity != null && questionsEntity.getStem() != null) {
             tvYanxiu.setTextHtml(questionsEntity.getStem());
-            ArrayList<ArrayList<String>> answerList = questionsEntity.getAnswerBean().getConnect_classfy_answer();
-            for (int i=0; i<answerList.size(); i++) {
-                ArrayList<String> answerListStr = answerList.get(i);
-                for (int j=0; j<answerListStr.size(); j++) {
-                    Iterator<ClassfyBean> classfyBean = classfyItem.iterator();
-                    while (classfyBean.hasNext()) {
-                        if (Integer.parseInt(answerListStr.get(j)) == classfyBean.next().getId()){
-                            classfyBean.remove();
-                        }
-                    }
-                    //classfyItem.remove(Integer.parseInt(answerListStr.get(j)));
-                }
-            }
+            filterClassItem();
             if (questionsEntity.getPoint() != null) {
                 if (questionsEntity.getAnswerBean().getConnect_classfy_answer().size() == 0){
                     for (int j=0; j<questionsEntity.getPoint().size(); j++) {
@@ -241,6 +229,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             classfyAnswerAdapter.notifyDataSetChanged();
         } else {
             createClassItem();
+            filterClassItem();
             vgClassfyAnswers.removeAllViews();
             vgClassfyAnswers.setData(classfyItem, ClassfyQuestionFragment.this);
         }
@@ -261,6 +250,22 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             for (int i = 0; i < questionsEntity.getContent().getChoices().size(); i++) {
                 ClassfyBean classfyBean = new ClassfyBean(i, questionsEntity.getContent().getChoices().get(i));
                 classfyItem.add(classfyBean);
+            }
+        }
+    }
+
+    private void filterClassItem() {
+        ArrayList<ArrayList<String>> answerList = questionsEntity.getAnswerBean().getConnect_classfy_answer();
+        for (int i=0; i<answerList.size(); i++) {
+            ArrayList<String> answerListStr = answerList.get(i);
+            for (int j=0; j<answerListStr.size(); j++) {
+                Iterator<ClassfyBean> classfyBean = classfyItem.iterator();
+                while (classfyBean.hasNext()) {
+                    if (Integer.parseInt(answerListStr.get(j)) == classfyBean.next().getId()){
+                        classfyBean.remove();
+                    }
+                }
+                //classfyItem.remove(Integer.parseInt(answerListStr.get(j)));
             }
         }
     }
