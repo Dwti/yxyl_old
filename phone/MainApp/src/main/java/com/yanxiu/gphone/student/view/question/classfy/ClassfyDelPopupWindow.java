@@ -17,8 +17,12 @@ import com.common.core.view.UnMoveGridView;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.ClassfyAnswerAdapter;
 import com.yanxiu.gphone.student.adapter.ClassfyAnswerPopupAdapter;
+import com.yanxiu.gphone.student.bean.ClassfyBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/9/1.
@@ -27,8 +31,11 @@ public class ClassfyDelPopupWindow extends BasePopupWindow {
     private QuestionEntity mQuestionsEntity;
     private TextView classfyDelPopText;
     private String classfyDelPopString;
+    private int position;
     private ClassfyAnswers vgClassfyAnswers;
     private UnMoveGridView lgClassfyAnswers;
+
+    private List<ClassfyBean> classfyPopItem = new ArrayList<ClassfyBean>();
 
     private ClassfyAnswerPopupAdapter classfyAnswerPopupAdapter;
     public ClassfyDelPopupWindow(Context mContext) {
@@ -49,16 +56,23 @@ public class ClassfyDelPopupWindow extends BasePopupWindow {
         lgClassfyAnswers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                mQuestionsEntity.getContent().getChoices().remove(i);
-                classfyAnswerPopupAdapter.setData(mQuestionsEntity.getContent().getChoices());
+                classfyPopItem.remove(i);
+                mQuestionsEntity.getAnswerBean().getConnect_classfy_answer().get(position).remove(i);
+                classfyAnswerPopupAdapter.setData(classfyPopItem);
             }
         });
         loadingData();
     }
 
-    public void init(QuestionEntity questionsEntity, String str){
+    public void init(QuestionEntity questionsEntity, String str, int i){
         mQuestionsEntity = questionsEntity;
         classfyDelPopString = str;
+        position = i;
+        classfyPopItem.clear();
+        for (String string: mQuestionsEntity.getAnswerBean().getConnect_classfy_answer().get(position)) {
+            ClassfyBean classfyBean = new ClassfyBean(Integer.parseInt(string), mQuestionsEntity.getContent().getChoices().get(Integer.parseInt(string)));
+            classfyPopItem.add(classfyBean);
+        }
         this.initView(mContext);
     }
 
@@ -68,8 +82,8 @@ public class ClassfyDelPopupWindow extends BasePopupWindow {
         if (mQuestionsEntity != null && mQuestionsEntity.getStem() != null) {
             if (mQuestionsEntity.getContent() != null && mQuestionsEntity.getContent().getChoices() != null
                     && mQuestionsEntity.getContent().getChoices().size() > 0) {
-                if (mQuestionsEntity.getContent().getChoices().get(0).contains(YanXiuConstant.IMG_SRC+"UU")) {
-                    classfyAnswerPopupAdapter.setData(mQuestionsEntity.getContent().getChoices());
+                if (mQuestionsEntity.getContent().getChoices().get(0).contains(YanXiuConstant.IMG_SRC)) {
+                    classfyAnswerPopupAdapter.setData(classfyPopItem);
                     lgClassfyAnswers.setVisibility(View.VISIBLE);
                     vgClassfyAnswers.setVisibility(View.GONE);
                 } else {

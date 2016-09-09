@@ -32,6 +32,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -57,6 +58,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     private Fragment resolutionFragment;
 
     private String choiceTmpString;
+    private int position;
 
     private List<ClassfyBean> classfyItem = new ArrayList<ClassfyBean>();
     //private List<ArrayList<ClassfyBean>> pointItem = new ArrayList<ArrayList<ClassfyBean>>();
@@ -97,18 +99,26 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     private void initData() {
         if (questionsEntity.getContent() != null && questionsEntity.getContent().getChoices() != null
                 && questionsEntity.getContent().getChoices().size() > 0) {
+            classfyItem.clear();
             for (int i = 0; i < questionsEntity.getContent().getChoices().size(); i++) {
                 ClassfyBean classfyBean = new ClassfyBean(i, questionsEntity.getContent().getChoices().get(i));
                 classfyItem.add(classfyBean);
             }
         }
+        //questionsEntity.getAnswerBean().getConnect_classfy_answer().clear();
         if (questionsEntity != null && questionsEntity.getStem() != null) {
             tvYanxiu.setTextHtml(questionsEntity.getStem());
             ArrayList<ArrayList<String>> answerList = questionsEntity.getAnswerBean().getConnect_classfy_answer();
             for (int i=0; i<answerList.size(); i++) {
                 ArrayList<String> answerListStr = answerList.get(i);
                 for (int j=0; j<answerListStr.size(); j++) {
-                    classfyItem.remove(Integer.parseInt(answerListStr.get(j)));
+                    Iterator<ClassfyBean> classfyBean = classfyItem.iterator();
+                    while (classfyBean.hasNext()) {
+                        if (Integer.parseInt(answerListStr.get(j)) == classfyBean.next().getId()){
+                            classfyBean.remove();
+                        }
+                    }
+                    //classfyItem.remove(Integer.parseInt(answerListStr.get(j)));
                 }
             }
             if (questionsEntity.getPoint() != null) {
@@ -126,12 +136,13 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
 
                     if (StringUtils.isEmpty(choiceTmpString)) {
                         classfyPopupWindow = new ClassfyDelPopupWindow(getActivity());
-                        classfyPopupWindow.init(questionsEntity, classfyItem.get(i).getName());
+                        classfyPopupWindow.init(questionsEntity, questionsEntity.getPoint().get(i).getName(), i);
                         classfyPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
                     } else {
                         questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).add(choiceTmpString);
-                        classfyItem.remove(Integer.parseInt(choiceTmpString));
+                        classfyItem.remove(position);
                         classfyAnswerAdapter.setData(classfyItem);
+                        classfyQuestionAdapter.setData(questionsEntity);
                         choiceTmpString = null;
                     }
                 }
@@ -158,6 +169,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                                                 @Override
                                                 public void onClick(View v) {
                                                     choiceTmpString = String.valueOf(finalInt);
+                                                    position = finalInt;
                                                 }
                                             });
                     vgClassfyAnswers.addView(view);

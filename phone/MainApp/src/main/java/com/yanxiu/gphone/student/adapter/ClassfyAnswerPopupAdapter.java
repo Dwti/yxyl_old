@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.bean.ClassfyBean;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import java.util.regex.Pattern;
 public class ClassfyAnswerPopupAdapter extends BaseAdapter {
     private DisplayImageOptions options;
     private Context mContext;
-    private List<String> mEntity = new ArrayList<>();
+    private List<ClassfyBean> mEntity = new ArrayList<ClassfyBean>();
     public ClassfyAnswerPopupAdapter(Context context) {
         mContext = context;
         options = new DisplayImageOptions.Builder()
@@ -34,7 +35,7 @@ public class ClassfyAnswerPopupAdapter extends BaseAdapter {
                 .build();                                   // 创建配置过得DisplayImageOption对象
     }
 
-    public void setData(List<String> list) {
+    public void setData(List<ClassfyBean> list) {
         mEntity = list;
         notifyDataSetInvalidated();
     }
@@ -51,7 +52,7 @@ public class ClassfyAnswerPopupAdapter extends BaseAdapter {
             holder= (ViewHolder) convertView.getTag();
         }
         Pattern pattern = Pattern.compile("<img src=\\\"(.*?)\\\"");
-        Matcher matcher = pattern.matcher(mEntity.get(position));
+        Matcher matcher = pattern.matcher(mEntity.get(position).getName());
         while(matcher.find()){
             ImageLoader.getInstance().displayImage(matcher.group(1), holder.classfyAnswerImg, options);
         }
