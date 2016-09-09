@@ -2,17 +2,25 @@ package com.yanxiu.gphone.student.fragment.question;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.AnswerBean;
+import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.view.ConnectLinesLinearLayout;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
+
+import org.json.JSONArray;
+
+import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2016/9/7.
@@ -25,6 +33,8 @@ public class ConnectFragment extends BaseQuestionFragment implements QuestionsLi
     private AnswerBean bean;
     private boolean isVisibleToUser;
     private ConnectLinesLinearLayout connect_lineslinearlayout;
+    private Fragment resolutionFragment;
+    private Button addBtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +65,54 @@ public class ConnectFragment extends BaseQuestionFragment implements QuestionsLi
     }
 
     private void selectTypeView(){
+        switch (answerViewTypyBean){
+            case SubjectExercisesItemBean.RESOLUTION:
+                connect_lineslinearlayout.setIsResolution(true);
+                connect_lineslinearlayout.setIsClick(false);
+                addAnalysisFragment();
+                break;
+            case SubjectExercisesItemBean.WRONG_SET:
+                connect_lineslinearlayout.setIsWrongSet(true);
+                connect_lineslinearlayout.setIsClick(false);
+                addBtn = (Button) rootView.findViewById(R.id.add_problem_analysis);
+                addBtn.setVisibility(View.VISIBLE);
+                addBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        addBtn.setVisibility(View.GONE);
+//                        try {
+//                            ArrayList<String> answer_list=bean.getFillAnswers();
+//                            answer_list.clear();
+//                            String jsonanswer=questionsEntity.getPad().getJsonAnswer();
+//                            JSONArray array=new JSONArray(jsonanswer);
+//                            for (int i=0;i<array.length();i++){
+//                                String answer=array.getString(i);
+//                                answer_list.add(answer);
+//                            }
+//                            if (answer_list.size()==1){
+//                                bean.setSelectType(answer_list.get(0));
+//                            }
+//                        }catch (Exception e){
+//
+//                        }
+//                        choiceQuestions.initViewWithData(bean);
+                        addAnalysisFragment();
+                    }
+                });
+                break;
+        }
+    }
 
+    private void addAnalysisFragment(){
+        Bundle args = new Bundle();
+        args.putSerializable("questions", questionsEntity);
+        resolutionFragment = Fragment.instantiate(ConnectFragment.this.getActivity(), ProblemAnalysisFragment.class.getName(), args);
+        FragmentTransaction ft = ConnectFragment.this.getChildFragmentManager().beginTransaction();
+//         标准动画
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
+
+        ft.replace(R.id.content_problem_analysis, resolutionFragment).commitAllowingStateLoss();
     }
 
     @Override
@@ -70,9 +127,6 @@ public class ConnectFragment extends BaseQuestionFragment implements QuestionsLi
         if (isVisibleToUser) {
             if (!ischild){
                 ((QuestionsListener) getActivity()).flipNextPager(null);
-            }
-            if (connect_lineslinearlayout!=null) {
-                connect_lineslinearlayout.setDefault();
             }
         }
     }

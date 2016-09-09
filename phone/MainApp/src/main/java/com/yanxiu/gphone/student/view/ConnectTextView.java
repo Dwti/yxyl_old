@@ -84,7 +84,6 @@ public class ConnectTextView extends TextView implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        bean.setOnclick(true);
         listener.OnCheckListener(bean);
     }
 
@@ -92,8 +91,16 @@ public class ConnectTextView extends TextView implements View.OnClickListener{
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
         int y=(top+bottom)/2;
-        bean.setY(y);
-        successListener.OnLayoutSuccessListener();
+        if (bean!=null) {
+            boolean b=false;
+            if (y != bean.getY()) {
+                b=true;
+            }
+            bean.setY(y);
+            if (b) {
+                successListener.OnLayoutSuccessListener();
+            }
+        }
     }
 
     @Override

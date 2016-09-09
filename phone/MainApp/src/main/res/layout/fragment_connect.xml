@@ -20,7 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/dimen_20"
-            android:layout_marginRight="@dimen/dimen_10">
+            android:layout_marginRight="@dimen/dimen_10"
+            android:paddingBottom="@dimen/dimen_30">
 
             <FrameLayout
                 android:id="@+id/ll_answer"
@@ -46,7 +47,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/ll_answer">
+                android:layout_below="@+id/connect_lineslinearlayout">
 
                 <com.yanxiu.gphone.student.view.YanxiuTypefaceButton
                     android:id="@+id/add_problem_analysis"
@@ -59,7 +60,7 @@
                 android:id="@+id/content_problem_analysis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_answer" />
+                android:layout_below="@+id/connect_lineslinearlayout" />
         </RelativeLayout>
 
     </ScrollView>
