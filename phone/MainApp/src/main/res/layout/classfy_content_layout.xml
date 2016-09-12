@@ -20,7 +20,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dimen_50"
+                android:layout_marginBottom="@dimen/dimen_20"
                 android:layout_marginTop="@dimen/dimen_10"
                 android:background="@drawable/question_read_content_bg">
 

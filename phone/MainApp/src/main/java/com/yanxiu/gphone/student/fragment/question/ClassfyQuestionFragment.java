@@ -140,18 +140,14 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                 }
             });
         }
-        if (classfyItem.size() > 0) {
-
-            if (classfyItem.get(0).getName().contains(YanXiuConstant.IMG_SRC+"TT")) {
-                classfyAnswerAdapter.setData(classfyItem);
-                lgClassfyAnswers.setVisibility(View.VISIBLE);
-                vgClassfyAnswers.setVisibility(View.GONE);
-            } else {
-                vgClassfyAnswers.setData(classfyItem, ClassfyQuestionFragment.this);
-                lgClassfyAnswers.setVisibility(View.GONE);
-                vgClassfyAnswers.setVisibility(View.VISIBLE);
-            }
-
+        if (questionsEntity.getContent().getChoices().get(0).contains(YanXiuConstant.IMG_SRC+"TT")) {
+            classfyAnswerAdapter.setData(classfyItem);
+            lgClassfyAnswers.setVisibility(View.VISIBLE);
+            vgClassfyAnswers.setVisibility(View.GONE);
+        } else {
+            vgClassfyAnswers.setData(classfyItem, ClassfyQuestionFragment.this);
+            lgClassfyAnswers.setVisibility(View.GONE);
+            vgClassfyAnswers.setVisibility(View.VISIBLE);
         }
     }
 
