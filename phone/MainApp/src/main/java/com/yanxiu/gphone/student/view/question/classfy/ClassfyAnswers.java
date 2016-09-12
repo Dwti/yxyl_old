@@ -3,9 +3,15 @@ package com.yanxiu.gphone.student.view.question.classfy;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.bean.ClassfyBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,16 +28,18 @@ public class ClassfyAnswers extends ViewGroup {
      * 记录每一行的最大高度
      */
     private List<Integer> mLineHeight = new ArrayList<Integer>();
+    private Context context;
 
     public ClassfyAnswers(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public ClassfyAnswers(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
     public ClassfyAnswers(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context,attrs,defStyleAttr);
+        this.context=context;
     }
 
     @Override
@@ -210,4 +218,23 @@ public class ClassfyAnswers extends ViewGroup {
         return new MarginLayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT);
     }
+
+
+    public void setData(List<ClassfyBean> classfyItem,View.OnClickListener l){
+        LayoutInflater inflater = LayoutInflater.from(context);
+        for (int i=0; i<classfyItem.size(); i++) {
+            final TextView view = (TextView) inflater.inflate(R.layout.layout_textview, null);
+            view.setText(classfyItem.get(i).getName().substring(5, 20 + 2 * i));
+            //view.setText(classfyItem.get(i).getName());
+            view.getLayoutParams();
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(8, 8, 8, 8);
+            view.setLayoutParams(lp);
+            view.setOnClickListener(l);
+            view.setTag(classfyItem.get(i));
+            this.addView(view);
+        }
+    }
+
+
 }

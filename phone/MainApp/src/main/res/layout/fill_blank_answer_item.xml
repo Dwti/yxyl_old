@@ -6,7 +6,7 @@
     <FrameLayout
         android:id="@+id/fl_choice_text_item_bg"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/rl_choice_content_item"
         android:layout_alignTop="@+id/rl_choice_content_item"
         android:layout_marginLeft="@dimen/dimen_12"
@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="(1)"
+            android:text="B"
             android:textColor="@color/color_00cccc"
             android:textSize="@dimen/dimen_15" />
 
@@ -26,7 +26,7 @@
     <FrameLayout
         android:id="@+id/view_middle_content"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/rl_choice_content_item"
         android:layout_alignTop="@+id/rl_choice_content_item"
         android:layout_toRightOf="@+id/fl_choice_text_item_bg"
