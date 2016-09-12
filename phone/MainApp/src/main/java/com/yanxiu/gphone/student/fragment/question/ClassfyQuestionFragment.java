@@ -225,13 +225,15 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     @Override
     public void onDismiss() {
         classfyQuestionAdapter.notifyDataSetChanged();
-        if (classfyItem.get(0).getName().contains(YanXiuConstant.IMG_SRC+"TT")) {
-            classfyAnswerAdapter.notifyDataSetChanged();
-        } else {
-            createClassItem();
-            filterClassItem();
-            vgClassfyAnswers.removeAllViews();
-            vgClassfyAnswers.setData(classfyItem, ClassfyQuestionFragment.this);
+        if(classfyItem.size() > 0) {
+            if (classfyItem.get(0).getName().contains(YanXiuConstant.IMG_SRC + "TT")) {
+                classfyAnswerAdapter.notifyDataSetChanged();
+            } else {
+                createClassItem();
+                filterClassItem();
+                vgClassfyAnswers.removeAllViews();
+                vgClassfyAnswers.setData(classfyItem, ClassfyQuestionFragment.this);
+            }
         }
     }
 
