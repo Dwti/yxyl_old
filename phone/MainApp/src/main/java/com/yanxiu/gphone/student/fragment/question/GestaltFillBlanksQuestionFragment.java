@@ -80,8 +80,6 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
     @Override
     public void setChildPagerIndex(int childPagerIndex) {
         super.setChildPagerIndex(childPagerIndex);
-
-        
         if (vpAnswer!=null){
             vpAnswer.setCurrentItem(childPagerIndex);
         }

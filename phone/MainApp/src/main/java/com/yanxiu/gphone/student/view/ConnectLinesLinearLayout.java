@@ -295,7 +295,7 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
     @Override
     public void OnLayoutSuccessListener() {
         layout_number++;
-        if (layout_number == list.size()) {
+        if (layout_number >= list.size()) {
             setDefault();
         }
     }
