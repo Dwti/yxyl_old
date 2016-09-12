@@ -176,6 +176,7 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
 
     @Override
     public void saveAnwser() {
+        hideSoftInput();
         if (answerView == null || questionsEntity == null)
             return;
         if (!isWrongSetOrAnalysis) {
@@ -243,7 +244,6 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
     @Override
     public void answerViewClick() {
         saveAnwser();
-        hideSoftInput();
     }
 
 //    public void hideSoftInput() {

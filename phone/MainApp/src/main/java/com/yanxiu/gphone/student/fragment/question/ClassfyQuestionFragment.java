@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * Created by Yangjj on 2016/8/30.
  */
-public class ClassfyQuestionFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex {
+public class ClassfyQuestionFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex, BasePopupWindow.OnDissmissListener, View.OnClickListener {
     private QuestionsListener listener;
     //本地的保存数据bean
     private AnswerBean bean;
@@ -60,6 +60,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     private String choiceTmpString;
     private int position;
     private View mRemoveView;
+    private ClassfyBean mRemoveBean;
 
     private List<ClassfyBean> classfyItem = new ArrayList<ClassfyBean>();
     //private List<ArrayList<ClassfyBean>> pointItem = new ArrayList<ArrayList<ClassfyBean>>();
@@ -98,30 +99,11 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     }
 
     private void initData() {
-        if (questionsEntity.getContent() != null && questionsEntity.getContent().getChoices() != null
-                && questionsEntity.getContent().getChoices().size() > 0) {
-            classfyItem.clear();
-            for (int i = 0; i < questionsEntity.getContent().getChoices().size(); i++) {
-                ClassfyBean classfyBean = new ClassfyBean(i, questionsEntity.getContent().getChoices().get(i));
-                classfyItem.add(classfyBean);
-            }
-        }
+        createClassItem();
         //questionsEntity.getAnswerBean().getConnect_classfy_answer().clear();
         if (questionsEntity != null && questionsEntity.getStem() != null) {
             tvYanxiu.setTextHtml(questionsEntity.getStem());
-            ArrayList<ArrayList<String>> answerList = questionsEntity.getAnswerBean().getConnect_classfy_answer();
-            for (int i=0; i<answerList.size(); i++) {
-                ArrayList<String> answerListStr = answerList.get(i);
-                for (int j=0; j<answerListStr.size(); j++) {
-                    Iterator<ClassfyBean> classfyBean = classfyItem.iterator();
-                    while (classfyBean.hasNext()) {
-                        if (Integer.parseInt(answerListStr.get(j)) == classfyBean.next().getId()){
-                            classfyBean.remove();
-                        }
-                    }
-                    //classfyItem.remove(Integer.parseInt(answerListStr.get(j)));
-                }
-            }
+            filterClassItem();
             if (questionsEntity.getPoint() != null) {
                 if (questionsEntity.getAnswerBean().getConnect_classfy_answer().size() == 0){
                     for (int j=0; j<questionsEntity.getPoint().size(); j++) {
@@ -138,6 +120,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                     if (StringUtils.isEmpty(choiceTmpString)) {
                         classfyPopupWindow = new ClassfyDelPopupWindow(getActivity());
                         classfyPopupWindow.init(questionsEntity, questionsEntity.getPoint().get(i).getName(), i);
+                        classfyPopupWindow.setOnDissmissListener(ClassfyQuestionFragment.this);
                         classfyPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
                     } else {
                         if (classfyItem.get(0).getName().contains(YanXiuConstant.IMG_SRC+"TT")) {
@@ -148,7 +131,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                             choiceTmpString = null;
                         } else {
                             questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).add(choiceTmpString);
-                            classfyItem.remove(position);
+                            classfyItem.remove(mRemoveBean);
                             classfyQuestionAdapter.setData(questionsEntity);
                             vgClassfyAnswers.removeView(mRemoveView);
                             choiceTmpString = null;
@@ -164,26 +147,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                 lgClassfyAnswers.setVisibility(View.VISIBLE);
                 vgClassfyAnswers.setVisibility(View.GONE);
             } else {
-                LayoutInflater inflater = getActivity().getLayoutInflater();
-                for (int i=0; i<classfyItem.size(); i++) {
-                    final TextView view = (TextView) inflater.inflate(R.layout.layout_textview, null);
-                    view.setText(classfyItem.get(i).getName().substring(5, 20+2*i));
-                    //view.setText(classfyItem.get(i).getName());
-                    view.getLayoutParams();
-                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                    lp.setMargins(8, 8, 8, 8);
-                    view.setLayoutParams(lp);
-                    final int finalInt = i;
-                    view.setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View v) {
-                                                    choiceTmpString = String.valueOf(classfyItem.get(finalInt).getId());
-                                                    position = finalInt;
-                                                    mRemoveView = view;
-                                                }
-                                            });
-                    vgClassfyAnswers.addView(view);
-                }
+                vgClassfyAnswers.setData(classfyItem, ClassfyQuestionFragment.this);
                 lgClassfyAnswers.setVisibility(View.GONE);
                 vgClassfyAnswers.setVisibility(View.VISIBLE);
             }
@@ -256,5 +220,55 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     @Override
     public void setPageIndex(int pageIndex) {
         this.pageIndex = pageIndex;
+    }
+
+    @Override
+    public void onDismiss() {
+        classfyQuestionAdapter.notifyDataSetChanged();
+        if(classfyItem.size() > 0) {
+            if (classfyItem.get(0).getName().contains(YanXiuConstant.IMG_SRC + "TT")) {
+                classfyAnswerAdapter.notifyDataSetChanged();
+            } else {
+                createClassItem();
+                filterClassItem();
+                vgClassfyAnswers.removeAllViews();
+                vgClassfyAnswers.setData(classfyItem, ClassfyQuestionFragment.this);
+            }
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        choiceTmpString = String.valueOf(((ClassfyBean)view.getTag()).getId());
+        mRemoveBean = (ClassfyBean)view.getTag();
+
+        mRemoveView = view;
+    }
+
+    private void createClassItem() {
+        if (questionsEntity.getContent() != null && questionsEntity.getContent().getChoices() != null
+                && questionsEntity.getContent().getChoices().size() > 0) {
+            classfyItem.clear();
+            for (int i = 0; i < questionsEntity.getContent().getChoices().size(); i++) {
+                ClassfyBean classfyBean = new ClassfyBean(i, questionsEntity.getContent().getChoices().get(i));
+                classfyItem.add(classfyBean);
+            }
+        }
+    }
+
+    private void filterClassItem() {
+        ArrayList<ArrayList<String>> answerList = questionsEntity.getAnswerBean().getConnect_classfy_answer();
+        for (int i=0; i<answerList.size(); i++) {
+            ArrayList<String> answerListStr = answerList.get(i);
+            for (int j=0; j<answerListStr.size(); j++) {
+                Iterator<ClassfyBean> classfyBean = classfyItem.iterator();
+                while (classfyBean.hasNext()) {
+                    if (Integer.parseInt(answerListStr.get(j)) == classfyBean.next().getId()){
+                        classfyBean.remove();
+                    }
+                }
+                //classfyItem.remove(Integer.parseInt(answerListStr.get(j)));
+            }
+        }
     }
 }
