@@ -308,7 +308,9 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
 
     @Override
     public void answerViewClick() {
-        saveAnswers();
+        if(bean != null) {
+            saveAnswers();
+        }
     }
 
     @Override
