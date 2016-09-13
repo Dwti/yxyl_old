@@ -372,10 +372,10 @@ public class QuestionUtils {
                         try {
                             JSONArray array=new JSONArray(jsonAnswer);
                             for (int k=0;k<array.length();k++){
-                                JSONArray arrayJSONArray= array.getJSONArray(k);
+                                String arrayJSONArray[]= array.getString(k).split(",");
                                 ArrayList<String> list=new ArrayList<String>();
-                                for (int l=0;l<arrayJSONArray.length();l++){
-                                    list.add(arrayJSONArray.getString(l));
+                                for (int l=0;l<arrayJSONArray.length;l++){
+                                    list.add(arrayJSONArray[l]);
                                 }
                                 answerChildBean.getConnect_classfy_answer().add(list);
                             }

@@ -339,11 +339,17 @@ public class Util {
             for(int j = 0; j < count_connect_classfy; j++){
                 try {
                     ArrayList<String> stringArrayList=arrayLists.get(j);
-                    JSONArray jsonArray=new JSONArray();
+//                    JSONArray jsonArray=new JSONArray();
+                    String json="";
                     for (int k=0;k<stringArrayList.size();k++){
-                        jsonArray.put(stringArrayList.get(k));
+//                        jsonArray.put(stringArrayList.get(k));
+                        if (TextUtils.isEmpty(json)){
+                            json=stringArrayList.get(k);
+                        }else {
+                            json = json + "," + stringArrayList.get(k);
+                        }
                     }
-                    array.put(jsonArray);
+                    array.put(json);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
