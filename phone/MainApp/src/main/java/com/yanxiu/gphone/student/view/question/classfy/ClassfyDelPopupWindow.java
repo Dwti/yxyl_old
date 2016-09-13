@@ -62,6 +62,9 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
                 classfyAnswerPopupAdapter.setData(classfyPopItem);
                 mNum = mNum - 1;
                 classfyDelPopText.setText(classfyDelPopString+"("+mNum+")");
+                if (mNum == 0) {
+                    ClassfyDelPopupWindow.this.dismiss();
+                }
             }
         });
         loadingData();
@@ -95,7 +98,7 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
                         LayoutInflater inflater = LayoutInflater.from(mContext);
                         final View containerView = inflater.inflate(R.layout.layout_textview_image, null);
                         TextView classfy_answer_popup_text = (TextView) containerView.findViewById(R.id.classfy_answer_popup_text);
-                        classfy_answer_popup_text.setText(classfyPopItem.get(i).getName().substring(5, 20+2*i));
+                        classfy_answer_popup_text.setText(classfyPopItem.get(i).getName());
                         //view.setText(mQuestionsEntity.getContent().getChoices().get(i));
 
                         ImageView widget_title_icon = (ImageView) containerView.findViewById(R.id.widget_title_icon);
@@ -106,6 +109,9 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
                                 mQuestionsEntity.getAnswerBean().getConnect_classfy_answer().get(position).remove(String.valueOf(((ClassfyBean)containerView.getTag()).getId()));
                                 mNum = mNum - 1;
                                 classfyDelPopText.setText(classfyDelPopString+"("+mNum+")");
+                                if (mNum == 0) {
+                                    ClassfyDelPopupWindow.this.dismiss();
+                                }
                             }
                         });
                         containerView.getLayoutParams();

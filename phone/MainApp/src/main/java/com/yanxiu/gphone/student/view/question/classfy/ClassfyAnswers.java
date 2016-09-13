@@ -224,7 +224,7 @@ public class ClassfyAnswers extends ViewGroup {
         LayoutInflater inflater = LayoutInflater.from(context);
         for (int i=0; i<classfyItem.size(); i++) {
             final TextView view = (TextView) inflater.inflate(R.layout.layout_textview, null);
-            view.setText(classfyItem.get(i).getName().substring(5, 20 + 2 * i));
+            view.setText(classfyItem.get(i).getName());
             //view.setText(classfyItem.get(i).getName());
             view.getLayoutParams();
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
