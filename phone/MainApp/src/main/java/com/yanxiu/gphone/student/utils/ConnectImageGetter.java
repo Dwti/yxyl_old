@@ -12,8 +12,9 @@ import android.widget.TextView;
 import com.common.core.utils.imageloader.URLDrawable;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.yanxiu.gphone.student.HtmlParser.Interface.ImageGetterListener;
 
-public class ConnectImageGetter implements Html.ImageGetter {
+public class ConnectImageGetter implements ImageGetterListener {
 
     private Context context;
     private TextView view;
@@ -65,24 +66,27 @@ public class ConnectImageGetter implements Html.ImageGetter {
         public Rect getDefaultImageBounds(Context context, Bitmap bitmap) {
             loadedImageWidth = Math.round(bitmap.getWidth());
             loadedImageheight = Math.round(bitmap.getHeight());
-            if (loadedImageWidth>220){
-                loadedImageheight=loadedImageheight*220/loadedImageWidth;
-                loadedImageWidth=220;
-            }
+            loadedImageheight=loadedImageheight*220/loadedImageWidth;
+            loadedImageWidth=220;
             Rect bounds = new Rect(0, 0, loadedImageWidth, loadedImageheight);
             return bounds;
         }
 
         @Override
-        protected void onPostExecute(Drawable result) {
+        protected void onPostExecute(final Drawable result) {
 //            UilImageGetter.this.replaceImage(result,urlDrawable);
             if (result != null) {
-                urlDrawable.setBounds(0, 0, loadedImageWidth, loadedImageheight);
-                urlDrawable.drawable = result;
-                ConnectImageGetter.this.view.requestLayout();
-                ConnectImageGetter.this.view.invalidate();
-                ConnectImageGetter.this.view.setHeight((ConnectImageGetter.this.view.getHeight() + result.getIntrinsicHeight()));
-                ConnectImageGetter.this.view.setEllipsize(null);
+                ConnectImageGetter.this.view.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        urlDrawable.setBounds(0, 0, loadedImageWidth, loadedImageheight);
+                        urlDrawable.drawable = result;
+                        ConnectImageGetter.this.view.setHeight((ConnectImageGetter.this.view.getHeight() + loadedImageheight));
+                        ConnectImageGetter.this.view.setEllipsize(null);
+                        ConnectImageGetter.this.view.requestLayout();
+                        ConnectImageGetter.this.view.invalidate();
+                    }
+                });
             }
         }
     }

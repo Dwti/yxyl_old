@@ -61,6 +61,7 @@ public class ConnectFragment extends BaseQuestionFragment implements QuestionsLi
                 connect_lineslinearlayout.setAnswerBean(bean);
             }
             connect_lineslinearlayout.setDatas(questionsEntity.getContent().getChoices());
+//            connect_lineslinearlayout.setDefault();
         }
     }
 

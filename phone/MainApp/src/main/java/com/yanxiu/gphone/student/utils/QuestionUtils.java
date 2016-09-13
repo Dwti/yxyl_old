@@ -95,6 +95,9 @@ public class QuestionUtils {
      * @param bean
      */
     public static void removeQuestions(SubjectExercisesItemBean bean) {
+        if (true){
+            return;
+        }
         if (bean == null || bean.getData() == null || bean.getData().get(0).getPaperTest().isEmpty()) {
             return;
         }
