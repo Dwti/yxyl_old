@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ import com.yanxiu.gphone.student.adapter.ClassfyAnswerAdapter;
 import com.yanxiu.gphone.student.adapter.ClassfyQuestionAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ClassfyBean;
+import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
@@ -30,6 +32,7 @@ import com.yanxiu.gphone.student.view.question.classfy.ClassfyDelPopupWindow;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -65,6 +68,13 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     private List<ClassfyBean> classfyItem = new ArrayList<ClassfyBean>();
     //private List<ArrayList<ClassfyBean>> pointItem = new ArrayList<ArrayList<ClassfyBean>>();
 
+    private List<String> answerData = new ArrayList<String>();
+    private AnswerBean answerBean;
+    private boolean isResolution;
+    private boolean isClick=true;
+    private boolean isWrongSet;
+    private Button addBtn;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +102,8 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 choiceTmpString = String.valueOf(classfyItem.get(i).getId());
+                classfyAnswerAdapter.setSeclection(i);
+                classfyAnswerAdapter.notifyDataSetChanged();
             }
         });
         classfyAnswerAdapter = new ClassfyAnswerAdapter(getActivity());
@@ -112,6 +124,10 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                     }
                 }
             }
+            if (answerData != null) {
+                answerData.addAll(questionsEntity.getAnswer());
+            }
+            answerBean = questionsEntity.getAnswerBean();
             classfyQuestionAdapter.setData(questionsEntity);
             gvClassfyQuestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -119,11 +135,11 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
 
                     if (StringUtils.isEmpty(choiceTmpString)) {
                         classfyPopupWindow = new ClassfyDelPopupWindow(getActivity());
-                        classfyPopupWindow.init(questionsEntity, questionsEntity.getPoint().get(i).getName(), i);
+                        classfyPopupWindow.init(questionsEntity, questionsEntity.getPoint().get(i).getName() , questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).size(), i);
                         classfyPopupWindow.setOnDissmissListener(ClassfyQuestionFragment.this);
                         classfyPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
                     } else {
-                        if (classfyItem.get(0).getName().contains(YanXiuConstant.IMG_SRC+"TT")) {
+                        if (classfyItem.get(0).getName().contains(YanXiuConstant.IMG_SRC)) {
                             questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).add(choiceTmpString);
                             classfyItem.remove(position);
                             classfyAnswerAdapter.setData(classfyItem);
@@ -140,7 +156,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                 }
             });
         }
-        if (questionsEntity.getContent().getChoices().get(0).contains(YanXiuConstant.IMG_SRC+"TT")) {
+        if (questionsEntity.getContent().getChoices().get(0).contains(YanXiuConstant.IMG_SRC)) {
             classfyAnswerAdapter.setData(classfyItem);
             lgClassfyAnswers.setVisibility(View.VISIBLE);
             vgClassfyAnswers.setVisibility(View.GONE);
@@ -157,10 +173,36 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser=isVisibleToUser;
+        if (!isVisibleToUser) {
+            saveAnswers();
+        }
         if (isVisibleToUser&&!ischild){
 //            if (adapter!=null){
             ((QuestionsListener)getActivity()).flipNextPager(null);
 //            }
+        }
+    }
+
+    private void selectTypeView(){
+        switch (answerViewTypyBean){
+            case SubjectExercisesItemBean.RESOLUTION:
+                setIsResolution(true);
+                setIsClick(false);
+                addAnalysisFragment();
+                break;
+            case SubjectExercisesItemBean.WRONG_SET:
+                setIsWrongSet(true);
+                setIsClick(false);
+                addBtn = (Button) rootView.findViewById(R.id.add_problem_analysis);
+                addBtn.setVisibility(View.VISIBLE);
+                addBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        addBtn.setVisibility(View.GONE);
+                        addAnalysisFragment();
+                    }
+                });
+                break;
         }
     }
 
@@ -188,6 +230,67 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
         }
     }
 
+    /**
+     * 是否是解析界面
+     * @param isResolution
+     */
+    public void setIsResolution(boolean isResolution) {
+        this.isResolution = isResolution;
+    }
+
+    public void setIsClick(boolean isClick) {
+        this.isClick = isClick;
+    }
+
+    public void setIsWrongSet(boolean isWrongSet) {
+        this.isWrongSet = isWrongSet;
+    }
+
+    public void saveAnswers() {
+
+        if (answerBean == null) {
+            return;
+        }
+
+        ArrayList<ArrayList<String>> answerlist = answerBean.getConnect_classfy_answer();
+        int size = 0;
+        for (ArrayList<String> arrayList:answerlist) {
+            size = size + arrayList.size();
+        }
+        if (size < questionsEntity.getContent().getChoices().size()) {
+            answerBean.setIsFinish(false);
+            answerBean.setIsRight(false);
+        } else {
+            answerBean.setIsFinish(true);
+            getIsRight(answerlist);
+        }
+    }
+
+    private void getIsRight(ArrayList<ArrayList<String>> answerlist) {
+        for (int i = 0; i<answerData.size(); i++) {
+            JSONObject object = null;
+            String string = null;
+            try {
+                object = new JSONObject(answerData.get(i));
+                string = object.getString("answer");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String ss[] = string.split(",");
+            if (ss.length != answerlist.get(i).size()) {
+                answerBean.setIsRight(false);
+            } else {
+                for (int j = 0; j < ss.length; j++) {
+                    if (!answerlist.get(i).get(j).equals(ss[j])) {
+                        answerBean.setIsRight(false);
+                    }
+                }
+            }
+        }
+
+        answerBean.setIsRight(true);
+    }
+
     @Override
     public void flipNextPager(QuestionsListener listener) {
         this.listener = listener;
@@ -205,7 +308,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
 
     @Override
     public void answerViewClick() {
-
+        saveAnswers();
     }
 
     @Override
@@ -221,15 +324,15 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     @Override
     public void onDismiss() {
         classfyQuestionAdapter.notifyDataSetChanged();
-        if(classfyItem.size() > 0) {
-            if (classfyItem.get(0).getName().contains(YanXiuConstant.IMG_SRC + "TT")) {
-                classfyAnswerAdapter.notifyDataSetChanged();
-            } else {
-                createClassItem();
-                filterClassItem();
-                vgClassfyAnswers.removeAllViews();
-                vgClassfyAnswers.setData(classfyItem, ClassfyQuestionFragment.this);
-            }
+        if (questionsEntity.getContent().getChoices().get(0).contains(YanXiuConstant.IMG_SRC)) {
+            createClassItem();
+            filterClassItem();
+            classfyAnswerAdapter.notifyDataSetChanged();
+        } else {
+            createClassItem();
+            filterClassItem();
+            vgClassfyAnswers.removeAllViews();
+            vgClassfyAnswers.setData(classfyItem, ClassfyQuestionFragment.this);
         }
     }
 

@@ -1,6 +1,7 @@
 package com.yanxiu.gphone.student.adapter;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -26,6 +27,8 @@ public class ClassfyAnswerAdapter extends BaseAdapter {
     private DisplayImageOptions options;
     private Activity mContext;
     private List<ClassfyBean> mEntity = new ArrayList<ClassfyBean>();
+    private int clickTemp = -1;//标识被选择的item
+    private int[] clickedList;//这个数组用来存放item的点击状态
     public ClassfyAnswerAdapter(Activity context) {
         mContext = context;
         options = new DisplayImageOptions.Builder()
@@ -38,6 +41,10 @@ public class ClassfyAnswerAdapter extends BaseAdapter {
 
     public void setData(List<ClassfyBean> list) {
         mEntity = list;
+        clickedList = new int[list.size()];
+        for (int i =0;i<list.size();i++){
+            clickedList[i]=0;      //初始化item点击状态的数组
+        }
         notifyDataSetInvalidated();
     }
 
@@ -57,6 +64,16 @@ public class ClassfyAnswerAdapter extends BaseAdapter {
         while(matcher.find()){
             ImageLoader.getInstance().displayImage(matcher.group(1), holder.classfyAnswerImg, options);
         }
+        /*if(clickTemp == position){    //根据点击的Item当前状态设置背景
+            if (clickedList[position]==0){
+                convertView.setBackgroundColor(Color.MAGENTA);
+                clickedList[position]=1;
+            }
+            else {
+                convertView.setBackgroundColor(Color.TRANSPARENT);
+                clickedList[position]=0;
+            }
+        }*/
         return convertView;
     }
 
@@ -77,6 +94,10 @@ public class ClassfyAnswerAdapter extends BaseAdapter {
 
     class ViewHolder{
         private ImageView classfyAnswerImg;
+    }
+
+    public void setSeclection(int posiTion) {
+        clickTemp = posiTion;
     }
 
 }
