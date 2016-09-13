@@ -80,10 +80,10 @@ public class UilImageGetter implements ImageGetterListener {
             if (result != null) {
                 urlDrawable.setBounds(0, 0, loadedImageWidth, loadedImageheight);
                 urlDrawable.drawable = result;
-                UilImageGetter.this.view.requestLayout();
-                UilImageGetter.this.view.invalidate();
                 UilImageGetter.this.view.setHeight((UilImageGetter.this.view.getHeight() + result.getIntrinsicHeight()));
                 UilImageGetter.this.view.setEllipsize(null);
+                UilImageGetter.this.view.requestLayout();
+                UilImageGetter.this.view.invalidate();
             }
         }
     }

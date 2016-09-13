@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -61,6 +62,7 @@ public class HtmlToSpannedConverter implements ContentHandler {
     private ImageSpanOnclickListener listener;
     private Object object;
     private int flag=0;
+    private int height;
 
     public HtmlToSpannedConverter(Context context, String source, ImageGetterListener imageGetterListener, MyHtml.TagHandler tagHandler, HtmlParser parser, Object object, ImageSpanOnclickListener listener) {
         this.context=context;
@@ -225,15 +227,27 @@ public class HtmlToSpannedConverter implements ContentHandler {
         if (where != len) {
             List<ClozzTextview.Buttonbean> list= (List<ClozzTextview.Buttonbean>) object;
             ClozzTextview.Buttonbean buttonbean=list.get(flag);
-            Drawable d = ContextCompat.getDrawable(context, R.drawable.gestalt_button_noanswer);
-            d.setBounds(0, 0, MyImageSpan.width, 60);
+
+            if (height==0){
+                height=getFontHeight(buttonbean.getTextsize()*2);
+            }
+
+            Drawable d = ContextCompat.getDrawable(context, R.drawable.image_loading_in_text_24);
+            d.setBounds(0, 0, MyImageSpan.width, height);
             MyImageSpan span = new MyImageSpan(d, ImageSpan.ALIGN_BASELINE);
             span.setContext(context);
             span.setMyImageSpanOnclickListener(listener);
             span.setObject(buttonbean);
-            text.setSpan(span,where,len, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+            text.setSpan(span,where,len, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             flag++;
         }
+    }
+
+    public int getFontHeight(float fontSize){
+        Paint paint = new Paint();
+        paint.setTextSize(fontSize);
+        Paint.FontMetrics fm = paint.getFontMetrics();
+        return (int) Math.ceil(fm.descent - fm.ascent);
     }
 
     private static void handleP(SpannableStringBuilder text) {

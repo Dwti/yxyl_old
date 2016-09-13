@@ -6,11 +6,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.yanxiu.gphone.student.HtmlParser.Interface.ImageSpanOnclickListener;
 import com.yanxiu.gphone.student.HtmlParser.Span.ImageClickableSpan;
+import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.view.ClozzTextview;
 
 /**
@@ -40,14 +42,37 @@ public class MyImageSpan extends ImageClickableSpan {
     }
 
     @Override
+    public Drawable getDrawable() {
+        Drawable d=super.getDrawable();
+        Rect rect=d.getBounds();
+        Drawable drawable=null;
+        if (buttonbean.isSelect()){
+            //选中
+            drawable=ContextCompat.getDrawable(context,R.drawable.nowanswer);
+            drawable.setBounds(rect.left,rect.top,rect.right,rect.bottom);
+        }else {
+            if (TextUtils.isEmpty(buttonbean.getText())){
+                //未作答
+                drawable=ContextCompat.getDrawable(context,R.drawable.noanswer);
+                drawable.setBounds(rect.left,rect.top,rect.right,rect.bottom);
+            }else {
+                //已做答
+                drawable=ContextCompat.getDrawable(context,R.drawable.answer);
+                drawable.setBounds(rect.left,rect.top,rect.right,rect.bottom);
+            }
+        }
+        return drawable;
+    }
+
+    @Override
     public void draw(Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom, Paint paint) {
         Drawable b = getDrawable();
-        Rect rect=b.getBounds();
+//        Rect rect=b.getBounds();
 
         Paint.FontMetricsInt fm = paint.getFontMetricsInt();
         int transY = (y + fm.descent + y + fm.ascent) / 2 - b.getBounds().bottom / 2;
 
-        b.setBounds(0,0,rect.width(),(fm.descent-fm.ascent));
+//        b.setBounds(0,0,rect.width(),(fm.descent-fm.ascent));
 
         canvas.save();
         canvas.translate(x, transY);

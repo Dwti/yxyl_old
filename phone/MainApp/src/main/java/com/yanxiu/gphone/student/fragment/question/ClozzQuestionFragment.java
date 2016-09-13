@@ -9,11 +9,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.activity.AnswerViewActivity;
+import com.yanxiu.gphone.student.activity.BaseAnswerViewActivity;
+import com.yanxiu.gphone.student.activity.ResolutionAnswerViewActivity;
 import com.yanxiu.gphone.student.activity.WrongAnswerViewActivity;
 import com.yanxiu.gphone.student.adapter.AnswerAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
+import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.inter.AnswerCallback;
 import com.yanxiu.gphone.student.inter.OnPushPullTouchListener;
 import com.yanxiu.gphone.student.view.ClozzTextview;
@@ -39,6 +44,7 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
     private ViewPager vpAnswer;
     private AnswerAdapter adapter;
     private int pageCount = 1;
+    private boolean isVisibleToUser;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +73,26 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
     }
 
     private void listener() {
+        fill_blanks_button.setListener(new ClozzTextview.QuestionPositionSelectListener() {
+            @Override
+            public void QuestionPosition(ClozzTextview.Buttonbean buttonbean) {
+                if (vpAnswer != null) {
+                    int count = adapter.getCount();
+                    if (buttonbean.getId() < count) {
+                        vpAnswer.setCurrentItem(buttonbean.getId());
+                    }
+                }
+            }
+        });
+    }
 
+    @Override
+    public int getChildCount() {
+        if (adapter != null) {
+            return adapter.getCount();
+        } else {
+            return super.getChildCount();
+        }
     }
 
     private void initview() {
@@ -81,6 +106,7 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
                 position_index=-1;
             }
             fill_blanks_button.setQuestionsEntity(questionsEntity,position_index);
+            fill_blanks_button.setDataSources(questionsEntity.getAnswerBean());
             fill_blanks_button.setData(questionsEntity.getStem());
             fill_blanks_button.setAnswers(questionsEntity.getAnswer());
         }
@@ -109,13 +135,83 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
         adapter.setViewPager(vpAnswer);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (bean == null) {
+            bean = questionsEntity.getAnswerBean();
+        }
+//        setDataSources(bean);
+        if (fill_blanks_button != null) {
+            fill_blanks_button.setDataSources(bean);
+        }
+        LogInfo.log("geny", "onResume");
+        if (vpAnswer != null) {
+            if (!is_reduction) {
+                vpAnswer.setCurrentItem(childPagerIndex);
+            } else {
+                vpAnswer.setCurrentItem(adapter.getCount() - 1);
+            }
+        }
+
+        if (!ischild&&isVisibleToUser){
+            if (!ischild) {
+                if (adapter != null) {
+                    ((QuestionsListener) getActivity()).flipNextPager(adapter);
+                }
+            }
+        }
+    }
+
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        this.isVisibleToUser = isVisibleToUser;
+        if (!isVisibleToUser) {
+            if (fill_blanks_button != null) {
+                if (bean != null) {
+                    fill_blanks_button.saveAnswers();
+                }
+            }
+        } else {
+
+            if (vpAnswer != null) {
+                if (!is_reduction) {
+                    vpAnswer.setCurrentItem(0);
+                } else {
+                    vpAnswer.setCurrentItem(adapter.getCount() - 1);
+                }
+            }
+
+            if (!ischild) {
+                if (adapter != null) {
+                    ((QuestionsListener) getActivity()).flipNextPager(adapter);
+                }
+            }
+
+        }
+    }
+
+    @Override
+    public void setRefresh() {
+        super.setRefresh();
+        if (vpAnswer != null) {
+            if (!is_reduction) {
+                vpAnswer.setCurrentItem(childPagerIndex);
+            } else {
+                vpAnswer.setCurrentItem(adapter.getCount() - 1);
+            }
+        }
+    }
+
     public void onPageCount(int count) {
         pageCount = count;
     }
 
     @Override
     public void answercallback(int position, String answer) {
-
+        if (fill_blanks_button != null) {
+            fill_blanks_button.setAnswersToPosition(position, answer);
+        }
     }
 
     @Override
@@ -125,7 +221,28 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
 
     @Override
     public void onPageSelected(int position) {
-
+        if(answerViewTypyBean == SubjectExercisesItemBean.ANSWER_QUESTION) {
+            int costtime = AnswerViewActivity.totalTime - AnswerViewActivity.lastTime;
+            AnswerViewActivity.lastTime = AnswerViewActivity.totalTime;
+            adapter.setCostTime(costtime, questionsEntity.getPageIndex(), childPagerIndex);
+            childPagerIndex = position;
+            AnswerViewActivity.childIndex = position;
+        }
+        if (questionsEntity != null) {
+            pageCountIndex = pageIndex + position;
+            if (this.getActivity() instanceof AnswerViewActivity && isVisibleToUser) {
+                ((AnswerViewActivity) this.getActivity()).setIndexFromRead(pageCountIndex);
+//                ((AnswerViewActivity) this.getActivity()).setIndexNext(pageCountIndex+getChildCount());
+            } else if (this.getActivity() instanceof ResolutionAnswerViewActivity && isVisibleToUser) {
+                ((ResolutionAnswerViewActivity) this.getActivity()).setIndexFromRead(pageCountIndex);
+            }else if (this.getActivity() instanceof WrongAnswerViewActivity && isVisibleToUser) {
+                ((WrongAnswerViewActivity) this.getActivity()).setIndexFromRead(pageCountIndex);
+            }
+            if (fill_blanks_button != null) {
+                fill_blanks_button.setTextViewSelect(position);
+            }
+        }
+        ((BaseAnswerViewActivity) getActivity()).setPagerSelect(adapter.getCount(), position);
     }
 
     @Override
@@ -160,6 +277,10 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
 
     @Override
     public void answerViewClick() {
-
+        if (fill_blanks_button != null) {
+            if (bean != null) {
+                fill_blanks_button.saveAnswers();
+            }
+        }
     }
 }
