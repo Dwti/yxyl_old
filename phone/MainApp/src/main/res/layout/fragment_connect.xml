@@ -14,13 +14,13 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingLeft="@dimen/dimen_20"
+        android:paddingRight="@dimen/dimen_10"
         android:fillViewport="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/dimen_20"
-            android:layout_marginRight="@dimen/dimen_10"
             android:paddingBottom="@dimen/dimen_30">
 
             <FrameLayout

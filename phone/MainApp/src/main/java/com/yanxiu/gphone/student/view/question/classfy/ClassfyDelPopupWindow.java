@@ -32,6 +32,7 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
     private TextView classfyDelPopText;
     private String classfyDelPopString;
     private int position;
+    private int mNum;
     private ClassfyAnswers vgClassfyAnswers;
     private UnMoveGridView lgClassfyAnswers;
 
@@ -59,14 +60,17 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
                 classfyPopItem.remove(i);
                 mQuestionsEntity.getAnswerBean().getConnect_classfy_answer().get(position).remove(i);
                 classfyAnswerPopupAdapter.setData(classfyPopItem);
+                mNum = mNum - 1;
+                classfyDelPopText.setText(classfyDelPopString+"("+mNum+")");
             }
         });
         loadingData();
     }
 
-    public void init(QuestionEntity questionsEntity, String str, int i){
+    public void init(QuestionEntity questionsEntity, String str, int num, int i){
         mQuestionsEntity = questionsEntity;
         classfyDelPopString = str;
+        mNum = num;
         position = i;
         classfyPopItem.clear();
         for (String string: mQuestionsEntity.getAnswerBean().getConnect_classfy_answer().get(position)) {
@@ -78,11 +82,11 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
 
     @Override
     public void loadingData() {
-        classfyDelPopText.setText(classfyDelPopString);
+        classfyDelPopText.setText(classfyDelPopString+"("+mNum+")");
         if (mQuestionsEntity != null && mQuestionsEntity.getStem() != null) {
             if (mQuestionsEntity.getContent() != null && mQuestionsEntity.getContent().getChoices() != null
                     && mQuestionsEntity.getContent().getChoices().size() > 0) {
-                if (mQuestionsEntity.getContent().getChoices().get(0).contains(YanXiuConstant.IMG_SRC+"UU")) {
+                if (mQuestionsEntity.getContent().getChoices().get(0).contains(YanXiuConstant.IMG_SRC)) {
                     classfyAnswerPopupAdapter.setData(classfyPopItem);
                     lgClassfyAnswers.setVisibility(View.VISIBLE);
                     vgClassfyAnswers.setVisibility(View.GONE);
@@ -100,6 +104,8 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
                             public void onClick(View view) {
                                 vgClassfyAnswers.removeView(containerView);
                                 mQuestionsEntity.getAnswerBean().getConnect_classfy_answer().get(position).remove(String.valueOf(((ClassfyBean)containerView.getTag()).getId()));
+                                mNum = mNum - 1;
+                                classfyDelPopText.setText(classfyDelPopString+"("+mNum+")");
                             }
                         });
                         containerView.getLayoutParams();
