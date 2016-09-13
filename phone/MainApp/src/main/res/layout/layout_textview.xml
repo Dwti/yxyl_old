@@ -7,7 +7,7 @@
     android:padding="@dimen/dimen_9"
     android:textSize="@dimen/dimen_15"
     android:gravity="center_horizontal"
-    android:background="@drawable/selector_judge_item"
+    android:background="@drawable/judge_item_pre"
     android:textColor="@color/color_333333">
 </TextView>
 

@@ -8,6 +8,18 @@ public class ClassfyBean {
 
     private String name;
 
+    public boolean isSelect() {
+        return select;
+    }
+
+    public void setSelect(boolean select) {
+        this.select = select;
+    }
+
+    private boolean select;
+
+
+
     public ClassfyBean (int id, String name) {
         this.id = id;
         this.name = name;

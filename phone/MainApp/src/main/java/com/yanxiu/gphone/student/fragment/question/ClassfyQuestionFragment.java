@@ -87,6 +87,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_classfy_question, null);
         }
         initView();
+        selectTypeView();
         initData();
         return rootView;
     }
@@ -112,7 +113,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
 
     private void initData() {
         createClassItem();
-        questionsEntity.getAnswerBean().getConnect_classfy_answer().clear();
+        //questionsEntity.getAnswerBean().getConnect_classfy_answer().clear();
         if (questionsEntity != null && questionsEntity.getStem() != null) {
             tvYanxiu.setTextHtml(questionsEntity.getStem());
             filterClassItem();
@@ -150,6 +151,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                         if (classfyItem.get(0).getName().contains(YanXiuConstant.IMG_SRC)) {
                             questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).add(choiceTmpString);
                             classfyItem.remove(position);
+                            classfyAnswerAdapter.setSeclection(-1);
                             classfyAnswerAdapter.setData(classfyItem);
                             classfyQuestionAdapter.setData(questionsEntity);
                             choiceTmpString = null;
@@ -350,7 +352,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     public void onClick(View view) {
         choiceTmpString = String.valueOf(((ClassfyBean)view.getTag()).getId());
         mRemoveBean = (ClassfyBean)view.getTag();
-
+        vgClassfyAnswers.setViewBackground(mRemoveBean.getId());
         mRemoveView = view;
     }
 
@@ -372,8 +374,12 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             for (int j=0; j<answerListStr.size(); j++) {
                 Iterator<ClassfyBean> classfyBean = classfyItem.iterator();
                 while (classfyBean.hasNext()) {
-                    if (Integer.parseInt(answerListStr.get(j)) == classfyBean.next().getId()){
-                        classfyBean.remove();
+                    try {
+                        if (Integer.parseInt(answerListStr.get(j)) == classfyBean.next().getId()) {
+                            classfyBean.remove();
+                        }
+                    } catch (NumberFormatException e) {
+
                     }
                 }
                 //classfyItem.remove(Integer.parseInt(answerListStr.get(j)));
