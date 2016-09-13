@@ -237,4 +237,15 @@ public class ClassfyAnswers extends ViewGroup {
     }
 
 
+    public void setViewBackground(int id){
+        int number=this.getChildCount();
+        for (int i=0;i<number;i++){
+            if (((ClassfyBean)this.getChildAt(i).getTag()).getId() == id) {
+                this.getChildAt(i).setBackgroundResource(R.drawable.noanswer);
+            } else {
+                this.getChildAt(i).setBackgroundResource(R.drawable.judge_item_pre);
+            }
+        }
+    }
+
 }

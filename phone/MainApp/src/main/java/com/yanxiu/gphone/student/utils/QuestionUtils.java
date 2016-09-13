@@ -375,7 +375,9 @@ public class QuestionUtils {
                                 String arrayJSONArray[]= array.getString(k).split(",");
                                 ArrayList<String> list=new ArrayList<String>();
                                 for (int l=0;l<arrayJSONArray.length;l++){
-                                    list.add(arrayJSONArray[l]);
+                                    if (!TextUtils.isEmpty(arrayJSONArray[l])) {
+                                        list.add(arrayJSONArray[l]);
+                                    }
                                 }
                                 answerChildBean.getConnect_classfy_answer().add(list);
                             }

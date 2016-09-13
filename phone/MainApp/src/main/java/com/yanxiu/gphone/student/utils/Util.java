@@ -349,7 +349,9 @@ public class Util {
                             json = json + "," + stringArrayList.get(k);
                         }
                     }
-                    array.put(json);
+//                    if (!TextUtils.isEmpty(json)) {
+                        array.put(json);
+//                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
