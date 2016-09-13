@@ -78,7 +78,8 @@ public class QuestionFragmentFactory {
                 fragment = new ReadComplexQuestionFragment();
                 break;
             case QUESTION_CLOZE_COMPLEX:
-                fragment = new GestaltFillBlanksQuestionFragment();
+//                fragment = new GestaltFillBlanksQuestionFragment();
+                fragment = new ClozzQuestionFragment();
                 break;
             case QUESTION_SOLVE_COMPLEX:
                 fragment = new SolveComplexQuestionFragment();
