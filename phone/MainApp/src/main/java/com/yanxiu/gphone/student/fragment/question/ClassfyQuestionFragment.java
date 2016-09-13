@@ -112,13 +112,13 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
 
     private void initData() {
         createClassItem();
-        //questionsEntity.getAnswerBean().getConnect_classfy_answer().clear();
+        questionsEntity.getAnswerBean().getConnect_classfy_answer().clear();
         if (questionsEntity != null && questionsEntity.getStem() != null) {
             tvYanxiu.setTextHtml(questionsEntity.getStem());
             filterClassItem();
-            if (questionsEntity.getPoint() != null) {
+            if (questionsEntity.getAnswer() != null) {
                 if (questionsEntity.getAnswerBean().getConnect_classfy_answer().size() == 0){
-                    for (int j=0; j<questionsEntity.getPoint().size(); j++) {
+                    for (int j=0; j<questionsEntity.getAnswer().size(); j++) {
                         ArrayList<String> list = new ArrayList<String>();
                         questionsEntity.getAnswerBean().getConnect_classfy_answer().add(list);
                     }
@@ -135,7 +135,15 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
 
                     if (StringUtils.isEmpty(choiceTmpString)) {
                         classfyPopupWindow = new ClassfyDelPopupWindow(getActivity());
-                        classfyPopupWindow.init(questionsEntity, questionsEntity.getPoint().get(i).getName() , questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).size(), i);
+                        JSONObject object = null;
+                        String string = null;
+                        try {
+                            object = new JSONObject(questionsEntity.getAnswer().get(position));
+                            string = object.getString("name");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        classfyPopupWindow.init(questionsEntity, string, questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).size(), i);
                         classfyPopupWindow.setOnDissmissListener(ClassfyQuestionFragment.this);
                         classfyPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
                     } else {

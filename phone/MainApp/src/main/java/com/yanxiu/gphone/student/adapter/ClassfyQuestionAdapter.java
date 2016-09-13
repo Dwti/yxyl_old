@@ -11,6 +11,9 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectVersionBean;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +39,15 @@ public class ClassfyQuestionAdapter extends BaseAdapter {
         }else{
             holder= (ViewHolder) convertView.getTag();
         }
-        holder.classfyQuestionName.setText(questionsEntity.getPoint().get(position).getName());
+        JSONObject object = null;
+        String string = null;
+        try {
+            object = new JSONObject(questionsEntity.getAnswer().get(position));
+            string = object.getString("name");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        holder.classfyQuestionName.setText(string);
         holder.classfyQuestionNum.setText("(" + questionsEntity.getAnswerBean().getConnect_classfy_answer().get(position).size() + ")");
         return convertView;
     }
@@ -51,7 +62,7 @@ public class ClassfyQuestionAdapter extends BaseAdapter {
         if (questionsEntity == null) {
             return 0;
         }
-        return questionsEntity.getPoint().size();//返回数组的长度
+        return questionsEntity.getAnswer().size();//返回数组的长度
     }
 
     @Override
