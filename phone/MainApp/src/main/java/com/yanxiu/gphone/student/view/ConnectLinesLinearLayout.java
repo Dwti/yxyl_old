@@ -26,7 +26,6 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
     private static final int checked_old = R.drawable.connect_old;
     private Context context;
     private LinearLayout linear;
-//    private LinearLayout linear_right;
     private Connectlines mylines;
     private List<BaseBean> list = new ArrayList<BaseBean>();
     private List<String> mDatas = new ArrayList<String>();
@@ -53,7 +52,6 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
         this.context = context;
         LayoutInflater.from(context).inflate(R.layout.connect_lineslinear, this);
         linear = (LinearLayout) this.findViewById(R.id.linear);
-//        linear_right = (LinearLayout) this.findViewById(R.id.linear_right);
         mylines = (Connectlines) this.findViewById(R.id.mylines);
     }
 
