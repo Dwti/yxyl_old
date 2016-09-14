@@ -10,7 +10,7 @@
             android:layout_width="@dimen/dimen_50"
             android:layout_height="@dimen/dimen_50"
             android:padding="@dimen/dimen_10"
-            android:background="@drawable/classfy_text_item_bg"
+            android:background="@drawable/upload_pic"
             />
         <ImageView
             android:id="@+id/widget_title_icon"

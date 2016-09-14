@@ -106,14 +106,15 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
         lgClassfyAnswers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                choiceTmpString = String.valueOf(classfyItem.get(i).getId());
 
                 if (mRemoveBean == classfyItem.get(i)) {
                     classfyAnswerAdapter.setSeclection(-1);
                     mRemoveBean = null;
+                    choiceTmpString = "";
                 } else {
                     classfyAnswerAdapter.setSeclection(i);
                     mRemoveBean = classfyItem.get(i);
+                    choiceTmpString = String.valueOf(classfyItem.get(i).getId());
                 }
                 classfyAnswerAdapter.notifyDataSetChanged();
             }
@@ -316,7 +317,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                 answerBean.setIsRight(false);
             } else {
                 for (int j = 0; j < ss.length; j++) {
-                    if (!answerlist.get(i).get(j).equals(ss[j])) {
+                    if (!answerlist.get(i).contains(ss[j])) {
                         answerBean.setIsRight(false);
                     }
                 }
@@ -375,9 +376,15 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
 
     @Override
     public void onClick(View view) {
-        choiceTmpString = String.valueOf(((ClassfyBean)view.getTag()).getId());
-        mRemoveBean = (ClassfyBean)view.getTag();
-        vgClassfyAnswers.setViewBackground(mRemoveBean.getId());
+        if (mRemoveBean == (ClassfyBean)view.getTag()) {
+            vgClassfyAnswers.setViewBackground(-1);
+            mRemoveBean = null;
+            choiceTmpString = "";
+        } else {
+            mRemoveBean = (ClassfyBean)view.getTag();
+            vgClassfyAnswers.setViewBackground(mRemoveBean.getId());
+            choiceTmpString = String.valueOf(((ClassfyBean)view.getTag()).getId());
+        }
         mRemoveView = view;
     }
 

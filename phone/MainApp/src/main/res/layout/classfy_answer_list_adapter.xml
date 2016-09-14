@@ -9,6 +9,6 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:padding="@dimen/dimen_10"
-            android:background="@drawable/classfy_text_item_bg"
+            android:background="@drawable/upload_pic"
             />
 </LinearLayout>

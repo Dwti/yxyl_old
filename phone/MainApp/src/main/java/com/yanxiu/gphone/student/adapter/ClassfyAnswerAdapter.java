@@ -62,7 +62,7 @@ public class ClassfyAnswerAdapter extends BaseAdapter {
         if(clickTemp == position) {    //根据点击的Item当前状态设置背景
             holder.classfyAnswerImg.setBackgroundResource(R.drawable.noanswer);
         } else {
-            holder.classfyAnswerImg.setBackgroundResource(R.drawable.classfy_text_item_bg);
+            holder.classfyAnswerImg.setBackgroundResource(R.drawable.upload_pic);
         }
         return convertView;
     }
