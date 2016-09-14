@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="@dimen/dimen_110"
-              android:layout_height="wrap_content"
-              android:layerType="software"
+              android:layout_height="match_parent"
+
               android:background="@drawable/login_and_pwd_selector"
               android:paddingLeft="@dimen/dimen_15"
               android:paddingRight="@dimen/dimen_15"
