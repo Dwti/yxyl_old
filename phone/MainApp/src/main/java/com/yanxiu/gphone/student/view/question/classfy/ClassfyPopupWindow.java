@@ -5,7 +5,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -13,7 +12,6 @@ import com.common.core.utils.BasePopupWindow;
 import com.common.core.view.UnMoveGridView;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.ClassfyAnswerAdapter;
-import com.yanxiu.gphone.student.adapter.ClassfyAnswerPopupAdapter;
 import com.yanxiu.gphone.student.bean.ClassfyBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
@@ -52,19 +50,6 @@ public class ClassfyPopupWindow extends BasePopupWindow  {
         lgClassfyAnswers = (UnMoveGridView) view.findViewById(R.id.classfy_icon_item);
         classfyAnswerPopupAdapter = new ClassfyAnswerAdapter((Activity)mContext);
         lgClassfyAnswers.setAdapter(classfyAnswerPopupAdapter);
-        lgClassfyAnswers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                classfyPopItem.remove(i);
-                mQuestionsEntity.getAnswerBean().getConnect_classfy_answer().get(position).remove(i);
-                classfyAnswerPopupAdapter.setData(classfyPopItem);
-                mNum = mNum - 1;
-                classfyDelPopText.setText(classfyDelPopString+"("+mNum+")");
-                if (mNum == 0) {
-                    ClassfyPopupWindow.this.dismiss();
-                }
-            }
-        });
         loadingData();
     }
 
@@ -94,7 +79,7 @@ public class ClassfyPopupWindow extends BasePopupWindow  {
                 } else {
                     for (int i=0; i<classfyPopItem.size(); i++) {
                         LayoutInflater inflater = LayoutInflater.from(mContext);
-                        final View containerView = inflater.inflate(R.layout.layout_textview, null);
+                        final View containerView = inflater.inflate(R.layout.classfy_layout_textview, null);
                         TextView classfy_answer_popup_text = (TextView) containerView.findViewById(R.id.classfy_answer_popup_text);
                         classfy_answer_popup_text.setText(classfyPopItem.get(i).getName());
                         //view.setText(mQuestionsEntity.getContent().getChoices().get(i));
