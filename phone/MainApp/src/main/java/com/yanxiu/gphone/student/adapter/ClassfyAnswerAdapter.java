@@ -60,9 +60,9 @@ public class ClassfyAnswerAdapter extends BaseAdapter {
             ImageLoader.getInstance().displayImage(matcher.group(1), holder.classfyAnswerImg, options);
         }
         if(clickTemp == position) {    //根据点击的Item当前状态设置背景
-            convertView.setBackgroundResource(R.drawable.noanswer);
+            holder.classfyAnswerImg.setBackgroundResource(R.drawable.noanswer);
         } else {
-            convertView.setBackgroundResource(R.drawable.classfy_text_item_bg);
+            holder.classfyAnswerImg.setBackgroundResource(R.drawable.classfy_text_item_bg);
         }
         return convertView;
     }
