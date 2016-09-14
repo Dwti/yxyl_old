@@ -7,8 +7,8 @@
           >
         <ImageView
             android:id="@+id/classfyAnswerImg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/dimen_50"
+            android:layout_height="@dimen/dimen_50"
             android:padding="@dimen/dimen_10"
             android:background="@drawable/classfy_text_item_bg"
             />
@@ -19,6 +19,7 @@
             android:layout_gravity="top|right"
             android:adjustViewBounds="true"
             android:paddingTop="-10dp"
+            android:paddingRight="18dp"
             android:scaleType="fitStart"
             android:src="@drawable/classfy_del_icon" />
 </FrameLayout>
