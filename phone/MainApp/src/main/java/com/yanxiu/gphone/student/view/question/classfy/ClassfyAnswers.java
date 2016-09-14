@@ -240,9 +240,9 @@ public class ClassfyAnswers extends ViewGroup {
         int number=this.getChildCount();
         for (int i=0;i<number;i++){
             if (((ClassfyBean)this.getChildAt(i).getTag()).getId() == id) {
-                this.getChildAt(i).setBackgroundResource(R.drawable.noanswer);
+                this.getChildAt(i).setAlpha(0.5f);
             } else {
-                this.getChildAt(i).setBackgroundResource(R.drawable.judge_item_pre);
+                this.getChildAt(i).setAlpha(1.0f);
             }
         }
     }
