@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.common.core.utils.BasePopupWindow;
@@ -29,6 +30,7 @@ import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 import com.yanxiu.gphone.student.view.question.classfy.ClassfyAnswers;
 import com.yanxiu.gphone.student.view.question.classfy.ClassfyDelPopupWindow;
+import com.yanxiu.gphone.student.view.question.classfy.ClassfyPopupWindow;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,7 +57,6 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
 
     private ClassfyQuestionAdapter classfyQuestionAdapter;
     private ClassfyAnswerAdapter classfyAnswerAdapter;
-    private ClassfyDelPopupWindow classfyPopupWindow;
 
     private boolean isVisibleToUser;
     private Fragment resolutionFragment;
@@ -64,6 +65,9 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     private int position;
     private View mRemoveView;
     private ClassfyBean mRemoveBean;
+
+    private ClassfyPopupWindow classfyPopupWindow;
+    private ClassfyDelPopupWindow classfyDelPopupWindow;
 
     private List<ClassfyBean> classfyItem = new ArrayList<ClassfyBean>();
     //private List<ArrayList<ClassfyBean>> pointItem = new ArrayList<ArrayList<ClassfyBean>>();
@@ -103,16 +107,35 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 choiceTmpString = String.valueOf(classfyItem.get(i).getId());
-                classfyAnswerAdapter.setSeclection(i);
+
+                if (mRemoveBean == classfyItem.get(i)) {
+                    classfyAnswerAdapter.setSeclection(-1);
+                    mRemoveBean = null;
+                } else {
+                    classfyAnswerAdapter.setSeclection(i);
+                    mRemoveBean = classfyItem.get(i);
+                }
                 classfyAnswerAdapter.notifyDataSetChanged();
             }
         });
         classfyAnswerAdapter = new ClassfyAnswerAdapter(getActivity());
         lgClassfyAnswers.setAdapter(classfyAnswerAdapter);
+        classfyPopupWindow = new ClassfyPopupWindow(getActivity());
+        classfyPopupWindow.setOnDissmissListener(ClassfyQuestionFragment.this);
+        classfyDelPopupWindow = new ClassfyDelPopupWindow(getActivity());
+        classfyDelPopupWindow.setOnDissmissListener(ClassfyQuestionFragment.this);
     }
 
     private void initData() {
         createClassItem();
+        JSONObject object = null;
+        String string = null;
+        try {
+            object = new JSONObject(questionsEntity.getAnswer().get(position));
+            string = object.getString("name");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         //questionsEntity.getAnswerBean().getConnect_classfy_answer().clear();
         if (questionsEntity != null && questionsEntity.getStem() != null) {
             tvYanxiu.setTextHtml(questionsEntity.getStem());
@@ -130,27 +153,26 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             }
             answerBean = questionsEntity.getAnswerBean();
             classfyQuestionAdapter.setData(questionsEntity);
+            final String finalString = string;
             gvClassfyQuestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                     if (StringUtils.isEmpty(choiceTmpString)) {
-                        classfyPopupWindow = new ClassfyDelPopupWindow(getActivity());
-                        JSONObject object = null;
-                        String string = null;
-                        try {
-                            object = new JSONObject(questionsEntity.getAnswer().get(position));
-                            string = object.getString("name");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        if (questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).size() > 0) {
+                            if (answerViewTypyBean == SubjectExercisesItemBean.RESOLUTION || answerViewTypyBean == SubjectExercisesItemBean.WRONG_SET) {
+                                classfyPopupWindow.init(questionsEntity, finalString, questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).size(), i);
+                                classfyPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+                            } else {
+                                classfyDelPopupWindow.init(questionsEntity, finalString, questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).size(), i);
+                                classfyDelPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+                            }
                         }
-                        classfyPopupWindow.init(questionsEntity, string, questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).size(), i);
-                        classfyPopupWindow.setOnDissmissListener(ClassfyQuestionFragment.this);
-                        classfyPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+
                     } else {
                         if (classfyItem.get(0).getName().contains(YanXiuConstant.IMG_SRC)) {
                             questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).add(choiceTmpString);
-                            classfyItem.remove(position);
+                            classfyItem.remove(mRemoveBean);
                             classfyAnswerAdapter.setSeclection(-1);
                             classfyAnswerAdapter.setData(classfyItem);
                             classfyQuestionAdapter.setData(questionsEntity);
@@ -175,6 +197,9 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             lgClassfyAnswers.setVisibility(View.GONE);
             vgClassfyAnswers.setVisibility(View.VISIBLE);
         }
+
+
+
     }
 
 

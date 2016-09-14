@@ -2,14 +2,11 @@ package com.yanxiu.gphone.student.view.question.classfy;
 
 import android.app.Activity;
 import android.content.Context;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.common.core.utils.BasePopupWindow;
@@ -27,7 +24,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/9/1.
  */
-public class ClassfyDelPopupWindow extends BasePopupWindow  {
+public class ClassfyPopupWindow extends BasePopupWindow  {
     private QuestionEntity mQuestionsEntity;
     private TextView classfyDelPopText;
     private String classfyDelPopString;
@@ -39,8 +36,8 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
     private List<ClassfyBean> classfyPopItem = new ArrayList<ClassfyBean>();
     private int mViewType;
 
-    private ClassfyAnswerPopupAdapter classfyAnswerPopupAdapter;
-    public ClassfyDelPopupWindow(Context mContext) {
+    private ClassfyAnswerAdapter classfyAnswerPopupAdapter;
+    public ClassfyPopupWindow(Context mContext) {
         super(mContext);
     }
 
@@ -53,7 +50,7 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
         classfyDelPopText = (TextView)view.findViewById(R.id.classfyDelPopText);
         vgClassfyAnswers = (ClassfyAnswers) view.findViewById(R.id.classfy_text_item);
         lgClassfyAnswers = (UnMoveGridView) view.findViewById(R.id.classfy_icon_item);
-        classfyAnswerPopupAdapter = new ClassfyAnswerPopupAdapter(mContext);
+        classfyAnswerPopupAdapter = new ClassfyAnswerAdapter((Activity)mContext);
         lgClassfyAnswers.setAdapter(classfyAnswerPopupAdapter);
         lgClassfyAnswers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -64,7 +61,7 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
                 mNum = mNum - 1;
                 classfyDelPopText.setText(classfyDelPopString+"("+mNum+")");
                 if (mNum == 0) {
-                    ClassfyDelPopupWindow.this.dismiss();
+                    ClassfyPopupWindow.this.dismiss();
                 }
             }
         });
@@ -97,24 +94,10 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
                 } else {
                     for (int i=0; i<classfyPopItem.size(); i++) {
                         LayoutInflater inflater = LayoutInflater.from(mContext);
-                        final View containerView = inflater.inflate(R.layout.layout_textview_image, null);
+                        final View containerView = inflater.inflate(R.layout.layout_textview, null);
                         TextView classfy_answer_popup_text = (TextView) containerView.findViewById(R.id.classfy_answer_popup_text);
                         classfy_answer_popup_text.setText(classfyPopItem.get(i).getName());
                         //view.setText(mQuestionsEntity.getContent().getChoices().get(i));
-
-                        ImageView widget_title_icon = (ImageView) containerView.findViewById(R.id.widget_title_icon);
-                        widget_title_icon.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                vgClassfyAnswers.removeView(containerView);
-                                mQuestionsEntity.getAnswerBean().getConnect_classfy_answer().get(position).remove(String.valueOf(((ClassfyBean)containerView.getTag()).getId()));
-                                mNum = mNum - 1;
-                                classfyDelPopText.setText(classfyDelPopString+"("+mNum+")");
-                                if (mNum == 0) {
-                                    ClassfyDelPopupWindow.this.dismiss();
-                                }
-                            }
-                        });
                         containerView.getLayoutParams();
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                         lp.setMargins(8, 8, 8, 8);
