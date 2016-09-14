@@ -366,25 +366,6 @@ public class QuestionUtils {
                                 }
                             }
                         }
-                    } else if (questionEntity.getTemplate().equals(YanXiuConstant.CONNECT_QUESTION)
-                            || questionEntity.getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)){
-                        AnswerBean answerChildBean = questionEntity.getAnswerBean();
-                        try {
-                            JSONArray array=new JSONArray(jsonAnswer);
-                            for (int k=0;k<array.length();k++){
-                                String arrayJSONArray[]= array.getString(k).split(",");
-                                ArrayList<String> list=new ArrayList<String>();
-                                for (int l=0;l<arrayJSONArray.length;l++){
-                                    if (!TextUtils.isEmpty(arrayJSONArray[l])) {
-                                        list.add(arrayJSONArray[l]);
-                                    }
-                                }
-                                answerChildBean.getConnect_classfy_answer().add(list);
-                            }
-                            answerChildBean.setStatus(questionEntity.getPad().getStatus());
-                        }catch (Exception e){
-
-                        }
                     }else {
                         int status = questionEntity.getPad().getStatus();
                         int costTime = questionEntity.getPad().getCosttime();
@@ -395,31 +376,58 @@ public class QuestionUtils {
                         //此处分为需要老师批改跟不需要老师批改两种情况处理（即主观题与非主观题）
                         if (!YanXiuConstant.ANSWER_QUESTION.equals(template)) {
                             //非主观题
-                            if (answerList != null && !answerList.isEmpty()) {
-                                if (status == AnswerBean.ANSER_RIGHT)
-                                    answerBean.setIsRight(true);
-                                answerBean.setIsFinish(true);
-                                if (YanXiuConstant.SINGLE_CHOICES.equals(template)) {
-                                    answerBean.setSelectType(answerList.get(0));
-                                } else if (YanXiuConstant.MULTI_CHOICES.equals(template)) {
-                                    answerBean.setMultiSelect((ArrayList<String>) answerList);
-                                } else if (YanXiuConstant.JUDGE_QUESTION.equals(template)) {
-                                    answerBean.setSelectType(answerList.get(0));
-                                } else if (YanXiuConstant.FILL_BLANK.equals(template) || YanXiuConstant.NEW_FILL_BLANK.equals(template)) {
-                                    answerBean.setFillAnswers((ArrayList<String>) answerList);
-                                }
-                                //如果是填空题，需要再次确认一下是不是所有的空全填完了（没填完的空是""）
-                                if (YanXiuConstant.FILL_BLANK.equals(template) || YanXiuConstant.NEW_FILL_BLANK.equals(template)){
-                                    for(String str: answerList){
-                                        if (TextUtils.isEmpty(str)){
-                                            answerBean.setIsFinish(false);
-                                            break;
+                            if (!YanXiuConstant.CONNECT_QUESTION.equals(template)&&!YanXiuConstant.CLASSIFY_QUESTION.equals(template)){
+                                if (answerList != null && !answerList.isEmpty()) {
+                                    if (status == AnswerBean.ANSER_RIGHT)
+                                        answerBean.setIsRight(true);
+                                    answerBean.setIsFinish(true);
+                                    if (YanXiuConstant.SINGLE_CHOICES.equals(template)) {
+                                        answerBean.setSelectType(answerList.get(0));
+                                    } else if (YanXiuConstant.MULTI_CHOICES.equals(template)) {
+                                        answerBean.setMultiSelect((ArrayList<String>) answerList);
+                                    } else if (YanXiuConstant.JUDGE_QUESTION.equals(template)) {
+                                        answerBean.setSelectType(answerList.get(0));
+                                    } else if (YanXiuConstant.FILL_BLANK.equals(template) || YanXiuConstant.NEW_FILL_BLANK.equals(template)) {
+                                        answerBean.setFillAnswers((ArrayList<String>) answerList);
+                                    }
+                                    //如果是填空题，需要再次确认一下是不是所有的空全填完了（没填完的空是""）
+                                    if (YanXiuConstant.FILL_BLANK.equals(template) || YanXiuConstant.NEW_FILL_BLANK.equals(template)){
+                                        for(String str: answerList){
+                                            if (TextUtils.isEmpty(str)){
+                                                answerBean.setIsFinish(false);
+                                                break;
+                                            }
                                         }
                                     }
+                                } else {
+                                    answerBean.setIsFinish(false);
                                 }
-                            } else {
-                                answerBean.setIsFinish(false);
+                            }else {
+                                try {
+                                    JSONArray array=new JSONArray(jsonAnswer);
+                                    for (int k=0;k<array.length();k++){
+                                        String arrayJSONArray[]= array.getString(k).split(",");
+                                        ArrayList<String> list=new ArrayList<String>();
+                                        for (int l=0;l<arrayJSONArray.length;l++){
+                                            if (!TextUtils.isEmpty(arrayJSONArray[l])) {
+                                                list.add(arrayJSONArray[l]);
+                                            }
+                                        }
+                                        answerBean.getConnect_classfy_answer().add(list);
+                                    }
+                                    if (answerBean.getConnect_classfy_answer().size()>0){
+                                        answerBean.setIsFinish(true);
+                                        List<String> list=questionEntity.getAnswer();
+                                        answerBean.setIsRight(CheckConnect_classfy_answer(list,answerBean.getConnect_classfy_answer(),template));
+                                    }else {
+                                        answerBean.setIsFinish(false);
+                                        answerBean.setIsRight(false);
+                                    }
+                                }catch (Exception e){
+
+                                }
                             }
+
                         } else {
                             //主观题
                             if (questionEntity.getPad().getTeachercheck() != null) {
@@ -449,6 +457,61 @@ public class QuestionUtils {
                 }
             }
         }
+    }
+
+    public static boolean CheckConnect_classfy_answer(List<String> list,ArrayList<ArrayList<String>> answer_list,String template){
+        if (list.size()!=answer_list.size()){
+            return false;
+        }
+        boolean flag=true;
+        if (YanXiuConstant.CONNECT_QUESTION.equals(template)){
+            for (String s:list){
+                try {
+                    JSONObject object=new JSONObject(s);
+                    String s1[]=object.getString("answer").split(",");
+                    for (ArrayList<String> stringArrayList:answer_list){
+                        if (s1[0].equals(stringArrayList.get(0))){
+                            if (!s1[1].equals(stringArrayList.get(1))){
+                                flag=false;
+                            }
+                        }else if (s1[0].equals(stringArrayList.get(1))){
+                            if (!s1[1].equals(stringArrayList.get(0))){
+                                flag=false;
+                            }
+                        }
+                    }
+                }catch (Exception e){
+                    flag=false;
+                }
+            }
+        }else if (YanXiuConstant.CLASSIFY_QUESTION.equals(template)){
+            for (int i=0;i<list.size();i++){
+                try {
+                    String s=list.get(i);
+                    JSONObject object=new JSONObject(s);
+                    String s1[]=object.getString("answer").split(",");
+                    ArrayList<String> stringArrayList=answer_list.get(i);
+                    if (s1.length!=stringArrayList.size()){
+                        flag=false;
+                    }else {
+                        for (String ss:s1){
+                            boolean cla=false;
+                            for (String sss:stringArrayList){
+                                if (ss.equals(sss)){
+                                    cla=true;
+                                }
+                            }
+                            if (!cla){
+                                flag=false;
+                            }
+                        }
+                    }
+                }catch (Exception e){
+                    flag=false;
+                }
+            }
+        }
+        return flag;
     }
 
     public static <T extends Comparable<T>> boolean compare(List<T> a, List<T> b) {

@@ -209,7 +209,11 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
     @Override
     public void OnCheckListener(BaseBean bean) {
         if (isClick) {
-            bean.setOnclick(true);
+            if (bean.isOnclick()){
+                bean.setOnclick(false);
+            }else {
+                bean.setOnclick(true);
+            }
             cleanOnclick(bean);
             checkattachment();
             setColorAndMyLines();
