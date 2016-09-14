@@ -73,6 +73,7 @@
                 android:id="@+id/classfy_icon_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:verticalSpacing="@dimen/dimen_10"
                 android:numColumns="4"
                 android:visibility="gone"/>
 

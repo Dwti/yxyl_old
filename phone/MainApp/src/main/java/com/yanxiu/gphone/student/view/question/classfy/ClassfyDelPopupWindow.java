@@ -1,6 +1,8 @@
 package com.yanxiu.gphone.student.view.question.classfy;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -48,6 +50,7 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
         classfyDelPopText = (TextView)view.findViewById(R.id.classfyDelPopText);
         vgClassfyAnswers = (ClassfyAnswers) view.findViewById(R.id.classfy_text_item);
         lgClassfyAnswers = (UnMoveGridView) view.findViewById(R.id.classfy_icon_item);
+        lgClassfyAnswers.setSelector(new ColorDrawable(Color.TRANSPARENT));
         classfyAnswerPopupAdapter = new ClassfyAnswerPopupAdapter(mContext);
         lgClassfyAnswers.setAdapter(classfyAnswerPopupAdapter);
         lgClassfyAnswers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
