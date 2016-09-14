@@ -107,8 +107,14 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 choiceTmpString = String.valueOf(classfyItem.get(i).getId());
-                mRemoveBean = classfyItem.get(i);
-                classfyAnswerAdapter.setSeclection(i);
+
+                if (mRemoveBean == classfyItem.get(i)) {
+                    classfyAnswerAdapter.setSeclection(-1);
+                    mRemoveBean = null;
+                } else {
+                    classfyAnswerAdapter.setSeclection(i);
+                    mRemoveBean = classfyItem.get(i);
+                }
                 classfyAnswerAdapter.notifyDataSetChanged();
             }
         });
