@@ -323,14 +323,18 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                 e.printStackTrace();
             }
             String ss[] = string.split(",");
-            if (answerlist.get(i) != null && ss.length != answerlist.get(i).size()) {
-                answerBean.setIsRight(false);
-            } else {
-                for (int j = 0; j < ss.length; j++) {
-                    if (!answerlist.get(i).contains(ss[j])) {
-                        answerBean.setIsRight(false);
+            if (i < answerlist.size() && answerlist.get(i) != null) {
+                if (ss.length != answerlist.get(i).size()) {
+                    answerBean.setIsRight(false);
+                } else {
+                    for (int j = 0; j < ss.length; j++) {
+                        if (!answerlist.get(i).contains(ss[j])) {
+                            answerBean.setIsRight(false);
+                        }
                     }
                 }
+            } else {
+                answerBean.setIsRight(false);
             }
         }
 
