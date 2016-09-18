@@ -65,6 +65,7 @@
             android:layout_marginBottom="@dimen/dimen_10"
             android:layout_marginLeft="@dimen/dimen_20"
             android:layout_marginTop="@dimen/dimen_10"
+            android:gravity="center_vertical"
             android:text="@string/hw_report_parse_statue_text"
             android:textColor="@color/color_666252"
             android:textSize="@dimen/dimen_15" />

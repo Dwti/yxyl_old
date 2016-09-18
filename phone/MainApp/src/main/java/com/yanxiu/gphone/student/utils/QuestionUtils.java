@@ -416,7 +416,9 @@ public class QuestionUtils {
                                         answerBean.getConnect_classfy_answer().add(list);
                                     }
 
-                                    if (answerBean.getConnect_classfy_answer().size()>0){
+
+
+                                    if (answerBean.getConnect_classfy_answer().size()>0 ){
                                         int num = 0;
                                         for (ArrayList<String> listStr:answerBean.getConnect_classfy_answer()) {
                                             num = num + listStr.size();
@@ -424,7 +426,10 @@ public class QuestionUtils {
                                         if (YanXiuConstant.CLASSIFY_QUESTION.equals(template) && num < questionEntity.getContent().getChoices().size()) {
                                             answerBean.setIsFinish(false);
                                             answerBean.setIsRight(false);
-                                        } else {
+                                        }else if (YanXiuConstant.CONNECT_QUESTION.equals(template) &&answerBean.getConnect_classfy_answer().size()<questionEntity.getAnswer().size()){
+                                            answerBean.setIsFinish(false);
+                                            answerBean.setIsRight(false);
+                                        }else {
                                             answerBean.setIsFinish(true);
                                             List<String> list = questionEntity.getAnswer();
                                             answerBean.setIsRight(CheckConnect_classfy_answer(list, answerBean.getConnect_classfy_answer(), template));
