@@ -221,6 +221,7 @@ public class ClassfyAnswers extends ViewGroup {
 
     public void setData(List<ClassfyBean> classfyItem,View.OnClickListener l){
         LayoutInflater inflater = LayoutInflater.from(context);
+        this.removeAllViews();
         for (int i=0; i<classfyItem.size(); i++) {
             final TextView view = (TextView) inflater.inflate(R.layout.classfy_layout_textview, null);
             view.setText(classfyItem.get(i).getName());
@@ -240,9 +241,9 @@ public class ClassfyAnswers extends ViewGroup {
         int number=this.getChildCount();
         for (int i=0;i<number;i++){
             if (((ClassfyBean)this.getChildAt(i).getTag()).getId() == id) {
-                this.getChildAt(i).setBackgroundResource(R.drawable.noanswer);
+                this.getChildAt(i).setAlpha(0.5f);
             } else {
-                this.getChildAt(i).setBackgroundResource(R.drawable.judge_item_pre);
+                this.getChildAt(i).setAlpha(1.0f);
             }
         }
     }

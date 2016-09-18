@@ -1,5 +1,7 @@
 package com.yanxiu.gphone.student.fragment.question;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -99,26 +101,30 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     private void initView() {
         tvYanxiu = (YXiuAnserTextView) rootView.findViewById(R.id.yxiu_tv);
         gvClassfyQuestion = (UnMoveGridView) rootView.findViewById(R.id.classfy_question_item);
+        gvClassfyQuestion.setSelector(new ColorDrawable(Color.TRANSPARENT));
         classfyQuestionAdapter = new ClassfyQuestionAdapter(getActivity());
         gvClassfyQuestion.setAdapter(classfyQuestionAdapter);
         vgClassfyAnswers = (ClassfyAnswers) rootView.findViewById(R.id.classfy_text_item);
         lgClassfyAnswers = (UnMoveGridView) rootView.findViewById(R.id.classfy_icon_item);
-        lgClassfyAnswers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        lgClassfyAnswers.setSelector(new ColorDrawable(Color.TRANSPARENT));
+        if (answerViewTypyBean != SubjectExercisesItemBean.RESOLUTION && answerViewTypyBean != SubjectExercisesItemBean.WRONG_SET) {
+            lgClassfyAnswers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (mRemoveBean == classfyItem.get(i)) {
-                    classfyAnswerAdapter.setSeclection(-1);
-                    mRemoveBean = null;
-                    choiceTmpString = "";
-                } else {
-                    classfyAnswerAdapter.setSeclection(i);
-                    mRemoveBean = classfyItem.get(i);
-                    choiceTmpString = String.valueOf(classfyItem.get(i).getId());
+                    if (mRemoveBean == classfyItem.get(i)) {
+                        classfyAnswerAdapter.setSeclection(-1);
+                        mRemoveBean = null;
+                        choiceTmpString = "";
+                    } else {
+                        classfyAnswerAdapter.setSeclection(i);
+                        mRemoveBean = classfyItem.get(i);
+                        choiceTmpString = String.valueOf(classfyItem.get(i).getId());
+                    }
+                    classfyAnswerAdapter.notifyDataSetChanged();
                 }
-                classfyAnswerAdapter.notifyDataSetChanged();
-            }
-        });
+            });
+        }
         classfyAnswerAdapter = new ClassfyAnswerAdapter(getActivity());
         lgClassfyAnswers.setAdapter(classfyAnswerAdapter);
         classfyPopupWindow = new ClassfyPopupWindow(getActivity());
@@ -194,7 +200,11 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             lgClassfyAnswers.setVisibility(View.VISIBLE);
             vgClassfyAnswers.setVisibility(View.GONE);
         } else {
-            vgClassfyAnswers.setData(classfyItem, ClassfyQuestionFragment.this);
+            if (answerViewTypyBean != SubjectExercisesItemBean.RESOLUTION && answerViewTypyBean != SubjectExercisesItemBean.WRONG_SET) {
+                vgClassfyAnswers.setData(classfyItem, ClassfyQuestionFragment.this);
+            } else {
+                vgClassfyAnswers.setData(classfyItem, null);
+            }
             lgClassfyAnswers.setVisibility(View.GONE);
             vgClassfyAnswers.setVisibility(View.VISIBLE);
         }
@@ -313,14 +323,18 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                 e.printStackTrace();
             }
             String ss[] = string.split(",");
-            if (ss.length != answerlist.get(i).size()) {
-                answerBean.setIsRight(false);
-            } else {
-                for (int j = 0; j < ss.length; j++) {
-                    if (!answerlist.get(i).contains(ss[j])) {
-                        answerBean.setIsRight(false);
+            if (i < answerlist.size() && answerlist.get(i) != null) {
+                if (ss.length != answerlist.get(i).size()) {
+                    answerBean.setIsRight(false);
+                } else {
+                    for (int j = 0; j < ss.length; j++) {
+                        if (!answerlist.get(i).contains(ss[j])) {
+                            answerBean.setIsRight(false);
+                        }
                     }
                 }
+            } else {
+                answerBean.setIsRight(false);
             }
         }
 

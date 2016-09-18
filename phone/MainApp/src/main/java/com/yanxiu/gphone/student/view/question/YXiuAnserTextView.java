@@ -73,7 +73,10 @@ public class YXiuAnserTextView extends HtmlTextView {
     public void setHtmlFlag(boolean htmlFlag){
         this.htmlFlag=htmlFlag;
     }
-
+    private boolean Flag=true;
+public void setFlag(boolean Flag){
+    this.Flag=Flag;
+}
     public void setTextHtml(String text) {
 
         mRelayout = true;
@@ -86,9 +89,13 @@ public class YXiuAnserTextView extends HtmlTextView {
 //            text=message[0];
 //        }
 //        text="某校从参加高一年级期末考试的学生中抽出60名学生，并统计了他们的物理成绩（成绩均为整数且满分为100分）<br><img src=\"http://scc.jsyxw.cn/tizi/qf1/images/3/c/1/3c186ffab98f01fdb04067d6364dda53b1c59f14.jpg\" >";
+        if (Flag) {
             imageGetter = new UilImageGetter(this, mCtx, this.application);
             Spanned spanned = Html.fromHtml(text, imageGetter, null);
             this.setText(spanned);
+        }else {
+
+        }
 //        setHtmlFromString();
 //        this.setText(text);
     }
