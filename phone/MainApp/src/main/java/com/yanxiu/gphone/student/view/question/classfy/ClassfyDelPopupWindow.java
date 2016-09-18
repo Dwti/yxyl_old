@@ -60,7 +60,7 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
                 mQuestionsEntity.getAnswerBean().getConnect_classfy_answer().get(position).remove(i);
                 classfyAnswerPopupAdapter.setData(classfyPopItem);
                 mNum = mNum - 1;
-                classfyDelPopText.setText(classfyDelPopString+"("+mNum+")");
+                classfyDelPopText.setText(classfyDelPopString+" ("+mNum+")");
                 if (mNum == 0) {
                     ClassfyDelPopupWindow.this.dismiss();
                 }

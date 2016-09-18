@@ -415,10 +415,20 @@ public class QuestionUtils {
                                         }
                                         answerBean.getConnect_classfy_answer().add(list);
                                     }
+
                                     if (answerBean.getConnect_classfy_answer().size()>0){
-                                        answerBean.setIsFinish(true);
-                                        List<String> list=questionEntity.getAnswer();
-                                        answerBean.setIsRight(CheckConnect_classfy_answer(list,answerBean.getConnect_classfy_answer(),template));
+                                        int num = 0;
+                                        for (ArrayList<String> listStr:answerBean.getConnect_classfy_answer()) {
+                                            num = num + listStr.size();
+                                        }
+                                        if (YanXiuConstant.CLASSIFY_QUESTION.equals(template) && num < questionEntity.getContent().getChoices().size()) {
+                                            answerBean.setIsFinish(false);
+                                            answerBean.setIsRight(false);
+                                        } else {
+                                            answerBean.setIsFinish(true);
+                                            List<String> list = questionEntity.getAnswer();
+                                            answerBean.setIsRight(CheckConnect_classfy_answer(list, answerBean.getConnect_classfy_answer(), template));
+                                        }
                                     }else {
                                         answerBean.setIsFinish(false);
                                         answerBean.setIsRight(false);
@@ -459,7 +469,7 @@ public class QuestionUtils {
         }
     }
 
-    public static boolean CheckConnect_classfy_answer(List<String> list,ArrayList<ArrayList<String>> answer_list,String template){
+    public static boolean CheckConnect_classfy_answer(List<String> list,ArrayList<ArrayList<String>> answer_list,String template) {
         if (list.size()!=answer_list.size()){
             return false;
         }

@@ -71,7 +71,7 @@ public class ClassfyPopupWindow extends BasePopupWindow  {
 
     @Override
     public void loadingData() {
-        classfyDelPopText.setText(classfyDelPopString+"("+mNum+")");
+        classfyDelPopText.setText(classfyDelPopString+" ("+mNum+")");
         if (mQuestionsEntity != null && mQuestionsEntity.getStem() != null) {
             if (mQuestionsEntity.getContent() != null && mQuestionsEntity.getContent().getChoices() != null
                     && mQuestionsEntity.getContent().getChoices().size() > 0) {
