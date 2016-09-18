@@ -323,7 +323,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                 e.printStackTrace();
             }
             String ss[] = string.split(",");
-            if (ss.length != answerlist.get(i).size()) {
+            if (answerlist.get(i) != null && ss.length != answerlist.get(i).size()) {
                 answerBean.setIsRight(false);
             } else {
                 for (int j = 0; j < ss.length; j++) {
