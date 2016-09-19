@@ -68,8 +68,8 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
 
     public void setData(String text){
         text=full2half(text);
-        text=text.replaceAll(" ","&nbsp;");
-        text=text.replaceAll("\\(_\\)","&nbsp;<clozz>k</clozz>&nbsp;");
+//        text=text.replaceAll(" ","&nbsp;");
+        text=text.replaceAll("\\(_\\)","<clozz>k</clozz>");
 //        text=text.replaceAll("\\(_\\)","");
         int position=text.split("<clozz>").length;
         for (int i=0;i<position-1;i++){
