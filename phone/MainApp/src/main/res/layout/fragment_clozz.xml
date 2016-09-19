@@ -48,11 +48,11 @@
                     <ScrollView
                         android:id="@+id/sv_content_top"
                         android:layout_width="match_parent"
-                        android:paddingRight="@dimen/dimen_10"
                         android:layout_height="match_parent">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_marginRight="@dimen/dimen_20"
                             android:layout_height="wrap_content">
 
                             <com.yanxiu.gphone.student.view.ClozzTextview

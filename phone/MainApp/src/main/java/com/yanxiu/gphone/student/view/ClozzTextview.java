@@ -28,6 +28,12 @@ import java.util.List;
  */
 public class ClozzTextview extends TextView implements ImageSpanOnclickListener ,QuestionsListener {
 
+    private static final char SBC_CHAR_START = 65281;
+    private static final char SBC_CHAR_END = 65374;
+    private static final int CONVERT_STEP = 65248;
+    private static final char SBC_SPACE = 12288;
+    private static final char DBC_SPACE = ' ';
+
     private Context context;
     private float textsize=16;
     private int linespacing=10;
@@ -61,7 +67,8 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
     }
 
     public void setData(String text){
-        text=text.replaceAll("\\(_\\)"," <clozz>kaf</clozz> ");
+        text=full2half(text);
+        text=text.replaceAll("\\(_\\)","&nbsp;<clozz>k</clozz>&nbsp;");
 //        text=text.replaceAll("\\(_\\)","");
         int position=text.split("<clozz>").length;
         for (int i=0;i<position-1;i++){
@@ -80,6 +87,24 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
         UilImageGetter imageGetter = new UilImageGetter(this, context);
         Spanned spanned = MyHtml.fromHtml(context,text,imageGetter,null,list,this);
         this.setText(spanned);
+    }
+
+    private String full2half(String src) {
+        if (src == null) {
+            return src;
+        }
+        StringBuilder buf = new StringBuilder(src.length());
+        char[] ca = src.toCharArray();
+        for (int i = 0; i < src.length(); i++) {
+            if (ca[i] >= SBC_CHAR_START && ca[i] <= SBC_CHAR_END) {
+                buf.append((char) (ca[i] - CONVERT_STEP));
+            } else if (ca[i] == SBC_SPACE) {
+                buf.append(DBC_SPACE);
+            } else {
+                buf.append(ca[i]);
+            }
+        }
+        return buf.toString();
     }
 
     @Override

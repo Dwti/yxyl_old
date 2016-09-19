@@ -15,8 +15,8 @@
     <com.yanxiu.gphone.student.view.Connectlines
         android:id="@+id/mylines"
         android:layout_width="match_parent"
-        android:layout_marginLeft="@dimen/dimen_140"
-        android:layout_marginRight="@dimen/dimen_140"
+        android:layout_marginLeft="@dimen/dimen_120"
+        android:layout_marginRight="@dimen/dimen_120"
         android:layout_height="match_parent"/>
     <!--<LinearLayout-->
         <!--android:id="@+id/linear_right"-->

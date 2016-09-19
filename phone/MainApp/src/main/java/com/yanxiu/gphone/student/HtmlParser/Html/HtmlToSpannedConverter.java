@@ -249,7 +249,7 @@ public class HtmlToSpannedConverter implements ContentHandler {
         Paint paint = new Paint();
         paint.setTextSize(fontSize);
         Paint.FontMetrics fm = paint.getFontMetrics();
-        return (int) Math.ceil(fm.descent - fm.ascent);
+        return (int) Math.ceil(fm.descent - fm.ascent)+10;
     }
 
     private static void handleP(SpannableStringBuilder text) {

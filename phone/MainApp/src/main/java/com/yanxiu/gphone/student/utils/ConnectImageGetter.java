@@ -20,7 +20,7 @@ public class ConnectImageGetter implements ImageGetterListener {
     private TextView view;
     private int loadedImageWidth;
     private int loadedImageheight;
-    private int px=Util.dipToPx(77);
+    private int px=Util.dipToPx(70);
     private URLDrawable urlDrawable;
 
     public ConnectImageGetter(TextView view, Context context) {
