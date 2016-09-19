@@ -145,9 +145,9 @@ public class YXiuAnserTextView extends HtmlTextView {
             if (imageGetter!=null&&isSendheight){
                 imageGetter.setTrueHeight(tatle_height);
             }
-            if (classfyImageGetter!=null&&isSendheight){
+            /*if (classfyImageGetter!=null&&isSendheight){
                 classfyImageGetter.setTrueHeight(tatle_height);
-            }
+            }*/
         }
     }
 
