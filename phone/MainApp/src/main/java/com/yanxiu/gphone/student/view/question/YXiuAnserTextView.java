@@ -101,7 +101,9 @@ public class YXiuAnserTextView extends HtmlTextView {
             this.setText(spanned);
         } else {
             classfyImageGetter = new ClassfyImageGetter(this, mCtx);
-            Spanned spanned = MyHtml.fromHtml(mCtx, text, classfyImageGetter, null, null, null);
+            imageGetter = new UilImageGetter(this, mCtx, this.application);
+            Spanned spanned = Html.fromHtml(text, imageGetter, null);
+            //Spanned spanned = MyHtml.fromHtml(mCtx, text, classfyImageGetter, null, null, null);
             this.setText(spanned);
         }
 
@@ -145,9 +147,9 @@ public class YXiuAnserTextView extends HtmlTextView {
             if (imageGetter!=null&&isSendheight){
                 imageGetter.setTrueHeight(tatle_height);
             }
-            if (classfyImageGetter!=null&&isSendheight){
+            /*if (classfyImageGetter!=null&&isSendheight){
                 classfyImageGetter.setTrueHeight(tatle_height);
-            }
+            }*/
         }
     }
 

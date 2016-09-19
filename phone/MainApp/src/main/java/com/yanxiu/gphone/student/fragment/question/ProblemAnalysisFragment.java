@@ -174,8 +174,10 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                 if(!TextUtils.isEmpty(dataEntity.getAnswerCompare())){
                     if (questionsEntity.getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)) {
                         tvReportParseStatueText.setClasfyFlag(false);
+                        tvReportParseStatueText.setTextHtml(dataEntity.getAnswerCompare().replaceAll("<img","<imgFy"));
+                    } else {
+                        tvReportParseStatueText.setTextHtml(dataEntity.getAnswerCompare());
                     }
-                    tvReportParseStatueText.setTextHtml(dataEntity.getAnswerCompare());
                 }else{
                     llReportParseStatue.setVisibility(View.GONE);
                 }
