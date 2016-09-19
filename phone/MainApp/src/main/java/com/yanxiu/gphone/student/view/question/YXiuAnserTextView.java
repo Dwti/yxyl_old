@@ -33,6 +33,7 @@ public class YXiuAnserTextView extends HtmlTextView {
     public Context mCtx;
     private YanxiuApplication application;
     private UilImageGetter imageGetter;
+    private ClassfyImageGetter classfyImageGetter;
     private int singline_height;
 
     public YXiuAnserTextView(Context context) {
@@ -75,6 +76,11 @@ public class YXiuAnserTextView extends HtmlTextView {
         this.htmlFlag=htmlFlag;
     }
 
+    private boolean clasfyFlag=true;
+    public void setClasfyFlag(boolean clasfyFlag){
+        this.clasfyFlag=clasfyFlag;
+    }
+
     public void setTextHtml(String text) {
 
         mRelayout = true;
@@ -87,9 +93,17 @@ public class YXiuAnserTextView extends HtmlTextView {
 //            text=message[0];
 //        }
 //        text="某校从参加高一年级期末考试的学生中抽出60名学生，并统计了他们的物理成绩（成绩均为整数且满分为100分）<br><img src=\"http://scc.jsyxw.cn/tizi/qf1/images/3/c/1/3c186ffab98f01fdb04067d6364dda53b1c59f14.jpg\" >";
-        imageGetter = new UilImageGetter(this, mCtx, this.application);
-        Spanned spanned = Html.fromHtml(text, imageGetter, null);
-        this.setText(spanned);
+
+        if (clasfyFlag) {
+            imageGetter = new UilImageGetter(this, mCtx, this.application);
+            Spanned spanned = Html.fromHtml(text, imageGetter, null);
+            this.setText(spanned);
+        } else {
+            classfyImageGetter = new ClassfyImageGetter(this, mCtx);
+            Spanned spanned = Html.fromHtml(text, classfyImageGetter, null);
+            this.setText(spanned);
+        }
+
 //        setHtmlFromString();
 //        this.setText(text);
     }
@@ -129,6 +143,9 @@ public class YXiuAnserTextView extends HtmlTextView {
             setHeight(tatle_height);
             if (imageGetter!=null&&isSendheight){
                 imageGetter.setTrueHeight(tatle_height);
+            }
+            if (classfyImageGetter!=null&&isSendheight){
+                classfyImageGetter.setTrueHeight(tatle_height);
             }
         }
     }

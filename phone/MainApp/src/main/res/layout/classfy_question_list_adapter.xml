@@ -4,7 +4,8 @@
               android:layout_height="match_parent"
 
               android:background="@drawable/login_and_pwd_selector"
-              android:padding="@dimen/dimen_15"
+              android:paddingLeft="@dimen/dimen_15"
+              android:paddingRight="@dimen/dimen_15"
               android:layout_margin="@dimen/dimen_20"
               android:gravity="center_vertical"
               android:orientation="horizontal"
