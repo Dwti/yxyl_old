@@ -228,18 +228,18 @@ public class HtmlToSpannedConverter implements ContentHandler {
         text.removeSpan(obj);
 
         if (where != len) {
-//            List<ClozzTextview.Buttonbean> list= (List<ClozzTextview.Buttonbean>) object;
-//            ClozzTextview.Buttonbean buttonbean=list.get(flag);
-//            Drawable d = ContextCompat.getDrawable(context,R.drawable.gestalt_button_noanswer);
-//            d.setBounds(0, 0, MyImageSpan.width, 40);
-//            MyImageSpan span = new MyImageSpan(d, ImageSpan.ALIGN_BASELINE);
-//            span.setContext(context);
-//            span.setMyImageSpanOnclickListener(listener);
-//            span.setObject(buttonbean);
-////            ImageSpan span=new ImageSpan(d);
-////            ImageSpan spans=new ImageSpan()
-//            text.setSpan(span,where,len, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-//            flag++;
+            List<ClozzTextview.Buttonbean> list= (List<ClozzTextview.Buttonbean>) object;
+            ClozzTextview.Buttonbean buttonbean=list.get(flag);
+            Drawable d = ContextCompat.getDrawable(context,R.drawable.gestalt_button_noanswer);
+            d.setBounds(0, 0, MyImageSpan.width, 40);
+            MyImageSpan span = new MyImageSpan(d, ImageSpan.ALIGN_BASELINE);
+            span.setContext(context);
+            span.setMyImageSpanOnclickListener(listener);
+            span.setObject(buttonbean);
+//            ImageSpan span=new ImageSpan(d);
+//            ImageSpan spans=new ImageSpan()
+            text.setSpan(span,where,len, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+            flag++;
         }
     }
 
