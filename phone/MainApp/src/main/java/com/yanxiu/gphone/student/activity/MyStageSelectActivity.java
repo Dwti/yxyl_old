@@ -209,11 +209,17 @@ public class MyStageSelectActivity extends YanxiuBaseActivity implements View.On
     @Override
     public void onClick (View v) {
         if (v == stageLayout[0]) {
-            setSelectedView(STAGE_TYPE_PRIM);
+            if (stageTv[0].getVisibility()!=View.VISIBLE) {
+                setSelectedView(STAGE_TYPE_PRIM);
+            }
         } else if (v == stageLayout[1]) {
-            setSelectedView(STAGE_TYPE_JUIN);
+            if (stageTv[1].getVisibility()!=View.VISIBLE) {
+                setSelectedView(STAGE_TYPE_JUIN);
+            }
         } else if (v == stageLayout[2]) {
-            setSelectedView(STAGE_TYPE_HIGH);
+            if (stageTv[2].getVisibility()!=View.VISIBLE) {
+                setSelectedView(STAGE_TYPE_HIGH);
+            }
         } else if (v == backView) {
             finish();
         }

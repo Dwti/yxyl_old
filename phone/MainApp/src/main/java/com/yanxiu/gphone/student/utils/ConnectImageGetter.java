@@ -20,7 +20,7 @@ public class ConnectImageGetter implements ImageGetterListener {
     private TextView view;
     private int loadedImageWidth;
     private int loadedImageheight;
-
+    private int px=Util.dipToPx(77);
     private URLDrawable urlDrawable;
 
     public ConnectImageGetter(TextView view, Context context) {
@@ -66,8 +66,8 @@ public class ConnectImageGetter implements ImageGetterListener {
         public Rect getDefaultImageBounds(Context context, Bitmap bitmap) {
             loadedImageWidth = Math.round(bitmap.getWidth());
             loadedImageheight = Math.round(bitmap.getHeight());
-            loadedImageheight=loadedImageheight*220/loadedImageWidth;
-            loadedImageWidth=220;
+            loadedImageheight=loadedImageheight*px/loadedImageWidth;
+            loadedImageWidth=px;
             Rect bounds = new Rect(0, 0, loadedImageWidth, loadedImageheight);
             return bounds;
         }

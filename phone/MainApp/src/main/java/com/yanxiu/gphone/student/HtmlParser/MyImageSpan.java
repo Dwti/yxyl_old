@@ -67,12 +67,9 @@ public class MyImageSpan extends ImageClickableSpan {
     @Override
     public void draw(Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom, Paint paint) {
         Drawable b = getDrawable();
-//        Rect rect=b.getBounds();
 
         Paint.FontMetricsInt fm = paint.getFontMetricsInt();
         int transY = (y + fm.descent + y + fm.ascent) / 2 - b.getBounds().bottom / 2;
-
-//        b.setBounds(0,0,rect.width(),(fm.descent-fm.ascent));
 
         canvas.save();
         canvas.translate(x, transY);
@@ -86,7 +83,11 @@ public class MyImageSpan extends ImageClickableSpan {
         paint1.setTextSize(buttonbean.getTextsize()*2-5);
         paint1.setColor(Color.parseColor("#00000000"));
         canvas.drawRect(targetRect, paint1);
-        paint1.setColor(Color.RED);
+        if (!TextUtils.isEmpty(buttonbean.getText())) {
+            paint1.setColor(context.getResources().getColor(R.color.color_black));
+        }else {
+            paint1.setColor(context.getResources().getColor(R.color.color_805500));
+        }
         Paint.FontMetricsInt fontMetrics = paint1.getFontMetricsInt();
         int baseline = (targetRect.bottom + targetRect.top - fontMetrics.bottom - fontMetrics.top) / 2;
         paint1.setTextAlign(Paint.Align.CENTER);

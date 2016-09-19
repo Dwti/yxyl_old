@@ -104,13 +104,16 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
         }else {
             if (position_index==0){
                 bean.getFillAnswers().add("");
+                buttonbean.setText("");
             }else {
                 List<PaperTestEntity> list=questionsEntity.getChildren();
                 String select=list.get(i).getQuestions().getAnswerBean().getSelectType();
                 if (!TextUtils.isEmpty(select)){
                     bean.getFillAnswers().add(select);
+                    setText(buttonbean,select);
                 }else {
                     bean.getFillAnswers().add("");
+                    setText(buttonbean,"");
                 }
             }
 
@@ -149,7 +152,12 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
         }
     }
 
-    private void setText(Buttonbean buttonbean,String answer){
+    @Override
+    public void invalidate() {
+        super.invalidate();
+    }
+
+    private void setText(Buttonbean buttonbean, String answer){
 //        String text="";
         switch (answer){
             case "0":
