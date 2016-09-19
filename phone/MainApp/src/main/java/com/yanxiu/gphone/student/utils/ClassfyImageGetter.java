@@ -14,14 +14,14 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yanxiu.gphone.student.HtmlParser.Interface.ImageGetterListener;
 
-public class ClassfyImageGetter implements Html.ImageGetter {
+public class ClassfyImageGetter implements ImageGetterListener {
 
     private Context context;
     private TextView view;
     private int loadedImageWidth;
     private int loadedImageheight;
+    private int height;
 
-    int height=-1;
     private URLDrawable urlDrawable;
 
     public ClassfyImageGetter(TextView view, Context context) {
@@ -53,16 +53,13 @@ public class ClassfyImageGetter implements Html.ImageGetter {
         protected Drawable doInBackground(String... params) {
             String source = params[0];
             DisplayImageOptions options = new DisplayImageOptions.Builder()
-                                                        .cacheInMemory(true)                        // 设置下载的图片是否缓存在内存中
-                                                        .cacheOnDisk(true)                       // 设置下载的图片是否缓存在SD卡中
-                                                        .build();
+                    .cacheInMemory(true)                        // 设置下载的图片是否缓存在内存中
+                    .cacheOnDisk(true)                       // 设置下载的图片是否缓存在SD卡中
+                    .build();
             Bitmap bitmap = ImageLoader.getInstance().loadImageSync(source, options);
-            Drawable drawable=null;
-            if (bitmap!=null){
-                drawable=new BitmapDrawable(bitmap);
-                Rect bounds = getDefaultImageBounds(context,bitmap);
-                drawable.setBounds(0, 0, bounds.width(), bounds.height());
-            }
+            Drawable drawable=new BitmapDrawable(bitmap);
+            Rect bounds = getDefaultImageBounds(context,bitmap);
+            drawable.setBounds(0, 0, bounds.width(), bounds.height());
             return drawable;
         }
 
@@ -71,6 +68,7 @@ public class ClassfyImageGetter implements Html.ImageGetter {
         public Rect getDefaultImageBounds(Context context, Bitmap bitmap) {
             loadedImageWidth = Math.round(bitmap.getWidth());
             loadedImageheight = Math.round(bitmap.getHeight());
+
             loadedImageheight=loadedImageheight*100/loadedImageWidth;
             loadedImageWidth=100;
             Rect bounds = new Rect(0, 0, loadedImageWidth, loadedImageheight);
@@ -78,20 +76,15 @@ public class ClassfyImageGetter implements Html.ImageGetter {
         }
 
         @Override
-        protected void onPostExecute(final Drawable result) {
-//            UilImageGetter.this.replaceImage(result,urlDrawable);
+        protected void onPostExecute(Drawable result) {
             if (result != null) {
-                ClassfyImageGetter.this.view.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        urlDrawable.setBounds(0, 0, loadedImageWidth, loadedImageheight);
-                        urlDrawable.drawable = result;
-                        ClassfyImageGetter.this.view.setHeight((ClassfyImageGetter.this.view.getHeight() + loadedImageheight));
-                        ClassfyImageGetter.this.view.setEllipsize(null);
-                        ClassfyImageGetter.this.view.requestLayout();
-                        ClassfyImageGetter.this.view.invalidate();
-                    }
-                });
+                urlDrawable.setBounds(0, 0, loadedImageWidth, loadedImageheight);
+                urlDrawable.drawable = result;
+                ClassfyImageGetter.this.view.requestLayout();
+                ClassfyImageGetter.this.view.invalidate();
+                ClassfyImageGetter.this.view.setHeight((ClassfyImageGetter.this.view.getHeight() + result.getIntrinsicHeight()));
+                ClassfyImageGetter.this.view.setEllipsize(null);
+
             }
         }
     }

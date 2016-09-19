@@ -30,6 +30,7 @@ import com.yanxiu.gphone.student.HtmlParser.Interface.ImageGetterListener;
 import com.yanxiu.gphone.student.HtmlParser.Interface.ImageSpanOnclickListener;
 import com.yanxiu.gphone.student.HtmlParser.MyHtml;
 import com.yanxiu.gphone.student.HtmlParser.MyImageSpan;
+import com.yanxiu.gphone.student.HtmlParser.PictureImageSpan;
 import com.yanxiu.gphone.student.HtmlParser.Utils.Utils;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.view.ClozzTextview;
@@ -156,8 +157,8 @@ public class HtmlToSpannedConverter implements ContentHandler {
         } else if (tag.equalsIgnoreCase("span")){
             //处理css效果
 
-        }else if (tag.equalsIgnoreCase("clasfy")){
-
+        }else if (tag.equalsIgnoreCase("imgFy")){
+            startImgFy(mSpannableStringBuilder, attributes, mImageGetterListener);
         }else if (mTagHandler != null) {
             mTagHandler.handleTag(true, tag, mSpannableStringBuilder, mReader);
         }
@@ -227,29 +228,19 @@ public class HtmlToSpannedConverter implements ContentHandler {
         text.removeSpan(obj);
 
         if (where != len) {
-            List<ClozzTextview.Buttonbean> list= (List<ClozzTextview.Buttonbean>) object;
-            ClozzTextview.Buttonbean buttonbean=list.get(flag);
-
-            if (height==0){
-                height=getFontHeight(buttonbean.getTextsize()*2);
-            }
-
-            Drawable d = ContextCompat.getDrawable(context, R.drawable.image_loading_in_text_24);
-            d.setBounds(0, 0, MyImageSpan.width, height);
-            MyImageSpan span = new MyImageSpan(d, ImageSpan.ALIGN_BASELINE);
-            span.setContext(context);
-            span.setMyImageSpanOnclickListener(listener);
-            span.setObject(buttonbean);
-            text.setSpan(span,where,len, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            flag++;
+//            List<ClozzTextview.Buttonbean> list= (List<ClozzTextview.Buttonbean>) object;
+//            ClozzTextview.Buttonbean buttonbean=list.get(flag);
+//            Drawable d = ContextCompat.getDrawable(context,R.drawable.gestalt_button_noanswer);
+//            d.setBounds(0, 0, MyImageSpan.width, 40);
+//            MyImageSpan span = new MyImageSpan(d, ImageSpan.ALIGN_BASELINE);
+//            span.setContext(context);
+//            span.setMyImageSpanOnclickListener(listener);
+//            span.setObject(buttonbean);
+////            ImageSpan span=new ImageSpan(d);
+////            ImageSpan spans=new ImageSpan()
+//            text.setSpan(span,where,len, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+//            flag++;
         }
-    }
-
-    public int getFontHeight(float fontSize){
-        Paint paint = new Paint();
-        paint.setTextSize(fontSize);
-        Paint.FontMetrics fm = paint.getFontMetrics();
-        return (int) Math.ceil(fm.descent - fm.ascent)+10;
     }
 
     private static void handleP(SpannableStringBuilder text) {
@@ -298,6 +289,25 @@ public class HtmlToSpannedConverter implements ContentHandler {
         if (where != len) {
             text.setSpan(repl, where, len, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
+    }
+
+    private void startImgFy(SpannableStringBuilder text, Attributes attributes, ImageGetterListener img){
+        String src = attributes.getValue("", "src");
+        Drawable d = null;
+
+        if (img != null) {
+            d = img.getDrawable(src);
+        }
+
+        if (d == null) {
+            d = ContextCompat.getDrawable(context, R.drawable.image_default);
+            d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+        }
+
+        int len = text.length();
+        text.append("\uFFFC");
+
+        text.setSpan(new PictureImageSpan(d, src), len, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
     private void startImg(SpannableStringBuilder text, Attributes attributes, ImageGetterListener img) {

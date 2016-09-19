@@ -135,14 +135,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
 
     private void initData() {
         createClassItem();
-        JSONObject object = null;
-        String string = null;
-        try {
-            object = new JSONObject(questionsEntity.getAnswer().get(position));
-            string = object.getString("name");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
         //questionsEntity.getAnswerBean().getConnect_classfy_answer().clear();
         if (questionsEntity != null && questionsEntity.getStem() != null) {
             tvYanxiu.setTextHtml(questionsEntity.getStem());
@@ -160,19 +153,26 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             }
             answerBean = questionsEntity.getAnswerBean();
             classfyQuestionAdapter.setData(questionsEntity);
-            final String finalString = string;
             //if (answerViewTypyBean != SubjectExercisesItemBean.RESOLUTION && answerViewTypyBean != SubjectExercisesItemBean.WRONG_SET) {
                 gvClassfyQuestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                         if (StringUtils.isEmpty(choiceTmpString)) {
+                            JSONObject object = null;
+                            String string = null;
+                            try {
+                                object = new JSONObject(questionsEntity.getAnswer().get(i));
+                                string = object.getString("name");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                             if (questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).size() > 0) {
                                 if (answerViewTypyBean == SubjectExercisesItemBean.RESOLUTION || answerViewTypyBean == SubjectExercisesItemBean.WRONG_SET) {
-                                    classfyPopupWindow.init(questionsEntity, finalString, questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).size(), i);
+                                    classfyPopupWindow.init(questionsEntity, string, questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).size(), i);
                                     classfyPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
                                 } else {
-                                    classfyDelPopupWindow.init(questionsEntity, finalString, questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).size(), i);
+                                    classfyDelPopupWindow.init(questionsEntity, string, questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).size(), i);
                                     classfyDelPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
                                 }
                             }
