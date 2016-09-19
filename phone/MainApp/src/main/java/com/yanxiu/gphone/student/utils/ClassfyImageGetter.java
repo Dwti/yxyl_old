@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.text.Html;
 import android.widget.TextView;
 
 import com.common.core.utils.imageloader.URLDrawable;
@@ -13,7 +14,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yanxiu.gphone.student.HtmlParser.Interface.ImageGetterListener;
 
-public class ClassfyImageGetter implements ImageGetterListener {
+public class ClassfyImageGetter implements Html.ImageGetter {
 
     private Context context;
     private TextView view;

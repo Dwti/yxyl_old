@@ -156,7 +156,9 @@ public class HtmlToSpannedConverter implements ContentHandler {
         } else if (tag.equalsIgnoreCase("span")){
             //处理css效果
 
-        } else if (mTagHandler != null) {
+        }else if (tag.equalsIgnoreCase("clasfy")){
+
+        }else if (mTagHandler != null) {
             mTagHandler.handleTag(true, tag, mSpannableStringBuilder, mReader);
         }
     }
