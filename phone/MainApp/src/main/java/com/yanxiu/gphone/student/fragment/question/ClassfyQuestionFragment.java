@@ -161,39 +161,41 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             answerBean = questionsEntity.getAnswerBean();
             classfyQuestionAdapter.setData(questionsEntity);
             final String finalString = string;
-            gvClassfyQuestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            //if (answerViewTypyBean != SubjectExercisesItemBean.RESOLUTION && answerViewTypyBean != SubjectExercisesItemBean.WRONG_SET) {
+                gvClassfyQuestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                    if (StringUtils.isEmpty(choiceTmpString)) {
-                        if (questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).size() > 0) {
-                            if (answerViewTypyBean == SubjectExercisesItemBean.RESOLUTION || answerViewTypyBean == SubjectExercisesItemBean.WRONG_SET) {
-                                classfyPopupWindow.init(questionsEntity, finalString, questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).size(), i);
-                                classfyPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+                        if (StringUtils.isEmpty(choiceTmpString)) {
+                            if (questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).size() > 0) {
+                                if (answerViewTypyBean == SubjectExercisesItemBean.RESOLUTION || answerViewTypyBean == SubjectExercisesItemBean.WRONG_SET) {
+                                    classfyPopupWindow.init(questionsEntity, finalString, questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).size(), i);
+                                    classfyPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+                                } else {
+                                    classfyDelPopupWindow.init(questionsEntity, finalString, questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).size(), i);
+                                    classfyDelPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+                                }
+                            }
+
+                        } else {
+                            if (classfyItem.get(0).getName().contains(YanXiuConstant.IMG_SRC)) {
+                                questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).add(choiceTmpString);
+                                classfyItem.remove(mRemoveBean);
+                                classfyAnswerAdapter.setSeclection(-1);
+                                classfyAnswerAdapter.setData(classfyItem);
+                                classfyQuestionAdapter.setData(questionsEntity);
+                                choiceTmpString = null;
                             } else {
-                                classfyDelPopupWindow.init(questionsEntity, finalString, questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).size(), i);
-                                classfyDelPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+                                questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).add(choiceTmpString);
+                                classfyItem.remove(mRemoveBean);
+                                classfyQuestionAdapter.setData(questionsEntity);
+                                vgClassfyAnswers.removeView(mRemoveView);
+                                choiceTmpString = null;
                             }
                         }
-
-                    } else {
-                        if (classfyItem.get(0).getName().contains(YanXiuConstant.IMG_SRC)) {
-                            questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).add(choiceTmpString);
-                            classfyItem.remove(mRemoveBean);
-                            classfyAnswerAdapter.setSeclection(-1);
-                            classfyAnswerAdapter.setData(classfyItem);
-                            classfyQuestionAdapter.setData(questionsEntity);
-                            choiceTmpString = null;
-                        } else {
-                            questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).add(choiceTmpString);
-                            classfyItem.remove(mRemoveBean);
-                            classfyQuestionAdapter.setData(questionsEntity);
-                            vgClassfyAnswers.removeView(mRemoveView);
-                            choiceTmpString = null;
-                        }
                     }
-                }
-            });
+                });
+            //}
         }
         if (questionsEntity.getContent().getChoices().get(0).contains(YanXiuConstant.IMG_SRC)) {
             classfyAnswerAdapter.setData(classfyItem);
@@ -384,7 +386,11 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             createClassItem();
             filterClassItem();
             vgClassfyAnswers.removeAllViews();
-            vgClassfyAnswers.setData(classfyItem, ClassfyQuestionFragment.this);
+            if (answerViewTypyBean != SubjectExercisesItemBean.RESOLUTION && answerViewTypyBean != SubjectExercisesItemBean.WRONG_SET) {
+                vgClassfyAnswers.setData(classfyItem, ClassfyQuestionFragment.this);
+            } else {
+                vgClassfyAnswers.setData(classfyItem, null);
+            }
         }
     }
 

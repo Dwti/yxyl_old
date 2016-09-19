@@ -30,6 +30,8 @@ import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 import com.yanxiu.gphone.student.view.question.subjective.SubjectiveStarLayout;
 
+import org.sufficientlysecure.htmltextview.HtmlTextView;
+
 import java.util.List;
 import java.util.Map;
 

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.ClassfyBean;
+import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -230,7 +231,9 @@ public class ClassfyAnswers extends ViewGroup {
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             lp.setMargins(8, 8, 8, 8);
             view.setLayoutParams(lp);
-            view.setOnClickListener(l);
+            if (l != null) {
+                view.setOnClickListener(l);
+            }
             view.setTag(classfyItem.get(i));
             this.addView(view);
         }
