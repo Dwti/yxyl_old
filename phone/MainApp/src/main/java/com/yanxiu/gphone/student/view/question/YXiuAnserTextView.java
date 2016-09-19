@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.common.core.utils.DensityUtils;
 import com.common.core.utils.imageloader.UilImageGetter;
 import com.common.core.view.htmlview.HtmlTextView;
+import com.yanxiu.gphone.student.HtmlParser.MyHtml;
 import com.yanxiu.gphone.student.YanxiuApplication;
 import com.yanxiu.gphone.student.utils.ClassfyImageGetter;
 
@@ -100,7 +101,7 @@ public class YXiuAnserTextView extends HtmlTextView {
             this.setText(spanned);
         } else {
             classfyImageGetter = new ClassfyImageGetter(this, mCtx);
-            Spanned spanned = Html.fromHtml(text, classfyImageGetter, null);
+            Spanned spanned = MyHtml.fromHtml(mCtx, text, classfyImageGetter, null, null, null);
             this.setText(spanned);
         }
 
