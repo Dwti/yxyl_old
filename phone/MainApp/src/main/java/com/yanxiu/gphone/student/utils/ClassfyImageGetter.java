@@ -7,8 +7,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.text.Html;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
+import com.common.core.utils.LogInfo;
 import com.common.core.utils.imageloader.URLDrawable;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -23,6 +25,10 @@ public class ClassfyImageGetter implements ImageGetterListener {
     private int height;
 
     private URLDrawable urlDrawable;
+
+    private int afterLine = -1;
+    private int beforeLine = -1;
+    private int viewWillResetHeight;
 
     public ClassfyImageGetter(TextView view, Context context) {
         this.context = context;
@@ -75,15 +81,40 @@ public class ClassfyImageGetter implements ImageGetterListener {
             return bounds;
         }
 
+        class MyOnGlobalLayoutListener implements ViewTreeObserver.OnGlobalLayoutListener {
+
+            @Override
+            public void onGlobalLayout() {
+                ClassfyImageGetter.this.view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                afterLine = ClassfyImageGetter.this.view.getLineCount();
+                LogInfo.log("geny", "afterLine change--" + afterLine);
+                if (afterLine != beforeLine) {
+                    ClassfyImageGetter.this.viewWillResetHeight += (ClassfyImageGetter.this.view.getTextSize()+10) * (afterLine - beforeLine);
+                    ClassfyImageGetter.this.view.setHeight(ClassfyImageGetter.this.viewWillResetHeight);
+//                UilImageGetter.this.view.invalidate();
+                    beforeLine = afterLine;
+                }
+                LogInfo.log("geny", "onGlobalLayout.this.viewWillResetHeight--" + ClassfyImageGetter.this.viewWillResetHeight);
+            }
+        }
+
         @Override
-        protected void onPostExecute(Drawable result) {
+        protected void onPostExecute(final Drawable result) {
             if (result != null) {
-                urlDrawable.setBounds(0, 0, loadedImageWidth, loadedImageheight);
-                urlDrawable.drawable = result;
-                ClassfyImageGetter.this.view.requestLayout();
-                ClassfyImageGetter.this.view.invalidate();
-                ClassfyImageGetter.this.view.setHeight((ClassfyImageGetter.this.view.getHeight() + result.getIntrinsicHeight()));
-                ClassfyImageGetter.this.view.setEllipsize(null);
+                ClassfyImageGetter.this.view.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        urlDrawable.setBounds(0, 0, loadedImageWidth, loadedImageheight);
+                        urlDrawable.drawable = result;
+                        ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
+                        ClassfyImageGetter.this.view.getViewTreeObserver().addOnGlobalLayoutListener(listener);
+                        ClassfyImageGetter.this.view.requestLayout();
+                        ClassfyImageGetter.this.view.invalidate();
+                        ClassfyImageGetter.this.view.setHeight((ClassfyImageGetter.this.view.getHeight() + result.getIntrinsicHeight()));
+                        ClassfyImageGetter.this.view.setEllipsize(null);
+
+                    }
+                });
 
             }
         }
