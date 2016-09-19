@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="@dimen/dimen_110"
-              android:layout_height="match_parent"
+              android:layout_height="wrap_content"
 
               android:background="@drawable/login_and_pwd_selector"
               android:paddingLeft="@dimen/dimen_15"
               android:paddingRight="@dimen/dimen_15"
-              android:layout_margin="@dimen/dimen_20"
+              android:layout_margin="@dimen/dimen_10"
               android:gravity="center_vertical"
               android:orientation="horizontal"
           >
         <TextView
             android:id="@+id/classfyQuestionName"
             android:layout_width="@dimen/dimen_0"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:textSize="@dimen/dimen_15"
             android:gravity="center"
             android:textColor="@color/color_333333"
@@ -22,7 +22,7 @@
         <TextView
             android:id="@+id/classfyQuestionNum"
             android:layout_width="@dimen/dimen_0"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:textSize="@dimen/dimen_15"
             android:gravity="center"
             android:textColor="@color/color_333333"
