@@ -99,7 +99,7 @@ public class ClassfyQuestionAdapter extends BaseAdapter {
                                 int height = v.getHeight();
 
                                 View view = gv.getChildAt(position - 1);
-                                int lastheight = view.getHeight() + 20;
+                                int lastheight = view.getHeight();
                                 // 得到同一行的最后一个item和前一个item想比较，把谁的height大，就把两者中                                                                // height小的item的高度设定为height较大的item的高度一致，也就是保证同一                                                                 // 行高度相等即可
                                 if (height > lastheight) {
                                     view.setLayoutParams(new GridView.LayoutParams(
