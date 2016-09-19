@@ -1,6 +1,7 @@
 package com.yanxiu.gphone.student.fragment.question;
 
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -28,9 +29,8 @@ import com.yanxiu.gphone.student.requestTask.RequestKnpointQBlockTask;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
+import com.yanxiu.gphone.student.view.question.classfy.ClassfyQuestions;
 import com.yanxiu.gphone.student.view.question.subjective.SubjectiveStarLayout;
-
-import org.sufficientlysecure.htmltextview.HtmlTextView;
 
 import java.util.List;
 import java.util.Map;
@@ -172,7 +172,9 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
             if(questionsEntity.getExtend() != null && questionsEntity.getExtend().getData() != null){
                 ExtendEntity.DataEntity dataEntity = questionsEntity.getExtend().getData();
                 if(!TextUtils.isEmpty(dataEntity.getAnswerCompare())){
-
+                    if (questionsEntity.getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)) {
+                        tvReportParseStatueText.setClasfyFlag(false);
+                    }
                     tvReportParseStatueText.setTextHtml(dataEntity.getAnswerCompare());
                 }else{
                     llReportParseStatue.setVisibility(View.GONE);

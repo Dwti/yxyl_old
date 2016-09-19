@@ -28,6 +28,7 @@ import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 
 import de.greenrobot.event.EventBus;
 
+import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_CLASSFY;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_CLOZE_COMPLEX;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_COMPUTE;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_CONNECT;
@@ -143,6 +144,9 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
             }else if(typeId == QUESTION_READING.type){
                 //    5
                 holder.answerExamType.setImageResource(R.drawable.reading_title_bg);
+            }else if(typeId == QUESTION_CLASSFY.type){
+                //    13
+                holder.answerExamType.setImageResource(R.drawable.classfy_title_bg);
             }else if(typeId == QUESTION_READ_COMPLEX.type){
                 //    14
                 holder.answerExamType.setImageResource(R.drawable.read_complex_title_bg);

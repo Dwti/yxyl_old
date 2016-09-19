@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import com.yanxiu.gphone.student.R;
@@ -24,7 +26,9 @@ import java.util.List;
 public class ClassfyQuestionAdapter extends BaseAdapter {
     private Context mContext;
     private QuestionEntity questionsEntity;
-    public ClassfyQuestionAdapter(Context context) {
+    private GridView gv;
+    public ClassfyQuestionAdapter(GridView gv, Context context) {
+        this.gv = gv;
         mContext = context;
     }
 
@@ -37,6 +41,7 @@ public class ClassfyQuestionAdapter extends BaseAdapter {
             holder.classfyQuestionName= (TextView) convertView.findViewById(R.id.classfyQuestionName);
             holder.classfyQuestionNum= (TextView) convertView.findViewById(R.id.classfyQuestionNum);
             convertView.setTag(holder);
+            holder.update();
         }else{
             holder= (ViewHolder) convertView.getTag();
         }
@@ -50,6 +55,8 @@ public class ClassfyQuestionAdapter extends BaseAdapter {
         }
         holder.classfyQuestionName.setText(string);
         holder.classfyQuestionNum.setText("(" + questionsEntity.getAnswerBean().getConnect_classfy_answer().get(position).size() + ")");
+        holder.classfyQuestionName.setTag(position);
+        holder.classfyQuestionNum.setTag(convertView);
         return convertView;
     }
 
@@ -79,6 +86,35 @@ public class ClassfyQuestionAdapter extends BaseAdapter {
     class ViewHolder{
         private TextView classfyQuestionName;
         private TextView classfyQuestionNum;
+
+        public void update() {
+            // 精确计算GridView的item高度
+            classfyQuestionName.getViewTreeObserver().addOnGlobalLayoutListener(
+                    new ViewTreeObserver.OnGlobalLayoutListener() {
+                        public void onGlobalLayout() {
+                            int position = (Integer) classfyQuestionName.getTag();
+                            // 这里是保证同一行的item高度是相同的！！也就是同一行是齐整的 height相等
+                            if (position > 0 && position % 2 == 1) {
+                                View v = (View) classfyQuestionNum.getTag();
+                                int height = v.getHeight();
+
+                                View view = gv.getChildAt(position - 1);
+                                int lastheight = view.getHeight() + 20;
+                                // 得到同一行的最后一个item和前一个item想比较，把谁的height大，就把两者中                                                                // height小的item的高度设定为height较大的item的高度一致，也就是保证同一                                                                 // 行高度相等即可
+                                if (height > lastheight) {
+                                    view.setLayoutParams(new GridView.LayoutParams(
+                                            GridView.LayoutParams.FILL_PARENT,
+                                            height));
+                                } else if (height < lastheight) {
+                                    v.setLayoutParams(new GridView.LayoutParams(
+                                            GridView.LayoutParams.FILL_PARENT,
+                                            lastheight));
+                                }
+                            }
+                        }
+                    });
         }
+
+    }
 
 }

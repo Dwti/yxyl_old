@@ -21,11 +21,16 @@ public class ClassfyImageGetter implements Html.ImageGetter {
     private int loadedImageWidth;
     private int loadedImageheight;
 
+    int height=-1;
     private URLDrawable urlDrawable;
 
     public ClassfyImageGetter(TextView view, Context context) {
         this.context = context;
         this.view = view;
+    }
+
+    public void setTrueHeight(int height){
+        this.height=height;
     }
 
     @Override
@@ -66,8 +71,8 @@ public class ClassfyImageGetter implements Html.ImageGetter {
         public Rect getDefaultImageBounds(Context context, Bitmap bitmap) {
             loadedImageWidth = Math.round(bitmap.getWidth());
             loadedImageheight = Math.round(bitmap.getHeight());
-            loadedImageheight=loadedImageheight*220/loadedImageWidth;
-            loadedImageWidth=220;
+            loadedImageheight=loadedImageheight*100/loadedImageWidth;
+            loadedImageWidth=100;
             Rect bounds = new Rect(0, 0, loadedImageWidth, loadedImageheight);
             return bounds;
         }

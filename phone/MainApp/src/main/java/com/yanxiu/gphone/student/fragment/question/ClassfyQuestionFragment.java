@@ -102,7 +102,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
         tvYanxiu = (YXiuAnserTextView) rootView.findViewById(R.id.yxiu_tv);
         gvClassfyQuestion = (UnMoveGridView) rootView.findViewById(R.id.classfy_question_item);
         gvClassfyQuestion.setSelector(new ColorDrawable(Color.TRANSPARENT));
-        classfyQuestionAdapter = new ClassfyQuestionAdapter(getActivity());
+        classfyQuestionAdapter = new ClassfyQuestionAdapter(gvClassfyQuestion, getActivity());
         gvClassfyQuestion.setAdapter(classfyQuestionAdapter);
         vgClassfyAnswers = (ClassfyAnswers) rootView.findViewById(R.id.classfy_text_item);
         lgClassfyAnswers = (UnMoveGridView) rootView.findViewById(R.id.classfy_icon_item);

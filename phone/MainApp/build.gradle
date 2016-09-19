@@ -136,6 +136,4 @@ dependencies {
     compile project(':CommonCoreLib')
     compile project(':LoginCommonLibs')
     compile project(':ShareCommonLibs')
-    //htmlTextView
-    compile 'org.sufficientlysecure:html-textview:1.4'
 }
