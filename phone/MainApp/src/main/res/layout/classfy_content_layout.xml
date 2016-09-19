@@ -17,20 +17,14 @@
             android:layout_margin="@dimen/dimen_20"
             android:orientation="vertical">
 
-            <FrameLayout
+            <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+                android:id="@+id/yxiu_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/color_black"
                 android:layout_marginBottom="@dimen/dimen_20"
-                android:background="@drawable/question_read_content_bg">
-
-                <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
-                    android:id="@+id/yxiu_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/color_black"
-                    android:textSize="@dimen/dimen_15" />
-
-            </FrameLayout>
+                android:background="@drawable/question_read_content_bg"
+                android:textSize="@dimen/dimen_15" />
 
 
             <com.common.core.view.UnMoveGridView

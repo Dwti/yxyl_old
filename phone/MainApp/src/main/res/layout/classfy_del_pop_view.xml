@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dimen_30">
+<LinearLayout
               android:id="@+id/container"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_margin="@dimen/dimen_50"
               android:background="@drawable/login_and_pwd_selector">
 
     <TextView
@@ -34,6 +37,7 @@
         android:visibility="gone"/>
 
 </LinearLayout>
+</ScrollView>
 
 
 
