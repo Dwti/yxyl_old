@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.yanxiu.gphone.student.view.question.YXiuAnserTextView xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/classfy_answer_popup_text"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -7,5 +7,5 @@
     android:gravity="center"
     android:background="@drawable/judge_item_pre"
     android:textColor="@color/color_333333">
-</com.yanxiu.gphone.student.view.question.YXiuAnserTextView>
+</TextView>
 
