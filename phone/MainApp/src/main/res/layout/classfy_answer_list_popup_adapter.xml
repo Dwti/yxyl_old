@@ -9,6 +9,7 @@
             android:id="@+id/classfyAnswerImg"
             android:layout_width="@dimen/dimen_50"
             android:layout_height="@dimen/dimen_50"
+            android:layout_marginTop="@dimen/dimen_15"
             android:padding="@dimen/dimen_10"
             android:background="@drawable/upload_pic"
             />
@@ -18,8 +19,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top|right"
             android:adjustViewBounds="true"
-            android:paddingTop="6dp"
-            android:paddingRight="6dp"
             android:scaleType="fitStart"
             android:src="@drawable/classfy_del_icon" />
 </FrameLayout>
