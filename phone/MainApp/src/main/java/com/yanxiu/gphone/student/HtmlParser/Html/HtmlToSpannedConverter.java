@@ -230,17 +230,27 @@ public class HtmlToSpannedConverter implements ContentHandler {
         if (where != len) {
             List<ClozzTextview.Buttonbean> list= (List<ClozzTextview.Buttonbean>) object;
             ClozzTextview.Buttonbean buttonbean=list.get(flag);
-            Drawable d = ContextCompat.getDrawable(context,R.drawable.gestalt_button_noanswer);
-            d.setBounds(0, 0, MyImageSpan.width, 40);
+
+            if (height==0){
+                height=getFontHeight(buttonbean.getTextsize()*2);
+            }
+
+            Drawable d = ContextCompat.getDrawable(context, R.drawable.image_loading_in_text_24);
+            d.setBounds(0, 0, MyImageSpan.width, height);
             MyImageSpan span = new MyImageSpan(d, ImageSpan.ALIGN_BASELINE);
             span.setContext(context);
             span.setMyImageSpanOnclickListener(listener);
             span.setObject(buttonbean);
-//            ImageSpan span=new ImageSpan(d);
-//            ImageSpan spans=new ImageSpan()
-            text.setSpan(span,where,len, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+            text.setSpan(span,where,len, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             flag++;
         }
+    }
+
+    public int getFontHeight(float fontSize){
+        Paint paint = new Paint();
+        paint.setTextSize(fontSize);
+        Paint.FontMetrics fm = paint.getFontMetrics();
+        return (int) Math.ceil(fm.descent - fm.ascent)+10;
     }
 
     private static void handleP(SpannableStringBuilder text) {
