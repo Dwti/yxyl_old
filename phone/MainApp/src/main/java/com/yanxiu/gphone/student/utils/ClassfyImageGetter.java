@@ -15,6 +15,7 @@ import com.common.core.utils.imageloader.URLDrawable;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yanxiu.gphone.student.HtmlParser.Interface.ImageGetterListener;
+import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 
 public class ClassfyImageGetter implements ImageGetterListener {
 
@@ -106,11 +107,19 @@ public class ClassfyImageGetter implements ImageGetterListener {
                     public void run() {
                         urlDrawable.setBounds(0, 0, loadedImageWidth, loadedImageheight);
                         urlDrawable.drawable = result;
-                        ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
-                        ClassfyImageGetter.this.view.getViewTreeObserver().addOnGlobalLayoutListener(listener);
+                        //beforeLine = ClassfyImageGetter.this.view.getLineCount();
+                        //ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
+                        //ClassfyImageGetter.this.view.getViewTreeObserver().addOnGlobalLayoutListener(listener);
+                        int height=((YXiuAnserTextView)ClassfyImageGetter.this.view).getClassfyHeight();
+                        if (height==0){
+                            height=ClassfyImageGetter.this.view.getHeight();
+                        }
+
+                        int setheight=height + result.getIntrinsicHeight();
+                        ((YXiuAnserTextView)ClassfyImageGetter.this.view).setClassfyheight(setheight);
                         ClassfyImageGetter.this.view.requestLayout();
                         ClassfyImageGetter.this.view.invalidate();
-                        ClassfyImageGetter.this.view.setHeight((ClassfyImageGetter.this.view.getHeight() + result.getIntrinsicHeight()));
+                        ClassfyImageGetter.this.view.setHeight(setheight);
                         ClassfyImageGetter.this.view.setEllipsize(null);
 
                     }
