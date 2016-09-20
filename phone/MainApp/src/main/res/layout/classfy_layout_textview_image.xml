@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
     android:layout_marginTop="80dp">
-    <TextView
+    <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
         android:id="@+id/classfy_answer_popup_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,7 +14,7 @@
         android:gravity="center_horizontal"
         android:background="@drawable/selector_judge_item"
         android:textColor="@color/color_333333">
-    </TextView>
+    </com.yanxiu.gphone.student.view.question.YXiuAnserTextView>
     <ImageView
         android:id="@+id/widget_title_icon"
         android:layout_width="wrap_content"

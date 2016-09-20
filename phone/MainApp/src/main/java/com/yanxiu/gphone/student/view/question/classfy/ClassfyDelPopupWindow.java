@@ -17,6 +17,7 @@ import com.yanxiu.gphone.student.adapter.ClassfyAnswerPopupAdapter;
 import com.yanxiu.gphone.student.bean.ClassfyBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
+import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,8 +97,8 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
                     for (int i=0; i<classfyPopItem.size(); i++) {
                         LayoutInflater inflater = LayoutInflater.from(mContext);
                         final View containerView = inflater.inflate(R.layout.classfy_layout_textview_image, null);
-                        TextView classfy_answer_popup_text = (TextView) containerView.findViewById(R.id.classfy_answer_popup_text);
-                        classfy_answer_popup_text.setText(classfyPopItem.get(i).getName());
+                        YXiuAnserTextView classfy_answer_popup_text = (YXiuAnserTextView) containerView.findViewById(R.id.classfy_answer_popup_text);
+                        classfy_answer_popup_text.setTextHtml(classfyPopItem.get(i).getName());
                         //view.setText(mQuestionsEntity.getContent().getChoices().get(i));
 
                         ImageView widget_title_icon = (ImageView) containerView.findViewById(R.id.widget_title_icon);

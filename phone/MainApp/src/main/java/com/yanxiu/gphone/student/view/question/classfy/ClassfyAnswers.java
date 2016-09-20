@@ -232,9 +232,7 @@ public class ClassfyAnswers extends ViewGroup {
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             lp.setMargins(8, 8, 8, 8);
             view.setLayoutParams(lp);
-            if (l != null) {
-                view.setOnClickListener(l);
-            }
+            view.setOnClickListener(l);
             view.setTag(classfyItem.get(i));
             this.addView(view);
         }
