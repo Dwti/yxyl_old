@@ -331,10 +331,12 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             } else {
                 if (ss.length != answerlist.get(i).size()) {
                     answerBean.setIsRight(false);
+                    return;
                 } else {
                     for (int j = 0; j < ss.length; j++) {
                         if (!answerlist.get(i).contains(ss[j])) {
                             answerBean.setIsRight(false);
+                            return;
                         }
                     }
                 }
