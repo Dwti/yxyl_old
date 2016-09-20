@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,7 @@ public class ConnectTextView extends TextView implements View.OnClickListener{
         this.application = (YanxiuApplication) ((Activity)context).getApplication();
         this.setOnClickListener(this);
         this.setTextColor(context.getResources().getColor(R.color.color_333333));
-        this.setTextSize(24);
+        this.setTextSize(TypedValue.COMPLEX_UNIT_PX, 24);
     }
 
     public void setBaseBean(ConnectLinesLinearLayout.BaseBean bean){
