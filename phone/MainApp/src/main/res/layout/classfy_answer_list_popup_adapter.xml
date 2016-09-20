@@ -19,7 +19,7 @@
             android:layout_gravity="top|right"
             android:adjustViewBounds="true"
             android:paddingTop="-10dp"
-            android:paddingRight="18dp"
+            android:paddingRight="6dp"
             android:scaleType="fitStart"
             android:src="@drawable/classfy_del_icon" />
 </FrameLayout>
