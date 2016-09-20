@@ -3,10 +3,8 @@
     android:id="@+id/classfy_answer_popup_text"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/dimen_8"
-    android:padding="@dimen/dimen_9"
     android:textSize="@dimen/dimen_15"
-    android:gravity="center_horizontal"
+    android:gravity="center"
     android:background="@drawable/judge_item_pre"
     android:textColor="@color/color_333333">
 </TextView>

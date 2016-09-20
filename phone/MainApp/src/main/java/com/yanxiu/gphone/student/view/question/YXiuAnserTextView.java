@@ -11,6 +11,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
@@ -107,6 +108,15 @@ public class YXiuAnserTextView extends HtmlTextView {
 
 //        setHtmlFromString();
 //        this.setText(text);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (clasfyFlag) {
+            return super.onTouchEvent(event);
+        }else {
+            return false;
+        }
     }
 
     private int height=0;

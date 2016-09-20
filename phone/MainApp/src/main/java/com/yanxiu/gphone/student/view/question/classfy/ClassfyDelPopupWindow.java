@@ -17,6 +17,7 @@ import com.yanxiu.gphone.student.adapter.ClassfyAnswerPopupAdapter;
 import com.yanxiu.gphone.student.bean.ClassfyBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
+import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 
 import java.util.ArrayList;
 import java.util.List;
