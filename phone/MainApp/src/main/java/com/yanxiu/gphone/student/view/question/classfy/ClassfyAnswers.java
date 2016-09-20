@@ -226,6 +226,7 @@ public class ClassfyAnswers extends ViewGroup {
         this.removeAllViews();
         for (int i=0; i<classfyItem.size(); i++) {
             final YXiuAnserTextView view = (YXiuAnserTextView) inflater.inflate(R.layout.classfy_layout_textview, null);
+            view.setClasfyFlag(false);
             view.setTextHtml(classfyItem.get(i).getName());
             //view.setText(classfyItem.get(i).getName());
             view.getLayoutParams();
