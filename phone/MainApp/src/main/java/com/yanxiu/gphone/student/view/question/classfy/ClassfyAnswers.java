@@ -2,6 +2,8 @@ package com.yanxiu.gphone.student.view.question.classfy;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.ClassfyBean;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.view.ClassfyTextView;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 
 import java.util.ArrayList;
@@ -183,9 +186,7 @@ public class ClassfyAnswers extends ViewGroup {
             }
 
         }
-        setMeasuredDimension((modeWidth == MeasureSpec.EXACTLY) ? sizeWidth
-                : width, (modeHeight == MeasureSpec.EXACTLY) ? sizeHeight
-                : height);
+        setMeasuredDimension((modeWidth == MeasureSpec.EXACTLY) ? sizeWidth: width, (modeHeight == MeasureSpec.EXACTLY) ? sizeHeight: height);
 
     }
 
@@ -226,12 +227,14 @@ public class ClassfyAnswers extends ViewGroup {
         this.removeAllViews();
         for (int i=0; i<classfyItem.size(); i++) {
             final TextView view = (TextView) inflater.inflate(R.layout.classfy_layout_textview, null);
+//            ClassfyTextView view=new ClassfyTextView(context);
             //view.setClasfyFlag(false);
-            view.setText(classfyItem.get(i).getName());
+           Spanned spanned= Html.fromHtml(classfyItem.get(i).getName());
+            view.setText(spanned);
             //view.setText(classfyItem.get(i).getName());
             view.getLayoutParams();
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(8, 8, 8, 8);
+            //lp.setMargins(8, 8, 8, 8);
             view.setLayoutParams(lp);
             view.setOnClickListener(l);
             view.setTag(classfyItem.get(i));

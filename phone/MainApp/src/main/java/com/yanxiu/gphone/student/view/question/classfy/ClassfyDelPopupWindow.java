@@ -116,7 +116,7 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
                         });
                         containerView.getLayoutParams();
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        lp.setMargins(8, 8, 8, 8);
+                        //lp.setMargins(8, 3, 10, 3);
                         containerView.setLayoutParams(lp);
                         containerView.setTag(classfyPopItem.get(i));
                         vgClassfyAnswers.addView(containerView);
