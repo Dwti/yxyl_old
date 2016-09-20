@@ -325,7 +325,10 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                 e.printStackTrace();
             }
             String ss[] = string.split(",");
-            if (i < answerlist.size() && answerlist.get(i) != null) {
+            if (answerData.size() > answerlist.size() || answerlist.get(i) == null) {
+                answerBean.setIsRight(false);
+                return;
+            } else {
                 if (ss.length != answerlist.get(i).size()) {
                     answerBean.setIsRight(false);
                 } else {
@@ -335,8 +338,6 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                         }
                     }
                 }
-            } else {
-                answerBean.setIsRight(false);
             }
         }
 
