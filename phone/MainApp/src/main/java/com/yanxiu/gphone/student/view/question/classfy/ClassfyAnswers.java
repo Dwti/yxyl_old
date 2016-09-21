@@ -270,7 +270,7 @@ public class ClassfyAnswers extends ViewGroup {
         private static final HtmlSchema schema = new HtmlSchema();
     }
 
-    public Spanned fromHtml(Context context, String source) {
+    public static Spanned fromHtml(Context context, String source) {
         HtmlParser parser = new HtmlParser();
         try {
             parser.setProperty(HtmlParser.schemaProperty, HtmlParserSchema.schema);
