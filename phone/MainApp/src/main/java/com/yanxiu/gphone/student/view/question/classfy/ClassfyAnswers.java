@@ -176,7 +176,12 @@ public class ClassfyAnswers extends ViewGroup {
                 width = Math.max(lineWidth, childWidth);// 取最大的
                 lineWidth = childWidth; // 重新开启新行，开始记录
                 // 叠加当前高度，
-                height += lineHeight;
+                if (lineHeight == Math.max(lineHeight, childHeight)) {
+                    height += lineHeight;
+                } else {
+                    height += Math.max(lineHeight, childHeight);
+                }
+
                 // 开启记录下一行的高度
                 lineHeight = childHeight;
             } else

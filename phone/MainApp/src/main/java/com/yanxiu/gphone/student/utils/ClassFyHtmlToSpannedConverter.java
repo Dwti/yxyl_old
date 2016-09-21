@@ -113,51 +113,51 @@ public class ClassFyHtmlToSpannedConverter implements ContentHandler {
         } else if (tag.equalsIgnoreCase("p")) {
 //            handleP(mSpannableStringBuilder);
         } else if (tag.equalsIgnoreCase("div")) {
-            handleP(mSpannableStringBuilder);
+            //handleP(mSpannableStringBuilder);
         } else if (tag.equalsIgnoreCase("strong")) {
-            start(mSpannableStringBuilder, new Bold());
+            //start(mSpannableStringBuilder, new Bold());
         } else if (tag.equalsIgnoreCase("b")) {
-            start(mSpannableStringBuilder, new Bold());
+            //start(mSpannableStringBuilder, new Bold());
         } else if (tag.equalsIgnoreCase("em")) {
-            start(mSpannableStringBuilder, new Italic());
+            //start(mSpannableStringBuilder, new Italic());
         } else if (tag.equalsIgnoreCase("cite")) {
-            start(mSpannableStringBuilder, new Italic());
+            //start(mSpannableStringBuilder, new Italic());
         } else if (tag.equalsIgnoreCase("dfn")) {
-            start(mSpannableStringBuilder, new Italic());
+            //start(mSpannableStringBuilder, new Italic());
         } else if (tag.equalsIgnoreCase("i")) {
-            start(mSpannableStringBuilder, new Italic());
+            //start(mSpannableStringBuilder, new Italic());
         } else if (tag.equalsIgnoreCase("big")) {
-            start(mSpannableStringBuilder, new Big());
+            //start(mSpannableStringBuilder, new Big());
         } else if (tag.equalsIgnoreCase("small")) {
-            start(mSpannableStringBuilder, new Small());
+            //start(mSpannableStringBuilder, new Small());
         } else if (tag.equalsIgnoreCase("font")) {
-            startFont(mSpannableStringBuilder, attributes);
+            //startFont(mSpannableStringBuilder, attributes);
         } else if (tag.equalsIgnoreCase("blockquote")) {
-            handleP(mSpannableStringBuilder);
-            start(mSpannableStringBuilder, new Blockquote());
+            //handleP(mSpannableStringBuilder);
+            //start(mSpannableStringBuilder, new Blockquote());
         } else if (tag.equalsIgnoreCase("tt")) {
-            start(mSpannableStringBuilder, new Monospace());
+            //start(mSpannableStringBuilder, new Monospace());
         } else if (tag.equalsIgnoreCase("a")) {
-            startA(mSpannableStringBuilder, attributes);
+            //startA(mSpannableStringBuilder, attributes);
         } else if (tag.equalsIgnoreCase("u")) {
-            start(mSpannableStringBuilder, new Underline());
+            //start(mSpannableStringBuilder, new Underline());
         } else if (tag.equalsIgnoreCase("sup")) {
-            start(mSpannableStringBuilder, new Super());
+            //start(mSpannableStringBuilder, new Super());
         } else if (tag.equalsIgnoreCase("sub")) {
-            start(mSpannableStringBuilder, new Sub());
+            //start(mSpannableStringBuilder, new Sub());
         } else if (tag.length() == 2 && Character.toLowerCase(tag.charAt(0)) == 'h' &&tag.charAt(1) >= '1' && tag.charAt(1) <= '6') {
-            handleP(mSpannableStringBuilder);
-            start(mSpannableStringBuilder, new Header(tag.charAt(1) - '1'));
+            //handleP(mSpannableStringBuilder);
+            //start(mSpannableStringBuilder, new Header(tag.charAt(1) - '1'));
         } else if (tag.equalsIgnoreCase("img")) {
-            startImg(mSpannableStringBuilder, attributes, mImageGetterListener);
+            //startImg(mSpannableStringBuilder, attributes, mImageGetterListener);
         } else if (tag.equalsIgnoreCase("clozz")){
             //完形填空
-            startClozz(mSpannableStringBuilder);
+            //startClozz(mSpannableStringBuilder);
         } else if (tag.equalsIgnoreCase("span")){
             //处理css效果
 
         }else if (tag.equalsIgnoreCase("imgFy")){
-            startImgFy(mSpannableStringBuilder, attributes, mImageGetterListener);
+            //startImgFy(mSpannableStringBuilder, attributes, mImageGetterListener);
         }else if (mTagHandler != null) {
             mTagHandler.handleTag(true, tag, mSpannableStringBuilder, mReader);
         }
@@ -169,44 +169,44 @@ public class ClassFyHtmlToSpannedConverter implements ContentHandler {
         } else if (tag.equalsIgnoreCase("p")) {
 //            handleP(mSpannableStringBuilder);
         } else if (tag.equalsIgnoreCase("div")) {
-            handleP(mSpannableStringBuilder);
+            //handleP(mSpannableStringBuilder);
         } else if (tag.equalsIgnoreCase("strong")) {
-            end(mSpannableStringBuilder, Bold.class, new StyleSpan(Typeface.BOLD));
+            //end(mSpannableStringBuilder, Bold.class, new StyleSpan(Typeface.BOLD));
         } else if (tag.equalsIgnoreCase("b")) {
-            end(mSpannableStringBuilder, Bold.class, new StyleSpan(Typeface.BOLD));
+            //end(mSpannableStringBuilder, Bold.class, new StyleSpan(Typeface.BOLD));
         } else if (tag.equalsIgnoreCase("em")) {
-            end(mSpannableStringBuilder, Italic.class, new StyleSpan(Typeface.ITALIC));
+            //end(mSpannableStringBuilder, Italic.class, new StyleSpan(Typeface.ITALIC));
         } else if (tag.equalsIgnoreCase("cite")) {
-            end(mSpannableStringBuilder, Italic.class, new StyleSpan(Typeface.ITALIC));
+            //end(mSpannableStringBuilder, Italic.class, new StyleSpan(Typeface.ITALIC));
         } else if (tag.equalsIgnoreCase("dfn")) {
-            end(mSpannableStringBuilder, Italic.class, new StyleSpan(Typeface.ITALIC));
+            //end(mSpannableStringBuilder, Italic.class, new StyleSpan(Typeface.ITALIC));
         } else if (tag.equalsIgnoreCase("i")) {
-            end(mSpannableStringBuilder, Italic.class, new StyleSpan(Typeface.ITALIC));
+            //end(mSpannableStringBuilder, Italic.class, new StyleSpan(Typeface.ITALIC));
         } else if (tag.equalsIgnoreCase("big")) {
-            end(mSpannableStringBuilder, Big.class, new RelativeSizeSpan(1.25f));
+            //end(mSpannableStringBuilder, Big.class, new RelativeSizeSpan(1.25f));
         } else if (tag.equalsIgnoreCase("small")) {
-            end(mSpannableStringBuilder, Small.class, new RelativeSizeSpan(0.8f));
+            //end(mSpannableStringBuilder, Small.class, new RelativeSizeSpan(0.8f));
         } else if (tag.equalsIgnoreCase("font")) {
-            endFont(mSpannableStringBuilder);
+            //endFont(mSpannableStringBuilder);
         } else if (tag.equalsIgnoreCase("blockquote")) {
-            handleP(mSpannableStringBuilder);
-            end(mSpannableStringBuilder, Blockquote.class, new QuoteSpan());
+            //handleP(mSpannableStringBuilder);
+            //end(mSpannableStringBuilder, Blockquote.class, new QuoteSpan());
         } else if (tag.equalsIgnoreCase("tt")) {
-            end(mSpannableStringBuilder, Monospace.class,new TypefaceSpan("monospace"));
+            //end(mSpannableStringBuilder, Monospace.class,new TypefaceSpan("monospace"));
         } else if (tag.equalsIgnoreCase("a")) {
-            endA(mSpannableStringBuilder);
+            //endA(mSpannableStringBuilder);
         } else if (tag.equalsIgnoreCase("u")) {
-            end(mSpannableStringBuilder, Underline.class, new UnderlineSpan());
+            //end(mSpannableStringBuilder, Underline.class, new UnderlineSpan());
         } else if (tag.equalsIgnoreCase("sup")) {
-            end(mSpannableStringBuilder, Super.class, new SuperscriptSpan());
+            //end(mSpannableStringBuilder, Super.class, new SuperscriptSpan());
         } else if (tag.equalsIgnoreCase("sub")) {
-            end(mSpannableStringBuilder, Sub.class, new SubscriptSpan());
+            //end(mSpannableStringBuilder, Sub.class, new SubscriptSpan());
         } else if (tag.length() == 2 && Character.toLowerCase(tag.charAt(0)) == 'h' &&tag.charAt(1) >= '1' && tag.charAt(1) <= '6') {
-            handleP(mSpannableStringBuilder);
-            endHeader(mSpannableStringBuilder);
+            //handleP(mSpannableStringBuilder);
+            //endHeader(mSpannableStringBuilder);
         } else if (tag.equalsIgnoreCase("clozz")){
             //完形填空
-            endClozz(mSpannableStringBuilder);
+            //endClozz(mSpannableStringBuilder);
         } else if (tag.equalsIgnoreCase("span")){
             //处理css效果
 
