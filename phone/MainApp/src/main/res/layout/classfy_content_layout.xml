@@ -4,10 +4,11 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/dimen_30">
+        android:paddingBottom="@dimen/dimen_30"
+        android:orientation="vertical">
 
 
         <LinearLayout
@@ -21,10 +22,8 @@
                 android:id="@+id/yxiu_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_black"
                 android:layout_marginBottom="@dimen/dimen_20"
-                android:background="@drawable/question_read_content_bg"
-                android:textSize="@dimen/dimen_15" />
+                android:background="@drawable/question_read_content_bg" />
 
 
             <com.common.core.view.AllGridView
@@ -40,7 +39,6 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_1"
             android:layout_below="@id/ll_answer_content"
-            android:layout_marginBottom="@dimen/dimen_20"
             android:layout_marginLeft="@dimen/dimen_20"
             android:layout_marginRight="@dimen/dimen_10"
             android:layout_marginTop="@dimen/dimen_20"
@@ -53,7 +51,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/view_line_ccc4a3_2"
-            android:layout_margin="@dimen/dimen_20"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_marginRight="@dimen/dimen_20"
+            android:layout_marginBottom="@dimen/dimen_20"
             android:orientation="horizontal">
 
             <com.yanxiu.gphone.student.view.question.classfy.ClassfyAnswers
@@ -90,6 +91,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ll_answer" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </ScrollView>

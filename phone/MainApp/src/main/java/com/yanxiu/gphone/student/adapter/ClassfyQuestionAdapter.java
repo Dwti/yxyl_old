@@ -90,6 +90,15 @@ public class ClassfyQuestionAdapter extends BaseAdapter {
         return 0;
     }
 
+
+    public interface updatesuccesslistener{
+        void updatesuccess();
+    }
+    updatesuccesslistener listenr;
+    public void setlistener(updatesuccesslistener listenr){
+        this.listenr=listenr;
+    }
+
     class ViewHolder{
         private TextView classfyQuestionName;
         private TextView classfyQuestionNum;
@@ -159,6 +168,10 @@ public class ClassfyQuestionAdapter extends BaseAdapter {
                 if (position%2>0||position==getCount()-1){
                     index=index+heights;
                     heights=0;
+                }
+
+                if (position==getCount()-1){
+                    listenr.updatesuccess();
                 }
                 LinearLayout.LayoutParams LayoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,index);
                 gv.setLayoutParams(LayoutParams);

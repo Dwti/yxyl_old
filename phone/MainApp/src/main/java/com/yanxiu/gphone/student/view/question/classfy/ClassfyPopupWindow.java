@@ -100,7 +100,7 @@ public class ClassfyPopupWindow extends BasePopupWindow  {
                         //view.setText(mQuestionsEntity.getContent().getChoices().get(i));
                         containerView.getLayoutParams();
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        lp.setMargins(8, 8, 8, 8);
+                        //lp.setMargins(8, 8, 8, 8);
                         containerView.setLayoutParams(lp);
                         containerView.setTag(classfyPopItem.get(i));
                         vgClassfyAnswers.addView(containerView);

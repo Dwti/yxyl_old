@@ -88,7 +88,7 @@ public class ClassfyAnswers extends ViewGroup {
             lineHeight = childHeight + lp.topMargin
                     + lp.bottomMargin;
             //lineHeight = Math.max(lineHeight, childHeight + lp.topMargin
-                   // + lp.bottomMargin);
+                    //+ lp.bottomMargin);
             lineViews.add(child);
         }
         // 记录最后一行
@@ -178,11 +178,11 @@ public class ClassfyAnswers extends ViewGroup {
                 width = Math.max(lineWidth, childWidth);// 取最大的
                 lineWidth = childWidth; // 重新开启新行，开始记录
                 // 叠加当前高度，
-                //if (lineHeight == Math.max(lineHeight, childHeight)) {
+                if (lineHeight == Math.max(lineHeight, childHeight)) {
                     height += lineHeight;
-                //} else {
-                    //height += Math.max(lineHeight, childHeight);
-                //}
+                } else {
+                    height += Math.max(lineHeight, childHeight);
+                }
 
                 // 开启记录下一行的高度
                 lineHeight = childHeight;
