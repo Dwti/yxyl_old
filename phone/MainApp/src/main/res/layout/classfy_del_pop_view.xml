@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_screen"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/dimen_30"
     android:paddingRight="@dimen/dimen_30"
-    android:paddingTop="193dp"
-    android:paddingBottom="99dp">
+    android:paddingTop="@dimen/dimen_193"
+    android:paddingBottom="@dimen/dimen_96">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/login_and_pwd_selector"
+    >
 <LinearLayout
               android:id="@+id/container"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:background="@drawable/login_and_pwd_selector">
+              android:layout_marginBottom="@dimen/dimen_10">
 
     <TextView
           android:layout_marginLeft="@dimen/dimen_15"
@@ -43,6 +50,7 @@
 
 </LinearLayout>
 </ScrollView>
+</LinearLayout>
 
 
 

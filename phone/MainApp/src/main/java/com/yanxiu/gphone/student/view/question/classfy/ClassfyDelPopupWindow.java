@@ -33,6 +33,7 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
     private int mNum;
     private ClassfyAnswers vgClassfyAnswers;
     private UnMoveGridView lgClassfyAnswers;
+    private LinearLayout ll_screen;
 
     private List<ClassfyBean> classfyPopItem = new ArrayList<ClassfyBean>();
     private int mViewType;
@@ -48,6 +49,13 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
         //this.pop.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
         this.pop.setContentView(view);
 
+        ll_screen = (LinearLayout)view.findViewById(R.id.ll_screen);
+        ll_screen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pop.dismiss();
+            }
+        });
         classfyDelPopText = (TextView)view.findViewById(R.id.classfyDelPopText);
         vgClassfyAnswers = (ClassfyAnswers) view.findViewById(R.id.classfy_text_item);
         lgClassfyAnswers = (UnMoveGridView) view.findViewById(R.id.classfy_icon_item);
