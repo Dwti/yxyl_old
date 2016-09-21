@@ -8,6 +8,7 @@ import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yanxiu.gphone.student.R;
@@ -78,6 +79,7 @@ public class ClassfyQuestionAdapter extends BaseAdapter {
         return null;
     }
 
+    int index=0;
     @Override
     public long getItemId(int position) {
         return 0;
@@ -103,16 +105,26 @@ public class ClassfyQuestionAdapter extends BaseAdapter {
                                 // 得到同一行的最后一个item和前一个item想比较，把谁的height大，就把两者中                                                                // height小的item的高度设定为height较大的item的高度一致，也就是保证同一                                                                 // 行高度相等即可
                                 if (height > lastheight) {
                                     view.setLayoutParams(new GridView.LayoutParams(
-                                            GridView.LayoutParams.FILL_PARENT,
+                                            GridView.LayoutParams.MATCH_PARENT,
                                             height));
+                                    index=index+height;
                                 } else if (height < lastheight) {
                                     v.setLayoutParams(new GridView.LayoutParams(
-                                            GridView.LayoutParams.FILL_PARENT,
+                                            GridView.LayoutParams.MATCH_PARENT,
                                             lastheight));
+                                    index=index+lastheight;
                                 }
+//                                gv.setLayoutParams(new GridView.LayoutParams(
+//                                        GridView.LayoutParams.FILL_PARENT,
+//                                        index));
+
+                                LinearLayout.LayoutParams LayoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,index);
+                                gv.setLayoutParams(LayoutParams);
                             }
                         }
                     });
+
+
         }
 
     }
