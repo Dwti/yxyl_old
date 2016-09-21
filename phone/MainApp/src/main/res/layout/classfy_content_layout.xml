@@ -27,7 +27,7 @@
                 android:textSize="@dimen/dimen_15" />
 
 
-            <com.common.core.view.UnMoveGridView
+            <com.common.core.view.AllGridView
                 android:id="@+id/classfy_question_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

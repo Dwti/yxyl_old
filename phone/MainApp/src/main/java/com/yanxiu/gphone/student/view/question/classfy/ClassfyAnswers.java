@@ -11,9 +11,15 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.yanxiu.gphone.student.HtmlParser.Html.HtmlParser;
+import com.yanxiu.gphone.student.HtmlParser.Html.HtmlSchema;
+import com.yanxiu.gphone.student.HtmlParser.Html.HtmlToSpannedConverter;
+import com.yanxiu.gphone.student.HtmlParser.Interface.ImageGetterListener;
+import com.yanxiu.gphone.student.HtmlParser.Interface.ImageSpanOnclickListener;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.ClassfyBean;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.utils.ClassFyHtmlToSpannedConverter;
 import com.yanxiu.gphone.student.view.ClassfyTextView;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 
@@ -229,7 +235,7 @@ public class ClassfyAnswers extends ViewGroup {
             final TextView view = (TextView) inflater.inflate(R.layout.classfy_layout_textview, null);
 //            ClassfyTextView view=new ClassfyTextView(context);
             //view.setClasfyFlag(false);
-           Spanned spanned= Html.fromHtml(classfyItem.get(i).getName());
+           Spanned spanned=fromHtml(context,classfyItem.get(i).getName());
             view.setText(spanned);
             //view.setText(classfyItem.get(i).getName());
             view.getLayoutParams();
@@ -252,6 +258,25 @@ public class ClassfyAnswers extends ViewGroup {
                 this.getChildAt(i).setAlpha(1.0f);
             }
         }
+    }
+
+
+    private static class HtmlParserSchema {
+        private static final HtmlSchema schema = new HtmlSchema();
+    }
+
+    public Spanned fromHtml(Context context, String source) {
+        HtmlParser parser = new HtmlParser();
+        try {
+            parser.setProperty(HtmlParser.schemaProperty, HtmlParserSchema.schema);
+        } catch (org.xml.sax.SAXNotRecognizedException e) {
+            throw new RuntimeException(e);
+        } catch (org.xml.sax.SAXNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
+
+        ClassFyHtmlToSpannedConverter converter = new ClassFyHtmlToSpannedConverter(context,source, null, null, parser,null,null);
+        return converter.convert();
     }
 
 }

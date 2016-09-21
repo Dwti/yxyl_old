@@ -1,7 +1,9 @@
 package com.yanxiu.gphone.student.adapter;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -41,6 +43,7 @@ public class ClassfyQuestionAdapter extends BaseAdapter {
             convertView=View.inflate(mContext, R.layout.classfy_question_list_adapter,null);
             holder.classfyQuestionName= (TextView) convertView.findViewById(R.id.classfyQuestionName);
             holder.classfyQuestionNum= (TextView) convertView.findViewById(R.id.classfyQuestionNum);
+            holder.position=position;
             convertView.setTag(holder);
             holder.update();
         }else{
@@ -58,6 +61,7 @@ public class ClassfyQuestionAdapter extends BaseAdapter {
         holder.classfyQuestionNum.setText("(" + questionsEntity.getAnswerBean().getConnect_classfy_answer().get(position).size() + ")");
         holder.classfyQuestionName.setTag(position);
         holder.classfyQuestionNum.setTag(convertView);
+
         return convertView;
     }
 
@@ -80,6 +84,7 @@ public class ClassfyQuestionAdapter extends BaseAdapter {
     }
 
     int index=0;
+    int heights=0;
     @Override
     public long getItemId(int position) {
         return 0;
@@ -88,45 +93,78 @@ public class ClassfyQuestionAdapter extends BaseAdapter {
     class ViewHolder{
         private TextView classfyQuestionName;
         private TextView classfyQuestionNum;
+        private int position;
+        private int mheight;
 
         public void update() {
             // 精确计算GridView的item高度
-            classfyQuestionName.getViewTreeObserver().addOnGlobalLayoutListener(
-                    new ViewTreeObserver.OnGlobalLayoutListener() {
-                        public void onGlobalLayout() {
-                            int position = (Integer) classfyQuestionName.getTag();
-                            // 这里是保证同一行的item高度是相同的！！也就是同一行是齐整的 height相等
-                            if (position > 0 && position % 2 == 1) {
-                                View v = (View) classfyQuestionNum.getTag();
-                                int height = v.getHeight();
+            classfyQuestionName.getViewTreeObserver().addOnGlobalLayoutListener(listener);
 
-                                View view = gv.getChildAt(position - 1);
-                                int lastheight = view.getHeight();
-                                // 得到同一行的最后一个item和前一个item想比较，把谁的height大，就把两者中                                                                // height小的item的高度设定为height较大的item的高度一致，也就是保证同一                                                                 // 行高度相等即可
-                                if (height > lastheight) {
-                                    view.setLayoutParams(new GridView.LayoutParams(
-                                            GridView.LayoutParams.MATCH_PARENT,
-                                            height));
-                                    index=index+height;
-                                } else if (height < lastheight) {
-                                    v.setLayoutParams(new GridView.LayoutParams(
-                                            GridView.LayoutParams.MATCH_PARENT,
-                                            lastheight));
-                                    index=index+lastheight;
-                                }
+        }
+        ViewTreeObserver.OnGlobalLayoutListener listener=new ViewTreeObserver.OnGlobalLayoutListener(){
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+            public void onGlobalLayout() {
+                classfyQuestionName.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//                            int position = (Integer) classfyQuestionName.getTag();
+                // 这里是保证同一行的item高度是相同的！！也就是同一行是齐整的 height相等
+//                            if (position > 0) {
+//                View v = (View) classfyQuestionNum.getTag();
+//                int height = v.getHeight();
+
+                View view = gv.getChildAt(position);
+                int lastheight = view.getHeight();
+
+                // 得到同一行的最后一个item和前一个item想比较，把谁的height大，就把两者中                                                                // height小的item的高度设定为height较大的item的高度一致，也就是保证同一                                                                 // 行高度相等即可
+//                if (height > lastheight) {
+////                                    view.setLayoutParams(new GridView.LayoutParams(
+////                                            GridView.LayoutParams.MATCH_PARENT,
+////                                            height));
+////                                    index=index+height;
+//                    mheight=height;
+//                } else{
+//                                    v.setLayoutParams(new GridView.LayoutParams(
+//                                            GridView.LayoutParams.MATCH_PARENT,
+//                                            lastheight));
+
+                    mheight=lastheight;
+//                }
 //                                gv.setLayoutParams(new GridView.LayoutParams(
 //                                        GridView.LayoutParams.FILL_PARENT,
 //                                        index));
+//                            int count=getCount();
+                if (heights>mheight){
 
-                                LinearLayout.LayoutParams LayoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,index);
-                                gv.setLayoutParams(LayoutParams);
-                            }
-                        }
-                    });
+                }else {
+                    heights=mheight;
+                }
+
+                if (position%2>0){
+                    View view1 = gv.getChildAt(position-1);
+                    View view2 = gv.getChildAt(position);
+
+                    ViewHolder viewHolder1= (ViewHolder) view1.getTag();
+                    ViewHolder viewHolder2= (ViewHolder) view2.getTag();
+
+                    if (viewHolder1.mheight>viewHolder2.mheight){
+                        view1.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT,viewHolder1.mheight));
+                        view2.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT,viewHolder1.mheight));
+                    }else {
+                        view1.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT,viewHolder2.mheight));
+                        view2.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT,viewHolder2.mheight));
+                    }
 
 
-        }
+                }
 
+                if (position%2>0||position==getCount()-1){
+                    index=index+heights;
+                    heights=0;
+                }
+                LinearLayout.LayoutParams LayoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,index);
+                gv.setLayoutParams(LayoutParams);
+            }
+//                        }
+        };
     }
 
 }
