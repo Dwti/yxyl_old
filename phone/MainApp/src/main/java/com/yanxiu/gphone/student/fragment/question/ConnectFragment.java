@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.common.core.utils.LogInfo;
@@ -25,7 +27,7 @@ import java.util.ArrayList;
 /**
  * Created by Administrator on 2016/9/7.
  */
-public class ConnectFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex{
+public class ConnectFragment extends BaseQuestionFragment implements PageIndex{
 
     private QuestionsListener listener;
     public int typeId;
@@ -35,6 +37,7 @@ public class ConnectFragment extends BaseQuestionFragment implements QuestionsLi
     private ConnectLinesLinearLayout connect_lineslinearlayout;
     private Fragment resolutionFragment;
     private Button addBtn;
+    private FrameLayout ll_answer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,7 +54,20 @@ public class ConnectFragment extends BaseQuestionFragment implements QuestionsLi
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (ischild){
+            if (questionsEntity!=null&&TextUtils.isEmpty(questionsEntity.getStem())){
+                ll_answer.setVisibility(View.GONE);
+            }else {
+                ll_answer.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
     private void initview(View rootView) {
+        ll_answer= (FrameLayout) rootView.findViewById(R.id.ll_answer);
         YXiuAnserTextView connect_question= (YXiuAnserTextView) rootView.findViewById(R.id.connect_question);
         connect_lineslinearlayout= (ConnectLinesLinearLayout) rootView.findViewById(R.id.connect_lineslinearlayout);
         if (questionsEntity!=null) {
@@ -165,10 +181,17 @@ public class ConnectFragment extends BaseQuestionFragment implements QuestionsLi
 
     @Override
     public void answerViewClick() {
+        super.answerViewClick();
         if (connect_lineslinearlayout != null) {
             if (bean != null) {
                 connect_lineslinearlayout.saveAnswers();
             }
         }
+    }
+
+    @Override
+    public void saveAnwser() {
+        super.saveAnwser();
+        answerViewClick();
     }
 }

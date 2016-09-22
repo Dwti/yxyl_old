@@ -89,6 +89,7 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
         if (answerBean == null) {
             return;
         }
+        if (list.size()>0) {
 
         ArrayList<ArrayList<String>> answerlist = answerBean.getConnect_classfy_answer();
         answerlist.clear();
@@ -102,12 +103,13 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
                 }
             }
         }
-        if (answerlist.size() < list.size() / 2) {
-            answerBean.setIsFinish(false);
-            answerBean.setIsRight(false);
-        } else {
-            answerBean.setIsFinish(true);
-            getIsRight(answerlist);
+            if (answerlist.size() < list.size() / 2) {
+                answerBean.setIsFinish(false);
+                answerBean.setIsRight(false);
+            } else {
+                answerBean.setIsFinish(true);
+                getIsRight(answerlist);
+            }
         }
     }
 

@@ -309,6 +309,18 @@ public class QuestionUtils {
                                 if (!YanXiuConstant.ANSWER_QUESTION.equals(childTemplate)) {
                                     //非主观题（就是有正确答案，直接能在客户端判定的题）
                                     if (answerChildList != null && !answerChildList.isEmpty()) {
+
+                                        answerChildBean.setIsFinish(true);
+                                        //如果是填空题，需要再次确认一下是不是所有的空全填完了（没填完的空是""）
+                                        if (YanXiuConstant.FILL_BLANK.equals(childTemplate) || YanXiuConstant.NEW_FILL_BLANK.equals(childTemplate)){
+                                            for(String str: answerChildList){
+                                                if (TextUtils.isEmpty(str)){
+                                                    answerChildBean.setIsFinish(false);
+                                                    break;
+                                                }
+                                            }
+                                        }
+
                                         if (YanXiuConstant.SINGLE_CHOICES.equals(childTemplate) || YanXiuConstant.JUDGE_QUESTION.equals(childTemplate)) {
                                             answerChildBean.setSelectType(answerChildList.get(0));
                                             if (rightAnswer != null && !rightAnswer.isEmpty()) {
@@ -318,7 +330,46 @@ public class QuestionUtils {
                                                     answerChildBean.setIsRight(false);
                                                 }
                                             }
-                                        } else {
+                                        }else if (YanXiuConstant.CONNECT_QUESTION.equals(childTemplate)){
+                                            try {
+                                                JSONArray array=new JSONArray(childJsonAnswer);
+                                                for (int k=0;k<array.length();k++){
+                                                    String arrayJSONArray[]= array.getString(k).split(",");
+                                                    ArrayList<String> list=new ArrayList<String>();
+                                                    for (int l=0;l<arrayJSONArray.length;l++){
+                                                        if (!TextUtils.isEmpty(arrayJSONArray[l])) {
+                                                            list.add(arrayJSONArray[l]);
+                                                        }
+                                                    }
+                                                    answerChildBean.getConnect_classfy_answer().add(list);
+                                                }
+
+
+
+                                                if (answerChildBean.getConnect_classfy_answer().size()>0 ){
+                                                    int num = 0;
+                                                    for (ArrayList<String> listStr:answerChildBean.getConnect_classfy_answer()) {
+                                                        num = num + listStr.size();
+                                                    }
+                                                    if (YanXiuConstant.CLASSIFY_QUESTION.equals(childTemplate) && num < childQuestion.getContent().getChoices().size()) {
+                                                        answerChildBean.setIsFinish(false);
+                                                        answerChildBean.setIsRight(false);
+                                                    }else if (YanXiuConstant.CONNECT_QUESTION.equals(childTemplate) &&answerChildBean.getConnect_classfy_answer().size()<childQuestion.getAnswer().size()){
+                                                        answerChildBean.setIsFinish(false);
+                                                        answerChildBean.setIsRight(false);
+                                                    }else {
+                                                        answerChildBean.setIsFinish(true);
+                                                        List<String> list = childQuestion.getAnswer();
+                                                        answerChildBean.setIsRight(CheckConnect_classfy_answer(list, answerChildBean.getConnect_classfy_answer(), childTemplate));
+                                                    }
+                                                }else {
+                                                    answerChildBean.setIsFinish(false);
+                                                    answerChildBean.setIsRight(false);
+                                                }
+                                            }catch (Exception e){
+
+                                            }
+                                        }else {
                                             if (YanXiuConstant.MULTI_CHOICES.equals(childTemplate)) {
                                                 answerChildBean.setMultiSelect((ArrayList<String>) answerChildList);
                                             } else if (YanXiuConstant.FILL_BLANK.equals(childTemplate) || YanXiuConstant.NEW_FILL_BLANK.equals(childTemplate)) {
@@ -330,16 +381,7 @@ public class QuestionUtils {
                                                 answerChildBean.setIsRight(false);
                                             }
                                         }
-                                        answerChildBean.setIsFinish(true);
-                                        //如果是填空题，需要再次确认一下是不是所有的空全填完了（没填完的空是""）
-                                        if (YanXiuConstant.FILL_BLANK.equals(childTemplate) || YanXiuConstant.NEW_FILL_BLANK.equals(childTemplate)){
-                                            for(String str: answerChildList){
-                                                if (TextUtils.isEmpty(str)){
-                                                    answerChildBean.setIsFinish(false);
-                                                    break;
-                                                }
-                                            }
-                                        }
+
                                     } else {
                                         answerChildBean.setIsFinish(false);
                                     }

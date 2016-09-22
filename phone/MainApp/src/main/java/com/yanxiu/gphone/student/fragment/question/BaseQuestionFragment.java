@@ -17,16 +17,18 @@ import android.widget.TextView;
 import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.AnswerViewActivity;
+import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
+import com.yanxiu.gphone.student.view.question.QuestionsListener;
 
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.*;
 
 /**
  * Created by Administrator on 2015/12/17.
  */
-public class BaseQuestionFragment extends Fragment {
+public class BaseQuestionFragment extends Fragment implements QuestionsListener {
     protected QuestionEntity questionsEntity;
 
     protected int answerViewTypyBean;
@@ -200,4 +202,23 @@ public class BaseQuestionFragment extends Fragment {
     }
 
 
+    @Override
+    public void flipNextPager(QuestionsListener listener) {
+
+    }
+
+    @Override
+    public void setDataSources(AnswerBean bean) {
+
+    }
+
+    @Override
+    public void initViewWithData(AnswerBean bean) {
+
+    }
+
+    @Override
+    public void answerViewClick() {
+
+    }
 }
