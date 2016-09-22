@@ -12,7 +12,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/login_and_pwd_selector"
-    android:padding="@dimen/dimen_20"
+    android:paddingTop="@dimen/dimen_12"
+    android:paddingLeft="@dimen/dimen_20"
+    android:paddingRight="@dimen/dimen_20"
+    android:paddingBottom="@dimen/dimen_19"
     android:scrollbars="none">
 <LinearLayout
               android:id="@+id/container"
