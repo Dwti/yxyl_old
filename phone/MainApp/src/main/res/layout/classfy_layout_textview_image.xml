@@ -9,9 +9,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/dimen_15"
-        android:layout_marginRight="@dimen/dimen_15"
+        android:layout_marginRight="@dimen/dimen_8"
         android:gravity="center"
-        android:layout_marginTop="@dimen/dimen_12"
+        android:layout_marginTop="@dimen/dimen_8"
         android:background="@drawable/classfy_answer_nor"
         android:textColor="@color/color_333333">
     </TextView>
