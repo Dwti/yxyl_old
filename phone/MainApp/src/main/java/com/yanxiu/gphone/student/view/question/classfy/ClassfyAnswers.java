@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -247,7 +248,7 @@ public class ClassfyAnswers extends ViewGroup {
             //view.setText(classfyItem.get(i).getName());
             view.getLayoutParams();
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(0, 0, 0, 8);
+            lp.setMargins(0, 0, 24, 24);
             view.setLayoutParams(lp);
             view.setOnClickListener(l);
             view.setTag(classfyItem.get(i));

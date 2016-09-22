@@ -60,9 +60,9 @@ public class ClassfyAnswerAdapter extends BaseAdapter {
             ImageLoader.getInstance().displayImage(matcher.group(1), holder.classfyAnswerImg, options);
         }
         if(clickTemp == position) {    //根据点击的Item当前状态设置背景
-            holder.classfyAnswerImg.setAlpha(125);
+            convertView.setAlpha(0.5f);
         } else {
-            holder.classfyAnswerImg.setAlpha(255);
+            convertView.setAlpha(1f);
         }
         return convertView;
     }

@@ -96,7 +96,6 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_classfy_question, null);
         }
         initView();
-        selectTypeView();
         initData();
         return rootView;
     }
@@ -483,5 +482,6 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             lgClassfyAnswers.setVisibility(View.GONE);
             vgClassfyAnswers.setVisibility(View.VISIBLE);
         }
+        selectTypeView();
     }
 }
