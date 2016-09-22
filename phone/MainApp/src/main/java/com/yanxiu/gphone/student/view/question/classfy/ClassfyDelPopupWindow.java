@@ -3,6 +3,7 @@ package com.yanxiu.gphone.student.view.question.classfy;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,6 +34,7 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
     private int mNum;
     private ClassfyAnswers vgClassfyAnswers;
     private UnMoveGridView lgClassfyAnswers;
+    private LinearLayout ll_screen;
 
     private List<ClassfyBean> classfyPopItem = new ArrayList<ClassfyBean>();
     private int mViewType;
@@ -48,6 +50,13 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
         //this.pop.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
         this.pop.setContentView(view);
 
+        ll_screen = (LinearLayout)view.findViewById(R.id.ll_screen);
+        ll_screen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pop.dismiss();
+            }
+        });
         classfyDelPopText = (TextView)view.findViewById(R.id.classfyDelPopText);
         vgClassfyAnswers = (ClassfyAnswers) view.findViewById(R.id.classfy_text_item);
         lgClassfyAnswers = (UnMoveGridView) view.findViewById(R.id.classfy_icon_item);
@@ -98,7 +107,8 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
                         LayoutInflater inflater = LayoutInflater.from(mContext);
                         final View containerView = inflater.inflate(R.layout.classfy_layout_textview_image, null);
                         TextView classfy_answer_popup_text = (TextView) containerView.findViewById(R.id.classfy_answer_popup_text);
-                        classfy_answer_popup_text.setText(classfyPopItem.get(i).getName());
+                        Spanned spanned = ClassfyAnswers.fromHtml(mContext,classfyPopItem.get(i).getName());
+                        classfy_answer_popup_text.setText(spanned);
                         //view.setText(mQuestionsEntity.getContent().getChoices().get(i));
 
                         ImageView widget_title_icon = (ImageView) containerView.findViewById(R.id.widget_title_icon);
@@ -116,7 +126,7 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
                         });
                         containerView.getLayoutParams();
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        lp.setMargins(8, 8, 8, 8);
+                        //lp.setMargins(8, 3, 10, 3);
                         containerView.setLayoutParams(lp);
                         containerView.setTag(classfyPopItem.get(i));
                         vgClassfyAnswers.addView(containerView);

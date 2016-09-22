@@ -9,8 +9,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 import com.common.core.utils.BasePopupWindow;
 import com.common.core.utils.LogInfo;
 import com.common.core.utils.StringUtils;
+import com.common.core.view.AllGridView;
 import com.common.core.view.LineGridView;
 import com.common.core.view.UnMoveGridView;
 import com.yanxiu.gphone.student.R;
@@ -45,7 +48,7 @@ import java.util.List;
 /**
  * Created by Yangjj on 2016/8/30.
  */
-public class ClassfyQuestionFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex, BasePopupWindow.OnDissmissListener, View.OnClickListener {
+public class ClassfyQuestionFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex, BasePopupWindow.OnDissmissListener, View.OnClickListener, ClassfyQuestionAdapter.updatesuccesslistener {
     private QuestionsListener listener;
     //本地的保存数据bean
     private AnswerBean bean;
@@ -53,7 +56,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     public int typeId;
 
     private YXiuAnserTextView tvYanxiu;
-    private UnMoveGridView gvClassfyQuestion;
+    private AllGridView gvClassfyQuestion;
     private ClassfyAnswers vgClassfyAnswers;
     private UnMoveGridView lgClassfyAnswers;
 
@@ -100,9 +103,10 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
 
     private void initView() {
         tvYanxiu = (YXiuAnserTextView) rootView.findViewById(R.id.yxiu_tv);
-        gvClassfyQuestion = (UnMoveGridView) rootView.findViewById(R.id.classfy_question_item);
+        gvClassfyQuestion = (AllGridView) rootView.findViewById(R.id.classfy_question_item);
         gvClassfyQuestion.setSelector(new ColorDrawable(Color.TRANSPARENT));
         classfyQuestionAdapter = new ClassfyQuestionAdapter(gvClassfyQuestion, getActivity());
+        classfyQuestionAdapter.setlistener(this);
         gvClassfyQuestion.setAdapter(classfyQuestionAdapter);
         vgClassfyAnswers = (ClassfyAnswers) rootView.findViewById(R.id.classfy_text_item);
         lgClassfyAnswers = (UnMoveGridView) rootView.findViewById(R.id.classfy_icon_item);
@@ -168,6 +172,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                                 e.printStackTrace();
                             }
                             if (questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).size() > 0) {
+                                backgroundAlpha(0.5f);
                                 if (answerViewTypyBean == SubjectExercisesItemBean.RESOLUTION || answerViewTypyBean == SubjectExercisesItemBean.WRONG_SET) {
                                     classfyPopupWindow.init(questionsEntity, string, questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).size(), i);
                                     classfyPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
@@ -197,19 +202,28 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                 });
             //}
         }
-        if (questionsEntity.getContent().getChoices().get(0).contains(YanXiuConstant.IMG_SRC)) {
-            classfyAnswerAdapter.setData(classfyItem);
-            lgClassfyAnswers.setVisibility(View.VISIBLE);
-            vgClassfyAnswers.setVisibility(View.GONE);
-        } else {
-            if (answerViewTypyBean != SubjectExercisesItemBean.RESOLUTION && answerViewTypyBean != SubjectExercisesItemBean.WRONG_SET) {
-                vgClassfyAnswers.setData(classfyItem, ClassfyQuestionFragment.this);
-            } else {
-                vgClassfyAnswers.setData(classfyItem, null);
-            }
-            lgClassfyAnswers.setVisibility(View.GONE);
-            vgClassfyAnswers.setVisibility(View.VISIBLE);
-        }
+
+//        gvClassfyQuestion.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                if (questionsEntity.getContent().getChoices().get(0).contains(YanXiuConstant.IMG_SRC)) {
+//                    classfyAnswerAdapter.setData(classfyItem);
+//                    lgClassfyAnswers.setVisibility(View.VISIBLE);
+//                    vgClassfyAnswers.setVisibility(View.GONE);
+//                } else {
+//                    if (answerViewTypyBean != SubjectExercisesItemBean.RESOLUTION && answerViewTypyBean != SubjectExercisesItemBean.WRONG_SET) {
+//                        vgClassfyAnswers.setData(classfyItem, ClassfyQuestionFragment.this);
+//                    } else {
+//                        vgClassfyAnswers.setData(classfyItem, null);
+//                    }
+//                    lgClassfyAnswers.setVisibility(View.GONE);
+//                    vgClassfyAnswers.setVisibility(View.VISIBLE);
+//                }
+//            }
+//        });
+
+
+
 
 
 
@@ -395,6 +409,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                 vgClassfyAnswers.setData(classfyItem, null);
             }
         }
+        backgroundAlpha(1f);
     }
 
     @Override
@@ -439,6 +454,34 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                 }
                 //classfyItem.remove(Integer.parseInt(answerListStr.get(j)));
             }
+        }
+    }
+
+
+      /** 
+      * 设置添加屏幕的背景透明度 
+      * @param bgAlpha 
+      */
+    public void backgroundAlpha(float bgAlpha){
+        WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+        lp.alpha = bgAlpha;//0.0-1.0  
+        getActivity().getWindow().setAttributes(lp);
+    }
+
+    @Override
+    public void updatesuccess() {
+        if (questionsEntity.getContent().getChoices().get(0).contains(YanXiuConstant.IMG_SRC)) {
+            classfyAnswerAdapter.setData(classfyItem);
+            lgClassfyAnswers.setVisibility(View.VISIBLE);
+            vgClassfyAnswers.setVisibility(View.GONE);
+        } else {
+            if (answerViewTypyBean != SubjectExercisesItemBean.RESOLUTION && answerViewTypyBean != SubjectExercisesItemBean.WRONG_SET) {
+                vgClassfyAnswers.setData(classfyItem, ClassfyQuestionFragment.this);
+            } else {
+                vgClassfyAnswers.setData(classfyItem, null);
+            }
+            lgClassfyAnswers.setVisibility(View.GONE);
+            vgClassfyAnswers.setVisibility(View.VISIBLE);
         }
     }
 }
