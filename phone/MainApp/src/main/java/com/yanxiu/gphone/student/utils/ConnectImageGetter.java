@@ -81,6 +81,9 @@ public class ConnectImageGetter implements ImageGetterListener {
                     public void run() {
                         urlDrawable.setBounds(0, 0, loadedImageWidth, loadedImageheight);
                         urlDrawable.drawable = result;
+                        /**
+                         * 这里控件高度除以2，原因是图片的问题，最好的办法是替换成合适的切图，这样就不再需要除以2
+                         * */
                         ConnectImageGetter.this.view.setHeight((ConnectImageGetter.this.view.getHeight()/2 + loadedImageheight));
 //                        ConnectImageGetter.this.view.setHeight((0 + loadedImageheight*2));
                         ConnectImageGetter.this.view.setEllipsize(null);
