@@ -8,7 +8,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:padding="@dimen/dimen_3"
+            android:padding="@dimen/dimen_5"
             android:background="@drawable/upload_pic"
             />
 </LinearLayout>

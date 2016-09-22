@@ -5,6 +5,7 @@
               android:paddingBottom="@dimen/dimen_15"
           >
         <LinearLayout
+            android:id="@+id/linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/login_and_pwd_selector"
