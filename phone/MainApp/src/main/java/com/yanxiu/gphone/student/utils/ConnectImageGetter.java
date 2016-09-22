@@ -81,7 +81,8 @@ public class ConnectImageGetter implements ImageGetterListener {
                     public void run() {
                         urlDrawable.setBounds(0, 0, loadedImageWidth, loadedImageheight);
                         urlDrawable.drawable = result;
-                        ConnectImageGetter.this.view.setHeight((ConnectImageGetter.this.view.getHeight() + loadedImageheight));
+                        ConnectImageGetter.this.view.setHeight((ConnectImageGetter.this.view.getHeight()/2 + loadedImageheight));
+//                        ConnectImageGetter.this.view.setHeight((0 + loadedImageheight*2));
                         ConnectImageGetter.this.view.setEllipsize(null);
                         ConnectImageGetter.this.view.requestLayout();
                         ConnectImageGetter.this.view.invalidate();
