@@ -13,8 +13,12 @@ public class AnswerBean extends SrtBaseBean {
     public static final int ANSER_UNFINISH = 3;  //未作答
     public static final int ANSER_FINISH = 4;    //主观题已作答
     public static final int ANSER_READED = 5;    //主观题已批改
+    public static final int ANSER_UNFINISHS=6;   //未完成
 
     private boolean isCollectionn = false;
+
+    /**1 填空  2  连线  3 归类*/
+    private int type;
 
 
     private boolean isFinish = false;
@@ -49,6 +53,15 @@ public class AnswerBean extends SrtBaseBean {
     }
 
     private ArrayList<String> subjectivImageUri = new ArrayList<String>();
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
     //学科id
     private String subjectId;
 
@@ -129,7 +142,7 @@ public class AnswerBean extends SrtBaseBean {
         this.isCollectionn = isCollectionn;
     }
 
-    //题目状态 0 回答正确， 1 回答错误， 3 未作答案(如果市复合体型包含多个问题的， 如果有一道题目错误就设置成错误
+    //题目状态 0 回答正确， 1 回答错误， 3 未作答案(如果市复合体型包含多个问题的， 如果有一道题目错误就设置成错误,4  做了，但未完成
     public int getStatus() {
         if(isFinish()){
 
@@ -144,7 +157,25 @@ public class AnswerBean extends SrtBaseBean {
                 status = ANSER_WRONG;
             }
         }else{
-            status = ANSER_UNFINISH;
+            if (type!=0){
+
+                if (type==1&&fillAnswers.size()>0){
+                    status=ANSER_UNFINISHS;
+                }else if (type==2&&connect_classfy_answer.size()>0){
+                    status=ANSER_UNFINISHS;
+                }else if (type==3){
+                    status = ANSER_UNFINISH;
+                    for (int i=0;i<connect_classfy_answer.size();i++){
+                        if (connect_classfy_answer.get(i).size()>0){
+                            status=ANSER_UNFINISHS;
+                        }
+                    }
+                }else {
+                    status = ANSER_UNFINISH;
+                }
+            }else {
+                status = ANSER_UNFINISH;
+            }
         }
         return status;
     }

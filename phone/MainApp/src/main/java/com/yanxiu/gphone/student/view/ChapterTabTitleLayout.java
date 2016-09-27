@@ -105,7 +105,9 @@ public class ChapterTabTitleLayout extends FrameLayout implements View.OnClickLi
             rlRight.setVisibility(VISIBLE);
             rlRightTestView.setVisibility(GONE);
         } else {
-            rlRightTestView.setVisibility(VISIBLE);
+            /**隐藏诊断*/
+//            rlRightTestView.setVisibility(VISIBLE);
+            rlRightTestView.setVisibility(GONE);
             rlRight.setVisibility(GONE);
         }
     }

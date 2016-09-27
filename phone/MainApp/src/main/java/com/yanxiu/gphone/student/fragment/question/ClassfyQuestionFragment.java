@@ -312,7 +312,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
         if (answerBean == null) {
             return;
         }
-
+        answerBean.setType(3);
         ArrayList<ArrayList<String>> answerlist = answerBean.getConnect_classfy_answer();
         int size = 0;
         for (ArrayList<String> arrayList:answerlist) {

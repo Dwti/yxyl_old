@@ -15,11 +15,15 @@ import java.util.List;
  */
 public class Connectlines extends View {
 
+    private static final int COLOR_DEFULT=Color.parseColor("#ccc4a3");
+    private static final int COLOR_RIGHT=Color.parseColor("#ff0000");
+    private static final int COLOR_FALSE=Color.parseColor("#00ff00");
     private Context context;
     private List<MyLinesBean> list=new ArrayList<MyLinesBean>();
     private Paint paint;
     private int width;
     private int padding=2;
+    private boolean isClick=true;
 
     public Connectlines(Context context) {
         this(context,null);
@@ -37,7 +41,6 @@ public class Connectlines extends View {
     private void init(Context context) {
         this.context=context;
         paint=new Paint();
-        paint.setColor(Color.parseColor("#ccc4a3"));
         paint.setAntiAlias(true);
         paint.setStrokeWidth(4);
     }
@@ -51,6 +54,7 @@ public class Connectlines extends View {
                     linesBean.setY_left(bean.getY());
                     int y_right=getRight_Y(datas,bean.getSelect_id());
                     linesBean.setY_right(y_right);
+                    linesBean.setRight(bean.getIsRight());
                     list.add(linesBean);
                 }
             }
@@ -69,6 +73,10 @@ public class Connectlines extends View {
         return 0;
     }
 
+    public void setIsClick(boolean isClick){
+        this.isClick=isClick;
+    }
+
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
@@ -79,16 +87,35 @@ public class Connectlines extends View {
     protected void onDraw(Canvas canvas) {
 //        super.onDraw(canvas);
         for (MyLinesBean bean:list){
+            if (isClick) {
+                paint.setColor(COLOR_DEFULT);
+            }else {
+                if (bean.isRight()){
+                    paint.setColor(COLOR_RIGHT);
+                }else {
+                    paint.setColor(COLOR_FALSE);
+                }
+            }
             canvas.drawLine(0+padding, bean.getY_left(),width-padding,bean.getY_right(),paint);
         }
     }
 
 
     public class MyLinesBean{
+
         private int y_left;
         private int y_right;
+        private boolean IsRight=false;
 
         public MyLinesBean() {
+        }
+
+        public boolean isRight() {
+            return IsRight;
+        }
+
+        public void setRight(boolean right) {
+            IsRight = right;
         }
 
         public int getY_left() {

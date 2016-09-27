@@ -76,7 +76,7 @@
     <string name="subject_save">保存</string>
     <string name="select_subject">选择%s教材</string>
     <string name="tab_chapter">章节</string>
-    <string name="tab_test_center">考点</string>
+    <string name="tab_test_center">知识点</string>
 	<string name="diagnosis">诊断</string>
     <!-- intelliexe -->
     <string name="no_data_show">暂无</string>
@@ -387,7 +387,7 @@
     <string name="objective_title">正确率&#160;%1$d%%</string>
     <string name="subjective_title">共&#160;%1$d&#160;题，平均得分&#160;%2$s&#160;分</string>
     <string name="report_no_data">共&#160;%1$d&#160;题</string>
-    <string name="hw_report_parse_knowledge_tip">点击考点，可以去加强练习哦 ^_^ </string>
+    <string name="hw_report_parse_knowledge_tip">点击知识点，可以去加强练习哦 ^_^ </string>
     <string name="hw_report_parse_knowledge_text">知识点</string>
     <string name="subject_can_not_selected">请选择教材</string>
     <string name="crash">程序出错了，请重启应用</string>

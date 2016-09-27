@@ -74,6 +74,7 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
 
     public void setIsClick(boolean isClick) {
         this.isClick = isClick;
+        mylines.setIsClick(isClick);
     }
 
     public void setIsWrongSet(boolean isWrongSet) {
@@ -89,6 +90,7 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
         if (answerBean == null) {
             return;
         }
+        answerBean.setType(2);
         if (list.size()>0) {
 
         ArrayList<ArrayList<String>> answerlist = answerBean.getConnect_classfy_answer();
@@ -114,6 +116,7 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
     }
 
     private void getIsRight(ArrayList<ArrayList<String>> answerlist) {
+        /**这边可以进行优化，将标准答案放到map里面，这样可以减少大量的逻辑处理*/
         for (String s : answerData) {
             try {
                 JSONObject object = new JSONObject(s);
@@ -152,17 +155,47 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
                     int id_left = Integer.parseInt(arrayList.get(0));
                     int id_right = Integer.parseInt(arrayList.get(1));
 
+                    boolean flag=CheckedById(id_left,id_right);
+
                     BaseBean bean = getBeanById(id_left);
                     bean.setSelect(true);
                     bean.setSelect_id(id_right);
+                    bean.setIsRight(flag);
 
                     BaseBean bean1 = getBeanById(id_right);
                     bean1.setSelect(true);
                     bean1.setSelect_id(id_left);
+                    bean1.setIsRight(flag);
                 }
             }
             setColorAndMyLines();
         }
+    }
+
+    private boolean CheckedById(int id_left,int id_right){
+
+        /**这边可以进行优化，将标准答案放到map里面，这样可以减少大量的逻辑处理*/
+        for (String s : answerData) {
+            try {
+                JSONObject object = new JSONObject(s);
+                String string = object.getString("answer");
+                String ss[] = string.split(",");
+                if (Integer.parseInt(ss[0])==id_left){
+                    if (Integer.parseInt(ss[1])==id_right){
+                        return true;
+                    }
+                }else if (Integer.parseInt(ss[1])==id_left){
+                    if (Integer.parseInt(ss[0])==id_right){
+                        return true;
+                    }
+                }else {
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 
     @Nullable
@@ -322,8 +355,17 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
         private boolean select = false;
         private int select_id = -1;
         private boolean onclick = false;
+        private boolean IsRight=false;
 
         public BaseBean() {
+        }
+
+        public boolean getIsRight() {
+            return IsRight;
+        }
+
+        public void setIsRight(boolean isRight) {
+            IsRight = isRight;
         }
 
         public String getLocation() {
