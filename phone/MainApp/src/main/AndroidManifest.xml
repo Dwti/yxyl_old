@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.yanxiu.gphone.student"
-          android:versionCode="12"
-          android:versionName="2.3.1">
+          android:versionCode="13"
+          android:versionName="2.3.2">
     <uses-sdk
             android:minSdkVersion="11"
             android:targetSdkVersion="18"/>
@@ -440,6 +440,15 @@
                 <action android:name="com.yanxiu.gphone.student.yanxiu_push_update_receiver" />
             </intent-filter>
         </receiver>
+        <!-- 配置第三方Receiver -->
+        <!-- 此处com.getui.demo.PushDemoReceiver，需要替换成开发者自己的BroadcastReceiver文件全名-->
+        <receiver
+            android:name="com.yanxiu.gphone.student.receiver.YanxiuPushReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.${GETUI_APP_ID}" />
+            </intent-filter>
+        </receiver>
         <activity
                 android:name=".wxapi.WXEntryActivity"
                 android:label="@string/app_name"
@@ -499,7 +508,12 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <!-- iBeancon功能所需权限 -->;
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <uses-permission android:name="android.permission.BATTERY_STATS" />
     <uses-permission android:name="android.permission.REORDER_TASKS" />
+    <!-- 个推3.0电子围栏功能所需权限 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 </manifest>

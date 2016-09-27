@@ -19,6 +19,7 @@ import com.common.core.utils.LogInfo;
 import com.common.core.utils.StringUtils;
 import com.common.core.view.badgeview.BadgeView;
 import com.common.login.eventbusbean.TokenInviateBean;
+import com.igexin.sdk.PushManager;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.YanxiuApplication;
@@ -112,6 +113,7 @@ public class MainActivity extends YanxiuBaseActivity implements View.OnClickList
         LogInfo.log("haitian", "-----------onCreate----push----");
         judgeToJump(getIntent());
 
+        PushManager.getInstance().initialize(this.getApplicationContext());
 //        PublicErrorQuestionCollectionBean.createDataForErrorCollection();
     }
 
