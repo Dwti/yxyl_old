@@ -168,7 +168,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/pager_index_1"
-                app:type_face="fz.ttf"
+                app:type_face="metor_bold.OTF"
                 android:textSize="@dimen/dimen_11"
                 android:textColor="@color/color_b3ae98" />
 
@@ -186,7 +186,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/pager_index_2"
-                app:type_face="fz.ttf"
+                app:type_face="metor_bold.OTF"
                 android:textSize="@dimen/dimen_11"
                 android:textColor="@color/color_b3ae98" />
 
@@ -194,7 +194,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="/1"
-                app:type_face="fz.ttf"
+                app:type_face="metor_bold.OTF"
                 android:id="@+id/tv_pager_count"
                 android:layout_alignBottom="@id/tv_pager_index"
                 android:textSize="@dimen/dimen_11"

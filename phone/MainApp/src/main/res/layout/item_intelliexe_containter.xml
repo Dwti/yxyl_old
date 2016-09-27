@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_43"
-                app:type_face="fz.ttf"
+                app:type_face="metor_bold.OTF"
                 android:id="@+id/tv_sname"
                 android:textSize="@dimen/dimen_20"
                 android:textColor="@color/color_805500"

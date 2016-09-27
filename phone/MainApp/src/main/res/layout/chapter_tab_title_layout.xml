@@ -43,7 +43,7 @@
             android:shadowColor="@color/color_33ffff"
             android:textColor="@color/color_006666"
             android:textSize="@dimen/dimen_18"
-            app:type_face="fz.ttf"
+            app:type_face="metor_bold.OTF"
             tools:text="title_center"/>
     </RelativeLayout>
 

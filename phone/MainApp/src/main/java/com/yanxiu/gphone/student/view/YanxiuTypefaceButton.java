@@ -17,7 +17,7 @@ public class YanxiuTypefaceButton extends Button {
     private static final String PATH_TYPEFACE = "fonts/";
     private Context mContext;
     private String faceType;
-    private String fz_ttf = "fz.ttf";
+    private String fz_ttf = "metor_bold.OTF";
     private String metor_bold_OTF = "metor_bold.OTF";
     private String arial_runded_bold_ttf = "arial_runded_bold.ttf";
 
@@ -61,7 +61,7 @@ public class YanxiuTypefaceButton extends Button {
     }
 
     public enum TypefaceType{
-        FANGZHENG(PATH_TYPEFACE + "fz.ttf"),
+        FANGZHENG(PATH_TYPEFACE + "metor_bold.OTF"),
         METRO_BOLD(PATH_TYPEFACE + "metor_bold.OTF"),
         ARAL_ROUNDED_BOLD(PATH_TYPEFACE + "arial_runded_bold.ttf");
         public String path;

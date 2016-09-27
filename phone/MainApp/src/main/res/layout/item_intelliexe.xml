@@ -35,7 +35,7 @@
                 android:layout_marginTop="@dimen/dimen_43"
                 android:textColor="@color/color_805500"
                 android:textSize="@dimen/dimen_20"
-                app:type_face="fz.ttf" />
+                app:type_face="metor_bold.OTF" />
 
         </RelativeLayout>
 

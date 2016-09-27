@@ -30,6 +30,7 @@
                       android:paddingRight="@dimen/dimen_25"
                       android:textSize="@dimen/dimen_14"
                       android:layout_marginLeft="@dimen/dimen_10"
+                      android:layout_marginRight="@dimen/dimen_10"
                       android:layout_marginTop="@dimen/dimen_6"
                       android:layout_marginBottom="@dimen/dimen_5"
                       android:cursorVisible="true"
@@ -58,6 +59,7 @@
                 android:layout_marginLeft="@dimen/dimen_9"
                 android:text="@string/search_school_add"
                 style="@style/text_fff99_shadow_style"
+                android:visibility="gone"
                 />
 
 

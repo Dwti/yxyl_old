@@ -74,7 +74,7 @@
 
                 <com.yanxiu.gphone.student.view.YanxiuTypefaceButton
                         style="@style/btn_problem_analysis"
-                        app:type_face="fz.ttf"
+                        app:type_face="metor_bold.OTF"
                         android:id="@+id/add_problem_analysis"/>
 
             </FrameLayout>

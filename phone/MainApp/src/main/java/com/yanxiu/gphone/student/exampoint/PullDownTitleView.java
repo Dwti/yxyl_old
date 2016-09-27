@@ -25,7 +25,7 @@ public class PullDownTitleView extends RelativeLayout implements View.OnClickLis
     private  RelativeLayout titleLayout;
     private Context mContext;
     private CommunicateInter communicateInter;
-    private  static final String FA="fonts/fz.ttf";
+    private  static final String FA="fonts/metor_bold.OTF";
     private  static final String TAG=PullDownTitleView.class.getSimpleName();
     public PullDownTitleView(Context context) {
         super(context);
