@@ -177,9 +177,9 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
     @Override
     public void saveAnwser() {
         hideSoftInput();
-        questionsEntity.getAnswerBean().setType(1);
         if (answerView == null || questionsEntity == null)
             return;
+        questionsEntity.getAnswerBean().setType(1);
         if (!isWrongSetOrAnalysis) {
             ArrayList<String> listAnswer;
             listAnswer = answerView.getAnswerList();
