@@ -31,13 +31,13 @@ public class YanxiuCommonBaseActivity extends FragmentActivity {
     protected void onResume() {
         super.onResume();
         // 页面开始
-        XGPushManager.onActivityStarted(this);
+        //XGPushManager.onActivityStarted(this);
     }
     @Override
     protected void onPause() {
         super.onPause();
         // 页面结束
-        XGPushManager.onActivityStoped(this);
+        //XGPushManager.onActivityStoped(this);
     }
 
     @Override
