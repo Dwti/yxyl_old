@@ -4,7 +4,7 @@
     <RelativeLayout
         android:id="@+id/rl_answer_exam_wrong"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_130"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="@dimen/dimen_5"
         android:background="@drawable/my_list_bg_selector">
 
