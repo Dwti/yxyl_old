@@ -112,8 +112,9 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
         }
         ll_bottom_view = (LinearLayout) rootView.findViewById(R.id.ll_bottom_view);
         mOnPushPullTouchListener = new OnPushPullTouchListener(ll_bottom_view,rl_top_view, getActivity());
-        ivBottomCtrl = (ImageView) rootView.findViewById(R.id.iv_bottom_ctrl);
-        ivBottomCtrl.setOnTouchListener(mOnPushPullTouchListener);
+//        ivBottomCtrl = (ImageView) rootView.findViewById(R.id.iv_bottom_ctrl);
+        LinearLayout ll_bottom_ctrl= (LinearLayout) rootView.findViewById(R.id.ll_bottom_ctrl);
+        ll_bottom_ctrl.setOnTouchListener(mOnPushPullTouchListener);
 
         vpAnswer = (ViewPager) rootView.findViewById(R.id.answer_viewpager);
         //=============================================
@@ -157,7 +158,9 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
         if (!ischild&&isVisibleToUser){
             if (!ischild) {
                 if (adapter != null) {
-                    ((QuestionsListener) getActivity()).flipNextPager(adapter);
+                    try {
+                        ((QuestionsListener) getActivity()).flipNextPager(adapter);
+                    }catch (Exception e){}
                 }
             }
         }

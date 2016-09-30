@@ -95,7 +95,9 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser&&!ischild){
-            ((QuestionsListener)getActivity()).flipNextPager(null);
+            try {
+                ((QuestionsListener) getActivity()).flipNextPager(null);
+            }catch (Exception e){}
         }
     }
 

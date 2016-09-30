@@ -108,7 +108,8 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
         ll_bottom_view = (LinearLayout) rootView.findViewById(R.id.ll_bottom_view);
         mOnPushPullTouchListener = new OnPushPullTouchListener(ll_bottom_view,llTopView, getActivity());
         ivBottomCtrl = (ImageView) rootView.findViewById(R.id.iv_bottom_ctrl);
-        ivBottomCtrl.setOnTouchListener(mOnPushPullTouchListener);
+        LinearLayout ll_bottom_ctrl= (LinearLayout) rootView.findViewById(R.id.ll_bottom_ctrl);
+        ll_bottom_ctrl.setOnTouchListener(mOnPushPullTouchListener);
         tvYanxiu = (YXiuAnserTextView) rootView.findViewById(R.id.yxiu_tv);
 
 
@@ -149,7 +150,9 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
         if (isVisibleToUser){
             if (!ischild) {
                 if (adapter != null) {
-                    ((QuestionsListener) getActivity()).flipNextPager(adapter);
+                    try {
+                        ((QuestionsListener) getActivity()).flipNextPager(adapter);
+                    }catch (Exception e){}
                 }else {
                     flag=true;
                 }

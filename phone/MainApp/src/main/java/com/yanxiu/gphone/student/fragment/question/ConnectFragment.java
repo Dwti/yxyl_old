@@ -143,7 +143,11 @@ public class ConnectFragment extends BaseQuestionFragment implements PageIndex{
         }
         if (isVisibleToUser) {
             if (!ischild){
-                ((QuestionsListener) getActivity()).flipNextPager(null);
+                try {
+                    ((QuestionsListener) getActivity()).flipNextPager(null);
+                }catch (Exception e){
+
+                }
             }
         }
     }

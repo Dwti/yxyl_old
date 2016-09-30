@@ -115,7 +115,9 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && !ischild) {
-            ((QuestionsListener) getActivity()).flipNextPager(null);
+            try {
+                ((QuestionsListener) getActivity()).flipNextPager(null);
+            }catch (Exception e){}
         }
         saveAnwser();
     }

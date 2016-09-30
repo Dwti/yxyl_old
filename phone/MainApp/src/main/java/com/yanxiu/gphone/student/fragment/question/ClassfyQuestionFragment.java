@@ -239,7 +239,9 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
         }
         if (isVisibleToUser&&!ischild){
 //            if (adapter!=null){
-            ((QuestionsListener)getActivity()).flipNextPager(null);
+            try {
+                ((QuestionsListener)getActivity()).flipNextPager(null);
+            }catch (Exception e){}
 //            }
         }
     }
@@ -287,7 +289,9 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             bean = questionsEntity.getAnswerBean();
         }
         if (!ischild&&isVisibleToUser) {
-            ((QuestionsListener) getActivity()).flipNextPager(null);
+            try {
+                ((QuestionsListener) getActivity()).flipNextPager(null);
+            }catch (Exception e){}
         }
     }
 

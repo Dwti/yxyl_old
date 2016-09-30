@@ -71,7 +71,9 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
         setDataSources(bean);
         LogInfo.log("geny", "onResume");
         if (!ischild && isVisibleToUser) {
-            ((QuestionsListener) getActivity()).flipNextPager(null);
+            try {
+                ((QuestionsListener) getActivity()).flipNextPager(null);
+            }catch (Exception e){}
         }
     }
 
@@ -96,7 +98,9 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
         }
         if (isVisibleToUser && !ischild) {
 //            if (adapter!=null){
-            ((QuestionsListener) getActivity()).flipNextPager(null);
+            try {
+                ((QuestionsListener) getActivity()).flipNextPager(null);
+            }catch (Exception e){}
 //            }
         }
     }
