@@ -82,7 +82,7 @@
                     android:layout_weight="1"
                     android:layout_marginRight="@dimen/dimen_5"
                     android:background="#996600"/>
-                <ImageButton
+                <ImageView
                     android:id="@+id/iv_bottom_ctrl"
                     android:layout_width="@dimen/dimen_20"
                     android:layout_height="@dimen/dimen_20"
