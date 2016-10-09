@@ -10,7 +10,7 @@ android {
         applicationId "com.yanxiu.gphone.student"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 13
+        versionCode 14
         versionName "2.3.2.1"
         multiDexEnabled true//multiDexEnabled true
         manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "MTA"]
