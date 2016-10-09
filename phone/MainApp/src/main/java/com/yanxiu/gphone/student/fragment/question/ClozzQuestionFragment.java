@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.R;
@@ -38,6 +39,7 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
     private List<PaperTestEntity> children;
     private AnswerBean bean;
     private ClozzTextview fill_blanks_button;
+    private ScrollView sv_content_top;
     private LinearLayout ll_bottom_view;
     private OnPushPullTouchListener mOnPushPullTouchListener;
     private ImageView ivBottomCtrl;
@@ -98,6 +100,7 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
     private void initview() {
         ExpandableRelativeLayoutlayout rl_top_view = (ExpandableRelativeLayoutlayout) rootView.findViewById(R.id.rl_top_view);
         fill_blanks_button = (ClozzTextview) rootView.findViewById(R.id.fill_blanks_button);
+        sv_content_top = (ScrollView) rootView.findViewById(R.id.sv_content_top);
         if (questionsEntity != null && questionsEntity.getStem() != null) {
             int position_index;
             if (getActivity() instanceof WrongAnswerViewActivity){
@@ -243,6 +246,7 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
             }
             if (fill_blanks_button != null) {
                 fill_blanks_button.setTextViewSelect(position);
+                sv_content_top.scrollTo(0, fill_blanks_button.getScrollY());
             }
         }
         ((BaseAnswerViewActivity) getActivity()).setPagerSelect(adapter.getCount(), position);

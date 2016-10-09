@@ -34,6 +34,7 @@ import java.util.List;
 
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_CLASSFY;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_CLOZE_COMPLEX;
+import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_COMPUTE;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_CONNECT;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_FILL_BLANKS;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_JUDGE;
@@ -251,7 +252,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
                         } else {
                             pageIndexList.add(pageIndex++);
                         }
-                    } else if (template.equals(YanXiuConstant.MULTI_QUESTION) && (typeId == QUESTION_READ_COMPLEX.type || typeId == QUESTION_READING.type)) {
+                    } else if (template.equals(YanXiuConstant.MULTI_QUESTION) && (typeId == QUESTION_READ_COMPLEX.type || typeId == QUESTION_READING.type || typeId == QUESTION_COMPUTE.type)) {
                         fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_READ_COMPLEX, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
 
                         if (dataList.get(i).getQuestions() != null) {
@@ -411,7 +412,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
                         } else {
                             pageIndexList.add(pageIndex++);
                         }
-                    } else if (template.equals(YanXiuConstant.MULTI_QUESTION) && (typeId == QUESTION_READ_COMPLEX.type || typeId == QUESTION_READING.type)) {
+                    } else if (template.equals(YanXiuConstant.MULTI_QUESTION) && (typeId == QUESTION_READ_COMPLEX.type || typeId == QUESTION_READING.type || typeId == QUESTION_COMPUTE.type)) {
                         fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_READ_COMPLEX, paperList.get(i).getQuestions(), answerViewTypyBean, 0);
                         if (dataList.get(i).getQuestions() != null) {
                             List<PaperTestEntity> childQuestion = dataList.get(i).getQuestions().getChildren();
