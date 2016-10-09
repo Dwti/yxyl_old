@@ -1,12 +1,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <RelativeLayout
         android:id="@+id/rl_answer_exam_wrong"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:layout_alignParentBottom="@dimen/dimen_5"
         android:background="@drawable/my_list_bg_selector">
+        <!--
+        <cn.carbs.android.maxheightview.library.MaxHeightView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:mhv_HeightRatio="0.3">
+            -->
 
         <ImageView
             android:id="@+id/answer_exam_type_text"
@@ -42,6 +50,9 @@
             android:layout_toLeftOf="@id/iv_answer_exam_delete"
             android:layout_toRightOf="@id/answer_exam_type_text"
             android:textColor="@color/color_666252" />
+        <!--
+        </cn.carbs.android.maxheightview.library.MaxHeightView>
+        -->
         <!--android:textSize="@dimen/dimen_16"-->
         <!--android:layout_gravity="center"-->
        <!-- <View

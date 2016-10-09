@@ -273,8 +273,8 @@ public class YanxiuMessageReceiver extends XGPushBaseReceiver {
             actNotification.flags = Notification.FLAG_AUTO_CANCEL;
             actNotification.defaults |= Notification.DEFAULT_SOUND;
             actNotification.contentView = contentView;
-            actNotification.setLatestEventInfo(context, appName,
-                    message.getTitle(), actPendingIntent);
+            //actNotification.setLatestEventInfo(context, appName,
+                    //message.getTitle(), actPendingIntent);
         }
         notificationManager.notify(requestCode, actNotification);
     }
