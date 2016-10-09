@@ -23,6 +23,7 @@ import com.common.core.view.htmlview.HtmlTextView;
 import com.yanxiu.gphone.student.HtmlParser.MyHtml;
 import com.yanxiu.gphone.student.YanxiuApplication;
 import com.yanxiu.gphone.student.utils.ClassfyImageGetter;
+import com.yanxiu.gphone.student.utils.Util;
 
 import org.xml.sax.XMLReader;
 
@@ -144,8 +145,9 @@ public class YXiuAnserTextView extends HtmlTextView {
         this.application = (YanxiuApplication) ((Activity)mCtx).getApplication();
         this.setGravity(Gravity.CENTER_VERTICAL);
         this.setLineSpacing(DensityUtils.px2dip(this.getContext(), 15), 1);
-        this.setTextSize(TypedValue.COMPLEX_UNIT_PX, 32);
-        singline_height=getFontHeight(32);
+        int textsize= Util.getTextPX((Activity)mCtx);
+        this.setTextSize(TypedValue.COMPLEX_UNIT_PX, textsize);//32
+        singline_height=getFontHeight(textsize);//32
     }
 
 

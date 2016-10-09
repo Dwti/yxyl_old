@@ -16,8 +16,8 @@ import java.util.List;
 public class Connectlines extends View {
 
     private static final int COLOR_DEFULT=Color.parseColor("#ccc4a3");
-    private static final int COLOR_RIGHT=Color.parseColor("#ff0000");
-    private static final int COLOR_FALSE=Color.parseColor("#00ff00");
+    private static final int COLOR_RIGHT=Color.parseColor("#00ff00");
+    private static final int COLOR_FALSE=Color.parseColor("#ff0000");
     private Context context;
     private List<MyLinesBean> list=new ArrayList<MyLinesBean>();
     private Paint paint;

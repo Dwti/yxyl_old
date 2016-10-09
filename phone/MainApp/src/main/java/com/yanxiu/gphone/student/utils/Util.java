@@ -9,6 +9,7 @@ import android.net.wifi.WifiManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +74,24 @@ public class Util {
             }
         }
         return deviceId;
+    }
+
+    public static int getTextPX(Activity activity){
+        Display mDisplay = activity.getWindowManager().getDefaultDisplay();
+        int w = mDisplay.getWidth();
+        int h = mDisplay.getHeight();
+        if (w<480){
+            return 20;
+        }else if (w>=480&&w<720){
+            return 20;
+        }else if (w>=720&&w<1080){
+            return 28;
+        }else if (w>=1080&&w<1440){
+            return 42;
+        }else if (w>=1440){
+            return 56;
+        }
+        return 0;
     }
 
 

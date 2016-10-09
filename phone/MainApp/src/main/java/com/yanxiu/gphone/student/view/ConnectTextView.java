@@ -25,6 +25,7 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.YanxiuApplication;
 import com.yanxiu.gphone.student.utils.ConnectConverter;
 import com.yanxiu.gphone.student.utils.ConnectImageGetter;
+import com.yanxiu.gphone.student.utils.Util;
 
 /**
  * Created by Administrator on 2016/9/1.
@@ -55,7 +56,8 @@ public class ConnectTextView extends TextView implements View.OnClickListener{
         this.application = (YanxiuApplication) ((Activity)context).getApplication();
         this.setOnClickListener(this);
         this.setTextColor(context.getResources().getColor(R.color.color_333333));
-        this.setTextSize(TypedValue.COMPLEX_UNIT_PX, 32);
+//        int textsize= Util.getTextPX((Activity)context);
+        this.setTextSize(TypedValue.COMPLEX_UNIT_PX, 32);//32
     }
 
     public void setBaseBean(ConnectLinesLinearLayout.BaseBean bean){

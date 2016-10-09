@@ -32,7 +32,7 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
     private List<String> answerData = new ArrayList<String>();
     private AnswerBean answerBean;
     private boolean isResolution;
-    private boolean isClick=true;
+    private boolean isClick = true;
     private boolean isWrongSet;
 
     public ConnectLinesLinearLayout(Context context) {
@@ -66,6 +66,7 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
 
     /**
      * 是否是解析界面
+     *
      * @param isResolution
      */
     public void setIsResolution(boolean isResolution) {
@@ -91,20 +92,19 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
             return;
         }
         answerBean.setType(2);
-        if (list.size()>0) {
-
-        ArrayList<ArrayList<String>> answerlist = answerBean.getConnect_classfy_answer();
-        answerlist.clear();
-        for (BaseBean basebean : list) {
-            if (basebean.getLocation().equals(LOCATION_LEFT)) {
-                if (basebean.isSelect()) {
-                    ArrayList<String> list = new ArrayList<String>();
-                    list.add(basebean.getId() + "");
-                    list.add(basebean.getSelect_id() + "");
-                    answerlist.add(list);
+        if (list.size() > 0) {
+            ArrayList<ArrayList<String>> answerlist = answerBean.getConnect_classfy_answer();
+            answerlist.clear();
+            for (BaseBean basebean : list) {
+                if (basebean.getLocation().equals(LOCATION_LEFT)) {
+                    if (basebean.isSelect()) {
+                        ArrayList<String> list = new ArrayList<String>();
+                        list.add(basebean.getId() + "");
+                        list.add(basebean.getSelect_id() + "");
+                        answerlist.add(list);
+                    }
                 }
             }
-        }
             if (answerlist.size() < list.size() / 2) {
                 answerBean.setIsFinish(false);
                 answerBean.setIsRight(false);
@@ -148,14 +148,14 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
     }
 
     public void setDefault() {
-        if (answerBean!=null) {
+        if (answerBean != null) {
             ArrayList<ArrayList<String>> answerlist = answerBean.getConnect_classfy_answer();
             for (ArrayList<String> arrayList : answerlist) {
                 if (arrayList.size() > 0) {
                     int id_left = Integer.parseInt(arrayList.get(0));
                     int id_right = Integer.parseInt(arrayList.get(1));
 
-                    boolean flag=CheckedById(id_left,id_right);
+                    boolean flag = CheckedById(id_left, id_right);
 
                     BaseBean bean = getBeanById(id_left);
                     bean.setSelect(true);
@@ -172,7 +172,7 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
         }
     }
 
-    private boolean CheckedById(int id_left,int id_right){
+    private boolean CheckedById(int id_left, int id_right) {
 
         /**这边可以进行优化，将标准答案放到map里面，这样可以减少大量的逻辑处理*/
         for (String s : answerData) {
@@ -180,15 +180,15 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
                 JSONObject object = new JSONObject(s);
                 String string = object.getString("answer");
                 String ss[] = string.split(",");
-                if (Integer.parseInt(ss[0])==id_left){
-                    if (Integer.parseInt(ss[1])==id_right){
+                if (Integer.parseInt(ss[0]) == id_left) {
+                    if (Integer.parseInt(ss[1]) == id_right) {
                         return true;
                     }
-                }else if (Integer.parseInt(ss[1])==id_left){
-                    if (Integer.parseInt(ss[0])==id_right){
+                } else if (Integer.parseInt(ss[1]) == id_left) {
+                    if (Integer.parseInt(ss[0]) == id_right) {
                         return true;
                     }
-                }else {
+                } else {
 
                 }
             } catch (Exception e) {
@@ -199,9 +199,9 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
     }
 
     @Nullable
-    private BaseBean getBeanById(int id){
-        for (BaseBean bean: list){
-            if (id==bean.getId()){
+    private BaseBean getBeanById(int id) {
+        for (BaseBean bean : list) {
+            if (id == bean.getId()) {
                 return bean;
             }
         }
@@ -215,10 +215,10 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
             bean_left.setLocation(LOCATION_LEFT);
 
             BaseBean bean_right = new BaseBean();
-            bean_right.setId(position+i);
+            bean_right.setId(position + i);
             bean_right.setLocation(LOCATION_RIGHT);
 
-            ConnectLinearLayout linearLayout=getConnectLinearLayout(mDatas.get(i),bean_left,mDatas.get(position+i), bean_right);
+            ConnectLinearLayout linearLayout = getConnectLinearLayout(mDatas.get(i), bean_left, mDatas.get(position + i), bean_right);
             list.add(bean_left);
             list.add(bean_right);
             linear.addView(linearLayout);
@@ -226,10 +226,10 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
         setDefault();
     }
 
-    private ConnectLinearLayout getConnectLinearLayout(String text_left, BaseBean bean_left,String text_right, BaseBean bean_right) {
-        ConnectLinearLayout linearLayout=new ConnectLinearLayout(context);
-        linearLayout.setData_left(text_left,bean_left);
-        linearLayout.setData_right(text_right,bean_right);
+    private ConnectLinearLayout getConnectLinearLayout(String text_left, BaseBean bean_left, String text_right, BaseBean bean_right) {
+        ConnectLinearLayout linearLayout = new ConnectLinearLayout(context);
+        linearLayout.setData_left(text_left, bean_left);
+        linearLayout.setData_right(text_right, bean_right);
         linearLayout.setOnLayoutSuccessListener(this);
         linearLayout.setCheckListener(this);
         linearLayout.setBackgroud(checked_no);
@@ -244,9 +244,9 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
     @Override
     public void OnCheckListener(BaseBean bean) {
         if (isClick) {
-            if (bean.isOnclick()){
+            if (bean.isOnclick()) {
                 bean.setOnclick(false);
-            }else {
+            } else {
                 bean.setOnclick(true);
             }
             cleanOnclick(bean);
@@ -255,7 +255,7 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
         }
     }
 
-    private void setColorAndMyLines(){
+    private void setColorAndMyLines() {
         setMyTextviewColor();
         mylines.setDatas(list);
     }
@@ -355,7 +355,7 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
         private boolean select = false;
         private int select_id = -1;
         private boolean onclick = false;
-        private boolean IsRight=false;
+        private boolean IsRight = false;
 
         public BaseBean() {
         }
