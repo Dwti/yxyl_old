@@ -37,6 +37,11 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
     private Context context;
     private float textsize=16;
     private int linespacing=10;
+
+    public List<Buttonbean> getList() {
+        return list;
+    }
+
     private List<Buttonbean> list=new ArrayList<Buttonbean>();
     protected QuestionEntity questionsEntity;
     private int position_index;
@@ -316,6 +321,15 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
         private String text;
         private float textsize;
         private boolean select;
+        private int y;
+
+        public int getY() {
+            return y;
+        }
+
+        public void setY(int y) {
+            this.y = y;
+        }
 
         public float getTextsize() {
             return textsize;

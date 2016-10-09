@@ -246,7 +246,8 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
             }
             if (fill_blanks_button != null) {
                 fill_blanks_button.setTextViewSelect(position);
-                sv_content_top.scrollTo(0, fill_blanks_button.getScrollY());
+
+                sv_content_top.scrollTo(0, fill_blanks_button.getList().get(position).getY());
             }
         }
         ((BaseAnswerViewActivity) getActivity()).setPagerSelect(adapter.getCount(), position);

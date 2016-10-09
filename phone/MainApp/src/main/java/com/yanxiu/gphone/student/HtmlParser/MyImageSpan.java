@@ -66,6 +66,12 @@ public class MyImageSpan extends ImageClickableSpan {
 
     @Override
     public void draw(Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom, Paint paint) {
+
+        if (buttonbean!=null){
+            buttonbean.setY(top);
+        }
+
+
         Drawable b = getDrawable();
 
         Paint.FontMetricsInt fm = paint.getFontMetricsInt();
