@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.common.core.utils.LogInfo;
 import com.common.core.utils.StringUtils;
 import com.common.core.view.badgeview.BadgeView;
+import com.common.login.LoginModel;
 import com.common.login.eventbusbean.TokenInviateBean;
 import com.igexin.sdk.PushManager;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
@@ -112,8 +113,6 @@ public class MainActivity extends YanxiuBaseActivity implements View.OnClickList
         UpgradeUtils.requestInitialize(false, this);
         LogInfo.log("haitian", "-----------onCreate----push----");
         judgeToJump(getIntent());
-
-        PushManager.getInstance().initialize(this.getApplicationContext());
 //        PublicErrorQuestionCollectionBean.createDataForErrorCollection();
     }
 

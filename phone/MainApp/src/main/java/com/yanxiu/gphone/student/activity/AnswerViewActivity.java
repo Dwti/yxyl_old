@@ -3,6 +3,7 @@ package com.yanxiu.gphone.student.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,10 +12,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.common.core.utils.CommonCoreUtil;
 import com.common.core.utils.LogInfo;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
@@ -51,11 +57,9 @@ import java.io.IOException;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
+import java.util.zip.Inflater;
 
 import de.greenrobot.event.EventBus;
-import pl.droidsonroids.gif.GifDrawable;
-import pl.droidsonroids.gif.GifImageView;
-import pl.droidsonroids.gif.GifTextView;
 
 /**
  * Created by Administrator on 2015/7/6.
@@ -91,8 +95,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 
 
     private GuideQuestionView mGuideQuestionView;
-    private GifImageView mMultiGifImageView;
-    private GifImageView mClassfyGifImageView;
+    private ImageView mMultiGifImageView;
+    private ImageView mClassfyGifImageView;
 
     private boolean isShowAnswerCard = false;
 
@@ -246,20 +250,30 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                 decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
                 params.gravity = Gravity.CENTER;
-                mClassfyGifImageView = new GifImageView(this);
-                mClassfyGifImageView.setBackgroundResource(R.drawable.first_classfy_question);
+                ImageView mClassfyGifImageView = new ImageView(this);
+                Glide.with(this)
+                        .load(R.drawable.first_classfy_question)
+                        .asGif()
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .into(mClassfyGifImageView);
                 decorView.addView(mClassfyGifImageView, params);
                 PreferencesManager.getInstance().setFirstClassfyQuestion();
             }
-            if (PreferencesManager.getInstance().getFirstMultiQuestion() && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getChildren().size() > 0) {
+            if (PreferencesManager.getInstance().getFirstMultiQuestion() && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getChildren() != null && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getChildren().size() > 0) {
                 decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
                 params.gravity = Gravity.CENTER;
-                mMultiGifImageView = new GifImageView(this);
-                mMultiGifImageView.setBackgroundResource(R.drawable.first_multi_question);
+                mMultiGifImageView = new ImageView(this);
+                Glide.with(this)
+                        .load(R.drawable.first_multi_question)
+                        .asGif()
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .into(mMultiGifImageView);
                 decorView.addView(mMultiGifImageView, params);
                 PreferencesManager.getInstance().setFirstMultiQuestion();
             }
+
+
             if (PreferencesManager.getInstance().getFirstQuestion()) {
                 decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
@@ -267,6 +281,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                 decorView.addView(mGuideQuestionView, params);
                 PreferencesManager.getInstance().setFirstQuestion();
             }
+
 
         }
         setReportError();

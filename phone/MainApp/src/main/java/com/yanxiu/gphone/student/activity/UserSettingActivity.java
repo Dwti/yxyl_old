@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.common.login.LoginModel;
+import com.igexin.sdk.PushManager;
 import com.jakewharton.scalpel.ScalpelFrameLayout;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
@@ -107,6 +108,7 @@ public class UserSettingActivity extends YanxiuBaseActivity implements View.OnCl
         }else if(v == aboutUsView){
             UserAboutUsActivity.launch(this);
         }else if(v == logOutView){
+            PushManager.getInstance().unBindAlias(this.getApplicationContext(), String.valueOf(LoginModel.getUid()), true);
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.cancelAll();
             LoginModel.loginOut();
