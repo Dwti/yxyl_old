@@ -266,6 +266,30 @@ public class PreferencesManager {
 		editor.apply();
 	}
 
+	public boolean getFirstMultiQuestion() {
+		SharedPreferences sp = context.getSharedPreferences(LOGIN_INFO, Context.MODE_PRIVATE);
+		return sp.getBoolean("first_multi_question", true);
+	}
+
+	public void setFirstMultiQuestion(){
+		SharedPreferences sp = context.getSharedPreferences(LOGIN_INFO, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putBoolean("first_multi_question", false);
+		editor.apply();
+	}
+
+	public boolean getFirstClassfyQuestion() {
+		SharedPreferences sp = context.getSharedPreferences(LOGIN_INFO, Context.MODE_PRIVATE);
+		return sp.getBoolean("first_classfy_question", true);
+	}
+
+	public void setFirstClassfyQuestion(){
+		SharedPreferences sp = context.getSharedPreferences(LOGIN_INFO, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putBoolean("first_classfy_question", false);
+		editor.apply();
+	}
+
 
 	public boolean getFirstTestCenter() {
 		SharedPreferences sp = context.getSharedPreferences(LOGIN_INFO, Context.MODE_PRIVATE);
