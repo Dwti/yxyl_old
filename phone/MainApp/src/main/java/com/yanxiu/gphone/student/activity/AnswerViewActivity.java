@@ -2,6 +2,7 @@ package com.yanxiu.gphone.student.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,6 +10,7 @@ import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -45,11 +47,15 @@ import com.yanxiu.gphone.student.view.picsel.PicSelView;
 import com.yanxiu.gphone.student.view.question.GuideQuestionView;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 
+import java.io.IOException;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
 
 import de.greenrobot.event.EventBus;
+import pl.droidsonroids.gif.GifDrawable;
+import pl.droidsonroids.gif.GifImageView;
+import pl.droidsonroids.gif.GifTextView;
 
 /**
  * Created by Administrator on 2015/7/6.
@@ -85,6 +91,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 
 
     private GuideQuestionView mGuideQuestionView;
+    private GifImageView mMultiGifImageView;
+    private GifImageView mClassfyGifImageView;
 
     private boolean isShowAnswerCard = false;
 
@@ -233,6 +241,25 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
             tvToptext.setText(stringForTimeNoHour(totalTime));
             tvPagerIndex.setText("1");
             tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(adapter.getTotalCount())));
+
+            if (PreferencesManager.getInstance().getFirstClassfyQuestion() && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)) {
+                decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
+                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+                params.gravity = Gravity.CENTER;
+                mClassfyGifImageView = new GifImageView(this);
+                mClassfyGifImageView.setBackgroundResource(R.drawable.first_classfy_question);
+                decorView.addView(mClassfyGifImageView, params);
+                PreferencesManager.getInstance().setFirstClassfyQuestion();
+            }
+            if (PreferencesManager.getInstance().getFirstMultiQuestion() && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getChildren().size() > 0) {
+                decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
+                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+                params.gravity = Gravity.CENTER;
+                mMultiGifImageView = new GifImageView(this);
+                mMultiGifImageView.setBackgroundResource(R.drawable.first_multi_question);
+                decorView.addView(mMultiGifImageView, params);
+                PreferencesManager.getInstance().setFirstMultiQuestion();
+            }
             if (PreferencesManager.getInstance().getFirstQuestion()) {
                 decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
@@ -240,6 +267,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                 decorView.addView(mGuideQuestionView, params);
                 PreferencesManager.getInstance().setFirstQuestion();
             }
+
         }
         setReportError();
 
@@ -371,6 +399,10 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     public void onBackPressed() {
         if (mGuideQuestionView != null && mGuideQuestionView.isShown()) {
             mGuideQuestionView.setVisibility(View.GONE);
+        } else if (mMultiGifImageView != null && mMultiGifImageView.isShown()) {
+            mMultiGifImageView.setVisibility(View.GONE);
+        } else if (mClassfyGifImageView != null && mClassfyGifImageView.isShown()) {
+            mClassfyGifImageView.setVisibility(View.GONE);
         } else if (isShowAnswerCard) {
             ivAnswerCard.setVisibility(View.VISIBLE);
             removeFragment();
