@@ -22,8 +22,10 @@ import com.common.core.utils.CommonCoreUtil;
 import com.common.core.utils.LogInfo;
 import com.common.core.utils.NetWorkTypeUtils;
 import com.common.core.utils.StringUtils;
+import com.common.login.LoginModel;
 import com.common.login.model.UserInfoBean;
 import com.common.share.constants.ShareConstants;
+import com.igexin.sdk.PushManager;
 import com.tencent.connect.common.Constants;
 import com.tencent.mm.sdk.modelmsg.SendAuth;
 import com.tencent.mm.sdk.openapi.IWXAPI;
@@ -123,6 +125,8 @@ public class LoginActivity extends YanxiuBaseActivity implements
                     break;
                 case LOGIN:
                     MainActivity.launchActivity(LoginActivity.this);
+                    PushManager.getInstance().unBindAlias(LoginActivity.this.getApplicationContext(), String.valueOf(LoginModel.getUid()), false);
+                    PushManager.getInstance().bindAlias(LoginActivity.this.getApplicationContext(), String.valueOf(LoginModel.getUid()));
                     break;
             }
         }

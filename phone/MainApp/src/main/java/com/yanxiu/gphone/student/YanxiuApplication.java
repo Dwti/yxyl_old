@@ -11,6 +11,7 @@ import com.common.core.manage.CommonActivityManager;
 import com.common.core.utils.ContextProvider;
 import com.common.core.utils.LogInfo;
 import com.common.login.LoginModel;
+import com.igexin.sdk.PushManager;
 import com.nostra13.universalimageloader.cache.disc.impl.ext.LruDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemoryCache;
@@ -76,6 +77,8 @@ public class YanxiuApplication extends CommonCoreApplication {
         initParentConstant();
         initUpgradeConstant();
         startStatistics();
+
+        PushManager.getInstance().initialize(this.getApplicationContext());
     }
 
     //启动打点
