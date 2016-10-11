@@ -12,8 +12,16 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import com.alibaba.fastjson.JSON;
+import com.common.core.utils.CommonCoreUtil;
+import com.common.core.utils.LogInfo;
+import com.common.login.LoginModel;
 import com.igexin.sdk.PushConsts;
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.YanxiuApplication;
+import com.yanxiu.gphone.student.bean.PushMsgBean;
+
+import java.util.Random;
 
 /**
  * Created by JS-00 on 2016/9/27.
@@ -21,6 +29,7 @@ import com.yanxiu.gphone.student.R;
 
 public class YanxiuPushReceiver extends BroadcastReceiver {
     private static final int NOTIFICATION_FLAG = 1;
+    private Random mRandom = new Random();
     @Override
     public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();
@@ -34,7 +43,7 @@ public class YanxiuPushReceiver extends BroadcastReceiver {
                     String data = new String(payload);
                     Log.d("GetuiSdkDemo", "Got Payload:" + data);
                     // TODO:接收处理透传（payload）数据
-                    showNotification(context, data);
+                    onTextMessage(context, data);
                 }
                 break;
             case PushConsts.GET_CLIENTID:
@@ -58,32 +67,91 @@ public class YanxiuPushReceiver extends BroadcastReceiver {
 
     }
 
-    /**
-     *
-     * @param context   上下文
-     * @param data  穿透过来的json数据
-     */
-    private void showNotification(Context context, String data) {
-        // Notification myNotify = new Notification(R.drawable.message,
-        // "自定义通知：您有新短信息了，请注意查收！", System.currentTimeMillis());
-        Notification myNotify = new Notification();
-        myNotify.icon = R.mipmap.ic_launcher;
-        myNotify.tickerText = data;
-        myNotify.when = System.currentTimeMillis();
-        myNotify.flags = Notification.FLAG_NO_CLEAR;// 不能够自动清除
-        RemoteViews rv = new RemoteViews(context.getPackageName(),
-                R.layout.yanxiu_notification_layout);
-        rv.setTextViewText(R.id.notifi_title, data);
-        rv.setTextViewText(R.id.notifi_content, data);
-        myNotify.contentView = rv;
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        PendingIntent contentIntent = PendingIntent.getActivity(context, 1,
-                intent, 0);
-        myNotify.contentIntent = contentIntent;
-        // 在Android进行通知处理，首先需要重系统哪里获得通知管理器NotificationManager，它是一个系统Service。
-        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(NOTIFICATION_FLAG, myNotify);
+    public void onTextMessage(Context context, String content) {
+        // TODO Auto-generated method stub
+        if(LoginModel.getLoginBean() == null || YanxiuApplication.getInstance().isForceUpdate()){
+            LogInfo.log("haitian", "-----------isForceUpdate------LoginBeanIsNull-----------" );
+            return;
+        }
+//        String text = "收到消息:" + message.toString();
+        PushMsgBean mPushMsgBean = null;
+        try {
+            mPushMsgBean = JSON.parseObject(content, PushMsgBean.class);
+            LogInfo.log("haitian", "-----------onTextMessage-----------------bean.toString=" +
+                    mPushMsgBean.toString());
 
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        if(mPushMsgBean == null){
+            return;
+        }
+        LogInfo.log("haitian", "-----------onTextMessage-----------------content=" + content);
+
+//        // 获取自定义key-value
+//        String customContent = message.getCustomContent();
+//        if (customContent != null && customContent.length() != 0) {
+//            try {
+//                JSONObject obj = new JSONObject(customContent);
+//                // key1为前台配置的key
+//                if (!obj.isNull("key")) {
+//                    String value = obj.getString("key");
+//                    LogInfo.log(LogTag, "get custom value:" + value);
+//                }
+//                // ...
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
+        // APP自主处理消息的过程...
+        String appName = context.getResources().getString(R.string.app_name);
+        int requestCode = mRandom.nextInt(79865437);
+        Intent actIntent = new Intent(context, YanxiuPushUpdateReceiver.class);
+        actIntent.putExtra("mPushMsgBean", mPushMsgBean);
+        PendingIntent actPendingIntent = PendingIntent.getBroadcast(context, requestCode, actIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationManager notificationManager = (NotificationManager) context
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification actNotification = null;
+        RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.yanxiu_notification_layout);
+        contentView.setImageViewResource(R.id.notifi_icon, R.mipmap.notifi_icon);
+        contentView.setTextViewText(R.id.notifi_title, appName);
+        contentView.setTextViewText(R.id.notifi_content, mPushMsgBean.getMsg_title());
+        contentView.setTextViewText(R.id.notifi_time, CommonCoreUtil.getNowHMDate());
+        if (Build.VERSION.SDK_INT >= 11 && Build.VERSION.SDK_INT < 16) {
+            Notification.Builder builder = new Notification.Builder(context)
+                    .setAutoCancel(true)
+                    .setContentTitle(appName)
+                    .setContentText("describe")
+                    .setContentIntent(actPendingIntent)
+                    .setDefaults(Notification.DEFAULT_SOUND)
+                    .setSmallIcon(R.mipmap.app_icon)
+                    .setWhen(System.currentTimeMillis())
+                    .setOngoing(true);
+            actNotification = builder.getNotification();
+            actNotification.contentView = contentView;
+        } else if (Build.VERSION.SDK_INT >= 16) {
+            actNotification = new Notification.Builder(context)
+                    .setAutoCancel(true)
+                    .setContentTitle(appName)
+                    .setContentText("describe")
+                    .setContentIntent(actPendingIntent)
+                    .setDefaults(Notification.DEFAULT_SOUND)
+                    .setSmallIcon(R.mipmap.app_icon)
+                    .setWhen(System.currentTimeMillis())
+                    .build();
+            actNotification.contentView = contentView;
+        } else {
+            actNotification = new Notification();
+            actNotification.icon = R.mipmap.app_icon;
+            actNotification.tickerText = content;
+            actNotification.flags = Notification.FLAG_AUTO_CANCEL;
+            actNotification.defaults |= Notification.DEFAULT_SOUND;
+            actNotification.contentView = contentView;
+            //actNotification.setLatestEventInfo(context, appName,
+            //message.getTitle(), actPendingIntent);
+        }
+        notificationManager.notify(requestCode, actNotification);
     }
 
 
