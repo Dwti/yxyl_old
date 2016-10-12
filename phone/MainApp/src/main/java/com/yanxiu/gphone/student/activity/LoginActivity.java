@@ -124,7 +124,7 @@ public class LoginActivity extends YanxiuBaseActivity implements
                     logoImage.setVisibility(View.GONE);
                     break;
                 case LOGIN:
-                    PushManager.getInstance().unBindAlias(LoginActivity.this.getApplicationContext(), String.valueOf(LoginModel.getUid()), false);
+                    //PushManager.getInstance().unBindAlias(LoginActivity.this.getApplicationContext(), String.valueOf(LoginModel.getUid()), false);
                     MainActivity.launchActivity(LoginActivity.this);
                     break;
             }

@@ -412,12 +412,14 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 
     @Override
     public void onBackPressed() {
+        if (mMultiGifImageView != null && mMultiGifImageView.isShown()) {
+            mMultiGifImageView.setVisibility(View.GONE);
+        }
+        if (mClassfyGifImageView != null && mClassfyGifImageView.isShown()) {
+            mClassfyGifImageView.setVisibility(View.GONE);
+        }
         if (mGuideQuestionView != null && mGuideQuestionView.isShown()) {
             mGuideQuestionView.setVisibility(View.GONE);
-        } else if (mMultiGifImageView != null && mMultiGifImageView.isShown()) {
-            mMultiGifImageView.setVisibility(View.GONE);
-        } else if (mClassfyGifImageView != null && mClassfyGifImageView.isShown()) {
-            mClassfyGifImageView.setVisibility(View.GONE);
         } else if (isShowAnswerCard) {
             ivAnswerCard.setVisibility(View.VISIBLE);
             removeFragment();
