@@ -105,7 +105,7 @@ public class MainActivity extends YanxiuBaseActivity implements View.OnClickList
         setContentView(rootView);
         EventBus.getDefault().register(this);
         mainInstance = this;
-        initXGPush();
+        //initXGPush();
         fragmentManager = getSupportFragmentManager();
         mNaviFragmentFactory = new NaviFragmentFactory();
         ActivityManager.destoryAllActivity();
@@ -114,6 +114,7 @@ public class MainActivity extends YanxiuBaseActivity implements View.OnClickList
         LogInfo.log("haitian", "-----------onCreate----push----");
         judgeToJump(getIntent());
 //        PublicErrorQuestionCollectionBean.createDataForErrorCollection();
+        PushManager.getInstance().bindAlias(this.getApplicationContext(), String.valueOf(LoginModel.getUid()));
     }
 
     public void judgeToJump(Intent intent) {
