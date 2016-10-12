@@ -73,10 +73,12 @@ public class ClassfyImageGetter implements ImageGetterListener {
         //预定图片宽高比例为 4:3
         @SuppressWarnings("deprecation")
         public Rect getDefaultImageBounds(Context context, Bitmap bitmap) {
-            loadedImageWidth = Math.round(bitmap.getWidth());
-            loadedImageheight = Math.round(bitmap.getHeight());
+            if (bitmap != null) {
+                loadedImageWidth = Math.round(bitmap.getWidth());
+                loadedImageheight = Math.round(bitmap.getHeight());
 
-            loadedImageheight=loadedImageheight*100/loadedImageWidth;
+                loadedImageheight = loadedImageheight * 100 / loadedImageWidth;
+            }
             loadedImageWidth=100;
             Rect bounds = new Rect(0, 0, loadedImageWidth, loadedImageheight);
             return bounds;
