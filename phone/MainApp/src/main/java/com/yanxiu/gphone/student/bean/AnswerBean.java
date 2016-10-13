@@ -145,38 +145,51 @@ public class AnswerBean extends SrtBaseBean {
     //题目状态 0 回答正确， 1 回答错误， 3 未作答案(如果市复合体型包含多个问题的， 如果有一道题目错误就设置成错误,4  做了，但未完成
     public int getStatus() {
         if(isFinish()){
-
             if(isSubjective()){
                 status = ANSER_FINISH;
                 return status;
             }
-
             if(isRight()){
                 status = ANSER_RIGHT;
             }else{
                 status = ANSER_WRONG;
             }
         }else{
-            if (type!=0){
-
-                if (type==1&&fillAnswers.size()>0){
-                    status=ANSER_UNFINISHS;
-                }else if (type==2&&connect_classfy_answer.size()>0){
-                    status=ANSER_UNFINISHS;
-                }else if (type==3){
-                    status = ANSER_UNFINISH;
-                    for (int i=0;i<connect_classfy_answer.size();i++){
-                        if (connect_classfy_answer.get(i).size()>0){
-                            status=ANSER_UNFINISHS;
-                        }
-                    }
-                }else {
-                    status = ANSER_UNFINISH;
-                }
-            }else {
-                status = ANSER_UNFINISH;
-            }
+            status = ANSER_UNFINISH;
         }
+//        if(isFinish()){
+//
+//            if(isSubjective()){
+//                status = ANSER_FINISH;
+//                return status;
+//            }
+//
+//            if(isRight()){
+//                status = ANSER_RIGHT;
+//            }else{
+//                status = ANSER_WRONG;
+//            }
+//        }else{
+//            if (type!=0){
+//
+//                if (type==1&&fillAnswers.size()>0){
+//                    status=ANSER_UNFINISHS;
+//                }else if (type==2&&connect_classfy_answer.size()>0){
+//                    status=ANSER_UNFINISHS;
+//                }else if (type==3){
+//                    status = ANSER_UNFINISH;
+//                    for (int i=0;i<connect_classfy_answer.size();i++){
+//                        if (connect_classfy_answer.get(i).size()>0){
+//                            status=ANSER_UNFINISHS;
+//                        }
+//                    }
+//                }else {
+//                    status = ANSER_UNFINISH;
+//                }
+//            }else {
+//                status = ANSER_UNFINISH;
+//            }
+//        }
         return status;
     }
 
