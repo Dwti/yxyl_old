@@ -254,12 +254,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
                 params.gravity = Gravity.CENTER;
                 mClassfyGifImageView = new GuideClassfyQuestionView(this);
-                ImageView iv_guide_multi_gesture = (ImageView)mClassfyGifImageView.findViewById(R.id.iv_guide_multi_gesture);
-                Glide.with(this)
-                        .load(R.drawable.first_classfy_question)
-                        .asGif()
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .into(iv_guide_multi_gesture);
                 decorView.addView(mClassfyGifImageView, params);
                 PreferencesManager.getInstance().setFirstClassfyQuestion();
             }
@@ -268,12 +262,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
                 params.gravity = Gravity.CENTER;
                 mMultiGifImageView = new GuideMultiQuestionView(this);
-                ImageView iv_guide_multi_gesture = (ImageView)mMultiGifImageView.findViewById(R.id.iv_guide_classfy_gesture);
-                Glide.with(this)
-                        .load(R.drawable.first_multi_question)
-                        .asGif()
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .into(iv_guide_multi_gesture);
                 decorView.addView(mMultiGifImageView, params);
                 PreferencesManager.getInstance().setFirstMultiQuestion();
             }
