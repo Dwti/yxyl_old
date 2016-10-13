@@ -250,7 +250,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                 decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
                 params.gravity = Gravity.CENTER;
-                ImageView mClassfyGifImageView = new ImageView(this);
+                mClassfyGifImageView = new ImageView(this);
                 Glide.with(this)
                         .load(R.drawable.first_classfy_question)
                         .asGif()
@@ -446,6 +446,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                 addFragment();
             }
         }
+
     }
 
     AnswerCardFragment answerCardFragment;
