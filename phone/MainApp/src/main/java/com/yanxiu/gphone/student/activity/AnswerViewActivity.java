@@ -50,6 +50,8 @@ import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.CommonDialog;
 import com.yanxiu.gphone.student.view.DelDialog;
 import com.yanxiu.gphone.student.view.picsel.PicSelView;
+import com.yanxiu.gphone.student.view.question.GuideClassfyQuestionView;
+import com.yanxiu.gphone.student.view.question.GuideMultiQuestionView;
 import com.yanxiu.gphone.student.view.question.GuideQuestionView;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 
@@ -95,8 +97,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 
 
     private GuideQuestionView mGuideQuestionView;
-    private ImageView mMultiGifImageView;
-    private ImageView mClassfyGifImageView;
+    private GuideMultiQuestionView mMultiGifImageView;
+    private GuideClassfyQuestionView mClassfyGifImageView;
 
     private boolean isShowAnswerCard = false;
 
@@ -209,6 +211,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     @Override
     public void initData() {
         super.initData();
+        FrameLayout.LayoutParams allParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         childIndex=0;
         comeFrom = this.getIntent().getIntExtra("comeFrom", -1);
         adapter.setComeFrom(comeFrom);
@@ -250,12 +253,13 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                 decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
                 params.gravity = Gravity.CENTER;
-                ImageView mClassfyGifImageView = new ImageView(this);
+                mClassfyGifImageView = new GuideClassfyQuestionView(this);
+                ImageView iv_guide_multi_gesture = (ImageView)mClassfyGifImageView.findViewById(R.id.iv_guide_multi_gesture);
                 Glide.with(this)
                         .load(R.drawable.first_classfy_question)
                         .asGif()
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .into(mClassfyGifImageView);
+                        .into(iv_guide_multi_gesture);
                 decorView.addView(mClassfyGifImageView, params);
                 PreferencesManager.getInstance().setFirstClassfyQuestion();
             }
@@ -263,12 +267,13 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                 decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
                 params.gravity = Gravity.CENTER;
-                mMultiGifImageView = new ImageView(this);
+                mMultiGifImageView = new GuideMultiQuestionView(this);
+                ImageView iv_guide_multi_gesture = (ImageView)mMultiGifImageView.findViewById(R.id.iv_guide_classfy_gesture);
                 Glide.with(this)
                         .load(R.drawable.first_multi_question)
                         .asGif()
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .into(mMultiGifImageView);
+                        .into(iv_guide_multi_gesture);
                 decorView.addView(mMultiGifImageView, params);
                 PreferencesManager.getInstance().setFirstMultiQuestion();
             }
@@ -412,12 +417,14 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 
     @Override
     public void onBackPressed() {
+        if (mMultiGifImageView != null && mMultiGifImageView.isShown()) {
+            mMultiGifImageView.setVisibility(View.GONE);
+        }
+        if (mClassfyGifImageView != null && mClassfyGifImageView.isShown()) {
+            mClassfyGifImageView.setVisibility(View.GONE);
+        }
         if (mGuideQuestionView != null && mGuideQuestionView.isShown()) {
             mGuideQuestionView.setVisibility(View.GONE);
-        } else if (mMultiGifImageView != null && mMultiGifImageView.isShown()) {
-            mMultiGifImageView.setVisibility(View.GONE);
-        } else if (mClassfyGifImageView != null && mClassfyGifImageView.isShown()) {
-            mClassfyGifImageView.setVisibility(View.GONE);
         } else if (isShowAnswerCard) {
             ivAnswerCard.setVisibility(View.VISIBLE);
             removeFragment();
@@ -444,6 +451,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                 addFragment();
             }
         }
+
     }
 
     AnswerCardFragment answerCardFragment;
