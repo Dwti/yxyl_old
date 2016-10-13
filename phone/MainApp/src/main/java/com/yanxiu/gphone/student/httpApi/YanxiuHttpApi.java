@@ -81,7 +81,7 @@ public class YanxiuHttpApi {
      */
     public interface OFFICIAL_URL {
         String DYNAMIC_APP_USERURL = "http://mobile.hwk.yanxiu.com/app";
-        String DYNAMIC_APP_UPLOAD = "http://mobile.yanxiu.com/api";
+        String DYNAMIC_APP_UPLOAD = "http://mobile.yanxiu.com/v14/api";
     }
 
     /**
@@ -91,6 +91,7 @@ public class YanxiuHttpApi {
     public interface TEST_URL {
         String DYNAMIC_DEV_BASE_URL = "http://dev.hwk.yanxiu.com/app";
         String DYNAMIC_TEST_BASE_URL = "http://test.hwk.yanxiu.com/app";
+        String DYNAMIC_APP_UPLOAD = "http://mobile.yanxiu.com/test/api";
     }
 
 //    public static String getPublicUrl() {
@@ -114,7 +115,12 @@ public class YanxiuHttpApi {
     }
 
     public static String getInitUrl() {
-        return OFFICIAL_URL.DYNAMIC_APP_UPLOAD;
+        if (isTest) {
+            return TEST_URL.DYNAMIC_APP_UPLOAD;
+        } else {
+            return OFFICIAL_URL.DYNAMIC_APP_UPLOAD;
+        }
+
     }
 
     private static String getStaticHead() {
