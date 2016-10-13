@@ -2,14 +2,24 @@ package com.yanxiu.gphone.student.fragment;
 
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.view.ZoomImageView;
 import com.yanxiu.gphone.student.view.picsel.bean.LocalImageView;
 
@@ -61,8 +71,8 @@ public class PhotoFragment extends Fragment implements View.OnClickListener{
 //            ImageGetterAsyncTask asyncTask = new ImageGetterAsyncTask();
 //            asyncTask.execute(uri);
 //            requestBitmap(uri);
-            com.nostra13.universalimageloader.core.ImageLoader.getInstance().displayImage(uri, ivPhotoView, options);
-
+//            com.nostra13.universalimageloader.core.ImageLoader.getInstance().displayImage(uri, ivPhotoView, options);
+            Glide.with(this).load(uri).override(300,500).into(ivPhotoView);
 
         }
 
@@ -107,25 +117,25 @@ public class PhotoFragment extends Fragment implements View.OnClickListener{
 //    }
 
 
-    public class ImageGetterAsyncTask extends AsyncTask<String, Void, Bitmap> {
-
-
-        public ImageGetterAsyncTask() {
-        }
-
-        @Override
-        protected Bitmap doInBackground(String... params) {
-
-            String source = params[0];
-            Bitmap bitmap = com.nostra13.universalimageloader.core.ImageLoader.getInstance().loadImageSync(source);
-            return bitmap;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap result) {
-            ivPhotoView.setImageBitmap(result);
-            ivPhotoView.requestLayout();
-        }
-    }
+//    public class ImageGetterAsyncTask extends AsyncTask<String, Void, Bitmap> {
+//
+//
+//        public ImageGetterAsyncTask() {
+//        }
+//
+//        @Override
+//        protected Bitmap doInBackground(String... params) {
+//
+//            String source = params[0];
+//            Bitmap bitmap = com.nostra13.universalimageloader.core.ImageLoader.getInstance().loadImageSync(source);
+//            return bitmap;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Bitmap result) {
+//            ivPhotoView.setImageBitmap(result);
+//            ivPhotoView.requestLayout();
+//        }
+//    }
 
 }

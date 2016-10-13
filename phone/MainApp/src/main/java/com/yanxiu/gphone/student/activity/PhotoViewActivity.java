@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.PhotoAdapter;

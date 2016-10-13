@@ -7,8 +7,8 @@
     <com.yanxiu.gphone.student.view.ZoomImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/iv_photo_view"
-        android:layout_centerInParent="true"/>
+        android:layout_marginTop="@dimen/dimen_44"
+        android:id="@+id/iv_photo_view"/>
 
 
 
