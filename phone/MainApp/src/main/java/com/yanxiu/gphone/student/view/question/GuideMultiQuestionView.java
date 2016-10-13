@@ -44,7 +44,7 @@ public class GuideMultiQuestionView extends FrameLayout {
     private void initView(){
         this.setOnClickListener(null);
         View view = LayoutInflater.from(mContext).inflate(R.layout.layout_guide_multi_question, this);
-        ImageView iv_guide_multi_gesture = (ImageView)view.findViewById(R.id.iv_guide_classfy_gesture);
+        ImageView iv_guide_multi_gesture = (ImageView)view.findViewById(R.id.iv_guide_multi_gesture);
         Glide.with(mContext)
                 .load(R.drawable.first_multi_question)
                 .asGif()
