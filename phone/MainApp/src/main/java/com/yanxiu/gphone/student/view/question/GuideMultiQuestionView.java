@@ -6,8 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.yanxiu.gphone.student.R;
 
 /**
@@ -40,7 +43,13 @@ public class GuideMultiQuestionView extends FrameLayout {
 
     private void initView(){
         this.setOnClickListener(null);
-        LayoutInflater.from(mContext).inflate(R.layout.layout_guide_multi_question, this);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.layout_guide_multi_question, this);
+        ImageView iv_guide_multi_gesture = (ImageView)view.findViewById(R.id.iv_guide_multi_gesture);
+        Glide.with(mContext)
+                .load(R.drawable.first_multi_question)
+                .asGif()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(iv_guide_multi_gesture);
         btnGuide = (RelativeLayout) this.findViewById(R.id.rl_multi_gesture);
         btnGuide.setOnClickListener(new OnClickListener() {
             @Override

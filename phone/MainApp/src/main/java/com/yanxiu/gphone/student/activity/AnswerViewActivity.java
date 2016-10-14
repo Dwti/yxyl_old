@@ -251,29 +251,17 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 
             if (PreferencesManager.getInstance().getFirstClassfyQuestion() && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)) {
                 decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
-                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
                 params.gravity = Gravity.CENTER;
                 mClassfyGifImageView = new GuideClassfyQuestionView(this);
-                ImageView iv_guide_multi_gesture = (ImageView)mClassfyGifImageView.findViewById(R.id.iv_guide_multi_gesture);
-                Glide.with(this)
-                        .load(R.drawable.first_classfy_question)
-                        .asGif()
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .into(iv_guide_multi_gesture);
                 decorView.addView(mClassfyGifImageView, params);
                 PreferencesManager.getInstance().setFirstClassfyQuestion();
             }
             if (PreferencesManager.getInstance().getFirstMultiQuestion() && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getChildren() != null && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getChildren().size() > 0) {
                 decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
-                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
                 params.gravity = Gravity.CENTER;
                 mMultiGifImageView = new GuideMultiQuestionView(this);
-                ImageView iv_guide_multi_gesture = (ImageView)mMultiGifImageView.findViewById(R.id.iv_guide_classfy_gesture);
-                Glide.with(this)
-                        .load(R.drawable.first_multi_question)
-                        .asGif()
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .into(iv_guide_multi_gesture);
                 decorView.addView(mMultiGifImageView, params);
                 PreferencesManager.getInstance().setFirstMultiQuestion();
             }
