@@ -56,8 +56,8 @@ public class ConnectTextView extends TextView implements View.OnClickListener{
         this.application = (YanxiuApplication) ((Activity)context).getApplication();
         this.setOnClickListener(this);
         this.setTextColor(context.getResources().getColor(R.color.color_333333));
-//        int textsize= Util.getTextPX((Activity)context);
-        this.setTextSize(TypedValue.COMPLEX_UNIT_PX, 32);//32
+        int textsize= Util.getTextPX((Activity)context);
+        this.setTextSize(TypedValue.COMPLEX_UNIT_PX, textsize);//32
     }
 
     public void setBaseBean(ConnectLinesLinearLayout.BaseBean bean){
