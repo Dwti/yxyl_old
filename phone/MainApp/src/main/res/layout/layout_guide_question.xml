@@ -1,56 +1,15 @@
 <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rl_common_loading"
-        android:background="@color/color_88000000" >
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rl_first_gesture"
+    android:background="@color/color_88000000" >
 
-    <RelativeLayout android:layout_width="wrap_content"
+    <ImageView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_40"
-        android:background="@drawable/share_dialog_bg"
-        android:layout_centerInParent="true">
+        android:id="@+id/iv_guide_first_gesture"
+        android:layout_centerInParent="true"
+        android:src="@drawable/first_use_question"/>
 
-        <ImageView android:layout_width="@dimen/dimen_80"
-                   android:layout_height="@dimen/dimen_80"
-                   android:id="@+id/iv_guide_gesture"
-                   android:layout_centerHorizontal="true"
-                   android:src="@drawable/guide_question_gesture"/>
-
-
-        <TextView android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  style="@style/shadow_answer_view_text_style"
-                  android:layout_below="@+id/iv_guide_gesture"
-                  android:id="@+id/tv_guide_text"
-                  android:layout_marginTop="@dimen/dimen_5"
-                  android:gravity="center"
-                  android:text="@string/change_question"
-                  android:textSize="@dimen/dimen_15"
-                  android:textColor="@color/color_805500"/>
-
-        <View android:layout_width="match_parent"
-              android:layout_height="@dimen/dimen_1"
-              android:id="@+id/view_line"
-              android:layout_below="@+id/tv_guide_text"
-              android:layout_marginTop="@dimen/dimen_10"
-              android:layout_marginBottom="@dimen/dimen_10"
-              android:background="@drawable/repeat_common_line" />
-
-        <Button android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/shadow_answer_view_text_style"
-                android:layout_marginLeft="@dimen/dimen_10"
-                android:layout_marginRight="@dimen/dimen_10"
-                android:textStyle="bold"
-                android:layout_below="@+id/view_line"
-                android:id="@+id/btn_guide_btn"
-                android:background="@drawable/register_code_selector"
-                android:layout_centerHorizontal="true"
-                android:text="@string/question_know"
-                android:textSize="@dimen/dimen_17"
-                android:textColor="@color/color_805500"/>
-
-    </RelativeLayout>
 
 </RelativeLayout>
