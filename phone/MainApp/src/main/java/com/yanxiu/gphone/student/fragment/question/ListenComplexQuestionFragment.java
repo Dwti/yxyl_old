@@ -1,6 +1,7 @@
 package com.yanxiu.gphone.student.fragment.question;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -511,6 +512,12 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         }
     }
 
+
+    @Override
+    public Fragment getChildFragment() {
+        return adapter.getItem(vpAnswer.getCurrentItem());
+    }
+
     @Override
     public int getChildCount() {
         if (adapter != null && adapter.getCount() != 0) {
@@ -518,5 +525,10 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         } else {
             return super.getChildCount();
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
