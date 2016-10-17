@@ -66,7 +66,8 @@ public class QuestionFragmentFactory {
                 fragment = new ClassfyQuestionFragment();
                 break;
             case QUESTION_READING:
-                fragment = new ReadingQuestionsFragment();
+                //fragment = new ReadingQuestionsFragment();
+                fragment = new ReadComplexQuestionFragment();
                 break;
             case QUESTION_SUBJECTIVE:
                 fragment = new SubjectiveQuestionFragment();

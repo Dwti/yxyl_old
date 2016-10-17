@@ -66,7 +66,6 @@
                     android:id="@+id/ll_bottom_ctrl"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_30"
-                    android:layout_marginBottom="@dimen/dimen_13"
                     android:layout_alignParentBottom="true"
                     android:orientation="horizontal">
                     <View

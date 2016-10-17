@@ -78,7 +78,7 @@ public class YanxiuApplication extends CommonCoreApplication {
         initUpgradeConstant();
         startStatistics();
 
-        PushManager.getInstance().initialize(this.getApplicationContext());
+
     }
 
     //启动打点

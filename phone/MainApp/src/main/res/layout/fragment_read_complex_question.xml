@@ -55,32 +55,32 @@
                     </ScrollView>
                 </FrameLayout>
                 <LinearLayout
-                    android:id="@+id/ll_bottom_ctrl"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_30"
-                    android:layout_alignParentBottom="true"
-                    android:orientation="horizontal">
-                    <View
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dimen_3"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:layout_marginRight="@dimen/dimen_5"
-                        android:background="@drawable/complex_line"/>
-                    <ImageView
-                        android:id="@+id/iv_bottom_ctrl"
-                        android:layout_width="@dimen/dimen_36"
-                        android:layout_height="@dimen/dimen_20"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/complex_down"/>
-                    <View
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dimen_3"
-                        android:layout_marginLeft="@dimen/dimen_5"
-                        android:layout_weight="1"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/complex_line"/>
-                </LinearLayout>
+                android:id="@+id/ll_bottom_ctrl"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_30"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal">
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_3"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/dimen_5"
+                    android:background="@drawable/complex_line"/>
+                <ImageView
+                    android:id="@+id/iv_bottom_ctrl"
+                    android:layout_width="@dimen/dimen_36"
+                    android:layout_height="@dimen/dimen_20"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/complex_down"/>
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_3"
+                    android:layout_marginLeft="@dimen/dimen_5"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/complex_line"/>
+            </LinearLayout>
             </RelativeLayout>
 
         </com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout>
