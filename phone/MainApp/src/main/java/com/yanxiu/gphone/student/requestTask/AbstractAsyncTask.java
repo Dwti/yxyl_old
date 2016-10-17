@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.common.core.utils.StringUtils;
 import com.common.login.LoginModel;
+import com.igexin.sdk.PushManager;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.basecore.impl.YanxiuHttpAsyncTask;
 import com.yanxiu.gphone.student.manager.ActivityManager;
@@ -24,6 +25,7 @@ public abstract class AbstractAsyncTask<T extends YanxiuBaseBean> extends
             if(!StringUtils.isEmpty(msg)){
                 Util.showUserToast(msg, null, null);
             }
+            PushManager.getInstance().unBindAlias(context.getApplicationContext(), String.valueOf(LoginModel.getUid()), true);
             LoginModel.loginOut();
 
         }

@@ -8,6 +8,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -46,6 +48,7 @@ import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTI
  * Created by JS-00 on 2016/6/23.
  */
 public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity> {
+    private static final long ANIMATION_DURATION = 300;
     private boolean deleteAction = false;
     public WrongAllListAdapter(Activity context) {
         super(context);
@@ -54,19 +57,28 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final PaperTestEntity entity = getItem(position);
+        final View view;
         ViewHolder holder = null;
-//        if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_wrong_answer, null);
+        //if (convertView == null) {
+            view = LayoutInflater.from(mContext).inflate(R.layout.item_wrong_answer, null);
             holder = new ViewHolder();
-            holder.answerExamType = (ImageView) convertView.findViewById(R.id.answer_exam_type_text);
-            holder.answerExamContent = (YXiuAnserTextView) convertView.findViewById(R.id.answer_exam_content_text);
-            holder.answerExamDelete = (ImageView) convertView.findViewById(R.id.iv_answer_exam_delete);
-            holder.wrongDividerLine = (ImageView) convertView.findViewById(R.id.item_divider_line);
-
-//            convertView.setTag(holder);
-//        } else {
-//            holder = (ViewHolder) convertView.getTag();
-//        }
+            holder.answerExamType = (ImageView) view.findViewById(R.id.answer_exam_type_text);
+            holder.answerExamContent = (YXiuAnserTextView) view.findViewById(R.id.answer_exam_content_text);
+            holder.answerExamDelete = (ImageView) view.findViewById(R.id.iv_answer_exam_delete);
+            holder.wrongDividerLine = (ImageView) view.findViewById(R.id.item_divider_line);
+            view.setTag(holder);
+        /*} else if (((ViewHolder)convertView.getTag()).needInflate) {
+            view = LayoutInflater.from(mContext).inflate(R.layout.item_wrong_answer, null);
+            holder = new ViewHolder();
+            holder.answerExamType = (ImageView) view.findViewById(R.id.answer_exam_type_text);
+            holder.answerExamContent = (YXiuAnserTextView) view.findViewById(R.id.answer_exam_content_text);
+            holder.answerExamDelete = (ImageView) view.findViewById(R.id.iv_answer_exam_delete);
+            holder.wrongDividerLine = (ImageView) view.findViewById(R.id.item_divider_line);
+            view.setTag(holder);
+        } else {
+            view = convertView;
+        }*/
+        holder = (ViewHolder) view.getTag();
         if ((position + 1) >= getCount()) {
             holder.wrongDividerLine.setVisibility(View.GONE);
         }else {
@@ -78,14 +90,14 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
         setData(entity, holder);
         holder.answerExamDelete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                deleteWrongCard(position, entity);
+            public void onClick(View v) {
+                deleteWrongCard(view, position, entity);
             }
         });
-        return convertView;
+        return view;
     }
 
-    private void deleteWrongCard(final int position, PaperTestEntity entity) {
+    private void deleteWrongCard(final View v, final int position, PaperTestEntity entity) {
         final String questionId = entity.getQid() + "";
         final int pageIndex = position;
         LogInfo.log("haitian", "questionId =" + questionId);
@@ -104,10 +116,9 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
                     deleteAction = true;
                     Util.showToast(R.string.mistake_question_del_done);
                     PublicErrorQuestionCollectionBean.updateDelData(questionId);
-                    mList.remove(position);
-                    setList(mList);
                     MistakeCountBean mistakeCountBean = new MistakeCountBean();
                     EventBus.getDefault().post(mistakeCountBean);
+                    deleteCell(v, position);
                 }
 
                 @Override
@@ -204,5 +215,50 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
         private YXiuAnserTextView answerExamContent;
         private ImageView answerExamDelete;
         private ImageView wrongDividerLine;
+        private boolean needInflate;
+    }
+
+    private void deleteCell(final View v, final int index) {
+        Animation.AnimationListener al = new Animation.AnimationListener() {
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                ViewHolder vh = (ViewHolder)v.getTag();
+                vh.needInflate = true;
+                mList.remove(index);
+                setList(mList);
+            }
+            @Override public void onAnimationRepeat(Animation animation) {}
+            @Override public void onAnimationStart(Animation animation) {}
+        };
+
+        collapse(v, al);
+    }
+
+    private void collapse(final View v, Animation.AnimationListener al) {
+        final int initialHeight = v.getMeasuredHeight();
+
+        Animation anim = new Animation() {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                if (interpolatedTime == 1) {
+                    v.setVisibility(View.GONE);
+                }
+                else {
+                    v.getLayoutParams().height = initialHeight - (int)(initialHeight * interpolatedTime);
+                    v.requestLayout();
+                }
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        if (al!=null) {
+            anim.setAnimationListener(al);
+        }
+        anim.setDuration(ANIMATION_DURATION);
+        v.startAnimation(anim);
     }
 }

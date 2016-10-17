@@ -101,6 +101,7 @@ public class MainActivity extends YanxiuBaseActivity implements View.OnClickList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PushManager.getInstance().initialize(this.getApplicationContext());
         rootView = PublicLoadUtils.createPage(this, R.layout.activity_btm_navi);
         setContentView(rootView);
         EventBus.getDefault().register(this);
