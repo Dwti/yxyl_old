@@ -97,7 +97,7 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
                 int index = sb.indexOf("(_)");
                 while (index != -1) {
                     blankCount++;
-                    sb.replace(index, index + 3, "(" + blankCount + ")");
+                    sb.replace(index, index + 3, "(" + blankCount + ")____");
                     index = sb.indexOf("(_)");
                 }
                 tvQuestion.setTextHtml(sb.toString());
