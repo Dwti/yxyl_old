@@ -164,11 +164,11 @@ public class SubjectSectionActivity extends YanxiuBaseActivity implements View.O
                 }
                 break;
             case AbsChapterFragment.TEST_CENTER:
-                if(PreferencesManager.getInstance().getFirstTestCenter()){
-                    ICSPopupWindow icsPopupWindow = new ICSPopupWindow(this);
-                    icsPopupWindow.showAsDropDown(rightView);
-                    PreferencesManager.getInstance().setFirstTestCenter();
-                }
+//                if(PreferencesManager.getInstance().getFirstTestCenter()){
+//                    ICSPopupWindow icsPopupWindow = new ICSPopupWindow(this);
+//                    icsPopupWindow.showAsDropDown(rightView);
+//                    PreferencesManager.getInstance().setFirstTestCenter();
+//                }
                 chapterTabTitleLayout.setRightImageViewDisp(false);
                 if (testCenterFragment == null) {
                     testCenterFragment = new TestCenterFragment();
