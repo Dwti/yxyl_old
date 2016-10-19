@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.common.core.utils.CommonCoreUtil;
@@ -134,8 +135,11 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
         nickNameView = (EditText)findViewById(R.id.edit_nickname);
 
         areaView = (TextView)findViewById(R.id.edit_area);
+        LinearLayout area_layout_view= (LinearLayout) findViewById(R.id.area_layout_view);
         schoolView = (TextView)findViewById(R.id.edit_school);
+        LinearLayout school_layout_view= (LinearLayout) findViewById(R.id.school_layout_view);
         stageView = (TextView)findViewById(R.id.edit_stageId);
+        LinearLayout stage_layout_view= (LinearLayout) findViewById(R.id.stage_layout_view);
 
         nextView = (TextView)findViewById(R.id.edit_next);
         Util.setViewTypeface(YanxiuTypefaceTextView.TypefaceType.FANGZHENG, nextView);
@@ -148,9 +152,9 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
 
         delUserName.setOnClickListener(this);
         delNickName.setOnClickListener(this);
-        delArea.setOnClickListener(this);
-        delSchool.setOnClickListener(this);
-        delStage.setOnClickListener(this);
+//        delArea.setOnClickListener(this);
+//        delSchool.setOnClickListener(this);
+//        delStage.setOnClickListener(this);
 
         nameView.addTextChangedListener(new MyTextWatcher());
         nickNameView.addTextChangedListener(new MyTextWatcher());
@@ -163,14 +167,14 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
             }
         });
 
-        schoolView.setOnClickListener(new View.OnClickListener() {
+        school_layout_view.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 SchoolSearchActivity.launch(UserInfoActivity.this, zipcode,
                         LAUNCHER_FROM_USERINFO_TO_SCHOOL);
             }
         });
 
-        areaView.setOnClickListener(new View.OnClickListener() {
+        area_layout_view.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 UserLocationSelectActivity
                         .launch(UserInfoActivity.this, provinceList,
@@ -179,7 +183,7 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
             }
         });
 
-        stageView.setOnClickListener(new View.OnClickListener() {
+        stage_layout_view.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 MyStageSelectActivity.launch(UserInfoActivity.this, stageId,
                         LAUNCHER_FROM_USERINFO_TO_STAGE);

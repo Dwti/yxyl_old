@@ -14,7 +14,7 @@
         android:orientation="vertical"
         android:background="@drawable/yanxiu_my_frgment_bg">
         <RelativeLayout android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_96"
+                        android:layout_height="wrap_content"
                         android:id="@+id/search_edit_layout"
                         android:background="@drawable/search_btn_bg"
                         android:layout_marginTop="@dimen/dimen_25"
@@ -79,6 +79,7 @@
                 android:paddingLeft="@dimen/dimen_10"
                 android:gravity="center_vertical|left"
                 android:textSize="@dimen/dimen_12"
+                android:visibility="gone"
                 android:textColor="@color/color_805500"
                 style="@style/text_fff99_shadow_style"
                 android:text="@string/search_school_tag"
