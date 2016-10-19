@@ -232,7 +232,7 @@ public class HtmlToSpannedConverter implements ContentHandler {
             ClozzTextview.Buttonbean buttonbean=list.get(flag);
 
             if (height==0){
-                height=getFontHeight(buttonbean.getTextsize()*2);
+                height=getFontHeight(buttonbean.getTextsize());
             }
 
             Drawable d = ContextCompat.getDrawable(context, R.drawable.image_loading_in_text_24);

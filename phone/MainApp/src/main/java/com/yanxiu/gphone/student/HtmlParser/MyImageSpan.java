@@ -86,7 +86,7 @@ public class MyImageSpan extends ImageClickableSpan {
 
         Paint paint1 = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint1.setStrokeWidth(3);
-        paint1.setTextSize(buttonbean.getTextsize()*2-5);
+        paint1.setTextSize(buttonbean.getTextsize()-5);
         paint1.setColor(Color.parseColor("#00000000"));
         canvas.drawRect(targetRect, paint1);
         if (!TextUtils.isEmpty(buttonbean.getText())) {

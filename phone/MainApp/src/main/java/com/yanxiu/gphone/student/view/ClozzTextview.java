@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.widget.TextView;
 
 
@@ -35,7 +36,7 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
     private static final char DBC_SPACE = ' ';
 
     private Context context;
-    private float textsize=16;
+    private float textsize=32;
     private int linespacing=10;
 
     public List<Buttonbean> getList() {
@@ -65,7 +66,8 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
 
     private void init(Context context) {
         this.context=context;
-        this.setTextSize(textsize);
+//        this.setTextSize(textsize);
+        this.setTextSize(TypedValue.COMPLEX_UNIT_PX, textsize);
         this.setLineSpacing(linespacing,1);
         this.setMovementMethod(MyImageSpanLinkMovementMethod.getInstance());
         this.setHighlightColor(context.getResources().getColor(android.R.color.transparent));
