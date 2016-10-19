@@ -43,12 +43,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
             android:layout_marginLeft="@dimen/dimen_12"
             android:layout_marginRight="@dimen/dimen_10"
             android:layout_marginTop="@dimen/dimen_5"
             android:layout_marginBottom="@dimen/dimen_15"
             android:maxHeight="@dimen/dimen_130"
-            android:layout_gravity="center"
             android:textColor="@color/color_666252" />
         <!--
         </cn.carbs.android.maxheightview.library.MaxHeightView>
