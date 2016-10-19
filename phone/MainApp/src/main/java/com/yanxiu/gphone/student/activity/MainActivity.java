@@ -127,8 +127,8 @@ public class MainActivity extends YanxiuBaseActivity implements View.OnClickList
                 LogInfo.log("haitian", "msg_type =" + msg_type);
                 switch (msg_type) {
                     case NOTIFICATION_ACTION_HOMEWORK_CORRECTING:
-                        //requestQReportList(String.valueOf(mPushMsgBean.getId()));
-                        //break;
+                        requestQReportList(String.valueOf(mPushMsgBean.getId()));
+                        break;
                     case NOTIFICATION_ACTION_ASSIGN_HOMEWORK:
                         GroupHwActivity.launchActivity(MainActivity.this, mPushMsgBean.getId(), mPushMsgBean.getName());
                         break;
