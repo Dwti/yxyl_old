@@ -553,6 +553,14 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
             adapter.setCostTime(costTime, viewPagerLastPosition,childIndex);
             childIndex=0;
         }
+        if (PreferencesManager.getInstance().getFirstClassfyQuestion() && dataSources.getData().get(0).getPaperTest().get(position).getQuestions().getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)) {
+            decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+            params.gravity = Gravity.CENTER;
+            mClassfyGifImageView = new GuideClassfyQuestionView(this);
+            decorView.addView(mClassfyGifImageView, params);
+            PreferencesManager.getInstance().setFirstClassfyQuestion();
+        }
         tvPagerIndex.setVisibility(View.VISIBLE);
         ivAnswerCard.setVisibility(View.VISIBLE);
         if (Configuration.isDebug() && btnWrongError != null) {
