@@ -104,8 +104,8 @@
                         android:background="@drawable/complex_line"/>
                     <ImageView
                         android:id="@+id/iv_bottom_ctrl"
-                        android:layout_width="@dimen/dimen_36"
-                        android:layout_height="@dimen/dimen_20"
+                        android:layout_width="@dimen/dimen_53"
+                        android:layout_height="@dimen/dimen_28"
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/complex_down"/>
                     <View
