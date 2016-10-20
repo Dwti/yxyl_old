@@ -58,6 +58,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     private YXiuAnserTextView tvYanxiu;
     private AllGridView gvClassfyQuestion;
     private ClassfyAnswers vgClassfyAnswers;
+    private View view_line_ccc4a3_2;
     private UnMoveGridView lgClassfyAnswers;
 
     private ClassfyQuestionAdapter classfyQuestionAdapter;
@@ -107,6 +108,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
         classfyQuestionAdapter = new ClassfyQuestionAdapter(gvClassfyQuestion, getActivity());
         classfyQuestionAdapter.setlistener(this);
         gvClassfyQuestion.setAdapter(classfyQuestionAdapter);
+        view_line_ccc4a3_2 = (View) rootView.findViewById(R.id.view_line_ccc4a3_2);
         vgClassfyAnswers = (ClassfyAnswers) rootView.findViewById(R.id.classfy_text_item);
         lgClassfyAnswers = (UnMoveGridView) rootView.findViewById(R.id.classfy_icon_item);
         lgClassfyAnswers.setSelector(new ColorDrawable(Color.TRANSPARENT));
@@ -143,6 +145,11 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
         if (questionsEntity != null && questionsEntity.getStem() != null) {
             tvYanxiu.setTextHtml(questionsEntity.getStem());
             filterClassItem();
+            if (answerViewTypyBean == SubjectExercisesItemBean.RESOLUTION || answerViewTypyBean == SubjectExercisesItemBean.WRONG_SET) {
+                if (classfyItem.size() == 0) {
+                    view_line_ccc4a3_2.setVisibility(View.GONE);
+                }
+            }
             if (questionsEntity.getAnswer() != null) {
                 if (questionsEntity.getAnswerBean().getConnect_classfy_answer().size() == 0){
                     for (int j=0; j<questionsEntity.getAnswer().size(); j++) {
