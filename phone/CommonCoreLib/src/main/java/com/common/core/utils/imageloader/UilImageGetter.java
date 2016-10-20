@@ -205,6 +205,13 @@ public class UilImageGetter implements Html.ImageGetter {
                         }
                     }
 
+                    if (UilImageGetter.this.view.getWidth()!=0){
+                        if (loadedImageWidth > UilImageGetter.this.view.getWidth()) {
+                            loadedImageheight = loadedImageheight * UilImageGetter.this.view.getWidth() / loadedImageWidth;
+                            loadedImageWidth = UilImageGetter.this.view.getWidth();
+                        }
+                    }
+
                     Drawable result = new BitmapDrawable(context.getResources(), loadedImage);
                     result.setBounds(0, 0, loadedImageWidth, loadedImageheight);
                     urlDrawable.setBounds(0, 0, loadedImageWidth, loadedImageheight);

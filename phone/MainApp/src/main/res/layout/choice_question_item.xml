@@ -61,7 +61,7 @@
         android:id="@+id/rl_choice_content_item">
 
         <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tv_item_content_text"
             android:padding="@dimen/dimen_4"
