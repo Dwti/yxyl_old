@@ -62,12 +62,11 @@
                 android:visibility="gone"
                 />
 
-
             <include
                 android:id="@+id/topLine"
                 android:layout_below="@id/search_edit"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_2"
+                android:layout_height="@dimen/dimen_0"
                 layout="@layout/icon_select_top_line"
                 />
 
