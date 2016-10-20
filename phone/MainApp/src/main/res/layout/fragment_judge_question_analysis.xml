@@ -42,6 +42,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/dimen_15"
                             android:layout_gravity="center"
+                        android:padding="@dimen/dimen_5"
                             android:textColor="@color/color_black"
                             android:id="@+id/yxiu_tv"
                             android:layout_below="@+id/view_line_ccc4a3"/>

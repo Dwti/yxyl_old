@@ -648,7 +648,9 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
             LogInfo.log(TAG, "CURRENTINDEX: " + currentIndex);
             BaseQuestionFragment currentFragment = (BaseQuestionFragment) adapter.getItem(currentIndex);
             if (dataSources.getData().get(0).getPaperTest().get(currentIndex).getQuestions().getChildren() != null && !dataSources.getData().get(0).getPaperTest().get(currentIndex).getQuestions().getChildren().isEmpty())
-                currentFragment= (BaseQuestionFragment) currentFragment.getChildFragment();
+                if (currentFragment != null &&currentFragment.getChildFragment()!=null) {
+                    currentFragment = (BaseQuestionFragment) currentFragment.getChildFragment();
+                }
             if (currentFragment != null && currentFragment instanceof SubjectiveQuestionFragment) {
                 currentFragment.onActivityResult(requestCode, resultCode, data);
             }
