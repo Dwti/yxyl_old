@@ -21,7 +21,7 @@
                         android:layout_marginRight="@dimen/dimen_30"
                         android:layout_marginLeft="@dimen/dimen_30">
             <EditText android:layout_width="match_parent"
-                      android:layout_height="@dimen/dimen_36"
+                      android:layout_height="@dimen/dimen_44"
                       android:id="@+id/search_edit"
                       android:layout_toLeftOf="@+id/search_add_text"
                       android:drawableLeft="@drawable/search_icon"
@@ -33,6 +33,7 @@
                       android:layout_marginRight="@dimen/dimen_10"
                       android:layout_marginTop="@dimen/dimen_6"
                       android:layout_marginBottom="@dimen/dimen_5"
+                      android:layout_centerVertical="true"
                       android:cursorVisible="true"
                       android:textCursorDrawable="@null"
                       android:singleLine="true"
@@ -61,7 +62,7 @@
                 style="@style/text_fff99_shadow_style"
                 android:visibility="gone"
                 />
-
+            <!--
             <include
                 android:id="@+id/topLine"
                 android:layout_below="@id/search_edit"
@@ -86,6 +87,7 @@
                 android:drawablePadding="@dimen/dimen_10"
                 android:layout_marginTop="@dimen/dimen_5"
                 />
+                -->
         </RelativeLayout>
 
         <ListView android:layout_width="match_parent"
