@@ -108,6 +108,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     private void setPicSelViewId() {
         LogInfo.log(TAG, "setPicSelViewId: " + this.questionsEntity.getId());
         mPicSelView = (PicSelView) rootView.findViewById(R.id.picSelView);
+        mPicSelView.setFragment(this);
         if (this.questionsEntity != null && !StringUtils.isEmpty(this.questionsEntity.getId())) {
             mPicSelView.setSubjectiveId(this.questionsEntity.getId());
         }

@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -24,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.common.core.utils.BasePopupWindow;
 import com.common.core.utils.BitmapUtil;
 import com.common.core.utils.LogInfo;
@@ -58,6 +60,7 @@ public class PicSelView extends RelativeLayout {
     private Context mContext;
     private TextView addAnswerView;
     private List<String> currentDrrList;
+    private Fragment fragment;
 
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
@@ -249,10 +252,16 @@ public class PicSelView extends RelativeLayout {
 
     }
 
+    public void setFragment(Fragment fragment){
+        this.fragment=fragment;
+    }
+
     public class GridAdapter extends BaseAdapter {
         private LayoutInflater inflater;
+        private Context context;
 
         public GridAdapter(Context context) {
+            this.context=context;
             inflater = LayoutInflater.from(context);
         }
 
