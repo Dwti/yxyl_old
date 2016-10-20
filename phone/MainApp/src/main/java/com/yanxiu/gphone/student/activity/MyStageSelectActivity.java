@@ -93,7 +93,7 @@ public class MyStageSelectActivity extends YanxiuBaseActivity implements View.On
     }
 
     private void setSelectStageDisp (int type) {
-        int index = 0;
+        int index = -1;
         if (type == STAGE_TYPE_PRIM) {
             index = 0;
         } else if (type == STAGE_TYPE_JUIN) {

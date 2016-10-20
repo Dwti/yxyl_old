@@ -101,7 +101,7 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
     private String cityId="";
     private String zipcode="";
 
-    private int stageId = MyStageSelectActivity.STAGE_TYPE_JUIN;
+    private int stageId = 0;
     private String openid;
     private String uniqid;
     private String platform;
