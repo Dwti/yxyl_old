@@ -585,7 +585,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
             View view=View.inflate(this, R.layout.popupwindow,null);
             final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             ImageView imageView= (android.widget.ImageView) view.findViewById(R.id.first_classfy_guide);
-            Glide.with(this).load(R.drawable.first_classfy_question).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
+            Glide.with(this).load(R.drawable.first_multi_question).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
             view.setOnTouchListener(new View.OnTouchListener(){
 
                 @Override
