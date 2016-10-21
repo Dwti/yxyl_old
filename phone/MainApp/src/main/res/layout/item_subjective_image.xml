@@ -6,8 +6,7 @@
     <ImageView
             android:layout_width="@dimen/dimen_45"
             android:layout_height="@dimen/dimen_45"
-            android:layout_gravity="center"
-            android:src="@drawable/image_default"/>
+            android:layout_gravity="center"/>
 
     <com.common.core.view.roundview.RoundedImageView
         android:layout_width="@dimen/dimen_45"
