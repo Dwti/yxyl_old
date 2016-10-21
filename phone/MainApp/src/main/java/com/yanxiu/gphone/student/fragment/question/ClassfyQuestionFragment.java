@@ -7,16 +7,21 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.common.core.utils.BasePopupWindow;
 import com.common.core.utils.LogInfo;
 import com.common.core.utils.StringUtils;
@@ -29,6 +34,7 @@ import com.yanxiu.gphone.student.adapter.ClassfyQuestionAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ClassfyBean;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.preference.PreferencesManager;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
@@ -98,6 +104,16 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
         }
         initView();
         initData();
+//            if (decorView == null) {
+//                decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
+//            }
+//            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+//            params.gravity = Gravity.CENTER;
+//            mClassfyGifImageView = new GuideClassfyQuestionView(this);
+//            decorView.addView(mClassfyGifImageView, params);
+//            PreferencesManager.getInstance().setFirstClassfyQuestion();
+
+
         return rootView;
     }
 
@@ -250,6 +266,23 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                 ((QuestionsListener)getActivity()).flipNextPager(null);
             }catch (Exception e){}
 //            }
+
+            if (PreferencesManager.getInstance().getFirstClassfyQuestion()) {
+                View view=View.inflate(getActivity(),R.layout.popupwindow,null);
+                final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                ImageView imageView= (android.widget.ImageView) view.findViewById(R.id.first_classfy_guide);
+                Glide.with(this).load(R.drawable.first_classfy_question).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
+                view.setOnTouchListener(new View.OnTouchListener(){
+
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        popupWindow.dismiss();
+                        return true;
+                    }
+                });
+                popupWindow.setContentView(view);
+                popupWindow.showAsDropDown(tvYanxiu);
+        }
         }
     }
 
