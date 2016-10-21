@@ -267,22 +267,23 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             }catch (Exception e){}
 //            }
 
-            if (PreferencesManager.getInstance().getFirstClassfyQuestion()) {
-                View view=View.inflate(getActivity(),R.layout.popupwindow,null);
-                final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-                ImageView imageView= (android.widget.ImageView) view.findViewById(R.id.first_classfy_guide);
-                Glide.with(this).load(R.drawable.first_classfy_question).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
-                view.setOnTouchListener(new View.OnTouchListener(){
+                if (PreferencesManager.getInstance().getFirstClassfyQuestion()) {
+                    View view=View.inflate(getActivity(),R.layout.popupwindow,null);
+                    final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                    ImageView imageView= (android.widget.ImageView) view.findViewById(R.id.first_classfy_guide);
+                    Glide.with(this).load(R.drawable.first_classfy_question).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
+                    view.setOnTouchListener(new View.OnTouchListener(){
 
-                    @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
-                        popupWindow.dismiss();
-                        return true;
-                    }
-                });
-                popupWindow.setContentView(view);
-                popupWindow.showAsDropDown(tvYanxiu);
-        }
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            popupWindow.dismiss();
+                            return true;
+                        }
+                    });
+                    popupWindow.setContentView(view);
+                    popupWindow.showAsDropDown(tvYanxiu);
+                    PreferencesManager.getInstance().setFirstClassfyQuestion();
+            }
         }
     }
 
