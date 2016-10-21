@@ -357,7 +357,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
                     Fragment fragment = null;
                     LogInfo.log("geny-", "typeId------" + typeId + "----pagerIndex-----" + i);
                     if (template.equals(YanXiuConstant.ANSWER_QUESTION)) {
-                        fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_SUBJECTIVE, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
+                        fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_SUBJECTIVE, paperList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
                         if (!isFirstSub) {
                             isFirstSub = true;
                             fragment.getArguments().putBoolean("isFirstSub", isFirstSub);
@@ -466,7 +466,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
                         }
 //						pageIndexList.add(pageIndex++);
                     }else if (template.equals(YanXiuConstant.CONNECT_QUESTION)) {
-                        fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_CONNECT, dataList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
+                        fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_CONNECT, paperList.get(i).getQuestions(), answerViewTypyBean, pageIndex);
 
                         if (dataList.get(i).getQuestions() != null) {
                             List<PaperTestEntity> childQuestion = dataList.get(i).getQuestions().getChildren();
