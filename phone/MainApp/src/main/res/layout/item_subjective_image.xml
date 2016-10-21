@@ -10,15 +10,15 @@
             android:src="@drawable/image_default"/>
 
     <com.common.core.view.roundview.RoundedImageView
-        android:layout_width="@dimen/dimen_55"
-        android:layout_height="@dimen/dimen_55"
+        android:layout_width="@dimen/dimen_45"
+        android:layout_height="@dimen/dimen_45"
         android:id="@+id/iv_subjective_image"
         android:scaleType="centerCrop" />
 
     <ImageView
         android:id="@+id/item_grid_decorate"
-        android:layout_width="@dimen/dimen_55"
-        android:layout_height="@dimen/dimen_55"
+        android:layout_width="@dimen/dimen_45"
+        android:layout_height="@dimen/dimen_45"
         android:src="@drawable/pic_not_sel"
         android:scaleType="centerCrop" />
 
