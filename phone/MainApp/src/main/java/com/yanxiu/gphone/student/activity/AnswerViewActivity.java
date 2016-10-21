@@ -22,6 +22,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -264,16 +266,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                 decorView.addView(mClassfyGifImageView, params);
                 PreferencesManager.getInstance().setFirstClassfyQuestion();
             }*/
-            if (PreferencesManager.getInstance().getFirstMultiQuestion() && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getChildren() != null && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getChildren().size() > 0) {
-                if (decorView == null) {
-                    decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
-                }
-                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-                params.gravity = Gravity.CENTER;
-                mMultiGifImageView = new GuideMultiQuestionView(this);
-                decorView.addView(mMultiGifImageView, params);
-                PreferencesManager.getInstance().setFirstMultiQuestion();
-            }
+
 
 
             if (PreferencesManager.getInstance().getFirstQuestion()) {
@@ -569,6 +562,42 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 //            decorView.addView(mClassfyGifImageView, params);
 //            PreferencesManager.getInstance().setFirstClassfyQuestion();
 //        }
+
+        if (PreferencesManager.getInstance().getFirstClassfyQuestion() && dataSources.getData().get(0).getPaperTest().get(position).getQuestions().getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION) ) {
+            View view=View.inflate(this, R.layout.popupwindow,null);
+            final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            ImageView imageView= (android.widget.ImageView) view.findViewById(R.id.first_classfy_guide);
+            Glide.with(this).load(R.drawable.first_classfy_question).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
+            view.setOnTouchListener(new View.OnTouchListener(){
+
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    popupWindow.dismiss();
+                    return true;
+                }
+            });
+            popupWindow.setContentView(view);
+            popupWindow.showAsDropDown(ivBack);
+            PreferencesManager.getInstance().setFirstClassfyQuestion();
+        }
+
+        if (PreferencesManager.getInstance().getFirstMultiQuestion() && dataSources.getData().get(0).getPaperTest().get(position).getQuestions().getChildren() != null && dataSources.getData().get(0).getPaperTest().get(position).getQuestions().getChildren().size() > 0) {
+            View view=View.inflate(this, R.layout.popupwindow,null);
+            final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            ImageView imageView= (android.widget.ImageView) view.findViewById(R.id.first_classfy_guide);
+            Glide.with(this).load(R.drawable.first_classfy_question).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
+            view.setOnTouchListener(new View.OnTouchListener(){
+
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    popupWindow.dismiss();
+                    return true;
+                }
+            });
+            popupWindow.setContentView(view);
+            popupWindow.showAsDropDown(ivBack);
+            PreferencesManager.getInstance().setFirstClassfyQuestion();
+        }
         tvPagerIndex.setVisibility(View.VISIBLE);
         ivAnswerCard.setVisibility(View.VISIBLE);
         if (Configuration.isDebug() && btnWrongError != null) {
