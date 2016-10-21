@@ -9,19 +9,9 @@
         android:layout_width="match_parent"
         android:id="@+id/rl_top" />
 
-    <com.yanxiu.gphone.student.view.picsel.PicSelView
-            android:id="@+id/picSelView"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/dimen_20"
-            android:background="@color/color_transparent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="visible" />
-
     <ScrollView android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/dimen_10"
-        android:layout_above="@id/picSelView"
         android:layout_below="@id/rl_top">
 
         <RelativeLayout android:layout_width="match_parent"
@@ -58,7 +48,17 @@
 
                 </FrameLayout>
 
+
             </LinearLayout>
+            <com.yanxiu.gphone.student.view.picsel.PicSelView
+                android:id="@+id/picSelView"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/ll_answer_content"
+                android:layout_marginBottom="@dimen/dimen_20"
+                android:background="@color/color_transparent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible" />
 
 
             <!--<Button android:layout_width="match_parent"
