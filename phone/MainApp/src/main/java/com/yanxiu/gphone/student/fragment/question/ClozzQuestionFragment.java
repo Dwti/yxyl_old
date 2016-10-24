@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -41,6 +42,8 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
     private ClozzTextview fill_blanks_button;
     private ScrollView sv_content_top;
     private LinearLayout ll_bottom_view;
+    private FrameLayout fl_content_top;
+
     private OnPushPullTouchListener mOnPushPullTouchListener;
     private ImageView ivBottomCtrl;
     private ViewPager vpAnswer;
@@ -100,6 +103,7 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
     private void initview() {
         ExpandableRelativeLayoutlayout rl_top_view = (ExpandableRelativeLayoutlayout) rootView.findViewById(R.id.rl_top_view);
         fill_blanks_button = (ClozzTextview) rootView.findViewById(R.id.fill_blanks_button);
+        fl_content_top = (FrameLayout) rootView.findViewById(R.id.fl_content_top);
         sv_content_top = (ScrollView) rootView.findViewById(R.id.sv_content_top);
         if (questionsEntity != null && questionsEntity.getStem() != null) {
             int position_index;
@@ -246,9 +250,14 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
             }
             if (fill_blanks_button != null) {
                 fill_blanks_button.setTextViewSelect(position);
-
-                sv_content_top.scrollTo(0, fill_blanks_button.getList().get(position).getY());
+                if (fill_blanks_button.getList().get(position).getY() - fl_content_top.getScrollY() < 0) {
+                    sv_content_top.scrollTo(0, fill_blanks_button.getList().get(position).getY());
+                }
+                if (fill_blanks_button.getList().get(position).getY() - fl_content_top.getScrollY() > fl_content_top.getBottom()-fl_content_top.getTop()) {
+                    sv_content_top.scrollTo(0, fill_blanks_button.getList().get(position).getY());
+                }
             }
+
         }
         ((BaseAnswerViewActivity) getActivity()).setPagerSelect(adapter.getCount(), position);
     }
