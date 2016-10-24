@@ -5,11 +5,16 @@
         android:id="@+id/rl_multi_gesture"
         android:background="@color/color_88000000" >
 
-        <ImageView android:layout_width="wrap_content"
+        <!--<ImageView android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:id="@+id/iv_guide_multi_gesture"
                    android:layout_centerInParent="true"
-                   android:src="@drawable/first_multi_question"/>
-
+                   android:src="@drawable/first_multi_question"/>-->
+        <com.yanxiu.gphone.student.view.GifView
+            android:id="@+id/gifview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:enabled="false" />
 
 </RelativeLayout>
