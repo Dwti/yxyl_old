@@ -274,6 +274,16 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 //                popupWindow.showAsDropDown(ivBack);
 //                PreferencesManager.getInstance().setFirstClassfyQuestion();
 //            }
+            if (PreferencesManager.getInstance().getFirstClassfyQuestion() && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)) {
+                if (decorView == null) {
+                    decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
+                }
+                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+                params.gravity = Gravity.CENTER;
+                mClassfyGifImageView = new GuideClassfyQuestionView(this);
+                decorView.addView(mClassfyGifImageView, params);
+                PreferencesManager.getInstance().setFirstClassfyQuestion();
+            }
             if (PreferencesManager.getInstance().getFirstMultiQuestion() && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getChildren() != null && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getChildren().size() > 0) {
                 if (decorView == null) {
                     decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
@@ -568,6 +578,16 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         }else{
             adapter.setCostTime(costTime, viewPagerLastPosition,childIndex);
             childIndex=0;
+        }
+        if (PreferencesManager.getInstance().getFirstClassfyQuestion() && dataSources.getData().get(0).getPaperTest().get(position).getQuestions().getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)) {
+            if (decorView == null) {
+                decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
+            }
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+            params.gravity = Gravity.CENTER;
+            mClassfyGifImageView = new GuideClassfyQuestionView(this);
+            decorView.addView(mClassfyGifImageView, params);
+            PreferencesManager.getInstance().setFirstClassfyQuestion();
         }
         if (PreferencesManager.getInstance().getFirstMultiQuestion() && dataSources.getData().get(0).getPaperTest().get(position).getQuestions().getChildren() != null && dataSources.getData().get(0).getPaperTest().get(position).getQuestions().getChildren().size() > 0) {
             if (decorView == null) {
