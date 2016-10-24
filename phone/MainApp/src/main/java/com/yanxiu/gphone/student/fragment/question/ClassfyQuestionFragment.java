@@ -1,5 +1,6 @@
 package com.yanxiu.gphone.student.fragment.question;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -104,15 +105,24 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
         }
         initView();
         initData();
-//            if (decorView == null) {
-//                decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
-//            }
-//            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-//            params.gravity = Gravity.CENTER;
-//            mClassfyGifImageView = new GuideClassfyQuestionView(this);
-//            decorView.addView(mClassfyGifImageView, params);
-//            PreferencesManager.getInstance().setFirstClassfyQuestion();
+        if (PreferencesManager.getInstance().getFirstClassfyQuestion()) {
+            View view = LayoutInflater.from(getActivity()).inflate(R.layout.popupwindow, null);
+            //View view = View.inflate((Context)getActivity(), R.layout.popupwindow, null);
+            final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            ImageView imageView = (android.widget.ImageView) view.findViewById(R.id.first_classfy_guide);
+            Glide.with(this).load(R.drawable.first_classfy_question).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
+            view.setOnTouchListener(new View.OnTouchListener() {
 
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    popupWindow.dismiss();
+                    return true;
+                }
+            });
+            popupWindow.setContentView(view);
+            popupWindow.showAsDropDown(tvYanxiu);
+            PreferencesManager.getInstance().setFirstClassfyQuestion();
+        }
 
         return rootView;
     }
