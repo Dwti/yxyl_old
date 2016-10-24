@@ -250,10 +250,10 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
             }
             if (fill_blanks_button != null) {
                 fill_blanks_button.setTextViewSelect(position);
-                if (fill_blanks_button.getList().get(position).getY() - fl_content_top.getScrollY() < 0) {
+                if (fill_blanks_button.getList().get(position).getY() - sv_content_top.getScrollY() < 0) {
                     sv_content_top.scrollTo(0, fill_blanks_button.getList().get(position).getY());
                 }
-                if (fill_blanks_button.getList().get(position).getY() - fl_content_top.getScrollY() > fl_content_top.getBottom()-fl_content_top.getTop()) {
+                if (fill_blanks_button.getList().get(position).getY() - sv_content_top.getScrollY() > fl_content_top.getBottom()-fl_content_top.getTop()) {
                     sv_content_top.scrollTo(0, fill_blanks_button.getList().get(position).getY());
                 }
             }
