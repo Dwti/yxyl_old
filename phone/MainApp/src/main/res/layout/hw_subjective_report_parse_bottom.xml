@@ -106,7 +106,7 @@
                            android:layout_marginTop="@dimen/dimen_8"
                            android:id="@+id/icon_correction_result"
                            android:src="@drawable/icon_correction_result" />
-
+                <!--
                 <FrameLayout android:layout_width="match_parent"
                              android:layout_height="wrap_content"
                              android:id="@+id/fl_correction_result_content"
@@ -124,6 +124,32 @@
                             android:id="@+id/correction_result_text"
                             android:textSize="@dimen/dimen_15"
                             android:textColor="@color/color_ff323232" />
+
+                </FrameLayout>
+                -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_12"
+                    android:id="@+id/fl_correction_result_content">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/question_content_bg"></RelativeLayout>
+
+                    <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+                        android:id="@+id/correction_result_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/view_line_ccc4a3"
+                        android:layout_marginTop="@dimen/dimen_12"
+                        android:layout_marginLeft="@dimen/dimen_20"
+                        android:layout_marginRight="@dimen/dimen_12"
+                        android:layout_marginBottom="@dimen/dimen_12"
+                        android:layout_gravity="center"
+                        android:textColor="@color/color_ff323232"
+                        android:textSize="@dimen/dimen_15" />
 
                 </FrameLayout>
 
@@ -202,7 +228,7 @@
                            android:src="@drawable/problem_analysis_title_bg"/>
 
             </RelativeLayout>
-
+            <!--
             <FrameLayout android:layout_width="match_parent"
                          android:layout_height="wrap_content"
                          android:layout_marginTop="@dimen/dimen_10"
@@ -220,6 +246,31 @@
                         android:paddingLeft="@dimen/dimen_10"
                         android:textSize="@dimen/dimen_15"
                         android:textColor="@color/color_ff323232" />
+
+            </FrameLayout>
+            -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_12">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/question_content_bg"></RelativeLayout>
+
+                <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+                    android:id="@+id/hw_report_parse_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view_line_ccc4a3"
+                    android:layout_marginTop="@dimen/dimen_12"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    android:layout_marginRight="@dimen/dimen_12"
+                    android:layout_marginBottom="@dimen/dimen_12"
+                    android:layout_gravity="center"
+                    android:textColor="@color/color_ff323232"
+                    android:textSize="@dimen/dimen_15" />
 
             </FrameLayout>
 

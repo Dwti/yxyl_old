@@ -23,6 +23,7 @@
                 android:layout_marginTop="@dimen/dimen_7"
                 android:src="@drawable/icon_question_q" />
 
+            <!--
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -34,6 +35,31 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/view_line_ccc4a3"
+                    android:layout_gravity="center"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/dimen_15" />
+
+            </FrameLayout>
+            -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_12">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/question_content_bg"></RelativeLayout>
+
+                <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+                    android:id="@+id/yxiu_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view_line_ccc4a3"
+                    android:layout_marginTop="@dimen/dimen_12"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    android:layout_marginRight="@dimen/dimen_12"
+                    android:layout_marginBottom="@dimen/dimen_12"
                     android:layout_gravity="center"
                     android:textColor="@color/color_black"
                     android:textSize="@dimen/dimen_15" />
