@@ -92,6 +92,9 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     private boolean isWrongSet;
     private Button addBtn;
 
+   static LayoutInflater inflater;
+    private PopupWindow popupWindow;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,25 +106,12 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
         if (rootView == null) {
             rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_classfy_question, null);
         }
+        this.inflater=inflater;
         initView();
         initData();
-        if (PreferencesManager.getInstance().getFirstClassfyQuestion()) {
-            View view = LayoutInflater.from(getActivity()).inflate(R.layout.popupwindow, null);
-            //View view = View.inflate((Context)getActivity(), R.layout.popupwindow, null);
-            final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-            ImageView imageView = (android.widget.ImageView) view.findViewById(R.id.first_classfy_guide);
-            Glide.with(this).load(R.drawable.first_classfy_question).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
-            view.setOnTouchListener(new View.OnTouchListener() {
 
-                @Override
-                public boolean onTouch(View view, MotionEvent motionEvent) {
-                    popupWindow.dismiss();
-                    return true;
-                }
-            });
-            popupWindow.setContentView(view);
-            popupWindow.showAsDropDown(tvYanxiu);
-            PreferencesManager.getInstance().setFirstClassfyQuestion();
+        if (questionsEntity.getPageIndex()==0){
+            setPopupwindow();
         }
 
         return rootView;
@@ -261,8 +251,6 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
 
     }
 
-
-
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -276,6 +264,32 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                 ((QuestionsListener)getActivity()).flipNextPager(null);
             }catch (Exception e){}
 //            }
+        }
+        if (isVisibleToUser) {
+            setPopupwindow();
+        }
+    }
+
+    private void setPopupwindow(){
+        if (inflater!=null) {
+            if (PreferencesManager.getInstance().getFirstClassfyQuestion()) {
+                View view = inflater.inflate(R.layout.popupwindow, null);
+                //View view = View.inflate((Context)getActivity(), R.layout.popupwindow, null);
+                popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                ImageView imageView = (android.widget.ImageView) view.findViewById(R.id.first_classfy_guide);
+                Glide.with(this).load(R.drawable.first_classfy_question).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
+                view.setOnTouchListener(new View.OnTouchListener() {
+
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        popupWindow.dismiss();
+                        return true;
+                    }
+                });
+                popupWindow.setContentView(view);
+                popupWindow.showAsDropDown(tvYanxiu);
+                PreferencesManager.getInstance().setFirstClassfyQuestion();
+            }
         }
     }
 
