@@ -1,5 +1,6 @@
 <resources>
 
+    <dimen name="dimen_50">40dp</dimen>
     <dimen name="dimen_58">40dp</dimen>
 
 

@@ -5,8 +5,8 @@
           >
         <ImageView
             android:id="@+id/classfyAnswerImg"
-            android:layout_width="@dimen/dimen_58"
-            android:layout_height="@dimen/dimen_58"
+            android:layout_width="@dimen/dimen_50"
+            android:layout_height="@dimen/dimen_50"
             android:layout_gravity="center"
             android:padding="@dimen/dimen_5"
             android:background="@drawable/upload_pic"
