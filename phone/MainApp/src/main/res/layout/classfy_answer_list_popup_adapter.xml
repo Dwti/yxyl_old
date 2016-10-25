@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="10dp"
-    android:layout_marginTop="80dp"
+    android:padding="@dimen/dimen_5"
           >
         <ImageView
             android:id="@+id/classfyAnswerImg"
@@ -17,8 +16,8 @@
             android:id="@+id/widget_title_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/classfyAnswerImg"
-            android:layout_alignRight="@+id/classfyAnswerImg"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
             android:adjustViewBounds="true"
             android:scaleType="fitStart"
             android:src="@drawable/classfy_del_icon" />
