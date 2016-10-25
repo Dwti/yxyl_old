@@ -22,10 +22,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_COMPUTE;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_FILL_BLANKS;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_JUDGE;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_MULTI_CHOICES;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SINGLE_CHOICES;
+import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SOLVE_COMPLEX;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SUBJECTIVE;
 
 /**
@@ -137,7 +139,7 @@ public class QuestionUtils {
                                 question.setPositionForCard(position);
                                 question.setPageIndex(index);
                                 question.setChildPageIndex(j);
-                                if (22 == typeId) {
+                                if (typeId == QUESTION_SOLVE_COMPLEX.type || typeId == QUESTION_COMPUTE.type) {
                                     //只有是复合题且是解答题的时候，才会有childPositionForCard，否则childPositionForCard为-1
                                     question.setChildPositionForCard(j);
                                     //子题是解答题的时候，添加小题号
