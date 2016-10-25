@@ -296,15 +296,15 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
             }
 
 
-            if (PreferencesManager.getInstance().getFirstQuestion()) {
-                if (decorView == null) {
-                    decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
-                }
-                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-                mGuideQuestionView = new GuideQuestionView(this);
-                decorView.addView(mGuideQuestionView, params);
-                PreferencesManager.getInstance().setFirstQuestion();
-            }
+//            if (PreferencesManager.getInstance().getFirstQuestion()) {
+//                if (decorView == null) {
+//                    decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
+//                }
+//                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+//                mGuideQuestionView = new GuideQuestionView(this);
+//                decorView.addView(mGuideQuestionView, params);
+//                PreferencesManager.getInstance().setFirstQuestion();
+//            }
 
 
         }
