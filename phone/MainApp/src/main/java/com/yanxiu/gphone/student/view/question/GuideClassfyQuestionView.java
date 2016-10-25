@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.YanxiuApplication;
 import com.yanxiu.gphone.student.view.GifView;
 
 /**
@@ -45,15 +46,15 @@ public class GuideClassfyQuestionView extends FrameLayout {
     private void initView(){
         this.setOnClickListener(null);
         View view = LayoutInflater.from(mContext).inflate(R.layout.layout_guide_classfy_question, this);
-//        ImageView iv_guide_classfy_gesture = (ImageView)view.findViewById(R.id.iv_guide_classfy_gesture);
-//        Glide.with(mContext)
-//                .load(R.drawable.first_classfy_question)
-//                .asGif()
-//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-//                .into(iv_guide_classfy_gesture);
+        ImageView iv_guide_classfy_gesture = (ImageView)view.findViewById(R.id.iv_guide_classfy_gesture);
+        Glide.with(YanxiuApplication.getInstance())
+                .load(R.drawable.first_classfy_question)
+                .asGif()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(iv_guide_classfy_gesture);
 
-        GifView gifview= (GifView) view.findViewById(R.id.gifview);
-        gifview.setMovieResource(R.drawable.first_classfy_question);
+//        GifView gifview= (GifView) view.findViewById(R.id.gifview);
+//        gifview.setMovieResource(R.raw.first_classfy_question);
 
         btnGuide = (RelativeLayout) this.findViewById(R.id.rl_classfy_gesture);
         btnGuide.setOnClickListener(new OnClickListener() {

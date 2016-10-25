@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.YanxiuApplication;
 
 /**
  * Created by Administrator on 2015/7/12.
@@ -45,7 +46,7 @@ public class GuideQuestionView extends FrameLayout {
         this.setOnClickListener(null);
         View view = LayoutInflater.from(mContext).inflate(R.layout.layout_guide_question, this);
         ImageView iv_guide_first_gesture = (ImageView)view.findViewById(R.id.iv_guide_first_gesture);
-        Glide.with(mContext)
+        Glide.with(YanxiuApplication.getInstance())
                 .load(R.drawable.first_use_question)
                 .asGif()
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)

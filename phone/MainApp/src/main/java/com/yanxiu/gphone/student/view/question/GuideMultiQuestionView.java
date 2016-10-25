@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.YanxiuApplication;
 import com.yanxiu.gphone.student.view.GifView;
 
 /**
@@ -45,15 +46,15 @@ public class GuideMultiQuestionView extends FrameLayout {
     private void initView(){
         this.setOnClickListener(null);
         View view = LayoutInflater.from(mContext).inflate(R.layout.layout_guide_multi_question, this);
-//        ImageView iv_guide_multi_gesture = (ImageView)view.findViewById(R.id.iv_guide_multi_gesture);
-//        Glide.with(mContext)
-//                .load(R.drawable.first_multi_question)
-//                .asGif()
-//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-//                .into(iv_guide_multi_gesture);
+        ImageView iv_guide_multi_gesture = (ImageView)view.findViewById(R.id.iv_guide_multi_gesture);
+        Glide.with(YanxiuApplication.getInstance())
+                .load(R.drawable.first_multi_question)
+                .asGif()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(iv_guide_multi_gesture);
 
-        GifView gifview= (GifView) view.findViewById(R.id.gifview);
-        gifview.setMovieResource(R.drawable.first_multi_question);
+//        GifView gifview= (GifView) view.findViewById(R.id.gifview);
+//        gifview.setMovieResource(R.drawable.first_multi_question);
         btnGuide = (RelativeLayout) this.findViewById(R.id.rl_multi_gesture);
         btnGuide.setOnClickListener(new OnClickListener() {
             @Override

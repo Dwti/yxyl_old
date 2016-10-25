@@ -70,7 +70,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
         if (questionsEntity != null && questionsEntity.getStem() != null) {
             yXiuAnserTextView.setTextHtml(questionsEntity.getStem());
-//            yXiuAnserTextView.setTextHtml(questionsEntity.getStem().replaceAll("\\(_\\)","_"));
+            yXiuAnserTextView.setTextHtml(questionsEntity.getStem().replaceAll("\\(_\\)","____"));
         }
 
         setPicSelViewId();
