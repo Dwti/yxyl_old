@@ -11,6 +11,7 @@ import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentController;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v4.view.ViewPager;
@@ -37,6 +38,9 @@ import com.yanxiu.gphone.student.bean.ChildIndexEvent;
 import com.yanxiu.gphone.student.bean.GroupEventHWRefresh;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.fragment.GuideClassfyFragment;
+import com.yanxiu.gphone.student.fragment.GuideFragment;
+import com.yanxiu.gphone.student.fragment.GuideMultiFragment;
 import com.yanxiu.gphone.student.fragment.question.AnswerCardFragment;
 import com.yanxiu.gphone.student.fragment.question.AnswerFinishFragment;
 import com.yanxiu.gphone.student.fragment.question.BaseQuestionFragment;
@@ -63,6 +67,7 @@ import com.yanxiu.gphone.student.view.question.QuestionsListener;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
@@ -274,19 +279,21 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 //                popupWindow.showAsDropDown(ivBack);
 //                PreferencesManager.getInstance().setFirstClassfyQuestion();
 //            }
-            if (PreferencesManager.getInstance().getFirstClassfyQuestion() && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)) {
-                iv_guide_classfy_gesture.setVisibility(View.VISIBLE);
-                PreferencesManager.getInstance().setFirstClassfyQuestion();
-            }
-            if (PreferencesManager.getInstance().getFirstMultiQuestion() && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getChildren() != null && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getChildren().size() > 0) {
-                iv_guide_multi_gesture.setVisibility(View.VISIBLE);
-                PreferencesManager.getInstance().setFirstMultiQuestion();
-            }
 
             if (PreferencesManager.getInstance().getFirstQuestion()) {
-                iv_guide_gesture.setVisibility(View.VISIBLE);
+                list.add("2");
                 PreferencesManager.getInstance().setFirstQuestion();
             }
+
+            if (PreferencesManager.getInstance().getFirstMultiQuestion() && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getChildren() != null && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getChildren().size() > 0) {
+                list.add("1");
+                PreferencesManager.getInstance().setFirstMultiQuestion();
+            }
+            if (PreferencesManager.getInstance().getFirstClassfyQuestion() && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)) {
+                list.add("0");
+                PreferencesManager.getInstance().setFirstClassfyQuestion();
+            }
+            setGif();
 
 
         }
@@ -543,6 +550,54 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         mNextIndex = index;
     }
 
+    private List<String> list=new ArrayList<String>();
+    private FragmentManager manager = getSupportFragmentManager();
+    private void setGif(){
+
+        if (list!=null&&list.size()>0){
+
+            FragmentTransaction transaction = manager.beginTransaction();
+            String msg=list.get(0);
+            if (msg.equals("0")){
+                GuideClassfyFragment fragment = new GuideClassfyFragment();
+                fragment.setListener(new GuideClassfyFragment.DestoryListener() {
+                    @Override
+                    public void DestoryListener() {
+                        list.remove("0");
+                        gif_framelayout.setVisibility(View.GONE);
+                        setGif();
+                    }
+                });
+                transaction.replace(R.id.gif_framelayout, fragment);
+            }else if (msg.equals("1")){
+                GuideMultiFragment fragment = new GuideMultiFragment();
+                fragment.setListener(new GuideMultiFragment.DestoryListener() {
+                    @Override
+                    public void DestoryListener() {
+                        list.remove("1");
+                        gif_framelayout.setVisibility(View.GONE);
+                        setGif();
+                    }
+                });
+                transaction.replace(R.id.gif_framelayout, fragment);
+            }else if (msg.equals("2")){
+                GuideFragment fragment = new GuideFragment();
+                fragment.setListener(new GuideFragment.DestoryListener() {
+                    @Override
+                    public void DestoryListener() {
+                        list.remove("2");
+                        gif_framelayout.setVisibility(View.GONE);
+                        setGif();
+                    }
+                });
+                transaction.replace(R.id.gif_framelayout, fragment);
+            }
+            transaction.commit();
+            gif_framelayout.setVisibility(View.VISIBLE);
+        }
+
+    }
+
     @Override
     public void onPageSelected(int position) {
         super.onPageSelected(position);
@@ -561,14 +616,17 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
             adapter.setCostTime(costTime, viewPagerLastPosition,childIndex);
             childIndex=0;
         }
-        if (PreferencesManager.getInstance().getFirstClassfyQuestion() && dataSources.getData().get(0).getPaperTest().get(position).getQuestions().getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)) {
-            iv_guide_classfy_gesture.setVisibility(View.VISIBLE);
-            PreferencesManager.getInstance().setFirstClassfyQuestion();
-        }
+
         if (PreferencesManager.getInstance().getFirstMultiQuestion() && dataSources.getData().get(0).getPaperTest().get(position).getQuestions().getChildren() != null && dataSources.getData().get(0).getPaperTest().get(position).getQuestions().getChildren().size() > 0) {
-            iv_guide_multi_gesture.setVisibility(View.VISIBLE);
+            list.add("1");
             PreferencesManager.getInstance().setFirstMultiQuestion();
         }
+
+        if (PreferencesManager.getInstance().getFirstClassfyQuestion() && dataSources.getData().get(0).getPaperTest().get(position).getQuestions().getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)) {
+            list.add("0");
+            PreferencesManager.getInstance().setFirstClassfyQuestion();
+        }
+        setGif();
 
         tvPagerIndex.setVisibility(View.VISIBLE);
         ivAnswerCard.setVisibility(View.VISIBLE);

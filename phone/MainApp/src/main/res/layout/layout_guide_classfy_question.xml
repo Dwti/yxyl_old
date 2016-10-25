@@ -8,8 +8,7 @@
         <ImageView android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:id="@+id/iv_guide_classfy_gesture"
-                   android:layout_centerInParent="true"
-                   android:src="@drawable/first_classfy_question"/>
+                   android:layout_centerInParent="true"/>
 
         <!--<com.yanxiu.gphone.student.view.GifView
             android:id="@+id/gifview"

@@ -52,6 +52,8 @@ public class GuideMultiQuestionView extends FrameLayout {
                     .asGif()
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(iv_guide_multi_gesture);
+        }else {
+            iv_guide_multi_gesture.setImageResource(0);
         }
     }
 

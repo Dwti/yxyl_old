@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Scroller;
 import android.widget.TextView;
@@ -61,9 +62,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 
     protected int pageCount;
     protected int currentIndex;
-    protected GuideClassfyQuestionView iv_guide_classfy_gesture;
-    protected GuideMultiQuestionView iv_guide_multi_gesture;
-    protected GuideQuestionView iv_guide_gesture;
+    protected FrameLayout gif_framelayout;
 
     public YanxiuTypefaceTextView getTvToptext() {
         return tvToptext;
@@ -123,9 +122,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 
 
     protected void initView(){
-         iv_guide_classfy_gesture= (GuideClassfyQuestionView) this.findViewById(R.id.iv_guide_classfy_gestures);
-         iv_guide_multi_gesture= (GuideMultiQuestionView) this.findViewById(R.id.iv_guide_multi_gestures);
-         iv_guide_gesture= (GuideQuestionView) this.findViewById(R.id.iv_guide_gestures);
+         gif_framelayout= (FrameLayout) this.findViewById(R.id.gif_framelayout);
         btnLastQuestion = (Button) this.findViewById(R.id.btn_last_question);
         btnLastQuestion.setVisibility(View.GONE);
         btnNextQuestion = (Button) this.findViewById(R.id.btn_next_question);
