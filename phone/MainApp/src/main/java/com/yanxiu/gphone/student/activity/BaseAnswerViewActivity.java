@@ -30,6 +30,9 @@ import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.PublicLoadLayout;
 import com.yanxiu.gphone.student.view.StudentLoadingLayout;
 import com.yanxiu.gphone.student.view.YanxiuTypefaceTextView;
+import com.yanxiu.gphone.student.view.question.GuideClassfyQuestionView;
+import com.yanxiu.gphone.student.view.question.GuideMultiQuestionView;
+import com.yanxiu.gphone.student.view.question.GuideQuestionView;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 
 import java.lang.reflect.Field;
@@ -58,6 +61,9 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 
     protected int pageCount;
     protected int currentIndex;
+    protected GuideClassfyQuestionView iv_guide_classfy_gesture;
+    protected GuideMultiQuestionView iv_guide_multi_gesture;
+    protected GuideQuestionView iv_guide_gesture;
 
     public YanxiuTypefaceTextView getTvToptext() {
         return tvToptext;
@@ -117,6 +123,9 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 
 
     protected void initView(){
+         iv_guide_classfy_gesture= (GuideClassfyQuestionView) this.findViewById(R.id.iv_guide_classfy_gestures);
+         iv_guide_multi_gesture= (GuideMultiQuestionView) this.findViewById(R.id.iv_guide_multi_gestures);
+         iv_guide_gesture= (GuideQuestionView) this.findViewById(R.id.iv_guide_gestures);
         btnLastQuestion = (Button) this.findViewById(R.id.btn_last_question);
         btnLastQuestion.setVisibility(View.GONE);
         btnNextQuestion = (Button) this.findViewById(R.id.btn_next_question);

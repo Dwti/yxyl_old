@@ -210,6 +210,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+    <com.yanxiu.gphone.student.view.question.GuideClassfyQuestionView
+        android:id="@+id/iv_guide_classfy_gestures"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="match_parent"/>
+
+    <com.yanxiu.gphone.student.view.question.GuideMultiQuestionView
+        android:id="@+id/iv_guide_multi_gestures"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="match_parent"/>
+    <com.yanxiu.gphone.student.view.question.GuideQuestionView
+        android:id="@+id/iv_guide_gestures"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="match_parent"/>
+
 
 </FrameLayout>
 

@@ -22,6 +22,7 @@ public class GuideMultiQuestionView extends FrameLayout {
 
     private Context mContext;
     private RelativeLayout btnGuide;
+    private ImageView iv_guide_multi_gesture;
 
 
     public GuideMultiQuestionView(Context context) {
@@ -42,16 +43,23 @@ public class GuideMultiQuestionView extends FrameLayout {
         initView();
     }
 
+    @Override
+    public void setVisibility(int visibility) {
+        super.setVisibility(visibility);
+        if (visibility==VISIBLE){
+            Glide.with(YanxiuApplication.getInstance())
+                    .load(R.drawable.first_multi_question)
+                    .asGif()
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .into(iv_guide_multi_gesture);
+        }
+    }
 
     private void initView(){
         this.setOnClickListener(null);
         View view = LayoutInflater.from(mContext).inflate(R.layout.layout_guide_multi_question, this);
-        ImageView iv_guide_multi_gesture = (ImageView)view.findViewById(R.id.iv_guide_multi_gesture);
-        Glide.with(YanxiuApplication.getInstance())
-                .load(R.drawable.first_multi_question)
-                .asGif()
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .into(iv_guide_multi_gesture);
+         iv_guide_multi_gesture = (ImageView)view.findViewById(R.id.iv_guide_multi_gesture);
+
 
 //        GifView gifview= (GifView) view.findViewById(R.id.gifview);
 //        gifview.setMovieResource(R.drawable.first_multi_question);

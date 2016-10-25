@@ -21,6 +21,7 @@ public class GuideQuestionView extends FrameLayout {
 
     private Context mContext;
     private RelativeLayout btnGuide;
+    private ImageView iv_guide_first_gesture;
 
 
     public GuideQuestionView(Context context) {
@@ -41,16 +42,23 @@ public class GuideQuestionView extends FrameLayout {
         initView();
     }
 
+    @Override
+    public void setVisibility(int visibility) {
+        super.setVisibility(visibility);
+        if (visibility==VISIBLE){
+            Glide.with(YanxiuApplication.getInstance())
+                    .load(R.drawable.first_use_question)
+                    .asGif()
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .into(iv_guide_first_gesture);
+        }
+    }
 
     private void initView(){
         this.setOnClickListener(null);
         View view = LayoutInflater.from(mContext).inflate(R.layout.layout_guide_question, this);
-        ImageView iv_guide_first_gesture = (ImageView)view.findViewById(R.id.iv_guide_first_gesture);
-        Glide.with(YanxiuApplication.getInstance())
-                .load(R.drawable.first_use_question)
-                .asGif()
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .into(iv_guide_first_gesture);
+         iv_guide_first_gesture = (ImageView)view.findViewById(R.id.iv_guide_first_gesture);
+
         btnGuide = (RelativeLayout) this.findViewById(R.id.rl_first_gesture);
         btnGuide.setOnClickListener(new OnClickListener() {
             @Override

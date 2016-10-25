@@ -275,34 +275,16 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 //                PreferencesManager.getInstance().setFirstClassfyQuestion();
 //            }
             if (PreferencesManager.getInstance().getFirstClassfyQuestion() && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)) {
-                if (decorView == null) {
-                    decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
-                }
-                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-                params.gravity = Gravity.CENTER;
-                mClassfyGifImageView = new GuideClassfyQuestionView(this);
-                decorView.addView(mClassfyGifImageView, params);
+                iv_guide_classfy_gesture.setVisibility(View.VISIBLE);
                 PreferencesManager.getInstance().setFirstClassfyQuestion();
             }
             if (PreferencesManager.getInstance().getFirstMultiQuestion() && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getChildren() != null && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getChildren().size() > 0) {
-                if (decorView == null) {
-                    decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
-                }
-                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-                params.gravity = Gravity.CENTER;
-                mMultiGifImageView = new GuideMultiQuestionView(this);
-                decorView.addView(mMultiGifImageView, params);
+                iv_guide_multi_gesture.setVisibility(View.VISIBLE);
                 PreferencesManager.getInstance().setFirstMultiQuestion();
             }
 
-
             if (PreferencesManager.getInstance().getFirstQuestion()) {
-                if (decorView == null) {
-                    decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
-                }
-                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-                mGuideQuestionView = new GuideQuestionView(this);
-                decorView.addView(mGuideQuestionView, params);
+                iv_guide_gesture.setVisibility(View.VISIBLE);
                 PreferencesManager.getInstance().setFirstQuestion();
             }
 
@@ -580,26 +562,13 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
             childIndex=0;
         }
         if (PreferencesManager.getInstance().getFirstClassfyQuestion() && dataSources.getData().get(0).getPaperTest().get(position).getQuestions().getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)) {
-            if (decorView == null) {
-                decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
-            }
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-            params.gravity = Gravity.CENTER;
-            mClassfyGifImageView = new GuideClassfyQuestionView(this);
-            decorView.addView(mClassfyGifImageView, params);
+            iv_guide_classfy_gesture.setVisibility(View.VISIBLE);
             PreferencesManager.getInstance().setFirstClassfyQuestion();
         }
         if (PreferencesManager.getInstance().getFirstMultiQuestion() && dataSources.getData().get(0).getPaperTest().get(position).getQuestions().getChildren() != null && dataSources.getData().get(0).getPaperTest().get(position).getQuestions().getChildren().size() > 0) {
-            if (decorView == null) {
-                decorView = (FrameLayout) this.findViewById(R.id.fl_decor_view);
-            }
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-            params.gravity = Gravity.CENTER;
-            mMultiGifImageView = new GuideMultiQuestionView(this);
-            decorView.addView(mMultiGifImageView, params);
+            iv_guide_multi_gesture.setVisibility(View.VISIBLE);
             PreferencesManager.getInstance().setFirstMultiQuestion();
         }
-
 
         tvPagerIndex.setVisibility(View.VISIBLE);
         ivAnswerCard.setVisibility(View.VISIBLE);
