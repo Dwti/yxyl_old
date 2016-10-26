@@ -84,7 +84,7 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
         }else {
             holder.wrongDividerLine.setVisibility(View.VISIBLE);
         }
-        holder.answerExamContent.setClasfyFlag(false);
+//        holder.answerExamContent.setClasfyFlag(false);
 
 //        holder.answerExamContent.setIsSendHeight(true);
         setData(entity, holder);
