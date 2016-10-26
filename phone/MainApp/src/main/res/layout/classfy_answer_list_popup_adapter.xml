@@ -6,8 +6,8 @@
           >
         <ImageView
             android:id="@+id/classfyAnswerImg"
-            android:layout_width="@dimen/dimen_50"
-            android:layout_height="@dimen/dimen_50"
+            android:layout_width="@dimen/dimen_classfy_one"
+            android:layout_height="@dimen/dimen_classfy_one"
             android:layout_marginTop="@dimen/dimen_7"
             android:padding="@dimen/dimen_5"
             android:background="@drawable/upload_pic"
@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
+            android:layout_alignRight="@+id/classfyAnswerImg"
             android:adjustViewBounds="true"
             android:scaleType="fitStart"
             android:src="@drawable/classfy_del_icon" />
