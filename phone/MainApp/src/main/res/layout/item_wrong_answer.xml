@@ -48,6 +48,7 @@
             android:layout_marginRight="@dimen/dimen_10"
             android:layout_marginTop="@dimen/dimen_5"
             android:layout_marginBottom="@dimen/dimen_15"
+            android:padding="@dimen/dimen_5"
             android:maxHeight="@dimen/dimen_130"
             android:textColor="@color/color_666252" />
         <!--
