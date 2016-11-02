@@ -206,9 +206,9 @@ public class UilImageGetter implements Html.ImageGetter {
 //                    }
 
                     if (UilImageGetter.this.view.getWidth()!=0){
-                        if (loadedImageWidth > UilImageGetter.this.view.getWidth()) {
-                            loadedImageheight = loadedImageheight * (UilImageGetter.this.view.getWidth()) / loadedImageWidth;
-                            loadedImageWidth = UilImageGetter.this.view.getWidth();
+                        if (loadedImageWidth > UilImageGetter.this.view.getWidth()-(UilImageGetter.this.view.getPaddingLeft()+UilImageGetter.this.view.getPaddingRight())) {
+                            loadedImageheight = loadedImageheight * (UilImageGetter.this.view.getWidth()-(UilImageGetter.this.view.getPaddingLeft()+UilImageGetter.this.view.getPaddingRight())) / loadedImageWidth;
+                            loadedImageWidth = UilImageGetter.this.view.getWidth()-(UilImageGetter.this.view.getPaddingLeft()+UilImageGetter.this.view.getPaddingRight());
                         }
                     }
 

@@ -90,4 +90,15 @@
         <attr name="withTextInterval" format="dimension"/>
     </declare-styleable>
 
+    <declare-styleable name="RecordVideoStatueCircle">
+        <attr name="statueCircleWidth" format="dimension" />
+        <attr name="statueCircleColor" format="color" />
+        <attr name="ringWidth" format="dimension" />
+        <attr name="ringCol" format="color" />
+        <attr name="ringStrokeWidth" format="dimension" />
+        <attr name="rectW" format="dimension" />
+        <attr name="rectCol" format="color" />
+        <attr name="rectRoundW" format="dimension" />
+    </declare-styleable>
+
 </resources>
