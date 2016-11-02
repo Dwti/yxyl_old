@@ -1,4 +1,4 @@
-package com.yanxiu.gphone.student.view.question;
+package com.yanxiu.gphone.student.view.question.subjective;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,15 +8,10 @@ import android.text.Html;
 import android.text.Spanned;
 import android.text.style.ClickableSpan;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.webkit.WebView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.common.core.utils.DensityUtils;
 import com.common.core.utils.imageloader.UilImageGetter;
@@ -211,4 +206,5 @@ public class YXiuAnserTextView extends HtmlTextView {
         }
 
     }
+
 }

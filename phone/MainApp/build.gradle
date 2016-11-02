@@ -4,14 +4,14 @@ def releaseTime() {
 }
 android {
     compileSdkVersion 21
-    buildToolsVersion '23.0.3'
-//    useLibrary 'org.apache.http.legacy'
+    buildToolsVersion '21.1.2'
+    //useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "com.yanxiu.gphone.student"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 14
-        versionName "2.3.2.1"
+        versionCode 15
+        versionName "2.3.3"
         multiDexEnabled true//multiDexEnabled true
         manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "MTA"]
 
@@ -24,9 +24,9 @@ android {
 
         //参数说明
         manifestPlaceholders = [
-                GETUI_APP_ID : "Riw2lQ0vEQ9iEv8ADs2Qg5", //APP_ID
-                GETUI_APP_KEY : "fpq9FFbGLB8zpLkwCO1oQA",   //APP_KEY
-                GETUI_APP_SECRET : "PiNzRvizni8i4Enu1HYuh7",   //APPSECRET
+                GETUI_APP_ID : "FXeG42IpmI9C9KpKbNPbs1", //APP_ID
+                GETUI_APP_KEY : "Gk4NS64CY07lV5mvEB2QT4",   //APP_KEY
+                GETUI_APP_SECRET : "L3PVLZ2a4Z8v4Bsdzynkx4",   //APPSECRET
                 PACKAGE_NAME : applicationId   //applicationId
         ]
         //APP_ID、APP_KEY、APP_SECRET请根据个推开发者后台申请到的应用参数进行相应替换
@@ -94,11 +94,6 @@ android {
 //            }
 //        }
     }
-    /*productFlavors {
-        yanxiu_com {
-            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "yanxiu_com"]
-        }
-    }*/
 
     productFlavors {
         yanxiu_com {
@@ -153,4 +148,6 @@ dependencies {
     compile 'com.getui:sdk:2.9.0.0'
     compile 'com.android.support:support-v4:+'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+
+    //compile 'com.jph.takephoto:takephoto_library:3.0.4'
 }

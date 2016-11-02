@@ -8,6 +8,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Interpolator;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -142,6 +144,62 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
         vpAnswer.setOffscreenPageLimit(4);
         tvPagerIndex = (TextView) findViewById(R.id.tv_pager_index);
         tvPagerCount = (TextView) this.findViewById(R.id.tv_pager_count);
+
+        /*WebView webview_test_one = (WebView) this.findViewById(R.id.webview_test_one);
+        webview_test_one.loadUrl("http://www.sohu.com");
+        webview_test_one.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                // TODO Auto-generated method stub
+                //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
+                view.loadUrl(url);
+                return false;
+            }
+        });
+        WebView webview_test_two = (WebView) this.findViewById(R.id.webview_test_two);
+        WebView webview_test_three = (WebView) this.findViewById(R.id.webview_test_three);
+        WebView webview_test_four = (WebView) this.findViewById(R.id.webview_test_four);
+        WebView webview_test_five = (WebView) this.findViewById(R.id.webview_test_five);
+        webview_test_two.loadUrl("http://www.sohu.com");
+        webview_test_two.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                // TODO Auto-generated method stub
+                //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
+                view.loadUrl(url);
+                return false;
+            }
+        });
+        webview_test_three.loadUrl("http://www.sohu.com");
+        webview_test_three.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                // TODO Auto-generated method stub
+                //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
+                view.loadUrl(url);
+                return false;
+            }
+        });
+        webview_test_four.loadUrl("http://www.sohu.com");
+        webview_test_four.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                // TODO Auto-generated method stub
+                //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
+                view.loadUrl(url);
+                return false;
+            }
+        });
+        webview_test_five.loadUrl("http://www.sohu.com");
+        webview_test_five.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                // TODO Auto-generated method stub
+                //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
+                view.loadUrl(url);
+                return false;
+            }
+        });*/
         //=============================================
         //反射viewPager里面的mScroller
         try {

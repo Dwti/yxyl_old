@@ -267,81 +267,11 @@
             android:launchMode="singleTask"
             android:configChanges="keyboardHidden|orientation"></activity>
 
-        <activity android:name="com.yanxiu.gphone.parent.activity.ParentFeedBackActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateAlwaysVisible"
-            android:configChanges="keyboardHidden|orientation"></activity>
-
-
-        <activity android:name="com.yanxiu.gphone.parent.activity.ParentSettingsActivity"
+        <activity android:name=".activity.takephoto.CameraActivity"
             android:screenOrientation="portrait"
             android:configChanges="keyboardHidden|orientation"></activity>
 
-
-        <activity android:name="com.yanxiu.gphone.parent.activity.ParentModifyPwdActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateAlwaysVisible"
-            android:configChanges="keyboardHidden|orientation"></activity>
-
-        <activity android:name="com.yanxiu.gphone.parent.activity.ParentsAboutActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation"></activity>
-        <activity android:name="com.yanxiu.gphone.parent.activity.ParentClipHeadActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation"></activity>
-
-        <activity android:name="com.yanxiu.gphone.parent.activity.MainForParentActivity"
-                  android:configChanges="keyboardHidden|orientation"
-                  android:launchMode="singleTask"
-                  android:theme="@style/NavigationBarHide"
-                  android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-            </intent-filter>
-        </activity>
-        <activity android:name="com.yanxiu.gphone.parent.activity.ParentWeekReportDetailsActivity"
-                  android:screenOrientation="portrait"
-                  android:configChanges="keyboardHidden|orientation">
-        </activity>
-
-        <activity android:name="com.yanxiu.gphone.parent.activity.ParentLoginActivity"
-                  android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-                  android:configChanges="keyboardHidden|orientation">
-        </activity>
-        <activity android:name="com.yanxiu.gphone.parent.activity.ParentBindAccountActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:configChanges="keyboardHidden|orientation"></activity>
-
-        <activity android:name="com.yanxiu.gphone.parent.activity.ParentBindDataShowActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation"></activity>
-        <activity android:name="com.yanxiu.gphone.parent.activity.ParentSetPsdActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:configChanges="keyboardHidden|orientation"></activity>
-        <activity android:name="com.yanxiu.gphone.parent.activity.ParentVerifyActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:configChanges="keyboardHidden|orientation"></activity>
-        <activity android:name="com.yanxiu.gphone.parent.activity.ParentInfomationActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/NavigationBarHide"
-            android:configChanges="keyboardHidden|orientation"></activity>
-        <activity android:name="com.yanxiu.gphone.parent.activity.ParentHomeSubjectInfActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation"></activity>
-        <activity android:name="com.yanxiu.gphone.parent.activity.ParentModifyNameActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="keyboardHidden|orientation"></activity>
-        <activity android:name="com.yanxiu.gphone.parent.activity.ParentLocationSelectActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation"></activity>
-        <activity android:name="com.yanxiu.gphone.parent.activity.ParentWebViewActivity"
+        <activity android:name=".activity.takephoto.PhotoProcessActivity"
             android:screenOrientation="portrait"
             android:configChanges="keyboardHidden|orientation"></activity>
 

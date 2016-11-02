@@ -10,6 +10,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 
 import com.common.core.utils.LogInfo;
+import com.yanxiu.gphone.student.activity.takephoto.CameraActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,6 +24,8 @@ public class MediaUtils {
     public final static int OPEN_SYSTEM_PIC_BUILD=0x201;
 
     public final static int OPEN_SYSTEM_PIC_BUILD_KITKAT = 0x200;
+
+    public final static int OPEN_SYSTEM_PIC_BUILD_CAMERA=0x209;
 
 
 
@@ -47,6 +50,14 @@ public class MediaUtils {
     public static  void openSystemCamera(Activity activity, String str,int open_camera_request){
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.parse(str));
+        intent.putExtra(RETURN_DATA, true);
+        activity.startActivityForResult(intent,open_camera_request);
+    }
+
+    public static  void openLocalCamera(Activity activity, String str,int open_camera_request){
+
+        Intent intent = new Intent(activity, CameraActivity.class);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.parse(str));
         intent.putExtra(RETURN_DATA, true);
         activity.startActivityForResult(intent,open_camera_request);

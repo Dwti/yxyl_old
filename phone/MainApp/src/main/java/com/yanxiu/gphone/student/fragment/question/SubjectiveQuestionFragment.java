@@ -218,7 +218,13 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
                 break;
             //进入照片选择页面，并且裁剪完了，会走这儿
             case MediaUtils.OPEN_DEFINE_PIC_BUILD:
-                updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
+                if (data != null) {
+                    updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
+                } else {
+                    if(questionsEntity==null || StringUtils.isEmpty(questionsEntity.getId()))
+                        return;
+                    mPicSelView.upDate(getActivity(),MediaUtils.OPEN_SYSTEM_CAMERA, questionsEntity.getId());
+                }
                 break;
             //拍照时候的裁剪走这个地方，如果是从相册选择的话，走的是ImageBucketActivity的onActivityResult
             case MediaUtils.IMAGE_CROP:

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -11,11 +12,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +24,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.common.core.utils.BasePopupWindow;
 import com.common.core.utils.BitmapUtil;
+import com.common.core.utils.CommonCoreUtil;
 import com.common.core.utils.LogInfo;
 import com.common.core.utils.PictureHelper;
 import com.common.core.utils.StringUtils;
@@ -36,6 +35,7 @@ import com.common.core.utils.imageloader.UniversalImageLoadTool;
 import com.common.core.view.roundview.RoundedImageView;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.LocalPhotoViewActivity;
+import com.yanxiu.gphone.student.activity.takephoto.CameraActivity;
 import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
 import com.yanxiu.gphone.student.utils.MediaUtils;
 import com.yanxiu.gphone.student.utils.Util;
@@ -163,9 +163,16 @@ public class PicSelView extends RelativeLayout {
     };
 
     private void showPicSelPop(View view){
-        pop.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+        /*pop.showAtLocation(view, Gravity.BOTTOM, 0, 0);*/
         if(!TextUtils.isEmpty(currentQuestionId))
             ShareBitmapUtils.getInstance().setCurrentSbId(currentQuestionId);
+        if (CommonCoreUtil.sdCardMounted()) {
+            String path=MediaUtils.getOutputMediaFileUri(true).toString();
+            if(StringUtils.isEmpty(path)){
+                return;
+            }
+            MediaUtils.openLocalCamera(((Activity) mContext), path, MediaUtils.OPEN_DEFINE_PIC_BUILD);
+        }
     }
 
     private void controllShowGridAndHideAddAnswView(boolean isShowGrid){
@@ -204,6 +211,7 @@ public class PicSelView extends RelativeLayout {
             if(uri!=null){
                 path= PictureHelper.getPath(mContext,
                         uri);
+                LogInfo.log(TAG, "111path"+path);
             }
             if(path==null){
                 return;
