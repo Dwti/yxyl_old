@@ -101,6 +101,7 @@ public class RegisterActivity extends YanxiuBaseActivity{
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
+//        RegisterJoinGroupActivity.launchActivity(this);
         LogInfo.log("king", "RegisterActivity onCreate");
         Intent intent = getIntent();
         if(intent != null){
@@ -191,25 +192,30 @@ public class RegisterActivity extends YanxiuBaseActivity{
      * 获取验证码
      * */
     private void getRegCode(){
-        mHandler.sendEmptyMessage(SEND_INDENTIFY_TIME);
-        INDENTIFY_TIME_DEFAULT = 45;
+        loading.setViewType(StudentLoadingLayout.LoadingType.LAODING_COMMON);
         requestProduceCodeTask = new RequestProduceCodeTask(this,
                 userNameText.getText().toString().replaceAll(" ", ""), type, new AsyncCallBack() {
             @Override public void update(YanxiuBaseBean result) {
+                loading.setViewGone();
                 RequestBean requestBean = (RequestBean)result;
                 if(requestBean.getStatus().getCode() != 0){
                     LogInfo.log("king","send code desc = " + requestBean.getStatus().getDesc());
-                    mHandler.removeMessages(SEND_INDENTIFY_TIME);
-                    INDENTIFY_TIME_DEFAULT = 0;
-                    mHandler.sendEmptyMessage(SEND_INDENTIFY_TIME);
+//                    mHandler.removeMessages(SEND_INDENTIFY_TIME);
+//                    INDENTIFY_TIME_DEFAULT = 0;
+//                    mHandler.sendEmptyMessage(SEND_INDENTIFY_TIME);
                     Util.showUserToast(requestBean.getStatus().getDesc(), null, null);
+                }else {
+                    INDENTIFY_TIME_DEFAULT = 45;
+                    mHandler.sendEmptyMessage(SEND_INDENTIFY_TIME);
+                    Util.showUserToast("验证码已发送，请注意查收", null, null);
                 }
             }
 
             @Override public void dataError(int type, String msg) {
-                mHandler.removeMessages(SEND_INDENTIFY_TIME);
-                INDENTIFY_TIME_DEFAULT = 0;
-                mHandler.sendEmptyMessage(SEND_INDENTIFY_TIME);
+                loading.setViewGone();
+//                mHandler.removeMessages(SEND_INDENTIFY_TIME);
+//                INDENTIFY_TIME_DEFAULT = 0;
+//                mHandler.sendEmptyMessage(SEND_INDENTIFY_TIME);
                 if(!StringUtils.isEmpty(msg)){
                     Util.showUserToast(msg, null, null);
                 } else{

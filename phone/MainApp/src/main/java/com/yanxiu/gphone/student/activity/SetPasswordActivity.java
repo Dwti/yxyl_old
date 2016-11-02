@@ -122,7 +122,8 @@ public class SetPasswordActivity extends YanxiuBaseActivity{
                 CommonCoreUtil.hideSoftInput(pwdAgainText);
                 LoginModel.setPassword(password);
                 if (type == 0) {
-                    UserInfoActivity.launchActivity(SetPasswordActivity.this);
+//                    UserInfoActivity.launchActivity(SetPasswordActivity.this);
+                    RegisterJoinGroupActivity.launchActivity(SetPasswordActivity.this);
                 } else {
                     resetPwd();
                 }

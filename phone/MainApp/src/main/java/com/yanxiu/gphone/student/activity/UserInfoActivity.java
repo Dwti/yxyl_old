@@ -169,13 +169,19 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
 
         school_layout_view.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                SchoolSearchActivity.launch(UserInfoActivity.this, zipcode,
-                        LAUNCHER_FROM_USERINFO_TO_SCHOOL);
+                UserLocationSelectActivity
+                        .launch(UserInfoActivity.this, provinceList,
+                                UserLocationSelectActivity.LOCATION_CONSTANT_PROVINCE,
+                                UserLocationSelectActivity.LOCATION_CONSTANT_REGISTER_TYPE);
+
+//                SchoolSearchActivity.launch(UserInfoActivity.this, zipcode,
+//                        LAUNCHER_FROM_USERINFO_TO_SCHOOL);
             }
         });
 
         area_layout_view.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
+//                sdsss
                 UserLocationSelectActivity
                         .launch(UserInfoActivity.this, provinceList,
                                 UserLocationSelectActivity.LOCATION_CONSTANT_PROVINCE,
@@ -196,10 +202,10 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
                     Util.showUserToast(R.string.edit_name_null, -1, -1);
                     return;
                 }
-                if (StringUtils.isEmpty(nickNameView.getText().toString())) {
-                    Util.showUserToast(R.string.edit_nickname_null, -1, -1);
-                    return;
-                }
+//                if (StringUtils.isEmpty(nickNameView.getText().toString())) {
+//                    Util.showUserToast(R.string.edit_nickname_null, -1, -1);
+//                    return;
+//                }
                 if (StringUtils.isEmpty(zipcode)) {
                     Util.showUserToast(R.string.edit_area_null, -1, -1);
                     return;

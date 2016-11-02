@@ -69,6 +69,7 @@
             android:layout_alignLeft="@id/username_layout_view"
             android:layout_alignRight="@id/username_layout_view"
             android:background="@drawable/logo_content_bg"
+            android:visibility="gone"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -77,7 +78,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/dimen_35"
                     android:layout_marginLeft="@dimen/dimen_10"
-                    android:layout_weight="1"
+                    android:layout_weight="1.35"
                     android:background="@drawable/login_content_input_bg"
                     android:gravity="left|center_vertical"
                     android:hint="@string/edit_nickname_hint"
@@ -123,6 +124,7 @@
             android:layout_alignRight="@id/username_layout_view"
             android:background="@drawable/logo_content_bg"
             android:gravity="center_vertical"
+            android:visibility="gone"
             android:orientation="horizontal">
 
                 <TextView

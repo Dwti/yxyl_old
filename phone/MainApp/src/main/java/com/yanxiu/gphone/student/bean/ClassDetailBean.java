@@ -19,15 +19,19 @@ public class ClassDetailBean extends SrtBaseBean{
      * stageid : 1203
      * status : 1
      */
+    /**班主任名称*/
     private String adminName;
     private int periodid;
     private int gradeid;
     private int schoolid;
+    /**班级名称*/
     private String name;
     private int adminid;
     private int teachernum;
     private int id;
+    /**学生人数*/
     private int stdnum;
+    /**学校名称*/
     private String schoolname;
     private int stageid;
     private int status;

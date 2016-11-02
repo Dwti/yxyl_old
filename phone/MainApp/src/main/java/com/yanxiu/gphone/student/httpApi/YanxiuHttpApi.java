@@ -173,6 +173,7 @@ public class YanxiuHttpApi {
         Bundle params = new Bundle();
         params.putString("classId", classId);
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
+//        params.putString(PUBLIC_PARAMETERS.TOKEN, "4c0f99c3332993c090f45848930c40da");
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
         params.putString(PUBLIC_PARAMETERS.OS, YanXiuConstant.OS_TYPE);

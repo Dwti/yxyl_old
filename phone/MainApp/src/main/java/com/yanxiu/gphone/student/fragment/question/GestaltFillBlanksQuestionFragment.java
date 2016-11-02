@@ -70,6 +70,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_gestaltfillblanks, null);
             initview();

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/yanxiu_group_bg"
+    >
+    <include android:id="@+id/group_info_top"
+        layout="@layout/public_top_layout"
+        />
+    <View
+        android:id="@+id/group_info_top_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/group_info_top"
+        android:background="@color/color_99000000"
+        />
+
+    <RelativeLayout
+        android:id="@+id/group_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_20"
+        android:background="@drawable/login_and_pwd_selector"
+        android:paddingTop="@dimen/dimen_10"
+        android:paddingBottom="@dimen/dimen_20"
+        android:visibility="visible"
+        >
+
+        <ImageView
+            android:id="@+id/sigh_left"
+            android:layout_width="@dimen/dimen_20"
+            android:layout_height="@dimen/dimen_20"
+            android:layout_alignParentLeft="true"/>
+
+        <ImageView
+            android:id="@+id/sigh_right"
+            android:layout_width="@dimen/dimen_20"
+            android:layout_height="@dimen/dimen_20"
+            android:layout_alignParentRight="true"/>
+
+        <LinearLayout
+            android:id="@+id/linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/sigh_left"
+            android:layout_toLeftOf="@+id/sigh_right"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/school_name"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="@dimen/dimen_15"
+                android:layout_marginRight="@dimen/dimen_15"
+                android:gravity="center"
+                android:paddingBottom="20px"
+                android:layout_height="wrap_content"
+                android:shadowColor="@color/color_ffff99"
+                android:textSize="24px"
+                android:text="学校：北京市第七中学"
+                android:textColor="@color/color_805500"/>
+            <TextView
+                android:id="@+id/class_name"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="@dimen/dimen_15"
+                android:layout_marginRight="@dimen/dimen_15"
+                android:gravity="center"
+                android:paddingBottom="20px"
+                android:layout_height="wrap_content"
+                android:shadowColor="@color/color_ffff99"
+                android:textSize="24px"
+                android:text="学校：北京市第七中学"
+                android:textColor="@color/color_805500"/>
+            <TextView
+                android:id="@+id/teacher_name"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="@dimen/dimen_15"
+                android:layout_marginRight="@dimen/dimen_15"
+                android:gravity="center"
+                android:paddingBottom="20px"
+                android:layout_height="wrap_content"
+                android:shadowColor="@color/color_ffff99"
+                android:textSize="24px"
+                android:text="学校：北京市第七中学"
+                android:textColor="@color/color_805500"/>
+
+
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/dash_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linear"
+            android:layout_marginBottom="26px"
+            android:background="@drawable/repeat_common_line"/>
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:shadowColor="@color/color_a37a00"
+            android:text="老师需要知道你的真实姓名,请输入"
+            android:textSize="28px"
+            android:textColor="@color/color_ffffff"
+            android:padding="@dimen/dimen_5"
+            android:background="@drawable/login_content_input_bg"
+            android:layout_below="@id/dash_line"
+            android:layout_marginLeft="@dimen/dimen_15"
+            android:layout_marginRight="@dimen/dimen_15"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:id="@+id/group_info_click"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_44"
+            android:layout_below="@id/name"
+            android:layout_marginLeft="@dimen/dimen_15"
+            android:layout_marginRight="@dimen/dimen_15"
+            android:layout_marginTop="26px"
+            android:background="@drawable/register_code_selector"
+            android:gravity="center"
+            android:padding="@dimen/dimen_5"
+            android:shadowColor="@color/color_ffff99"
+            android:text="@string/class_add"
+            android:textColor="@color/color_805500"
+            android:textSize="@dimen/dimen_17"
+            android:textStyle="bold"
+            />
+    </RelativeLayout>
+</RelativeLayout>

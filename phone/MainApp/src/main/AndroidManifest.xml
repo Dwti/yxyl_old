@@ -344,7 +344,14 @@
         <activity android:name="com.yanxiu.gphone.parent.activity.ParentWebViewActivity"
             android:screenOrientation="portrait"
             android:configChanges="keyboardHidden|orientation"></activity>
-
+        <activity android:name=".activity.RegisterJoinGroupActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize"
+            android:configChanges="keyboardHidden|orientation"/>
+        <activity android:name=".activity.RegisterAddGroupActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize"
+            android:configChanges="keyboardHidden|orientation"/>
         <!-- 【必须】 (2.30及以上版新增)展示通知的activity -->
         <!-- 【必须】 exported设置为true -->
         <!--
@@ -481,7 +488,11 @@
         <activity
                 android:name="com.tencent.connect.common.AssistActivity"
                 android:screenOrientation="portrait"
-                android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+                android:theme="@android:style/Theme.Translucent.NoTitleBar" /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
     <!--图片选择 start -->
     <uses-feature android:name="android.hardware.Camera" />

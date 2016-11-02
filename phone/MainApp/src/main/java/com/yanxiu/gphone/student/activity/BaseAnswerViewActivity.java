@@ -1,6 +1,7 @@
 package com.yanxiu.gphone.student.activity;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v4.view.ViewPager;
@@ -16,6 +17,10 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.common.core.utils.LogInfo;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.AnswerAdapter;
@@ -42,9 +47,9 @@ import java.util.List;
 /**
  * Created by Administrator on 2015/7/6.
  */
-public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener,QuestionsListener {
+public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, QuestionsListener {
 
-    private final static String TAG=BaseAnswerViewActivity.class.getSimpleName();
+    private final static String TAG = BaseAnswerViewActivity.class.getSimpleName();
     protected PublicLoadLayout mRootView;
     protected SubjectExercisesItemBean dataSources;
 
@@ -57,12 +62,17 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
     protected TextView tvPagerCount;
     protected ImageView ivAnswerCard;
     protected ImageView ivFavCard;
-    protected boolean flag=false;   //是否点了上一题按钮切换
+    protected boolean flag = false;   //是否点了上一题按钮切换
 //    private static BaseAnswerViewActivity act;
 
     protected int pageCount;
     protected int currentIndex;
     protected FrameLayout gif_framelayout;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     public YanxiuTypefaceTextView getTvToptext() {
         return tvToptext;
@@ -79,17 +89,21 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 
     protected Button btnLastQuestion, btnNextQuestion;
     protected QuestionsListener listener;
-    protected int nextPager_onclick=0;
+    protected int nextPager_onclick = 0;
 
 
-    @Override public void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRootView = PublicLoadUtils.createPage(this, R.layout.activity_answer_question);
         loadingLayout = (StudentLoadingLayout) mRootView.findViewById(R.id.loading_layout);
         setContentView(mRootView);
-        if(savedInstanceState!=null){
+        if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState);
         }
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
 
@@ -105,24 +119,23 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 
     }
 
-    public void showDialog(){
+    public void showDialog() {
         loadingLayout.setViewType(StudentLoadingLayout.LoadingType.LAODING_INTELLI_EXE);
     }
 
 
-    public void showCommonDialog(){
+    public void showCommonDialog() {
         loadingLayout.setViewType(StudentLoadingLayout.LoadingType.LAODING_COMMON);
     }
 
 
-    public void hideDialog(){
+    public void hideDialog() {
         loadingLayout.setViewGone();
     }
 
 
-
-    protected void initView(){
-         gif_framelayout= (FrameLayout) this.findViewById(R.id.gif_framelayout);
+    protected void initView() {
+        gif_framelayout = (FrameLayout) this.findViewById(R.id.gif_framelayout);
         btnLastQuestion = (Button) this.findViewById(R.id.btn_last_question);
         btnLastQuestion.setVisibility(View.GONE);
         btnNextQuestion = (Button) this.findViewById(R.id.btn_next_question);
@@ -147,7 +160,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
         try {
             Field mField = ViewPager.class.getDeclaredField("mScroller");
             mField.setAccessible(true);
-            FixedSpeedScroller mScroller = new FixedSpeedScroller(vpAnswer.getContext(),new AccelerateInterpolator());
+            FixedSpeedScroller mScroller = new FixedSpeedScroller(vpAnswer.getContext(), new AccelerateInterpolator());
             mField.set(vpAnswer, mScroller);
         } catch (Exception e) {
             e.printStackTrace();
@@ -158,23 +171,23 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
         adapter = new AnswerAdapter(getSupportFragmentManager());
     }
 
-    protected void initData(){
-        dataSources =  (SubjectExercisesItemBean) getIntent().getSerializableExtra("subjectExercisesItemBean");
+    protected void initData() {
+        dataSources = (SubjectExercisesItemBean) getIntent().getSerializableExtra("subjectExercisesItemBean");
         //String jsonString = "{\"ret\":0,\"data\":[{\"id\":\"2734957\",\"type_id\":\"5\",\"difficulty\":\"1\",\"template\":\"multi\",\"stem\":\"<p>One evening, it was raining and the wind was blowing hard. An old couple came to a small hotel and wanted to stay there for the night. A young man welcomed them warmly, but said “I’m sorry! Our rooms here are all full and the hotels nearby are all full too, for there will be an important meeting held here tomorrow.”<\\/p><p>Hearing the young man’s words, the old couple felt very disappointed, and turned around to leave.<\\/p><p>Just as they were leaving, the young man came up to them and stopped them: “Madam and sir, if you don’t mind, you can sleep in my bedroom for a night…”<\\/p><p>The next morning, the old couple took out lots of money to give it to the young man, but he refused to take it.<\\/p><p>“No! You needn’t pay me any money, for I only lend my room to you.” said the young man with a smile on his face.<\\/p><p>“You’re great, young man! It’s very kind of you. Maybe one day, I’ll build a hotel for you!” said the old man. With these words, the old couple left. The young man only laughed and went on working.<\\/p><p>Several years later, the young man got a letter from the old couple, inviting him to go to Manhattan. The young man met the old couple in front of a five-star hotel.<\\/p><p>“Do you still remember what I said to you several years ago? Look! ________” said the old man. Soon, the young man became the manager of the hotel.<\\/p><p><br\\/><\\/p>\",\"answer\":[null],\"content\":null,\"analysis\":\"\",\"point\":[{\"id\":\"1033\",\"name\":\"社会主义现代化成就\"}],\"children\":[{\"id\":\"2734958\",\"type_id\":\"1\",\"difficulty\":\"1\",\"template\":\"choice\",\"stem\":\"<p>testtesds<\\/p><br\\/>\",\"answer\":[\"3\"],\"content\":{\"choices\":[\"asdfas\",\"dsafasf\",\"asdfas\",\"sadfasf\"]},\"analysis\":\"asdfasfs\",\"point\":null},{\"id\":\"2734959\",\"type_id\":\"4\",\"difficulty\":\"1\",\"template\":\"alter\",\"stem\":\"asdfasfasfasfsaf\",\"answer\":[1],\"content\":null,\"analysis\":\"ddd\",\"point\":null}]}]}\n";
         //dataSources = JSON.parseObject(jsonString, SubjectExercisesItemBean.class);
 
-        if(dataSources==null){
-            LogInfo.log("geny","dataSources==null");
+        if (dataSources == null) {
+            LogInfo.log("geny", "dataSources==null");
             return;
         }
 
-        if(dataSources == null || dataSources.getData() == null || dataSources.getData().isEmpty()){
-            LogInfo.log(TAG,"dataSources == null || dataSources.getData() == null || dataSources.getData().isEmpty()");
+        if (dataSources == null || dataSources.getData() == null || dataSources.getData().isEmpty()) {
+            LogInfo.log(TAG, "dataSources == null || dataSources.getData() == null || dataSources.getData().isEmpty()");
             this.finish();
-        }else{
-            LogInfo.log(TAG,"dataSources： "+dataSources);
+        } else {
+            LogInfo.log(TAG, "dataSources： " + dataSources);
             List<PaperTestEntity> dataList = dataSources.getData().get(0).getPaperTest();
-            if(dataList != null && !dataList.isEmpty()){
+            if (dataList != null && !dataList.isEmpty()) {
 //                /**我的错题测试用*/
 //                if (this instanceof WrongAnswerViewActivity){
 //                    PaperTestEntity paperTestEntity=dataList.get(0);
@@ -187,14 +200,14 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
                 LogInfo.log(TAG, "Adapter Refresh ");
                 pageCount = adapter.getCount();
 
-                if(1 == adapter.getTotalCount()){
+                if (1 == adapter.getTotalCount()) {
                     btnNextQuestion.setVisibility(View.GONE);
                 }
 
                 ivBack.setOnClickListener(this);
                 ivAnswerCard.setOnClickListener(this);
                 ivFavCard.setOnClickListener(this);
-                if(!TextUtils.isEmpty(dataSources.getData().get(0).getName())){
+                if (!TextUtils.isEmpty(dataSources.getData().get(0).getName())) {
                     tvQuestionTitle.setText(dataSources.getData().get(0).getName());
                 }
             }
@@ -202,8 +215,8 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
         setReportError();
     }
 
-    protected void setReportError(){
-        if(Configuration.isDebug()){
+    protected void setReportError() {
+        if (Configuration.isDebug()) {
             btnWrongError = (Button) this.findViewById(R.id.btn_report_error);
             btnWrongError.setVisibility(View.VISIBLE);
             btnWrongError.setOnClickListener(new View.OnClickListener() {
@@ -226,7 +239,6 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
             });
         }
     }
-
 
 
     protected int vpState;
@@ -258,59 +270,59 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 
     @Override
     public void onClick(View v) {
-        if(v == btnLastQuestion){
-            flag=true;
+        if (v == btnLastQuestion) {
+            flag = true;
             nextPager_onclick = 1;
             btnNextQuestion.setVisibility(View.VISIBLE);
 //            if(vpAnswer.getCurrentItem() != 0){
-                if (listener!=null) {
-                    int tatle_count=((AnswerAdapter)listener).getCount();
-                    int currenItem=((AnswerAdapter)listener).getViewPagerCurrentItem();
+            if (listener != null) {
+                int tatle_count = ((AnswerAdapter) listener).getCount();
+                int currenItem = ((AnswerAdapter) listener).getViewPagerCurrentItem();
 
-                    if (currenItem==1&&vpAnswer.getCurrentItem()==0){
-                        btnLastQuestion.setVisibility(View.GONE);
-                    }else {
-                        btnLastQuestion.setVisibility(View.VISIBLE);
-                    }
-
-                    if (currenItem==0){
-                        YanXiuConstant.OnClick_TYPE=1;
-                        vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() - 1));
-                    }else {
-                        ((AnswerAdapter)listener).setPagerLift();
-                    }
-                }else {
-                    YanXiuConstant.OnClick_TYPE=1;
-                    vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() - 1));
+                if (currenItem == 1 && vpAnswer.getCurrentItem() == 0) {
+                    btnLastQuestion.setVisibility(View.GONE);
+                } else {
+                    btnLastQuestion.setVisibility(View.VISIBLE);
                 }
+
+                if (currenItem == 0) {
+                    YanXiuConstant.OnClick_TYPE = 1;
+                    vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() - 1));
+                } else {
+                    ((AnswerAdapter) listener).setPagerLift();
+                }
+            } else {
+                YanXiuConstant.OnClick_TYPE = 1;
+                vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() - 1));
+            }
 //            }
 
 
-        }else if(v == btnNextQuestion){
+        } else if (v == btnNextQuestion) {
             btnLastQuestion.setVisibility(View.VISIBLE);
 //            if(vpAnswer.getCurrentItem() != adapter.getTotalCount() - 1 || vpAnswer.getCurrentItem() != adapter.getListCount() - 1){
-                LogInfo.log(vpAnswer.getCurrentItem()+"");
-                LogInfo.log(adapter.getTotalCount()+"");
-                if (listener!=null) {
-                    int tatle_count=((AnswerAdapter)listener).getCount();
-                    int currenItem=((AnswerAdapter)listener).getViewPagerCurrentItem();
-                    if (vpAnswer.getCurrentItem() == adapter.getCount() - 1&&tatle_count-2==currenItem){
-                        btnNextQuestion.setVisibility(View.GONE);
-                    }else {
-                        btnNextQuestion.setVisibility(View.VISIBLE);
-                    }
-                    if (currenItem<tatle_count-1) {
-                        listener.flipNextPager(listener);
-                    }else {
-                        if (vpAnswer.getCurrentItem()<adapter.getCount()-1) {
-                            vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
-                        }
-                    }
-                }else {
-                    if (vpAnswer.getCurrentItem()<adapter.getCount()-1) {
+            LogInfo.log(vpAnswer.getCurrentItem() + "");
+            LogInfo.log(adapter.getTotalCount() + "");
+            if (listener != null) {
+                int tatle_count = ((AnswerAdapter) listener).getCount();
+                int currenItem = ((AnswerAdapter) listener).getViewPagerCurrentItem();
+                if (vpAnswer.getCurrentItem() == adapter.getCount() - 1 && tatle_count - 2 == currenItem) {
+                    btnNextQuestion.setVisibility(View.GONE);
+                } else {
+                    btnNextQuestion.setVisibility(View.VISIBLE);
+                }
+                if (currenItem < tatle_count - 1) {
+                    listener.flipNextPager(listener);
+                } else {
+                    if (vpAnswer.getCurrentItem() < adapter.getCount() - 1) {
                         vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
                     }
                 }
+            } else {
+                if (vpAnswer.getCurrentItem() < adapter.getCount() - 1) {
+                    vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
+                }
+            }
 //                vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
 //            }
         }
@@ -326,8 +338,8 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 
     @Override
     public void flipNextPager(QuestionsListener listener) {
-        this.listener=listener;
-        if (listener!=null) {
+        this.listener = listener;
+        if (listener != null) {
             int tatle_count = ((AnswerAdapter) listener).getCount();
             int currenItem = ((AnswerAdapter) listener).getViewPagerCurrentItem();
             if (vpAnswer.getCurrentItem() == adapter.getCount() - 1 && tatle_count - 1 == currenItem) {
@@ -335,35 +347,35 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
             } else {
                 btnNextQuestion.setVisibility(View.VISIBLE);
             }
-            if (currenItem==0&&vpAnswer.getCurrentItem()==0){
+            if (currenItem == 0 && vpAnswer.getCurrentItem() == 0) {
                 btnLastQuestion.setVisibility(View.GONE);
-            }else {
+            } else {
                 btnLastQuestion.setVisibility(View.VISIBLE);
             }
-        }else {
-            if(vpAnswer.getCurrentItem() == 0){
+        } else {
+            if (vpAnswer.getCurrentItem() == 0) {
                 btnLastQuestion.setVisibility(View.GONE);
-            }else{
+            } else {
                 btnLastQuestion.setVisibility(View.VISIBLE);
             }
 
-            if(vpAnswer.getCurrentItem() == adapter.getCount() - 1){
+            if (vpAnswer.getCurrentItem() == adapter.getCount() - 1) {
                 btnNextQuestion.setVisibility(View.GONE);
-            }else {
+            } else {
                 btnNextQuestion.setVisibility(View.VISIBLE);
             }
         }
     }
 
-    public void setPagerSelect(int count,int position){
+    public void setPagerSelect(int count, int position) {
         if (vpAnswer.getCurrentItem() == adapter.getCount() - 1 && count - 1 == position) {
             btnNextQuestion.setVisibility(View.GONE);
         } else {
             btnNextQuestion.setVisibility(View.VISIBLE);
         }
-        if (vpAnswer.getCurrentItem()==0&&position==0){
+        if (vpAnswer.getCurrentItem() == 0 && position == 0) {
             btnLastQuestion.setVisibility(View.GONE);
-        }else {
+        } else {
             btnLastQuestion.setVisibility(View.VISIBLE);
         }
     }
@@ -383,19 +395,58 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 
     }
 
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("BaseAnswerView Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
+    }
+
     public class FixedSpeedScroller extends Scroller {
         protected int mDuration = 200;
 
         public FixedSpeedScroller(Context context) {
             super(context);
         }
-        public FixedSpeedScroller(Context context,Interpolator interpolator) {
-            super(context,interpolator);
+
+        public FixedSpeedScroller(Context context, Interpolator interpolator) {
+            super(context, interpolator);
         }
+
         @Override
         public void startScroll(int startX, int startY, int dx, int dy, int duration) {
             super.startScroll(startX, startY, dx, dy, mDuration);
         }
+
         @Override
         public void startScroll(int startX, int startY, int dx, int dy) {
             super.startScroll(startX, startY, dx, dy, mDuration);
@@ -408,7 +459,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
         super.onConfigurationChanged(newConfig);
     }
 
-    protected void setNextShow(){
+    protected void setNextShow() {
         btnNextQuestion.setVisibility(View.VISIBLE);
     }
 }
