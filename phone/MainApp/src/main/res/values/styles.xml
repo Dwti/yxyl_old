@@ -511,5 +511,12 @@
         <item name="android:textSize">@dimen/dimen_13</item>
         <item name="android:lineSpacingExtra">@dimen/dimen_11</item>
     </style>
+    <style name="AppTheme.Button.Borderless" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:minHeight">@dimen/button_height</item>
+        <item name="android:textSize">@dimen/text_size_s</item>
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+    </style>
 
 </resources>

@@ -131,13 +131,16 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                 return;
             }
 
-            File pictureFile = new File(MediaUtils.getOutputMediaFileUri(true).toString());
+            File pictureFile = MediaUtils.getOutputMediaFile(true);
             try {
-                pictureFile.createNewFile();
+                //pictureFile.createNewFile();
                 LogInfo.log("path", "111path"+pictureFile.getPath());
                 FileOutputStream fos = new FileOutputStream(pictureFile);
                 fos.write(data);
                 fos.close();
+
+                setResult(RESULT_OK);
+                finish();
                 //拍完预览
                 /*Intent intent = new Intent(CameraActivity.this, PictureActivity.class);
                 intent.putExtra("type", getIntent().getIntExtra("type", 0));
@@ -167,9 +170,9 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
             case R.id.iv_capture:
                 // 照相
                 camera.autoFocus(null);
-                camera.takePicture(null, null, mPicture);
-                setResult(RESULT_OK);
-                finish();
+//                camera.takePicture(null, null, mPicture);
+                camera.takePicture(null,null,mPicture);
+
                 break;
             case R.id.iv_flash://auto  on off 切换
                 if (flashMode == -1) {//auto
@@ -202,10 +205,6 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
             switch (requestCode) {
                 case MediaUtils.OPEN_SYSTEM_PIC_BUILD_CAMERA:
-                    Bundle bundle=new Bundle();
-                    String str_picture="picture";
-                    bundle.putString("picture", str_picture);
-                    data.putExtras(bundle);
                     setResult(resultCode, data);
                     this.finish();
                     break;

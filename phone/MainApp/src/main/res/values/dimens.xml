@@ -191,6 +191,10 @@
     <dimen name="dimen_classfy_one">50dp</dimen>
     <dimen name="dimen_classfy_two">8dp</dimen>
 
+    <dimen name="text_size_m">20sp</dimen>
+    <dimen name="text_size_s">16sp</dimen>
+    <dimen name="button_height">48dp</dimen>
+
     <declare-styleable name="GifView">
         <attr name="gif" format="reference" />
         <attr name="paused" format="boolean" />

@@ -290,6 +290,18 @@ public class PreferencesManager {
 		editor.apply();
 	}
 
+	public boolean getFirstCorpQuestion() {
+		SharedPreferences sp = context.getSharedPreferences(LOGIN_INFO, Context.MODE_PRIVATE);
+		return sp.getBoolean("first_corp_question", true);
+	}
+
+	public void setFirstCorpQuestion(){
+		SharedPreferences sp = context.getSharedPreferences(LOGIN_INFO, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putBoolean("first_corp_question", false);
+		editor.apply();
+	}
+
 
 	public boolean getFirstTestCenter() {
 		SharedPreferences sp = context.getSharedPreferences(LOGIN_INFO, Context.MODE_PRIVATE);

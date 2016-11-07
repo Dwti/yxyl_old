@@ -225,7 +225,7 @@ public class PicSelView extends RelativeLayout {
                     bitmap.recycle();
                 }
                 //在此处进行裁剪
-                MediaUtils.cropImage(activity,uri,MediaUtils.IMAGE_CROP);
+                MediaUtils.cropImage(activity,uri,MediaUtils.IMAGE_CROP,MediaUtils.FROM_CAMERA);
 //                ShareBitmapUtils.getInstance().addPath(id, path);
             } catch (IOException e) {
                 e.printStackTrace();
