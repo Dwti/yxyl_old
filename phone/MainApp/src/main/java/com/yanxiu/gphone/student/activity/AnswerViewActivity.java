@@ -39,6 +39,7 @@ import com.yanxiu.gphone.student.bean.GroupEventHWRefresh;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.fragment.GuideClassfyFragment;
+import com.yanxiu.gphone.student.fragment.GuideCorpFragment;
 import com.yanxiu.gphone.student.fragment.GuideFragment;
 import com.yanxiu.gphone.student.fragment.GuideMultiFragment;
 import com.yanxiu.gphone.student.fragment.question.AnswerCardFragment;
@@ -709,6 +710,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
+
+
         LogInfo.log(TAG, "resultCode = " + resultCode + " ,requestCode = " + requestCode);
 
         if (resultCode == RESULT_OK) {

@@ -208,7 +208,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        super.onActivityResult(requestCode,resultCode,data);
         switch (requestCode) {
             //点击拍照，拍照完了点击确定会走这儿（此时还没有进入裁剪页面）
             case MediaUtils.OPEN_SYSTEM_CAMERA:

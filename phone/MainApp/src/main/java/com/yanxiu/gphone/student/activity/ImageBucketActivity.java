@@ -178,7 +178,7 @@ public class ImageBucketActivity extends TopViewBaseActivity {
 //                        ShareBitmapUtils.getInstance().addAllPath(ShareBitmapUtils.getInstance().getCurrentSbId(),mTempDrrList);
 //                        executeFinish();
                         if(!TextUtils.isEmpty(mSelectedImagePath))
-                            MediaUtils.cropImage(ImageBucketActivity.this, Uri.fromFile(new File(mSelectedImagePath)),MediaUtils.IMAGE_CROP);
+                            MediaUtils.cropImage(ImageBucketActivity.this, Uri.fromFile(new File(mSelectedImagePath)),MediaUtils.IMAGE_CROP,MediaUtils.FROM_PICTURE);
                     }else{
                         ActivityJumpUtils.jumpBackFromImageBucketActivity(this, RESULT_CANCELED);
                     }

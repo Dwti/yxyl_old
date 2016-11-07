@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 
 import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.activity.takephoto.CameraActivity;
+import com.yanxiu.gphone.student.activity.takephoto.CorpActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -39,6 +40,19 @@ public class MediaUtils {
     private static final String RETURN_DATA="return-data";
 
     public static Uri currentCroppedImageUri;
+
+    public static final int FROM_CAMERA = 0;
+    public static final int FROM_PICTURE = 1;
+
+    public static String getPic_select_string() {
+        return pic_select_string;
+    }
+
+    public static void setPic_select_string(String pic_select_path) {
+        pic_select_string = pic_select_path;
+    }
+
+    private static String pic_select_string = "";
 
 
 
@@ -128,7 +142,7 @@ public class MediaUtils {
         }
         return Uri.fromFile(croppedImageFile);
     }
-    private static File getOutputMediaFile(boolean isNewFile) {
+    public static File getOutputMediaFile(boolean isNewFile) {
         File mediaStorageDir = null;
         try {
             mediaStorageDir = new File(Environment
@@ -229,9 +243,10 @@ public class MediaUtils {
     /**
      * 裁剪图片方法
      */
-    public static void cropImage(Activity activity,Uri uri,int requestCode) {
+    public static void cropImage(Activity activity, Uri uri, int requestCode, int from) {
          currentCroppedImageUri= createCroppedImageUri();
-        Intent intent = new Intent("com.android.camera.action.CROP");
+        //Intent intent = new Intent("com.android.camera.action.CROP");
+        Intent intent = new Intent(activity, CorpActivity.class);
 //        if(intent.resolveActivity(getPackageManager())==null){
 //            ToastMaster.showToast("该手机不支持裁剪");
 //        }
@@ -245,7 +260,8 @@ public class MediaUtils {
 //        intent.putExtra("outputX", 600);
 //        intent.putExtra("outputY", 600);
         intent.putExtra("return-data", false);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,currentCroppedImageUri);
+        intent.putExtra("from", from);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT,currentCroppedImageUri.toString());
         activity.startActivityForResult(intent, requestCode);
     }
 

@@ -205,5 +205,17 @@
     <color name="color_996517">#996517</color>
     <color name="color_99937a">#99937a</color>
     <color name="color_fff4d9">#fff4d9</color>
+    <color name="color_12b7f5">#12b7f5</color>
+    <color name="color_2f2f2f">#2f2f2f</color>
+
+    <color name="colorPrimary">#5DAC81</color>
+    <color name="colorPrimaryDark">#4F916D</color>
+    <color name="colorAccent">#5DAC81</color>
+    <color name="windowBackground">#1C1C1C</color>
+    <color name="colorButtonNormal">#FFFFFB</color>
+    <color name="textColorPrimary">#FFFFFB</color>
+    <color name="textColorPrimaryInverse">#1C1C1C</color>
+    <color name="overlay">#AA1C1C1C</color>
+    <color name="divider">#333333</color>
 
 </resources>

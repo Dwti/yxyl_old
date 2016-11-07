@@ -121,7 +121,9 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
                 iv_decorate.setSelected(imageItem.isSelected());
                 if(imageItem.isSelected()){
                     ImageBucketActivity.mSelectedImagePath = imageItem.getImagePath();
+                    MediaUtils.setPic_select_string(imageItem.getImagePath());
                 }
+                LogInfo.log("tttttttttt", ImageBucketActivity.mSelectedImagePath);
                 if( adapter.lastSelectedPosition!=position && imageList.get(adapter.lastSelectedPosition).isSelected()){
                     imageList.get(adapter.lastSelectedPosition).setIsSelected(false);
                 }
