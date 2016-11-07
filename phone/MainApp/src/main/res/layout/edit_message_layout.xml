@@ -18,7 +18,22 @@
             android:background="@drawable/logo_content_bg"
             android:gravity="center_vertical"
             android:orientation="horizontal">
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_35"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:gravity="left|center_vertical"
+                android:hint="@string/edit_name"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/dimen_4"
+                android:shadowColor="@color/color_ffff99"
+                style="@style/shadow_text_style"
+                android:singleLine="true"
+                android:textColor="@color/color_805500"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/dimen_17"
+                android:textStyle="bold"
+                />
                 <EditText
                     android:id="@+id/edit_name"
                     android:layout_width="0dp"
@@ -48,7 +63,7 @@
                     android:layout_marginRight="@dimen/dimen_5"
                     android:background="@drawable/serach_del_bg"
                     android:scaleType="centerCrop"
-                    />
+                    android:visibility="gone"/>
         </LinearLayout>
         <ImageView
             android:id="@+id/userinfo_dash_line_1"

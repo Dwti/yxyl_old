@@ -5,6 +5,16 @@ package com.yanxiu.gphone.student.bean;
  */
 public class School extends SrtBaseBean{
 
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     private String areaId;
 
     private String cityId;

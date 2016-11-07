@@ -22,6 +22,9 @@ public class ClassDetailBean extends SrtBaseBean{
     /**班主任名称*/
     private String adminName;
     private int periodid;
+    private int areaid;
+    private int cityid;
+    private int provinceid;
     private int gradeid;
     private int schoolid;
     /**班级名称*/
@@ -35,6 +38,30 @@ public class ClassDetailBean extends SrtBaseBean{
     private String schoolname;
     private int stageid;
     private int status;
+
+    public int getAreaid() {
+        return areaid;
+    }
+
+    public void setAreaid(int areaid) {
+        this.areaid = areaid;
+    }
+
+    public int getCityid() {
+        return cityid;
+    }
+
+    public void setCityid(int cityid) {
+        this.cityid = cityid;
+    }
+
+    public int getProvinceid() {
+        return provinceid;
+    }
+
+    public void setProvinceid(int provinceid) {
+        this.provinceid = provinceid;
+    }
 
     public void setAdminName(String adminName) {
         this.adminName = adminName;

@@ -23,6 +23,7 @@ import com.yanxiu.gphone.student.bean.CityModel;
 import com.yanxiu.gphone.student.bean.DistrictModel;
 import com.yanxiu.gphone.student.bean.ProvinceModel;
 import com.yanxiu.gphone.student.bean.RegisiterDistrictModel;
+import com.yanxiu.gphone.student.bean.School;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
 import com.yanxiu.gphone.student.manager.ActivityManager;
 import com.yanxiu.gphone.student.requestTask.RequestUpdateUserInfoTask;
@@ -35,6 +36,8 @@ import java.util.HashMap;
 
 import de.greenrobot.event.EventBus;
 
+import static com.yanxiu.gphone.student.activity.UserInfoActivity.LAUNCHER_FROM_USERINFO_TO_SCHOOL;
+
 /**
  * Created by Administrator on 2015/7/13.
  */
@@ -45,7 +48,10 @@ public class UserLocationSelectActivity extends YanxiuBaseActivity implements Vi
     public final static int LOCATION_CONSTANT_DISTRICT = 0x103;
 
     public final static int LOCATION_CONSTANT_REGISTER_DEFAULT = 0x11;
-    public final static int LOCATION_CONSTANT_REGISTER_TYPE= 0x12;
+    /**
+     * 注册
+     */
+    public final static int LOCATION_CONSTANT_REGISTER_TYPE = 0x12;
     private PublicLoadLayout mRootView;
     private ListView locationList;
     private View topView;
@@ -58,12 +64,14 @@ public class UserLocationSelectActivity extends YanxiuBaseActivity implements Vi
     private YanxiuUserLocationAdapter adapter;
     private DistrictModel districtModel;
     private TextView title;
+
     public static void launch(Activity activity, ArrayList dataBean, int type) {
         Intent intent = new Intent(activity, UserLocationSelectActivity.class);
         intent.putExtra("type", type);
         intent.putExtra("baseBean", dataBean);
         activity.startActivityForResult(intent, LOCATION_REQUEST_CODE);
     }
+
     public static void launchForward(Activity activity, ArrayList dataBean, int type) {
         Intent intent = new Intent(activity, UserLocationSelectActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
@@ -72,13 +80,14 @@ public class UserLocationSelectActivity extends YanxiuBaseActivity implements Vi
         activity.startActivity(intent);
     }
 
-    public static void launch(Activity activity, ArrayList dataBean, int type,int registerType) {
+    public static void launch(Activity activity, ArrayList dataBean, int type, int registerType) {
         Intent intent = new Intent(activity, UserLocationSelectActivity.class);
         intent.putExtra("type", type);
         intent.putExtra("registerType", registerType);
         intent.putExtra("baseBean", dataBean);
         activity.startActivityForResult(intent, LOCATION_REQUEST_CODE);
     }
+
     public static void launchForward(Activity activity, ArrayList dataBean, int type, int registerType) {
         Intent intent = new Intent(activity, UserLocationSelectActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
@@ -87,6 +96,7 @@ public class UserLocationSelectActivity extends YanxiuBaseActivity implements Vi
         intent.putExtra("baseBean", dataBean);
         activity.startActivity(intent);
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,27 +128,32 @@ public class UserLocationSelectActivity extends YanxiuBaseActivity implements Vi
         locationList = (ListView) mRootView.findViewById(R.id.location_list);
 
 
-        View headView=View.inflate(this,R.layout.search_head_view_layout,null);
-        ImageView topFlag=(ImageView)headView.findViewById(R.id.head_flag);
+        View headView = View.inflate(this, R.layout.search_head_view_layout, null);
+        ImageView topFlag = (ImageView) headView.findViewById(R.id.head_flag);
         topFlag.setVisibility(View.VISIBLE);
-        title=(TextView)headView.findViewById(R.id.headTitleText);
+        title = (TextView) headView.findViewById(R.id.headTitleText);
         topRight.setVisibility(View.GONE);
         if (type == LOCATION_CONSTANT_PROVINCE) {
             title.setText(R.string.select_location_province_txt);
         } else if (type == LOCATION_CONSTANT_CITY) {
             title.setText(R.string.select_location_city_txt);
         } else {
-            topRight.setVisibility(View.VISIBLE);
-            topRight.setText(R.string.user_name_edit_save);
-            topRight.setOnClickListener(this);
 
-            RelativeLayout.LayoutParams saveViewParams= (RelativeLayout.LayoutParams) topRight.getLayoutParams();
-            saveViewParams.width=getResources().getDimensionPixelOffset(R.dimen.dimen_47);
-            saveViewParams.height=getResources().getDimensionPixelOffset(R.dimen.dimen_31);
-            topRight.setLayoutParams(saveViewParams);
-            topRight.setGravity(Gravity.CENTER);
-            topRight.setTextColor(getResources().getColor(R.color.color_006666));
-            topRight.setBackgroundResource(R.drawable.edit_save_selector);
+            if (registerType == LOCATION_CONSTANT_REGISTER_TYPE){
+
+            }else {
+                topRight.setVisibility(View.VISIBLE);
+                topRight.setText(R.string.user_name_edit_save);
+                topRight.setOnClickListener(this);
+
+                RelativeLayout.LayoutParams saveViewParams = (RelativeLayout.LayoutParams) topRight.getLayoutParams();
+                saveViewParams.width = getResources().getDimensionPixelOffset(R.dimen.dimen_47);
+                saveViewParams.height = getResources().getDimensionPixelOffset(R.dimen.dimen_31);
+                topRight.setLayoutParams(saveViewParams);
+                topRight.setGravity(Gravity.CENTER);
+                topRight.setTextColor(getResources().getColor(R.color.color_006666));
+                topRight.setBackgroundResource(R.drawable.edit_save_selector);
+            }
             title.setText(R.string.select_location_district_txt);
         }
         locationList.addHeaderView(headView);
@@ -149,38 +164,51 @@ public class UserLocationSelectActivity extends YanxiuBaseActivity implements Vi
         locationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                try{
-                    position=position-locationList.getHeaderViewsCount();
-                    if(position<0){
+                try {
+                    position = position - locationList.getHeaderViewsCount();
+                    if (position < 0) {
                         return;
                     }
                     LogInfo.log("Lee: ", "position: " + position + "locationList.getHeaderViewsCount(): " + locationList.getHeaderViewsCount());
                     if (type == LOCATION_CONSTANT_PROVINCE) {
-                        if(registerType == LOCATION_CONSTANT_REGISTER_TYPE){
+                        if (registerType == LOCATION_CONSTANT_REGISTER_TYPE) {
                             launchForward(UserLocationSelectActivity.this, ((ProvinceModel) adapter.getItem(position)).getCityList(), LOCATION_CONSTANT_CITY, registerType);
                         } else {
                             launchForward(UserLocationSelectActivity.this, ((ProvinceModel) adapter.getItem(
                                     position)).getCityList(), LOCATION_CONSTANT_CITY);
                         }
                     } else if (type == LOCATION_CONSTANT_CITY) {
-                        if(registerType == LOCATION_CONSTANT_REGISTER_TYPE){
-                            launchForward(UserLocationSelectActivity.this,
-                                    ((CityModel) adapter.getItem(position))
-                                            .getDistrictList(),
-                                    LOCATION_CONSTANT_DISTRICT, registerType);
+                        if (registerType == LOCATION_CONSTANT_REGISTER_TYPE) {
+                            launchForward(UserLocationSelectActivity.this, ((CityModel) adapter.getItem(position)).getDistrictList(), LOCATION_CONSTANT_DISTRICT, registerType);
                         } else {
                             launchForward(UserLocationSelectActivity.this, ((CityModel) adapter.getItem(position)).getDistrictList(), LOCATION_CONSTANT_DISTRICT);
                         }
                     } else if (type == LOCATION_CONSTANT_DISTRICT) {
-                        adapter.setSelectItemIndex(position);
-                        districtModel = (DistrictModel) adapter.getItem(position);
+                        if (registerType == LOCATION_CONSTANT_REGISTER_TYPE) {
+                            RegisiterDistrictModel mRegisiterDistrictModel = CommonCoreUtil.copyBean((DistrictModel) adapter.getItem(position), RegisiterDistrictModel.class);
+                            EventBus.getDefault().post(mRegisiterDistrictModel);
+                            SchoolSearchActivity.launch(UserLocationSelectActivity.this, mRegisiterDistrictModel.getZipcode(),LAUNCHER_FROM_USERINFO_TO_SCHOOL);
+                        } else {
+                            adapter.setSelectItemIndex(position);
+                            districtModel = (DistrictModel) adapter.getItem(position);
+                        }
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
         });
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==RESULT_OK){
+            if (requestCode==LAUNCHER_FROM_USERINFO_TO_SCHOOL){
+                ActivityManager.destoryAllUserLocationSelectActivity();
+            }
+        }
     }
 
     @Override
@@ -188,9 +216,9 @@ public class UserLocationSelectActivity extends YanxiuBaseActivity implements Vi
         if (v == backView) {
             finish();
         } else if (v == topRight) {
-            if(registerType == LOCATION_CONSTANT_REGISTER_TYPE){
+            if (registerType == LOCATION_CONSTANT_REGISTER_TYPE) {
                 if (districtModel != null) {
-                    LogInfo.log("haitian", "to string ="+districtModel.toString());
+                    LogInfo.log("haitian", "to string =" + districtModel.toString());
                     RegisiterDistrictModel mRegisiterDistrictModel = CommonCoreUtil.copyBean(districtModel, RegisiterDistrictModel.class);
 //                    Intent intent = new Intent();
 //                    intent.putExtra("districtModel", districtModel);
@@ -206,7 +234,7 @@ public class UserLocationSelectActivity extends YanxiuBaseActivity implements Vi
     }
 
     private void upLoadAddress(final DistrictModel districtModel) {
-        if(districtModel != null) {
+        if (districtModel != null) {
             mRootView.loading(true);
             HashMap<String, String> hashMap = new HashMap<String, String>();
             hashMap.put("provinceName", districtModel.getProvinceName());

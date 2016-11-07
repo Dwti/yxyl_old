@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import com.common.core.utils.BitmapUtil;
 import com.common.core.utils.CommonCoreUtil;
 import com.common.core.utils.LogInfo;
+import com.common.core.utils.MD5;
 import com.common.core.utils.NetWorkTypeUtils;
 import com.common.login.LoginModel;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
@@ -172,8 +173,8 @@ public class YanxiuHttpApi {
 
         Bundle params = new Bundle();
         params.putString("classId", classId);
-        params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
-//        params.putString(PUBLIC_PARAMETERS.TOKEN, "4c0f99c3332993c090f45848930c40da");
+//        params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
+//        params.putString(PUBLIC_PARAMETERS.TOKEN, "a059f68dbee0fc654c884a1f2bb7798b");
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
         params.putString(PUBLIC_PARAMETERS.OS, YanXiuConstant.OS_TYPE);
@@ -229,6 +230,74 @@ public class YanxiuHttpApi {
         params.putString("classId", classId + "");
         params.putString("validMsg", validMsg);
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
+        params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
+        params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
+        params.putString(PUBLIC_PARAMETERS.OS, YanXiuConstant.OS_TYPE);
+        YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
+                YanxiuHttpParameter.Type.GET, parser, updataId);
+        LogInfo.log("king", "加入班级接口 url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
+        return request(httpParameter);
+    }
+
+    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestNewAddClass(
+            int updataId,long classId,int stageid,int areaid,int cityid,String mobile,
+            String realname,int schoolid,String schoolName,int provinceid,YanxiuMainParser<T, D> parser) {
+        String baseUrl = getStaticHead() + "/user/registerByJoinClass.do";
+
+        Bundle params = new Bundle();
+        params.putString("classId", classId + "");
+        params.putString("stageid",stageid+"");
+        if (areaid!=0) {
+            params.putString("areaid", areaid + "");
+        }
+        if (cityid!=0) {
+            params.putString("cityid", cityid + "");
+        }
+        params.putString("mobile",mobile+"");
+        params.putString("realname",realname);
+        params.putString("schoolid",schoolid+"");
+        params.putString("schoolName",schoolName);
+        if (provinceid!=0) {
+            params.putString("provinceid", provinceid + "");
+        }
+        String validKey= MD5.toMd5(mobile+"&"+"yxylmobile");
+        params.putString("validKey",validKey);
+        params.putString("deviceId", CommonCoreUtil.getAppDeviceId(YanxiuApplication.getInstance()));
+        params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
+        params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
+        params.putString(PUBLIC_PARAMETERS.OS, YanXiuConstant.OS_TYPE);
+        YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
+                YanxiuHttpParameter.Type.GET, parser, updataId);
+        LogInfo.log("king", "加入班级接口 url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
+        return request(httpParameter);
+    }
+    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> thirdRequestNewAddClass(
+            int updataId, int classId, int stageid, int areaid, int cityid,
+            String openid, String realname, int schoolid,String pltform, String schoolName,
+            String headimg,int sex, int provinceid,YanxiuMainParser<T, D> parser) {
+        String baseUrl = getStaticHead() + "/user/thirdRegisterByJoinClass.do";
+
+        Bundle params = new Bundle();
+
+        params.putString("stageid",stageid+"");
+        if (areaid!=0) {
+            params.putString("areaid", areaid + "");
+        }
+        if (cityid!=0) {
+            params.putString("cityid", cityid + "");
+        }
+        params.putString("openid",openid+"");
+        params.putString("realname",realname);
+        params.putString("schoolid",schoolid+"");
+        params.putString("pltform",pltform);
+        params.putString("sex",sex+"");
+        params.putString("schoolName",schoolName);
+        params.putString("classId", classId + "");
+        if (provinceid!=0) {
+            params.putString("provinceid", provinceid + "");
+        }
+        params.putString("headimg",headimg);
+        params.putString("deviceId", CommonCoreUtil.getAppDeviceId(YanxiuApplication.getInstance()));
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
         params.putString(PUBLIC_PARAMETERS.OS, YanXiuConstant.OS_TYPE);
@@ -545,6 +614,35 @@ public class YanxiuHttpApi {
     }
 
     /**
+     * 注册第三步新接口
+     * **/
+    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestNewRegisterInfo(
+            int updataId, String mobile, String realName,String provinceId,String cityId,
+            String areaId, String schoolId, int stageId, String schoolName, YanxiuMainParser<T, D> parser) {
+        String baseUrl = getStaticHead() + "/user/registerV2.do";
+
+        Bundle params = new Bundle();
+        params.putString("mobile", mobile);
+        params.putString("realname", realName);
+        params.putString("provinceid", provinceId);
+        params.putString("cityid", cityId);
+        params.putString("areaid", areaId);
+        params.putString("schoolid", schoolId);
+        params.putString("stageid", stageId + "");
+        params.putString("schoolName", schoolName);
+        String validKey= MD5.toMd5(mobile+"&"+"yxylmobile");
+        params.putString("validKey",validKey);
+        params.putString("deviceId", CommonCoreUtil.getAppDeviceId(YanxiuApplication.getInstance()));
+        params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
+        params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
+        params.putString(PUBLIC_PARAMETERS.OS, YanXiuConstant.OS_TYPE);
+        YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
+                YanxiuHttpParameter.Type.POST, parser, updataId);
+        LogInfo.log("king", "学生注册新接口 url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
+        return request(httpParameter);
+    }
+
+    /**
      * 重置密码接口
      *
      * @param updataId
@@ -624,6 +722,28 @@ public class YanxiuHttpApi {
         YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
                 YanxiuHttpParameter.Type.GET, parser, updataId);
         LogInfo.log("king", "验证验证码的接口 url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
+        return request(httpParameter);
+    }
+
+    /**
+     *
+     * 注册新接口
+     *
+     * **/
+    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestNewCode(int updataId, String mobile,String password,String code,int type, YanxiuMainParser<T, D> parser){
+        String baseUrl=getStaticHead()+"/user/firstStepCommitV2.do";
+
+        Bundle params = new Bundle();
+        params.putString("mobile", mobile);
+        params.putString("code", code);
+        params.putString("password",password);
+        params.putString("type", type + "");
+        params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
+        params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
+        params.putString(PUBLIC_PARAMETERS.OS, YanXiuConstant.OS_TYPE);
+        YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
+                YanxiuHttpParameter.Type.POST, parser, updataId);
+        LogInfo.log("king", "注册新接口 url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
         return request(httpParameter);
     }
 

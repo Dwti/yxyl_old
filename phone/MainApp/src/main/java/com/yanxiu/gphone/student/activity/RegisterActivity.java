@@ -23,6 +23,7 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
 import com.yanxiu.gphone.student.bean.RequestBean;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
+import com.yanxiu.gphone.student.requestTask.RegisterTask;
 import com.yanxiu.gphone.student.requestTask.RequestProduceCodeTask;
 import com.yanxiu.gphone.student.requestTask.RequestValidateProduceCodeTask;
 import com.yanxiu.gphone.student.utils.Util;
@@ -34,7 +35,9 @@ import com.yanxiu.gphone.student.view.YanxiuTypefaceTextView;
  */
 public class RegisterActivity extends YanxiuBaseActivity{
 
-    public static void launchActivity(Activity context,int type){
+    private EditText set_password_one;
+
+    public static void launchActivity(Activity context, int type){
         Intent intent = new Intent(context,RegisterActivity.class);
         intent.putExtra("type",type);
         context.startActivity(intent);
@@ -122,7 +125,7 @@ public class RegisterActivity extends YanxiuBaseActivity{
         Util.setViewTypeface(YanxiuTypefaceTextView.TypefaceType.FANGZHENG, registerNext);
         delView = (ImageView)findViewById(R.id.del_username);
         loading = (StudentLoadingLayout)findViewById(R.id.loading);
-
+        set_password_one= (EditText) findViewById(R.id.set_password_one);
         if(type == 0){
             titleView.setText(R.string.register);
         }else{
@@ -159,22 +162,34 @@ public class RegisterActivity extends YanxiuBaseActivity{
         registerNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                if (StringUtils.isEmpty(userNameText.getText().toString())) {
+                String mobile=userNameText.getText().toString().trim();
+                String password=set_password_one.getText().toString().trim();
+                String code=codeView.getText().toString().trim();
+                if (StringUtils.isEmpty(mobile)) {
                     Util.showUserToast(R.string.mobile_null, -1, -1);
                     return;
                 }
-                if (!CommonCoreUtil.isMobileNo(userNameText.getText().toString().replaceAll(" ", ""))) {
+                if (!CommonCoreUtil.isMobileNo(mobile.replaceAll(" ", ""))) {
                     Util.showUserToast(R.string.login_name_ival, -1, -1);
                     return;
                 }
-                if (StringUtils.isEmpty(codeView.getText().toString())) {
+                if (StringUtils.isEmpty(code)) {
                     Util.showUserToast(R.string.register_code_null, -1, -1);
+                    return;
+                }
+                if (StringUtils.isEmpty(password)) {
+                    Util.showUserToast(R.string.set_password_null, -1, -1);
+                    return;
+                }
+                if(!CommonCoreUtil.isPasswordRight(password)){
+                    Util.showUserToast(R.string.set_password_6_8, -1, -1);
                     return;
                 }
                 CommonCoreUtil.hideSoftInput(userNameText);
                 CommonCoreUtil.hideSoftInput(codeView);
-                LoginModel.setMobile(userNameText.getText().toString().replaceAll(" ", ""));
-                validateCode();
+                LoginModel.setMobile(mobile.replaceAll(" ", ""));
+                LoginModel.setPassword(password);
+                validateCode(mobile.replaceAll(" ", ""),password,code);
             }
         });
 
@@ -229,22 +244,23 @@ public class RegisterActivity extends YanxiuBaseActivity{
     /**
      * 验证验证码
      * */
-    private void validateCode(){
+    private void validateCode(String mobile,final String password,String code){
         loading.setViewType(StudentLoadingLayout.LoadingType.LAODING_COMMON);
-        requestValidateProduceCodeTask = new RequestValidateProduceCodeTask(this,
-                userNameText.getText().toString().replaceAll(" ", ""),
-                codeView.getText().toString(), type, new AsyncCallBack() {
-            @Override public void update(YanxiuBaseBean result) {
+        RegisterTask registerTask=new RegisterTask(this, mobile, password, code, type, new AsyncCallBack() {
+            @Override
+            public void update(YanxiuBaseBean result) {
                 loading.setViewGone();
                 RequestBean requestBean = (RequestBean)result;
                 if(requestBean.getStatus().getCode() == 0){
-                    SetPasswordActivity.launchActivity(RegisterActivity.this, type);
+//                    SetPasswordActivity.launchActivity(RegisterActivity.this, type);
+                    RegisterJoinGroupActivity.launchActivity(RegisterActivity.this);
                 }else{
                     Util.showUserToast(requestBean.getStatus().getDesc(), null, null);
                 }
             }
 
-            @Override public void dataError(int type, String msg) {
+            @Override
+            public void dataError(int type, String msg) {
                 loading.setViewGone();
                 if(!StringUtils.isEmpty(msg)){
                     Util.showUserToast(msg, null, null);
@@ -253,7 +269,31 @@ public class RegisterActivity extends YanxiuBaseActivity{
                 }
             }
         });
-        requestValidateProduceCodeTask.start();
+        registerTask.start();
+
+//        requestValidateProduceCodeTask = new RequestValidateProduceCodeTask(this,
+//                userNameText.getText().toString().replaceAll(" ", ""),
+//                codeView.getText().toString(), type, new AsyncCallBack() {
+//            @Override public void update(YanxiuBaseBean result) {
+//                loading.setViewGone();
+//                RequestBean requestBean = (RequestBean)result;
+//                if(requestBean.getStatus().getCode() == 0){
+//                    SetPasswordActivity.launchActivity(RegisterActivity.this, type);
+//                }else{
+//                    Util.showUserToast(requestBean.getStatus().getDesc(), null, null);
+//                }
+//            }
+//
+//            @Override public void dataError(int type, String msg) {
+//                loading.setViewGone();
+//                if(!StringUtils.isEmpty(msg)){
+//                    Util.showUserToast(msg, null, null);
+//                }else{
+//                   Util.showUserToast(R.string.net_null, -1, -1);
+//                }
+//            }
+//        });
+//        requestValidateProduceCodeTask.start();
     }
 
     @Override protected void onDestroy() {

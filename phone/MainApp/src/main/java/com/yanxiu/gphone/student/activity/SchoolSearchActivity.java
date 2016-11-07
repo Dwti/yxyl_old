@@ -31,6 +31,8 @@ import com.yanxiu.gphone.student.view.PublicLoadLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Created by Administrator on 2015/6/12.
  */
@@ -153,6 +155,8 @@ public class SchoolSearchActivity extends YanxiuBaseActivity{
 
     private void upLoadSchool(final String schoolName, final String schoolId) {
         if(type == UserInfoActivity.LAUNCHER_FROM_USERINFO_TO_SCHOOL){
+            mSchool.setType("school");
+            EventBus.getDefault().post(mSchool);
             forResult();
         }else{
             rootView.loading(true);

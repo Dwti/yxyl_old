@@ -3,6 +3,7 @@ package com.yanxiu.gphone.student.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
 import com.yanxiu.gphone.student.bean.ClassInfoBean;
+import com.yanxiu.gphone.student.bean.WXUserInfoBean;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
 import com.yanxiu.gphone.student.requestTask.RequestClassInfoTask;
 import com.yanxiu.gphone.student.utils.PublicLoadUtils;
@@ -33,8 +35,22 @@ public class RegisterJoinGroupActivity extends YanxiuBaseActivity implements Vie
     private RequestClassInfoTask requestClassInfoTask;
     private ClassInfoBean classInfoBean;
 
+    private String openid;
+    private String uniqid;
+    private String platform;
+    private WXUserInfoBean wxUserInfoBean;
+
     public static void launchActivity(Activity context){
         Intent intent = new Intent(context,RegisterJoinGroupActivity.class);
+        context.startActivity(intent);
+    }
+
+    public static void launchActivity(Activity context, String openid, String uniqid, String platform, WXUserInfoBean wxUserInfoBean) {
+        Intent intent = new Intent(context, UserInfoActivity.class);
+        intent.putExtra("openid", openid);
+        intent.putExtra("uniqid", uniqid);
+        intent.putExtra("platform", platform);
+        intent.putExtra("wxUserInfoBean", wxUserInfoBean);
         context.startActivity(intent);
     }
 
@@ -43,6 +59,15 @@ public class RegisterJoinGroupActivity extends YanxiuBaseActivity implements Vie
         super.onCreate(savedInstanceState);
         rootView = PublicLoadUtils.createPage(this, R.layout.activity_register_joingroup);
         setContentView(rootView);
+        Intent intent = getIntent();
+        if (intent != null) {
+            openid = intent.getStringExtra("openid");
+            uniqid = intent.getStringExtra("uniqid");
+            platform = intent.getStringExtra("platform");
+            if ("weixin".equals(platform)) {
+                wxUserInfoBean = (WXUserInfoBean) intent.getSerializableExtra("wxUserInfoBean");
+            }
+        }
         initview();
     }
 
@@ -68,7 +93,7 @@ public class RegisterJoinGroupActivity extends YanxiuBaseActivity implements Vie
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.group_add_tips:
-                UserInfoActivity.launchActivity(RegisterJoinGroupActivity.this);
+                UserInfoActivity.launchActivity(RegisterJoinGroupActivity.this,openid,uniqid,platform,wxUserInfoBean);
                 break;
             case R.id.group_bottom_submit:
                 String groupNum=groupNumView.getPassWord();
@@ -99,9 +124,12 @@ public class RegisterJoinGroupActivity extends YanxiuBaseActivity implements Vie
                                 Util.showCustomTipToast(R.string.group_add_no_right);
                             } else {
                                 CommonCoreUtil.hideSoftInput(groupNumView);
-                                RegisterAddGroupActivity.launchActivity(RegisterJoinGroupActivity.this,0, classInfoBean);
+                                if (TextUtils.isEmpty(platform)){
+                                    RegisterAddGroupActivity.launchActivity(RegisterJoinGroupActivity.this,0, classInfoBean);
+                                }else {
+                                    RegisterAddGroupActivity.launchActivity(RegisterJoinGroupActivity.this,0, classInfoBean,openid,uniqid,platform,wxUserInfoBean);
+                                }
                             }
-
                         }else{
                             Util.showUserToast(classInfoBean.getStatus().getDesc(), null, null);
                         }

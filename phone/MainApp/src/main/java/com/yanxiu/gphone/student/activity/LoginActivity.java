@@ -261,6 +261,7 @@ public class LoginActivity extends YanxiuBaseActivity implements
             passwordText.setSelection(passwordText.getText().toString().length());
         }
     }
+
     private void login () {
         loadingView.setViewType(StudentLoadingLayout.LoadingType.LAODING_COMMON);
         requestLoginTask = new RequestLoginTask(this,
@@ -273,7 +274,11 @@ public class LoginActivity extends YanxiuBaseActivity implements
                         UserInfoBean userInfoBean = (UserInfoBean) result;
                         if (userInfoBean.getStatus().getCode() == 0) {
                             handler.sendEmptyMessage(LOGIN);
-                        } else {
+                        }else if (userInfoBean.getStatus().getCode() == 80){
+                            LoginModel.setMobile(userNameText.getText().toString().replaceAll(" ", ""));
+                            LoginModel.setPassword(passwordText.getText().toString());
+                            RegisterJoinGroupActivity.launchActivity(LoginActivity.this);
+                        }else {
                             Util.showUserToast(userInfoBean.getStatus().getDesc(), null, null);
                         }
                     }
@@ -454,8 +459,9 @@ public class LoginActivity extends YanxiuBaseActivity implements
                         handler.sendEmptyMessage(LOGIN);
                     } else if (userInfoBean.getStatus().getCode() == 80) {
                         if (platfom.equals(PLAT_QQ)) {
-                            UserInfoActivity.launchActivity(LoginActivity.this, qqLoginBean.getOpenid(), qqLoginBean.getUniqid(), PLAT_QQ, null);
+//                            UserInfoActivity.launchActivity(LoginActivity.this, qqLoginBean.getOpenid(), qqLoginBean.getUniqid(), PLAT_QQ, null);
 //                            requestQQUserInfo(qqLoginBean);
+                            RegisterJoinGroupActivity.launchActivity(LoginActivity.this, qqLoginBean.getOpenid(), qqLoginBean.getUniqid(), PLAT_QQ, null);
                         } else {
                             requestWXUserInfoTask(wxLoginBean);
 //                            UserInfoActivity.launchActivity(LoginActivity.this,wxLoginBean.openid_wx,PLAT_WEIXIN);
@@ -493,7 +499,8 @@ public class LoginActivity extends YanxiuBaseActivity implements
                     WXUserInfoBean wxUserInfoBean = (WXUserInfoBean) result;
                     if (wxUserInfoBean != null) {
                         LogInfo.log("king", "RequestWXUserInfoTask UserInfoActivity"+result);
-                        UserInfoActivity.launchActivity(LoginActivity.this, wxLoginBean.openid, wxLoginBean.uniqid, PLAT_WEIXIN, wxUserInfoBean);
+//                        UserInfoActivity.launchActivity(LoginActivity.this, wxLoginBean.openid, wxLoginBean.uniqid, PLAT_WEIXIN, wxUserInfoBean);
+                        RegisterJoinGroupActivity.launchActivity(LoginActivity.this, wxLoginBean.openid, wxLoginBean.uniqid, PLAT_WEIXIN, wxUserInfoBean);
                     } else {
                         LogInfo.log("king", "RequestWXUserInfoTask result == null");
                         loadingView.setViewGone();
@@ -534,7 +541,8 @@ public class LoginActivity extends YanxiuBaseActivity implements
                         LogInfo.log("king", "json = " + json);
                         QQUserInfoBean qqUserInfoBean = new QQUserInfoBeanParser().parse(json);
                         if (qqUserInfoBean != null) {
-                            UserInfoActivity.launchActivity(LoginActivity.this, qqLoginBean.getOpenid(), qqLoginBean.getUniqid(), PLAT_QQ, null);
+//                            UserInfoActivity.launchActivity(LoginActivity.this, qqLoginBean.getOpenid(), qqLoginBean.getUniqid(), PLAT_QQ, null);
+                        RegisterJoinGroupActivity.launchActivity(LoginActivity.this, qqLoginBean.getOpenid(), qqLoginBean.getUniqid(), PLAT_QQ, null);
                         } else {
                             loadingView.setViewGone();
                             Util.showToast(R.string.login_fail);
