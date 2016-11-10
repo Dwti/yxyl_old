@@ -139,21 +139,21 @@ public class UserLocationSelectActivity extends YanxiuBaseActivity implements Vi
             title.setText(R.string.select_location_city_txt);
         } else {
 
-            if (registerType == LOCATION_CONSTANT_REGISTER_TYPE){
-
-            }else {
-                topRight.setVisibility(View.VISIBLE);
-                topRight.setText(R.string.user_name_edit_save);
-                topRight.setOnClickListener(this);
-
-                RelativeLayout.LayoutParams saveViewParams = (RelativeLayout.LayoutParams) topRight.getLayoutParams();
-                saveViewParams.width = getResources().getDimensionPixelOffset(R.dimen.dimen_47);
-                saveViewParams.height = getResources().getDimensionPixelOffset(R.dimen.dimen_31);
-                topRight.setLayoutParams(saveViewParams);
-                topRight.setGravity(Gravity.CENTER);
-                topRight.setTextColor(getResources().getColor(R.color.color_006666));
-                topRight.setBackgroundResource(R.drawable.edit_save_selector);
-            }
+//            if (registerType == LOCATION_CONSTANT_REGISTER_TYPE){
+//
+//            }else {
+//                topRight.setVisibility(View.VISIBLE);
+//                topRight.setText(R.string.user_name_edit_save);
+//                topRight.setOnClickListener(this);
+//
+//                RelativeLayout.LayoutParams saveViewParams = (RelativeLayout.LayoutParams) topRight.getLayoutParams();
+//                saveViewParams.width = getResources().getDimensionPixelOffset(R.dimen.dimen_47);
+//                saveViewParams.height = getResources().getDimensionPixelOffset(R.dimen.dimen_31);
+//                topRight.setLayoutParams(saveViewParams);
+//                topRight.setGravity(Gravity.CENTER);
+//                topRight.setTextColor(getResources().getColor(R.color.color_006666));
+//                topRight.setBackgroundResource(R.drawable.edit_save_selector);
+//            }
             title.setText(R.string.select_location_district_txt);
         }
         locationList.addHeaderView(headView);
@@ -189,8 +189,10 @@ public class UserLocationSelectActivity extends YanxiuBaseActivity implements Vi
                             EventBus.getDefault().post(mRegisiterDistrictModel);
                             SchoolSearchActivity.launch(UserLocationSelectActivity.this, mRegisiterDistrictModel.getZipcode(),LAUNCHER_FROM_USERINFO_TO_SCHOOL);
                         } else {
-                            adapter.setSelectItemIndex(position);
-                            districtModel = (DistrictModel) adapter.getItem(position);
+                            RegisiterDistrictModel mRegisiterDistrictModel = CommonCoreUtil.copyBean((DistrictModel) adapter.getItem(position), RegisiterDistrictModel.class);
+//                            EventBus.getDefault().post(mRegisiterDistrictModel);
+//                            asafs
+                            SchoolSearchActivity.launch(UserLocationSelectActivity.this, mRegisiterDistrictModel,MyUserInfoActivity.SEARCH_SCHOOL_REQUESTCODE);
                         }
                     }
                 } catch (Exception e) {
@@ -205,9 +207,9 @@ public class UserLocationSelectActivity extends YanxiuBaseActivity implements Vi
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode==RESULT_OK){
-            if (requestCode==LAUNCHER_FROM_USERINFO_TO_SCHOOL){
+//            if (requestCode==LAUNCHER_FROM_USERINFO_TO_SCHOOL){
                 ActivityManager.destoryAllUserLocationSelectActivity();
-            }
+//            }
         }
     }
 

@@ -19,6 +19,7 @@ import com.yanxiu.basecore.exception.ErrorCode;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.SearchAdapter;
 import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
+import com.yanxiu.gphone.student.bean.RegisiterDistrictModel;
 import com.yanxiu.gphone.student.bean.School;
 import com.yanxiu.gphone.student.bean.SchoolListBean;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
@@ -38,9 +39,21 @@ import de.greenrobot.event.EventBus;
  */
 public class SchoolSearchActivity extends YanxiuBaseActivity{
 
-    public static void launch(Activity activity,String areaId,int requestCode){
+    private RegisiterDistrictModel model;
+
+    public static void launch(Activity activity, String areaId, int requestCode){
         Intent intent = new Intent(activity,SchoolSearchActivity.class);
         intent.putExtra("areaId",areaId);
+        intent.putExtra("type",requestCode);
+        activity.startActivityForResult(intent,requestCode);
+    }
+
+    public static void launch(Activity activity, RegisiterDistrictModel model, int requestCode){
+        Intent intent = new Intent(activity,SchoolSearchActivity.class);
+        Bundle bundle=new Bundle();
+        bundle.putSerializable("model",model);
+        intent.putExtra("bundle",bundle);
+        intent.putExtra("areaId","bundle");
         intent.putExtra("type",requestCode);
         activity.startActivityForResult(intent,requestCode);
     }
@@ -77,6 +90,11 @@ public class SchoolSearchActivity extends YanxiuBaseActivity{
         if(intent!=null){
             areaId = intent.getStringExtra("areaId");
             type = intent.getIntExtra("type",0);
+            if (areaId.equals("bundle")){
+                Bundle bundle=intent.getBundleExtra("bundle");
+                model= (RegisiterDistrictModel) bundle.getSerializable("model");
+                areaId=model.getZipcode();
+            }
         }
         initView();
     }
@@ -150,9 +168,6 @@ public class SchoolSearchActivity extends YanxiuBaseActivity{
         }
     }
 
-
-
-
     private void upLoadSchool(final String schoolName, final String schoolId) {
         if(type == UserInfoActivity.LAUNCHER_FROM_USERINFO_TO_SCHOOL){
             mSchool.setType("school");
@@ -164,6 +179,14 @@ public class SchoolSearchActivity extends YanxiuBaseActivity{
             if(!TextUtils.isEmpty(schoolId)){
                 hashMap.put("schoolid", schoolId);
             }
+            if (model!=null) {
+                hashMap.put("provinceName", model.getProvinceName());
+                hashMap.put("provinceid", model.getProvinceId());
+                hashMap.put("cityName", model.getCityName());
+                hashMap.put("cityid", model.getCityId());
+                hashMap.put("areaName", model.getName());
+                hashMap.put("areaid", model.getZipcode());
+            }
             hashMap.put("schoolName", schoolName);
             new RequestUpdateUserInfoTask(this, hashMap, new AsyncCallBack() {
                 @Override
@@ -172,6 +195,8 @@ public class SchoolSearchActivity extends YanxiuBaseActivity{
                     LoginModel.getUserinfoEntity().setSchoolName(schoolName);
                     LoginModel.getUserinfoEntity().setSchoolid(schoolId);
                     LoginModel.savaCacheData();
+                    mSchool.setType("schools");
+                    EventBus.getDefault().post(mSchool);
                     forResult();
                 }
 

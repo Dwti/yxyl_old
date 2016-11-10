@@ -103,7 +103,7 @@
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:shadowColor="@color/color_a37a00"
-            android:text="老师需要知道你的真实姓名,请输入"
+            android:hint="老师需要知道你的真实姓名,请输入"
             android:textSize="28px"
             android:textColor="@color/color_ffffff"
             android:padding="@dimen/dimen_5"

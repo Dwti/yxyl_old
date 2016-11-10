@@ -61,7 +61,7 @@ public class MyUserInfoActivity extends YanxiuBaseActivity implements View.OnCli
     public final static int MY_USERINFO_REQUESTCODE = 0x100;
 
     private final static int PHOTO_CUT_RESULT = 0x204;
-    private final static int SEARCH_SCHOOL_REQUESTCODE = 0x205;
+    public final static int SEARCH_SCHOOL_REQUESTCODE = 0x205;
 
     private PublicLoadLayout mRootView;
 
@@ -238,6 +238,7 @@ public class MyUserInfoActivity extends YanxiuBaseActivity implements View.OnCli
 
 
 
+        findViewById(R.id.user_info_area_layout).setVisibility(View.GONE);
         userAreaLayout.findViewById(R.id.item_right_arrow).setVisibility(View.VISIBLE);
         userArea = (TextView) userAreaLayout.findViewById(R.id.item_name);
         userArea.setText(R.string.user_area_str);
@@ -313,7 +314,8 @@ public class MyUserInfoActivity extends YanxiuBaseActivity implements View.OnCli
             UserLocationSelectActivity.launch(this, provinceList, UserLocationSelectActivity.LOCATION_CONSTANT_PROVINCE);
         } else if (v == userSchoolLayout) {
             if (mUserinfoEntity != null) {
-                SchoolSearchActivity.launch(this, mUserinfoEntity.getAreaid(), SEARCH_SCHOOL_REQUESTCODE);
+                UserLocationSelectActivity.launch(this, provinceList, UserLocationSelectActivity.LOCATION_CONSTANT_PROVINCE);
+//                SchoolSearchActivity.launch(this, mUserinfoEntity.getAreaid(), SEARCH_SCHOOL_REQUESTCODE);
             }
         } else if (v == backView) {
             forResult();
@@ -416,6 +418,12 @@ public class MyUserInfoActivity extends YanxiuBaseActivity implements View.OnCli
                     }
                     break;
             }
+        }
+    }
+
+    public void onEventMainThread(School mSchool) {
+        if (mSchool != null && mSchool.getType().equals("schools")) {
+            userSchoolContent.setText(mSchool.getName().toString());
         }
     }
 

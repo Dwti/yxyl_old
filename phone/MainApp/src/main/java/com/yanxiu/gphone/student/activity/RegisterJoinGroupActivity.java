@@ -83,7 +83,7 @@ public class RegisterJoinGroupActivity extends YanxiuBaseActivity implements Vie
         TextView pub_top_left= (TextView) findViewById(R.id.pub_top_left);
         pub_top_left.setOnClickListener(this);
         YanxiuTypefaceTextView pub_top_mid= (YanxiuTypefaceTextView) findViewById(R.id.pub_top_mid);
-        pub_top_mid.setText("加入班级");
+        pub_top_mid.setText(R.string.class_add);
         TextView pub_top_right= (TextView) findViewById(R.id.pub_top_right);
         pub_top_right.setVisibility(View.INVISIBLE);
     }
