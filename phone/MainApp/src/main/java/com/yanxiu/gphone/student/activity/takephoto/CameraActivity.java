@@ -33,6 +33,8 @@ import com.yanxiu.gphone.student.view.takephoto.RecordVideoStatueCircle;
 import java.io.File;
 import java.io.FileOutputStream;
 
+import permissions.dispatcher.RuntimePermissions;
+
 public class CameraActivity extends YanxiuBaseActivity implements View.OnClickListener {
     private CameraPreview cameraPreview;
     private SeekBar sb1;
@@ -197,6 +199,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                 if (CommonCoreUtil.sdCardMounted()){
                     ActivityJumpUtils.jumpToImageBucketActivityForResult(CameraActivity.this, MediaUtils.OPEN_SYSTEM_PIC_BUILD_CAMERA);
                 }
+                //CameraActivityPermissionsDispatcher.pickImageWithCheck(this);
                 break;
         }
         camera.setParameters(params);

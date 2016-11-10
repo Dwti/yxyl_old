@@ -97,10 +97,12 @@ public class CorpFragment extends Fragment {
             LogInfo.log("ttttttt2", ""+mFrom);
             LogInfo.log("ttttttt2", ""+MediaUtils.getOutputMediaFileUri(false));
             if (mFrom == MediaUtils.FROM_CAMERA) {
-                mCropView.setImageURI(MediaUtils.getOutputMediaFileUri(false));
+                mCropView.startLoad(MediaUtils.getOutputMediaFileUri(false), mLoadCallback);
+                //mCropView.setImageResource(R.drawable.blue_arrow);
             } else {
-                //mCropView.setImageURI(MediaUtils.getOutputMediaFileUri(false));
-                mCropView.setImageURI(Uri.parse(MediaUtils.getPic_select_string()));
+                //mCropView.setImageURI(Uri.parse(MediaUtils.getPic_select_string()));
+                File file=new File(MediaUtils.getPic_select_string());
+                mCropView.startLoad(Uri.fromFile(file), mLoadCallback);
             }
 
         }
