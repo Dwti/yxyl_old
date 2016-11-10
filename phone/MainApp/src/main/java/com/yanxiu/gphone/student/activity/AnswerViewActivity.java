@@ -38,6 +38,7 @@ import com.yanxiu.gphone.student.bean.ChildIndexEvent;
 import com.yanxiu.gphone.student.bean.GroupEventHWRefresh;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.bean.UploadImageBean;
 import com.yanxiu.gphone.student.fragment.GuideClassfyFragment;
 import com.yanxiu.gphone.student.fragment.GuideCorpFragment;
 import com.yanxiu.gphone.student.fragment.GuideFragment;
@@ -50,6 +51,7 @@ import com.yanxiu.gphone.student.fragment.question.PageIndex;
 import com.yanxiu.gphone.student.fragment.question.ReadingQuestionsFragment;
 import com.yanxiu.gphone.student.fragment.question.SolveComplexQuestionFragment;
 import com.yanxiu.gphone.student.fragment.question.SubjectiveQuestionFragment;
+import com.yanxiu.gphone.student.httpApi.YanxiuHttpApi;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
 import com.yanxiu.gphone.student.manager.ActivityManager;
 import com.yanxiu.gphone.student.preference.PreferencesManager;
@@ -60,18 +62,22 @@ import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.CommonDialog;
 import com.yanxiu.gphone.student.view.DelDialog;
+import com.yanxiu.gphone.student.view.LoadingDialog;
 import com.yanxiu.gphone.student.view.picsel.PicSelView;
 import com.yanxiu.gphone.student.view.question.GuideClassfyQuestionView;
 import com.yanxiu.gphone.student.view.question.GuideMultiQuestionView;
 import com.yanxiu.gphone.student.view.question.GuideQuestionView;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Formatter;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.zip.Inflater;
 
 import de.greenrobot.event.EventBus;
@@ -120,6 +126,11 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     private int mNextIndex;
 
     private BaseQuestionFragment lastFragment;
+    //主观题的list
+    private List<QuestionEntity> subjectiveList;
+    private int subjectiveQIndex = 0;
+
+    private LoadingDialog mLoadingDialog;
 
 
 //    private ProgressLayout progressLayout;
@@ -171,6 +182,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 //        setContentView(R.layout.activity_answer_question);
         initView();
         initData();
+        mLoadingDialog = new LoadingDialog(this);
 //        testUpload();
     }
 
@@ -331,8 +343,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         if (comeFrom == GROUP) {
             Intent intent = new Intent();
             setResult(RESULT_OK, intent);
-            this.finish();
-            submitAnswer();
+            handleUploadSubjectiveImage();
             return;
         }
         if (dataSources != null && dataSources.getData() != null) {
@@ -370,6 +381,101 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         dialog.show();
     }
 
+    private void handleUploadSubjectiveImage(){
+        subjectiveList = QuestionUtils.findSubjectiveQuesition(dataSources);
+        mLoadingDialog.setmCurrent(subjectiveQIndex);
+        mLoadingDialog.setmNum(subjectiveList.size());
+        if (subjectiveList.size() > 0) {
+            mLoadingDialog.show();
+            mLoadingDialog.updateUI();
+        }
+
+        if(!subjectiveList.isEmpty()){
+            LogInfo.log("geny", "subjectiveList===" + subjectiveList.size());
+
+            if(subjectiveQIndex < subjectiveList.size()){
+                uploadSubjectiveImage(subjectiveList.get(subjectiveQIndex));
+            } else {
+                submitAnswer();
+            }
+        } else {
+            submitAnswer();
+        }
+
+    }
+
+    /**
+     * 上传主观题图片
+     */
+    private void uploadSubjectiveImage(final QuestionEntity entity){
+        Map<String, File> fileMap = new LinkedHashMap<String, File>();
+        List<String> photoUri = entity.getPhotoUri();
+        final ArrayList<String> httpUrl = new ArrayList<>();
+        if(photoUri != null && !photoUri.isEmpty()){
+            for(String uri : photoUri){
+                LogInfo.log("geny", "uri===" + uri);
+                if (!uri.startsWith("http")) {
+                    fileMap.put(String.valueOf(uri.hashCode()), new File(uri));
+                } else {
+                    httpUrl.add(uri);
+                }
+            }
+        }else{
+            subjectiveQIndex++;
+            handleUploadSubjectiveImage();
+            return;
+        }
+
+        //showCommonDialog();
+//        loadingLayout.setViewType(StudentLoadingLayout.LoadingType.LAODING_COMMON);
+        if (fileMap == null || fileMap.size() == 0) {
+            subjectiveQIndex++;
+            entity.getAnswerBean().setSubjectivImageUri(httpUrl);
+            handleUploadSubjectiveImage();
+            return;
+        }
+        YanxiuHttpApi.requestUploadImage(fileMap, new YanxiuHttpApi.UploadFileListener() {
+
+            @Override
+            public void onFail(final YanxiuBaseBean bean) {
+                mRootView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        subjectiveQIndex = 0;
+                        //hideDialog();
+//                        loadingLayout.setViewGone();
+                        if(bean != null && ((UploadImageBean)bean).getStatus() != null && ((UploadImageBean)bean).getStatus().getDesc() != null){
+                            Util.showToast(((UploadImageBean) bean).getStatus().getDesc());
+                        }else{
+                            Util.showToast(R.string.server_connection_erro);
+                        }
+                    }
+                });
+                LogInfo.log("geny", "requestUploadImage s =onFail");
+            }
+
+            @Override
+            public void onSuccess(YanxiuBaseBean bean) {
+                UploadImageBean uploadImageBean = (UploadImageBean) bean;
+                if(uploadImageBean.getData() != null){
+                    subjectiveQIndex++;
+                    ArrayList<String> uploadBean = (ArrayList<String>) uploadImageBean.getData();
+                    uploadBean.addAll(httpUrl);
+                    entity.getAnswerBean().setSubjectivImageUri(uploadBean);
+                }
+                handleUploadSubjectiveImage();
+                LogInfo.log("geny", "requestUploadImage s =onSuccess");
+            }
+
+            @Override
+            public void onProgress(int progress) {
+                if(progress % 10 == 9){
+                    LogInfo.log("geny", "requestUploadImage s =onProgress-----------------" + progress);
+                }
+            }
+        });
+    }
+
 
     public void hideFragment() {
         if (Configuration.isDebug() && btnWrongError != null) {
@@ -396,15 +502,19 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         long endtime = System.currentTimeMillis();
         dataSources.setEndtime(endtime);
         calculateLastQuestionTime();
-        QuestionUtils.clearSubjectiveQuesition(dataSources);
+        //QuestionUtils.clearSubjectiveQuesition(dataSources);
         dataSources.getData().get(0).getPaperStatus().setCosttime(AnswerViewActivity.totalTime);
         RequestSubmitQuesitonTask requestSubmitQuesitonTask = new RequestSubmitQuesitonTask(this, dataSources, RequestSubmitQuesitonTask.LIVE_CODE, new AsyncCallBack() {
             @Override
             public void update(YanxiuBaseBean result) {
                 EventBus.getDefault().post(new GroupEventHWRefresh());
+                mLoadingDialog.dismiss();
+                AnswerViewActivity.this.finish();
             }
             @Override
             public void dataError(int type, String msg) {
+                mLoadingDialog.dismiss();
+                AnswerViewActivity.this.finish();
             }
         });
         requestSubmitQuesitonTask.start();
@@ -592,7 +702,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                     }
                 });
                 transaction.replace(R.id.gif_framelayout, fragment);
-            }
+            } 
             transaction.commit();
             gif_framelayout.setVisibility(View.VISIBLE);
         }

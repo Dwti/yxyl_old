@@ -36,6 +36,7 @@ import com.common.core.view.roundview.RoundedImageView;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.LocalPhotoViewActivity;
 import com.yanxiu.gphone.student.activity.takephoto.CameraActivity;
+import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
 import com.yanxiu.gphone.student.utils.MediaUtils;
 import com.yanxiu.gphone.student.utils.Util;
@@ -315,8 +316,13 @@ public class PicSelView extends RelativeLayout {
             } else {
                 holder.decorateImage.setBackgroundResource(R.drawable.upload_pic);
                 String absolutePath = currentDrrList.get(position);
-                UniversalImageLoadTool.disPlay("file://" + absolutePath,
-                        new RotateImageViewAware(holder.image, absolutePath), R.drawable.image_default);
+                if (!absolutePath.startsWith("http")) {
+                    UniversalImageLoadTool.disPlay("file://" + absolutePath,
+                            new RotateImageViewAware(holder.image, absolutePath), R.drawable.image_default);
+                } else {
+                    UniversalImageLoadTool.disPlay(absolutePath,
+                            new RotateImageViewAware(holder.image, absolutePath), R.drawable.image_default);
+                }
             }
 
             return convertView;

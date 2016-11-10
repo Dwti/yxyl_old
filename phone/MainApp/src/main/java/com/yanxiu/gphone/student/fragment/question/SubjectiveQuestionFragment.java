@@ -16,16 +16,29 @@ import android.widget.Button;
 import com.common.core.utils.LogInfo;
 import com.common.core.utils.PictureHelper;
 import com.common.core.utils.StringUtils;
+import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.activity.AnswerViewActivity;
+import com.yanxiu.gphone.student.activity.BaseAnswerViewActivity;
 import com.yanxiu.gphone.student.activity.LocalPhotoViewActivity;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.bean.UploadImageBean;
+import com.yanxiu.gphone.student.httpApi.YanxiuHttpApi;
 import com.yanxiu.gphone.student.utils.MediaUtils;
+import com.yanxiu.gphone.student.utils.QuestionUtils;
+import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.view.picsel.PicSelView;
 import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lidm on 2015/9/25.
@@ -74,8 +87,12 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         }
 
         setPicSelViewId();
+        for (int i=0; questionsEntity.getAnswerBean().getSubjectivImageUri()!= null && i<questionsEntity.getAnswerBean().getSubjectivImageUri().size(); i++) {
+            ShareBitmapUtils.getInstance().addPath(this.questionsEntity.getId(), questionsEntity.getAnswerBean().getSubjectivImageUri().get(i).toString());
+        }
         changeCurrentSelData(questionsEntity);
         selectTypeView();
+
 
         return rootView;
     }
