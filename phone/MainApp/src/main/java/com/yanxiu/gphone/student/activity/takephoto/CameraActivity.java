@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.common.core.utils.CommonCoreUtil;
@@ -58,7 +59,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         RecordVideoStatueCircle btn_capture = (RecordVideoStatueCircle) findViewById(R.id.iv_capture);
         ImageView iv_flash = (ImageView) findViewById(R.id.iv_flash);
         ImageView iv_return = (ImageView) findViewById(R.id.iv_return);
-        ImageView iv_picture = (ImageView) findViewById(R.id.iv_picture);
+        TextView iv_picture = (TextView) findViewById(R.id.iv_picture);
         iv_return.setOnClickListener(this);
         iv_flash.setOnClickListener(this);
         iv_picture.setOnClickListener(this);

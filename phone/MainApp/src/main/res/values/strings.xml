@@ -447,6 +447,8 @@
     <string name="parent">我是家长</string>
 
     <string name="corp">裁剪</string>
+    <string name="picture">图库</string>
+    <string name="save_group_picture">保存作业图片中</string>
 
     <string name="activity_not_found">没找到文件管理器</string>
     

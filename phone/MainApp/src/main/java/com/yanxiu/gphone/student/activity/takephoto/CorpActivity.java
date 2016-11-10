@@ -43,22 +43,22 @@ public class CorpActivity extends YanxiuBaseActivity {
         }
         gif_framelayout = (FrameLayout)findViewById(R.id.gif_corp_framelayout);
 
-//        if (PreferencesManager.getInstance().getFirstMultiQuestion()) {
-        final FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
-        fragment = new GuideCorpFragment();
-            fragment.setListener(new GuideCorpFragment.DestoryListener() {
-                @Override
-                public void DestoryListener() {
-                    gif_framelayout.setVisibility(View.GONE);
-                    ft.remove(fragment);
-                    fragment = null;
-                }
-            });
+        if (PreferencesManager.getInstance().getFirstCorpQuestion()) {
+            final FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+            fragment = new GuideCorpFragment();
+                fragment.setListener(new GuideCorpFragment.DestoryListener() {
+                    @Override
+                    public void DestoryListener() {
+                        gif_framelayout.setVisibility(View.GONE);
+                        ft.remove(fragment);
+                        fragment = null;
+                    }
+                });
             ft.replace(R.id.gif_corp_framelayout, fragment);
             ft.commit();
             gif_framelayout.setVisibility(View.VISIBLE);
-            PreferencesManager.getInstance().setFirstMultiQuestion();
-//        }
+            PreferencesManager.getInstance().setFirstCorpQuestion();
+        }
     }
 
     @Override

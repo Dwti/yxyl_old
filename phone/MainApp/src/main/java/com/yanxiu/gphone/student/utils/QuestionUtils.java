@@ -10,6 +10,7 @@ import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.ReadingAnswer;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.bean.UpdataImgBean;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -251,13 +252,66 @@ public class QuestionUtils {
                             QuestionEntity child = paperList.get(j).getQuestions();
                             if (child != null) {
                                 if (YanXiuConstant.ANSWER_QUESTION.equals(child.getTemplate())) {
-                                    list.add(child);
+                                    if(child.getPhotoUri() != null && !child.getPhotoUri().isEmpty()) {
+                                        list.add(child);
+                                    }
                                 }
                             }
                         }
                     } else {
                         if (YanXiuConstant.ANSWER_QUESTION.equals(questionEntity.getTemplate())) {
-                            list.add(questionEntity);
+                            if(questionEntity.getPhotoUri() != null && !questionEntity.getPhotoUri().isEmpty()) {
+                                list.add(questionEntity);
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+        return list;
+    }
+
+    public static List<UpdataImgBean> findBeanFromSubjectiveQuesition(SubjectExercisesItemBean subjectEditionBean) {
+        List<UpdataImgBean> list = new ArrayList<UpdataImgBean>();
+        if (subjectEditionBean != null && subjectEditionBean.getData() != null && !subjectEditionBean.getData().isEmpty()) {
+            List<PaperTestEntity> dataList = subjectEditionBean.getData().get(0).getPaperTest();
+            if (dataList == null) {
+                return null;
+            }
+            int count = dataList.size();
+            for (int i = 0; i < count; i++) {
+                QuestionEntity questionEntity;
+                if (dataList.get(i) != null && dataList.get(i).getQuestions() != null) {
+                    questionEntity = dataList.get(i).getQuestions();
+                    if (questionEntity.getChildren() != null && questionEntity.getChildren().size() != 0) {
+                        List<PaperTestEntity> paperList = questionEntity.getChildren();
+                        int childCount = paperList.size();
+                        for (int j = 0; j < childCount; j++) {
+                            QuestionEntity child = paperList.get(j).getQuestions();
+                            if (child != null) {
+                                if (YanXiuConstant.ANSWER_QUESTION.equals(child.getTemplate())) {
+                                    if(child.getPhotoUri() != null && !child.getPhotoUri().isEmpty()) {
+                                        UpdataImgBean bean = new UpdataImgBean();
+                                        bean.setIschild(true);
+                                        bean.setFather_Id(i);
+                                        bean.setChild_Id(j);
+                                        bean.getImgUrl().addAll(child.getPhotoUri());
+                                        list.add(bean);
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        if (YanXiuConstant.ANSWER_QUESTION.equals(questionEntity.getTemplate())) {
+                            if(questionEntity.getPhotoUri() != null && !questionEntity.getPhotoUri().isEmpty()) {
+                                UpdataImgBean bean = new UpdataImgBean();
+                                bean.setIschild(false);
+                                bean.setFather_Id(i);
+                                bean.getImgUrl().addAll(questionEntity.getPhotoUri());
+                                list.add(bean);
+                            }
+
                         }
                     }
 

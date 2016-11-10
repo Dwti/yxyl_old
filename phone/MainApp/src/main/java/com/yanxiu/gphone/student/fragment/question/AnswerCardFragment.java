@@ -45,6 +45,7 @@ import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.utils.statistics.DataStatisticsUploadManager;
 import com.yanxiu.gphone.student.view.CommonDialog;
 import com.yanxiu.gphone.student.view.DelDialog;
+import com.yanxiu.gphone.student.view.LoadingDialog;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -83,6 +84,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
 
     private int comeFrom;
     private String questionTitle;
+    private LoadingDialog mLoadingDialog;
 
 
 
@@ -244,7 +246,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(final View v) {
-
+        mLoadingDialog = new LoadingDialog(getActivity());
         Animation ani = AnimationUtils.loadAnimation(this.getActivity(), R.anim.answer_card_bottom_out);
         ani.setFillAfter(true);
         ani.setAnimationListener(new Animation.AnimationListener() {
@@ -282,16 +284,24 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
 
     private void handleUploadSubjectiveImage(){
         subjectiveList = QuestionUtils.findSubjectiveQuesition(dataSources);
+        mLoadingDialog.setmCurrent(subjectiveQIndex);
+        mLoadingDialog.setmNum(subjectiveList.size());
+        if (subjectiveList.size() > 0) {
+            mLoadingDialog.show();
+            mLoadingDialog.updateUI();
+        }
         if(!subjectiveList.isEmpty()){
             LogInfo.log("geny", "subjectiveList===" + subjectiveList.size());
 
             if(subjectiveQIndex < subjectiveList.size()){
                 uploadSubjectiveImage(subjectiveList.get(subjectiveQIndex));
             }else{
+                mLoadingDialog.dismiss();
                 requestSubmmit();
             }
 
         }else{
+            mLoadingDialog.dismiss();
             requestSubmmit();
         }
 
@@ -304,10 +314,15 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
     private void uploadSubjectiveImage(final QuestionEntity entity){
         Map<String, File> fileMap = new LinkedHashMap<String, File>();
         List<String> photoUri = entity.getPhotoUri();
+        final ArrayList<String> httpUrl = new ArrayList<>();
         if(photoUri != null && !photoUri.isEmpty()){
             for(String uri : photoUri){
                 LogInfo.log("geny", "uri===" + uri);
-                fileMap.put(String.valueOf(uri.hashCode()), new File(uri));
+                if (!uri.startsWith("http")) {
+                    fileMap.put(String.valueOf(uri.hashCode()), new File(uri));
+                } else {
+                    httpUrl.add(uri);
+                }
             }
         }else{
             subjectiveQIndex++;
@@ -315,7 +330,13 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
             return;
         }
 
-        ((AnswerViewActivity)this.getActivity()).showCommonDialog();
+        if (fileMap == null || fileMap.size() == 0) {
+            subjectiveQIndex++;
+            entity.getAnswerBean().setSubjectivImageUri(httpUrl);
+            handleUploadSubjectiveImage();
+            return;
+        }
+        //((AnswerViewActivity)this.getActivity()).showCommonDialog();
 //        loadingLayout.setViewType(StudentLoadingLayout.LoadingType.LAODING_COMMON);
         YanxiuHttpApi.requestUploadImage(fileMap, new YanxiuHttpApi.UploadFileListener() {
 
@@ -343,7 +364,9 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                 UploadImageBean uploadImageBean = (UploadImageBean) bean;
                 if(uploadImageBean.getData() != null){
                     subjectiveQIndex++;
-                    entity.getAnswerBean().setSubjectivImageUri((ArrayList<String>) uploadImageBean.getData());
+                    ArrayList<String> uploadBean = (ArrayList<String>) uploadImageBean.getData();
+                    uploadBean.addAll(httpUrl);
+                    entity.getAnswerBean().setSubjectivImageUri(uploadBean);
                 }
                 handleUploadSubjectiveImage();
                 LogInfo.log("geny", "requestUploadImage s =onSuccess");

@@ -57,8 +57,11 @@ public class LocalPhotoViewAdapter extends PagerAdapter {
         ZoomImageView imageView=(ZoomImageView) view.findViewById(R.id.iv_photo_view);
         if(ShareBitmapUtils.getInstance().getDrrMaps().get(ShareBitmapUtils.getInstance().getCurrentSbId()).size()>0){
             String path=ShareBitmapUtils.getInstance().getDrrMaps().get(ShareBitmapUtils.getInstance().getCurrentSbId()).get(position);
-
-            com.nostra13.universalimageloader.core.ImageLoader.getInstance().displayImage("file://" + path, imageView, options);
+            if (!path.startsWith("http")) {
+                com.nostra13.universalimageloader.core.ImageLoader.getInstance().displayImage("file://" + path, imageView, options);
+            } else {
+                com.nostra13.universalimageloader.core.ImageLoader.getInstance().displayImage(path, imageView, options);
+            }
 //            Bitmap bitmap=null;
 //            try {
 //                bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse("file://" + path));
