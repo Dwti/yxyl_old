@@ -9,6 +9,8 @@ import android.text.Editable;
 import android.text.Html;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -82,6 +84,8 @@ public class RegisterActivity extends YanxiuBaseActivity{
 
     private static int INDENTIFY_TIME_DEFAULT = 45;
 
+    private boolean isLock = false;
+
     private Handler mHandler = new Handler(){
         @Override public void handleMessage(Message msg) {
             switch (msg.what){
@@ -126,6 +130,14 @@ public class RegisterActivity extends YanxiuBaseActivity{
         delView = (ImageView)findViewById(R.id.del_username);
         loading = (StudentLoadingLayout)findViewById(R.id.loading);
         set_password_one= (EditText) findViewById(R.id.set_password_one);
+        ImageView del_pwd= (ImageView) findViewById(R.id.del_pwd);
+        del_pwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isLock = !isLock;
+                onCheckedChanged(v, isLock);
+            }
+        });
         if(type == 0){
             titleView.setText(R.string.register);
         }else{
@@ -203,6 +215,23 @@ public class RegisterActivity extends YanxiuBaseActivity{
             }
         }
     }
+
+    public void onCheckedChanged (View lockView, boolean isChecked) {
+        // TODO Auto-generated method stub
+        if (isChecked) {
+            //如果选中，显示密码
+            lockView.setBackgroundResource(R.drawable.pwd_unlock);
+            set_password_one.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+        } else {
+            //否则隐藏密码
+            lockView.setBackgroundResource(R.drawable.pwd_lock);
+            set_password_one.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        }
+        if (!TextUtils.isEmpty(set_password_one.getText().toString())) {
+            set_password_one.setSelection(set_password_one.getText().toString().length());
+        }
+    }
+
     /**
      * 获取验证码
      * */

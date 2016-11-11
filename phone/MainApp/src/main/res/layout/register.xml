@@ -173,7 +173,8 @@
             android:layout_width="@dimen/dimen_26"
             android:layout_height="@dimen/dimen_26"
             android:layout_marginLeft="@dimen/dimen_5"
-            android:background="@drawable/serach_del_bg"
+            android:layout_marginRight="@dimen/dimen_5"
+            android:background="@drawable/pwd_lock"
             android:scaleType="centerCrop"
             />
     </LinearLayout>
