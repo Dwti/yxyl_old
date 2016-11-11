@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="235dp"
     android:layout_height="100dp"
-    android:background="@color/color_black">
+    android:background="@drawable/answer_card_bg">
 
     <TextView
         android:id="@+id/tv_progress_txt"
