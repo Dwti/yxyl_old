@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -74,6 +75,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
     private Button btnQuestionSubmit;
     private TextView tvQuestionTitle;
     private RelativeLayout rlAnswerCard;
+    private ImageView ivAnswerCardClose;
     private RelativeLayout rlAnswerCardMark;
 //    private StudentLoadingLayout loadingLayout;
     private RequestSubmitQuesitonTask requestSubmitQuesitonTask;
@@ -136,6 +138,8 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
         tvQuestionTitle = (TextView) rootView.findViewById(R.id.tv_question_title);
         rlAnswerCard = (RelativeLayout) rootView.findViewById(R.id.rl_answer_card);
         rlAnswerCard.setOnClickListener(null);
+        ivAnswerCardClose = (ImageView) rootView.findViewById(R.id.iv_answer_card_close);
+        ivAnswerCardClose.setOnClickListener(this);
         rlAnswerCardMark = (RelativeLayout) rootView.findViewById(R.id.rl_answer_card_mark);
         rlAnswerCardMark.setOnClickListener(this);
 //        loadingLayout = (StudentLoadingLayout) rootView.findViewById(R.id.loading_layout);
@@ -144,7 +148,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 if (AnswerCardFragment.this.getActivity() instanceof AnswerViewActivity) {
-                    QuestionEntity questionEntity = questionList.get(position);
+                    QuestionEntity questionEntity = answerCardAdapter.getItem(position);
                     ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).setViewPagerPosition(questionEntity.getPageIndex(), questionEntity.getChildPageIndex());
                 }
             }
@@ -191,7 +195,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
         }
         answerCardAdapter  = new AnswerCardAdapter(this.getActivity());
         gridView.setAdapter(answerCardAdapter);
-        //answerCardAdapter.setList(questionList);
+        answerCardAdapter.setList(questionList);
 
 
     }
@@ -248,38 +252,46 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(final View v) {
-        mLoadingDialog = new LoadingDialog(getActivity());
-        Animation ani = AnimationUtils.loadAnimation(this.getActivity(), R.anim.answer_card_bottom_out);
-        ani.setFillAfter(true);
-        ani.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
+        switch (v.getId()) {
+            case R.id.rl_answer_card_mark :
+                mLoadingDialog = new LoadingDialog(getActivity());
+                Animation ani = AnimationUtils.loadAnimation(this.getActivity(), R.anim.answer_card_bottom_out);
+                ani.setFillAfter(true);
+                ani.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                    }
 
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                if(v == btnQuestionSubmit){
-                    ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideFragment();
-                    if(dataList != null && !dataList.isEmpty()){
-                        int unFinishCount = QuestionUtils.calculationUnFinishQuestion(dataList);
-                        if(unFinishCount > 0){
-                            Log.i("unfinish",unFinishCount+"");
-                            quitSubmmitDialog();
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        if(v == btnQuestionSubmit){
+                            ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideFragment();
+                            if(dataList != null && !dataList.isEmpty()){
+                                int unFinishCount = QuestionUtils.calculationUnFinishQuestion(dataList);
+                                if(unFinishCount > 0){
+                                    Log.i("unfinish",unFinishCount+"");
+                                    quitSubmmitDialog();
+                                }else{
+                                    handleUploadSubjectiveImage();
+                                }
+                            }
                         }else{
-                            handleUploadSubjectiveImage();
+                            ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).removeFragment();
                         }
                     }
-                }else{
-                    ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).removeFragment();
-                }
-            }
 
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+                    }
 
-        });
-        rlAnswerCard.startAnimation(ani);
+                });
+                rlAnswerCard.startAnimation(ani);
+                break;
+            case R.id.iv_answer_card_close:
+                ((AnswerViewActivity)getActivity()).hideFragment();
+                break;
+        }
+
     }
 
 
@@ -548,57 +560,38 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
     }
 
 
-    private class AnswerCardAdapter extends BaseAdapter {
+    private class AnswerCardAdapter extends YXiuCustomerBaseAdapter<QuestionEntity>{
         private ViewHolder holder;
-        private Context mContext;
 
         public AnswerCardAdapter(Activity context) {
-            mContext = context;
-        }
-
-        @Override
-        public int getCount() {
-            return 35;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
+            super(context);
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View row = convertView;
-            //if (row == null) {
-                LayoutInflater inflater = getActivity().getLayoutInflater();
+            if (row == null) {
+                LayoutInflater inflater = mContext.getLayoutInflater();
                 row = inflater.inflate(R.layout.item_answer_card, null);
                 holder  = new ViewHolder();
                 holder.ivIcon = (ImageView) row.findViewById(R.id.answer_card_icon);
                 holder.tvIndex = (TextView) row.findViewById(R.id.answer_card_text);
                 row.setTag(holder);
-           // } else {
-                //holder = (ViewHolder) row.getTag();
-           // }
-            if (position < questionList.size()) {
-                QuestionEntity data = questionList.get(position);
-                LogInfo.log("geny", "----------------------->" + data.getAnswerBean().isFinish());
-                if (data.getAnswerBean().isFinish()) {
-                    holder.ivIcon.setBackgroundResource(R.drawable.answer_card_done);
-                } else {
-                    holder.ivIcon.setBackgroundResource(R.drawable.answer_card_undone);
-                }
-                if (data.getChildPositionForCard() == -1) {             //等于-1表示不是复合题类型的解答题(只有是复合题且是解答题的时候才需要显示小题号)
-                    holder.tvIndex.setText((data.getPositionForCard() + 1) + "");
-                } else {
-                    holder.tvIndex.setText((data.getPositionForCard() + 1) + "-" + (data.getChildPositionForCard() + 1));
-                }
             } else {
+                holder = (ViewHolder) row.getTag();
+            }
+
+            QuestionEntity data = mList.get(position);
+            LogInfo.log("geny", "----------------------->" + data.getAnswerBean().isFinish());
+            if(data.getAnswerBean().isFinish()){
+                holder.ivIcon.setBackgroundResource(R.drawable.answer_card_done);
+            }else{
                 holder.ivIcon.setBackgroundResource(R.drawable.answer_card_undone);
+            }
+            if( data.getChildPositionForCard()==-1){             //等于-1表示不是复合题类型的解答题(只有是复合题且是解答题的时候才需要显示小题号)
+                holder.tvIndex.setText((data.getPositionForCard()+1)+"");
+            }else{
+                holder.tvIndex.setText((data.getPositionForCard()+1)+"-"+(data.getChildPositionForCard()+1));
             }
             return row;
         }
