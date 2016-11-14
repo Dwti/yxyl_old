@@ -136,7 +136,8 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/question_content_bg"></RelativeLayout>
+                        android:background="@drawable/question_content_bg"
+                        android:visibility="gone"></RelativeLayout>
 
                     <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
                         android:id="@+id/correction_result_text"

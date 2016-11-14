@@ -356,8 +356,8 @@
 
             <ImageView
                 android:id="@+id/iv_knowledge_point"
-                android:layout_width="@dimen/dimen_45"
-                android:layout_height="@dimen/dimen_18"
+                android:layout_width="@dimen/dimen_72"
+                android:layout_height="@dimen/dimen_33"
                 android:layout_below="@id/knowledge_point_title_line"
                 android:layout_marginLeft="@dimen/dimen_20"
                 android:src="@drawable/knowledge_point_title_bg" />
