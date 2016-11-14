@@ -92,7 +92,7 @@ public class RegisterActivity extends YanxiuBaseActivity{
             case SEND_INDENTIFY_TIME:
                 if(INDENTIFY_TIME_DEFAULT == 0){
                     sendCodeView.setEnabled(true);
-                    sendCodeView.setText(R.string.register_send_code);
+                    sendCodeView.setText(R.string.register_send_code_two);
                 }else{
                     sendCodeView.setEnabled(false);
                     sendCodeView.setText(String.valueOf(INDENTIFY_TIME_DEFAULT));
