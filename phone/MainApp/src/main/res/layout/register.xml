@@ -136,11 +136,22 @@
             android:textSize="@dimen/dimen_14"
             />
     </LinearLayout>
+    <ImageView
+        android:id="@+id/register_dash_line_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/register_username_layout_view"
+        android:layout_alignRight="@id/register_username_layout_view"
+        android:layout_below="@id/register_pwd_layout_view"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_10"
+        android:background="@drawable/my_module_repeat_dash_line"
+        />
     <LinearLayout
         android:id="@+id/pwd_layout_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_60"
-        android:layout_below="@id/register_pwd_layout_view"
+        android:layout_below="@id/register_dash_line_2"
         android:layout_alignLeft="@id/register_username_layout_view"
         android:layout_alignRight="@id/register_username_layout_view"
         android:background="@drawable/logo_content_bg"

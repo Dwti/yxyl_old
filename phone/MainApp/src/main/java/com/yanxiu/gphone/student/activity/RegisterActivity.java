@@ -170,13 +170,15 @@ public class RegisterActivity extends YanxiuBaseActivity{
         userNameText.addTextChangedListener(mUserTextWatcher);
         sendCodeView.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                if(StringUtils.isEmpty(userNameText.getText().toString())){
-                    Util.showUserToast(R.string.mobile_null, -1, -1);
-                    return;
-                }
-                if(!CommonCoreUtil.isMobileNo(userNameText.getText().toString().replaceAll(" ", ""))){
-                    Util.showUserToast(R.string.login_name_ival, -1, -1);
-                    return;
+                if (type!=0){
+                    if(StringUtils.isEmpty(userNameText.getText().toString())){
+                        Util.showUserToast(R.string.mobile_null, -1, -1);
+                        return;
+                    }
+                    if(!CommonCoreUtil.isMobileNo(userNameText.getText().toString().replaceAll(" ", ""))){
+                        Util.showUserToast(R.string.login_name_ival, -1, -1);
+                        return;
+                    }
                 }
                 getRegCode();
             }
@@ -211,10 +213,6 @@ public class RegisterActivity extends YanxiuBaseActivity{
                         return;
                     }
                 }else {
-                    if(!CommonCoreUtil.isPasswordRight(password)){
-                        Util.showUserToast(R.string.set_password_6_8, -1, -1);
-                        return;
-                    }
                     if (StringUtils.isEmpty(mobile)) {
                         Util.showUserToast(R.string.mobile_null, -1, -1);
                         return;
