@@ -188,28 +188,47 @@ public class RegisterActivity extends YanxiuBaseActivity{
                 String mobile=userNameText.getText().toString().trim();
                 String password=set_password_one.getText().toString().trim();
                 String code=codeView.getText().toString().trim();
-                if (StringUtils.isEmpty(mobile)) {
-                    Util.showUserToast(R.string.mobile_null, -1, -1);
-                    return;
-                }
-                if (!CommonCoreUtil.isMobileNo(mobile.replaceAll(" ", ""))) {
-                    Util.showUserToast(R.string.login_name_ival, -1, -1);
-                    return;
-                }
-                if (StringUtils.isEmpty(code)) {
-                    Util.showUserToast(R.string.register_code_null, -1, -1);
-                    return;
-                }
+
                 if (type==0) {
                     if (StringUtils.isEmpty(password)) {
-                        Util.showUserToast(R.string.set_password_null, -1, -1);
+//                        Util.showUserToast(R.string.set_password_null, -1, -1);
+                        return;
+                    }
+                    if(!CommonCoreUtil.isPasswordRight(password)){
+//                        Util.showUserToast(R.string.set_password_6_8, -1, -1);
+                        return;
+                    }
+                    if (StringUtils.isEmpty(mobile)) {
+//                        Util.showUserToast(R.string.mobile_null, -1, -1);
+                        return;
+                    }
+                    if (!CommonCoreUtil.isMobileNo(mobile.replaceAll(" ", ""))) {
+//                        Util.showUserToast(R.string.login_name_ival, -1, -1);
+                        return;
+                    }
+                    if (StringUtils.isEmpty(code)) {
+//                        Util.showUserToast(R.string.register_code_null, -1, -1);
+                        return;
+                    }
+                }else {
+                    if(!CommonCoreUtil.isPasswordRight(password)){
+                        Util.showUserToast(R.string.set_password_6_8, -1, -1);
+                        return;
+                    }
+                    if (StringUtils.isEmpty(mobile)) {
+                        Util.showUserToast(R.string.mobile_null, -1, -1);
+                        return;
+                    }
+                    if (!CommonCoreUtil.isMobileNo(mobile.replaceAll(" ", ""))) {
+                        Util.showUserToast(R.string.login_name_ival, -1, -1);
+                        return;
+                    }
+                    if (StringUtils.isEmpty(code)) {
+                        Util.showUserToast(R.string.register_code_null, -1, -1);
                         return;
                     }
                 }
-                if(!CommonCoreUtil.isPasswordRight(password)){
-                    Util.showUserToast(R.string.set_password_6_8, -1, -1);
-                    return;
-                }
+
                 CommonCoreUtil.hideSoftInput(userNameText);
                 CommonCoreUtil.hideSoftInput(codeView);
                 LoginModel.setMobile(mobile.replaceAll(" ", ""));
