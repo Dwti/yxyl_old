@@ -252,7 +252,7 @@ public class SchoolSearchActivity extends YanxiuBaseActivity{
                     Util.showToast(schoolListBean.getStatus().getDesc());
                 }
             }else{
-                Util.showToast(R.string.data_null);
+                Util.showToast(R.string.search_school_no);
             }
         }
 

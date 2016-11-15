@@ -49,6 +49,7 @@ import com.yanxiu.gphone.student.requestTask.RequestLoginTask;
 import com.yanxiu.gphone.student.requestTask.RequestThirdLoginTask;
 import com.yanxiu.gphone.student.requestTask.RequestTokenBackTask;
 import com.yanxiu.gphone.student.requestTask.RequestWXUserInfoTask;
+import com.yanxiu.gphone.student.utils.EditTextWatcherUtils;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.view.LoginRelativeLayoutView;
 import com.yanxiu.gphone.student.view.StudentLoadingLayout;
@@ -143,6 +144,7 @@ public class LoginActivity extends YanxiuBaseActivity implements
         userNameText = (EditText) findViewById(R.id.login_username);
         Util.setViewTypeface(YanxiuTypefaceTextView.TypefaceType.METRO_BOLD, userNameText);
         passwordText = (EditText) findViewById(R.id.login_password);
+        EditTextWatcherUtils.getInstence().setEditText(passwordText);
         forgetPwdText = (TextView) findViewById(R.id.forget_password);
         loginText = (TextView) findViewById(R.id.login);
         registerText = (TextView) findViewById(R.id.register);

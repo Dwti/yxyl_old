@@ -14,6 +14,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.common.core.utils.CommonCoreUtil;
@@ -21,6 +22,7 @@ import com.common.core.utils.LogInfo;
 import com.common.core.utils.StringUtils;
 import com.common.login.LoginModel;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
+import com.yanxiu.basecore.exception.ErrorCode;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
 import com.yanxiu.gphone.student.bean.RequestBean;
@@ -28,6 +30,7 @@ import com.yanxiu.gphone.student.inter.AsyncCallBack;
 import com.yanxiu.gphone.student.requestTask.RegisterTask;
 import com.yanxiu.gphone.student.requestTask.RequestProduceCodeTask;
 import com.yanxiu.gphone.student.requestTask.RequestValidateProduceCodeTask;
+import com.yanxiu.gphone.student.utils.EditTextWatcherUtils;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.view.StudentLoadingLayout;
 import com.yanxiu.gphone.student.view.YanxiuTypefaceTextView;
@@ -127,9 +130,17 @@ public class RegisterActivity extends YanxiuBaseActivity{
         sendCodeView = (TextView)findViewById(R.id.register_send_code);
         registerNext = (TextView)findViewById(R.id.register_upload);
         Util.setViewTypeface(YanxiuTypefaceTextView.TypefaceType.FANGZHENG, registerNext);
+        if (type==0) {
+            registerNext.setText(R.string.register);
+        }
+        LinearLayout pwd_layout_view= (LinearLayout) findViewById(R.id.pwd_layout_view);
+        if (type!=0){
+            pwd_layout_view.setVisibility(View.GONE);
+        }
         delView = (ImageView)findViewById(R.id.del_username);
         loading = (StudentLoadingLayout)findViewById(R.id.loading);
         set_password_one= (EditText) findViewById(R.id.set_password_one);
+        EditTextWatcherUtils.getInstence().setEditText(set_password_one);
         ImageView del_pwd= (ImageView) findViewById(R.id.del_pwd);
         del_pwd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,9 +200,11 @@ public class RegisterActivity extends YanxiuBaseActivity{
                     Util.showUserToast(R.string.register_code_null, -1, -1);
                     return;
                 }
-                if (StringUtils.isEmpty(password)) {
-                    Util.showUserToast(R.string.set_password_null, -1, -1);
-                    return;
+                if (type==0) {
+                    if (StringUtils.isEmpty(password)) {
+                        Util.showUserToast(R.string.set_password_null, -1, -1);
+                        return;
+                    }
                 }
                 if(!CommonCoreUtil.isPasswordRight(password)){
                     Util.showUserToast(R.string.set_password_6_8, -1, -1);
@@ -275,21 +288,46 @@ public class RegisterActivity extends YanxiuBaseActivity{
      * */
     private void validateCode(String mobile,final String password,String code){
         loading.setViewType(StudentLoadingLayout.LoadingType.LAODING_COMMON);
-        RegisterTask registerTask=new RegisterTask(this, mobile, password, code, type, new AsyncCallBack() {
-            @Override
-            public void update(YanxiuBaseBean result) {
+        if (type==0) {
+            RegisterTask registerTask = new RegisterTask(this, mobile, password, code, type, new AsyncCallBack() {
+                @Override
+                public void update(YanxiuBaseBean result) {
+                    loading.setViewGone();
+                    RequestBean requestBean = (RequestBean) result;
+                    if (requestBean.getStatus().getCode() == 0) {
+//                    SetPasswordActivity.launchActivity(RegisterActivity.this, type);
+                        RegisterJoinGroupActivity.launchActivity(RegisterActivity.this);
+                    } else {
+                        Util.showUserToast(requestBean.getStatus().getDesc(), null, null);
+                    }
+                }
+
+                @Override
+                public void dataError(int type, String msg) {
+                    loading.setViewGone();
+                    if (type == ErrorCode.NETWORK_NOT_AVAILABLE) {
+                        Util.showUserToast(R.string.net_null, -1, -1);
+                    } else {
+                        Util.showUserToast(R.string.data_error, -1, -1);
+                    }
+                }
+            });
+            registerTask.start();
+        }else {
+        requestValidateProduceCodeTask = new RequestValidateProduceCodeTask(this,
+                userNameText.getText().toString().replaceAll(" ", ""),
+                codeView.getText().toString(), type, new AsyncCallBack() {
+            @Override public void update(YanxiuBaseBean result) {
                 loading.setViewGone();
                 RequestBean requestBean = (RequestBean)result;
                 if(requestBean.getStatus().getCode() == 0){
-//                    SetPasswordActivity.launchActivity(RegisterActivity.this, type);
-                    RegisterJoinGroupActivity.launchActivity(RegisterActivity.this);
+                    SetPasswordActivity.launchActivity(RegisterActivity.this, type);
                 }else{
                     Util.showUserToast(requestBean.getStatus().getDesc(), null, null);
                 }
             }
 
-            @Override
-            public void dataError(int type, String msg) {
+            @Override public void dataError(int type, String msg) {
                 loading.setViewGone();
                 if(!StringUtils.isEmpty(msg)){
                     Util.showUserToast(msg, null, null);
@@ -298,31 +336,8 @@ public class RegisterActivity extends YanxiuBaseActivity{
                 }
             }
         });
-        registerTask.start();
-
-//        requestValidateProduceCodeTask = new RequestValidateProduceCodeTask(this,
-//                userNameText.getText().toString().replaceAll(" ", ""),
-//                codeView.getText().toString(), type, new AsyncCallBack() {
-//            @Override public void update(YanxiuBaseBean result) {
-//                loading.setViewGone();
-//                RequestBean requestBean = (RequestBean)result;
-//                if(requestBean.getStatus().getCode() == 0){
-//                    SetPasswordActivity.launchActivity(RegisterActivity.this, type);
-//                }else{
-//                    Util.showUserToast(requestBean.getStatus().getDesc(), null, null);
-//                }
-//            }
-//
-//            @Override public void dataError(int type, String msg) {
-//                loading.setViewGone();
-//                if(!StringUtils.isEmpty(msg)){
-//                    Util.showUserToast(msg, null, null);
-//                }else{
-//                   Util.showUserToast(R.string.net_null, -1, -1);
-//                }
-//            }
-//        });
-//        requestValidateProduceCodeTask.start();
+        requestValidateProduceCodeTask.start();
+        }
     }
 
     @Override protected void onDestroy() {

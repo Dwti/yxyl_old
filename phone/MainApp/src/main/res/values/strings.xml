@@ -358,8 +358,10 @@
     <string name="search_school_tag">没有找到？输入完整的学校名称添加^_^</string>
     <string name="search_school_result">搜索结果</string>
     <string name="data_null">没有您需要的数据</string>
+    <string name="search_school_no">没有搜索到相应学校</string>
     <string name="server_exception">服务端异常，请稍后再试</string>
     <string name="net_null">网络异常，请稍后重试</string>
+    <string name="data_error">出错了请稍后再试</string>
     <string name="add_school_name_null">添加学校名不能为空！</string>
     <string name="school_name_title">学校名称</string>
     <string name="search_school_hint">请输入学校名称</string>

@@ -123,7 +123,7 @@ public class RegisterAddGroupActivity extends YanxiuBaseActivity implements View
             case R.id.group_info_click:
                 String user_name = name.getText().toString().trim();
                 if (TextUtils.isEmpty(user_name)) {
-                    Util.showToast("请输入真实姓名");
+//                    Util.showToast("请输入真实姓名");
                     return;
                 }
                 if (TextUtils.isEmpty(platform)) {
@@ -157,7 +157,7 @@ public class RegisterAddGroupActivity extends YanxiuBaseActivity implements View
                 if (userInfoBean != null && userInfoBean.getStatus() != null) {
                     if (userInfoBean.getStatus().getCode() == 0) {
                         userInfoBean.setIsThridLogin(true);
-                        MainActivity.launchActivity(RegisterAddGroupActivity.this);
+                        MainActivity.LaunchActivityToIndex(RegisterAddGroupActivity.this,1);
                         RegisterAddGroupActivity.this.finish();
                         registerStatistics();
                     } else {
@@ -176,9 +176,9 @@ public class RegisterAddGroupActivity extends YanxiuBaseActivity implements View
             public void dataError(int type, String msg) {
                 rootView.finish();
                 if (type == ErrorCode.NETWORK_NOT_AVAILABLE) {
-                    Util.showToast(R.string.net_null);
+                    Util.showUserToast(R.string.net_null, -1, -1);
                 } else {
-                    Util.showToast(R.string.login_fail);
+                    Util.showUserToast(R.string.data_error, -1, -1);
                 }
 
             }
@@ -198,7 +198,7 @@ public class RegisterAddGroupActivity extends YanxiuBaseActivity implements View
                 UserInfoBean userInfoBean = (UserInfoBean) result;
                 if (userInfoBean.getStatus().getCode() == 0) {
                     userInfoBean.setIsThridLogin(false);
-                    MainActivity.launchActivity(RegisterAddGroupActivity.this);
+                    MainActivity.LaunchActivityToIndex(RegisterAddGroupActivity.this,1);
                     RegisterAddGroupActivity.this.finish();
                     registerStatistics();
                 } else {
@@ -209,10 +209,10 @@ public class RegisterAddGroupActivity extends YanxiuBaseActivity implements View
             @Override
             public void dataError(int type, String msg) {
                 rootView.finish();
-                if (!StringUtils.isEmpty(msg)) {
-                    Util.showUserToast(msg, null, null);
+                if (type == ErrorCode.NETWORK_NOT_AVAILABLE) {
+                    Util.showUserToast(R.string.net_null, -1, -1);
                 } else {
-                    Util.showUserToast(R.string.net_null_one, -1, -1);
+                    Util.showUserToast(R.string.data_error, -1, -1);
                 }
             }
         });

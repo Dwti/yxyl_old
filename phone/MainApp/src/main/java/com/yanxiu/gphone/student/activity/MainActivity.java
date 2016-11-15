@@ -65,6 +65,12 @@ public class MainActivity extends YanxiuBaseActivity implements View.OnClickList
         activity.startActivity(intent);
     }
 
+    public static void LaunchActivityToIndex(Activity activity,int type){
+        Intent intent = new Intent(activity, MainActivity.class);
+        intent.putExtra("type",type);
+        activity.startActivity(intent);
+    }
+
     // private RequestUserInfoTask mRequestUserInfoTask;
     private PublicLoadLayout rootView;
     //-------modified by zengsonghai 2015-12-02-----start
@@ -151,6 +157,10 @@ public class MainActivity extends YanxiuBaseActivity implements View.OnClickList
                     default:
                         break;
                 }
+            }
+            int type=intent.getIntExtra("type",0);
+            if (type==1){
+                showCurrentFragment(type);
             }
         }
     }

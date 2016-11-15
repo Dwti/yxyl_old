@@ -98,7 +98,7 @@ public class RegisterJoinGroupActivity extends YanxiuBaseActivity implements Vie
             case R.id.group_bottom_submit:
                 String groupNum=groupNumView.getPassWord();
                 if (groupNum.length()<8){
-                    Util.showUserToast(R.string.group_num_no_right, -1, -1);
+//                    Util.showUserToast(R.string.group_num_no_right, -1, -1);
                     return;
                 }
                 JoinGroup(groupNum);

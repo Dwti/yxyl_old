@@ -205,7 +205,7 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
             @Override
             public void onClick(View v) {
                 if (StringUtils.isEmpty(nameView.getText().toString())) {
-                    Util.showUserToast(R.string.edit_name_null, -1, -1);
+//                    Util.showUserToast(R.string.edit_name_null, -1, -1);
                     return;
                 }
 //                if (StringUtils.isEmpty(nickNameView.getText().toString())) {
@@ -213,17 +213,17 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
 //                    return;
 //                }
                 if (StringUtils.isEmpty(zipcode)) {
-                    Util.showUserToast(R.string.edit_area_null, -1, -1);
+//                    Util.showUserToast(R.string.edit_area_null, -1, -1);
                     return;
                 }
                 if (schoolView.getTag() == null && StringUtils
                         .isEmpty(schoolView.getText().toString())) {
-                    Util.showUserToast(R.string.edit_school_null, -1, -1);
+//                    Util.showUserToast(R.string.edit_school_null, -1, -1);
                     return;
                 }
                 if (stageView.getTag() == null
                         || ((Integer) stageView.getTag()) == 0) {
-                    Util.showUserToast(R.string.edit_stage_null, -1, -1);
+//                    Util.showUserToast(R.string.edit_stage_null, -1, -1);
                     return;
                 }
                 hideWindowSoft();
@@ -282,10 +282,10 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
             @Override
             public void dataError(int type, String msg) {
                 rootView.finish();
-                if (!StringUtils.isEmpty(msg)) {
-                    Util.showUserToast(msg, null, null);
-                } else {
+                if (type == ErrorCode.NETWORK_NOT_AVAILABLE) {
                     Util.showUserToast(R.string.net_null, -1, -1);
+                } else {
+                    Util.showUserToast(R.string.data_error, -1, -1);
                 }
             }
         });
@@ -461,9 +461,9 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
             public void dataError(int type, String msg) {
                 rootView.finish();
                 if (type == ErrorCode.NETWORK_NOT_AVAILABLE) {
-                    Util.showToast(R.string.net_null);
+                    Util.showUserToast(R.string.net_null, -1, -1);
                 } else {
-                    Util.showToast(R.string.login_fail);
+                    Util.showUserToast(R.string.data_error, -1, -1);
                 }
             }
         }).start();
