@@ -52,6 +52,7 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
     protected boolean is_reduction = false;
     protected int childPagerIndex;
     public InputMethodManager imm;
+    private int number;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -127,7 +128,7 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
                 }
             }*/
             if (ischild) {
-                tvQuestionTitle.setText(""+childPagerIndex+"/"+mPageCount);
+                    tvQuestionTitle.setText(""+(pageIndex+1)+"/"+number);
             } else {
                 tvQuestionTitle.setText(String.format(this.getResources().getString(R.string.pager_index), String.valueOf(pageIndex)));
             }
@@ -153,8 +154,9 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
         return 1;
     }
 
-    public void setIsChild(boolean ischild) {
+    public void setIsChild(boolean ischild,int number) {
         this.ischild = ischild;
+        this.number=number;
     }
 
 
