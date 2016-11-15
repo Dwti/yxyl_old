@@ -82,6 +82,7 @@ public class RegisterActivity extends YanxiuBaseActivity{
     private RequestValidateProduceCodeTask requestValidateProduceCodeTask;
 
     private final static int SEND_INDENTIFY_TIME = 0x01;
+    private final static int SEND_INDENTIFY_TIMES = 0x02;
 
     private final static int SEND_INDENTIFY_TIME_DELAY = 1000;
 
@@ -104,6 +105,12 @@ public class RegisterActivity extends YanxiuBaseActivity{
                     INDENTIFY_TIME_DEFAULT--;
                 }
                 break;
+                case SEND_INDENTIFY_TIMES:
+                    if (INDENTIFY_TIME_DEFAULT==0){
+                        sendCodeView.setEnabled(true);
+                        sendCodeView.setText(R.string.register_send_code);
+                    }
+                    break;
             }
         }
     };
@@ -429,6 +436,10 @@ public class RegisterActivity extends YanxiuBaseActivity{
                 sendCodeView.setTextColor(getResources().getColor(R.color.color_805500));
             }else{
                 sendCodeView.setTextColor(getResources().getColor(R.color.color_e4b62e));
+            }
+            String mobile=LoginModel.getMobile();
+            if (!TextUtils.isEmpty(mobile)&&userNameText.getText().toString().trim().replace(" ","").length()==11&&!userNameText.getText().toString().trim().replace(" ","").equals(mobile)){
+                mHandler.sendEmptyMessageDelayed(SEND_INDENTIFY_TIME,10);
             }
 //            int length = s.length();
 //            if(length>0){

@@ -46,7 +46,7 @@ public class RegisterJoinGroupActivity extends YanxiuBaseActivity implements Vie
     }
 
     public static void launchActivity(Activity context, String openid, String uniqid, String platform, WXUserInfoBean wxUserInfoBean) {
-        Intent intent = new Intent(context, UserInfoActivity.class);
+        Intent intent = new Intent(context, RegisterJoinGroupActivity.class);
         intent.putExtra("openid", openid);
         intent.putExtra("uniqid", uniqid);
         intent.putExtra("platform", platform);

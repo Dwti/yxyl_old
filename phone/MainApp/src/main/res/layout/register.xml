@@ -205,7 +205,8 @@
         android:textColor="@color/color_805500"
         android:textSize="@dimen/dimen_20"
         />
-
+<!--color_e4b62e-->
+    <!--color_805500-->
     <com.yanxiu.gphone.student.view.StudentLoadingLayout
         android:id="@+id/loading"
         android:layout_width="wrap_content"

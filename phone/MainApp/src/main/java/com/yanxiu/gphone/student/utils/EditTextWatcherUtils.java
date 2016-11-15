@@ -38,18 +38,21 @@ public class EditTextWatcherUtils {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String text = s.toString();
-            if (!text.equals("") && !text.matches(regs)) {
-                if (view != null) {
-                    view.setText(TextBeforeChange);
-                    view.setSelection(TextBeforeChange.length() - 1);
-                }
-            }
+
         }
 
         @Override
         public void afterTextChanged(Editable s) {
-
+            String text = s.toString();
+            if (!text.equals("") && !text.matches(regs)) {
+                if (view != null) {
+                    view.setText(TextBeforeChange);
+                    int index=view.getText().length();
+                    if (index>0) {
+                        view.setSelection(index);
+                    }
+                }
+            }
         }
     };
 }
