@@ -547,25 +547,25 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
                     if (template.equals(YanXiuConstant.SINGLE_CHOICES)) {
                         fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_SINGLE_CHOICES, list.get(i).getQuestions(), answerViewTypyBean, list.get(i).getQuestions().getChildPageIndex());
                         ((ChoiceQuestionFragment) fragment).setAnswerCallback(i, callback);
-                        ((ChoiceQuestionFragment) fragment).setIsChild(true);
+                        ((ChoiceQuestionFragment) fragment).setIsChild(true,list.size());
                     } else if (template.equals(YanXiuConstant.MULTI_CHOICES)) {
                         fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_MULTI_CHOICES, list.get(i).getQuestions(), answerViewTypyBean, list.get(i).getQuestions().getChildPageIndex());
-                        ((ChoiceQuestionFragment) fragment).setIsChild(true);
+                        ((ChoiceQuestionFragment) fragment).setIsChild(true,list.size());
                     } else if (template.equals(YanXiuConstant.JUDGE_QUESTION)) {
                         fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_JUDGE, list.get(i).getQuestions(), answerViewTypyBean, list.get(i).getQuestions().getChildPageIndex());
-                        ((JudgeQuestionFragment) fragment).setIsChild(true);
+                        ((JudgeQuestionFragment) fragment).setIsChild(true,list.size());
                     } else if (template.equals(YanXiuConstant.FILL_BLANK)) {
                         fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_FILL_BLANKS, list.get(i).getQuestions(), answerViewTypyBean, list.get(i).getQuestions().getChildPageIndex());
-                        ((NewFillBlanksFragment) fragment).setIsChild(true);
+                        ((NewFillBlanksFragment) fragment).setIsChild(true,list.size());
                     } else if (template.equals(YanXiuConstant.ANSWER_QUESTION)) {
                         fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_SUBJECTIVE, list.get(i).getQuestions(), answerViewTypyBean, list.get(i).getQuestions().getChildPageIndex());
-                        ((SubjectiveQuestionFragment) fragment).setIsChild(true);
+                        ((SubjectiveQuestionFragment) fragment).setIsChild(true,list.size());
                     } else if (template.equals(YanXiuConstant.CLASSIFY_QUESTION)) {
                         fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_CLASSFY, list.get(i).getQuestions(), answerViewTypyBean, list.get(i).getQuestions().getChildPageIndex());
-                        ((SubjectiveQuestionFragment) fragment).setIsChild(true);
+                        ((SubjectiveQuestionFragment) fragment).setIsChild(true,list.size());
                     }  else if (template.equals(YanXiuConstant.CONNECT_QUESTION)) {
                         fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_CONNECT, list.get(i).getQuestions(), answerViewTypyBean, list.get(i).getQuestions().getChildPageIndex());
-                        ((ConnectFragment) fragment).setIsChild(true);
+                        ((ConnectFragment) fragment).setIsChild(true,list.size());
                     }else {
                         dirtyData.add(list.get(i).getQuestions());
                     }

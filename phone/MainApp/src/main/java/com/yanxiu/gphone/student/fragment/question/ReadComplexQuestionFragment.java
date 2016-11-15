@@ -146,7 +146,6 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
         vpAnswer.setAdapter(adapter);
         adapter.setViewPager(vpAnswer);
         vpAnswer.setCurrentItem(childPagerIndex);
-
     }
 
     public void onPageCount(int count) {

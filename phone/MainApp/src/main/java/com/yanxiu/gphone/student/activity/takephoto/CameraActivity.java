@@ -21,6 +21,8 @@ import com.common.core.utils.CommonCoreUtil;
 import com.common.core.utils.LogInfo;
 import com.common.core.utils.PictureHelper;
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.activity.ImageBucketActivity;
+import com.yanxiu.gphone.student.activity.ImagePicSelActivity;
 import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
 import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
 import com.yanxiu.gphone.student.utils.MediaUtils;
@@ -197,7 +199,10 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                 break;
             case R.id.iv_picture:
                 if (CommonCoreUtil.sdCardMounted()){
-                    ActivityJumpUtils.jumpToImageBucketActivityForResult(CameraActivity.this, MediaUtils.OPEN_SYSTEM_PIC_BUILD_CAMERA);
+                    //ActivityJumpUtils.jumpToImageBucketActivityForResult(CameraActivity.this, MediaUtils.OPEN_SYSTEM_PIC_BUILD_CAMERA);
+                    //if(ShareBitmapUtils.getInstance().getDataList()!=null&&ShareBitmapUtils.getInstance().getDataList().size()>0){
+                        ActivityJumpUtils.jumpToImagePicSelActivityForResult(CameraActivity.this, 0, ImagePicSelActivity.REQUEST_CODE);
+                    //}
                 }
                 //CameraActivityPermissionsDispatcher.pickImageWithCheck(this);
                 break;

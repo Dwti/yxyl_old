@@ -50,6 +50,8 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
 //
     private YXiuAnserTextView tvDifficulltyText;
 
+    private YXiuAnserTextView tvAnswerText;
+
     private SubjectiveStarLayout difficultyStart;
 
     private View rootView;
@@ -60,6 +62,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
     private LinearLayout llParseKnowledge;
     private LinearLayout llReportParse;
     private LinearLayout llDifficullty;
+    private LinearLayout llAnswer;
 
     private TextView tvReportQuestionError;
 
@@ -101,11 +104,13 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
         tvReportQuestionError = (TextView) rootView.findViewById(R.id.tv_report_question_error);
 
         tvDifficulltyText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_difficullty_text);
+        tvAnswerText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_answer_text);
 
         subjectiveStarLayout = (SubjectiveHeartLayout) rootView.findViewById(R.id.view_correction_result);
 
         difficultyStart = (SubjectiveStarLayout) rootView.findViewById(R.id.view_sub_difficulty_star);
         llDifficullty = (LinearLayout) rootView.findViewById(R.id.hw_report_difficullty_layout);
+        llAnswer = (LinearLayout) rootView.findViewById(R.id.hw_report_answer_layout);
 
         llReportParse = (LinearLayout) rootView.findViewById(R.id.hw_report_parse_layout);
 
@@ -181,6 +186,17 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
             if(questionsEntity != null){
                 difficultyStart.selectStarCount(questionsEntity.getDifficulty());
                 tvDifficulltyText.setTextHtml(getTypeKey(String.valueOf(questionsEntity.getDifficulty())));
+            }
+
+            if(questionsEntity.getAnswer() != null && questionsEntity.getAnswer().size()>0){
+                StringBuffer answerString = new StringBuffer();
+                for (String str:questionsEntity.getAnswer()) {
+                    answerString.append(str);
+                }
+                tvAnswerText.setTextHtml(answerString.toString());
+                tvAnswerText.setVisibility(View.VISIBLE);
+            } else{
+                llAnswer.setVisibility(View.GONE);
             }
 
 

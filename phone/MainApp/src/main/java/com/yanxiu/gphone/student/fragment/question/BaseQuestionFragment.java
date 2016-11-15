@@ -34,6 +34,7 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
     protected int answerViewTypyBean;
     private long startTime, endTime;
     protected int pageIndex;
+    private int mPageCount;
 
     protected View rootView;
 
@@ -51,6 +52,7 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
     protected boolean is_reduction = false;
     protected int childPagerIndex;
     public InputMethodManager imm;
+    private int number;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -117,14 +119,20 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
             } else if (typeId == 20) {
                 ivTopIcon.setImageResource(R.drawable.sorting_title_bg);
             }
-            if (questionsEntity.isReadQuestion()) {
+            /*if (questionsEntity.isReadQuestion()) {
                 rlTopView.setVisibility(View.GONE);
             } else {
                 questionTitle = questionsEntity.getTitleName();
                 if (!TextUtils.isEmpty(questionTitle)) {
                     tvQuestionTitle.setText(questionTitle);
                 }
+            }*/
+            if (ischild) {
+                    tvQuestionTitle.setText(""+(pageIndex+1)+"/"+number);
+            } else {
+                tvQuestionTitle.setText(String.format(this.getResources().getString(R.string.pager_index), String.valueOf(pageIndex)));
             }
+
         }
 
     }
@@ -146,8 +154,9 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
         return 1;
     }
 
-    public void setIsChild(boolean ischild) {
+    public void setIsChild(boolean ischild,int number) {
         this.ischild = ischild;
+        this.number=number;
     }
 
 

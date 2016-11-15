@@ -212,6 +212,45 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/hw_report_answer_layout"
+        android:orientation="vertical" >
+
+        <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <View android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1"
+                android:id="@+id/problem_answer_title_line"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_marginBottom="@dimen/dimen_10"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:background="@drawable/repeat_common_line" />
+
+            <ImageView android:layout_width="@dimen/dimen_28"
+                android:layout_height="@dimen/dimen_15"
+                android:layout_below="@id/problem_answer_title_line"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:src="@drawable/problem_answer_title_bg"/>
+
+        </RelativeLayout>
+
+        <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:id="@+id/hw_report_answer_text"
+            android:layout_marginTop="@dimen/dimen_5"
+            android:layout_marginBottom="@dimen/dimen_5"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:textSize="@dimen/dimen_15"
+            android:textColor="@color/color_ff323232" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/hw_report_parse_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -292,7 +331,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/question_content_bg"></RelativeLayout>
+                android:background="@drawable/question_content_bg"
+                ></RelativeLayout>
 
             <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
                 android:id="@+id/hw_report_parse_text"
@@ -356,8 +396,8 @@
 
             <ImageView
                 android:id="@+id/iv_knowledge_point"
-                android:layout_width="@dimen/dimen_72"
-                android:layout_height="@dimen/dimen_33"
+                android:layout_width="@dimen/dimen_45"
+                android:layout_height="@dimen/dimen_18"
                 android:layout_below="@id/knowledge_point_title_line"
                 android:layout_marginLeft="@dimen/dimen_20"
                 android:src="@drawable/knowledge_point_title_bg" />
