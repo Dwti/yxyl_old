@@ -81,6 +81,8 @@ public class RegisterActivity extends YanxiuBaseActivity{
 
     private RequestValidateProduceCodeTask requestValidateProduceCodeTask;
 
+    private String TestMobile="";
+
     private final static int SEND_INDENTIFY_TIME = 0x01;
     private final static int SEND_INDENTIFY_TIMES = 0x02;
 
@@ -96,7 +98,11 @@ public class RegisterActivity extends YanxiuBaseActivity{
             case SEND_INDENTIFY_TIME:
                 if(INDENTIFY_TIME_DEFAULT == 0){
                     sendCodeView.setEnabled(true);
-                    sendCodeView.setText(R.string.register_send_code_two);
+                    if (userNameText.getText().toString().trim().replace(" ","").equals(TestMobile)){
+                        sendCodeView.setText(R.string.register_send_code_two);
+                    }else {
+                        sendCodeView.setText(R.string.register_send_code);
+                    }
                 }else{
                     sendCodeView.setEnabled(false);
                     sendCodeView.setText(String.valueOf(INDENTIFY_TIME_DEFAULT));
@@ -273,6 +279,7 @@ public class RegisterActivity extends YanxiuBaseActivity{
      * 获取验证码
      * */
     private void getRegCode(){
+        TestMobile=userNameText.getText().toString().replaceAll(" ", "");
         loading.setViewType(StudentLoadingLayout.LoadingType.LAODING_COMMON);
         requestProduceCodeTask = new RequestProduceCodeTask(this,
                 userNameText.getText().toString().replaceAll(" ", ""), type, new AsyncCallBack() {
@@ -437,9 +444,8 @@ public class RegisterActivity extends YanxiuBaseActivity{
             }else{
                 sendCodeView.setTextColor(getResources().getColor(R.color.color_e4b62e));
             }
-            String mobile=LoginModel.getMobile();
-            if (!TextUtils.isEmpty(mobile)&&userNameText.getText().toString().trim().replace(" ","").length()==11&&!userNameText.getText().toString().trim().replace(" ","").equals(mobile)){
-                mHandler.sendEmptyMessageDelayed(SEND_INDENTIFY_TIME,10);
+            if (!TextUtils.isEmpty(TestMobile)&&userNameText.getText().toString().trim().replace(" ","").length()==11&&!userNameText.getText().toString().trim().replace(" ","").equals(TestMobile)){
+                mHandler.sendEmptyMessageDelayed(SEND_INDENTIFY_TIMES,10);
             }
 //            int length = s.length();
 //            if(length>0){
