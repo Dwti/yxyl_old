@@ -164,7 +164,6 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
 //        }
         vpAnswer.setAdapter(adapter);
         adapter.setViewPager(vpAnswer);
-
     }
 
     public void onPageCount(int count) {

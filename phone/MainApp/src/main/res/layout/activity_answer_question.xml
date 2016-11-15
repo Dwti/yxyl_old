@@ -170,7 +170,8 @@
     <RelativeLayout android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_40"
         android:layout_gravity="bottom"
-        android:layout_margin="@dimen/dimen_20" >
+        android:layout_margin="@dimen/dimen_20"
+        android:visibility="gone">
         
         
         <com.yanxiu.gphone.student.view.YanxiuTypefaceButton

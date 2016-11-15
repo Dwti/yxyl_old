@@ -287,6 +287,7 @@
     <string name="answer_view_tips">GO!</string>
     <string name="pager_index_1">第&#160;</string>
     <string name="pager_index_2">&#160;题</string>
+    <string name="pager_index">第%s题</string>
     <string name="pager_count">共%s题</string>
     <string name="last_question">上一题</string>
     <string name="next_question">下一题</string>

@@ -67,6 +67,8 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
 
     private YXiuAnserTextView tvDifficulltyText;
 
+    private YXiuAnserTextView tvAnswerText;
+
     private SubjectiveStarLayout difficultyStart;
 
     private TextView tvReportQuestionError;
@@ -82,6 +84,7 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
     private LinearLayout llParseKnowledge;
     private LinearLayout llReportParse;
     private LinearLayout llDifficullty;
+    private LinearLayout llAnswer;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         this.questionsEntity = (getArguments() != null) ? (QuestionEntity) getArguments().getSerializable("questions") : null;
@@ -101,11 +104,13 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
         tvReportParseStatueText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_parse_statue_text);
         tvReportParseStatisticsText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_parse_statistics_text);
         tvDifficulltyText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_difficullty_text);
+        tvAnswerText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_answer_text);
 
         tvReportQuestionError = (TextView) rootView.findViewById(R.id.tv_report_question_error);
 
         difficultyStart = (SubjectiveStarLayout) rootView.findViewById(R.id.view_sub_difficulty_star);
         llDifficullty = (LinearLayout) rootView.findViewById(R.id.hw_report_difficullty_layout);
+        llAnswer = (LinearLayout) rootView.findViewById(R.id.hw_report_answer_layout);
 
         llReportParseStatue = (LinearLayout) rootView.findViewById(R.id.hw_report_parse_statue_layout);
         llReportParseStatistics = (LinearLayout) rootView.findViewById(R.id.hw_report_parse_statistics_layout);
@@ -164,6 +169,17 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                 tvDifficulltyText.setTextHtml(getTypeKey(String.valueOf(questionsEntity.getDifficulty())));
                 tvDifficulltyText.setVisibility(View.GONE);
             }
+
+            /*if(questionsEntity.getAnswer() != null && questionsEntity.getAnswer().size()>0){
+                StringBuffer answerString = new StringBuffer();
+                for (String str:questionsEntity.getAnswer()) {
+                    answerString.append(str);
+                }
+                tvAnswerText.setTextHtml(answerString.toString());
+                tvDifficulltyText.setVisibility(View.GONE);
+            } else{
+                llAnswer.setVisibility(View.GONE);
+            }*/
             if(questionsEntity.getAnalysis() != null && !TextUtils.isEmpty(questionsEntity.getAnalysis())){
                 tvReportParseText.setTextHtml(questionsEntity.getAnalysis());
             }else{

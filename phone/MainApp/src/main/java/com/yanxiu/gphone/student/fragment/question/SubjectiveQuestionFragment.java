@@ -93,7 +93,6 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         changeCurrentSelData(questionsEntity);
         selectTypeView();
 
-
         return rootView;
     }
 
