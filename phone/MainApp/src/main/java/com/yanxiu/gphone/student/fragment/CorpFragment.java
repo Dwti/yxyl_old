@@ -165,7 +165,6 @@ public class CorpFragment extends Fragment {
     public void cropImage() {
         showProgress();
         mCropView.startCrop(createSaveUri(), mCropCallback, mSaveCallback);
-        EventBus.getDefault().post(new CorpBean());
     }
 
     @OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -302,8 +301,9 @@ public class CorpFragment extends Fragment {
         public void onSuccess(Uri outputUri) {
             dismissProgress();
 
-            Intent Intent=new Intent();
-            ((CorpActivity)getActivity()).setResult(((CorpActivity)getActivity()).RESULT_OK,Intent);
+            //Intent Intent=new Intent();
+            //((CorpActivity)getActivity()).setResult(((CorpActivity)getActivity()).RESULT_OK,Intent);
+            EventBus.getDefault().post(new CorpBean());
             getActivity().finish();
             //((CorpActivity) getActivity()).startResultActivity(outputUri);
         }
