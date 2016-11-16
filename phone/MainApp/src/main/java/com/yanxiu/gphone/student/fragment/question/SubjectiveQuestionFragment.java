@@ -41,6 +41,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Created by lidm on 2015/9/25.
  */
@@ -69,6 +71,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = getActivity();
+        EventBus.getDefault().register(this);
         this.questionsEntity = (getArguments() != null) ? (QuestionEntity) getArguments().getSerializable("questions") : null;
         this.answerViewTypyBean = (getArguments() != null) ? getArguments().getInt("answerViewTypyBean") : null;
         this.pageIndex = (getArguments() != null) ? getArguments().getInt("pageIndex") : 0;
