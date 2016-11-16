@@ -245,7 +245,7 @@ public class SchoolSearchActivity extends YanxiuBaseActivity{
             rootView.finish();
             if(result!=null){
                 SchoolListBean schoolListBean = (SchoolListBean)result;
-                if(schoolListBean.getStatus().getCode() == 0){
+                if(schoolListBean.getStatus().getCode() == 0&&schoolListBean.getData()!=null){
                     schoolList = schoolListBean.getData();
                     adapter.setList(schoolList);
                     showListView();
