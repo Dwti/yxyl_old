@@ -22,6 +22,7 @@ import com.yanxiu.gphone.student.activity.AnswerViewActivity;
 import com.yanxiu.gphone.student.activity.BaseAnswerViewActivity;
 import com.yanxiu.gphone.student.activity.LocalPhotoViewActivity;
 import com.yanxiu.gphone.student.bean.AnswerBean;
+import com.yanxiu.gphone.student.bean.CorpBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.bean.UploadImageBean;
@@ -269,6 +270,10 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         }
 
 
+    }
+
+    public void onEventMainThread(CorpBean corpBean){
+        updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
     }
 
     @Override
