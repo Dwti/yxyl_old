@@ -227,6 +227,7 @@ public class CorpFragment extends Fragment {
             switch (v.getId()) {
                 case R.id.buttonDone:
                     CorpFragmentPermissionsDispatcher.cropImageWithCheck(CorpFragment.this);
+                    EventBus.getDefault().post(new CorpBean());
                     break;
                 case R.id.buttonFitImage:
                     mCropView.setCropMode(CropImageView.CropMode.FIT_IMAGE);
@@ -303,7 +304,6 @@ public class CorpFragment extends Fragment {
 
             //Intent Intent=new Intent();
             //((CorpActivity)getActivity()).setResult(((CorpActivity)getActivity()).RESULT_OK,Intent);
-            EventBus.getDefault().post(new CorpBean());
             getActivity().finish();
             //((CorpActivity) getActivity()).startResultActivity(outputUri);
         }

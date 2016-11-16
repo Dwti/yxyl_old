@@ -20,6 +20,7 @@ import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.AnswerViewActivity;
 import com.yanxiu.gphone.student.activity.BaseAnswerViewActivity;
+import com.yanxiu.gphone.student.activity.ImageBucketActivity;
 import com.yanxiu.gphone.student.activity.LocalPhotoViewActivity;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.CorpBean;
@@ -40,6 +41,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by lidm on 2015/9/25.
@@ -69,6 +72,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = getActivity();
+        EventBus.getDefault().register(this);
         this.questionsEntity = (getArguments() != null) ? (QuestionEntity) getArguments().getSerializable("questions") : null;
         this.answerViewTypyBean = (getArguments() != null) ? getArguments().getInt("answerViewTypyBean") : null;
         this.pageIndex = (getArguments() != null) ? getArguments().getInt("pageIndex") : 0;
@@ -273,6 +277,8 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     }
 
     public void onEventMainThread(CorpBean corpBean){
+        String filePath = PictureHelper.getPath(getActivity(),MediaUtils.currentCroppedImageUri);
+        ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), filePath);
         updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
     }
 
