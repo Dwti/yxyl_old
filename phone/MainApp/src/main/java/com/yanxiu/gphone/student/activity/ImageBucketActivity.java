@@ -142,6 +142,7 @@ public class ImageBucketActivity extends TopViewBaseActivity {
             if(ShareBitmapUtils.getInstance().getDataList()!=null&&ShareBitmapUtils.getInstance().getDataList().size()>0){
                 ActivityJumpUtils.jumpToImagePicSelActivityForResult(ImageBucketActivity.this, i, ImagePicSelActivity.REQUEST_CODE);
             }
+            ImageBucketActivity.this.finish();
         }
     };
 

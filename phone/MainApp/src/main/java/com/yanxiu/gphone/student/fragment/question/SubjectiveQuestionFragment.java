@@ -20,6 +20,7 @@ import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.AnswerViewActivity;
 import com.yanxiu.gphone.student.activity.BaseAnswerViewActivity;
+import com.yanxiu.gphone.student.activity.ImageBucketActivity;
 import com.yanxiu.gphone.student.activity.LocalPhotoViewActivity;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.CorpBean;
@@ -276,6 +277,8 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     }
 
     public void onEventMainThread(CorpBean corpBean){
+        String filePath = PictureHelper.getPath(getActivity(),MediaUtils.currentCroppedImageUri);
+        ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), filePath);
         updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
     }
 
