@@ -27,6 +27,7 @@ import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
 import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
 import com.yanxiu.gphone.student.utils.MediaUtils;
 import com.yanxiu.gphone.student.utils.ScreenSwitchUtils;
+import com.yanxiu.gphone.student.view.picsel.utils.AlbumHelper;
 import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
 import com.yanxiu.gphone.student.view.takephoto.CameraPreview;
 import com.yanxiu.gphone.student.view.takephoto.FocusView;
@@ -34,6 +35,7 @@ import com.yanxiu.gphone.student.view.takephoto.RecordVideoStatueCircle;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.ParseException;
 
 import permissions.dispatcher.RuntimePermissions;
 
@@ -200,14 +202,30 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
             case R.id.iv_picture:
                 if (CommonCoreUtil.sdCardMounted()){
                     //ActivityJumpUtils.jumpToImageBucketActivityForResult(CameraActivity.this, MediaUtils.OPEN_SYSTEM_PIC_BUILD_CAMERA);
-                    //if(ShareBitmapUtils.getInstance().getDataList()!=null&&ShareBitmapUtils.getInstance().getDataList().size()>0){
+                    try {
+                        initData();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    if(ShareBitmapUtils.getInstance().getDataList()!=null&&ShareBitmapUtils.getInstance().getDataList().size()>0){
                         ActivityJumpUtils.jumpToImagePicSelActivityForResult(CameraActivity.this, 0, ImagePicSelActivity.REQUEST_CODE);
-                    //}
+                    }
+                    this.finish();
                 }
                 //CameraActivityPermissionsDispatcher.pickImageWithCheck(this);
                 break;
         }
         camera.setParameters(params);
+    }
+
+    private void initData() throws ParseException {
+        AlbumHelper helper = AlbumHelper.getHelper();
+        helper.init(getApplicationContext());
+        if(ShareBitmapUtils.getInstance().getDataList().size()>0){
+            ShareBitmapUtils.getInstance().getDataList().clear();
+        }
+        helper.resetParmas();
+        ShareBitmapUtils.getInstance().setDataList(helper.getImagesBucketList(false));
     }
 
     @Override

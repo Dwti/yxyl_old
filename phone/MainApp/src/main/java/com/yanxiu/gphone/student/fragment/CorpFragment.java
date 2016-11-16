@@ -28,11 +28,13 @@ import com.isseiaoki.simplecropview.util.Utils;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.ImageBucketActivity;
 import com.yanxiu.gphone.student.activity.takephoto.CorpActivity;
+import com.yanxiu.gphone.student.bean.CorpBean;
 import com.yanxiu.gphone.student.utils.FontUtils;
 import com.yanxiu.gphone.student.utils.MediaUtils;
 
 import java.io.File;
 
+import de.greenrobot.event.EventBus;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
@@ -163,6 +165,7 @@ public class CorpFragment extends Fragment {
     public void cropImage() {
         showProgress();
         mCropView.startCrop(createSaveUri(), mCropCallback, mSaveCallback);
+        EventBus.getDefault().post(new CorpBean());
     }
 
     @OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE)

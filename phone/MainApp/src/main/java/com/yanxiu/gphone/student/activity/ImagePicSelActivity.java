@@ -2,6 +2,7 @@ package com.yanxiu.gphone.student.activity;
 
 import android.net.Uri;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -23,6 +24,7 @@ import com.yanxiu.gphone.student.view.picsel.inter.PicNumListener;
 import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -103,7 +105,16 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
         if(ShareBitmapUtils.getInstance().getDataList()==null||ShareBitmapUtils.getInstance().getDataList().size()==0){
             return;
         }
-        final List<ImageItem> imageList = ShareBitmapUtils.getInstance().getDataList().get(bucketPos).getImageList();
+        List<ImageItem> tempList = new ArrayList<>();
+        if (bucketPos != 0) {
+            tempList = ShareBitmapUtils.getInstance().getDataList().get(bucketPos).getImageList();
+        } else {
+            for (int i=0; i<ShareBitmapUtils.getInstance().getDataList().size(); i++) {
+                tempList.addAll(ShareBitmapUtils.getInstance().getDataList().get(i).getImageList());
+            }
+        }
+
+        final List<ImageItem> imageList = tempList;
         if(imageList ==null){
             return;
         }
@@ -137,6 +148,7 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
     protected void setContentListener() {
         doneText.setOnClickListener(this);
         rightText.setOnClickListener(this);
+        leftView.setOnClickListener(this);
     }
 
     @Override
@@ -145,7 +157,15 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
         switch (view.getId()){
             case R.id.doneText:
                 isAddList=true;
+                if (bucketPos == 0) {
+                    if(!TextUtils.isEmpty(ImageBucketActivity.mSelectedImagePath))
+                        MediaUtils.cropImage(ImagePicSelActivity.this, Uri.fromFile(new File(ImageBucketActivity.mSelectedImagePath)),MediaUtils.IMAGE_CROP,MediaUtils.FROM_PICTURE);
+                }
                 executeFinish();
+                break;
+            case R.id.pub_top_left:
+                ActivityJumpUtils.jumpToImageBucketActivityForResult(ImagePicSelActivity.this, MediaUtils.OPEN_SYSTEM_PIC_BUILD_CAMERA);
+                this.finish();
                 break;
         }
     }
