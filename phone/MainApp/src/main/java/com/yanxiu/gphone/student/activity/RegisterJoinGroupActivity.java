@@ -28,12 +28,13 @@ import com.yanxiu.gphone.student.view.passwordview.GridPasswordView;
  * Created by Administrator on 2016/10/31.
  */
 
-public class RegisterJoinGroupActivity extends YanxiuBaseActivity implements View.OnClickListener{
+public class RegisterJoinGroupActivity extends YanxiuBaseActivity implements View.OnClickListener, GridPasswordView.OnTextChangedListener {
 
     private GridPasswordView groupNumView;
     private PublicLoadLayout rootView;
     private RequestClassInfoTask requestClassInfoTask;
     private ClassInfoBean classInfoBean;
+    private TextView group_bottom_submit;
 
     private String openid;
     private String uniqid;
@@ -76,10 +77,12 @@ public class RegisterJoinGroupActivity extends YanxiuBaseActivity implements Vie
         groupNumView.setVisibility(View.VISIBLE);
         groupNumView.setBackgroundResource(R.drawable.group_input_bg);
         groupNumView.setPasswordVisibility(true);
+        groupNumView.setTextChangedListener(this);
         TextView group_add_tips= (TextView) findViewById(R.id.group_add_tips);
         group_add_tips.setOnClickListener(this);
-        TextView group_bottom_submit= (TextView) findViewById(R.id.group_bottom_submit);
+        group_bottom_submit= (TextView) findViewById(R.id.group_bottom_submit);
         group_bottom_submit.setOnClickListener(this);
+        group_bottom_submit.setTextColor(getResources().getColor(R.color.color_e4b62e));
         TextView pub_top_left= (TextView) findViewById(R.id.pub_top_left);
         pub_top_left.setOnClickListener(this);
         YanxiuTypefaceTextView pub_top_mid= (YanxiuTypefaceTextView) findViewById(R.id.pub_top_mid);
@@ -149,6 +152,15 @@ public class RegisterJoinGroupActivity extends YanxiuBaseActivity implements Vie
         }catch (Exception e){
             rootView.finish();
             LogInfo.log("填写的群组号码为非数字");
+        }
+    }
+
+    @Override
+    public void onTextNumberChanged(int number) {
+        if (number==8){
+            group_bottom_submit.setTextColor(getResources().getColor(R.color.color_805500));
+        }else {
+            group_bottom_submit.setTextColor(getResources().getColor(R.color.color_e4b62e));
         }
     }
 }

@@ -144,7 +144,7 @@ public class LoginActivity extends YanxiuBaseActivity implements
         userNameText = (EditText) findViewById(R.id.login_username);
         Util.setViewTypeface(YanxiuTypefaceTextView.TypefaceType.METRO_BOLD, userNameText);
         passwordText = (EditText) findViewById(R.id.login_password);
-        EditTextWatcherUtils.getInstence().setEditText(passwordText);
+        EditTextWatcherUtils.getInstence().setEditText(passwordText,null);
         forgetPwdText = (TextView) findViewById(R.id.forget_password);
         loginText = (TextView) findViewById(R.id.login);
         registerText = (TextView) findViewById(R.id.register);

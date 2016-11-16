@@ -13,6 +13,7 @@ public class EditTextWatcherUtils {
 
     private static final String regs = "[A-Za-z\\d!@#$%^&*()'\"=_:;?~|+-\\/\\[\\]\\{\\}<>]+";
     private static EditTextWatcherUtils watcherUtils = new EditTextWatcherUtils();
+    private OnTextChangedListener listener;
     private EditText view;
     private String TextBeforeChange = "";
 
@@ -20,8 +21,13 @@ public class EditTextWatcherUtils {
         return watcherUtils;
     }
 
-    public void setEditText(EditText view) {
+    public interface OnTextChangedListener{
+        void onTextChanged(String text);
+    }
+
+    public void setEditText(EditText view,OnTextChangedListener listener) {
         this.view = view;
+        this.listener=listener;
         view.addTextChangedListener(watcher);
     }
 
@@ -52,6 +58,9 @@ public class EditTextWatcherUtils {
                         view.setSelection(index);
                     }
                 }
+            }
+            if (listener!=null){
+                listener.onTextChanged(view.getText().toString());
             }
         }
     };

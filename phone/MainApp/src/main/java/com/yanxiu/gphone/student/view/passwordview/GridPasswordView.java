@@ -66,8 +66,16 @@ public class GridPasswordView extends LinearLayout implements PasswordView {
     private OnPasswordChangedListener listener;
 
     private PasswordTransformationMethod transformationMethod;
-
+    private OnTextChangedListener textChangedListener;
     private Context mContext;
+
+    public interface OnTextChangedListener{
+        void onTextNumberChanged(int number);
+    }
+
+    public void setTextChangedListener(OnTextChangedListener textChangedListener){
+        this.textChangedListener=textChangedListener;
+    }
 
     public GridPasswordView(Context context) {
         this(context, null);
@@ -253,6 +261,9 @@ public class GridPasswordView extends LinearLayout implements PasswordView {
                     setHtmlTxt(viewArr[i], null);
                 }
             }
+            if (passwordArr!=null&&textChangedListener!=null){
+                textChangedListener.onTextNumberChanged(passwordArr.length);
+            }
         }
     };
     private void setHtmlTxt(TextView textView, String txt){
@@ -301,6 +312,9 @@ public class GridPasswordView extends LinearLayout implements PasswordView {
                     inputView.setSelection(1);
                 }
                 inputView.addTextChangedListener(this);
+            }
+            if (passwordArr!=null&&textChangedListener!=null){
+                textChangedListener.onTextNumberChanged(passwordArr.length);
             }
         }
         @Override

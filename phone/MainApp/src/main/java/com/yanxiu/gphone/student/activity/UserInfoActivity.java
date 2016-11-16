@@ -4,6 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -111,6 +116,24 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
     private final String reg = "^([a-z]|[A-Z]|[0-9]|[\u2E80-\u9FFF]){3,}|@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?|[wap.]{4}|[www.]{4}|[blog.]{5}|[bbs.]{4}|[.com]{4}|[.cn]{3}|[.net]{4}|[.org]{4}|[http://]{7}|[ftp://]{6}$";
     private Pattern pattern = Pattern.compile(reg);
 
+    private boolean IsNameReady=false;
+    private boolean IsZipcodeReady=false;
+    private boolean IsSchoolReady=false;
+    private boolean IsStageReady=false;
+
+
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (IsNameReady&&IsSchoolReady&&IsStageReady&&IsZipcodeReady){
+                nextView.setTextColor(getResources().getColor(R.color.color_805500));
+            }else {
+                nextView.setTextColor(getResources().getColor(R.color.color_e4b62e));
+            }
+        }
+    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,6 +157,26 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
         backView = (TextView) findViewById(R.id.pub_top_left);
         titleView = (TextView) findViewById(R.id.pub_top_mid);
         nameView = (EditText) findViewById(R.id.edit_name);
+        nameView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(s.toString())){
+                    IsNameReady=true;
+                }else {
+                    IsNameReady=false;
+                }
+                handler.sendEmptyMessage(0);
+            }
+        });
         nickNameView = (EditText) findViewById(R.id.edit_nickname);
 
         areaView = (TextView) findViewById(R.id.edit_area);
@@ -161,7 +204,7 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
         nameView.addTextChangedListener(new MyTextWatcher());
         nickNameView.addTextChangedListener(new MyTextWatcher());
 
-        titleView.setText(R.string.edit_title);
+        titleView.setText(R.string.edit_title_new);
         backView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,7 +243,7 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
                         LAUNCHER_FROM_USERINFO_TO_STAGE);
             }
         });
-
+        nextView.setTextColor(getResources().getColor(R.color.color_e4b62e));
         nextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -208,10 +251,6 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
 //                    Util.showUserToast(R.string.edit_name_null, -1, -1);
                     return;
                 }
-//                if (StringUtils.isEmpty(nickNameView.getText().toString())) {
-//                    Util.showUserToast(R.string.edit_nickname_null, -1, -1);
-//                    return;
-//                }
                 if (StringUtils.isEmpty(zipcode)) {
 //                    Util.showUserToast(R.string.edit_area_null, -1, -1);
                     return;
@@ -368,6 +407,12 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
             provinceId = districtModel.getProvinceId();
             cityId = districtModel.getCityId();
             zipcode = districtModel.getZipcode();
+            if (!StringUtils.isEmpty(zipcode)){
+                IsZipcodeReady=true;
+            }else {
+                IsZipcodeReady=false;
+            }
+            handler.sendEmptyMessage(0);
         }
     }
 
@@ -375,6 +420,12 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
         if (mSchool != null && mSchool.getType().equals("school")) {
             schoolView.setText(mSchool.getName().toString());
             schoolView.setTag(mSchool.getId());
+            if (!StringUtils.isEmpty(schoolView.getText().toString())){
+                IsSchoolReady=true;
+            }else {
+                IsSchoolReady=false;
+            }
+            handler.sendEmptyMessage(0);
         }
     }
 
@@ -413,6 +464,12 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
                     } else if (stageId == MyStageSelectActivity.STAGE_TYPE_HIGH) {
                         stageView.setText(R.string.high_txt);
                     }
+                    if (!StringUtils.isEmpty(stageView.getText().toString())){
+                        IsStageReady=true;
+                    }else {
+                        IsStageReady=false;
+                    }
+                    handler.sendEmptyMessage(0);
                     break;
             }
         }
@@ -493,10 +550,14 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
             case R.id.del_editschool:
                 schoolView.setText("");
                 schoolView.setTag(null);
+                IsSchoolReady=false;
+                handler.sendEmptyMessage(0);
                 break;
             case R.id.del_editstage:
                 stageView.setText("");
                 stageView.setTag(null);
+                IsStageReady=false;
+                handler.sendEmptyMessage(0);
                 break;
         }
     }

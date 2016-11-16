@@ -119,7 +119,15 @@ public class UserLocationSelectActivity extends YanxiuBaseActivity implements Vi
         topTitle = (TextView) topView.findViewById(R.id.pub_top_mid);
 
         topRight = (TextView) mRootView.findViewById(R.id.pub_top_right);
-        topTitle.setText(R.string.user_area_str);
+
+
+        if (type == LOCATION_CONSTANT_PROVINCE){
+            topTitle.setText(R.string.user_area_str);
+        }else if (type == LOCATION_CONSTANT_CITY){
+            topTitle.setText(((CityModel)dataBean.get(0)).getProvinceName());
+        }else {
+            topTitle.setText(((DistrictModel)dataBean.get(0)).getCityName());
+        }
 
         topRight.setVisibility(View.VISIBLE);
         topRight.setText(R.string.user_name_edit_save);

@@ -85,12 +85,19 @@ public class RegisterActivity extends YanxiuBaseActivity{
 
     private final static int SEND_INDENTIFY_TIME = 0x01;
     private final static int SEND_INDENTIFY_TIMES = 0x02;
+    private final static int SEND_INDENTIFY_READY=0x03;
 
     private final static int SEND_INDENTIFY_TIME_DELAY = 1000;
 
     private static int INDENTIFY_TIME_DEFAULT = 45;
 
     private boolean isLock = false;
+
+    private boolean IsMobileReady=false;
+
+    private boolean IsCodeReady=false;
+
+    private boolean IsPasswordReady=false;
 
     private Handler mHandler = new Handler(){
         @Override public void handleMessage(Message msg) {
@@ -117,6 +124,13 @@ public class RegisterActivity extends YanxiuBaseActivity{
                         sendCodeView.setText(R.string.register_send_code);
                     }
                     break;
+                case SEND_INDENTIFY_READY:
+                    if (IsMobileReady&&IsCodeReady&&IsPasswordReady){
+                        registerNext.setTextColor(getResources().getColor(R.color.color_805500));
+                    }else {
+                        registerNext.setTextColor(getResources().getColor(R.color.color_e4b62e));
+                    }
+                    break;
             }
         }
     };
@@ -140,6 +154,27 @@ public class RegisterActivity extends YanxiuBaseActivity{
         userNameText = (EditText)findViewById(R.id.register_username);
         Util.setViewTypeface(YanxiuTypefaceTextView.TypefaceType.METRO_BOLD, userNameText);
         codeView = (EditText)findViewById(R.id.register_code);
+        codeView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(s.toString())&&s.toString().length()==4){
+                    IsCodeReady=true;
+                }else {
+                    IsCodeReady=false;
+                }
+                mHandler.sendEmptyMessageDelayed(SEND_INDENTIFY_READY,10);
+            }
+        });
         sendCodeView = (TextView)findViewById(R.id.register_send_code);
         registerNext = (TextView)findViewById(R.id.register_upload);
         Util.setViewTypeface(YanxiuTypefaceTextView.TypefaceType.FANGZHENG, registerNext);
@@ -153,7 +188,17 @@ public class RegisterActivity extends YanxiuBaseActivity{
         delView = (ImageView)findViewById(R.id.del_username);
         loading = (StudentLoadingLayout)findViewById(R.id.loading);
         set_password_one= (EditText) findViewById(R.id.set_password_one);
-        EditTextWatcherUtils.getInstence().setEditText(set_password_one);
+        EditTextWatcherUtils.getInstence().setEditText(set_password_one, new EditTextWatcherUtils.OnTextChangedListener() {
+            @Override
+            public void onTextChanged(String text) {
+                if (!TextUtils.isEmpty(text)&&text.length()>5&&text.length()<19){
+                    IsPasswordReady=true;
+                }else {
+                    IsPasswordReady=false;
+                }
+                mHandler.sendEmptyMessageDelayed(SEND_INDENTIFY_READY,10);
+            }
+        });
         ImageView del_pwd= (ImageView) findViewById(R.id.del_pwd);
         del_pwd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,11 +237,20 @@ public class RegisterActivity extends YanxiuBaseActivity{
                         Util.showUserToast(R.string.login_name_ival, -1, -1);
                         return;
                     }
+                }else {
+                    if(StringUtils.isEmpty(userNameText.getText().toString())){
+//                        Util.showUserToast(R.string.mobile_null, -1, -1);
+                        return;
+                    }
+                    if(!CommonCoreUtil.isMobileNo(userNameText.getText().toString().replaceAll(" ", ""))){
+//                        Util.showUserToast(R.string.login_name_ival, -1, -1);
+                        return;
+                    }
                 }
                 getRegCode();
             }
         });
-
+        registerNext.setTextColor(getResources().getColor(R.color.color_e4b62e));
         registerNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
@@ -440,13 +494,16 @@ public class RegisterActivity extends YanxiuBaseActivity{
         @Override
         public void afterTextChanged (final Editable s) {
             if(!TextUtils.isEmpty(s.toString()) && s.toString().replaceAll(" ", "").length()==11){
+                IsMobileReady=true;
                 sendCodeView.setTextColor(getResources().getColor(R.color.color_805500));
             }else{
+                IsMobileReady=false;
                 sendCodeView.setTextColor(getResources().getColor(R.color.color_e4b62e));
             }
             if (!TextUtils.isEmpty(TestMobile)&&userNameText.getText().toString().trim().replace(" ","").length()==11&&!userNameText.getText().toString().trim().replace(" ","").equals(TestMobile)){
                 mHandler.sendEmptyMessageDelayed(SEND_INDENTIFY_TIMES,10);
             }
+            mHandler.sendEmptyMessageDelayed(SEND_INDENTIFY_READY,10);
 //            int length = s.length();
 //            if(length>0){
 //                delView.setVisibility(View.VISIBLE);

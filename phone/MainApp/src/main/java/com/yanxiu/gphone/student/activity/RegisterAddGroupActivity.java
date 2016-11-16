@@ -3,7 +3,9 @@ package com.yanxiu.gphone.student.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -40,13 +42,14 @@ import java.util.HashMap;
  * Created by Administrator on 2016/11/1.
  */
 
-public class RegisterAddGroupActivity extends YanxiuBaseActivity implements View.OnClickListener {
+public class RegisterAddGroupActivity extends YanxiuBaseActivity implements View.OnClickListener, TextWatcher {
 
     private PublicLoadLayout rootView;
     private Object messageFromIntent;
     private ClassDetailBean detailBean;
     private EditText name;
     private RequestBean requestBean;
+    private TextView group_info_click;
 
     private String openid;
     private String uniqid;
@@ -93,12 +96,14 @@ public class RegisterAddGroupActivity extends YanxiuBaseActivity implements View
         TextView teacher_name = (TextView) findViewById(R.id.teacher_name);
         teacher_name.setText("老师：" + detailBean.getAdminName());
         name = (EditText) findViewById(R.id.name);
-        TextView pub_top_mid= (TextView) findViewById(R.id.pub_top_mid);
+        name.addTextChangedListener(this);
+        TextView pub_top_mid = (TextView) findViewById(R.id.pub_top_mid);
         pub_top_mid.setText(R.string.class_add);
-        TextView pub_top_left= (TextView) findViewById(R.id.pub_top_left);
+        TextView pub_top_left = (TextView) findViewById(R.id.pub_top_left);
         pub_top_left.setOnClickListener(this);
-        TextView group_info_click = (TextView) findViewById(R.id.group_info_click);
+        group_info_click = (TextView) findViewById(R.id.group_info_click);
         group_info_click.setOnClickListener(this);
+        group_info_click.setTextColor(getResources().getColor(R.color.color_e4b62e));
     }
 
     public void getMessageFromIntent() {
@@ -128,7 +133,7 @@ public class RegisterAddGroupActivity extends YanxiuBaseActivity implements View
                 }
                 if (TextUtils.isEmpty(platform)) {
                     AddGroup(user_name);
-                }else {
+                } else {
                     ThirdAddGroup(user_name);
                 }
                 break;
@@ -140,8 +145,8 @@ public class RegisterAddGroupActivity extends YanxiuBaseActivity implements View
 
     private void ThirdAddGroup(String user_name) {
         rootView.loading(true);
-        int sex=0;
-        String headimg="";
+        int sex = 0;
+        String headimg = "";
         if (wxUserInfoBean != null) {
             sex = wxUserInfoBean.getSex() == 1 ? 2 : 1;
             headimg = wxUserInfoBean.getHeadimgurl();
@@ -149,7 +154,7 @@ public class RegisterAddGroupActivity extends YanxiuBaseActivity implements View
         ThirdRequestNewAddClassTask thirdRequestNewAddClassTask = new ThirdRequestNewAddClassTask(this,
                 detailBean.getId(), detailBean.getStageid(), detailBean.getAreaid(),
                 detailBean.getCityid(), openid, user_name, detailBean.getSchoolid(), platform,
-                detailBean.getSchoolname(), headimg,sex, detailBean.getProvinceid(), new AsyncCallBack() {
+                detailBean.getSchoolname(), headimg, sex, detailBean.getProvinceid(), new AsyncCallBack() {
             @Override
             public void update(YanxiuBaseBean result) {
                 rootView.finish();
@@ -157,7 +162,7 @@ public class RegisterAddGroupActivity extends YanxiuBaseActivity implements View
                 if (userInfoBean != null && userInfoBean.getStatus() != null) {
                     if (userInfoBean.getStatus().getCode() == 0) {
                         userInfoBean.setIsThridLogin(true);
-                        MainActivity.LaunchActivityToIndex(RegisterAddGroupActivity.this,1);
+                        MainActivity.LaunchActivityToIndex(RegisterAddGroupActivity.this, 1);
                         RegisterAddGroupActivity.this.finish();
                         registerStatistics();
                     } else {
@@ -198,7 +203,7 @@ public class RegisterAddGroupActivity extends YanxiuBaseActivity implements View
                 UserInfoBean userInfoBean = (UserInfoBean) result;
                 if (userInfoBean.getStatus().getCode() == 0) {
                     userInfoBean.setIsThridLogin(false);
-                    MainActivity.LaunchActivityToIndex(RegisterAddGroupActivity.this,1);
+                    MainActivity.LaunchActivityToIndex(RegisterAddGroupActivity.this, 1);
                     RegisterAddGroupActivity.this.finish();
                     registerStatistics();
                 } else {
@@ -261,4 +266,22 @@ public class RegisterAddGroupActivity extends YanxiuBaseActivity implements View
         DataStatisticsUploadManager.getInstance().NormalUpLoadData(this, registeHashMap);
     }
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        if (!TextUtils.isEmpty(s.toString())) {
+            group_info_click.setTextColor(getResources().getColor(R.color.color_805500));
+        } else {
+            group_info_click.setTextColor(getResources().getColor(R.color.color_e4b62e));
+        }
+    }
 }

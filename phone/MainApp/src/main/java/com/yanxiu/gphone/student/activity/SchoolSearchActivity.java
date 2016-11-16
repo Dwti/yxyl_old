@@ -97,6 +97,7 @@ public class SchoolSearchActivity extends YanxiuBaseActivity{
             }
         }
         initView();
+        requestTask("");
     }
 
     private void initView(){
@@ -249,7 +250,7 @@ public class SchoolSearchActivity extends YanxiuBaseActivity{
                     adapter.setList(schoolList);
                     showListView();
                 }else{
-                    Util.showToast(schoolListBean.getStatus().getDesc());
+                    Util.showToast(R.string.search_school_no);
                 }
             }else{
                 Util.showToast(R.string.search_school_no);

@@ -54,6 +54,7 @@
     <string name="login_success">登录成功</string>
     <string name="login_fail">登录失败</string>
     <string name="edit_title">个人资料</string>
+    <string name="edit_title_new">完善资料</string>
     <string name="edit_name">姓名</string>
     <string name="edit_nickname">昵称</string>
     <string name="edit_area">地区</string>
