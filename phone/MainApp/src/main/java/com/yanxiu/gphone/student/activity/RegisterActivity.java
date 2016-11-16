@@ -125,10 +125,14 @@ public class RegisterActivity extends YanxiuBaseActivity{
                     }
                     break;
                 case SEND_INDENTIFY_READY:
-                    if (IsMobileReady&&IsCodeReady&&IsPasswordReady){
-                        registerNext.setTextColor(getResources().getColor(R.color.color_805500));
-                    }else {
-                        registerNext.setTextColor(getResources().getColor(R.color.color_e4b62e));
+                    if (type==0) {
+                        if (IsMobileReady && IsCodeReady && IsPasswordReady) {
+                            registerNext.setTextColor(getResources().getColor(R.color.color_805500));
+                            registerNext.setClickable(true);
+                        } else {
+                            registerNext.setTextColor(getResources().getColor(R.color.color_e4b62e));
+                            registerNext.setClickable(false);
+                        }
                     }
                     break;
             }
@@ -233,24 +237,23 @@ public class RegisterActivity extends YanxiuBaseActivity{
                         Util.showUserToast(R.string.mobile_null, -1, -1);
                         return;
                     }
-                    if(!CommonCoreUtil.isMobileNo(userNameText.getText().toString().replaceAll(" ", ""))){
-                        Util.showUserToast(R.string.login_name_ival, -1, -1);
-                        return;
-                    }
                 }else {
                     if(StringUtils.isEmpty(userNameText.getText().toString())){
 //                        Util.showUserToast(R.string.mobile_null, -1, -1);
                         return;
                     }
-                    if(!CommonCoreUtil.isMobileNo(userNameText.getText().toString().replaceAll(" ", ""))){
-//                        Util.showUserToast(R.string.login_name_ival, -1, -1);
-                        return;
-                    }
+                }
+                if(!CommonCoreUtil.isMobileNo(userNameText.getText().toString().replaceAll(" ", ""))){
+                        Util.showUserToast(R.string.login_name_ival, -1, -1);
+                    return;
                 }
                 getRegCode();
             }
         });
-        registerNext.setTextColor(getResources().getColor(R.color.color_e4b62e));
+        if (type==0) {
+            registerNext.setTextColor(getResources().getColor(R.color.color_e4b62e));
+            registerNext.setClickable(false);
+        }
         registerNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
@@ -272,7 +275,7 @@ public class RegisterActivity extends YanxiuBaseActivity{
                         return;
                     }
                     if (!CommonCoreUtil.isMobileNo(mobile.replaceAll(" ", ""))) {
-//                        Util.showUserToast(R.string.login_name_ival, -1, -1);
+                        Util.showUserToast(R.string.login_name_ival, -1, -1);
                         return;
                     }
                     if (StringUtils.isEmpty(code)) {
