@@ -111,7 +111,6 @@
             android:inputType="number"
             android:maxLines="1"
             android:paddingLeft="@dimen/dimen_4"
-            android:password="true"
             android:shadowColor="@color/color_a37a00"
             android:singleLine="true"
             android:textColor="@color/color_ffffff"

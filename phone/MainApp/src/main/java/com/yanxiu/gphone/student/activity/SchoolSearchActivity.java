@@ -235,9 +235,9 @@ public class SchoolSearchActivity extends YanxiuBaseActivity{
 
         @Override public void afterTextChanged(final Editable s) {
             int length = s.length();
-            if(length>0){
+//            if(length>0){
                 requestTask(s.toString());
-            }
+//            }
         }
     }
     private AsyncCallBack mAsyncCallBack = new AsyncCallBack() {
@@ -250,7 +250,7 @@ public class SchoolSearchActivity extends YanxiuBaseActivity{
                     adapter.setList(schoolList);
                     showListView();
                 }else{
-                    Util.showToast(schoolListBean.getStatus().getDesc());
+                    Util.showToast(R.string.search_school_no);
                 }
             }else{
                 Util.showToast(R.string.search_school_no);

@@ -242,7 +242,11 @@ public class RegisterActivity extends YanxiuBaseActivity{
 //                        Util.showUserToast(R.string.mobile_null, -1, -1);
                         return;
                     }
+                    if (userNameText.getText().toString().replaceAll(" ", "").length()!=11){
+                        return;
+                    }
                 }
+
                 if(!CommonCoreUtil.isMobileNo(userNameText.getText().toString().replaceAll(" ", ""))){
                         Util.showUserToast(R.string.login_name_ival, -1, -1);
                     return;

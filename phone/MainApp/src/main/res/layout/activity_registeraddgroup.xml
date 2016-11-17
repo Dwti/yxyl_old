@@ -33,12 +33,17 @@
             android:id="@+id/sigh_left"
             android:layout_width="@dimen/dimen_20"
             android:layout_height="@dimen/dimen_20"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_7"
+            android:background="@drawable/tips_icon"
             android:layout_alignParentLeft="true"/>
 
         <ImageView
             android:id="@+id/sigh_right"
             android:layout_width="@dimen/dimen_20"
             android:layout_height="@dimen/dimen_20"
+            android:layout_marginRight="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_7"
             android:layout_alignParentRight="true"/>
 
         <LinearLayout
@@ -47,6 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/sigh_left"
             android:layout_toLeftOf="@+id/sigh_right"
+            android:layout_marginTop="@dimen/dimen_10"
             android:orientation="vertical">
 
             <TextView
@@ -106,6 +112,7 @@
             android:hint="老师需要知道你的真实姓名,请输入"
             android:textSize="28px"
             android:textColor="@color/color_ffffff"
+            android:textColorHint="@color/color_ffffff"
             android:padding="@dimen/dimen_5"
             android:background="@drawable/login_content_input_bg"
             android:layout_below="@id/dash_line"

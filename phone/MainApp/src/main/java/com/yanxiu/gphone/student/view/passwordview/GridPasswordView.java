@@ -262,7 +262,7 @@ public class GridPasswordView extends LinearLayout implements PasswordView {
                 }
             }
             if (passwordArr!=null&&textChangedListener!=null){
-                textChangedListener.onTextNumberChanged(passwordArr.length);
+                textChangedListener.onTextNumberChanged(getPassWord().length());
             }
         }
     };
@@ -314,7 +314,7 @@ public class GridPasswordView extends LinearLayout implements PasswordView {
                 inputView.addTextChangedListener(this);
             }
             if (passwordArr!=null&&textChangedListener!=null){
-                textChangedListener.onTextNumberChanged(passwordArr.length);
+                textChangedListener.onTextNumberChanged(getPassWord().length());
             }
         }
         @Override
