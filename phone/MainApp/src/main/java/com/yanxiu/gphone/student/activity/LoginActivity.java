@@ -223,6 +223,11 @@ public class LoginActivity extends YanxiuBaseActivity implements
                 RegisterActivity.launchActivity(LoginActivity.this, 0);
             }
         });
+        if (CommonCoreUtil.checkBrowser(this, "com.tencent.mm")){
+            wechatLogin.setVisibility(View.VISIBLE);
+        }else {
+            wechatLogin.setVisibility(View.GONE);
+        }
         wechatLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
@@ -248,6 +253,17 @@ public class LoginActivity extends YanxiuBaseActivity implements
             }
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (CommonCoreUtil.checkBrowser(this, "com.tencent.mm")){
+            wechatLogin.setVisibility(View.VISIBLE);
+        }else {
+            wechatLogin.setVisibility(View.GONE);
+        }
+    }
+
     public void onCheckedChanged (View lockView, boolean isChecked) {
         // TODO Auto-generated method stub
         if (isChecked) {

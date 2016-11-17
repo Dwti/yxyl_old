@@ -17,6 +17,7 @@ import com.yanxiu.gphone.student.bean.ClassInfoBean;
 import com.yanxiu.gphone.student.bean.WXUserInfoBean;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
 import com.yanxiu.gphone.student.requestTask.RequestClassInfoTask;
+import com.yanxiu.gphone.student.utils.DoubleKillUtils;
 import com.yanxiu.gphone.student.utils.PublicLoadUtils;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
@@ -35,6 +36,7 @@ public class RegisterJoinGroupActivity extends YanxiuBaseActivity implements Vie
     private RequestClassInfoTask requestClassInfoTask;
     private ClassInfoBean classInfoBean;
     private TextView group_bottom_submit;
+    private DoubleKillUtils killUtils=DoubleKillUtils.getInstence();
 
     private String openid;
     private String uniqid;
@@ -73,6 +75,7 @@ public class RegisterJoinGroupActivity extends YanxiuBaseActivity implements Vie
     }
 
     private void initview() {
+        killUtils.setTime(500);
         groupNumView = (GridPasswordView)findViewById(R.id.group_edit_number);
         groupNumView.setVisibility(View.VISIBLE);
         groupNumView.setBackgroundResource(R.drawable.group_input_bg);
@@ -96,14 +99,17 @@ public class RegisterJoinGroupActivity extends YanxiuBaseActivity implements Vie
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.group_add_tips:
-                UserInfoActivity.launchActivity(RegisterJoinGroupActivity.this,openid,uniqid,platform,wxUserInfoBean);
+                if (killUtils.getFlag()) {
+                    UserInfoActivity.launchActivity(RegisterJoinGroupActivity.this, openid, uniqid, platform, wxUserInfoBean);
+                }
                 break;
             case R.id.group_bottom_submit:
                 String groupNum=groupNumView.getPassWord();
                 if (groupNum.length()<8){
-//                    Util.showUserToast(R.string.group_num_no_right, -1, -1);
+//                       Util.showUserToast(R.string.group_num_no_right, -1, -1);
                     return;
                 }
+                CommonCoreUtil.hideSoftInput(groupNumView);
                 JoinGroup(groupNum);
                 break;
             case R.id.pub_top_left:
@@ -126,7 +132,7 @@ public class RegisterJoinGroupActivity extends YanxiuBaseActivity implements Vie
                                 //该班级不允许加入
                                 Util.showCustomTipToast(R.string.group_add_no_right);
                             } else {
-                                CommonCoreUtil.hideSoftInput(groupNumView);
+//                                CommonCoreUtil.hideSoftInput(groupNumView);
                                 if (TextUtils.isEmpty(platform)){
                                     RegisterAddGroupActivity.launchActivity(RegisterJoinGroupActivity.this,0, classInfoBean);
                                 }else {

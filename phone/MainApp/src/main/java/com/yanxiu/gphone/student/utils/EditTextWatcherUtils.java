@@ -12,12 +12,13 @@ import android.widget.EditText;
 public class EditTextWatcherUtils {
 
     private static final String regs = "[A-Za-z\\d!@#$%^&*()'\"=_:;?~|+-\\/\\[\\]\\{\\}<>]+";
-    private static EditTextWatcherUtils watcherUtils = new EditTextWatcherUtils();
+    private static EditTextWatcherUtils watcherUtils;
     private OnTextChangedListener listener;
     private EditText view;
     private String TextBeforeChange = "";
 
     public static EditTextWatcherUtils getInstence() {
+        watcherUtils = new EditTextWatcherUtils();
         return watcherUtils;
     }
 

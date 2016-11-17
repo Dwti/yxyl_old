@@ -366,6 +366,7 @@
     <string name="data_error">出错了请稍后再试</string>
     <string name="add_school_name_null">添加学校名不能为空！</string>
     <string name="school_name_title">学校名称</string>
+    <string name="send_code_oldover">手机号已被注册，请返回直接登录</string>
     <string name="search_school_hint">请输入学校名称</string>
 
 

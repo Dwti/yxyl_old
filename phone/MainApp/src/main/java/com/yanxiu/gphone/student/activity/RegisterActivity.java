@@ -86,6 +86,7 @@ public class RegisterActivity extends YanxiuBaseActivity{
     private final static int SEND_INDENTIFY_TIME = 0x01;
     private final static int SEND_INDENTIFY_TIMES = 0x02;
     private final static int SEND_INDENTIFY_READY=0x03;
+    private final static int SEND_INDENTITY_TWO=0x04;
 
     private final static int SEND_INDENTIFY_TIME_DELAY = 1000;
 
@@ -135,6 +136,9 @@ public class RegisterActivity extends YanxiuBaseActivity{
                         }
                     }
                     break;
+                case SEND_INDENTITY_TWO:
+                    sendCodeView.setText(R.string.register_send_code_two);
+                    break;
             }
         }
     };
@@ -143,6 +147,7 @@ public class RegisterActivity extends YanxiuBaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
 //        RegisterJoinGroupActivity.launchActivity(this);
+//        startActivity(new Intent(this,SetPasswordActivity.class));
         LogInfo.log("king", "RegisterActivity onCreate");
         Intent intent = getIntent();
         if(intent != null){
@@ -351,7 +356,9 @@ public class RegisterActivity extends YanxiuBaseActivity{
                     LogInfo.log("king","send code desc = " + requestBean.getStatus().getDesc());
 //                    mHandler.removeMessages(SEND_INDENTIFY_TIME);
 //                    INDENTIFY_TIME_DEFAULT = 0;
-//                    mHandler.sendEmptyMessage(SEND_INDENTIFY_TIME);
+                    if (!requestBean.getStatus().getDesc().equals(getResources().getString(R.string.send_code_oldover))) {
+                        mHandler.sendEmptyMessage(SEND_INDENTITY_TWO);
+                    }
                     Util.showUserToast(requestBean.getStatus().getDesc(), null, null);
                 }else {
                     INDENTIFY_TIME_DEFAULT = 45;

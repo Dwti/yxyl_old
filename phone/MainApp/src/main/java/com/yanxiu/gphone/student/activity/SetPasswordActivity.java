@@ -17,6 +17,7 @@ import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
 import com.yanxiu.gphone.student.bean.RequestBean;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
 import com.yanxiu.gphone.student.requestTask.RequestResetPwdTask;
+import com.yanxiu.gphone.student.utils.EditTextWatcherUtils;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.view.MyTextWatcher;
 import com.yanxiu.gphone.student.view.StudentLoadingLayout;
@@ -70,7 +71,9 @@ public class SetPasswordActivity extends YanxiuBaseActivity{
         titleView = (TextView)findViewById(R.id.pub_top_mid);
         tipView = (TextView)findViewById(R.id.register_tip);
         pwdText = (EditText)findViewById(R.id.set_password_one);
+        EditTextWatcherUtils.getInstence().setEditText(pwdText,null);
         pwdAgainText = (EditText)findViewById(R.id.set_password_again);
+        EditTextWatcherUtils.getInstence().setEditText(pwdAgainText,null);
         nextView = (TextView)findViewById(R.id.register_next);
         Util.setViewTypeface(YanxiuTypefaceTextView.TypefaceType.FANGZHENG, nextView);
         loading = (StudentLoadingLayout)findViewById(R.id.loading);
@@ -130,8 +133,8 @@ public class SetPasswordActivity extends YanxiuBaseActivity{
             }
         });
 
-        pwdText.addTextChangedListener(new MyTextWatcher());
-        pwdAgainText.addTextChangedListener(new MyTextWatcher());
+//        pwdText.addTextChangedListener(new MyTextWatcher());
+//        pwdAgainText.addTextChangedListener(new MyTextWatcher());
     }
 
     private void resetPwd(){

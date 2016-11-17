@@ -36,6 +36,7 @@ import com.yanxiu.gphone.student.inter.AsyncCallBack;
 import com.yanxiu.gphone.student.requestTask.RequestNewRegisterTask;
 import com.yanxiu.gphone.student.requestTask.RequestRegisterTask;
 import com.yanxiu.gphone.student.requestTask.RequestThirdRegisterTask;
+import com.yanxiu.gphone.student.utils.DoubleKillUtils;
 import com.yanxiu.gphone.student.utils.PublicLoadUtils;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.XmlParserHandler;
@@ -213,14 +214,18 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
             }
         });
 
+        final DoubleKillUtils killUtils=DoubleKillUtils.getInstence();
+        killUtils.setTime(500);
+
         school_layout_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserLocationSelectActivity
-                        .launch(UserInfoActivity.this, provinceList,
-                                UserLocationSelectActivity.LOCATION_CONSTANT_PROVINCE,
-                                UserLocationSelectActivity.LOCATION_CONSTANT_REGISTER_TYPE);
-
+                if (killUtils.getFlag()) {
+                    UserLocationSelectActivity
+                            .launch(UserInfoActivity.this, provinceList,
+                                    UserLocationSelectActivity.LOCATION_CONSTANT_PROVINCE,
+                                    UserLocationSelectActivity.LOCATION_CONSTANT_REGISTER_TYPE);
+                }
 //                SchoolSearchActivity.launch(UserInfoActivity.this, zipcode,LAUNCHER_FROM_USERINFO_TO_SCHOOL);
             }
         });
@@ -418,7 +423,7 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
 
     public void onEventMainThread(School mSchool) {
         if (mSchool != null && mSchool.getType().equals("school")) {
-            schoolView.setText(mSchool.getName().toString());
+            schoolView.setText("学校："+mSchool.getName().toString());
             schoolView.setTag(mSchool.getId());
             if (!StringUtils.isEmpty(schoolView.getText().toString())){
                 IsSchoolReady=true;
@@ -458,11 +463,11 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
                     stageId = data.getIntExtra("type", MyStageSelectActivity.STAGE_TYPE_JUIN);
                     stageView.setTag(stageId);
                     if (stageId == MyStageSelectActivity.STAGE_TYPE_PRIM) {
-                        stageView.setText(R.string.primary_txt);
+                        stageView.setText("学段："+getResources().getString(R.string.primary_txt));
                     } else if (stageId == MyStageSelectActivity.STAGE_TYPE_JUIN) {
-                        stageView.setText(R.string.juinor_txt);
+                        stageView.setText("学段："+getResources().getString(R.string.juinor_txt));
                     } else if (stageId == MyStageSelectActivity.STAGE_TYPE_HIGH) {
-                        stageView.setText(R.string.high_txt);
+                        stageView.setText("学段："+getResources().getString(R.string.high_txt));
                     }
                     if (!StringUtils.isEmpty(stageView.getText().toString())){
                         IsStageReady=true;

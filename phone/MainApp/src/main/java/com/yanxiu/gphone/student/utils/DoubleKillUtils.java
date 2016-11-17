@@ -6,7 +6,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Created by Administrator on 2016/11/16.
+ * Created by cangHaiXiao on 2016/11/16.
+ *
+ * 防双击
  */
 
 public class DoubleKillUtils {
@@ -20,17 +22,12 @@ public class DoubleKillUtils {
         return killUtils;
     }
 
-    public void setKillView(View view){
-
-    }
-
     public void setTime(int time){
         this.time=time;
     }
 
     public boolean getFlag(){
-        boolean flag=true;
-        flag=doublekill_flag;
+        boolean flag=doublekill_flag;
         if (doublekill_flag) {
             setPreDoubleKill();
         }
