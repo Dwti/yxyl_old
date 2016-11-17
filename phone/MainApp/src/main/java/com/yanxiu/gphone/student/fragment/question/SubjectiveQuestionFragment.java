@@ -72,7 +72,6 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = getActivity();
-        EventBus.getDefault().register(this);
         this.questionsEntity = (getArguments() != null) ? (QuestionEntity) getArguments().getSerializable("questions") : null;
         this.answerViewTypyBean = (getArguments() != null) ? getArguments().getInt("answerViewTypyBean") : null;
         this.pageIndex = (getArguments() != null) ? getArguments().getInt("pageIndex") : 0;
@@ -280,6 +279,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         String filePath = PictureHelper.getPath(getActivity(),MediaUtils.currentCroppedImageUri);
         ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), filePath);
         updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
