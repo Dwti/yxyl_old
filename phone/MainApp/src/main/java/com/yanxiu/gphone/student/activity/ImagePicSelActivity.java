@@ -157,10 +157,8 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
         switch (view.getId()){
             case R.id.doneText:
                 isAddList=true;
-                if (bucketPos == 0) {
-                    if(!TextUtils.isEmpty(ImageBucketActivity.mSelectedImagePath))
-                        MediaUtils.cropImage(ImagePicSelActivity.this, Uri.fromFile(new File(ImageBucketActivity.mSelectedImagePath)),MediaUtils.IMAGE_CROP,MediaUtils.FROM_PICTURE);
-                }
+                if(!TextUtils.isEmpty(ImageBucketActivity.mSelectedImagePath))
+                    MediaUtils.cropImage(ImagePicSelActivity.this, Uri.fromFile(new File(ImageBucketActivity.mSelectedImagePath)),MediaUtils.IMAGE_CROP,MediaUtils.FROM_PICTURE);
                 executeFinish();
                 break;
             case R.id.pub_top_left:

@@ -46,7 +46,7 @@ import com.yanxiu.gphone.student.fragment.GuideMultiFragment;
 import com.yanxiu.gphone.student.fragment.question.AnswerCardFragment;
 import com.yanxiu.gphone.student.fragment.question.AnswerFinishFragment;
 import com.yanxiu.gphone.student.fragment.question.BaseQuestionFragment;
-import com.yanxiu.gphone.student.fragment.question.NewFillBlanksFragment;
+import com.yanxiu.gphone.student.fragment.question.FillBlanksFragment;
 import com.yanxiu.gphone.student.fragment.question.PageIndex;
 import com.yanxiu.gphone.student.fragment.question.ReadingQuestionsFragment;
 import com.yanxiu.gphone.student.fragment.question.SolveComplexQuestionFragment;

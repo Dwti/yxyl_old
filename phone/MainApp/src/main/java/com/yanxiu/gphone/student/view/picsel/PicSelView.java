@@ -46,6 +46,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Created by Administrator on 2015/9/28.
  */
@@ -172,6 +174,8 @@ public class PicSelView extends RelativeLayout {
             if(StringUtils.isEmpty(path)){
                 return;
             }
+            EventBus.getDefault().unregister(fragment);
+            EventBus.getDefault().register(fragment);
             MediaUtils.openLocalCamera(((Activity) mContext), path, MediaUtils.OPEN_DEFINE_PIC_BUILD);
         }
     }
