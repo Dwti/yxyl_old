@@ -64,7 +64,7 @@
                 android:paddingBottom="20px"
                 android:layout_height="wrap_content"
                 android:shadowColor="@color/color_ffff99"
-                android:textSize="24px"
+                android:textSize="15sp"
                 android:text="学校：北京市第七中学"
                 android:textColor="@color/color_805500"/>
             <TextView
@@ -76,7 +76,7 @@
                 android:paddingBottom="20px"
                 android:layout_height="wrap_content"
                 android:shadowColor="@color/color_ffff99"
-                android:textSize="24px"
+                android:textSize="15sp"
                 android:text="学校：北京市第七中学"
                 android:textColor="@color/color_805500"/>
             <TextView
@@ -88,7 +88,7 @@
                 android:paddingBottom="20px"
                 android:layout_height="wrap_content"
                 android:shadowColor="@color/color_ffff99"
-                android:textSize="24px"
+                android:textSize="15sp"
                 android:text="学校：北京市第七中学"
                 android:textColor="@color/color_805500"/>
 
@@ -110,7 +110,7 @@
             android:layout_width="match_parent"
             android:shadowColor="@color/color_a37a00"
             android:hint="老师需要知道你的真实姓名,请输入"
-            android:textSize="28px"
+            android:textSize="16sp"
             android:textColor="@color/color_ffffff"
             android:textColorHint="@color/color_ffffff"
             android:padding="@dimen/dimen_5"
@@ -127,7 +127,7 @@
             android:layout_below="@id/name"
             android:layout_marginLeft="@dimen/dimen_15"
             android:layout_marginRight="@dimen/dimen_15"
-            android:layout_marginTop="26px"
+            android:layout_marginTop="19sp"
             android:background="@drawable/register_code_selector"
             android:gravity="center"
             android:padding="@dimen/dimen_5"

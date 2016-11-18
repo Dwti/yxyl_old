@@ -120,7 +120,7 @@
     <string name="class_shenhe">你加入的班级正在审核中...</string>
     <string name="class_add">加入班级</string>
     <string name="group_add_tips">怎样加入班级？></string>
-    <string name="group_noadd_tips">没有班级可加，跳过此步？</string>
+    <string name="group_noadd_tips">没有班级可加，跳过此步</string>
     <string name="group_add_tips_title">怎样加入班级</string>
     <string name="class_see">查看详情</string>
     <string name="no_group_hw_list_tip">老师还没发布作业呢</string>

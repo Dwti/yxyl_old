@@ -67,7 +67,7 @@ public class RegisterAddGroupActivity extends YanxiuBaseActivity implements View
 
 
     public static void launchActivity(Activity context, int type, ClassInfoBean classInfoBean, String openid, String uniqid, String platform, WXUserInfoBean wxUserInfoBean) {
-        Intent intent = new Intent(context, UserInfoActivity.class);
+        Intent intent = new Intent(context, RegisterAddGroupActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("classinfo", classInfoBean);
         intent.putExtra("bundle", bundle);

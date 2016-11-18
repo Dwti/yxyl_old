@@ -2,6 +2,7 @@ package com.yanxiu.gphone.student.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -82,6 +83,7 @@ public class RegisterJoinGroupActivity extends YanxiuBaseActivity implements Vie
         groupNumView.setPasswordVisibility(true);
         groupNumView.setTextChangedListener(this);
         TextView group_add_tips= (TextView) findViewById(R.id.group_add_tips);
+        group_add_tips.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         group_add_tips.setOnClickListener(this);
         group_bottom_submit= (TextView) findViewById(R.id.group_bottom_submit);
         group_bottom_submit.setOnClickListener(this);
