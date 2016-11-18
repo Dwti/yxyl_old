@@ -53,6 +53,9 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
     protected int childPagerIndex;
     public InputMethodManager imm;
     private int number;
+    private String parent_template;
+    private int parent_type;
+    private int totalCount;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -128,9 +131,20 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
                 }
             }*/
             if (ischild) {
-                    tvQuestionTitle.setText(""+(pageIndex+1)+"/"+number);
+                if (parent_template.equals(YanXiuConstant.MULTI_QUESTION) && (parent_type == QUESTION_SOLVE_COMPLEX.type || parent_type == QUESTION_COMPUTE.type)) {
+                    tvQuestionTitle.setText("" + (pageIndex + 1) + "/" + number);
+                } else {
+                    tvQuestionTitle.setText("" + (pageIndex+1) + "/" + totalCount);
+                }
             } else {
-                tvQuestionTitle.setText(String.format(this.getResources().getString(R.string.pager_index), String.valueOf(pageIndex)));
+                if (questionsEntity.getTemplate().equals(YanXiuConstant.MULTI_QUESTION) && (typeId == QUESTION_SOLVE_COMPLEX.type || typeId == QUESTION_COMPUTE.type)) {
+                    tvQuestionTitle.setText(String.format(this.getResources().getString(R.string.pager_index), String.valueOf(pageIndex)));
+                } else if (questionsEntity.getTemplate().equals(YanXiuConstant.SINGLE_CHOICES) || questionsEntity.getTemplate().equals(YanXiuConstant.MULTI_CHOICES)
+                        || questionsEntity.getTemplate().equals(YanXiuConstant.FILL_BLANK) || questionsEntity.getTemplate().equals(YanXiuConstant.ANSWER_QUESTION)
+                        || questionsEntity.getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)
+                        || questionsEntity.getTemplate().equals(YanXiuConstant.CONNECT_QUESTION)){
+                    tvQuestionTitle.setText(String.format(this.getResources().getString(R.string.pager_index), String.valueOf(pageIndex)));
+                }
             }
 
         }
@@ -145,6 +159,13 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
         String ss = "";
         ss = "";
     }
+    int count;
+    public void setTotalCount(int count){
+        this.count=count;
+    }
+    public int getTotalCount(){
+        return count;
+    }
 
     public Fragment getChildFragment() {
         return null;
@@ -154,9 +175,12 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
         return 1;
     }
 
-    public void setIsChild(boolean ischild,int number) {
+    public void setIsChild(boolean ischild,int count, String parent_template, int parent_type, int totalCount) {
         this.ischild = ischild;
-        this.number=number;
+        this.count=count;
+        this.parent_template = parent_template;
+        this.parent_type = parent_type;
+        this.totalCount = totalCount;
     }
 
 

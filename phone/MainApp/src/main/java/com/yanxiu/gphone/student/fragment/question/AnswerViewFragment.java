@@ -69,6 +69,14 @@ public class AnswerViewFragment extends Fragment implements View.OnClickListener
         }
     }
 
+    int count;
+    public void setTotalCount(int count){
+        this.count=count;
+    }
+    public int getTotalCount(){
+        return count;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_answer_view,null);
@@ -90,7 +98,7 @@ public class AnswerViewFragment extends Fragment implements View.OnClickListener
         vpAnswer.setOnPageChangeListener(this);
         childAnswerAdapter = new AnswerAdapter(this.getChildFragmentManager());
         childAnswerAdapter.setAnswerViewTypyBean(answerViewTypyBean);
-        childAnswerAdapter.addDataSourcesForReadingQuestion(children);
+        childAnswerAdapter.addDataSourcesForReadingQuestion(children, questionsEntity.getTemplate(), questionsEntity.getType_id(), getTotalCount());
         int count = childAnswerAdapter.getCount();
         if(this.getParentFragment() != null && this.getParentFragment() instanceof  ReadingQuestionsFragment){
             ((ReadingQuestionsFragment)this.getParentFragment()).onPageCount(count);
