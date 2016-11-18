@@ -122,7 +122,7 @@ public class UserLocationSelectActivity extends YanxiuBaseActivity implements Vi
 
 
         if (type == LOCATION_CONSTANT_PROVINCE){
-            topTitle.setText(R.string.user_area_str);
+            topTitle.setText(R.string.user_choice_area_str);
         }else if (type == LOCATION_CONSTANT_CITY){
             topTitle.setText(((CityModel)dataBean.get(0)).getProvinceName());
         }else {
@@ -144,7 +144,7 @@ public class UserLocationSelectActivity extends YanxiuBaseActivity implements Vi
         if (type == LOCATION_CONSTANT_PROVINCE) {
             title.setText(R.string.select_location_province_txt);
         } else if (type == LOCATION_CONSTANT_CITY) {
-            title.setText(R.string.select_location_city_txt);
+            title.setText(R.string.select_location_district_txt);
         } else {
 
 //            if (registerType == LOCATION_CONSTANT_REGISTER_TYPE){

@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@drawable/yanxiu_group_bg"
     >
     <include android:id="@+id/group_info_top"
         layout="@layout/public_top_layout"
         />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <View
         android:id="@+id/group_info_top_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/group_info_top"
         android:background="@color/color_99000000"
         />
 
@@ -139,3 +142,4 @@
             />
     </RelativeLayout>
 </RelativeLayout>
+</LinearLayout>

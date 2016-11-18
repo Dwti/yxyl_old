@@ -441,6 +441,7 @@ public class LoginActivity extends YanxiuBaseActivity implements
 
     @Override
     public void onGetWXLoginCode (String code) {
+        LogInfo.log("king","code"+code);
         getAccessTokenByCode(code, ShareConstants.STUDENT_WX_AppID,
                 ShareConstants.STUDENT_WX_AppSecret);
     }
@@ -579,6 +580,7 @@ public class LoginActivity extends YanxiuBaseActivity implements
                                      Intent data) {
         LogInfo.log("king", "LoginActivity onActivityResult");
         if (mTencent != null) {
+            LogInfo.log("king", "onActivityResult");
             Tencent.onActivityResultData(requestCode, resultCode, data,
                     listener);
         }

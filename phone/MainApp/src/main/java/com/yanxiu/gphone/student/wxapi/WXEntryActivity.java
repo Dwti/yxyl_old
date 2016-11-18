@@ -76,7 +76,7 @@ public class WXEntryActivity extends YanxiuBaseActivity implements IWXAPIEventHa
         }else if(baseResp != null && baseResp instanceof SendMessageToWX.Resp){
             SendMessageToWX.Resp resp = (SendMessageToWX.Resp)baseResp;
             LogInfo.log("king","WXEntryActivity onResp transaction = " + resp.transaction + " ,errCode = " + resp.errCode);
-            if(resp!=null && resp.transaction.startsWith("webpage")){
+            if(resp!=null && resp.transaction!=null&&resp.transaction.startsWith("webpage")){
                 switch (resp.errCode){
                     case BaseResp.ErrCode.ERR_OK://用户同意
     //                    Util.showToast(R.string.share_success);

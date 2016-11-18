@@ -58,6 +58,7 @@
                 android:layout_height="@dimen/dimen_35"
                 android:layout_marginLeft="@dimen/dimen_5"
                 android:layout_weight="1"
+                android:maxLength="13"
                 android:background="@drawable/login_content_input_bg"
                 android:digits="0123456789"
                 android:gravity="left|center_vertical"

@@ -7,6 +7,7 @@ import com.common.core.CoreConfiguration;
 
 public class LogInfo {
     private static boolean isDebug = CoreConfiguration.isDebug();
+//    private static boolean isDebug = true;
     private static String TAG = "yanxiuSrt";
     private final static int DEBUG_LEVEL = 4;
 
