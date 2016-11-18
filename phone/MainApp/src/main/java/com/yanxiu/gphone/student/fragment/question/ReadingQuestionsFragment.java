@@ -156,7 +156,7 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
         vpAnswer.setOnPageChangeListener(this);
         adapter = new AnswerAdapter(this.getChildFragmentManager());
         adapter.setAnswerViewTypyBean(answerViewTypyBean);
-        adapter.addDataSourcesForReadingQuestion(children);
+        adapter.addDataSourcesForReadingQuestion(children, questionsEntity.getTemplate(), questionsEntity.getType_id(), getTotalCount());
         int count = adapter.getCount();
         onPageCount(count);
 //        if(this.getParentFragment() != null && this.getParentFragment() instanceof  ReadingQuestionsFragment){

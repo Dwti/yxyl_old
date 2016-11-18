@@ -136,12 +136,14 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
         adapter = new AnswerAdapter(this.getChildFragmentManager());
         adapter.setAnswerCallback(this);
         adapter.setAnswerViewTypyBean(answerViewTypyBean);
-        adapter.addDataSourcesForReadingQuestion(children);
+        adapter.addDataSourcesForReadingQuestion(children, questionsEntity.getTemplate(), questionsEntity.getType_id(), getTotalCount());
         int count = adapter.getCount();
         onPageCount(count);
         vpAnswer.setAdapter(adapter);
         adapter.setViewPager(vpAnswer);
     }
+
+
 
     @Override
     public void onResume() {
