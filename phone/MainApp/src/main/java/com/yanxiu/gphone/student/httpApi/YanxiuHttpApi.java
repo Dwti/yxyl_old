@@ -2111,7 +2111,7 @@ public class YanxiuHttpApi {
                 final String actionUrl = getStaticHead() + "/common/uploadImgs.do?";
                 StringBuilder sb = new StringBuilder(actionUrl);
                 sb.append("token=").append(LoginModel.getToken());
-                sb.append(PUBLIC_PARAMETERS.TRACE_UID+"=").append(LoginModel.getUid()+"");
+//                sb.append(PUBLIC_PARAMETERS.TRACE_UID+"=").append(LoginModel.getUid()+"");
                 LogInfo.log("geny", sb.toString());
                 String result = reuqestUploadBitmap(sb.toString(), files, listener);
                 return result;
