@@ -175,9 +175,9 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
         return 1;
     }
 
-    public void setIsChild(boolean ischild,int count, String parent_template, int parent_type, int totalCount) {
+    public void setIsChild(boolean ischild,int number, String parent_template, int parent_type, int totalCount) {
         this.ischild = ischild;
-        this.count=count;
+        this.number=number;
         this.parent_template = parent_template;
         this.parent_type = parent_type;
         this.totalCount = totalCount;

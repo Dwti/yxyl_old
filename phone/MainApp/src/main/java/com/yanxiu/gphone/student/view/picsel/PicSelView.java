@@ -23,6 +23,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.common.core.utils.BasePopupWindow;
 import com.common.core.utils.BitmapUtil;
@@ -147,7 +148,8 @@ public class PicSelView extends RelativeLayout {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             if (ShareBitmapUtils.getInstance().getDrrMaps().get(ShareBitmapUtils.getInstance().getCurrentSbId()) == null || i == currentDrrList.size()) {
-                if (ShareBitmapUtils.getInstance().getCurrentSbId() == null) {
+            //if (i == currentDrrList.size()) {
+                if (ShareBitmapUtils.getInstance().getCurrentSbId() == null || TextUtils.isEmpty(ShareBitmapUtils.getInstance().getCurrentSbId())) {
                     LogInfo.log(TAG, "ShareBitmapUtils.getInstance().getCurrentSbId()==null");
                     return;
                 }
