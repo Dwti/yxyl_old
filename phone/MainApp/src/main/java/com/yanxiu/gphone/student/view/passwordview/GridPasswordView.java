@@ -1,5 +1,6 @@
 package com.yanxiu.gphone.student.view.passwordview;
 
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
@@ -16,11 +17,13 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -252,34 +255,34 @@ public class GridPasswordView extends LinearLayout implements PasswordView {
     private OnLongClickListener onLongClickListener = new OnLongClickListener() {
         @Override
         public boolean onLongClick(View view) {
-            Toast.makeText(getContext(), "asd", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "asd", Toast.LENGTH_SHORT).show();
             setPopPaste();
             return false;
         }
     };
 
     private void setPopPaste() {
-//        PopupMenu menu=new PopupMenu(mContext,this);
-//        menu.getMenuInflater().inflate(R.menu.class_pop_menu,menu.getMenu());
-//        menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                ClipboardManager cmb = (ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
-//                if (cmb == null || TextUtils.isEmpty(cmb.getText()))
-//                    return false;
-//                char[] chars = cmb.getText().toString().toCharArray();//获取粘贴信息
-//
-//                char[] pswArr = cmb.getText().toString().toCharArray();
-//                for (int i = 0; i < pswArr.length; i++) {
-//                    if (i < passwordArr.length) {
-//                        passwordArr[i] = pswArr[i] + "";
-//                        setHtmlTxt(viewArr[i], passwordArr[i]);
-//                    }
-//                }
-//                return true;
-//            }
-//        });
-//        menu.show();
+        PopupMenu menu=new PopupMenu(mContext,this);
+        menu.getMenuInflater().inflate(R.menu.class_pop_menu,menu.getMenu());
+        menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                ClipboardManager cmb = (ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
+                if (cmb == null || TextUtils.isEmpty(cmb.getText()))
+                    return false;
+                char[] chars = cmb.getText().toString().toCharArray();//获取粘贴信息
+
+                char[] pswArr = cmb.getText().toString().toCharArray();
+                for (int i = 0; i < pswArr.length; i++) {
+                    if (i < passwordArr.length) {
+                        passwordArr[i] = pswArr[i] + "";
+                        setHtmlTxt(viewArr[i], passwordArr[i]);
+                    }
+                }
+                return true;
+            }
+        });
+        menu.show();
     }
 
     private GradientDrawable generateBackgroundDrawable() {

@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 /**
@@ -55,17 +56,30 @@ public class MyEdittext extends EditText {
     private OnFocusChangeListener listener=new OnFocusChangeListener() {
         @Override
         public void onFocusChange(View v, boolean hasFocus) {
-            MyEdittext.this.setSelection(MyEdittext.this.getText().toString().length());
+            MyEdittext.this.focused=hasFocus;
+//            if (focused){
+//                MyEdittext.this.setSelection(MyEdittext.this.getText().toString().length());
+//            }else {
+//                MyEdittext.this.setText(MyEdittext.this.getText().toString());
+//            }
         }
     };
 
     //
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        if (event.getAction()==MotionEvent.ACTION_DOWN&&!focused){
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction()==MotionEvent.ACTION_DOWN){
 //            this.setSelection(this.getText().toString().length());
-////            return true;
-//        }
-//        return super.onTouchEvent(event);
-//    }
+//            return true;
+//            this.setFocusable(true);
+            MyEdittext.this.setFocusable(true);
+            MyEdittext.this.setFocusableInTouchMode(true);
+            MyEdittext.this.requestFocus();
+            InputMethodManager imm = (InputMethodManager) MyEdittext.this.getContext()
+                    .getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(MyEdittext.this, 0);
+            MyEdittext.this.setSelection(MyEdittext.this.getText().toString().length());
+        }
+        return true;
+    }
 }

@@ -97,7 +97,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
             }
         }
         for (int i=0; i<mAnswerLength; i++) {
-            mAnswerSb.append("_");
+            mAnswerSb.append(" ");
         }
         data = stem + "  \n";
         data = data + "  \n";
@@ -337,9 +337,16 @@ public class FillBlanksFramelayout extends FrameLayout implements
         et.setSingleLine();
         et.setTextColor(mCtx.getResources().getColor(R.color.color_00b8b8));
         et.setTextSize(textSize);
-        et.setBackground(null);
+        et.setBackground(mCtx.getResources().getDrawable(R.drawable.rl_right_bg_nor));
+        et.setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+//                Toast.makeText(mCtx,"asd",Toast.LENGTH_SHORT).show();
+                et.setText(et.getText().toString());
+            }
+        });
 //        et.setOnFocusChangeListener(new OnFocusChangeListener() {
-//            @Override
+//            @OverrideR.
 //            public void onFocusChange(View v, boolean hasFocus) {
 ////                Toast.makeText(mCtx,"asd",Toast.LENGTH_SHORT).show();
 //                fource=hasFocus;
