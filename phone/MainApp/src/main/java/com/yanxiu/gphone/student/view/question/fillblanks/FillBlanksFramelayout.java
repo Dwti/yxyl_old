@@ -97,7 +97,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
             }
         }
         for (int i=0; i<mAnswerLength; i++) {
-            mAnswerSb.append(" ");
+            mAnswerSb.append("_");
         }
         data = stem + "  \n";
         data = data + "  \n";
