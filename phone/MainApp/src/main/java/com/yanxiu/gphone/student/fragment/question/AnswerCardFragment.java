@@ -287,6 +287,19 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                 });
                 rlAnswerCard.startAnimation(ani);
                 break;
+            case R.id.btn_question_submit:
+                mLoadingDialog = new LoadingDialog(getActivity());
+                ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideFragment();
+                if(dataList != null && !dataList.isEmpty()){
+                    int unFinishCount = QuestionUtils.calculationUnFinishQuestion(dataList);
+                    if(unFinishCount > 0){
+                        Log.i("unfinish",unFinishCount+"");
+                        quitSubmmitDialog();
+                    }else{
+                        handleUploadSubjectiveImage();
+                    }
+                }
+                break;
             case R.id.iv_answer_card_close:
                 ((AnswerViewActivity)getActivity()).hideFragment();
                 break;

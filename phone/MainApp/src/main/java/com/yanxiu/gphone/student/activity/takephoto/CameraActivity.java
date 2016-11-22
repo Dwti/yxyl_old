@@ -114,7 +114,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         Camera.Parameters params = cameraPreview.getCameraParams();
         if (params == null) {
             finish();
-            Toast.makeText(this, "打开相机失败", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "相机权限被禁用，请在权限设置中开启", Toast.LENGTH_SHORT).show();
         } else {
             int maxZoom = params.getMaxZoom();
             sb1.setMax(maxZoom);
