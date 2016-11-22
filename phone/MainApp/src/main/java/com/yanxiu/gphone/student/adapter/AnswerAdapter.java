@@ -224,6 +224,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
                                     childQuestion.get(j).getQuestions().setParentIndex(parentIndex);
                                     childQuestion.get(j).getQuestions().setPageIndex(i);
                                     childQuestion.get(j).getQuestions().setChildPageIndex(j);
+                                    childQuestion.get(j).getQuestions().setChildPageNumber(pageIndex);
                                 }
                             }
                         }
@@ -244,6 +245,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
                                     childQuestion.get(j).getQuestions().setParentIndex(parentIndex);
                                     childQuestion.get(j).getQuestions().setPageIndex(i);
                                     childQuestion.get(j).getQuestions().setChildPageIndex(j);
+                                    childQuestion.get(j).getQuestions().setChildPageNumber(pageIndex);
                                 }
                             }
                         }
@@ -264,6 +266,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
                                     childQuestion.get(j).getQuestions().setParentIndex(parentIndex);
                                     childQuestion.get(j).getQuestions().setPageIndex(i);
                                     childQuestion.get(j).getQuestions().setChildPageIndex(j);
+                                    childQuestion.get(j).getQuestions().setChildPageNumber(pageIndex);
                                 }
                             }
                         }
@@ -284,6 +287,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
                                     childQuestion.get(j).getQuestions().setParentIndex(parentIndex);
                                     childQuestion.get(j).getQuestions().setPageIndex(i);
                                     childQuestion.get(j).getQuestions().setChildPageIndex(j);
+                                    childQuestion.get(j).getQuestions().setChildPageNumber(pageIndex);
                                 }
                             }
                         }
@@ -299,6 +303,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
                                     childQuestion.get(j).getQuestions().setParentIndex(parentIndex);
                                     childQuestion.get(j).getQuestions().setPageIndex(i);
                                     childQuestion.get(j).getQuestions().setChildPageIndex(j);
+                                    childQuestion.get(j).getQuestions().setChildPageNumber(pageIndex);
                                 }
                             }
                         }
@@ -320,6 +325,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
                                     childQuestion.get(j).getQuestions().setParentIndex(parentIndex);
                                     childQuestion.get(j).getQuestions().setPageIndex(i);
                                     childQuestion.get(j).getQuestions().setChildPageIndex(j);
+                                    childQuestion.get(j).getQuestions().setChildPageNumber(pageIndex);
                                 }
                             }
                         }

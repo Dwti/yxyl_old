@@ -38,7 +38,7 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
 
     protected View rootView;
 
-    private TextView tvQuestionTitle;
+    private TextView tvQuestionTitleLeft, tvQuestionTitle, tvQuestionTitleRight;
     private String questionTitle;
 
     private ImageView ivTopIcon;
@@ -56,6 +56,7 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
     private String parent_template;
     private int parent_type;
     private int totalCount;
+    private int pageNumber;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,6 +73,8 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         tvQuestionTitle = (TextView) view.findViewById(R.id.tv_title_name);
+        tvQuestionTitleLeft = (TextView) view.findViewById(R.id.tv_title_name_left);
+        tvQuestionTitleRight = (TextView) view.findViewById(R.id.tv_title_name_right);
         rlTopView = (RelativeLayout) view.findViewById(R.id.rl_top);
         ivTopIcon = (ImageView) view.findViewById(R.id.iv_answer_top_icon);
         if (questionsEntity != null) {
@@ -132,18 +135,26 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
             }*/
             if (ischild) {
                 if (parent_template.equals(YanXiuConstant.MULTI_QUESTION) && (parent_type == QUESTION_SOLVE_COMPLEX.type || parent_type == QUESTION_COMPUTE.type)) {
-                    tvQuestionTitle.setText("" + (pageIndex + 1) + "/" + number);
+                    tvQuestionTitleLeft.setText("" + (pageIndex + 1));
+                    tvQuestionTitle.setVisibility(View.VISIBLE);
+                    tvQuestionTitleRight.setText("" + number);
                 } else {
-                    tvQuestionTitle.setText("" + (pageIndex+1) + "/" + totalCount);
+                    tvQuestionTitleLeft.setText("" + (questionsEntity.getChildPageNumber()+ pageIndex));
+                    tvQuestionTitle.setVisibility(View.VISIBLE);
+                    tvQuestionTitleRight.setText("" + totalCount);
                 }
             } else {
                 if (questionsEntity.getTemplate().equals(YanXiuConstant.MULTI_QUESTION) && (typeId == QUESTION_SOLVE_COMPLEX.type || typeId == QUESTION_COMPUTE.type)) {
-                    tvQuestionTitle.setText(String.format(this.getResources().getString(R.string.pager_index), String.valueOf(pageIndex)));
+                    tvQuestionTitleLeft.setText("" + pageIndex);
+                    tvQuestionTitle.setVisibility(View.VISIBLE);
+                    tvQuestionTitleRight.setText("" + count);
                 } else if (questionsEntity.getTemplate().equals(YanXiuConstant.SINGLE_CHOICES) || questionsEntity.getTemplate().equals(YanXiuConstant.MULTI_CHOICES)
                         || questionsEntity.getTemplate().equals(YanXiuConstant.FILL_BLANK) || questionsEntity.getTemplate().equals(YanXiuConstant.ANSWER_QUESTION)
-                        || questionsEntity.getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)
+                        || questionsEntity.getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION) || questionsEntity.getTemplate().equals(YanXiuConstant.JUDGE_QUESTION)
                         || questionsEntity.getTemplate().equals(YanXiuConstant.CONNECT_QUESTION)){
-                    tvQuestionTitle.setText(String.format(this.getResources().getString(R.string.pager_index), String.valueOf(pageIndex)));
+                    tvQuestionTitleLeft.setText("" + pageIndex);
+                    tvQuestionTitle.setVisibility(View.VISIBLE);
+                    tvQuestionTitleRight.setText("" + count);
                 }
             }
 

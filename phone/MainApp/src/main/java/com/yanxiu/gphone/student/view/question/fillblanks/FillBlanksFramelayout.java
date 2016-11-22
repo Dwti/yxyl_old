@@ -43,6 +43,8 @@ public class FillBlanksFramelayout extends FrameLayout implements
     private QuestionsListener listener;
     private AnswerBean bean;
     private List<String> answers = new ArrayList<String>();
+    private int mAnswerLength = 8;
+    private StringBuffer mAnswerSb = new StringBuffer();
     public Context mCtx;
     private RelativeLayout rlMark;
     private YXiuAnserTextView tvFillBlank;
@@ -84,9 +86,17 @@ public class FillBlanksFramelayout extends FrameLayout implements
      * 设置数据源，替换字符
      */
     public void setData(String stem){
+        for (String Str:answers) {
+            if (mAnswerLength < Str.length()) {
+                mAnswerLength = Str.length();
+            }
+        }
+        for (int i=0; i<mAnswerLength; i++) {
+            mAnswerSb.append("_");
+        }
         data = stem + "  \n";
         data = data + "  \n";
-        data = data.replace("(_)","(________________)");
+        data = data.replace("(_)","("+mAnswerSb.toString()+")");
         tvFillBlank.setText(data);
 //        Log.d("asd","data++++"+data);
         ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
@@ -206,7 +216,8 @@ public class FillBlanksFramelayout extends FrameLayout implements
         public void onGlobalLayout() {
             FillBlanksFramelayout.this.getViewTreeObserver().removeGlobalOnLayoutListener(
                     this);
-            Pattern pattern = Pattern.compile("_______________");
+            Pattern pattern = Pattern.compile(mAnswerSb.toString());
+            //Pattern pattern = Pattern.compile("_______________");
 //            if(!StringUtils.isEmpty(data)){
 //                Matcher matcher = pattern.matcher(data);
 //                while (matcher.find()) {
@@ -260,7 +271,8 @@ public class FillBlanksFramelayout extends FrameLayout implements
     }
 
     private void setNewText(int index){
-        String[] strings=data.split("\\(________________\\)");
+        String[] strings=data.split("\\("+mAnswerSb.toString()+"\\)");
+        //String[] strings=data.split("\\(________________\\)");
 //        String[] strings=data.split("\\(");
         String mData="";
         for (int i=0;i<strings.length;i++){
@@ -269,7 +281,8 @@ public class FillBlanksFramelayout extends FrameLayout implements
                 mData=mData+"\n";
             }
             if (i!=strings.length-1) {
-                mData = mData + "(________________)";
+                mData = mData + "("+mAnswerSb.toString()+")";
+                //mData = mData + "(________)";
             }
         }
         data=mData;

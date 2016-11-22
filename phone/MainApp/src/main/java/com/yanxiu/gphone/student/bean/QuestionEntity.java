@@ -29,6 +29,8 @@ public class QuestionEntity implements YanxiuBaseBean {
     //child 第几页
     private int childPageIndex = -1;
 
+    private int childPageNumber = -1;
+
     private int positionForCard = -1;   //此位置用于答题卡题号显示
     private int childPositionForCard = -1; //此位置用于答题卡题号显示
 
@@ -93,6 +95,14 @@ public class QuestionEntity implements YanxiuBaseBean {
 
     public void setChildPageIndex(int childPageIndex) {
         this.childPageIndex = childPageIndex;
+    }
+
+    public int getChildPageNumber() {
+        return childPageNumber;
+    }
+
+    public void setChildPageNumber(int childPageNumber) {
+        this.childPageNumber = childPageNumber;
     }
 
     public ExtendEntity getExtend() {

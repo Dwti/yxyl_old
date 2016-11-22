@@ -42,9 +42,9 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
                 R.layout.fragment_fill_blanks, null);
         fillBlanksFramelayout = (FillBlanksFramelayout) rootView.findViewById(R.id.fb_item);
         if (questionsEntity != null && questionsEntity.getStem() != null) {
+            fillBlanksFramelayout.setAnswers(questionsEntity.getAnswer());
             fillBlanksFramelayout.setData(questionsEntity.getStem());
 //            Log.d("asd", "Stem+++++" + questionsEntity.getStem());
-            fillBlanksFramelayout.setAnswers(questionsEntity.getAnswer());
         }
 
         FragmentTransaction ft = FillBlanksFragment.this.getChildFragmentManager().beginTransaction();
