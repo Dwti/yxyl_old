@@ -277,6 +277,7 @@ public class GridPasswordView extends LinearLayout implements PasswordView {
                     if (i < passwordArr.length) {
                         passwordArr[i] = pswArr[i] + "";
                         setHtmlTxt(viewArr[i], passwordArr[i]);
+                        setEditTextMessage(editTextsArr[i],passwordArr[i]);
                     }
                 }
                 return true;
