@@ -96,12 +96,15 @@ public class FillBlanksFramelayout extends FrameLayout implements
                 mAnswerLength = Str.length();
             }
         }
+        if (mAnswerLength > 22) {
+            mAnswerLength = 22;
+        }
         for (int i=0; i<mAnswerLength; i++) {
-            mAnswerSb.append("_");
+            mAnswerSb.append("  ");
         }
         data = stem + "  \n";
         data = data + "  \n";
-        data = data.replace("(_)","("+mAnswerSb.toString()+")");
+        data = data.replace("(_)",mAnswerSb.toString());
         tvFillBlank.setText(data);
 //        Log.d("asd","data++++"+data);
         ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
@@ -276,7 +279,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
     }
 
     private void setNewText(int index){
-        String[] strings=data.split("\\("+mAnswerSb.toString()+"\\)");
+        String[] strings=data.split(mAnswerSb.toString());
         //String[] strings=data.split("\\(________________\\)");
 //        String[] strings=data.split("\\(");
         String mData="";
@@ -286,7 +289,8 @@ public class FillBlanksFramelayout extends FrameLayout implements
                 mData=mData+"\n";
             }
             if (i!=strings.length-1) {
-                mData = mData + "("+mAnswerSb.toString()+")";
+                //mData = mData + "("+mAnswerSb.toString()+")";
+                mData = mData + mAnswerSb.toString();
                 //mData = mData + "(________)";
             }
         }
@@ -334,10 +338,11 @@ public class FillBlanksFramelayout extends FrameLayout implements
 //        final boolean fource=false;
 //        final EditText et = new EditText(mCtx);
         final MyEdittext et=new MyEdittext(mCtx);
+        et.setPadding(10, 0, 10, 0);
         et.setSingleLine();
         et.setTextColor(mCtx.getResources().getColor(R.color.color_00b8b8));
         et.setTextSize(textSize);
-        et.setBackground(mCtx.getResources().getDrawable(R.drawable.rl_right_bg_nor));
+        et.setBackground(mCtx.getResources().getDrawable(R.drawable.fill_blank_bg));
         et.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {

@@ -9,6 +9,9 @@ import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.choicequestion.ChoiceQuestions;
 
+import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_COMPUTE;
+import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SOLVE_COMPLEX;
+
 /**
  * Created by Administrator on 2015/7/17.
  */
@@ -59,7 +62,12 @@ public class QuestionFragmentFactory {
                 fragment = new JudgeQuestionFragment();
                 break;
             case QUESTION_FILL_BLANKS:
-                fragment = new FillBlanksFragment();
+//                if (questionsEntity.getTemplate().equals(YanXiuConstant.MULTI_QUESTION) && (questionsEntity.getType_id() == QUESTION_SOLVE_COMPLEX.type
+//                        || questionsEntity.getType_id() == QUESTION_COMPUTE.type)) {
+//                    fragment=new NewFillBlanksFragment();
+//                } else {
+                    fragment = new FillBlanksFragment();
+//                }
                 //fragment=new NewFillBlanksFragment();
                 break;
             case QUESTION_CLASSFY:
