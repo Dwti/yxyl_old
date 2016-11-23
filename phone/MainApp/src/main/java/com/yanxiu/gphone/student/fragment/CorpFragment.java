@@ -20,7 +20,6 @@ import android.widget.LinearLayout;
 
 import com.common.core.utils.LogInfo;
 import com.common.core.utils.PictureHelper;
-import com.isseiaoki.simplecropview.CropImageView;
 import com.isseiaoki.simplecropview.callback.CropCallback;
 import com.isseiaoki.simplecropview.callback.LoadCallback;
 import com.isseiaoki.simplecropview.callback.SaveCallback;
@@ -31,6 +30,7 @@ import com.yanxiu.gphone.student.activity.takephoto.CorpActivity;
 import com.yanxiu.gphone.student.bean.CorpBean;
 import com.yanxiu.gphone.student.utils.FontUtils;
 import com.yanxiu.gphone.student.utils.MediaUtils;
+import com.yanxiu.gphone.student.view.simplecropview.CropImageView;
 
 import java.io.File;
 

@@ -210,7 +210,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                     if(ShareBitmapUtils.getInstance().getDataList()!=null&&ShareBitmapUtils.getInstance().getDataList().size()>0){
                         ActivityJumpUtils.jumpToImagePicSelActivityForResult(CameraActivity.this, 0, ImagePicSelActivity.REQUEST_CODE);
                     }
-                    //this.finish();
+                    this.finish();
                 }
                 //CameraActivityPermissionsDispatcher.pickImageWithCheck(this);
                 break;
