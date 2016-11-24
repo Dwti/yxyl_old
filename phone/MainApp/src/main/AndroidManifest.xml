@@ -410,6 +410,7 @@
                 <data android:scheme="wxb6704ac52abcfe4c"/>
             </intent-filter>
         </activity>
+        <!--<activity android:name=".activity.TestActivity"/>-->
         <activity
                 android:name="com.tencent.tauth.AuthActivity"
                 android:noHistory="true"

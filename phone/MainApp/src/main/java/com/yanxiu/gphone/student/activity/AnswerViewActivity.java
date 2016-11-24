@@ -552,6 +552,10 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         } else {
             quitSubmmitDialog();
         }
+        /*if (mLoadingDialog.isShowing()) {
+            mLoadingDialog.dismiss();
+            this.finish();
+        }*/
     }
 
     @Override
