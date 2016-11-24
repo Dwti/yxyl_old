@@ -35,6 +35,9 @@ import com.yanxiu.gphone.student.view.question.subjective.SubjectiveStarLayout;
 import java.util.List;
 import java.util.Map;
 
+import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_COMPUTE;
+import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SOLVE_COMPLEX;
+
 /**
  * Created by Administrator on 2015/7/7.
  * 题目分析界面
@@ -169,17 +172,18 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                 tvDifficulltyText.setTextHtml(getTypeKey(String.valueOf(questionsEntity.getDifficulty())));
                 tvDifficulltyText.setVisibility(View.GONE);
             }
-
-            /*if(questionsEntity.getAnswer() != null && questionsEntity.getAnswer().size()>0){
-                StringBuffer answerString = new StringBuffer();
-                for (String str:questionsEntity.getAnswer()) {
-                    answerString.append(str);
+            if (questionsEntity.getTemplate().equals(YanXiuConstant.ANSWER_QUESTION) || questionsEntity.getType_id() == QUESTION_COMPUTE.type) {
+                if (questionsEntity.getAnswer() != null && questionsEntity.getAnswer().size() > 0) {
+                    StringBuffer answerString = new StringBuffer();
+                    for (String str : questionsEntity.getAnswer()) {
+                        answerString.append(str);
+                    }
+                    if (!TextUtils.isEmpty(answerString.toString())) {
+                        tvAnswerText.setTextHtml(answerString.toString());
+                        llAnswer.setVisibility(View.VISIBLE);
+                    }
                 }
-                tvAnswerText.setTextHtml(answerString.toString());
-                tvDifficulltyText.setVisibility(View.GONE);
-            } else{
-                llAnswer.setVisibility(View.GONE);
-            }*/
+            }
             if(questionsEntity.getAnalysis() != null && !TextUtils.isEmpty(questionsEntity.getAnalysis())){
                 tvReportParseText.setTextHtml(questionsEntity.getAnalysis());
             }else{

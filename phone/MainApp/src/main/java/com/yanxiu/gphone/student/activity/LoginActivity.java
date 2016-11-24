@@ -137,6 +137,7 @@ public class LoginActivity extends YanxiuBaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_main);
         findView();
+//        startActivity(new Intent(this,TestActivity.class));
     }
 
     private void findView () {

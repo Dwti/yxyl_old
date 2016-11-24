@@ -26,6 +26,7 @@ import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.feedBack.AbstractFeedBack;
 import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
+import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 import com.yanxiu.gphone.student.view.question.subjective.SubjectiveHeartLayout;
 import com.yanxiu.gphone.student.view.question.subjective.SubjectiveStarLayout;
@@ -33,6 +34,9 @@ import com.yanxiu.gphone.student.view.question.subjective.SubjectiveStarLayout;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_COMPUTE;
+import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SOLVE_COMPLEX;
 
 /**
  * Created by lidm on 2015/9/25.
@@ -188,15 +192,17 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
                 tvDifficulltyText.setTextHtml(getTypeKey(String.valueOf(questionsEntity.getDifficulty())));
             }
 
-            if(questionsEntity.getAnswer() != null && questionsEntity.getAnswer().size()>0){
-                StringBuffer answerString = new StringBuffer();
-                for (String str:questionsEntity.getAnswer()) {
-                    answerString.append(str);
+            if (questionsEntity.getTemplate().equals(YanXiuConstant.ANSWER_QUESTION) || questionsEntity.getType_id() == QUESTION_COMPUTE.type) {
+                if (questionsEntity.getAnswer() != null && questionsEntity.getAnswer().size() > 0) {
+                    StringBuffer answerString = new StringBuffer();
+                    for (String str : questionsEntity.getAnswer()) {
+                        answerString.append(str);
+                    }
+                    if (!TextUtils.isEmpty(answerString.toString())) {
+                        tvAnswerText.setTextHtml(answerString.toString());
+                        llAnswer.setVisibility(View.VISIBLE);
+                    }
                 }
-                tvAnswerText.setTextHtml(answerString.toString());
-                tvAnswerText.setVisibility(View.VISIBLE);
-            } else{
-                llAnswer.setVisibility(View.GONE);
             }
 
 

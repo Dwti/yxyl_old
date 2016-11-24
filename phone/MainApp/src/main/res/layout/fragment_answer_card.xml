@@ -59,7 +59,7 @@
                 tool:text="语文练习第一章第一节"
                 android:id="@+id/tv_question_title"
                 android:textColor="@color/color_996600"
-                android:layout_toRightOf="@id/tv_answer_card"/>
+                android:layout_toRightOf="@id/iv_answer_card_close"/>
 
         </RelativeLayout>
 

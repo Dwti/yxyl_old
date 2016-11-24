@@ -3,6 +3,8 @@ package com.yanxiu.gphone.student.activity.takephoto;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
@@ -143,6 +145,9 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                 //pictureFile.createNewFile();
                 LogInfo.log("path", "111path"+pictureFile.getPath());
                 FileOutputStream fos = new FileOutputStream(pictureFile);
+                //final Bitmap bm = BitmapFactory.decodeByteArray(data, 0,
+                //        data.length);
+                //bm.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                 fos.write(data);
                 fos.close();
 

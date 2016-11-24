@@ -147,9 +147,10 @@ public class PicSelView extends RelativeLayout {
     private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            ShareBitmapUtils.getInstance().setCurrentSbId(currentQuestionId);
             if (ShareBitmapUtils.getInstance().getDrrMaps().get(ShareBitmapUtils.getInstance().getCurrentSbId()) == null || i == currentDrrList.size()) {
             //if (i == currentDrrList.size()) {
-                if (ShareBitmapUtils.getInstance().getCurrentSbId() == null || TextUtils.isEmpty(ShareBitmapUtils.getInstance().getCurrentSbId())) {
+                if (ShareBitmapUtils.getInstance().getCurrentSbId() == null) {
                     LogInfo.log(TAG, "ShareBitmapUtils.getInstance().getCurrentSbId()==null");
                     return;
                 }

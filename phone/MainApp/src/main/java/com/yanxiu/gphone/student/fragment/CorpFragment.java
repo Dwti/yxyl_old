@@ -108,6 +108,7 @@ public class CorpFragment extends Fragment {
             }
 
         }
+        mCropView.setCropMode(CropImageView.CropMode.FREE);
     }
 
     @Override
