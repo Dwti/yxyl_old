@@ -174,6 +174,7 @@ public class GroupFragment extends Fragment {
     private void initNoGroupView() {
         noGroupTopView = rootView.findViewById(R.id.no_group_top_view);
         noGroupView = (RelativeLayout) rootView.findViewById(R.id.no_group);
+        noGroupView.setVisibility(View.GONE);
         noGroupTextView = (TextView) noGroupView.findViewById(R.id.top_tip_tx);
         noGroupTextView.setText(R.string.no_class_tip);
         noGroupAddView = (TextView) noGroupView.findViewById(R.id.group_bottom_submit);
