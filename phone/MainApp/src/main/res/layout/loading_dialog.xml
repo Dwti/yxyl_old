@@ -4,6 +4,12 @@
     android:layout_width="235dp"
     android:layout_height="100dp"
     android:background="@drawable/answer_card_bg">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/load_dialog_close"/>
 
     <TextView
         android:id="@+id/tv_progress_txt"
