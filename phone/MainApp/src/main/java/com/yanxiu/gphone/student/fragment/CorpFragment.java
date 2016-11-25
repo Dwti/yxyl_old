@@ -269,6 +269,8 @@ public class CorpFragment extends Fragment {
                 case R.id.buttonPickImage:
                     //CorpFragmentPermissionsDispatcher.pickImageWithCheck(CorpFragment.this);
                     getActivity().finish();
+                    //String path=MediaUtils.getOutputMediaFileUri(true).toString();
+                    //MediaUtils.openLocalCamera((getActivity()), path, MediaUtils.OPEN_DEFINE_PIC_BUILD);
                     break;
             }
         }
