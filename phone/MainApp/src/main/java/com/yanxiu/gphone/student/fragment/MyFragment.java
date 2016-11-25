@@ -121,7 +121,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         if (Configuration.isTestData()) {
             testdataLayout.setVisibility(View.VISIBLE);
         } else {
-            testdataLayout.setVisibility(View.GONE);
+            testdataLayout.setVisibility(View.VISIBLE);
         }
         feedbackLayout=rootView.findViewById(R.id.feedback_layout);
 
@@ -220,7 +220,9 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 actualimagecursor.moveToFirst();
                 String txt_path = actualimagecursor.getString(actual_image_column_index);
                 try {
-                    Util.testDataStr = readFileSdcardFile(txt_path);
+                    Util.testDataStr = "{\n" +
+                            "    \"data\": [" +readFileSdcardFile(txt_path)+"    ]\n" +
+                            "}";
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

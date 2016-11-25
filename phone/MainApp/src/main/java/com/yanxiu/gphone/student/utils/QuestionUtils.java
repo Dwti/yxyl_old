@@ -252,7 +252,7 @@ public class QuestionUtils {
                             QuestionEntity child = paperList.get(j).getQuestions();
                             if (child != null) {
                                 if (YanXiuConstant.ANSWER_QUESTION.equals(child.getTemplate())) {
-                                    if(child.getPhotoUri() != null) {
+                                    if(child.getPhotoUri() != null && !child.getPhotoUri().isEmpty()) {
                                         list.add(child);
                                     }
                                 }
@@ -260,7 +260,7 @@ public class QuestionUtils {
                         }
                     } else {
                         if (YanXiuConstant.ANSWER_QUESTION.equals(questionEntity.getTemplate())) {
-                            if(questionEntity.getPhotoUri() != null) {
+                            if(questionEntity.getPhotoUri() != null && !questionEntity.getPhotoUri().isEmpty()) {
                                 list.add(questionEntity);
                             }
                         }

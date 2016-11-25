@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -18,10 +19,15 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.graphics.Matrix;
 
 import com.common.core.utils.CommonCoreUtil;
 import com.common.core.utils.LogInfo;
 import com.common.core.utils.PictureHelper;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.ImageBucketActivity;
 import com.yanxiu.gphone.student.activity.ImagePicSelActivity;
@@ -37,6 +43,7 @@ import com.yanxiu.gphone.student.view.takephoto.RecordVideoStatueCircle;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.ParseException;
 
 import permissions.dispatcher.RuntimePermissions;
@@ -48,8 +55,14 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
     private RelativeLayout fl_preview;
     private FocusView mFocusView;
     private ScreenSwitchUtils mInstance;
-    private  boolean portrait;
-    public static final int REQUEST_CODE=0x519;
+    private boolean portrait;
+    public static final int REQUEST_CODE = 0x519;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +98,9 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         });
         btn_capture.setOnClickListener(this);
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     public boolean checkCameraHardware() {
@@ -94,15 +110,25 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
 
     @Override
     protected void onStart() {
-        super.onStart();
+        super.onStart();// ATTENTION: This was auto-generated to implement the App Indexing API.
+// See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
 
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
     }
 
     @Override
     protected void onStop() {
-        super.onStop();
+        super.onStop();// ATTENTION: This was auto-generated to implement the App Indexing API.
+// See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
         mInstance.stop();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.disconnect();
     }
 
     @Override
@@ -143,12 +169,31 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
             File pictureFile = MediaUtils.getOutputMediaFile(true);
             try {
                 //pictureFile.createNewFile();
-                LogInfo.log("path", "111path"+pictureFile.getPath());
+                LogInfo.log("path", "111path" + pictureFile.getPath());
                 FileOutputStream fos = new FileOutputStream(pictureFile);
-                //final Bitmap bm = BitmapFactory.decodeByteArray(data, 0,
-                //        data.length);
-                //bm.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                fos.write(data);
+
+                final Bitmap bm = BitmapFactory.decodeByteArray(data, 0,
+                        data.length);
+                Matrix matrix = new Matrix();
+                matrix.setRotate(90);
+                Bitmap bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                /**
+                 * 获取图片的旋转角度，有些系统把拍照的图片旋转了，有的没有旋转
+                 */
+                /*int degree = readPictureDegree(pictureFile.getAbsolutePath());
+
+                BitmapFactory.Options opts=new BitmapFactory.Options();//获取缩略图显示到屏幕上
+                opts.inSampleSize=2;
+                Bitmap cbitmap=BitmapFactory.decodeFile(pictureFile.getAbsolutePath(),opts);*/
+
+                /**
+                 * 把图片旋转为正的方向
+                 */
+                /*Bitmap newbitmap = rotaingImageView(degree, cbitmap);
+                newbitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);*/
+                //fos.write(data);
+                fos.flush();
                 fos.close();
 
                 setResult(RESULT_OK);
@@ -171,19 +216,63 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         }
     };
 
+    /**
+     * 读取图片属性：旋转的角度
+     * @param path 图片绝对路径
+     * @return degree旋转的角度
+     */
+    public static int readPictureDegree(String path) {
+        int degree  = 0;
+        try {
+            ExifInterface exifInterface = new ExifInterface(path);
+            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    degree = 90;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    degree = 180;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    degree = 270;
+                    break;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return degree;
+    }
+    /*
+     * 旋转图片
+     * @param angle
+     * @param bitmap
+     * @return Bitmap
+     */
+    public static Bitmap rotaingImageView(int angle , Bitmap bitmap) {
+        //旋转图片 动作
+        Matrix matrix = new Matrix();;
+        matrix.postRotate(angle);
+        System.out.println("angle2=" + angle);
+        // 创建新的图片
+        Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0,
+                bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        return resizedBitmap;
+    }
+
     @Override
     public void onClick(View v) {
         portrait = mInstance.isPortrait();
-        Log.i("拍照时屏幕方向状态",portrait+"");
+        Log.i("拍照时屏幕方向状态", portrait + "");
         Camera.Parameters params = cameraPreview.getCameraParams();
-//        params.setRotation(90);
+        //params.setRotation(90);
         Camera camera = cameraPreview.getCameraInstance();
+        //camera.setDisplayOrientation(90);
         switch (v.getId()) {
             case R.id.iv_capture:
                 // 照相
                 camera.autoFocus(null);
 //                camera.takePicture(null, null, mPicture);
-                camera.takePicture(null,null,mPicture);
+                camera.takePicture(null, null, mPicture);
 
                 break;
             case R.id.iv_flash://auto  on off 切换
@@ -205,14 +294,14 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                 finish();
                 break;
             case R.id.iv_picture:
-                if (CommonCoreUtil.sdCardMounted()){
+                if (CommonCoreUtil.sdCardMounted()) {
                     //ActivityJumpUtils.jumpToImageBucketActivityForResult(CameraActivity.this, MediaUtils.OPEN_SYSTEM_PIC_BUILD_CAMERA);
                     try {
                         initData();
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    if(ShareBitmapUtils.getInstance().getDataList()!=null&&ShareBitmapUtils.getInstance().getDataList().size()>0){
+                    if (ShareBitmapUtils.getInstance().getDataList() != null && ShareBitmapUtils.getInstance().getDataList().size() > 0) {
                         ActivityJumpUtils.jumpToImagePicSelActivityForResult(CameraActivity.this, 0, ImagePicSelActivity.REQUEST_CODE);
                     }
                     this.finish();
@@ -226,7 +315,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
     private void initData() throws ParseException {
         AlbumHelper helper = AlbumHelper.getHelper();
         helper.init(getApplicationContext());
-        if(ShareBitmapUtils.getInstance().getDataList().size()>0){
+        if (ShareBitmapUtils.getInstance().getDataList().size() > 0) {
             ShareBitmapUtils.getInstance().getDataList().clear();
         }
         helper.resetParmas();
@@ -235,12 +324,28 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-            switch (requestCode) {
-                case MediaUtils.OPEN_SYSTEM_PIC_BUILD_CAMERA:
-                    setResult(resultCode, data);
-                    this.finish();
-                    break;
+        switch (requestCode) {
+            case MediaUtils.OPEN_SYSTEM_PIC_BUILD_CAMERA:
+                setResult(resultCode, data);
+                this.finish();
+                break;
 
-            }
+        }
+    }
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("Camera Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
     }
 }

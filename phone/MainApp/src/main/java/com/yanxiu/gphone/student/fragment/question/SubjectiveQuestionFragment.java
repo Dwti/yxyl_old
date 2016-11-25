@@ -250,7 +250,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
             case MediaUtils.OPEN_SYSTEM_CAMERA:
                 if(questionsEntity==null || StringUtils.isEmpty(questionsEntity.getId()))
                     return;
-                mPicSelView.upDate(getActivity(),MediaUtils.OPEN_SYSTEM_CAMERA, questionsEntity.getId());
+                //mPicSelView.upDate(getActivity(),MediaUtils.OPEN_SYSTEM_CAMERA, questionsEntity.getId());
                 break;
             //进入照片选择页面，并且裁剪完了，会走这儿
             case MediaUtils.OPEN_DEFINE_PIC_BUILD:
