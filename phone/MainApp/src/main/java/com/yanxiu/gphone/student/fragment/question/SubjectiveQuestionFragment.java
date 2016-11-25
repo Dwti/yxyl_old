@@ -24,6 +24,7 @@ import com.yanxiu.gphone.student.activity.ImageBucketActivity;
 import com.yanxiu.gphone.student.activity.LocalPhotoViewActivity;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.CorpBean;
+import com.yanxiu.gphone.student.bean.DeleteImageBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.bean.UploadImageBean;
@@ -48,6 +49,7 @@ import de.greenrobot.event.EventBus;
  * Created by lidm on 2015/9/25.
  */
 public class SubjectiveQuestionFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex {
+    public static final String TYPE="image_delete";
     private static final String TAG = SubjectiveQuestionFragment.class.getSimpleName();
     private View rootView;
     //本地的保存数据bean
@@ -76,12 +78,15 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         this.answerViewTypyBean = (getArguments() != null) ? getArguments().getInt("answerViewTypyBean") : null;
         this.pageIndex = (getArguments() != null) ? getArguments().getInt("pageIndex") : 0;
         this.isFirstSub = (getArguments() != null) ? getArguments().getBoolean("isFirstSub", false) : false;
+        EventBus.getDefault().register(this);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_subjective_question, null);
         yXiuAnserTextView = (YXiuAnserTextView) rootView.findViewById(R.id.yxiu_tv);
+
 
         FragmentTransaction ft = SubjectiveQuestionFragment.this.getChildFragmentManager().beginTransaction();
         ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
@@ -98,6 +103,17 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         selectTypeView();
 
         return rootView;
+    }
+
+
+    public void onEventMainThread(DeleteImageBean bean){
+        if (bean.getType().equals(TYPE)){
+            String url=bean.getImage_url();
+            if (url.startsWith("http")){
+                questionsEntity.getAnswerBean().getSubjectivImageUri().remove(url);
+
+            }
+        }
     }
 
     @Override
@@ -292,6 +308,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     public void onDestroy() {
         super.onDestroy();
         LogInfo.log(TAG, "---onDestroy-------pageIndex----" + pageIndex);
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

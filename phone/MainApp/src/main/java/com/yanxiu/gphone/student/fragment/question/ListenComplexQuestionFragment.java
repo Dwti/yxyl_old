@@ -204,7 +204,9 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                 if (!is_reduction) {
                     vpAnswer.setCurrentItem(0);
                 } else {
-                    vpAnswer.setCurrentItem(adapter.getCount() - 1);
+                    if (adapter!=null) {
+                        vpAnswer.setCurrentItem(adapter.getCount() - 1);
+                    }
                 }
             }
             if (!ischild) {

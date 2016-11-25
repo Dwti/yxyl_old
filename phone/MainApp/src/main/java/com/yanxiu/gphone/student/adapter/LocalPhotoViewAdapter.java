@@ -13,11 +13,15 @@ import com.common.core.utils.LogInfo;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.bean.DeleteImageBean;
+import com.yanxiu.gphone.student.fragment.question.SubjectiveQuestionFragment;
 import com.yanxiu.gphone.student.view.ZoomImageView;
 import com.yanxiu.gphone.student.view.picsel.bean.LocalImageView;
 import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
 
 import java.io.IOException;
+
+import de.greenrobot.event.EventBus;
 
 
 /**
@@ -75,6 +79,10 @@ public class LocalPhotoViewAdapter extends PagerAdapter {
     }
     public void deleteItem(int position){
         if(ShareBitmapUtils.getInstance().getDrrMaps().get(ShareBitmapUtils.getInstance().getCurrentSbId()).size()>0){
+            DeleteImageBean bean=new DeleteImageBean();
+            bean.setType(SubjectiveQuestionFragment.TYPE);
+            bean.setImage_url(ShareBitmapUtils.getInstance().getDrrMaps().get(ShareBitmapUtils.getInstance().getCurrentSbId()).get(position));
+            EventBus.getDefault().post(bean);
             ShareBitmapUtils.getInstance().getDrrMaps().get(ShareBitmapUtils.getInstance().getCurrentSbId()).remove(position);
             int loadIndex=ShareBitmapUtils.getInstance().getListIndexMaps().get(ShareBitmapUtils.getInstance().getCurrentSbId());
             loadIndex--;

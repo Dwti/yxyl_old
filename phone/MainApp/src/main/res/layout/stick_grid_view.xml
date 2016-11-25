@@ -5,7 +5,6 @@
     <com.yanxiu.gphone.student.view.stickhome.ScrollHomeView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/dimen_10"
                 android:scrollbars="none"
                 android:fadingEdge="none"
                 android:id="@+id/home_scroll_view" >

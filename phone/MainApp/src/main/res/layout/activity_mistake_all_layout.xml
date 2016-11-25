@@ -31,7 +31,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/rl_top_wrong_all_view"
-        android:layout_marginTop="@dimen/dimen_15"
         android:layout_marginLeft="@dimen/dimen_30"
         android:layout_marginRight="@dimen/dimen_30"
         android:layout_marginBottom="@dimen/dimen_5"

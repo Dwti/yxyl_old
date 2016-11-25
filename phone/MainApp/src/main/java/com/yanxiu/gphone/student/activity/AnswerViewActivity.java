@@ -428,7 +428,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 
         //showCommonDialog();
 //        loadingLayout.setViewType(StudentLoadingLayout.LoadingType.LAODING_COMMON);
-        if (fileMap == null || fileMap.size() == 0) {
+          if (fileMap == null || fileMap.size() == 0) {
             subjectiveQIndex++;
             entity.getAnswerBean().setSubjectivImageUri(httpUrl);
             handleUploadSubjectiveImage();

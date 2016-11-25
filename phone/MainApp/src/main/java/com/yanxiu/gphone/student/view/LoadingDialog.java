@@ -53,8 +53,6 @@ public class LoadingDialog extends Dialog{
         Window dialogWindow = getWindow();
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         dialogWindow.setGravity(Gravity.CENTER);
-        lp.width = 470; // 宽度
-        lp.height = 200; // 高度
         lp.alpha = 0.7f; // 透明度
         dialogWindow.setAttributes(lp);
 

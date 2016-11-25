@@ -32,54 +32,36 @@ public class MyEdittext extends EditText {
         init(context);
     }
 
-    private void init(Context context){
-        this.mContext=context;
-        setOnFocusChangeListener(listener);
+    private void init(Context context) {
+        this.mContext = context;
     }
-
-//    @Override
-//    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
-//        super.onFocusChanged(focused, direction, previouslyFocusedRect);
-//        this.focused=focused;
-//        if (focused){
-//            this.setSelection(this.getText().toString().length());
-//        }else {
-//            this.setText(this.getText().toString());
-//        }
-//    }
 
     @Override
-    public void setOnFocusChangeListener(OnFocusChangeListener l) {
-        super.setOnFocusChangeListener(l);
+    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+        super.onFocusChanged(focused, direction, previouslyFocusedRect);
+        this.focused = focused;
+        if (focused) {
+            this.setSelection(this.getText().toString().length());
+        } else {
+            this.setText(this.getText().toString());
+        }
     }
 
-    private OnFocusChangeListener listener=new OnFocusChangeListener() {
-        @Override
-        public void onFocusChange(View v, boolean hasFocus) {
-            MyEdittext.this.focused=hasFocus;
-//            if (focused){
-//                MyEdittext.this.setSelection(MyEdittext.this.getText().toString().length());
-//            }else {
-//                MyEdittext.this.setText(MyEdittext.this.getText().toString());
-//            }
-        }
-    };
-
-    //
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction()==MotionEvent.ACTION_DOWN){
-//            this.setSelection(this.getText().toString().length());
-//            return true;
-//            this.setFocusable(true);
-            MyEdittext.this.setFocusable(true);
-            MyEdittext.this.setFocusableInTouchMode(true);
-            MyEdittext.this.requestFocus();
-            InputMethodManager imm = (InputMethodManager) MyEdittext.this.getContext()
-                    .getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(MyEdittext.this, 0);
-            MyEdittext.this.setSelection(MyEdittext.this.getText().toString().length());
+        if (!focused) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                MyEdittext.this.setFocusable(true);
+                MyEdittext.this.setFocusableInTouchMode(true);
+                MyEdittext.this.requestFocus();
+                InputMethodManager imm = (InputMethodManager) MyEdittext.this.getContext()
+                        .getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(MyEdittext.this, 0);
+                MyEdittext.this.setSelection(MyEdittext.this.getText().toString().length());
+            }
+            return true;
+        } else {
+            return super.onTouchEvent(event);
         }
-        return true;
     }
 }

@@ -556,252 +556,146 @@ public class Util {
 
     public static String testDataStr = "";
     public static SubjectExercisesItemBean getSubjectExercisesItemBean() {
-        String str = "{\n" +
-                "    \"data\": [\n" +
-                "        {\n" +
-                "            \"authorid\": 20049003,\n" +
-                "            \"bedition\": 1452,\n" +
-                "            \"begintime\": 1468320000000,\n" +
-                "            \"buildtime\": 1468320062000,\n" +
-                "            \"chapterName\": \"第1章 统计\",\n" +
-                "            \"chapterid\": 201804,\n" +
-                "            \"editionName\": \"大纲版\",\n" +
-                "            \"endtime\": 1468339140000,\n" +
-                "            \"id\": 88398,\n" +
-                "            \"name\": \"7月12日数学作业\",\n" +
-                "            \"paperStatus\": {\n" +
-                "                \"begintime\": 1470103308000,\n" +
-                "                \"checkStatus\": 0,\n" +
-                "                \"costtime\": 3,\n" +
-                "                \"endtime\": 1470103441000,\n" +
-                "                \"id\": 70835,\n" +
-                "                \"ppid\": 88398,\n" +
-                "                \"rate\": 0,\n" +
-                "                \"status\": 1,\n" +
-                "                \"tid\": 0,\n" +
-                "                \"uid\": 6355\n" +
-                "            },\n" +
-                "            \"paperTest\": [\n" +
-                "               {\n" +
-                "                    \"difficulty\": 3,\n" +
-                "                    \"id\": 570354,\n" +
-                "                    \"isfavorite\": 0,\n" +
-                "                    \"knowledgepoint\": \"44463\",\n" +
-                "                    \"pad\": {\n" +
-                "                        \"answer\": \"[]\",\n" +
-                "                        \"costtime\": 0,\n" +
-                "                        \"id\": 390741,\n" +
-                "                        \"jsonAnswer\": [],\n" +
-                "                        \"ptid\": 570354,\n" +
-                "                        \"status\": 3,\n" +
-                "                        \"uid\": 6355\n" +
-                "                    },\n" +
-                "                    \"pid\": 88398,\n" +
-                "                    \"qid\": 2734957,\n" +
-                "                    \"qtype\": 0,\n" +
-                "                    \"questions\": {\n" +
-                "                        \"analysis\": \"考查对词组看电视的掌握。<p><br/></p>\",\n" +
-                "                        \"answer\": [\n" +
-                "                            \"watches\",\n" +
-                "                            \"TV\"\n" +
-                "                        ],\n" +
-                "                        \"difficulty\": \"1\",\n" +
-                "                        \"id\": \"2740230\",\n" +
-                "                        \"point\": [\n" +
-                "                            {\n" +
-                "                                \"id\": \"26021\",\n" +
-                "                                \"name\": \"watchTV(watchtelevision)\"\n" +
-                "                            }\n" +
-                "                        ],\n" +
-                "                        \"stem\": \"<p><br/>Tonyoften(_)(_)onSunday.<br/></p>\",\n" +
-                "                        \"template\": \"fill\",\n" +
-                "                        \"type_id\": \"6\"\n" +
-                "                    }\n" +
-                "                }," +
-                "               {\n" +
-                "                    \"difficulty\": 3,\n" +
-                "                    \"id\": 570354,\n" +
-                "                    \"isfavorite\": 0,\n" +
-                "                    \"knowledgepoint\": \"44463\",\n" +
-                "                    \"pad\": {\n" +
-                "                        \"answer\": \"[]\",\n" +
-                "                        \"costtime\": 0,\n" +
-                "                        \"id\": 390741,\n" +
-                "                        \"jsonAnswer\": [],\n" +
-                "                        \"ptid\": 570354,\n" +
-                "                        \"status\": 3,\n" +
-                "                        \"uid\": 6355\n" +
-                "                    },\n" +
-                "                    \"pid\": 88398,\n" +
-                "                    \"qid\": 2734957,\n" +
-                "                    \"qtype\": 0,\n" +
-                "                    \"questions\": {\n" +
-                "                        \"analysis\": \"考查对词组看电视的掌握。<p><br/></p>\",\n" +
-                "                        \"answer\": [\n" +
-                "                            \"watches\",\n" +
-                "                            \"TV\"\n" +
-                "                        ],\n" +
-                "                        \"difficulty\": \"1\",\n" +
-                "                        \"id\": \"2740230\",\n" +
-                "                        \"point\": [\n" +
-                "                            {\n" +
-                "                                \"id\": \"26021\",\n" +
-                "                                \"name\": \"watchTV(watchtelevision)\"\n" +
-                "                            }\n" +
-                "                        ],\n" +
-                "                        \"stem\": \"<p><br/>Tonyoften(_)(_)onSunday.<br/></p>\",\n" +
-                "                        \"template\": \"fill\",\n" +
-                "                        \"type_id\": \"3\"\n" +
-                "                    }\n" +
-                "                }," +
-                "                {\n" +
-                "                    \"difficulty\": 3,\n" +
-                "                    \"id\": 570354,\n" +
-                "                    \"isfavorite\": 0,\n" +
-                "                    \"knowledgepoint\": \"44463\",\n" +
-                "                    \"pad\": {\n" +
-                "                        \"answer\": \"[]\",\n" +
-                "                        \"costtime\": 0,\n" +
-                "                        \"id\": 390741,\n" +
-                "                        \"jsonAnswer\": [],\n" +
-                "                        \"ptid\": 570354,\n" +
-                "                        \"status\": 3,\n" +
-                "                        \"uid\": 6355\n" +
-                "                    },\n" +
-                "                    \"pid\": 88398,\n" +
-                "                    \"qid\": 2734957,\n" +
-                "                    \"qtype\": 0,\n" +
-                "                    \"questions\": {\n" +
-                "                        \"analysis\": \"\",\n" +
-                "                        \"answer\": [\n" +
-                "                            null\n" +
-                "                        ],\n" +
-                "                        \"children\": [\n" +
-                "                            {\n" +
-                "                                \"analysis\": \"asdfasfs\",\n" +
-                "                                \"answer\": [\n" +
-                "                                    \"3\"\n" +
-                "                                ],\n" +
-                "                                \"content\": {\n" +
-                "                                    \"choices\": [\n" +
-                "                                        \"asdfas\",\n" +
-                "                                        \"dsafasf\",\n" +
-                "                                        \"asdfas\",\n" +
-                "                                        \"sadfasf\"\n" +
-                "                                    ]\n" +
-                "                                },\n" +
-                "                                \"difficulty\": \"1\",\n" +
-                "                                \"id\": \"2734958\",\n" +
-                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
-                "                                \"template\": \"choice\",\n" +
-                "                                \"type_id\": \"1\"\n" +
-                "                            },\n" +
-                "                            {\n" +
-                "                                \"analysis\": \"ddd\",\n" +
-                "                                \"answer\": [\n" +
-                "                                    \"1\"\n" +
-                "                                ],\n" +
-                "                                \"difficulty\": \"1\",\n" +
-                "                                \"id\": \"2734959\",\n" +
-                "                                \"stem\": \"asdfasfasfasfsaf\",\n" +
-                "                                \"template\": \"alter\",\n" +
-                "                                \"type_id\": \"4\"\n" +
-                "                            }\n" +
-                "                        ],\n" +
-                "                        \"difficulty\": \"1\",\n" +
-                "                        \"id\": \"2734957\",\n" +
-                "                        \"point\": [\n" +
-                "                            {\n" +
-                "                                \"id\": \"1033\",\n" +
-                "                                \"name\": \"社会主义现代化成就\"\n" +
-                "                            }\n" +
-                "                        ],\n" +
-                "                        \"stem\": \"<p>One evening, it was raining and the wind was blowing hard. An old couple came to a small hotel and wanted to stay there for the night. A young man welcomed them warmly, but said “I’m sorry! Our rooms here are all full and the hotels nearby are all full too, for there will be an important meeting held here tomorrow.”</p><p>Hearing the young man’s words, the old couple felt very disappointed, and turned around to leave.</p><p>Just as they were leaving, the young man came up to them and stopped them: “Madam and sir, if you don’t mind, you can sleep in my bedroom for a night…”</p><p>The next morning, the old couple took out lots of money to give it to the young man, but he refused to take it.</p><p>“No! You needn’t pay me any money, for I only lend my room to you.” said the young man with a smile on his face.</p><p>“You’re great, young man! It’s very kind of you. Maybe one day, I’ll build a hotel for you!” said the old man. With these words, the old couple left. The young man only laughed and went on working.</p><p>Several years later, the young man got a letter from the old couple, inviting him to go to Manhattan. The young man met the old couple in front of a five-star hotel.</p><p>“Do you still remember what I said to you several years ago? Look! ________” said the old man. Soon, the young man became the manager of the hotel.</p><p><br/></p>\",\n" +
-                "                        \"template\": \"multi\",\n" +
-                "                        \"type_id\": \"13\"\n" +
-                "                    },\n" +
-                "                    \"sectionid\": 201804\n" +
-                "                },\n" +
-                "                {\n" +
-                "                    \"difficulty\": 3,\n" +
-                "                    \"id\": 570354,\n" +
-                "                    \"isfavorite\": 0,\n" +
-                "                    \"knowledgepoint\": \"44463\",\n" +
-                "                    \"pad\": {\n" +
-                "                        \"answer\": \"[]\",\n" +
-                "                        \"costtime\": 0,\n" +
-                "                        \"id\": 390741,\n" +
-                "                        \"jsonAnswer\": [],\n" +
-                "                        \"ptid\": 570354,\n" +
-                "                        \"status\": 3,\n" +
-                "                        \"uid\": 6355\n" +
-                "                    },\n" +
-                "                    \"pid\": 88398,\n" +
-                "                    \"qid\": 2734957,\n" +
-                "                    \"qtype\": 0,\n" +
-                "                    \"questions\": {\n" +
-                "                        \"analysis\": \"\",\n" +
-                "                        \"answer\": [\n" +
-                "                            null\n" +
-                "                        ],\n" +
-                "                        \"children\": [\n" +
-                "                            {\n" +
-                "                                \"analysis\": \"asdfasfs\",\n" +
-                "                                \"answer\": [\n" +
-                "                                    \"3\"\n" +
-                "                                ],\n" +
-                "                                \"content\": {\n" +
-                "                                    \"choices\": [\n" +
-                "                                        \"asdfas\",\n" +
-                "                                        \"dsafasf\",\n" +
-                "                                        \"asdfas\",\n" +
-                "                                        \"sadfasf\"\n" +
-                "                                    ]\n" +
-                "                                },\n" +
-                "                                \"difficulty\": \"1\",\n" +
-                "                                \"id\": \"2734958\",\n" +
-                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
-                "                                \"template\": \"choice\",\n" +
-                "                                \"type_id\": \"1\"\n" +
-                "                            },\n" +
-                "                            {\n" +
-                "                                \"analysis\": \"test\",\n" +
-                "                                \"answer\": [\n" +
-                "                                    \"3\"\n" +
-                "                                ],\n" +
-                "                                \"content\": {\n" +
-                "                                    \"choices\": [\n" +
-                "                                        \"test1\",\n" +
-                "                                        \"test2\",\n" +
-                "                                        \"test3\",\n" +
-                "                                        \"test4\"\n" +
-                "                                    ]\n" +
-                "                                },\n" +
-                "                                \"difficulty\": \"1\",\n" +
-                "                                \"id\": \"2734959\",\n" +
-                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
-                "                                \"template\": \"choice\",\n" +
-                "                                \"type_id\": \"1\"\n" +
-                "                            },\n" +
-                "                            {\n" +
-                "                                \"analysis\": \"test\",\n" +
-                "                                \"answer\": [\n" +
-                "                                    \"3\"\n" +
-                "                                ],\n" +
-                "                                \"content\": {\n" +
-                "                                    \"choices\": [\n" +
-                "                                        \"ceshi1\",\n" +
-                "                                        \"ceshi2\",\n" +
-                "                                        \"ceshi3\",\n" +
-                "                                        \"ceshi4\"\n" +
-                "                                    ]\n" +
-                "                                },\n" +
-                "                                \"difficulty\": \"1\",\n" +
-                "                                \"id\": \"2734960\",\n" +
-                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
-                "                                \"template\": \"choice\",\n" +
-                "                                \"type_id\": \"1\"\n" +
-                "                            },\n" +
+//        String str = "{\n" +
+//                "    \"data\": [\n" +
+//                "        {\n" +
+//                "            \"authorid\": 20049003,\n" +
+//                "            \"bedition\": 1452,\n" +
+//                "            \"begintime\": 1468320000000,\n" +
+//                "            \"buildtime\": 1468320062000,\n" +
+//                "            \"chapterName\": \"第1章 统计\",\n" +
+//                "            \"chapterid\": 201804,\n" +
+//                "            \"editionName\": \"大纲版\",\n" +
+//                "            \"endtime\": 1468339140000,\n" +
+//                "            \"id\": 88398,\n" +
+//                "            \"name\": \"7月12日数学作业\",\n" +
+//                "            \"paperStatus\": {\n" +
+//                "                \"begintime\": 1470103308000,\n" +
+//                "                \"checkStatus\": 0,\n" +
+//                "                \"costtime\": 3,\n" +
+//                "                \"endtime\": 1470103441000,\n" +
+//                "                \"id\": 70835,\n" +
+//                "                \"ppid\": 88398,\n" +
+//                "                \"rate\": 0,\n" +
+//                "                \"status\": 1,\n" +
+//                "                \"tid\": 0,\n" +
+//                "                \"uid\": 6355\n" +
+//                "            },\n" +
+//                "            \"paperTest\": [\n" +
+//                "               {\n" +
+//                "                    \"difficulty\": 3,\n" +
+//                "                    \"id\": 570354,\n" +
+//                "                    \"isfavorite\": 0,\n" +
+//                "                    \"knowledgepoint\": \"44463\",\n" +
+//                "                    \"pad\": {\n" +
+//                "                        \"answer\": \"[]\",\n" +
+//                "                        \"costtime\": 0,\n" +
+//                "                        \"id\": 390741,\n" +
+//                "                        \"jsonAnswer\": [],\n" +
+//                "                        \"ptid\": 570354,\n" +
+//                "                        \"status\": 3,\n" +
+//                "                        \"uid\": 6355\n" +
+//                "                    },\n" +
+//                "                    \"pid\": 88398,\n" +
+//                "                    \"qid\": 2734957,\n" +
+//                "                    \"qtype\": 0,\n" +
+//                "                    \"questions\": {\n" +
+//                "                        \"analysis\": \"考查对词组看电视的掌握。<p><br/></p>\",\n" +
+//                "                        \"answer\": [\n" +
+//                "                            \"watches\",\n" +
+//                "                            \"TV\"\n" +
+//                "                        ],\n" +
+//                "                        \"difficulty\": \"1\",\n" +
+//                "                        \"id\": \"2740230\",\n" +
+//                "                        \"point\": [\n" +
+//                "                            {\n" +
+//                "                                \"id\": \"26021\",\n" +
+//                "                                \"name\": \"watchTV(watchtelevision)\"\n" +
+//                "                            }\n" +
+//                "                        ],\n" +
+//                "                        \"stem\": \"<p><br/>Tonyoften(_)(_)onSunday.<br/></p>\",\n" +
+//                "                        \"template\": \"fill\",\n" +
+//                "                        \"type_id\": \"6\"\n" +
+//                "                    }\n" +
+//                "                }," +
+//                "               {\n" +
+//                "                    \"difficulty\": 3,\n" +
+//                "                    \"id\": 570354,\n" +
+//                "                    \"isfavorite\": 0,\n" +
+//                "                    \"knowledgepoint\": \"44463\",\n" +
+//                "                    \"pad\": {\n" +
+//                "                        \"answer\": \"[]\",\n" +
+//                "                        \"costtime\": 0,\n" +
+//                "                        \"id\": 390741,\n" +
+//                "                        \"jsonAnswer\": [],\n" +
+//                "                        \"ptid\": 570354,\n" +
+//                "                        \"status\": 3,\n" +
+//                "                        \"uid\": 6355\n" +
+//                "                    },\n" +
+//                "                    \"pid\": 88398,\n" +
+//                "                    \"qid\": 2734957,\n" +
+//                "                    \"qtype\": 0,\n" +
+//                "                    \"questions\": {\n" +
+//                "                        \"analysis\": \"考查对词组看电视的掌握。<p><br/></p>\",\n" +
+//                "                        \"answer\": [\n" +
+//                "                            \"watches\",\n" +
+//                "                            \"TV\"\n" +
+//                "                        ],\n" +
+//                "                        \"difficulty\": \"1\",\n" +
+//                "                        \"id\": \"2740230\",\n" +
+//                "                        \"point\": [\n" +
+//                "                            {\n" +
+//                "                                \"id\": \"26021\",\n" +
+//                "                                \"name\": \"watchTV(watchtelevision)\"\n" +
+//                "                            }\n" +
+//                "                        ],\n" +
+//                "                        \"stem\": \"<p><br/>Tonyoften(_)(_)onSunday.<br/></p>\",\n" +
+//                "                        \"template\": \"fill\",\n" +
+//                "                        \"type_id\": \"3\"\n" +
+//                "                    }\n" +
+//                "                }," +
+//                "                {\n" +
+//                "                    \"difficulty\": 3,\n" +
+//                "                    \"id\": 570354,\n" +
+//                "                    \"isfavorite\": 0,\n" +
+//                "                    \"knowledgepoint\": \"44463\",\n" +
+//                "                    \"pad\": {\n" +
+//                "                        \"answer\": \"[]\",\n" +
+//                "                        \"costtime\": 0,\n" +
+//                "                        \"id\": 390741,\n" +
+//                "                        \"jsonAnswer\": [],\n" +
+//                "                        \"ptid\": 570354,\n" +
+//                "                        \"status\": 3,\n" +
+//                "                        \"uid\": 6355\n" +
+//                "                    },\n" +
+//                "                    \"pid\": 88398,\n" +
+//                "                    \"qid\": 2734957,\n" +
+//                "                    \"qtype\": 0,\n" +
+//                "                    \"questions\": {\n" +
+//                "                        \"analysis\": \"\",\n" +
+//                "                        \"answer\": [\n" +
+//                "                            null\n" +
+//                "                        ],\n" +
+//                "                        \"children\": [\n" +
+//                "                            {\n" +
+//                "                                \"analysis\": \"asdfasfs\",\n" +
+//                "                                \"answer\": [\n" +
+//                "                                    \"3\"\n" +
+//                "                                ],\n" +
+//                "                                \"content\": {\n" +
+//                "                                    \"choices\": [\n" +
+//                "                                        \"asdfas\",\n" +
+//                "                                        \"dsafasf\",\n" +
+//                "                                        \"asdfas\",\n" +
+//                "                                        \"sadfasf\"\n" +
+//                "                                    ]\n" +
+//                "                                },\n" +
+//                "                                \"difficulty\": \"1\",\n" +
+//                "                                \"id\": \"2734958\",\n" +
+//                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
+//                "                                \"template\": \"choice\",\n" +
+//                "                                \"type_id\": \"1\"\n" +
+//                "                            },\n" +
 //                "                            {\n" +
 //                "                                \"analysis\": \"ddd\",\n" +
 //                "                                \"answer\": [\n" +
@@ -813,277 +707,384 @@ public class Util {
 //                "                                \"template\": \"alter\",\n" +
 //                "                                \"type_id\": \"4\"\n" +
 //                "                            }\n" +
-                "                        ],\n" +
-                "                        \"difficulty\": \"1\",\n" +
-                "                        \"id\": \"2734957\",\n" +
-                "                        \"point\": [\n" +
-                "                            {\n" +
-                "                                \"id\": \"1033\",\n" +
-                "                                \"name\": \"社会主义现代化成就\"\n" +
-                "                            }\n" +
-                "                        ],\n" +
-                "                        \"stem\": \"鲁迅，原名(_)字，他的代表作品是小说集，散文集。鲁迅再《琐记》一文中，用了来讥讽洋务(_)派的办学。鲁迅写出了中国现代第一篇白话小说(_)，1918年在上发表其后又发表等著名小说。\",\n" +
-                "                        \"template\": \"multi\",\n" +
-                "                        \"type_id\": \"15\"\n" +
-                "                    },\n" +
-                "                    \"sectionid\": 201804\n" +
-                "                },\n" +
-                "                {\n" +
-                "                    \"difficulty\": 3,\n" +
-                "                    \"id\": 570354,\n" +
-                "                    \"isfavorite\": 0,\n" +
-                "                    \"knowledgepoint\": \"44463\",\n" +
-                "                    \"pad\": {\n" +
-                "                        \"answer\": \"[]\",\n" +
-                "                        \"costtime\": 0,\n" +
-                "                        \"id\": 390741,\n" +
-                "                        \"jsonAnswer\": [],\n" +
-                "                        \"ptid\": 570354,\n" +
-                "                        \"status\": 3,\n" +
-                "                        \"uid\": 6355\n" +
-                "                    },\n" +
-                "                    \"pid\": 88398,\n" +
-                "                    \"qid\": 2734957,\n" +
-                "                    \"qtype\": 0,\n" +
-                "                    \"questions\": {\n" +
-                "                        \"analysis\": \"\",\n" +
-                "                        \"answer\": [\n" +
-                "                            null\n" +
-                "                        ],\n" +
-                "                        \"children\": [\n" +
-                "                            {\n" +
-                "                                \"analysis\": \"asdfasfs\",\n" +
-                "                                \"answer\": [\n" +
-                "                                    \"3\"\n" +
-                "                                ],\n" +
-                "                                \"content\": {\n" +
-                "                                    \"choices\": [\n" +
-                "                                        \"asdfas\",\n" +
-                "                                        \"dsafasf\",\n" +
-                "                                        \"asdfas\",\n" +
-                "                                        \"sadfasf\"\n" +
-                "                                    ]\n" +
-                "                                },\n" +
-                "                                \"difficulty\": \"1\",\n" +
-                "                                \"id\": \"2734958\",\n" +
-                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
-                "                                \"template\": \"choice\",\n" +
-                "                                \"type_id\": \"1\"\n" +
-                "                            },\n" +
-                "                            {\n" +
-                "                                \"analysis\": \"ddd\",\n" +
-                "                                \"answer\": [\n" +
-                "                                    \"1\"\n" +
-                "                                ],\n" +
-                "                                \"difficulty\": \"1\",\n" +
-                "                                \"id\": \"2734959\",\n" +
-                "                                \"stem\": \"asdfasfasfasfsaf\",\n" +
-                "                                \"template\": \"alter\",\n" +
-                "                                \"type_id\": \"4\"\n" +
-                "                            }\n" +
-                "                        ],\n" +
-                "                        \"difficulty\": \"1\",\n" +
-                "                        \"id\": \"2734957\",\n" +
-                "                        \"point\": [\n" +
-                "                            {\n" +
-                "                                \"id\": \"1033\",\n" +
-                "                                \"name\": \"社会主义现代化成就\"\n" +
-                "                            }\n" +
-                "                        ],\n" +
-                "                        \"stem\": \"<p>One evening, it was raining and the wind was blowing hard. An old couple came to a small hotel and wanted to stay there for the night. A young man welcomed them warmly, but said “I’m sorry! Our rooms here are all full and the hotels nearby are all full too, for there will be an important meeting held here tomorrow.”</p><p>Hearing the young man’s words, the old couple felt very disappointed, and turned around to leave.</p><p>Just as they were leaving, the young man came up to them and stopped them: “Madam and sir, if you don’t mind, you can sleep in my bedroom for a night…”</p><p>The next morning, the old couple took out lots of money to give it to the young man, but he refused to take it.</p><p>“No! You needn’t pay me any money, for I only lend my room to you.” said the young man with a smile on his face.</p><p>“You’re great, young man! It’s very kind of you. Maybe one day, I’ll build a hotel for you!” said the old man. With these words, the old couple left. The young man only laughed and went on working.</p><p>Several years later, the young man got a letter from the old couple, inviting him to go to Manhattan. The young man met the old couple in front of a five-star hotel.</p><p>“Do you still remember what I said to you several years ago? Look! ________” said the old man. Soon, the young man became the manager of the hotel.</p><p><br/></p>\",\n" +
-                "                        \"template\": \"multi\",\n" +
-                "                        \"type_id\": \"16\"\n" +
-                "                    },\n" +
-                "                    \"sectionid\": 201804\n" +
-                "                },\n" +
-                "                {\n" +
-                "                    \"difficulty\": 3,\n" +
-                "                    \"id\": 570354,\n" +
-                "                    \"isfavorite\": 0,\n" +
-                "                    \"knowledgepoint\": \"44463\",\n" +
-                "                    \"pad\": {\n" +
-                "                        \"answer\": \"[]\",\n" +
-                "                        \"costtime\": 0,\n" +
-                "                        \"id\": 390741,\n" +
-                "                        \"jsonAnswer\": [],\n" +
-                "                        \"ptid\": 570354,\n" +
-                "                        \"status\": 3,\n" +
-                "                        \"uid\": 6355\n" +
-                "                    },\n" +
-                "                    \"pid\": 88398,\n" +
-                "                    \"qid\": 2734957,\n" +
-                "                    \"qtype\": 0,\n" +
-                "                    \"questions\": {\n" +
-                "                        \"analysis\": \"\",\n" +
-                "                        \"answer\": [\n" +
-                "                            null\n" +
-                "                        ],\n" +
-                "                        \"children\": [\n" +
-                "                            {\n" +
-                "                                \"analysis\": \"asdfasfs\",\n" +
-                "                                \"answer\": [\n" +
-                "                                    \"3\"\n" +
-                "                                ],\n" +
-                "                                \"content\": {\n" +
-                "                                    \"choices\": [\n" +
-                "                                        \"asdfas\",\n" +
-                "                                        \"dsafasf\",\n" +
-                "                                        \"asdfas\",\n" +
-                "                                        \"sadfasf\"\n" +
-                "                                    ]\n" +
-                "                                },\n" +
-                "                                \"difficulty\": \"1\",\n" +
-                "                                \"id\": \"2734958\",\n" +
-                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
-                "                                \"template\": \"choice\",\n" +
-                "                                \"type_id\": \"1\"\n" +
-                "                            },\n" +
-                "                            {\n" +
-                "                                \"analysis\": \"ddd\",\n" +
-                "                                \"answer\": [\n" +
-                "                                    \"1\"\n" +
-                "                                ],\n" +
-                "                                \"difficulty\": \"1\",\n" +
-                "                                \"id\": \"2734959\",\n" +
-                "                                \"stem\": \"asdfasfasfasfsaf\",\n" +
-                "                                \"template\": \"alter\",\n" +
-                "                                \"type_id\": \"4\"\n" +
-                "                            }\n" +
-                "                        ],\n" +
-                "                        \"difficulty\": \"1\",\n" +
-                "                        \"id\": \"2734957\",\n" +
-                "                        \"point\": [\n" +
-                "                            {\n" +
-                "                                \"id\": \"1033\",\n" +
-                "                                \"name\": \"社会主义现代化成就\"\n" +
-                "                            }\n" +
-                "                        ],\n" +
-                "                        \"stem\": \"<p>One evening, it was raining and the wind was blowing hard. An old couple came to a small hotel and wanted to stay there for the night. A young man welcomed them warmly, but said “I’m sorry! Our rooms here are all full and the hotels nearby are all full too, for there will be an important meeting held here tomorrow.”</p><p>Hearing the young man’s words, the old couple felt very disappointed, and turned around to leave.</p><p>Just as they were leaving, the young man came up to them and stopped them: “Madam and sir, if you don’t mind, you can sleep in my bedroom for a night…”</p><p>The next morning, the old couple took out lots of money to give it to the young man, but he refused to take it.</p><p>“No! You needn’t pay me any money, for I only lend my room to you.” said the young man with a smile on his face.</p><p>“You’re great, young man! It’s very kind of you. Maybe one day, I’ll build a hotel for you!” said the old man. With these words, the old couple left. The young man only laughed and went on working.</p><p>Several years later, the young man got a letter from the old couple, inviting him to go to Manhattan. The young man met the old couple in front of a five-star hotel.</p><p>“Do you still remember what I said to you several years ago? Look! ________” said the old man. Soon, the young man became the manager of the hotel.</p><p><br/></p>\",\n" +
-                "                        \"template\": \"multi\",\n" +
-                "                        \"type_id\": \"17\"\n" +
-                "                    },\n" +
-                "                    \"sectionid\": 201804\n" +
-                "                },\n" +
-                "                {\n" +
-                "                    \"difficulty\": 3,\n" +
-                "                    \"id\": 570354,\n" +
-                "                    \"isfavorite\": 0,\n" +
-                "                    \"knowledgepoint\": \"44463\",\n" +
-                "                    \"pad\": {\n" +
-                "                        \"answer\": \"[]\",\n" +
-                "                        \"costtime\": 0,\n" +
-                "                        \"id\": 390741,\n" +
-                "                        \"jsonAnswer\": [],\n" +
-                "                        \"ptid\": 570354,\n" +
-                "                        \"status\": 3,\n" +
-                "                        \"uid\": 6355\n" +
-                "                    },\n" +
-                "                    \"pid\": 88398,\n" +
-                "                    \"qid\": 2734957,\n" +
-                "                    \"qtype\": 0,\n" +
-                "                    \"questions\": {\n" +
-                "                        \"analysis\": \"\",\n" +
-                "                        \"answer\": [\n" +
-                "                            null\n" +
-                "                        ],\n" +
-                "                        \"children\": [\n" +
-                "                            {\n" +
-                "                                \"analysis\": \"asdfasfs\",\n" +
-                "                                \"answer\": [\n" +
-                "                                    \"3\"\n" +
-                "                                ],\n" +
-                "                                \"content\": {\n" +
-                "                                    \"choices\": [\n" +
-                "                                        \"asdfas\",\n" +
-                "                                        \"dsafasf\",\n" +
-                "                                        \"asdfas\",\n" +
-                "                                        \"sadfasf\"\n" +
-                "                                    ]\n" +
-                "                                },\n" +
-                "                                \"difficulty\": \"1\",\n" +
-                "                                \"id\": \"2734958\",\n" +
-                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
-                "                                \"template\": \"choice\",\n" +
-                "                                \"type_id\": \"1\"\n" +
-                "                            },\n" +
-                "                            {\n" +
-                "                                \"analysis\": \"asdfasfs\",\n" +
-                "                                \"answer\": [\n" +
-                "                                    \"3\"\n" +
-                "                                ],\n" +
-                "                                \"content\": {\n" +
-                "                                    \"choices\": [\n" +
-                "                                        \"test1\",\n" +
-                "                                        \"test2\",\n" +
-                "                                        \"test3\",\n" +
-                "                                        \"test4\"\n" +
-                "                                    ]\n" +
-                "                                },\n" +
-                "                                \"difficulty\": \"1\",\n" +
-                "                                \"id\": \"2734959\",\n" +
-                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
-                "                                \"template\": \"choice\",\n" +
-                "                                \"type_id\": \"1\"\n" +
-                "                            },\n" +
-                "                            {\n" +
-                "                                \"analysis\": \"asdfasfs\",\n" +
-                "                                \"answer\": [\n" +
-                "                                    \"3\"\n" +
-                "                                ],\n" +
-                "                                \"content\": {\n" +
-                "                                    \"choices\": [\n" +
-                "                                        \"ceshi1\",\n" +
-                "                                        \"ceshi2\",\n" +
-                "                                        \"ceshi3\",\n" +
-                "                                        \"ceshi4\"\n" +
-                "                                    ]\n" +
-                "                                },\n" +
-                "                                \"difficulty\": \"1\",\n" +
-                "                                \"id\": \"2734960\",\n" +
-                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
-                "                                \"template\": \"choice\",\n" +
-                "                                \"type_id\": \"1\"\n" +
-                "                            },\n" +
-                "                        ],\n" +
-                "                        \"difficulty\": \"1\",\n" +
-                "                        \"id\": \"2734957\",\n" +
-                "                        \"point\": [\n" +
-                "                            {\n" +
-                "                                \"id\": \"1033\",\n" +
-                "                                \"name\": \"社会主义现代化成就\"\n" +
-                "                            }\n" +
-                "                        ],\n" +
-                "                        \"stem\": \"鲁迅，原名(_)字，他的代表作品是小说集，散文集。鲁迅再《琐记》一文中，用了来讥讽洋务(_)派的办学。鲁迅写出了中国现代第一篇白话小说(_)，1918年在上发表其后又发表等著名小说。\",\n" +
-                "                        \"template\": \"multi\",\n" +
-                "                        \"type_id\": \"15\"\n" +
-                "                    },\n" +
-                "                    \"sectionid\": 201804\n" +
-                "                }\n" +
-                "            ],\n" +
-                "            \"ptype\": 1,\n" +
-                "            \"quesnum\": 1,\n" +
-                "            \"sectionid\": 0,\n" +
-                "            \"showana\": 1,\n" +
-                "            \"stageName\": \"高中\",\n" +
-                "            \"stageid\": 1204,\n" +
-                "            \"status\": 1,\n" +
-                "            \"subjectName\": \"数学\",\n" +
-                "            \"subjectid\": 1103,\n" +
-                "            \"subquesnum\": 2,\n" +
-                "            \"volume\": 201803,\n" +
-                "            \"volumeName\": \"高三上\"\n" +
-                "        }\n" +
-                "    ],\n" +
-                "    \"status\": {\n" +
-                "        \"code\": 0,\n" +
-                "        \"desc\": \"get question list success\"\n" +
-                "    }\n" +
-                "}";
-        if (!TextUtils.isEmpty(testDataStr)) {
-            return (SubjectExercisesItemBean) JSON.parseObject(testDataStr, SubjectExercisesItemBean.class);
-        } else {
+//                "                        ],\n" +
+//                "                        \"difficulty\": \"1\",\n" +
+//                "                        \"id\": \"2734957\",\n" +
+//                "                        \"point\": [\n" +
+//                "                            {\n" +
+//                "                                \"id\": \"1033\",\n" +
+//                "                                \"name\": \"社会主义现代化成就\"\n" +
+//                "                            }\n" +
+//                "                        ],\n" +
+//                "                        \"stem\": \"<p>One evening, it was raining and the wind was blowing hard. An old couple came to a small hotel and wanted to stay there for the night. A young man welcomed them warmly, but said “I’m sorry! Our rooms here are all full and the hotels nearby are all full too, for there will be an important meeting held here tomorrow.”</p><p>Hearing the young man’s words, the old couple felt very disappointed, and turned around to leave.</p><p>Just as they were leaving, the young man came up to them and stopped them: “Madam and sir, if you don’t mind, you can sleep in my bedroom for a night…”</p><p>The next morning, the old couple took out lots of money to give it to the young man, but he refused to take it.</p><p>“No! You needn’t pay me any money, for I only lend my room to you.” said the young man with a smile on his face.</p><p>“You’re great, young man! It’s very kind of you. Maybe one day, I’ll build a hotel for you!” said the old man. With these words, the old couple left. The young man only laughed and went on working.</p><p>Several years later, the young man got a letter from the old couple, inviting him to go to Manhattan. The young man met the old couple in front of a five-star hotel.</p><p>“Do you still remember what I said to you several years ago? Look! ________” said the old man. Soon, the young man became the manager of the hotel.</p><p><br/></p>\",\n" +
+//                "                        \"template\": \"multi\",\n" +
+//                "                        \"type_id\": \"13\"\n" +
+//                "                    },\n" +
+//                "                    \"sectionid\": 201804\n" +
+//                "                },\n" +
+//                "                {\n" +
+//                "                    \"difficulty\": 3,\n" +
+//                "                    \"id\": 570354,\n" +
+//                "                    \"isfavorite\": 0,\n" +
+//                "                    \"knowledgepoint\": \"44463\",\n" +
+//                "                    \"pad\": {\n" +
+//                "                        \"answer\": \"[]\",\n" +
+//                "                        \"costtime\": 0,\n" +
+//                "                        \"id\": 390741,\n" +
+//                "                        \"jsonAnswer\": [],\n" +
+//                "                        \"ptid\": 570354,\n" +
+//                "                        \"status\": 3,\n" +
+//                "                        \"uid\": 6355\n" +
+//                "                    },\n" +
+//                "                    \"pid\": 88398,\n" +
+//                "                    \"qid\": 2734957,\n" +
+//                "                    \"qtype\": 0,\n" +
+//                "                    \"questions\": {\n" +
+//                "                        \"analysis\": \"\",\n" +
+//                "                        \"answer\": [\n" +
+//                "                            null\n" +
+//                "                        ],\n" +
+//                "                        \"children\": [\n" +
+//                "                            {\n" +
+//                "                                \"analysis\": \"asdfasfs\",\n" +
+//                "                                \"answer\": [\n" +
+//                "                                    \"3\"\n" +
+//                "                                ],\n" +
+//                "                                \"content\": {\n" +
+//                "                                    \"choices\": [\n" +
+//                "                                        \"asdfas\",\n" +
+//                "                                        \"dsafasf\",\n" +
+//                "                                        \"asdfas\",\n" +
+//                "                                        \"sadfasf\"\n" +
+//                "                                    ]\n" +
+//                "                                },\n" +
+//                "                                \"difficulty\": \"1\",\n" +
+//                "                                \"id\": \"2734958\",\n" +
+//                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
+//                "                                \"template\": \"choice\",\n" +
+//                "                                \"type_id\": \"1\"\n" +
+//                "                            },\n" +
+//                "                            {\n" +
+//                "                                \"analysis\": \"test\",\n" +
+//                "                                \"answer\": [\n" +
+//                "                                    \"3\"\n" +
+//                "                                ],\n" +
+//                "                                \"content\": {\n" +
+//                "                                    \"choices\": [\n" +
+//                "                                        \"test1\",\n" +
+//                "                                        \"test2\",\n" +
+//                "                                        \"test3\",\n" +
+//                "                                        \"test4\"\n" +
+//                "                                    ]\n" +
+//                "                                },\n" +
+//                "                                \"difficulty\": \"1\",\n" +
+//                "                                \"id\": \"2734959\",\n" +
+//                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
+//                "                                \"template\": \"choice\",\n" +
+//                "                                \"type_id\": \"1\"\n" +
+//                "                            },\n" +
+//                "                            {\n" +
+//                "                                \"analysis\": \"test\",\n" +
+//                "                                \"answer\": [\n" +
+//                "                                    \"3\"\n" +
+//                "                                ],\n" +
+//                "                                \"content\": {\n" +
+//                "                                    \"choices\": [\n" +
+//                "                                        \"ceshi1\",\n" +
+//                "                                        \"ceshi2\",\n" +
+//                "                                        \"ceshi3\",\n" +
+//                "                                        \"ceshi4\"\n" +
+//                "                                    ]\n" +
+//                "                                },\n" +
+//                "                                \"difficulty\": \"1\",\n" +
+//                "                                \"id\": \"2734960\",\n" +
+//                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
+//                "                                \"template\": \"choice\",\n" +
+//                "                                \"type_id\": \"1\"\n" +
+//                "                            },\n" +
+////                "                            {\n" +
+////                "                                \"analysis\": \"ddd\",\n" +
+////                "                                \"answer\": [\n" +
+////                "                                    \"1\"\n" +
+////                "                                ],\n" +
+////                "                                \"difficulty\": \"1\",\n" +
+////                "                                \"id\": \"2734959\",\n" +
+////                "                                \"stem\": \"asdfasfasfasfsaf\",\n" +
+////                "                                \"template\": \"alter\",\n" +
+////                "                                \"type_id\": \"4\"\n" +
+////                "                            }\n" +
+//                "                        ],\n" +
+//                "                        \"difficulty\": \"1\",\n" +
+//                "                        \"id\": \"2734957\",\n" +
+//                "                        \"point\": [\n" +
+//                "                            {\n" +
+//                "                                \"id\": \"1033\",\n" +
+//                "                                \"name\": \"社会主义现代化成就\"\n" +
+//                "                            }\n" +
+//                "                        ],\n" +
+//                "                        \"stem\": \"鲁迅，原名(_)字，他的代表作品是小说集，散文集。鲁迅再《琐记》一文中，用了来讥讽洋务(_)派的办学。鲁迅写出了中国现代第一篇白话小说(_)，1918年在上发表其后又发表等著名小说。\",\n" +
+//                "                        \"template\": \"multi\",\n" +
+//                "                        \"type_id\": \"15\"\n" +
+//                "                    },\n" +
+//                "                    \"sectionid\": 201804\n" +
+//                "                },\n" +
+//                "                {\n" +
+//                "                    \"difficulty\": 3,\n" +
+//                "                    \"id\": 570354,\n" +
+//                "                    \"isfavorite\": 0,\n" +
+//                "                    \"knowledgepoint\": \"44463\",\n" +
+//                "                    \"pad\": {\n" +
+//                "                        \"answer\": \"[]\",\n" +
+//                "                        \"costtime\": 0,\n" +
+//                "                        \"id\": 390741,\n" +
+//                "                        \"jsonAnswer\": [],\n" +
+//                "                        \"ptid\": 570354,\n" +
+//                "                        \"status\": 3,\n" +
+//                "                        \"uid\": 6355\n" +
+//                "                    },\n" +
+//                "                    \"pid\": 88398,\n" +
+//                "                    \"qid\": 2734957,\n" +
+//                "                    \"qtype\": 0,\n" +
+//                "                    \"questions\": {\n" +
+//                "                        \"analysis\": \"\",\n" +
+//                "                        \"answer\": [\n" +
+//                "                            null\n" +
+//                "                        ],\n" +
+//                "                        \"children\": [\n" +
+//                "                            {\n" +
+//                "                                \"analysis\": \"asdfasfs\",\n" +
+//                "                                \"answer\": [\n" +
+//                "                                    \"3\"\n" +
+//                "                                ],\n" +
+//                "                                \"content\": {\n" +
+//                "                                    \"choices\": [\n" +
+//                "                                        \"asdfas\",\n" +
+//                "                                        \"dsafasf\",\n" +
+//                "                                        \"asdfas\",\n" +
+//                "                                        \"sadfasf\"\n" +
+//                "                                    ]\n" +
+//                "                                },\n" +
+//                "                                \"difficulty\": \"1\",\n" +
+//                "                                \"id\": \"2734958\",\n" +
+//                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
+//                "                                \"template\": \"choice\",\n" +
+//                "                                \"type_id\": \"1\"\n" +
+//                "                            },\n" +
+//                "                            {\n" +
+//                "                                \"analysis\": \"ddd\",\n" +
+//                "                                \"answer\": [\n" +
+//                "                                    \"1\"\n" +
+//                "                                ],\n" +
+//                "                                \"difficulty\": \"1\",\n" +
+//                "                                \"id\": \"2734959\",\n" +
+//                "                                \"stem\": \"asdfasfasfasfsaf\",\n" +
+//                "                                \"template\": \"alter\",\n" +
+//                "                                \"type_id\": \"4\"\n" +
+//                "                            }\n" +
+//                "                        ],\n" +
+//                "                        \"difficulty\": \"1\",\n" +
+//                "                        \"id\": \"2734957\",\n" +
+//                "                        \"point\": [\n" +
+//                "                            {\n" +
+//                "                                \"id\": \"1033\",\n" +
+//                "                                \"name\": \"社会主义现代化成就\"\n" +
+//                "                            }\n" +
+//                "                        ],\n" +
+//                "                        \"stem\": \"<p>One evening, it was raining and the wind was blowing hard. An old couple came to a small hotel and wanted to stay there for the night. A young man welcomed them warmly, but said “I’m sorry! Our rooms here are all full and the hotels nearby are all full too, for there will be an important meeting held here tomorrow.”</p><p>Hearing the young man’s words, the old couple felt very disappointed, and turned around to leave.</p><p>Just as they were leaving, the young man came up to them and stopped them: “Madam and sir, if you don’t mind, you can sleep in my bedroom for a night…”</p><p>The next morning, the old couple took out lots of money to give it to the young man, but he refused to take it.</p><p>“No! You needn’t pay me any money, for I only lend my room to you.” said the young man with a smile on his face.</p><p>“You’re great, young man! It’s very kind of you. Maybe one day, I’ll build a hotel for you!” said the old man. With these words, the old couple left. The young man only laughed and went on working.</p><p>Several years later, the young man got a letter from the old couple, inviting him to go to Manhattan. The young man met the old couple in front of a five-star hotel.</p><p>“Do you still remember what I said to you several years ago? Look! ________” said the old man. Soon, the young man became the manager of the hotel.</p><p><br/></p>\",\n" +
+//                "                        \"template\": \"multi\",\n" +
+//                "                        \"type_id\": \"16\"\n" +
+//                "                    },\n" +
+//                "                    \"sectionid\": 201804\n" +
+//                "                },\n" +
+//                "                {\n" +
+//                "                    \"difficulty\": 3,\n" +
+//                "                    \"id\": 570354,\n" +
+//                "                    \"isfavorite\": 0,\n" +
+//                "                    \"knowledgepoint\": \"44463\",\n" +
+//                "                    \"pad\": {\n" +
+//                "                        \"answer\": \"[]\",\n" +
+//                "                        \"costtime\": 0,\n" +
+//                "                        \"id\": 390741,\n" +
+//                "                        \"jsonAnswer\": [],\n" +
+//                "                        \"ptid\": 570354,\n" +
+//                "                        \"status\": 3,\n" +
+//                "                        \"uid\": 6355\n" +
+//                "                    },\n" +
+//                "                    \"pid\": 88398,\n" +
+//                "                    \"qid\": 2734957,\n" +
+//                "                    \"qtype\": 0,\n" +
+//                "                    \"questions\": {\n" +
+//                "                        \"analysis\": \"\",\n" +
+//                "                        \"answer\": [\n" +
+//                "                            null\n" +
+//                "                        ],\n" +
+//                "                        \"children\": [\n" +
+//                "                            {\n" +
+//                "                                \"analysis\": \"asdfasfs\",\n" +
+//                "                                \"answer\": [\n" +
+//                "                                    \"3\"\n" +
+//                "                                ],\n" +
+//                "                                \"content\": {\n" +
+//                "                                    \"choices\": [\n" +
+//                "                                        \"asdfas\",\n" +
+//                "                                        \"dsafasf\",\n" +
+//                "                                        \"asdfas\",\n" +
+//                "                                        \"sadfasf\"\n" +
+//                "                                    ]\n" +
+//                "                                },\n" +
+//                "                                \"difficulty\": \"1\",\n" +
+//                "                                \"id\": \"2734958\",\n" +
+//                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
+//                "                                \"template\": \"choice\",\n" +
+//                "                                \"type_id\": \"1\"\n" +
+//                "                            },\n" +
+//                "                            {\n" +
+//                "                                \"analysis\": \"ddd\",\n" +
+//                "                                \"answer\": [\n" +
+//                "                                    \"1\"\n" +
+//                "                                ],\n" +
+//                "                                \"difficulty\": \"1\",\n" +
+//                "                                \"id\": \"2734959\",\n" +
+//                "                                \"stem\": \"asdfasfasfasfsaf\",\n" +
+//                "                                \"template\": \"alter\",\n" +
+//                "                                \"type_id\": \"4\"\n" +
+//                "                            }\n" +
+//                "                        ],\n" +
+//                "                        \"difficulty\": \"1\",\n" +
+//                "                        \"id\": \"2734957\",\n" +
+//                "                        \"point\": [\n" +
+//                "                            {\n" +
+//                "                                \"id\": \"1033\",\n" +
+//                "                                \"name\": \"社会主义现代化成就\"\n" +
+//                "                            }\n" +
+//                "                        ],\n" +
+//                "                        \"stem\": \"<p>One evening, it was raining and the wind was blowing hard. An old couple came to a small hotel and wanted to stay there for the night. A young man welcomed them warmly, but said “I’m sorry! Our rooms here are all full and the hotels nearby are all full too, for there will be an important meeting held here tomorrow.”</p><p>Hearing the young man’s words, the old couple felt very disappointed, and turned around to leave.</p><p>Just as they were leaving, the young man came up to them and stopped them: “Madam and sir, if you don’t mind, you can sleep in my bedroom for a night…”</p><p>The next morning, the old couple took out lots of money to give it to the young man, but he refused to take it.</p><p>“No! You needn’t pay me any money, for I only lend my room to you.” said the young man with a smile on his face.</p><p>“You’re great, young man! It’s very kind of you. Maybe one day, I’ll build a hotel for you!” said the old man. With these words, the old couple left. The young man only laughed and went on working.</p><p>Several years later, the young man got a letter from the old couple, inviting him to go to Manhattan. The young man met the old couple in front of a five-star hotel.</p><p>“Do you still remember what I said to you several years ago? Look! ________” said the old man. Soon, the young man became the manager of the hotel.</p><p><br/></p>\",\n" +
+//                "                        \"template\": \"multi\",\n" +
+//                "                        \"type_id\": \"17\"\n" +
+//                "                    },\n" +
+//                "                    \"sectionid\": 201804\n" +
+//                "                },\n" +
+//                "                {\n" +
+//                "                    \"difficulty\": 3,\n" +
+//                "                    \"id\": 570354,\n" +
+//                "                    \"isfavorite\": 0,\n" +
+//                "                    \"knowledgepoint\": \"44463\",\n" +
+//                "                    \"pad\": {\n" +
+//                "                        \"answer\": \"[]\",\n" +
+//                "                        \"costtime\": 0,\n" +
+//                "                        \"id\": 390741,\n" +
+//                "                        \"jsonAnswer\": [],\n" +
+//                "                        \"ptid\": 570354,\n" +
+//                "                        \"status\": 3,\n" +
+//                "                        \"uid\": 6355\n" +
+//                "                    },\n" +
+//                "                    \"pid\": 88398,\n" +
+//                "                    \"qid\": 2734957,\n" +
+//                "                    \"qtype\": 0,\n" +
+//                "                    \"questions\": {\n" +
+//                "                        \"analysis\": \"\",\n" +
+//                "                        \"answer\": [\n" +
+//                "                            null\n" +
+//                "                        ],\n" +
+//                "                        \"children\": [\n" +
+//                "                            {\n" +
+//                "                                \"analysis\": \"asdfasfs\",\n" +
+//                "                                \"answer\": [\n" +
+//                "                                    \"3\"\n" +
+//                "                                ],\n" +
+//                "                                \"content\": {\n" +
+//                "                                    \"choices\": [\n" +
+//                "                                        \"asdfas\",\n" +
+//                "                                        \"dsafasf\",\n" +
+//                "                                        \"asdfas\",\n" +
+//                "                                        \"sadfasf\"\n" +
+//                "                                    ]\n" +
+//                "                                },\n" +
+//                "                                \"difficulty\": \"1\",\n" +
+//                "                                \"id\": \"2734958\",\n" +
+//                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
+//                "                                \"template\": \"choice\",\n" +
+//                "                                \"type_id\": \"1\"\n" +
+//                "                            },\n" +
+//                "                            {\n" +
+//                "                                \"analysis\": \"asdfasfs\",\n" +
+//                "                                \"answer\": [\n" +
+//                "                                    \"3\"\n" +
+//                "                                ],\n" +
+//                "                                \"content\": {\n" +
+//                "                                    \"choices\": [\n" +
+//                "                                        \"test1\",\n" +
+//                "                                        \"test2\",\n" +
+//                "                                        \"test3\",\n" +
+//                "                                        \"test4\"\n" +
+//                "                                    ]\n" +
+//                "                                },\n" +
+//                "                                \"difficulty\": \"1\",\n" +
+//                "                                \"id\": \"2734959\",\n" +
+//                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
+//                "                                \"template\": \"choice\",\n" +
+//                "                                \"type_id\": \"1\"\n" +
+//                "                            },\n" +
+//                "                            {\n" +
+//                "                                \"analysis\": \"asdfasfs\",\n" +
+//                "                                \"answer\": [\n" +
+//                "                                    \"3\"\n" +
+//                "                                ],\n" +
+//                "                                \"content\": {\n" +
+//                "                                    \"choices\": [\n" +
+//                "                                        \"ceshi1\",\n" +
+//                "                                        \"ceshi2\",\n" +
+//                "                                        \"ceshi3\",\n" +
+//                "                                        \"ceshi4\"\n" +
+//                "                                    ]\n" +
+//                "                                },\n" +
+//                "                                \"difficulty\": \"1\",\n" +
+//                "                                \"id\": \"2734960\",\n" +
+//                "                                \"stem\": \"<p>testtesds</p><br/>\",\n" +
+//                "                                \"template\": \"choice\",\n" +
+//                "                                \"type_id\": \"1\"\n" +
+//                "                            },\n" +
+//                "                        ],\n" +
+//                "                        \"difficulty\": \"1\",\n" +
+//                "                        \"id\": \"2734957\",\n" +
+//                "                        \"point\": [\n" +
+//                "                            {\n" +
+//                "                                \"id\": \"1033\",\n" +
+//                "                                \"name\": \"社会主义现代化成就\"\n" +
+//                "                            }\n" +
+//                "                        ],\n" +
+//                "                        \"stem\": \"鲁迅，原名(_)字，他的代表作品是小说集，散文集。鲁迅再《琐记》一文中，用了来讥讽洋务(_)派的办学。鲁迅写出了中国现代第一篇白话小说(_)，1918年在上发表其后又发表等著名小说。\",\n" +
+//                "                        \"template\": \"multi\",\n" +
+//                "                        \"type_id\": \"15\"\n" +
+//                "                    },\n" +
+//                "                    \"sectionid\": 201804\n" +
+//                "                }\n" +
+//                "            ],\n" +
+//                "            \"ptype\": 1,\n" +
+//                "            \"quesnum\": 1,\n" +
+//                "            \"sectionid\": 0,\n" +
+//                "            \"showana\": 1,\n" +
+//                "            \"stageName\": \"高中\",\n" +
+//                "            \"stageid\": 1204,\n" +
+//                "            \"status\": 1,\n" +
+//                "            \"subjectName\": \"数学\",\n" +
+//                "            \"subjectid\": 1103,\n" +
+//                "            \"subquesnum\": 2,\n" +
+//                "            \"volume\": 201803,\n" +
+//                "            \"volumeName\": \"高三上\"\n" +
+//                "        }\n" +
+//                "    ],\n" +
+//                "    \"status\": {\n" +
+//                "        \"code\": 0,\n" +
+//                "        \"desc\": \"get question list success\"\n" +
+//                "    }\n" +
+//                "}";
+        String str="{\"name\":\"自己生成的试卷\",\"paperTest\":[{\"questions\":{\"identifierForTest\":\"\",\"children\":[{\"questions\":{\"answer\":[\"0\"],\"extend\":{\"data\":{\"globalStatis\":\"这是个人统计\",\"answerCompare\":\"这是当前状态\"}},\"content\":{\"choices\":[\"这是选项aaa\",\"这是选项bbb\",\"这是选项ccc\",\"这是选项ddd\"]},\"id\":\"A00552B1-7A2B-42EB-B543-DCD19C2A3C77\",\"type_id\":\"1\",\"analysis\":\"这是单选题的解析blablabla~~~\",\"point\":[{\"name\":\"考点1\"}],\"pad\":{\"jsonAnswer\":[]},\"stem\":\"这是一道单选题\",\"template\":\"choice\"}},{\"questions\":{\"answer\":[\"one\",\"two\",\"three\"],\"extend\":{\"data\":{\"globalStatis\":\"这是个人统计\",\"answerCompare\":\"这是当前状态\"}},\"id\":\"34D99DAE-A472-48B9-A5E2-29824C840051\",\"type_id\":\"3\",\"analysis\":\"这是填空题的解析blablabla~~~\",\"point\":[{\"name\":\"考点1\"}],\"pad\":{\"jsonAnswer\":[]},\"stem\":\"这是一道填空题：请填第一个空(_)，请填第二个空(_)，请填第三个空(_)<span style=\\\"color: #333333; font-family: 宋体, 'Microsoft YaHei', arial, sans-serif; font-size: 12px; line-height: 26px; background-color: #FFFFFF;\\\">如图，在等腰梯形ABCD中，AB∥DC，AD=BC=5cm，AB=12cm，CD=6cm，点Q从C开始沿CD边向D移动，速度是每秒1厘米，点P从A开始沿AB向B移动，速度是点Q速度的a倍，如果点P，Q分别从A，C同时出发，当其中一点到达终点时运动停止．设运动时间为t秒．已知当t=<\\/span><img src=\\\"http:\\/\\/tiku.21cnjy.com\\/tikupic\\/c1\\/a2\\/c1da22e63296ca27f7a073a711490e33.png\\\" style=\\\"border: 0px; color: rgb(51, 51, 51); font-family: 宋体, 'Microsoft YaHei', arial, sans-serif; font-size: 12px; line-height: 26px; white-space: normal; vertical-align: middle; -webkit-user-select: text !important; background-color: rgb(255, 255, 255);\\\"\\/><span style=\\\"color: #333333; font-family: 宋体, 'Microsoft YaHei', arial, sans-serif; font-size: 12px; line-height: 26px; background-color: #FFFFFF;\\\">时，四边形APQD是平行四边形．<br\\/><img src=\\\"http:\\/\\/tiku.21cnjy.com\\/tikupic\\/b8\\/45\\/b80458c951161c0dd5fa1a5ed13252e3.png\\\"\\/><\\/span>\",\"template\":\"fill\"}}],\"type_id\":\"9\",\"pad\":{\"jsonAnswer\":[{\"qid\":\"A00552B1-7A2B-42EB-B543-DCD19C2A3C77\",\"answer\":[]},{\"qid\":\"34D99DAE-A472-48B9-A5E2-29824C840051\",\"answer\":[]}]},\"stem\":\"这是一道听力复合题 :请听下面录音并完成问题\",\"template\":\"listen\",\"url\":\"http:\\/\\/data.5sing.kgimg.com\\/G064\\/M0B\\/16\\/1B\\/IJQEAFeZk5qAW5N1AJhfREa5tSk663.mp3\"}},{\"questions\":{\"extend\":{\"data\":{\"globalStatis\":\"这是个人统计\",\"answerCompare\":\"这是当前状态\"}},\"id\":\"C2B8715D-0497-44EA-A732-8B81DDB50AC6\",\"type_id\":\"6\",\"analysis\":\"这是主观题的解析blablabla~~~\",\"point\":[{\"name\":\"考点1\"}],\"pad\":{\"jsonAnswer\":[],\"teachercheck\":{}},\"stem\":\"这是一道主观题--请完成老师留下的作业~~~(_)\",\"template\":\"answer\"}},{\"questions\":{\"extend\":{\"data\":{\"globalStatis\":\"这是个人统计\",\"answerCompare\":\"这是当前状态\"}},\"id\":\"E3578410-ADF7-45D1-915E-CEECDB9C5E8B\",\"type_id\":\"6\",\"analysis\":\"这是主观题的解析blablabla~~~\",\"point\":[{\"name\":\"考点1\"}],\"pad\":{\"jsonAnswer\":[],\"teachercheck\":{}},\"stem\":\"这是一道主观题--请完成老师留下的作业~~~(_)\",\"template\":\"answer\"}},{\"questions\":{\"extend\":{\"data\":{\"globalStatis\":\"这是个人统计\",\"answerCompare\":\"这是当前状态\"}},\"id\":\"0641A80F-6E83-4F1F-A3DE-EF52C92D8D7C\",\"type_id\":\"6\",\"analysis\":\"这是主观题的解析blablabla~~~\",\"point\":[{\"name\":\"考点1\"}],\"pad\":{\"jsonAnswer\":[],\"teachercheck\":{}},\"stem\":\"这是一道主观题--请完成老师留下的作业~~~(_)\",\"template\":\"answer\"}}]}";
+//        if (!TextUtils.isEmpty(testDataStr)) {
+//            return (SubjectExercisesItemBean) JSON.parseObject(testDataStr, SubjectExercisesItemBean.class);
+//        } else {
             return (SubjectExercisesItemBean) JSON.parseObject(str, SubjectExercisesItemBean.class);
-        }
+//        }
     }
 
     public static int convertDpToPx(Context context, int dp) {

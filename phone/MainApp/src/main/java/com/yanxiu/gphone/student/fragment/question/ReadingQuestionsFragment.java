@@ -188,6 +188,13 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
                 ((QuestionsListener)getActivity()).flipNextPager(adapter);
             }
         }
+        if (vpAnswer != null) {
+            if (!is_reduction) {
+                vpAnswer.setCurrentItem(childPagerIndex);
+            } else {
+                vpAnswer.setCurrentItem(adapter.getCount() - 1);
+            }
+        }
     }
 
 //    public int getPagerIndex() {

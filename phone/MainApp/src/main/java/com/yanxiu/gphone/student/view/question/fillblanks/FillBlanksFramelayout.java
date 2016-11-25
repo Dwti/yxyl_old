@@ -344,13 +344,13 @@ public class FillBlanksFramelayout extends FrameLayout implements
         et.setTextColor(mCtx.getResources().getColor(R.color.color_00b8b8));
         et.setTextSize(textSize);
         et.setBackground(mCtx.getResources().getDrawable(R.drawable.fill_blank_bg));
-        et.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-//                Toast.makeText(mCtx,"asd",Toast.LENGTH_SHORT).show();
-                et.setText(et.getText().toString());
-            }
-        });
+//        et.setOnFocusChangeListener(new OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+////                Toast.makeText(mCtx,"asd",Toast.LENGTH_SHORT).show();
+//                et.setText(et.getText().toString());
+//            }
+//        });
 //        et.setOnFocusChangeListener(new OnFocusChangeListener() {
 //            @OverrideR.
 //            public void onFocusChange(View v, boolean hasFocus) {
