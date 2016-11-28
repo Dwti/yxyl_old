@@ -159,7 +159,7 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
             }
             if (vpAnswer != null) {
                 if (!is_reduction) {
-                    vpAnswer.setCurrentItem(childPagerIndex);
+                    vpAnswer.setCurrentItem(0);
                 } else {
                     vpAnswer.setCurrentItem(adapter.getCount() - 1);
                 }

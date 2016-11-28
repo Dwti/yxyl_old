@@ -33,7 +33,6 @@
         android:layout_below="@id/rl_top_wrong_all_view"
         android:layout_marginLeft="@dimen/dimen_30"
         android:layout_marginRight="@dimen/dimen_30"
-        android:layout_marginBottom="@dimen/dimen_5"
         android:cacheColorHint="@null"
         android:divider="@null"
         android:dividerHeight="0dp"

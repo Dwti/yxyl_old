@@ -19,6 +19,8 @@ public class OnPushPullTouchListener implements View.OnTouchListener ,View.OnCli
     private final int height;
     private LinearLayout bottom_view;
     private RelativeLayout top_view;
+    private float top_height;
+    private float bottom_height;
 
     public OnPushPullTouchListener(LinearLayout bottom_view, RelativeLayout top_view, Activity activity) {
         this.bottom_view = bottom_view;
@@ -29,7 +31,7 @@ public class OnPushPullTouchListener implements View.OnTouchListener ,View.OnCli
 
     public float y;//触点Y坐标
 
-    public float yy;//控件高度
+//    public float yy;//控件高度
 
     private float move_y;//y轴移动距离
 
@@ -40,8 +42,10 @@ public class OnPushPullTouchListener implements View.OnTouchListener ,View.OnCli
         switch (motionEvent.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 y = (int) motionEvent.getRawY();
-                yy = (int) bottom_view.getHeight();
-                tital_height = yy + top_view.getHeight();
+                top_height=top_view.getHeight();
+                bottom_height=bottom_view.getHeight();
+//                yy = (int) bottom_view.getHeight();
+                tital_height = top_height + bottom_height;
                 break;
             case MotionEvent.ACTION_MOVE:
                 int y_now = (int) motionEvent.getRawY();
@@ -57,30 +61,43 @@ public class OnPushPullTouchListener implements View.OnTouchListener ,View.OnCli
     }
 
     private void setMove(LinearLayout bottom_view, RelativeLayout top_view) {
-        int top_height=top_view.getHeight();
-        int bottom_height=bottom_view.getHeight();
+
 //        if (yy - move_y>height * 1 / 20&&yy - move_y < height * 3 / 5) {
 
-        if (move_y>0&&bottom_height>100){
+        float height=bottom_height-move_y;
 
-        }else if (move_y<0&&top_height>300){
+        if (move_y>0){
+            if (height>100){
+                float bottom_weight=(height)/tital_height;
+                float top_weight=1-bottom_weight;
 
+                LinearLayout.LayoutParams layoutParams= (LinearLayout.LayoutParams) bottom_view.getLayoutParams();
+                layoutParams.weight=bottom_weight;
+                bottom_view.setLayoutParams(layoutParams);
+
+                LinearLayout.LayoutParams layoutParams1= (LinearLayout.LayoutParams) top_view.getLayoutParams();
+                layoutParams1.weight=top_weight;
+                top_view.setLayoutParams(layoutParams1);
+            }
+        }else if (move_y<0){
+            if (top_height+move_y>300){
+                float bottom_weight=(height)/tital_height;
+                float top_weight=1-bottom_weight;
+
+                LinearLayout.LayoutParams layoutParams= (LinearLayout.LayoutParams) bottom_view.getLayoutParams();
+                layoutParams.weight=bottom_weight;
+                bottom_view.setLayoutParams(layoutParams);
+
+                LinearLayout.LayoutParams layoutParams1= (LinearLayout.LayoutParams) top_view.getLayoutParams();
+                layoutParams1.weight=top_weight;
+                top_view.setLayoutParams(layoutParams1);
+            }
         }else {
             return;
         }
 
 //        if (top_height>200&&bottom_height>200){
-            float bottom_weight=(yy - move_y)/tital_height;
-            float top_weight=1-bottom_weight;
-
-            LinearLayout.LayoutParams layoutParams= (LinearLayout.LayoutParams) bottom_view.getLayoutParams();
-            layoutParams.weight=bottom_weight;
-            bottom_view.setLayoutParams(layoutParams);
-
-            LinearLayout.LayoutParams layoutParams1= (LinearLayout.LayoutParams) top_view.getLayoutParams();
-            layoutParams1.weight=top_weight;
-            top_view.setLayoutParams(layoutParams1);
-//        }
+            //        }
     }
 
     @Override
