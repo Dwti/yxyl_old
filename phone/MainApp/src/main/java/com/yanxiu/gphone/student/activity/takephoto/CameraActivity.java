@@ -301,9 +301,11 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    if (ShareBitmapUtils.getInstance().getDataList() != null && ShareBitmapUtils.getInstance().getDataList().size() > 0) {
+                    /*if (ShareBitmapUtils.getInstance().getDataList() != null && ShareBitmapUtils.getInstance().getDataList().size() > 0) {
                         ActivityJumpUtils.jumpToImagePicSelActivityForResult(CameraActivity.this, 0, ImagePicSelActivity.REQUEST_CODE);
-                    }
+                    }*/
+                    Intent intent = new Intent(this, ImagePicSelActivity.class);
+                    startActivity(intent);
                     this.finish();
                 }
                 //CameraActivityPermissionsDispatcher.pickImageWithCheck(this);
