@@ -165,11 +165,6 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
     boolean isFirstSub = false;
 
     public void addDataSources(SubjectExercisesItemBean bean) {
-//        SubjectExercisesItemBean beanTmp = Util.getSubjectExercisesItemBean();
-//        bean = Util.getSubjectExercisesItemBean();
-//		Util.testDataStr="";
-//		bean= Util.getSubjectExercisesItemBean();
-
         if (bean != null && bean.getData() != null && !bean.getData().isEmpty()) {
             //QuestionUtils.removeQuestions(bean);
             answerViewTypyBean = bean.getViewType();
