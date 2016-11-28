@@ -249,7 +249,8 @@ public class FillBlanksFramelayout extends FrameLayout implements
                 if (flag) {
                     Matcher matcher1 = pattern.matcher(data);
                     while (matcher1.find()) {
-                        addEditText(matcher1.start());
+                        //addEditText(matcher1.start());
+                        addEditText(matcher1.start(), matcher1.end());
                     }
                 }
             }
@@ -306,81 +307,40 @@ public class FillBlanksFramelayout extends FrameLayout implements
      * 然后算出字符距离左边的x坐标即为EditText的leftMargin
      * */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    private void addEditText(int index){
+    private void addEditText(int start, int end) {
         Layout layout = tvFillBlank.getLayout();
-        Rect bound = new Rect();
-        int line = layout.getLineForOffset(index);
-        layout.getLineBounds(line, bound);
-        LogInfo.log("king", "line = " + line);
+        int startLine = layout.getLineForOffset(start);
+        int endLine = layout.getLineForOffset(end);
+        assert startLine == endLine;
+        int line = startLine;
 
-        int yAxisTop = bound.top;//字符顶部y坐标
-        int yAxisBottom = bound.bottom;//字符底部y坐标
+        float left = layout.getPrimaryHorizontal(start);
+        float right = layout.getPrimaryHorizontal(end);
+        float top = layout.getLineTop(line);
+        float bottom = layout.getLineBottom(line);
 
-        float xAxisLeft =  layout.getPrimaryHorizontal(index);//字符左边x坐标
-//        float xAxisRight =  layout.getSecondaryHorizontal(index);//字符右边x坐标  (yAxisBottom - 5 - yAxisTop + tvFillBlank.getTextSize() / 2)
-        LogInfo.log("king","yAxisTop = " + yAxisTop + " , yAxisBottom = " + yAxisBottom);
         RelativeLayout.LayoutParams params;
-        if(bean!=null && String.valueOf(YanXiuConstant.SUBJECT.YINYU).equals(bean.getSubjectId())){
-            if(CommonCoreUtil.getSDK() >= 21){
-                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() /2) * (mAnswerLength-1)), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()*3/2)+10);
-            }else{
-                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() /2) * (mAnswerLength-1)), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()*4/5)+10);
-            }
-        }else{
-            if(CommonCoreUtil.getSDK() >= 21){
-                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() /2) * (mAnswerLength-1)), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()*3/2));
-            }else{
-                params = new RelativeLayout.LayoutParams((int) ((tvFillBlank.getTextSize() /2) * (mAnswerLength-1)), (int) (yAxisBottom - yAxisTop + tvFillBlank.getTextSize()*2/3)+10);
-            }
-        }
-        params.leftMargin = (int)xAxisLeft;
-        params.topMargin = (int) (yAxisTop - tvFillBlank.getTextSize() / 2)+ Util.dipToPx(10)-4;
+        params = new RelativeLayout.LayoutParams((int)(right - left), (int)(bottom - top));
+        params.leftMargin = (int)left;
+        params.topMargin = (int)top;
 
-//        final boolean fource=false;
-//        final EditText et = new EditText(mCtx);
         final MyEdittext et=new MyEdittext(mCtx);
         et.setPadding(10, 0, 10, 0);
         et.setSingleLine();
         et.setTextColor(mCtx.getResources().getColor(R.color.color_00b8b8));
         et.setTextSize(textSize);
         et.setBackground(mCtx.getResources().getDrawable(R.drawable.fill_blank_bg));
-//        et.setOnFocusChangeListener(new OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-////                Toast.makeText(mCtx,"asd",Toast.LENGTH_SHORT).show();
-//                et.setText(et.getText().toString());
-//            }
-//        });
-//        et.setOnFocusChangeListener(new OnFocusChangeListener() {
-//            @OverrideR.
-//            public void onFocusChange(View v, boolean hasFocus) {
-////                Toast.makeText(mCtx,"asd",Toast.LENGTH_SHORT).show();
-//                fource=hasFocus;
-//                if (hasFocus){
-//                    et.setSelection(et.getText().toString().length());
-//                }else {
-//                    et.setText(et.getText().toString());
-//                }
-//            }
-//        });
-//        et.setOnTouchListener(new OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                if (event.getAction()==MotionEvent.ACTION_DOWN&&fource){
-//
-//                }
-//                return fource;
-//            }
-//        });
         et.setGravity(Gravity.CENTER);
-
         setEditTextCusrorDrawable(et);
-        if(answerViewTypyBean == SubjectExercisesItemBean.RESOLUTION || answerViewTypyBean == SubjectExercisesItemBean.WRONG_SET){
+        if(answerViewTypyBean == SubjectExercisesItemBean.RESOLUTION || answerViewTypyBean == SubjectExercisesItemBean.WRONG_SET) {
             et.setEnabled(false);
             et.setFocusable(false);
         }
         rlMark.addView(et, params);
     }
+
+
+
 
     private void setEditTextCusrorDrawable(EditText editText){
         try {
