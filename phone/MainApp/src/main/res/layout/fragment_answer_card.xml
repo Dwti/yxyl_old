@@ -53,13 +53,12 @@
                 android:layout_toRightOf="@id/iv_answer_card"/>
 
             <TextView style="@style/answer_card_text_style"
-                android:layout_marginLeft="@dimen/dimen_15"
+                android:paddingLeft="@dimen/dimen_50"
                 android:layout_centerInParent="true"
                 android:textStyle="bold"
                 tool:text="语文练习第一章第一节"
                 android:id="@+id/tv_question_title"
-                android:textColor="@color/color_996600"
-                android:layout_toRightOf="@id/iv_answer_card_close"/>
+                android:textColor="@color/color_996600" />
 
         </RelativeLayout>
 

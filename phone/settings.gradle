@@ -1,2 +1,2 @@
 include ':MainApp', ':YanxiuBaseCore', ':CommonCoreLib', ':LoginCommonLibs',
-        ':ShareCommonLibs',"YanxiuUpgradeLib"
+        ':ShareCommonLibs',"YanxiuUpgradeLib", ':CorpLib'
