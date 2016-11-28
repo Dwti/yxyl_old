@@ -45,6 +45,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.List;
 
 import permissions.dispatcher.RuntimePermissions;
 
@@ -266,11 +267,19 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         Camera.Parameters params = cameraPreview.getCameraParams();
         //params.setRotation(90);
         Camera camera = cameraPreview.getCameraInstance();
+        //int screenWidth = screenWidth = getWindowManager().getDefaultDisplay().getWidth();
+        //int screenHeight = screenHeight = getWindowManager().getDefaultDisplay().getHeight();
+        List<Camera.Size> list= params.getSupportedPictureSizes();
+        Camera.Size size=list.get(list.size()-1);
+        params.setPictureSize(size.width, size.height);
+        camera.setParameters(params);
         //camera.setDisplayOrientation(90);
         switch (v.getId()) {
             case R.id.iv_capture:
                 // 照相
                 camera.autoFocus(null);
+                //params.setPictureSize(cameraPreview.getWidth(), cameraPreview.getHeight());
+                //camera.setParameters(params);
 //                camera.takePicture(null, null, mPicture);
                 camera.takePicture(null, null, mPicture);
 
@@ -306,7 +315,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                     }*/
                     Intent intent = new Intent(this, ImagePicSelActivity.class);
                     startActivity(intent);
-                    this.finish();
+                    //this.finish();
                 }
                 //CameraActivityPermissionsDispatcher.pickImageWithCheck(this);
                 break;

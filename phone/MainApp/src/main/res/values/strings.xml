@@ -265,7 +265,7 @@
     <string name="question_finish_hw_end_time_content_tips">点击“确定”返回作业列表</string>
     <string name="question_live">离开</string>
     <string name="question_cancel">取消</string>
-    <string name="server_connection_erro">获取数据失败</string>
+    <string name="server_connection_erro">网络异常，请检查后重试</string>
     <string name="question_report_error_text">题目有误，我要报错</string>
     <string name="change_question">左右滑动，就可以切换试题哦 ^_^</string>
     <string name="question_know">知道了</string>
