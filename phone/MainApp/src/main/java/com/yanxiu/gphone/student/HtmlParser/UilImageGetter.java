@@ -13,6 +13,13 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yanxiu.gphone.student.HtmlParser.Interface.ImageGetterListener;
 
 public class UilImageGetter implements ImageGetterListener {
+    public interface Callback {
+        public void onFinish();
+    }
+    private Callback callback;
+    public void setCallback(Callback callback) {
+        this.callback = callback;
+    }
 
     private Context context;
     private TextView view;
@@ -50,9 +57,18 @@ public class UilImageGetter implements ImageGetterListener {
                                                         .cacheOnDisk(true)                       // 设置下载的图片是否缓存在SD卡中
                                                         .build();
             Bitmap bitmap = ImageLoader.getInstance().loadImageSync(source, options);
+            if (bitmap == null) {
+                if (callback != null)
+                {
+                    callback.onFinish();
+                    return null;
+                }
+            }
+
             Drawable drawable=new BitmapDrawable(bitmap);
             Rect bounds = getDefaultImageBounds(context,bitmap);
             drawable.setBounds(0, 0, bounds.width(), bounds.height());
+
             return drawable;
         }
 
@@ -87,8 +103,13 @@ public class UilImageGetter implements ImageGetterListener {
                         UilImageGetter.this.view.setEllipsize(null);
                         UilImageGetter.this.view.requestLayout();
                         UilImageGetter.this.view.invalidate();
+                        if (callback != null) {
+                            callback.onFinish();
+                        }
                     }
                 });
+
+
             }
         }
     }
