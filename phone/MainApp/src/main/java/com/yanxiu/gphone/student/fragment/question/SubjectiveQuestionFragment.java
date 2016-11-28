@@ -96,10 +96,10 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         }
 
         setPicSelViewId();
+
 //        for (int i=0; questionsEntity.getAnswerBean().getSubjectivImageUri()!= null && i<questionsEntity.getAnswerBean().getSubjectivImageUri().size(); i++) {
 //            ShareBitmapUtils.getInstance().addPath(this.questionsEntity.getId(), questionsEntity.getAnswerBean().getSubjectivImageUri().get(i).toString());
 //        }
-
         changeCurrentSelData(questionsEntity);
         selectTypeView();
 

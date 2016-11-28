@@ -172,6 +172,9 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
 //            tvPagerIndex.setText(String.valueOf(sumIndex + ((BaseQuestionFragment) list.get(position)).getChildCount()));
 //            nextPager_onclick = 0;
 //        }
+
+//        vpAnswer.
+
         tvPagerIndex.setText(String.valueOf(position + 1));
 
         tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf((wrongCounts - delQueNum))));

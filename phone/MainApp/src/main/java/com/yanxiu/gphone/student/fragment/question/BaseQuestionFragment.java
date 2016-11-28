@@ -67,8 +67,8 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
         this.questionsEntity = (getArguments() != null) ? (QuestionEntity) getArguments().getSerializable("questions") : null;
         this.answerViewTypyBean = (getArguments() != null) ? getArguments().getInt("answerViewTypyBean") : null;
         this.pageIndex = (getArguments() != null) ? getArguments().getInt("pageIndex") : 0;
-        this.wrongId=(getArguments()!=null) ? getArguments().getInt("wrong") : 0;
-        this.wrongCount=(getArguments()!=null) ? getArguments().getInt("wrongCount") : 0;
+//        this.wrongId=(getArguments()!=null) ? getArguments().getInt("wrong") : 0;
+//        this.wrongCount=(getArguments()!=null) ? getArguments().getInt("wrongCount") : 0;
         imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
@@ -175,6 +175,14 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
     }
 
     private void setWrongQuestionTitle(int typeId) {
+//        if (!ischild){
+//            tvQuestionTitleLeft.setText("" + wrongId);
+//            tvQuestionTitle.setVisibility(View.VISIBLE);
+//            tvQuestionTitleRight.setText("" + wrongCount);
+//        }
+    }
+
+    public void setWrongQuestionTitle(String wrongId,String wrongCount){
         if (!ischild){
             tvQuestionTitleLeft.setText("" + wrongId);
             tvQuestionTitle.setVisibility(View.VISIBLE);
