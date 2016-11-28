@@ -147,8 +147,9 @@ public class PicSelView extends RelativeLayout {
     private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            if (ShareBitmapUtils.getInstance().getDrrMaps().get(ShareBitmapUtils.getInstance().getCurrentSbId()) == null || i == currentDrrList.size()) {
+            if (currentDrrList == null || i == currentDrrList.size()) {
             //if (i == currentDrrList.size()) {
+            //if (ShareBitmapUtils.getInstance().getDrrMaps().get(ShareBitmapUtils.getInstance().getCurrentSbId()) == null || i == currentDrrList.size()) {
                 if (ShareBitmapUtils.getInstance().getCurrentSbId() == null) {
                     LogInfo.log(TAG, "ShareBitmapUtils.getInstance().getCurrentSbId()==null");
                     return;
@@ -176,7 +177,7 @@ public class PicSelView extends RelativeLayout {
             if(StringUtils.isEmpty(path)){
                 return;
             }
-            EventBus.getDefault().unregister(fragment);
+//            EventBus.getDefault().unregister(fragment);
             EventBus.getDefault().register(fragment);
             MediaUtils.openLocalCamera(((Activity) mContext), path, MediaUtils.OPEN_DEFINE_PIC_BUILD);
         }
@@ -248,7 +249,7 @@ public class PicSelView extends RelativeLayout {
         handler.sendEmptyMessage(updateCode);
     }
 
-    public void setSubjectiveId(String id) {
+    public void setSubjectiveId(String id,List<String> list) {
         if (StringUtils.isEmpty(id)) {
             return;
         }
@@ -256,6 +257,7 @@ public class PicSelView extends RelativeLayout {
         if (ShareBitmapUtils.getInstance().getDrrMaps().get(id) == null) {
 
             currentDrrList = new ArrayList<>();
+            currentDrrList.addAll(list);
             ShareBitmapUtils.getInstance().getDrrMaps().put(id, currentDrrList);
         } else {
             currentDrrList = ShareBitmapUtils.getInstance().getDrrMaps().get(id);

@@ -122,6 +122,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     private boolean isShowAnswerCard = false;
 
     private boolean isSubmitFinish = false;
+    private boolean IsSubmitAnswer=true;
 
     private int mNextIndex;
 
@@ -183,6 +184,12 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         initView();
         initData();
         mLoadingDialog = new LoadingDialog(this);
+        mLoadingDialog.setOnCloseListener(new LoadingDialog.OnCloseListener() {
+            @Override
+            public void onClose() {
+                IsSubmitAnswer=false;
+            }
+        });
 //        testUpload();
     }
 
@@ -498,6 +505,10 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         if (dataSources == null) {
             return;
         }
+//        if (!IsSubmitAnswer){
+//            IsSubmitAnswer=true;
+//            return;
+//        }
         adapter.answerViewClick();
         long endtime = System.currentTimeMillis();
         dataSources.setEndtime(endtime);

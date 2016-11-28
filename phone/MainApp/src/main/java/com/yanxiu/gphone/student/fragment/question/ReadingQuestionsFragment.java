@@ -190,7 +190,7 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
         }
         if (vpAnswer != null) {
             if (!is_reduction) {
-                vpAnswer.setCurrentItem(childPagerIndex);
+                vpAnswer.setCurrentItem(0);
             } else {
                 vpAnswer.setCurrentItem(adapter.getCount() - 1);
             }

@@ -115,6 +115,12 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
     }
 
     @Override
+    protected void initView() {
+        super.initView();
+        adapter.setWrongCount(wrongCounts);
+    }
+
+    @Override
     public void initData() {
         super.initData();
         //if (dataSources != null && dataSources.getData() != null) {

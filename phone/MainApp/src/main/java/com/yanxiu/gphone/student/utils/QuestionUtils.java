@@ -252,16 +252,34 @@ public class QuestionUtils {
                             QuestionEntity child = paperList.get(j).getQuestions();
                             if (child != null) {
                                 if (YanXiuConstant.ANSWER_QUESTION.equals(child.getTemplate())) {
-                                    if(child.getPhotoUri() != null && !child.getPhotoUri().isEmpty()) {
-                                        list.add(child);
+                                    if(child.getPhotoUri() != null && !child.getPhotoUri().isEmpty()&&child.getPhotoUri().size()>0) {
+                                        boolean flag=true;
+                                        for (int k=0;k<child.getPhotoUri().size();k++){
+                                            if (flag) {
+                                                String uri = child.getPhotoUri().get(k);
+                                                if (!uri.startsWith("http")) {
+                                                    list.add(child);
+                                                    flag=false;
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
                     } else {
                         if (YanXiuConstant.ANSWER_QUESTION.equals(questionEntity.getTemplate())) {
-                            if(questionEntity.getPhotoUri() != null && !questionEntity.getPhotoUri().isEmpty()) {
-                                list.add(questionEntity);
+                            if(questionEntity.getPhotoUri() != null && !questionEntity.getPhotoUri().isEmpty()&&questionEntity.getPhotoUri().size()>0) {
+                                boolean flag=true;
+                                for (int k=0;k<questionEntity.getPhotoUri().size();k++){
+                                    if (flag){
+                                        String uri=questionEntity.getPhotoUri().get(k);
+                                        if (!uri.startsWith("http")){
+                                            list.add(questionEntity);
+                                            flag=false;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
