@@ -44,7 +44,7 @@ public class QuestionFragmentFactory {
         return fragment;
     }
 
-    public Fragment createQuestionFragment(YanXiuConstant.QUESTION_TYP questionType, QuestionEntity questionsEntity, int answerViewTypyBean, int pageIndex) {
+    public Fragment createQuestionFragment(YanXiuConstant.QUESTION_TYP questionType, QuestionEntity questionsEntity, int answerViewTypyBean, int pageIndex,int wrongID,int wrongCount) {
         Fragment fragment = null;
         Bundle args = new Bundle();
         switch (questionType) {
@@ -102,6 +102,8 @@ public class QuestionFragmentFactory {
         args.putInt("answerViewTypyBean", answerViewTypyBean);
         args.putInt("pageIndex", pageIndex);
         args.putSerializable("questions", questionsEntity);
+        args.putInt("wrong",wrongID);
+        args.putInt("wrongCount",wrongCount);
 //        args.putSerializable("answerViewTypyBean", answerViewTypyBean);
         fragment.setArguments(args);
         return fragment;

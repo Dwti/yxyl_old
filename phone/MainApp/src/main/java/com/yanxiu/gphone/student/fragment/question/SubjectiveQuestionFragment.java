@@ -78,7 +78,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         this.answerViewTypyBean = (getArguments() != null) ? getArguments().getInt("answerViewTypyBean") : null;
         this.pageIndex = (getArguments() != null) ? getArguments().getInt("pageIndex") : 0;
         this.isFirstSub = (getArguments() != null) ? getArguments().getBoolean("isFirstSub", false) : false;
-        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(this);
 
     }
 
@@ -96,9 +96,10 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         }
 
         setPicSelViewId();
-        for (int i=0; questionsEntity.getAnswerBean().getSubjectivImageUri()!= null && i<questionsEntity.getAnswerBean().getSubjectivImageUri().size(); i++) {
-            ShareBitmapUtils.getInstance().addPath(this.questionsEntity.getId(), questionsEntity.getAnswerBean().getSubjectivImageUri().get(i).toString());
-        }
+//        for (int i=0; questionsEntity.getAnswerBean().getSubjectivImageUri()!= null && i<questionsEntity.getAnswerBean().getSubjectivImageUri().size(); i++) {
+//            ShareBitmapUtils.getInstance().addPath(this.questionsEntity.getId(), questionsEntity.getAnswerBean().getSubjectivImageUri().get(i).toString());
+//        }
+
         changeCurrentSelData(questionsEntity);
         selectTypeView();
 
@@ -146,7 +147,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         mPicSelView = (PicSelView) rootView.findViewById(R.id.picSelView);
         mPicSelView.setFragment(this);
         if (this.questionsEntity != null && !StringUtils.isEmpty(this.questionsEntity.getId())) {
-            mPicSelView.setSubjectiveId(this.questionsEntity.getId());
+            mPicSelView.setSubjectiveId(this.questionsEntity.getId(),questionsEntity.getAnswerBean().getSubjectivImageUri());
         }
     }
 

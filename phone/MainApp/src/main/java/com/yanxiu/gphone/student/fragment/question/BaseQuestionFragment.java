@@ -57,6 +57,8 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
     private int parent_type;
     private int totalCount;
     private int pageNumber;
+    private int wrongId;
+    private int wrongCount;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,8 +67,9 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
         this.questionsEntity = (getArguments() != null) ? (QuestionEntity) getArguments().getSerializable("questions") : null;
         this.answerViewTypyBean = (getArguments() != null) ? getArguments().getInt("answerViewTypyBean") : null;
         this.pageIndex = (getArguments() != null) ? getArguments().getInt("pageIndex") : 0;
+        this.wrongId=(getArguments()!=null) ? getArguments().getInt("wrong") : 0;
+        this.wrongCount=(getArguments()!=null) ? getArguments().getInt("wrongCount") : 0;
         imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-
     }
 
     @Override
@@ -135,33 +138,48 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
                     tvQuestionTitle.setText(questionTitle);
                 }
             }*/
-            if (ischild) {
-                if (parent_template.equals(YanXiuConstant.MULTI_QUESTION) && (parent_type == QUESTION_SOLVE_COMPLEX.type || parent_type == QUESTION_COMPUTE.type)) {
-                    tvQuestionTitleLeft.setText("" + (pageIndex + 1));
-                    tvQuestionTitle.setVisibility(View.VISIBLE);
-                    tvQuestionTitleRight.setText("" + number);
-                } else {
-                    tvQuestionTitleLeft.setText("" + (questionsEntity.getChildPageNumber()+ pageIndex));
-                    tvQuestionTitle.setVisibility(View.VISIBLE);
-                    tvQuestionTitleRight.setText("" + totalCount);
-                }
-            } else {
-                if (questionsEntity.getTemplate().equals(YanXiuConstant.MULTI_QUESTION) && (typeId == QUESTION_SOLVE_COMPLEX.type || typeId == QUESTION_COMPUTE.type)) {
-                    tvQuestionTitleLeft.setText("" + pageIndex);
-                    tvQuestionTitle.setVisibility(View.VISIBLE);
-                    tvQuestionTitleRight.setText("" + count);
-                } else if (questionsEntity.getTemplate().equals(YanXiuConstant.SINGLE_CHOICES) || questionsEntity.getTemplate().equals(YanXiuConstant.MULTI_CHOICES)
-                        || questionsEntity.getTemplate().equals(YanXiuConstant.FILL_BLANK) || questionsEntity.getTemplate().equals(YanXiuConstant.ANSWER_QUESTION)
-                        || questionsEntity.getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION) || questionsEntity.getTemplate().equals(YanXiuConstant.JUDGE_QUESTION)
-                        || questionsEntity.getTemplate().equals(YanXiuConstant.CONNECT_QUESTION)){
-                    tvQuestionTitleLeft.setText("" + pageIndex);
-                    tvQuestionTitle.setVisibility(View.VISIBLE);
-                    tvQuestionTitleRight.setText("" + count);
-                }
+            if (answerViewTypyBean==SubjectExercisesItemBean.WRONG_SET){
+                setWrongQuestionTitle(typeId);
+            }else {
+                setQuestionTitle(typeId);
             }
-
         }
 
+    }
+
+    private void setQuestionTitle(int typeId) {
+        if (ischild) {
+            if (parent_template.equals(YanXiuConstant.MULTI_QUESTION) && (parent_type == QUESTION_SOLVE_COMPLEX.type || parent_type == QUESTION_COMPUTE.type)) {
+                tvQuestionTitleLeft.setText("" + (pageIndex + 1));
+                tvQuestionTitle.setVisibility(View.VISIBLE);
+                tvQuestionTitleRight.setText("" + number);
+            } else {
+                tvQuestionTitleLeft.setText("" + (questionsEntity.getChildPageNumber()+ pageIndex));
+                tvQuestionTitle.setVisibility(View.VISIBLE);
+                tvQuestionTitleRight.setText("" + totalCount);
+            }
+        } else {
+            if (questionsEntity.getTemplate().equals(YanXiuConstant.MULTI_QUESTION) && (typeId == QUESTION_SOLVE_COMPLEX.type || typeId == QUESTION_COMPUTE.type)) {
+                tvQuestionTitleLeft.setText("" + pageIndex);
+                tvQuestionTitle.setVisibility(View.VISIBLE);
+                tvQuestionTitleRight.setText("" + count);
+            } else if (questionsEntity.getTemplate().equals(YanXiuConstant.SINGLE_CHOICES) || questionsEntity.getTemplate().equals(YanXiuConstant.MULTI_CHOICES)
+                    || questionsEntity.getTemplate().equals(YanXiuConstant.FILL_BLANK) || questionsEntity.getTemplate().equals(YanXiuConstant.ANSWER_QUESTION)
+                    || questionsEntity.getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION) || questionsEntity.getTemplate().equals(YanXiuConstant.JUDGE_QUESTION)
+                    || questionsEntity.getTemplate().equals(YanXiuConstant.CONNECT_QUESTION)){
+                tvQuestionTitleLeft.setText("" + pageIndex);
+                tvQuestionTitle.setVisibility(View.VISIBLE);
+                tvQuestionTitleRight.setText("" + count);
+            }
+        }
+    }
+
+    private void setWrongQuestionTitle(int typeId) {
+        if (!ischild){
+            tvQuestionTitleLeft.setText("" + wrongId);
+            tvQuestionTitle.setVisibility(View.VISIBLE);
+            tvQuestionTitleRight.setText("" + wrongCount);
+        }
     }
 
     public void setChildPagerIndex(int childPagerIndex) {

@@ -26,6 +26,7 @@ public class LoadingDialog extends Dialog{
     private ImageView iv_progress_close;
     private TextView tv_progress_txt;
     private ProgressBar progressbar_progress;
+    private OnCloseListener listener;
 
     public int getmCurrent() {
         return mCurrent;
@@ -49,6 +50,14 @@ public class LoadingDialog extends Dialog{
         init(context);
     }
 
+    public interface OnCloseListener{
+        void onClose();
+    }
+
+    public void setOnCloseListener(OnCloseListener listener){
+        this.listener=listener;
+    }
+
     private void init(final Context context) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.loading_dialog, null);
@@ -66,7 +75,11 @@ public class LoadingDialog extends Dialog{
         iv_progress_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((Activity)context).finish();
+//                if (listener!=null){
+//                    listener.onClose();
+//                }else {
+                    ((Activity) context).finish();
+//                }
             }
         });
     }
