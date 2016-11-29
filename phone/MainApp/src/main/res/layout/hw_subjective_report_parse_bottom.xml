@@ -234,7 +234,6 @@
         <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:id="@+id/hw_report_answer_text"
             android:layout_marginTop="@dimen/dimen_5"
             android:layout_marginBottom="@dimen/dimen_5"

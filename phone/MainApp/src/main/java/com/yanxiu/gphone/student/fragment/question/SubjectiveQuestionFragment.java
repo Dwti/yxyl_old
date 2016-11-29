@@ -198,6 +198,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         if (bean == null) {
             bean = questionsEntity.getAnswerBean();
         }
+        //EventBus.getDefault().unregister(this);
     }
 
 

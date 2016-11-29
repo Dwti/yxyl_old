@@ -89,7 +89,7 @@ public class CorpFragment extends Fragment {
         // bind Views
         bindViews(view);
         // apply custom font
-        FontUtils.setFont(mRootLayout);
+        //FontUtils.setFont(mRootLayout);
         //mCropView.setDebug(true);
         // set bitmap to CropImageView
         if (mCropView.getImageBitmap() == null) {
@@ -135,7 +135,7 @@ public class CorpFragment extends Fragment {
         mCropView = (CropImageView) view.findViewById(R.id.cropImageView);
         view.findViewById(R.id.buttonDone).setOnClickListener(btnListener);
         view.findViewById(R.id.buttonFitImage).setOnClickListener(btnListener);
-        view.findViewById(R.id.button1_1).setOnClickListener(btnListener);
+        /*view.findViewById(R.id.button1_1).setOnClickListener(btnListener);
         view.findViewById(R.id.button3_4).setOnClickListener(btnListener);
         view.findViewById(R.id.button4_3).setOnClickListener(btnListener);
         view.findViewById(R.id.button9_16).setOnClickListener(btnListener);
@@ -146,7 +146,7 @@ public class CorpFragment extends Fragment {
         view.findViewById(R.id.buttonRotateRight).setOnClickListener(btnListener);
         view.findViewById(R.id.buttonCustom).setOnClickListener(btnListener);
         view.findViewById(R.id.buttonCircle).setOnClickListener(btnListener);
-        view.findViewById(R.id.buttonShowCircleButCropAsSquare).setOnClickListener(btnListener);
+        view.findViewById(R.id.buttonShowCircleButCropAsSquare).setOnClickListener(btnListener);*/
         mRootLayout = (LinearLayout) view.findViewById(R.id.layout_root);
     }
 
