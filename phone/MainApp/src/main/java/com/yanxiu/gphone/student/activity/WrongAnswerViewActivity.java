@@ -173,7 +173,10 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
 //            nextPager_onclick = 0;
 //        }
 
-//        vpAnswer.
+        List<Fragment> list=((AnswerAdapter)vpAnswer.getAdapter()).getmFragments();
+        BaseQuestionFragment fragment= (BaseQuestionFragment) list.get(vpAnswer.getCurrentItem());
+        fragment.setWrongQuestionTitle(position+1+"",String.valueOf((wrongCounts - delQueNum)));
+
 
         tvPagerIndex.setText(String.valueOf(position + 1));
 
@@ -491,6 +494,11 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
             if (currentPageCount > 0) {
                 tvPagerIndex.setText(String.valueOf(currentIndex + 1));
                 tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(currentPageCount)));
+
+                List<Fragment> list=((AnswerAdapter)vpAnswer.getAdapter()).getmFragments();
+                BaseQuestionFragment fragment= (BaseQuestionFragment) list.get(vpAnswer.getCurrentItem());
+                fragment.setWrongQuestionTitle(currentIndex+1+"",String.valueOf((wrongCounts - delQueNum)));
+
             } else {
                 finishResult(true);
             }

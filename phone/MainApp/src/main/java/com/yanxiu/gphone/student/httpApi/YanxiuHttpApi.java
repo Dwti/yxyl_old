@@ -1635,7 +1635,7 @@ public class YanxiuHttpApi {
                 final String actionUrl = getStaticHead() + "/common/uploadHeadImg.do?";
                 StringBuilder sb = new StringBuilder(actionUrl);
                 sb.append("token=").append(LoginModel.getToken());
-                sb.append(PUBLIC_PARAMETERS.TRACE_UID+"=").append(LoginModel.getUid()+"");
+//                sb.append(PUBLIC_PARAMETERS.TRACE_UID+"=").append(LoginModel.getUid()+"");
                 LogInfo.log("haitian", sb.toString());
                 String result = reuqestUploadFile(sb.toString(), files, listener);
                 return result;
