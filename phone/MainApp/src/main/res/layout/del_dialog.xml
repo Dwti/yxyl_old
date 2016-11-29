@@ -103,7 +103,6 @@
                 android:text="@string/group_add_ok"
                 android:textColor="@color/color_805500"
                 android:textSize="@dimen/dimen_17"
-                android:textStyle="bold"
                 />
         </LinearLayout>
     </RelativeLayout>
