@@ -87,6 +87,7 @@ public class UilImageGetter implements ImageGetterListener {
             }
             loadedImageWidth = Math.round(bitmap.getWidth() * sizeScale);
             loadedImageheight = Math.round(bitmap.getHeight() * sizeScale);
+
             Rect bounds = new Rect(0, 0, loadedImageWidth, loadedImageheight);
             return bounds;
         }
@@ -94,7 +95,11 @@ public class UilImageGetter implements ImageGetterListener {
         @Override
         protected void onPostExecute(final Drawable result) {
             if (result != null) {
-                urlDrawable.setBounds(0, 0, loadedImageWidth, loadedImageheight);
+                float factor = (float)(view.getWidth() - 20.f /*减去左右的margin*/) / (float)loadedImageWidth;
+                factor = Math.min(1.0f, factor);
+
+                result.setBounds(0, 0, (int)(loadedImageWidth * factor), (int)(loadedImageheight * factor));
+                urlDrawable.setBounds(0, 0, (int)(loadedImageWidth * factor), (int)(loadedImageheight * factor));
                 urlDrawable.drawable = result;
                 UilImageGetter.this.view.post(new Runnable() {
                     @Override

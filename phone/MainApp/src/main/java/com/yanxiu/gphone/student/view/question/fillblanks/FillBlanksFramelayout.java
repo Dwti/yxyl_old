@@ -100,7 +100,8 @@ public class FillBlanksFramelayout extends FrameLayout implements
      * 设置数据源，替换字符
      */
     public void setData(String stem) {
-        stem = "<img src=\"http://scc.jsyxw.cn/image/20160815/147124203.png\"/><br/> <p>(_) strong</p> <p>(_) funny</p><p>(_) pretty</p><p>(_) old</p><p>(_) kind</p>";
+        stem = "<img src=\"http://scc.jsyxw.cn/image/20160816/1471331732720680.png\"/><br/> <p>(_) strong</p> <p>(_) funny</p><p>(_) pretty</p><p>(_) old</p><p>(_) kind</p>";
+        stem = "<img src=\"http://scc.jsyxw.cn/image/20160816/1471331732720680.png\" title=\"1471331732720680.png\" alt=\"blob.png\"/><br/>(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471331791262932.png\" title=\"1471331791262932.png\" alt=\"blob.png\" width=\"87\" height=\"72\" style=\"width: 87px; height: 72px;\"/><br/>(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471331806727251.png\" title=\"1471331806727251.png\" alt=\"blob.png\"/><br/>(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471331822175126.png\" title=\"1471331822175126.png\" alt=\"blob.png\"/><br/>(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471331841203379.png\" title=\"1471331841203379.png\" alt=\"blob.png\"/><br/>(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471331860917990.png\" title=\"1471331860917990.png\" alt=\"blob.png\" width=\"87\" height=\"86\" style=\"width: 87px; height: 86px;\"/><br/>\n";
 
         for (String Str : answers) {
             if (mAnswerLength < Str.length()) {
@@ -120,12 +121,13 @@ public class FillBlanksFramelayout extends FrameLayout implements
         UilImageGetter getter = new UilImageGetter(tvFillBlank, mCtx);
         getter.setCallback(this);
         txt = MyHtml.fromHtml(mCtx, data, getter, null, null, null);
-
         tvFillBlank.setText(txt);
 
-        ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
-        this.getViewTreeObserver().addOnGlobalLayoutListener(listener);
-
+        if (!hasImageTagInHtmlText(data)) {
+            fromImage = true;
+            ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
+            this.getViewTreeObserver().addOnGlobalLayoutListener(listener);
+        }
         //handler.sendEmptyMessageDelayed(3, 3000);
     }
 
@@ -391,54 +393,6 @@ public class FillBlanksFramelayout extends FrameLayout implements
         //tvFillBlank.setText(Html.fromHtml(data));
     }
 
-    /**
-     * 首先找到字符所在的位置index
-     * 然后计算所在的行 line
-     * 算出行的y坐标 top bottom，即为EditText的高
-     * 然后算出字符距离左边的x坐标即为EditText的leftMargin
-     */
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    private void addEditText(int start, int end) {
-        Layout layout = tvFillBlank.getLayout();
-//        for (int i = 0; i < 20; i++) {
-//            int myline = layout.getLineForOffset(i);
-//            Log.e("myline", myline+"");
-//        }
-
-
-        int startLine = layout.getLineForOffset(start);
-        int endLine = layout.getLineForOffset(end);
-        assert startLine == endLine;
-        int line = startLine;
-
-        float ttt = layout.getPrimaryHorizontal(2);
-
-        float left = layout.getPrimaryHorizontal(start);
-        float right = layout.getPrimaryHorizontal(end);
-        float top = layout.getLineTop(line);
-        float bottom = layout.getLineBottom(line);
-
-        RelativeLayout.LayoutParams params;
-        params = new RelativeLayout.LayoutParams((int) (right - left), (int) (bottom - top));
-        params.leftMargin = (int) left;
-        params.topMargin = (int) top;
-
-        final MyEdittext et = new MyEdittext(mCtx);
-        et.setPadding(10, 0, 10, 0);
-        et.setSingleLine();
-        et.setTextColor(mCtx.getResources().getColor(R.color.color_00b8b8));
-        et.setTextSize(textSize);
-        et.setBackground(mCtx.getResources().getDrawable(R.drawable.fill_blank_bg));
-        et.setGravity(Gravity.CENTER);
-        setEditTextCusrorDrawable(et);
-        if (answerViewTypyBean == SubjectExercisesItemBean.RESOLUTION || answerViewTypyBean == SubjectExercisesItemBean.WRONG_SET) {
-            et.setEnabled(false);
-            et.setFocusable(false);
-        }
-        rlMark.addView(et, params);
-    }
-
-
     private void setEditTextCusrorDrawable(EditText editText) {
         try {
             // https://github.com/android/platform_frameworks_base/blob/kitkat-release/core/java/android/widget/TextView.java#L562-564
@@ -463,10 +417,69 @@ public class FillBlanksFramelayout extends FrameLayout implements
         }
     }
 
+
+    // 在网络图片加载成功、失败后被调用
     @Override
     public void onFinish() {
         fromImage = true;
         ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
         this.getViewTreeObserver().addOnGlobalLayoutListener(listener);
+    }
+
+    // 检查html格式文本中是否有<img>标签
+    private boolean hasImageTagInHtmlText(String htmlText) {
+        Pattern pattern = Pattern.compile("<img");
+        Matcher matcher = pattern.matcher(htmlText);
+        return matcher.find();
+    }
+
+    // 把需要扣掉的部分换成 EditText
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private void addEditText(int start, int end) {
+        Layout layout = tvFillBlank.getLayout();
+
+        int startLine = layout.getLineForOffset(start);
+        int endLine = layout.getLineForOffset(end);
+        assert startLine == endLine;
+        int line = startLine;
+
+        float left = layout.getPrimaryHorizontal(start);
+        float right = layout.getPrimaryHorizontal(end);
+        float top = layout.getLineTop(line);
+        float bottom = layout.getLineBottom(line);
+
+        // 有图片的情况下，line top算图片了，所以这里用tricky的方法，获得(_)的高度
+        // 现在文字和图片是底部对齐，目前暂时不知道怎么搞成居中对齐
+        final MyEdittext etForMeasure = new MyEdittext(mCtx);
+        etForMeasure.setSingleLine();
+        etForMeasure.setTextColor(mCtx.getResources().getColor(R.color.color_00b8b8));
+        etForMeasure.setTextSize(textSize);
+        etForMeasure.setBackground(mCtx.getResources().getDrawable(R.drawable.fill_blank_bg));
+        etForMeasure.setGravity(Gravity.CENTER);
+        setEditTextCusrorDrawable(etForMeasure);
+        etForMeasure.setText("(_)");
+        etForMeasure.measure(0, 0);
+        float height = etForMeasure.getMeasuredHeight();
+
+        top = bottom - height;
+
+        RelativeLayout.LayoutParams params;
+        params = new RelativeLayout.LayoutParams((int) (right - left), (int) (bottom - top));
+        params.leftMargin = (int) left;
+        params.topMargin = (int) top;
+
+        final MyEdittext et = new MyEdittext(mCtx);
+        et.setPadding(10, 0, 10, 0);
+        et.setSingleLine();
+        et.setTextColor(mCtx.getResources().getColor(R.color.color_00b8b8));
+        et.setTextSize(textSize);
+        et.setBackground(mCtx.getResources().getDrawable(R.drawable.fill_blank_bg));
+        et.setGravity(Gravity.CENTER);
+        setEditTextCusrorDrawable(et);
+        if (answerViewTypyBean == SubjectExercisesItemBean.RESOLUTION || answerViewTypyBean == SubjectExercisesItemBean.WRONG_SET) {
+            et.setEnabled(false);
+            et.setFocusable(false);
+        }
+        rlMark.addView(et, params);
     }
 }
