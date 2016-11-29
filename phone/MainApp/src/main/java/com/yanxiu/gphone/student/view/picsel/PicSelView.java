@@ -162,6 +162,7 @@ public class PicSelView extends RelativeLayout {
                 if (currentDrrList == null) {
                     return;
                 }
+                EventBus.getDefault().register(fragment);
                 ShareBitmapUtils.getInstance().setCurrentSbId(currentQuestionId);
                 ActivityJumpUtils.jumpToLocalPhotoViewActivityForResult((Activity) mContext, i, LocalPhotoViewActivity.REQUEST_CODE);
             }

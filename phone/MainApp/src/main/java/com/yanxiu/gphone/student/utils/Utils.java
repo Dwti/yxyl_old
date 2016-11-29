@@ -7,6 +7,9 @@ import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.os.Environment;
 import android.util.DisplayMetrics;
+import android.view.WindowManager;
+
+import com.yanxiu.gphone.student.YanxiuApplication;
 
 import java.io.File;
 
@@ -136,6 +139,20 @@ public class Utils {
     public static final int getWidthInPx(Context context) {
         final int width = context.getResources().getDisplayMetrics().widthPixels;
         return width;
+    }
+
+    public static int getWindowWidth(){
+        WindowManager wm = (WindowManager) YanxiuApplication.getInstance()
+                .getSystemService(Context.WINDOW_SERVICE);
+        int width = wm.getDefaultDisplay().getWidth();
+        return width;
+    }
+
+    public static int getWindowHeight(){
+        WindowManager wm = (WindowManager) YanxiuApplication.getInstance()
+                .getSystemService(Context.WINDOW_SERVICE);
+        int height = wm.getDefaultDisplay().getHeight();
+        return height;
     }
 
 }

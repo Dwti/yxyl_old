@@ -112,7 +112,8 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
             String url=bean.getImage_url();
             if (url.startsWith("http")){
                 questionsEntity.getAnswerBean().getSubjectivImageUri().remove(url);
-
+                ShareBitmapUtils.getInstance().getDrrMaps().get(questionsEntity.getId()).remove(url);
+                EventBus.getDefault().unregister(this);
             }
         }
     }

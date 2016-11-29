@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -62,6 +63,8 @@ public class TeachingMaterialActivity extends YanxiuBaseActivity {
     private SubjectVersionBean subjectVersionBean;
     private int selectPosition = -1;
     private int type = TEACHING_MATERIAL_ACTIVITY;
+    private RelativeLayout relative_layout;
+    private TextView text_dese;
 
     public static void launchActivity(Activity context, int type) {
         Intent intent = new Intent(context, TeachingMaterialActivity.class);
@@ -97,6 +100,8 @@ public class TeachingMaterialActivity extends YanxiuBaseActivity {
     }
 
     private void findView() {
+        relative_layout= (RelativeLayout) mRootView.findViewById(R.id.relative_layout);
+        text_dese= (TextView) mRootView.findViewById(R.id.text_dese);
         topView = mRootView.findViewById(R.id.top_layout);
         backView = topView.findViewById(R.id.pub_top_left);
         backView.setOnClickListener(new View.OnClickListener() {
@@ -326,13 +331,16 @@ public class TeachingMaterialActivity extends YanxiuBaseActivity {
                 if (TextUtils.isEmpty(msg)) {
                     mRootView.dataNull(true);
                 } else {
-                    mRootView.dataNull(msg);
+                    relative_layout.setVisibility(View.VISIBLE);
+                    text_dese.setText(msg);
+//                    mRootView.dataNull(msg);
                 }
             }
         }
     };
     //=======================================================================================
     private void requestMyFavouriteTask(final String stageId) {
+        relative_layout.setVisibility(View.GONE);
         mRootView.loading(true);
         cancelMyFavouriteTask();
         if (!NetWorkTypeUtils.isNetAvailable()) {

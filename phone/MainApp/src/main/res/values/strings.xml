@@ -5,6 +5,7 @@
     <string name="app_upgrade_cancle">取消</string>
     <string name="app_upgrade_inoge">忽略</string>
     <string name="app_upgrade_exit">退出</string>
+    <string name="text_dese">&#037;&#062;&#095;&#060;&#037;</string>
 
     <string name="update_asynctask_downloading">正在下载</string>
     <string name="update_asynctask_downloading_fail">下载失败</string>
