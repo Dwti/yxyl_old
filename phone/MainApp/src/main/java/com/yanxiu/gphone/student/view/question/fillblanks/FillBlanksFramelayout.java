@@ -29,6 +29,7 @@ import com.common.core.utils.CommonCoreUtil;
 import com.common.core.utils.DensityUtils;
 import com.common.core.utils.LogInfo;
 import com.common.core.utils.StringUtils;
+import com.yanxiu.gphone.student.HtmlParser.FillBlankImageGetterTrick;
 import com.yanxiu.gphone.student.HtmlParser.MyHtml;
 import com.yanxiu.gphone.student.HtmlParser.UilImageGetter;
 import com.yanxiu.gphone.student.R;
@@ -51,7 +52,7 @@ import java.util.regex.Pattern;
  */
 public class FillBlanksFramelayout extends FrameLayout implements
         QuestionsListener,
-        UilImageGetter.Callback {
+        FillBlankImageGetterTrick.Callback {
     private QuestionsListener listener;
     private AnswerBean bean;
     private List<String> answers = new ArrayList<String>();
@@ -123,7 +124,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
 
         data = data.replace("(_)",mAnswerSb.toString());
 
-        UilImageGetter getter = new UilImageGetter(tvFillBlank, mCtx);
+        FillBlankImageGetterTrick getter = new FillBlankImageGetterTrick(tvFillBlank, mCtx);
         getter.setCallback(this);
         txt = MyHtml.fromHtml(mCtx, data, getter, null, null, null);
         tvFillBlank.setText(txt);
@@ -252,6 +253,9 @@ public class FillBlanksFramelayout extends FrameLayout implements
         public void onGlobalLayout() {
             FillBlanksFramelayout.this.getViewTreeObserver().removeGlobalOnLayoutListener(
                     this);
+            // 防止加入重复EditText
+            rlMark.removeAllViews();
+
             if (fromImage) {
                 String targetWord = mAnswerSb.toString();
                 CharSequence c = tvFillBlank.getText().toString();

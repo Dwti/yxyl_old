@@ -13,13 +13,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yanxiu.gphone.student.HtmlParser.Interface.ImageGetterListener;
 
 public class UilImageGetter implements ImageGetterListener {
-    public interface Callback {
-        public void onFinish();
-    }
-    private Callback callback;
-    public void setCallback(Callback callback) {
-        this.callback = callback;
-    }
 
     private Context context;
     private TextView view;
@@ -53,22 +46,13 @@ public class UilImageGetter implements ImageGetterListener {
         protected Drawable doInBackground(String... params) {
             String source = params[0];
             DisplayImageOptions options = new DisplayImageOptions.Builder()
-                                                        .cacheInMemory(true)                        // 设置下载的图片是否缓存在内存中
-                                                        .cacheOnDisk(true)                       // 设置下载的图片是否缓存在SD卡中
-                                                        .build();
+                    .cacheInMemory(true)                        // 设置下载的图片是否缓存在内存中
+                    .cacheOnDisk(true)                       // 设置下载的图片是否缓存在SD卡中
+                    .build();
             Bitmap bitmap = ImageLoader.getInstance().loadImageSync(source, options);
-            if (bitmap == null) {
-                if (callback != null)
-                {
-                    callback.onFinish();
-                    return null;
-                }
-            }
-
             Drawable drawable=new BitmapDrawable(bitmap);
             Rect bounds = getDefaultImageBounds(context,bitmap);
             drawable.setBounds(0, 0, bounds.width(), bounds.height());
-
             return drawable;
         }
 
@@ -87,7 +71,6 @@ public class UilImageGetter implements ImageGetterListener {
             }
             loadedImageWidth = Math.round(bitmap.getWidth() * sizeScale);
             loadedImageheight = Math.round(bitmap.getHeight() * sizeScale);
-
             Rect bounds = new Rect(0, 0, loadedImageWidth, loadedImageheight);
             return bounds;
         }
@@ -95,13 +78,8 @@ public class UilImageGetter implements ImageGetterListener {
         @Override
         protected void onPostExecute(final Drawable result) {
             if (result != null) {
-                // 这里貌似有多线程问题？？？由于所有图片都用一个ImageGetter，所以factor会算错？
-                float factor = (float)(view.getWidth() - 10.f /*减去左右的margin*/) / (float)loadedImageWidth;
-                factor = Math.min(1.0f, factor);
-                result.setBounds(0, 0, (int)(loadedImageWidth * factor), (int)(loadedImageheight * factor));
-                urlDrawable.setBounds(0, 0, (int)(loadedImageWidth * factor), (int)(loadedImageheight * factor));
+                urlDrawable.setBounds(0, 0, loadedImageWidth, loadedImageheight);
                 urlDrawable.drawable = result;
-
                 UilImageGetter.this.view.post(new Runnable() {
                     @Override
                     public void run() {
@@ -109,13 +87,8 @@ public class UilImageGetter implements ImageGetterListener {
                         UilImageGetter.this.view.setEllipsize(null);
                         UilImageGetter.this.view.requestLayout();
                         UilImageGetter.this.view.invalidate();
-                        if (callback != null) {
-                            callback.onFinish();
-                        }
                     }
                 });
-
-
             }
         }
     }
