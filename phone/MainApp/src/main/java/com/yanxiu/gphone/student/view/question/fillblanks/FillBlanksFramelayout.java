@@ -108,15 +108,20 @@ public class FillBlanksFramelayout extends FrameLayout implements
                 mAnswerLength = Str.length();
             }
         }
-        if (mAnswerLength > 22) {
-            mAnswerLength = 22;
+
+        // 10 - 22 之间
+        mAnswerLength = Math.max(Math.min(22, mAnswerLength), 10);
+
+        // 这里不能使用space空格，因为html text里会省略连续空格
+        mAnswerSb.append(".");
+        for (int i = 0; i < mAnswerLength - 2; i++) {
+            mAnswerSb.append("..");
         }
-        for (int i = 0; i < mAnswerLength; i++) {
-            mAnswerSb.append("  ");
-        }
+        mAnswerSb.append(".");
         data = stem + "  \n";
         data = data + "  \n";
-        //data = data.replace("(_)",mAnswerSb.toString());
+
+        data = data.replace("(_)",mAnswerSb.toString());
 
         UilImageGetter getter = new UilImageGetter(tvFillBlank, mCtx);
         getter.setCallback(this);
@@ -128,50 +133,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
             ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
             this.getViewTreeObserver().addOnGlobalLayoutListener(listener);
         }
-        //handler.sendEmptyMessageDelayed(3, 3000);
     }
-
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 1:
-                    addEditText(4, 6);
-                    break;
-                case 2:
-                {
-                    String targetWord = "(_)";
-                    CharSequence c = tvFillBlank.getText().toString();
-                    int startOffsetOfClickedText = tvFillBlank.getText().toString().indexOf(targetWord);
-                    int endOffsetOfClickedText = startOffsetOfClickedText + targetWord.length();
-
-                    addEditText(startOffsetOfClickedText, endOffsetOfClickedText);
-                }
-                break;
-                case 3:
-                {
-                    String targetWord = "(_)";
-                    CharSequence c = tvFillBlank.getText().toString();
-                    Pattern pattern = Pattern.compile(targetWord);
-                    boolean flag=true;
-                    if (!StringUtils.isEmpty(data)) {
-                        Matcher matcher = pattern.matcher(c);
-                        int i=0;
-                        while (matcher.find()) {
-                            addEditText(matcher.start(), matcher.end());
-
-
-                        }
-
-                    }
-
-                        hideSoftInput();
-
-                }
-                break;
-            }
-        }
-    };
 
     private void initView() {
         LogInfo.log("geny", "framelayout_fill_blanks_question initView");
@@ -291,7 +253,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
             FillBlanksFramelayout.this.getViewTreeObserver().removeGlobalOnLayoutListener(
                     this);
             if (fromImage) {
-                String targetWord = "(_)";
+                String targetWord = mAnswerSb.toString();
                 CharSequence c = tvFillBlank.getText().toString();
                 Pattern pattern = Pattern.compile(targetWord);
                 boolean flag = true;
@@ -443,8 +405,8 @@ public class FillBlanksFramelayout extends FrameLayout implements
         assert startLine == endLine;
         int line = startLine;
 
-        float left = layout.getPrimaryHorizontal(start);
-        float right = layout.getPrimaryHorizontal(end);
+        float left = layout.getSecondaryHorizontal(start);
+        float right = layout.getSecondaryHorizontal(end);
         float top = layout.getLineTop(line);
         float bottom = layout.getLineBottom(line);
 
@@ -457,11 +419,14 @@ public class FillBlanksFramelayout extends FrameLayout implements
         etForMeasure.setBackground(mCtx.getResources().getDrawable(R.drawable.fill_blank_bg));
         etForMeasure.setGravity(Gravity.CENTER);
         setEditTextCusrorDrawable(etForMeasure);
-        etForMeasure.setText("(_)");
+        etForMeasure.setText(".");
         etForMeasure.measure(0, 0);
         float height = etForMeasure.getMeasuredHeight();
+        float width = etForMeasure.getMeasuredWidth();
 
         top = bottom - height;
+//        left -= width;
+//        right += width;
 
         RelativeLayout.LayoutParams params;
         params = new RelativeLayout.LayoutParams((int) (right - left), (int) (bottom - top));

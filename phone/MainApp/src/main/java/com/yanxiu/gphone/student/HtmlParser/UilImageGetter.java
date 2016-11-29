@@ -95,12 +95,13 @@ public class UilImageGetter implements ImageGetterListener {
         @Override
         protected void onPostExecute(final Drawable result) {
             if (result != null) {
-                float factor = (float)(view.getWidth() - 20.f /*减去左右的margin*/) / (float)loadedImageWidth;
+                // 这里貌似有多线程问题？？？由于所有图片都用一个ImageGetter，所以factor会算错？
+                float factor = (float)(view.getWidth() - 10.f /*减去左右的margin*/) / (float)loadedImageWidth;
                 factor = Math.min(1.0f, factor);
-
                 result.setBounds(0, 0, (int)(loadedImageWidth * factor), (int)(loadedImageheight * factor));
                 urlDrawable.setBounds(0, 0, (int)(loadedImageWidth * factor), (int)(loadedImageheight * factor));
                 urlDrawable.drawable = result;
+
                 UilImageGetter.this.view.post(new Runnable() {
                     @Override
                     public void run() {
