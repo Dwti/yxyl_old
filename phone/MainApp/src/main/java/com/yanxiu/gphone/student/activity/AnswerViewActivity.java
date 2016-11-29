@@ -30,6 +30,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.common.core.utils.CommonCoreUtil;
 import com.common.core.utils.LogInfo;
+import com.common.core.utils.NetWorkTypeUtils;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.AnswerAdapter;
@@ -507,28 +508,9 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         if (dataSources == null) {
             return;
         }
-//        if (!IsSubmitAnswer){
-//            IsSubmitAnswer=true;
-//            return;
-//        }
-        adapter.answerViewClick();
-        long endtime = System.currentTimeMillis();
-        dataSources.setEndtime(endtime);
-        calculateLastQuestionTime();
-        //QuestionUtils.clearSubjectiveQuesition(dataSources);
-        dataSources.getData().get(0).getPaperStatus().setCosttime(AnswerViewActivity.totalTime);
-        RequestSubmitQuesitonTask requestSubmitQuesitonTask = new RequestSubmitQuesitonTask(this, dataSources, RequestSubmitQuesitonTask.LIVE_CODE, new AsyncCallBack() {
-            @Override
-            public void update(YanxiuBaseBean result) {
-                EventBus.getDefault().post(new GroupEventHWRefresh());
-                mLoadingDialog.dismiss();
-                AnswerViewActivity.this.finish();
-            }
-            @Override
-            public void dataError(int type, String msg) {
-                mLoadingDialog.dismiss();
-                AnswerViewActivity.this.finish();
-                /*errorDialog = new CommonDialog(AnswerViewActivity.this, AnswerViewActivity.this.getResources().getString(R.string.question_network_error),
+
+        if (!NetWorkTypeUtils.isNetAvailable()) {
+            errorDialog = new CommonDialog(AnswerViewActivity.this, AnswerViewActivity.this.getResources().getString(R.string.question_network_error),
                         AnswerViewActivity.this.getResources().getString(R.string.question_continue_finish),
                         AnswerViewActivity.this.getResources().getString(R.string.question_cancel),
                         new DelDialog.DelCallBack() {
@@ -550,7 +532,30 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                                 errorDialog.dismiss();
                             }
                         });
-                errorDialog.show();*/
+                errorDialog.show();
+            return;
+        }
+//        if (!IsSubmitAnswer){
+//            IsSubmitAnswer=true;
+//            return;
+//        }
+        adapter.answerViewClick();
+        long endtime = System.currentTimeMillis();
+        dataSources.setEndtime(endtime);
+        calculateLastQuestionTime();
+        //QuestionUtils.clearSubjectiveQuesition(dataSources);
+        dataSources.getData().get(0).getPaperStatus().setCosttime(AnswerViewActivity.totalTime);
+        RequestSubmitQuesitonTask requestSubmitQuesitonTask = new RequestSubmitQuesitonTask(this, dataSources, RequestSubmitQuesitonTask.LIVE_CODE, new AsyncCallBack() {
+            @Override
+            public void update(YanxiuBaseBean result) {
+                EventBus.getDefault().post(new GroupEventHWRefresh());
+                mLoadingDialog.dismiss();
+                AnswerViewActivity.this.finish();
+            }
+            @Override
+            public void dataError(int type, String msg) {
+                mLoadingDialog.dismiss();
+                AnswerViewActivity.this.finish();
             }
         });
         requestSubmitQuesitonTask.start();

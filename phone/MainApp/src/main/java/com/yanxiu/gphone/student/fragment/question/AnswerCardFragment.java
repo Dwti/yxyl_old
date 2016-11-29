@@ -254,6 +254,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
     public void onClick(final View v) {
         switch (v.getId()) {
             case R.id.rl_answer_card_mark :
+                ((AnswerViewActivity)getActivity()).hideFragment();
                 mLoadingDialog = new LoadingDialog(getActivity());
                 Animation ani = AnimationUtils.loadAnimation(this.getActivity(), R.anim.answer_card_bottom_out);
                 ani.setFillAfter(true);
