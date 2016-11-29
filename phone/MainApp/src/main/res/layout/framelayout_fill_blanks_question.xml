@@ -7,8 +7,9 @@
         android:id="@+id/tv_fill_blanks"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
+        android:lineSpacingMultiplier="5"
         android:padding="@dimen/dimen_10"
+        android:lineSpacingExtra="200dp"
         android:textColor="@color/color_black"
         />
     <!--android:textSize="@dimen/dimen_15" />-->

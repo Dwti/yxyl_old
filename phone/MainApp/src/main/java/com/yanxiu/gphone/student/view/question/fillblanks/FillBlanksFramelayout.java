@@ -120,7 +120,6 @@ public class FillBlanksFramelayout extends FrameLayout implements
         getter.setCallback(this);
         txt = MyHtml.fromHtml(mCtx, data, getter, null, null, null);
         tvFillBlank.setText(txt);
-
         if (!hasImageTagInHtmlText(data)) {
             isFromImageSizeChange = true;
             ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
@@ -371,8 +370,16 @@ public class FillBlanksFramelayout extends FrameLayout implements
         etForMeasure.setText("(-)");
         etForMeasure.measure(0, 0);
         float height = etForMeasure.getMeasuredHeight();
+        etForMeasure.getBaseline();
+        Layout layoutForMeasure = etForMeasure.getLayout();
+        float ascent = Math.abs(layoutForMeasure.getLineAscent(0));
+        float descent = Math.abs(layoutForMeasure.getLineDescent(0));
 
-        top = bottom - height;
+        top = (float)layout.getLineBaseline(line) - height/(ascent + descent)*ascent;
+        bottom = layout.getLineBaseline(line) + height/(ascent + descent)*descent;
+
+
+        //top = bottom - height;
 //        left -= width;
 //        right += width;
 
