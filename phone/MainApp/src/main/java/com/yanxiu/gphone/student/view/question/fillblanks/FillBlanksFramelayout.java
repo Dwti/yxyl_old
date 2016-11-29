@@ -3,27 +3,18 @@ package com.yanxiu.gphone.student.view.question.fillblanks;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.PorterDuff;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Message;
-import android.text.Editable;
-import android.text.Html;
 import android.text.Layout;
 import android.text.Spanned;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.common.core.utils.CommonCoreUtil;
 import com.common.core.utils.DensityUtils;
@@ -31,12 +22,9 @@ import com.common.core.utils.LogInfo;
 import com.common.core.utils.StringUtils;
 import com.yanxiu.gphone.student.HtmlParser.FillBlankImageGetterTrick;
 import com.yanxiu.gphone.student.HtmlParser.MyHtml;
-import com.yanxiu.gphone.student.HtmlParser.UilImageGetter;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
-import com.yanxiu.gphone.student.utils.Util;
-import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.MyEdittext;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
@@ -67,7 +55,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
     private int answerViewTypyBean;
     private int textSize = 0;
     private Spanned txt;
-    private boolean fromImage = false;
+    private boolean isFromImageSizeChange = false;
 
     public FillBlanksFramelayout(Context context) {
         super(context);
@@ -101,9 +89,12 @@ public class FillBlanksFramelayout extends FrameLayout implements
      * 设置数据源，替换字符
      */
     public void setData(String stem) {
-        stem = "<img src=\"http://scc.jsyxw.cn/image/20160816/1471331732720680.png\"/><br/> <p>(_) strong</p> <p>(_) funny</p><p>(_) pretty</p><p>(_) old</p><p>(_) kind</p>";
-        stem = "<img src=\"http://scc.jsyxw.cn/image/20160816/1471331732720680.png\" title=\"1471331732720680.png\" alt=\"blob.png\"/><br/>(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471331791262932.png\" title=\"1471331791262932.png\" alt=\"blob.png\" width=\"87\" height=\"72\" style=\"width: 87px; height: 72px;\"/><br/>(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471331806727251.png\" title=\"1471331806727251.png\" alt=\"blob.png\"/><br/>(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471331822175126.png\" title=\"1471331822175126.png\" alt=\"blob.png\"/><br/>(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471331841203379.png\" title=\"1471331841203379.png\" alt=\"blob.png\"/><br/>(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471331860917990.png\" title=\"1471331860917990.png\" alt=\"blob.png\" width=\"87\" height=\"86\" style=\"width: 87px; height: 86px;\"/><br/>\n";
-
+        //stem = "<img src=\"http://scc.jsyxw.cn/image/20160816/1471331732720680.png\"/><br/> <p>(_) strong</p> <p>(_) funny</p><p>(_) pretty</p><p>(_) old</p><p>(_) kind</p>";
+        //stem = "<img src=\"http://scc.jsyxw.cn/image/20160816/1471331732720680.png\" title=\"1471331732720680.png\" alt=\"blob.png\"/><br/>(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471331791262932.png\" title=\"1471331791262932.png\" alt=\"blob.png\" width=\"87\" height=\"72\" style=\"width: 87px; height: 72px;\"/><br/>(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471331806727251.png\" title=\"1471331806727251.png\" alt=\"blob.png\"/><br/>(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471331822175126.png\" title=\"1471331822175126.png\" alt=\"blob.png\"/><br/>(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471331841203379.png\" title=\"1471331841203379.png\" alt=\"blob.png\"/><br/>(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471331860917990.png\" title=\"1471331860917990.png\" alt=\"blob.png\" width=\"87\" height=\"86\" style=\"width: 87px; height: 86px;\"/><br/>\n";
+        // 1
+        // stem = "(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471330017635192.png\" title=\"1471330017635192.png\" alt=\"blob.png\"/><br/><p>(_)<img style=\"width: 131px; height: 110px;\" alt=\"\" title=\"\" src=\"http://scc.jsyxw.cn/image/20160816/1471330034397444.png\" border=\"0\" height=\"110\" vspace=\"0\" width=\"131\"/></p>(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471330060851619.png\" title=\"1471330060851619.png\" alt=\"blob.png\"/>";
+        // 12
+        // stem = "测试翻译类型的填空题<br/><p>翻译下面的句子<br/>Histories make men wise; poets witty; the mathematics subtile; natural philosophy deep; moral grave; logic and rhetoric able to contend.Abeunt studia in morse.(_)</p>";
         for (String Str : answers) {
             if (mAnswerLength < Str.length()) {
                 mAnswerLength = Str.length();
@@ -114,15 +105,16 @@ public class FillBlanksFramelayout extends FrameLayout implements
         mAnswerLength = Math.max(Math.min(22, mAnswerLength), 10);
 
         // 这里不能使用space空格，因为html text里会省略连续空格
-        mAnswerSb.append(".");
+        mAnswerSb.append("(");
         for (int i = 0; i < mAnswerLength - 2; i++) {
-            mAnswerSb.append("..");
+            mAnswerSb.append("--");
         }
-        mAnswerSb.append(".");
+        mAnswerSb.append(")");
         data = stem + "  \n";
         data = data + "  \n";
 
-        data = data.replace("(_)",mAnswerSb.toString());
+        String desReplaceString = " " + mAnswerSb + " ";
+        data = data.replace("(_)",desReplaceString);
 
         FillBlankImageGetterTrick getter = new FillBlankImageGetterTrick(tvFillBlank, mCtx);
         getter.setCallback(this);
@@ -130,7 +122,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
         tvFillBlank.setText(txt);
 
         if (!hasImageTagInHtmlText(data)) {
-            fromImage = true;
+            isFromImageSizeChange = true;
             ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
             this.getViewTreeObserver().addOnGlobalLayoutListener(listener);
         }
@@ -256,72 +248,21 @@ public class FillBlanksFramelayout extends FrameLayout implements
             // 防止加入重复EditText
             rlMark.removeAllViews();
 
-            if (fromImage) {
+            //if (isFromImageSizeChange) {
                 String targetWord = mAnswerSb.toString();
                 CharSequence c = tvFillBlank.getText().toString();
                 Pattern pattern = Pattern.compile(targetWord);
-                boolean flag = true;
                 if (!StringUtils.isEmpty(data)) {
                     Matcher matcher = pattern.matcher(c);
-                    int i = 0;
                     while (matcher.find()) {
                         addEditText(matcher.start(), matcher.end());
                     }
 
                 }
                 hideSoftInput();
-                fromImage = false;
-            }
+                isFromImageSizeChange = false;
+            //}
         }
-
-        /*
-        @SuppressWarnings("deprecation")
-        @Override
-        public void onGlobalLayout() {
-
-
-            FillBlanksFramelayout.this.getViewTreeObserver().removeGlobalOnLayoutListener(
-                    this);
-
-            Pattern pattern = Pattern.compile(mAnswerSb.toString());
-            //Pattern pattern = Pattern.compile("_______________");
-//            if(!StringUtils.isEmpty(data)){
-//                Matcher matcher = pattern.matcher(data);
-//                while (matcher.find()) {
-//                    addEditText(matcher.start());
-//                }
-//            }
-//            initViewWithData(bean);
-
-
-            boolean flag=true;
-            if (!StringUtils.isEmpty(data)) {
-                Matcher matcher = pattern.matcher(txt);
-                int i=0;
-                while (matcher.find()) {
-                    if (flag) {
-                        flag = CheckSpaceIsSuff(i,matcher.start(), matcher.end());
-                        i++;
-                    }
-                }
-                if (flag) {
-                    Matcher matcher1 = pattern.matcher(data);
-                    while (matcher1.find()) {
-                        //addEditText(matcher1.start());
-                        addEditText(matcher1.start(), matcher1.end());
-                    }
-                }
-            }
-            if (flag) {
-                initViewWithData(bean);
-                try {
-//                    ((EditText) rlMark.getChildAt(0)).requestFocus();
-                }catch (Exception e){
-
-                }
-                hideSoftInput();
-            }
-        }*/
     }
 
     private boolean CheckSpaceIsSuff(int index, int index_start, int index_end) {
@@ -387,7 +328,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
     // 在网络图片加载成功、失败后被调用
     @Override
     public void onFinish() {
-        fromImage = true;
+        isFromImageSizeChange = true;
         ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
         this.getViewTreeObserver().addOnGlobalLayoutListener(listener);
     }
@@ -402,6 +343,10 @@ public class FillBlanksFramelayout extends FrameLayout implements
     // 把需要扣掉的部分换成 EditText
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void addEditText(int start, int end) {
+        // 前后空格，如果不加空格会出现换行问题
+        start--;
+        end++;
+
         Layout layout = tvFillBlank.getLayout();
 
         int startLine = layout.getLineForOffset(start);
@@ -410,7 +355,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
         int line = startLine;
 
         float left = layout.getSecondaryHorizontal(start);
-        float right = layout.getSecondaryHorizontal(end);
+        float right = layout.getPrimaryHorizontal(end);
         float top = layout.getLineTop(line);
         float bottom = layout.getLineBottom(line);
 
@@ -423,10 +368,9 @@ public class FillBlanksFramelayout extends FrameLayout implements
         etForMeasure.setBackground(mCtx.getResources().getDrawable(R.drawable.fill_blank_bg));
         etForMeasure.setGravity(Gravity.CENTER);
         setEditTextCusrorDrawable(etForMeasure);
-        etForMeasure.setText(".");
+        etForMeasure.setText("(-)");
         etForMeasure.measure(0, 0);
         float height = etForMeasure.getMeasuredHeight();
-        float width = etForMeasure.getMeasuredWidth();
 
         top = bottom - height;
 //        left -= width;
