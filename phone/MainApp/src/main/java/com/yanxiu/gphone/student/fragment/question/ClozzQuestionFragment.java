@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/9/12.
  */
-public class ClozzQuestionFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex, ViewPager.OnPageChangeListener, AnswerCallback {
+public class ClozzQuestionFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex, ViewPager.OnPageChangeListener, AnswerCallback, ClozzTextview.onDrawSucessListener {
 
     private int pageCountIndex;
     private List<PaperTestEntity> children;
@@ -103,6 +103,7 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
     private void initview() {
         ExpandableRelativeLayoutlayout rl_top_view = (ExpandableRelativeLayoutlayout) rootView.findViewById(R.id.rl_top_view);
         fill_blanks_button = (ClozzTextview) rootView.findViewById(R.id.fill_blanks_button);
+        fill_blanks_button.setOnDrawSucessListener(this);
         fl_content_top = (FrameLayout) rootView.findViewById(R.id.fl_content_top);
         sv_content_top = (ScrollView) rootView.findViewById(R.id.sv_content_top);
         if (questionsEntity != null && questionsEntity.getStem() != null) {
@@ -232,6 +233,8 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
     }
 
     private int move_height=0;
+    private int position=-1;
+    private boolean Isscroll=false;
 
     @Override
     public void onPageSelected(int position) {
@@ -254,20 +257,29 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
             }
             if (fill_blanks_button != null) {
                 fill_blanks_button.setTextViewSelect(position);
-                if (move_height==0){
-                    move_height= fl_content_top.getHeight()*8/26;
-                }
-                if (fill_blanks_button.getList().get(position).getY() - sv_content_top.getScrollY() < 0) {
-                    sv_content_top.scrollTo(0, fill_blanks_button.getList().get(position).getY());
-                }
-                if (fill_blanks_button.getList().get(position).getY() - sv_content_top.getScrollY() > fl_content_top.getBottom()-fl_content_top.getTop()-move_height) {
-
-                    sv_content_top.scrollTo(0, fill_blanks_button.getList().get(position).getY() - fl_content_top.getHeight()+move_height);
+                if (fill_blanks_button.getList().get(position).getY()>0) {
+                    setScroll(position);
+                }else {
+                    this.position=position;
+                    Isscroll=true;
                 }
             }
 
         }
         ((BaseAnswerViewActivity) getActivity()).setPagerSelect(adapter.getCount(), position);
+    }
+
+    private void setScroll(int position){
+        if (move_height==0){
+            move_height= fl_content_top.getHeight()*8/26;
+        }
+        if (fill_blanks_button.getList().get(position).getY() - sv_content_top.getScrollY() < 0) {
+            sv_content_top.scrollTo(0, fill_blanks_button.getList().get(position).getY());
+        }
+        if (fill_blanks_button.getList().get(position).getY() - sv_content_top.getScrollY() > fl_content_top.getBottom()-fl_content_top.getTop()-move_height) {
+
+            sv_content_top.scrollTo(0, fill_blanks_button.getList().get(position).getY() - fl_content_top.getHeight()+move_height);
+        }
     }
 
     @Override
@@ -306,6 +318,15 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
             if (bean != null) {
                 fill_blanks_button.saveAnswers();
             }
+        }
+    }
+
+    @Override
+    public void onsucess() {
+        if (Isscroll&&position!=-1){
+            setScroll(position);
+            this.position=-1;
+            this.Isscroll=false;
         }
     }
 }
