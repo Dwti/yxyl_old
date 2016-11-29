@@ -149,13 +149,14 @@ dependencies {
     compile project(':CommonCoreLib')
     compile project(':LoginCommonLibs')
     compile project(':ShareCommonLibs')
+    compile project(':simplecropview')
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.getui:sdk:2.9.0.0'
     compile 'com.android.support:support-v4:+'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
     //compile 'com.jph.takephoto:takephoto_library:3.0.4'
-    compile 'com.isseiaoki:simplecropview:1.1.4'
+    //compile 'com.isseiaoki:simplecropview:1.1.4'
     compile "com.github.hotchemi:permissionsdispatcher:${permissionsDispatcherVersion}"
     apt "com.github.hotchemi:permissionsdispatcher-processor:${permissionsDispatcherVersion}"
 }

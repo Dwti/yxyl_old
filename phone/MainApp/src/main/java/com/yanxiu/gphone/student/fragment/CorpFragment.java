@@ -140,9 +140,9 @@ public class CorpFragment extends Fragment {
         view.findViewById(R.id.button4_3).setOnClickListener(btnListener);
         view.findViewById(R.id.button9_16).setOnClickListener(btnListener);
         view.findViewById(R.id.button16_9).setOnClickListener(btnListener);
-        view.findViewById(R.id.buttonFree).setOnClickListener(btnListener);
+        view.findViewById(R.id.buttonFree).setOnClickListener(btnListener);*/
         view.findViewById(R.id.buttonPickImage).setOnClickListener(btnListener);
-        view.findViewById(R.id.buttonRotateLeft).setOnClickListener(btnListener);
+        /*view.findViewById(R.id.buttonRotateLeft).setOnClickListener(btnListener);
         view.findViewById(R.id.buttonRotateRight).setOnClickListener(btnListener);
         view.findViewById(R.id.buttonCustom).setOnClickListener(btnListener);
         view.findViewById(R.id.buttonCircle).setOnClickListener(btnListener);
