@@ -308,6 +308,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         String filePath = PictureHelper.getPath(getActivity(),MediaUtils.currentCroppedImageUri);
         ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), filePath);
         updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
+
 //        YanXiuConstant.index_position=0;
 //        EventBus.getDefault().unregister(this);
     }
