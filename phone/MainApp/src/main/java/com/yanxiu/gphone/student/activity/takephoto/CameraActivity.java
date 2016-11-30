@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -119,6 +120,16 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getKeyCode()==KeyEvent.KEYCODE_BACK){
+//            Intent intent=new Intent();
+//            intent.putExtra("asd","asd");
+//            setResult(100001,intent);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

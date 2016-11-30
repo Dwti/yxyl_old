@@ -30,6 +30,7 @@ import com.yanxiu.gphone.student.activity.ImageBucketActivity;
 import com.yanxiu.gphone.student.activity.takephoto.CorpActivity;
 import com.yanxiu.gphone.student.bean.CorpBean;
 import com.yanxiu.gphone.student.fragment.question.SubjectiveQuestionFragment;
+import com.yanxiu.gphone.student.utils.CorpUtils;
 import com.yanxiu.gphone.student.utils.FontUtils;
 import com.yanxiu.gphone.student.utils.MediaUtils;
 import com.yanxiu.gphone.student.utils.Util;
@@ -236,9 +237,9 @@ public class CorpFragment extends Fragment {
                     if (!IsCropLoad) {
                         IsCropLoad=true;
                         CorpFragmentPermissionsDispatcher.cropImageWithCheck(CorpFragment.this);
-                        CorpBean bean=new CorpBean();
-                        bean.setType(SubjectiveQuestionFragment.TYPE_CORP);
-                        EventBus.getDefault().post(bean);
+//                        CorpBean bean=new CorpBean();
+//                        bean.setType(SubjectiveQuestionFragment.TYPE_CORP);
+//                        EventBus.getDefault().post(bean);
                     }else {
                         Util.showToast(R.string.crop_loading);
                     }
@@ -317,7 +318,9 @@ public class CorpFragment extends Fragment {
         @Override
         public void onSuccess(Uri outputUri) {
             dismissProgress();
-
+            if (CorpUtils.getInstence().getCorpListener()!=null) {
+                CorpUtils.getInstence().getCorpListener().oncorp();
+            }
             //Intent Intent=new Intent();
             //((CorpActivity)getActivity()).setResult(((CorpActivity)getActivity()).RESULT_OK,Intent);
             getActivity().finish();

@@ -29,6 +29,8 @@ import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.bean.UploadImageBean;
 import com.yanxiu.gphone.student.httpApi.YanxiuHttpApi;
+import com.yanxiu.gphone.student.inter.CorpListener;
+import com.yanxiu.gphone.student.utils.CorpUtils;
 import com.yanxiu.gphone.student.utils.MediaUtils;
 import com.yanxiu.gphone.student.utils.QuestionUtils;
 import com.yanxiu.gphone.student.utils.Util;
@@ -52,7 +54,7 @@ import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTI
 /**
  * Created by lidm on 2015/9/25.
  */
-public class SubjectiveQuestionFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex {
+public class SubjectiveQuestionFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex, CorpListener {
     public static final String TYPE="image_delete";
     public static final String TYPE_CORP="corp";
     private static final String TAG = SubjectiveQuestionFragment.class.getSimpleName();
@@ -163,8 +165,9 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
             IsVisible=true;
         }else {
             IsVisible=false;
-            EventBus.getDefault().unregister(this);
-        }
+//            CorpUtils.getInstence().RemoveListener(this);
+      }
+//        EventBus.getDefault().unregister(this);
         setRegister();
     }
 
@@ -276,7 +279,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
-        EventBus.getDefault().unregister(this);
+
         switch (requestCode) {
             //点击拍照，拍照完了点击确定会走这儿（此时还没有进入裁剪页面）
             case MediaUtils.OPEN_SYSTEM_CAMERA:
@@ -287,12 +290,17 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
             //进入照片选择页面，并且裁剪完了，会走这儿
             case MediaUtils.OPEN_DEFINE_PIC_BUILD:
 //                YanXiuConstant.index_position=0;
+                EventBus.getDefault().unregister(this);
                 if (data != null) {
                     updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
                 } else {
-                    if(questionsEntity==null || StringUtils.isEmpty(questionsEntity.getId()))
-                        return;
-                    mPicSelView.upDate(getActivity(),MediaUtils.OPEN_SYSTEM_CAMERA, questionsEntity.getId());
+                    if (resultCode==100001){
+
+                    }else {
+                        if(questionsEntity==null || StringUtils.isEmpty(questionsEntity.getId()))
+                            return;
+                        mPicSelView.upDate(getActivity(),MediaUtils.OPEN_SYSTEM_CAMERA, questionsEntity.getId());
+                    }
                 }
                 break;
             //拍照时候的裁剪走这个地方，如果是从相册选择的话，走的是ImageBucketActivity的onActivityResult
@@ -346,7 +354,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     public void onDestroyView() {
         super.onDestroyView();
         LogInfo.log(TAG, "---onDestroyView-------pageIndex----" + pageIndex);
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
         IsCreat=false;
         IsFirst=true;
     }
@@ -355,7 +363,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     public void onDestroy() {
         super.onDestroy();
         LogInfo.log(TAG, "---onDestroy-------pageIndex----" + pageIndex);
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -388,4 +396,23 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         this.pageIndex = pageIndex;
     }
 
+    @Override
+    public void oncorp() {
+        String filePath = PictureHelper.getPath(getActivity(), MediaUtils.currentCroppedImageUri);
+        ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), filePath);
+        updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
+//
+//
+//        String filePath1 = PictureHelper.getPath(getActivity(), MediaUtils.currentCroppedImageUri);
+//        ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), filePath1);
+//        updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
+    }
+
+    @Override
+    public void ondelete(DeleteImageBean bean) {
+        String url=bean.getImage_url();
+        if (url.startsWith("http")){
+            questionsEntity.getAnswerBean().getSubjectivImageUri().remove(url);
+        }
+    }
 }

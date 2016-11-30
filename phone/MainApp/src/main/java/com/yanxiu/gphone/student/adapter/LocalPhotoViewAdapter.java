@@ -15,6 +15,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.DeleteImageBean;
 import com.yanxiu.gphone.student.fragment.question.SubjectiveQuestionFragment;
+import com.yanxiu.gphone.student.utils.CorpUtils;
 import com.yanxiu.gphone.student.view.ZoomImageView;
 import com.yanxiu.gphone.student.view.picsel.bean.LocalImageView;
 import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
@@ -82,7 +83,8 @@ public class LocalPhotoViewAdapter extends PagerAdapter {
             DeleteImageBean bean=new DeleteImageBean();
             bean.setType(SubjectiveQuestionFragment.TYPE);
             bean.setImage_url(ShareBitmapUtils.getInstance().getDrrMaps().get(ShareBitmapUtils.getInstance().getCurrentSbId()).get(position));
-            EventBus.getDefault().post(bean);
+//            EventBus.getDefault().post(bean);
+            CorpUtils.getInstence().getCorpListener().ondelete(bean);
             ShareBitmapUtils.getInstance().getDrrMaps().get(ShareBitmapUtils.getInstance().getCurrentSbId()).remove(position);
             int loadIndex=ShareBitmapUtils.getInstance().getListIndexMaps().get(ShareBitmapUtils.getInstance().getCurrentSbId());
             loadIndex--;
