@@ -94,7 +94,7 @@ public class ClassfyImageGetter implements ImageGetterListener {
                 if (afterLine != beforeLine) {
                     ClassfyImageGetter.this.viewWillResetHeight += (ClassfyImageGetter.this.view.getTextSize()+10) * (afterLine - beforeLine);
                     ClassfyImageGetter.this.view.setHeight(ClassfyImageGetter.this.viewWillResetHeight);
-//                UilImageGetter.this.view.invalidate();
+//                FillBlankImageGetterTrick.this.view.invalidate();
                     beforeLine = afterLine;
                 }
                 LogInfo.log("geny", "onGlobalLayout.this.viewWillResetHeight--" + ClassfyImageGetter.this.viewWillResetHeight);

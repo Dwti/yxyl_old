@@ -1,8 +1,10 @@
 package com.yanxiu.gphone.student.view.question;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Paint;
+import android.os.Build;
 import android.text.Editable;
 import android.text.Html;
 import android.text.Spanned;
@@ -142,10 +144,11 @@ public class YXiuAnserTextView extends HtmlTextView {
     /**
      * 初始化view
      */
+
     protected void initView(){
         this.application = (YanxiuApplication) ((Activity)mCtx).getApplication();
         this.setGravity(Gravity.CENTER_VERTICAL);
-        this.setLineSpacing(DensityUtils.px2dip(this.getContext(), 15), 1);
+        this.setLineSpacing(DensityUtils.px2dip(this.getContext(), 100), 1);
         int textsize= Util.getTextPX((Activity)mCtx);
         this.setTextSize(TypedValue.COMPLEX_UNIT_PX, textsize);//32
         singline_height=getFontHeight(textsize);//32

@@ -74,7 +74,7 @@ public class ConnectImageGetter implements ImageGetterListener {
 
         @Override
         protected void onPostExecute(final Drawable result) {
-//            UilImageGetter.this.replaceImage(result,urlDrawable);
+//            FillBlankImageGetterTrick.this.replaceImage(result,urlDrawable);
             if (result != null) {
                 ConnectImageGetter.this.view.post(new Runnable() {
                     @Override

@@ -25,7 +25,7 @@ import android.view.MotionEvent;
 import java.io.InputStream;
 import java.util.Scanner;
 
-public class HtmlTextView extends JellyBeanSpanFixTextView {
+ public class HtmlTextView extends JellyBeanSpanFixTextView {
 
     public static final String TAG = "HtmlTextView";
     public static final boolean DEBUG = false;
