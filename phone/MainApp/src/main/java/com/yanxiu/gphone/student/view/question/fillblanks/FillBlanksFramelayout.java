@@ -261,6 +261,8 @@ public class FillBlanksFramelayout extends FrameLayout implements
                 hideSoftInput();
                 isFromImageSizeChange = false;
             //}
+
+            initViewWithData(bean);
         }
     }
 
