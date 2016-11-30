@@ -34,9 +34,6 @@ public class CorpUtils {
 
 
     public void AddFinishListener(CorpFinishListener listener){
-        if (data.size()>0){
-            data.clear();
-        }
         data.add(listener);
     }
 
@@ -48,12 +45,16 @@ public class CorpUtils {
         }
     }
 
-    public CorpFinishListener getCorpFinishListener(){
-        if (data.size()>0) {
-            return data.get(0);
-        }else {
-            return null;
+    public void setCorpFinish(){
+//        if (data.size()>0) {
+//            return data.get(0);
+//        }else {
+//            return null;
+//        }
+        for (int i=0;i<data.size();i++){
+            data.get(i).onfinish();
         }
+
     }
 
     public void RemoveListener(CorpListener listener){

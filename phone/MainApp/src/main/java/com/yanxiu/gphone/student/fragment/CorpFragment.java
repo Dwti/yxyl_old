@@ -322,9 +322,7 @@ public class CorpFragment extends Fragment {
             if (CorpUtils.getInstence().getCorpListener()!=null) {
                 CorpUtils.getInstence().getCorpListener().oncorp();
             }
-            if (CorpUtils.getInstence().getCorpFinishListener()!=null){
-                CorpUtils.getInstence().getCorpFinishListener().onfinish();
-            }
+                CorpUtils.getInstence().setCorpFinish();
             //Intent Intent=new Intent();
             //((CorpActivity)getActivity()).setResult(((CorpActivity)getActivity()).RESULT_OK,Intent);
             getActivity().finish();
