@@ -49,6 +49,10 @@ public class MyEdittext extends EditText {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (!isEnabled()) {
+            return super.onTouchEvent(event);
+        }
+
         if (!focused) {
             if (event.getAction() == MotionEvent.ACTION_UP) {
                 MyEdittext.this.setFocusable(true);

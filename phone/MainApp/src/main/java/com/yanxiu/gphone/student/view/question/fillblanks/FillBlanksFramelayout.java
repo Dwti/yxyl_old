@@ -250,7 +250,6 @@ public class FillBlanksFramelayout extends FrameLayout implements
                 while (matcher.find()) {
                     addEditText(matcher.start(), matcher.end());
                 }
-
             }
             hideSoftInput();
 
@@ -333,6 +332,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
     }
 
     // 把需要扣掉的部分换成 EditText
+    // 这个方法目前有点问题，用padding和用margin时居然不一致，不懂为什么，暂时只能2套方案取相对合适的
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void addEditText(int start, int end) {
         // 前后空格，如果不加空格会出现换行问题
@@ -346,10 +346,11 @@ public class FillBlanksFramelayout extends FrameLayout implements
         assert startLine == endLine;
         int line = startLine;
 
-        float left = layout.getSecondaryHorizontal(start);
-        float right = layout.getPrimaryHorizontal(end);
-        float top = layout.getLineTop(line);
-        float bottom = layout.getLineBottom(line);
+        float left = layout.getSecondaryHorizontal(start) - 2/*避开底部括号*/;
+        float right = layout.getPrimaryHorizontal(end) + 2/*避开底部括号*/;
+
+        float top1 = layout.getLineTop(line);
+        float bottom1 = layout.getLineBottom(line);
 
         // 有图片的情况下，line top算图片了，所以这里用tricky的方法，获得(_)的高度
         // 现在文字和图片是底部对齐，目前暂时不知道怎么搞成居中对齐
@@ -368,14 +369,19 @@ public class FillBlanksFramelayout extends FrameLayout implements
         float ascent = Math.abs(layoutForMeasure.getLineAscent(0));
         float descent = Math.abs(layoutForMeasure.getLineDescent(0));
 
-        top = (float)layout.getLineBaseline(line) - height/(ascent + descent)*ascent;
-        bottom = layout.getLineBaseline(line) + height/(ascent + descent)*descent;
+        float top2 = (float)layout.getLineBaseline(line) - height/(ascent + descent)*ascent;
+        float bottom2 = layout.getLineBaseline(line) + height/(ascent + descent)*descent;// + 2 /*避开底部括号*/;
 
+
+        float top = top1;
+        float bottom = Math.max(bottom1, bottom2);
+        if ((bottom2 - top2) < (bottom1 - top1)) {
+            top = top2;
+        }
 
         //top = bottom - height;
 //        left -= width;
 //        right += width;
-
         RelativeLayout.LayoutParams params;
         params = new RelativeLayout.LayoutParams((int) (right - left), (int) (bottom - top));
         params.leftMargin = (int) left;
