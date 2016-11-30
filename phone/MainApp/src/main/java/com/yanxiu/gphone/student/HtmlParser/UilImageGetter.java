@@ -46,9 +46,9 @@ public class UilImageGetter implements ImageGetterListener {
         protected Drawable doInBackground(String... params) {
             String source = params[0];
             DisplayImageOptions options = new DisplayImageOptions.Builder()
-                                                        .cacheInMemory(true)                        // 设置下载的图片是否缓存在内存中
-                                                        .cacheOnDisk(true)                       // 设置下载的图片是否缓存在SD卡中
-                                                        .build();
+                    .cacheInMemory(true)                        // 设置下载的图片是否缓存在内存中
+                    .cacheOnDisk(true)                       // 设置下载的图片是否缓存在SD卡中
+                    .build();
             Bitmap bitmap = ImageLoader.getInstance().loadImageSync(source, options);
             Drawable drawable=new BitmapDrawable(bitmap);
             Rect bounds = getDefaultImageBounds(context,bitmap);
