@@ -178,6 +178,8 @@ public class FillBlanksFramelayout extends FrameLayout implements
      */
     public void saveAnswers() {
         if (rlMark != null && rlMark.getChildCount() > 0) {
+            bean.getFillAnswers().clear();
+
             int fillCount = rlMark.getChildCount();
             int answerCount = bean.getFillAnswers().size();
 
