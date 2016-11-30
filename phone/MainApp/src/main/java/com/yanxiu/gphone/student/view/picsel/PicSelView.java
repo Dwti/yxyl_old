@@ -66,7 +66,6 @@ public class PicSelView extends RelativeLayout {
     private TextView addAnswerView;
     private List<String> currentDrrList;
     private Fragment fragment;
-    private int position;
 
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
@@ -124,10 +123,6 @@ public class PicSelView extends RelativeLayout {
         initView(context);
     }
 
-    public void setIndex(int position){
-        this.position=position;
-    }
-
     private void initView(Context context) {
         LogInfo.log(TAG, "initView");
         mContext = context;
@@ -169,7 +164,7 @@ public class PicSelView extends RelativeLayout {
                     return;
                 }
 //                EventBus.getDefault().register(fragment);
-                YanXiuConstant.index_position=position;
+                YanXiuConstant.index_position=YanXiuConstant.catch_position;
                 ShareBitmapUtils.getInstance().setCurrentSbId(currentQuestionId);
                 ActivityJumpUtils.jumpToLocalPhotoViewActivityForResult((Activity) mContext, i, LocalPhotoViewActivity.REQUEST_CODE);
             }
@@ -186,8 +181,9 @@ public class PicSelView extends RelativeLayout {
                 return;
             }
 //            EventBus.getDefault().unregister(fragment);
-            YanXiuConstant.index_position=position;
-//            EventBus.getDefault().register(fragment);
+            MediaUtils.IsCallBack=true;
+            YanXiuConstant.index_position=YanXiuConstant.catch_position;
+            EventBus.getDefault().register(fragment);
             MediaUtils.openLocalCamera(((Activity) mContext), path, MediaUtils.OPEN_DEFINE_PIC_BUILD);
         }
     }
@@ -244,7 +240,7 @@ public class PicSelView extends RelativeLayout {
                     bitmap.recycle();
                 }
                 //在此处进行裁剪
-                YanXiuConstant.index_position=position;
+//                YanXiuConstant.index_position=position;
                 MediaUtils.cropImage(activity,uri,MediaUtils.IMAGE_CROP,MediaUtils.FROM_CAMERA);
 //                ShareBitmapUtils.getInstance().addPath(id, path);
             } catch (IOException e) {

@@ -72,7 +72,7 @@
     <string name="edit_school_null">学校不能为空</string>
     <string name="edit_stage_null">学段不能为空</string>
     <string name="edit_area_null">地区不能为空</string>
-
+    <string name="crop_loading">裁剪中，请稍等...</string>
     <!-- intelliexe -->
     <string name="itelliexe">智能练习</string>
     <string name="exe">练习</string>

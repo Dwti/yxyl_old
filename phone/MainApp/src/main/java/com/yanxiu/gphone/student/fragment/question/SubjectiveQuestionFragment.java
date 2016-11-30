@@ -46,11 +46,15 @@ import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 
+import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SOLVE_COMPLEX;
+import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SUBJECTIVE;
+
 /**
  * Created by lidm on 2015/9/25.
  */
 public class SubjectiveQuestionFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex {
     public static final String TYPE="image_delete";
+    public static final String TYPE_CORP="corp";
     private static final String TAG = SubjectiveQuestionFragment.class.getSimpleName();
     private View rootView;
     //本地的保存数据bean
@@ -71,6 +75,10 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
 
     private boolean isFirstSub;//是否是首个主观题Frgment用于初始化全局主观题Id
 
+    private boolean IsCreat=false;
+    private boolean IsVisible=false;
+    private boolean IsFirst=true;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,25 +93,27 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_subjective_question, null);
-        yXiuAnserTextView = (YXiuAnserTextView) rootView.findViewById(R.id.yxiu_tv);
+//        if (rootView==null) {
+            rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_subjective_question, null);
+            yXiuAnserTextView = (YXiuAnserTextView) rootView.findViewById(R.id.yxiu_tv);
 
 
-        FragmentTransaction ft = SubjectiveQuestionFragment.this.getChildFragmentManager().beginTransaction();
-        ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
-        if (questionsEntity != null && questionsEntity.getStem() != null) {
-            yXiuAnserTextView.setTextHtml(questionsEntity.getStem());
-            yXiuAnserTextView.setTextHtml(questionsEntity.getStem().replaceAll("\\(_\\)","____"));
-        }
-
-        setPicSelViewId();
+            FragmentTransaction ft = SubjectiveQuestionFragment.this.getChildFragmentManager().beginTransaction();
+            ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
+            if (questionsEntity != null && questionsEntity.getStem() != null) {
+                yXiuAnserTextView.setTextHtml(questionsEntity.getStem());
+                yXiuAnserTextView.setTextHtml(questionsEntity.getStem().replaceAll("\\(_\\)", "____"));
+            }
+            IsCreat = true;
+            setRegister();
+            setPicSelViewId();
 
 //        for (int i=0; questionsEntity.getAnswerBean().getSubjectivImageUri()!= null && i<questionsEntity.getAnswerBean().getSubjectivImageUri().size(); i++) {
 //            ShareBitmapUtils.getInstance().addPath(this.questionsEntity.getId(), questionsEntity.getAnswerBean().getSubjectivImageUri().get(i).toString());
 //        }
-        changeCurrentSelData(questionsEntity);
-        selectTypeView();
-
+            changeCurrentSelData(questionsEntity);
+            selectTypeView();
+//        }
         return rootView;
     }
 
@@ -131,6 +141,15 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
 
     }
 
+    private void setRegister(){
+//        if (IsCreat&&IsVisible&&IsFirst){
+//            if (questionsEntity.getType_id() == QUESTION_SOLVE_COMPLEX.type||questionsEntity.getType_id()==QUESTION_SUBJECTIVE.type) {
+//                EventBus.getDefault().register(this);
+//                IsFirst = false;
+//            }
+//        }
+    }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -140,10 +159,13 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
             }catch (Exception e){}
         }
         if (isVisibleToUser){
-            EventBus.getDefault().register(this);
+            YanXiuConstant.catch_position=pageIndex;
+            IsVisible=true;
         }else {
+            IsVisible=false;
             EventBus.getDefault().unregister(this);
         }
+        setRegister();
     }
 
     /**
@@ -153,7 +175,6 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         LogInfo.log(TAG, "setPicSelViewId: " + this.questionsEntity.getId());
         mPicSelView = (PicSelView) rootView.findViewById(R.id.picSelView);
         mPicSelView.setFragment(this);
-        mPicSelView.setIndex(pageIndex);
         if (this.questionsEntity != null && !StringUtils.isEmpty(this.questionsEntity.getId())) {
             mPicSelView.setSubjectiveId(this.questionsEntity.getId(),questionsEntity.getAnswerBean().getSubjectivImageUri());
         }
@@ -255,6 +276,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
+        EventBus.getDefault().unregister(this);
         switch (requestCode) {
             //点击拍照，拍照完了点击确定会走这儿（此时还没有进入裁剪页面）
             case MediaUtils.OPEN_SYSTEM_CAMERA:
@@ -304,25 +326,36 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
 
     }
 
+
+
     public void onEventMainThread(CorpBean corpBean){
-        String filePath = PictureHelper.getPath(getActivity(),MediaUtils.currentCroppedImageUri);
-        ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), filePath);
-        updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
+        if (TYPE_CORP.equals(corpBean.getType())) {
+//            if (MediaUtils.IsCallBack) {
+                String filePath = PictureHelper.getPath(getActivity(), MediaUtils.currentCroppedImageUri);
+                ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), filePath);
+                updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
+//                MediaUtils.currentCroppedImageUri = null;
+//                MediaUtils.IsCallBack=false;
+//            }
 //        YanXiuConstant.index_position=0;
 //        EventBus.getDefault().unregister(this);
+        }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         LogInfo.log(TAG, "---onDestroyView-------pageIndex----" + pageIndex);
+        EventBus.getDefault().unregister(this);
+        IsCreat=false;
+        IsFirst=true;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         LogInfo.log(TAG, "---onDestroy-------pageIndex----" + pageIndex);
-//        EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
