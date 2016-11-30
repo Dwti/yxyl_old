@@ -2,14 +2,11 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
         android:id="@+id/tv_fill_blanks"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:lineSpacingMultiplier="5"
-        android:padding="@dimen/dimen_10"
-        android:lineSpacingExtra="200dp"
+        android:layout_margin="@dimen/dimen_10"
         android:textColor="@color/color_black"
         />
     <!--android:textSize="@dimen/dimen_15" />-->
@@ -18,19 +15,6 @@
         android:id="@+id/rl_mark"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/dimen_10"
+        android:layout_margin="@dimen/dimen_10"
         />
-
-    <!--<TextView android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:textSize="20dp"
-              android:text="马上发撒娇的弗拉多少积分了撒娇颠覆了"
-            />
-
-    <EditText android:layout_width="wrap_content" android:layout_height="200dp"
-              android:background="@null"
-              android:textSize="20dp"
-              android:layout_marginTop="5dp"
-              android:gravity="center"
-            android:text="受打击了法定是垃圾"/>-->
 </FrameLayout>

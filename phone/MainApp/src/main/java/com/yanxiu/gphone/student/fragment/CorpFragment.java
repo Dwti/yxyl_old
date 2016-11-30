@@ -27,6 +27,7 @@ import com.isseiaoki.simplecropview.callback.SaveCallback;
 import com.isseiaoki.simplecropview.util.Utils;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.ImageBucketActivity;
+import com.yanxiu.gphone.student.activity.takephoto.CameraActivity;
 import com.yanxiu.gphone.student.activity.takephoto.CorpActivity;
 import com.yanxiu.gphone.student.bean.CorpBean;
 import com.yanxiu.gphone.student.fragment.question.SubjectiveQuestionFragment;

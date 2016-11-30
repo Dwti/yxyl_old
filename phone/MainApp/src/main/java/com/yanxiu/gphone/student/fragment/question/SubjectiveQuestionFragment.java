@@ -337,14 +337,21 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
 
 
     public void onEventMainThread(CorpBean corpBean){
-        if (TYPE_CORP.equals(corpBean.getType())) {
-//            if (MediaUtils.IsCallBack) {
-                String filePath = PictureHelper.getPath(getActivity(), MediaUtils.currentCroppedImageUri);
-                ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), filePath);
-                updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
-//                MediaUtils.currentCroppedImageUri = null;
-//                MediaUtils.IsCallBack=false;
-//            }
+//<<<<<<< HEAD
+//        if (TYPE_CORP.equals(corpBean.getType())) {
+////            if (MediaUtils.IsCallBack) {
+//                String filePath = PictureHelper.getPath(getActivity(), MediaUtils.currentCroppedImageUri);
+//                ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), filePath);
+//                updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
+////                MediaUtils.currentCroppedImageUri = null;
+////                MediaUtils.IsCallBack=false;
+////            }
+//=======
+//        String filePath = PictureHelper.getPath(getActivity(),MediaUtils.currentCroppedImageUri);
+//        ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), filePath);
+//        updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
+//
+//>>>>>>> 3e356847799f860e6412c0cea4a35f6d0b81f6dc
 //        YanXiuConstant.index_position=0;
 //        EventBus.getDefault().unregister(this);
         }

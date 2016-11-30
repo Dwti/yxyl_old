@@ -172,7 +172,7 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                 tvDifficulltyText.setTextHtml(getTypeKey(String.valueOf(questionsEntity.getDifficulty())));
                 tvDifficulltyText.setVisibility(View.GONE);
             }
-            if (questionsEntity.getTemplate().equals(YanXiuConstant.ANSWER_QUESTION) || questionsEntity.getType_id() == QUESTION_COMPUTE.type) {
+            if (questionsEntity.getTemplate().equals(YanXiuConstant.ANSWER_QUESTION)) {
                 if (questionsEntity.getAnswer() != null && questionsEntity.getAnswer().size() > 0) {
                     StringBuffer answerString = new StringBuffer();
                     for (String str : questionsEntity.getAnswer()) {

@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.graphics.Matrix;
 
+import com.common.core.utils.BitmapUtil;
 import com.common.core.utils.CommonCoreUtil;
 import com.common.core.utils.LogInfo;
 import com.common.core.utils.PictureHelper;
@@ -33,9 +34,11 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.ImageBucketActivity;
 import com.yanxiu.gphone.student.activity.ImagePicSelActivity;
 import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
+import com.yanxiu.gphone.student.bean.CorpBean;
 import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
 import com.yanxiu.gphone.student.utils.MediaUtils;
 import com.yanxiu.gphone.student.utils.ScreenSwitchUtils;
+import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.picsel.utils.AlbumHelper;
 import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
 import com.yanxiu.gphone.student.view.takephoto.CameraPreview;
@@ -48,6 +51,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
 import permissions.dispatcher.RuntimePermissions;
 
 public class CameraActivity extends YanxiuBaseActivity implements View.OnClickListener {
@@ -103,11 +107,16 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        EventBus.getDefault().register(this);
     }
 
     public boolean checkCameraHardware() {
         return getPackageManager().hasSystemFeature(
                 PackageManager.FEATURE_CAMERA);
+    }
+
+    public void onEventMainThread(CorpBean corpBean){
+        this.finish();
     }
 
     @Override
@@ -208,8 +217,8 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                 fos.flush();
                 fos.close();
 
-                setResult(RESULT_OK);
-                finish();
+                Uri uri=MediaUtils.getOutputMediaFileUri(false);
+                MediaUtils.cropImage(CameraActivity.this,uri,MediaUtils.IMAGE_CROP,MediaUtils.FROM_CAMERA);
                 //拍完预览
                 /*Intent intent = new Intent(CameraActivity.this, PictureActivity.class);
                 intent.putExtra("type", getIntent().getIntExtra("type", 0));
@@ -227,6 +236,40 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
 
         }
     };
+
+    /*private void handlerCameraBit(Activity activity,String id ) {
+        if(ShareBitmapUtils.getInstance().getDrrMaps().get(id)!=null){
+            Uri uri=MediaUtils.getOutputMediaFileUri(false);
+            String path = null;
+            if(uri!=null){
+                path= PictureHelper.getPath(mContext,
+                        uri);
+                LogInfo.log(TAG, "111path"+path);
+            }
+            if(path==null){
+//                YanXiuConstant.index_position=0;
+//                EventBus.getDefault().unregister(fragment);
+                return;
+            }
+
+            Bitmap bitmap = null;
+            try {
+                bitmap = BitmapUtil.revitionImageSize(path);
+                BitmapUtil.reviewPicRotate(bitmap, path, true);
+                if(bitmap != null && !bitmap.isRecycled()){
+                    bitmap.recycle();
+                }
+                //在此处进行裁剪
+                YanXiuConstant.index_position=position;
+                MediaUtils.cropImage(activity,uri,MediaUtils.IMAGE_CROP,MediaUtils.FROM_CAMERA);
+//                ShareBitmapUtils.getInstance().addPath(id, path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+//            YanXiuConstant.index_position=0;
+        }
+    }*/
 
     /**
      * 读取图片属性：旋转的角度
@@ -326,7 +369,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                     }*/
                     Intent intent = new Intent(this, ImagePicSelActivity.class);
                     startActivity(intent);
-                    this.finish();
+                    //this.finish();
                 }
                 //CameraActivityPermissionsDispatcher.pickImageWithCheck(this);
                 break;
