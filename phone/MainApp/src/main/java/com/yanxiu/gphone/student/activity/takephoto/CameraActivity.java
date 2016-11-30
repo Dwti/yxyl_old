@@ -35,7 +35,9 @@ import com.yanxiu.gphone.student.activity.ImageBucketActivity;
 import com.yanxiu.gphone.student.activity.ImagePicSelActivity;
 import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
 import com.yanxiu.gphone.student.bean.CorpBean;
+import com.yanxiu.gphone.student.inter.CorpFinishListener;
 import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
+import com.yanxiu.gphone.student.utils.CorpUtils;
 import com.yanxiu.gphone.student.utils.MediaUtils;
 import com.yanxiu.gphone.student.utils.ScreenSwitchUtils;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
@@ -54,7 +56,7 @@ import java.util.List;
 import de.greenrobot.event.EventBus;
 import permissions.dispatcher.RuntimePermissions;
 
-public class CameraActivity extends YanxiuBaseActivity implements View.OnClickListener {
+public class CameraActivity extends YanxiuBaseActivity implements View.OnClickListener, CorpFinishListener {
     private CameraPreview cameraPreview;
     private SeekBar sb1;
     private int flashMode = -1;  //-1 auto  0 on  1off
@@ -80,6 +82,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
             finish();
             return;
         }
+        CorpUtils.getInstence().AddFinishListener(this);
         mFocusView = (FocusView) findViewById(R.id.view_focus);
 
         fl_preview = (RelativeLayout) findViewById(R.id.fl_preview);
@@ -412,5 +415,10 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                 .setObject(object)
                 .setActionStatus(Action.STATUS_TYPE_COMPLETED)
                 .build();
+    }
+
+    @Override
+    public void onfinish() {
+        this.finish();
     }
 }

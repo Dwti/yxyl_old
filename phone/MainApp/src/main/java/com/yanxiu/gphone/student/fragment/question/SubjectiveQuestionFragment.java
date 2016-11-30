@@ -354,7 +354,6 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
 //>>>>>>> 3e356847799f860e6412c0cea4a35f6d0b81f6dc
 //        YanXiuConstant.index_position=0;
 //        EventBus.getDefault().unregister(this);
-        }
     }
 
     @Override
