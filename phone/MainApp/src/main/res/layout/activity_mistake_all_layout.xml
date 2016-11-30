@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/dimen_5"
     android:background="@drawable/yanxiu_group_bg">
     <include android:id="@+id/mistack_all_list_top"
         layout="@layout/public_top_layout"

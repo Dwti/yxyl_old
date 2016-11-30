@@ -41,6 +41,7 @@ import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
 import com.yanxiu.gphone.student.utils.MediaUtils;
 import com.yanxiu.gphone.student.utils.Util;
+import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
 
 import java.io.IOException;
@@ -65,6 +66,7 @@ public class PicSelView extends RelativeLayout {
     private TextView addAnswerView;
     private List<String> currentDrrList;
     private Fragment fragment;
+    private int position;
 
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
@@ -122,6 +124,10 @@ public class PicSelView extends RelativeLayout {
         initView(context);
     }
 
+    public void setIndex(int position){
+        this.position=position;
+    }
+
     private void initView(Context context) {
         LogInfo.log(TAG, "initView");
         mContext = context;
@@ -162,6 +168,8 @@ public class PicSelView extends RelativeLayout {
                 if (currentDrrList == null) {
                     return;
                 }
+//                EventBus.getDefault().register(fragment);
+                YanXiuConstant.index_position=position;
                 ShareBitmapUtils.getInstance().setCurrentSbId(currentQuestionId);
                 ActivityJumpUtils.jumpToLocalPhotoViewActivityForResult((Activity) mContext, i, LocalPhotoViewActivity.REQUEST_CODE);
             }
@@ -178,7 +186,8 @@ public class PicSelView extends RelativeLayout {
                 return;
             }
 //            EventBus.getDefault().unregister(fragment);
-            EventBus.getDefault().register(fragment);
+            YanXiuConstant.index_position=position;
+//            EventBus.getDefault().register(fragment);
             MediaUtils.openLocalCamera(((Activity) mContext), path, MediaUtils.OPEN_DEFINE_PIC_BUILD);
         }
     }
@@ -222,6 +231,8 @@ public class PicSelView extends RelativeLayout {
                 LogInfo.log(TAG, "111path"+path);
             }
             if(path==null){
+//                YanXiuConstant.index_position=0;
+//                EventBus.getDefault().unregister(fragment);
                 return;
             }
 
@@ -233,11 +244,14 @@ public class PicSelView extends RelativeLayout {
                     bitmap.recycle();
                 }
                 //在此处进行裁剪
+                YanXiuConstant.index_position=position;
                 MediaUtils.cropImage(activity,uri,MediaUtils.IMAGE_CROP,MediaUtils.FROM_CAMERA);
 //                ShareBitmapUtils.getInstance().addPath(id, path);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }else {
+//            YanXiuConstant.index_position=0;
         }
     }
 
@@ -316,7 +330,7 @@ public class PicSelView extends RelativeLayout {
             if (currentDrrList == null || currentDrrList.size() == 0 || position == currentDrrList.size()) {
                 holder.decorateImage.setBackgroundResource(0);
                 holder.image.setBackgroundResource(R.drawable.add_pic_selector);
-                if (position == MAX_PIC_SIZE) {
+                if (position >= MAX_PIC_SIZE) {
                     holder.image.setVisibility(View.GONE);
                 } else {
                     holder.image.setVisibility(View.VISIBLE);

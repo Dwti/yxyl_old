@@ -32,6 +32,7 @@ import com.yanxiu.gphone.student.httpApi.YanxiuHttpApi;
 import com.yanxiu.gphone.student.utils.MediaUtils;
 import com.yanxiu.gphone.student.utils.QuestionUtils;
 import com.yanxiu.gphone.student.utils.Util;
+import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.picsel.PicSelView;
 import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
@@ -96,10 +97,10 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         }
 
         setPicSelViewId();
+
 //        for (int i=0; questionsEntity.getAnswerBean().getSubjectivImageUri()!= null && i<questionsEntity.getAnswerBean().getSubjectivImageUri().size(); i++) {
 //            ShareBitmapUtils.getInstance().addPath(this.questionsEntity.getId(), questionsEntity.getAnswerBean().getSubjectivImageUri().get(i).toString());
 //        }
-
         changeCurrentSelData(questionsEntity);
         selectTypeView();
 
@@ -112,7 +113,8 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
             String url=bean.getImage_url();
             if (url.startsWith("http")){
                 questionsEntity.getAnswerBean().getSubjectivImageUri().remove(url);
-
+//                ShareBitmapUtils.getInstance().getDrrMaps().get(questionsEntity.getId()).remove(url);
+//                EventBus.getDefault().unregister(this);
             }
         }
     }
@@ -137,6 +139,11 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
                 ((QuestionsListener) getActivity()).flipNextPager(null);
             }catch (Exception e){}
         }
+        if (isVisibleToUser){
+            EventBus.getDefault().register(this);
+        }else {
+            EventBus.getDefault().unregister(this);
+        }
     }
 
     /**
@@ -146,6 +153,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         LogInfo.log(TAG, "setPicSelViewId: " + this.questionsEntity.getId());
         mPicSelView = (PicSelView) rootView.findViewById(R.id.picSelView);
         mPicSelView.setFragment(this);
+        mPicSelView.setIndex(pageIndex);
         if (this.questionsEntity != null && !StringUtils.isEmpty(this.questionsEntity.getId())) {
             mPicSelView.setSubjectiveId(this.questionsEntity.getId(),questionsEntity.getAnswerBean().getSubjectivImageUri());
         }
@@ -198,6 +206,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         if (bean == null) {
             bean = questionsEntity.getAnswerBean();
         }
+        //EventBus.getDefault().unregister(this);
     }
 
 
@@ -255,6 +264,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
                 break;
             //进入照片选择页面，并且裁剪完了，会走这儿
             case MediaUtils.OPEN_DEFINE_PIC_BUILD:
+//                YanXiuConstant.index_position=0;
                 if (data != null) {
                     updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
                 } else {
@@ -286,6 +296,8 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
                 break;
             case LocalPhotoViewActivity.REQUEST_CODE:
                 updataPhotoView(LocalPhotoViewActivity.REQUEST_CODE);
+//                EventBus.getDefault().unregister(this);
+//                YanXiuConstant.index_position=0;
                 break;
         }
 
@@ -296,7 +308,8 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         String filePath = PictureHelper.getPath(getActivity(),MediaUtils.currentCroppedImageUri);
         ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), filePath);
         updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
-        EventBus.getDefault().unregister(this);
+//        YanXiuConstant.index_position=0;
+//        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -309,7 +322,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     public void onDestroy() {
         super.onDestroy();
         LogInfo.log(TAG, "---onDestroy-------pageIndex----" + pageIndex);
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
     }
 
     @Override

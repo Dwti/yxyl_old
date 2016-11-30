@@ -1,9 +1,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     xmlns:tool="http://schemas.android.com/tools"
     android:id="@+id/rl_answer_card_mark"
-    android:background="@color/color_99000000">
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_99000000">
 
     <RelativeLayout android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,7 +45,8 @@
                 android:layout_marginLeft="@dimen/dimen_15"
                 android:layout_centerVertical="true"
                 android:id="@+id/iv_answer_card_close"
-                android:src="@drawable/answer_exam_delete" />
+                android:src="@drawable/answer_exam_delete"
+                android:layout_alignParentLeft="true" />
 
             <TextView style="@style/answer_card_text_style"
                 android:layout_marginLeft="@dimen/dimen_10"
@@ -53,9 +58,9 @@
                 android:layout_toRightOf="@id/iv_answer_card"/>
 
             <TextView style="@style/answer_card_text_style"
-                android:paddingLeft="@dimen/dimen_50"
-                android:layout_centerInParent="true"
                 android:textStyle="bold"
+                android:layout_toRightOf="@+id/iv_answer_card_close"
+                android:layout_marginLeft="@dimen/dimen_5"
                 tool:text="语文练习第一章第一节"
                 android:id="@+id/tv_question_title"
                 android:textColor="@color/color_996600" />
@@ -124,4 +129,5 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent" />
 
+</RelativeLayout>
 </RelativeLayout>

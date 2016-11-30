@@ -116,9 +116,20 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
         return buf.toString();
     }
 
+    public interface onDrawSucessListener{
+        void onsucess();
+    }
+    private onDrawSucessListener sucessListener;
+    public void setOnDrawSucessListener(onDrawSucessListener sucessListener){
+        this.sucessListener=sucessListener;
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        if (sucessListener!=null) {
+            sucessListener.onsucess();
+        }
     }
 
     @Override

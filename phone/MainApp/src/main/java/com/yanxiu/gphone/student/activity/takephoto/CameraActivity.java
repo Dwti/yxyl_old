@@ -315,7 +315,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                     }*/
                     Intent intent = new Intent(this, ImagePicSelActivity.class);
                     startActivity(intent);
-                    //this.finish();
+                    this.finish();
                 }
                 //CameraActivityPermissionsDispatcher.pickImageWithCheck(this);
                 break;

@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/rl_first_gesture"
-    android:background="@color/color_88000000" >
+    android:background="#00000000" >
 
     <ImageView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/iv_guide_first_gesture"
         android:layout_centerInParent="true"
-        android:src="@drawable/first_use_question"/>
+        android:src="@drawable/hand"/>
 
 
 </RelativeLayout>

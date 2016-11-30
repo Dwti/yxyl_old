@@ -5,6 +5,7 @@
     <string name="app_upgrade_cancle">取消</string>
     <string name="app_upgrade_inoge">忽略</string>
     <string name="app_upgrade_exit">退出</string>
+    <string name="text_dese">&#037;&#062;&#095;&#060;&#037;</string>
 
     <string name="update_asynctask_downloading">正在下载</string>
     <string name="update_asynctask_downloading_fail">下载失败</string>
@@ -257,6 +258,8 @@
     <string name="question_no_finish_live">您可以在练习历史中找到记录并继续答题</string>
     <string name="question_submit">提交</string>
     <string name="question_finish">完成</string>
+    <string name="question_network_error">当前网络异常，退出答题进度将无法保存</string>
+    <string name="question_continue_finish">继续退出</string>
     <string name="question_finish_title">提交成功</string>
     <string name="question_finish_hw_tips">请点击“确定”查看解析</string>
     <string name="question_finish_ex_tips">请点击“确定”查看解析</string>

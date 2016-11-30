@@ -76,8 +76,7 @@
                 <com.yanxiu.gphone.student.view.YanxiuTypefaceButton
                     android:id="@+id/add_problem_analysis"
                     style="@style/btn_problem_analysis"
-                    app:type_face="metor_bold.OTF"
-                    android:background="#ff0000"/>
+                    app:type_face="metor_bold.OTF"/>
 
             </FrameLayout>
 
@@ -86,8 +85,7 @@
                 android:id="@+id/content_problem_analysis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/ll_answer_content"
-                android:background="#ff0000"/>
+                android:layout_below="@id/ll_answer_content"/>
 
         </RelativeLayout>
     </ScrollView>

@@ -176,6 +176,14 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
 
     private void setWrongQuestionTitle(int typeId) {
         if (!ischild){
+            tvQuestionTitleLeft.setText("" + 1);
+            tvQuestionTitle.setVisibility(View.VISIBLE);
+            tvQuestionTitleRight.setText("" + wrongCount);
+        }
+    }
+
+    public void setWrongQuestionTitle(String wrongId,String wrongCount){
+        if (!ischild){
             tvQuestionTitleLeft.setText("" + wrongId);
             tvQuestionTitle.setVisibility(View.VISIBLE);
             tvQuestionTitleRight.setText("" + wrongCount);

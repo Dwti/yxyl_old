@@ -55,7 +55,6 @@ public class FillBlanksFramelayout extends FrameLayout implements
     private int answerViewTypyBean;
     private int textSize = 0;
     private Spanned txt;
-    private boolean isFromImageSizeChange = false;
 
     public FillBlanksFramelayout(Context context) {
         super(context);
@@ -89,12 +88,6 @@ public class FillBlanksFramelayout extends FrameLayout implements
      * 设置数据源，替换字符
      */
     public void setData(String stem) {
-        //stem = "<img src=\"http://scc.jsyxw.cn/image/20160816/1471331732720680.png\"/><br/> <p>(_) strong</p> <p>(_) funny</p><p>(_) pretty</p><p>(_) old</p><p>(_) kind</p>";
-        //stem = "<img src=\"http://scc.jsyxw.cn/image/20160816/1471331732720680.png\" title=\"1471331732720680.png\" alt=\"blob.png\"/><br/>(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471331791262932.png\" title=\"1471331791262932.png\" alt=\"blob.png\" width=\"87\" height=\"72\" style=\"width: 87px; height: 72px;\"/><br/>(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471331806727251.png\" title=\"1471331806727251.png\" alt=\"blob.png\"/><br/>(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471331822175126.png\" title=\"1471331822175126.png\" alt=\"blob.png\"/><br/>(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471331841203379.png\" title=\"1471331841203379.png\" alt=\"blob.png\"/><br/>(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471331860917990.png\" title=\"1471331860917990.png\" alt=\"blob.png\" width=\"87\" height=\"86\" style=\"width: 87px; height: 86px;\"/><br/>\n";
-        // 1
-        // stem = "(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471330017635192.png\" title=\"1471330017635192.png\" alt=\"blob.png\"/><br/><p>(_)<img style=\"width: 131px; height: 110px;\" alt=\"\" title=\"\" src=\"http://scc.jsyxw.cn/image/20160816/1471330034397444.png\" border=\"0\" height=\"110\" vspace=\"0\" width=\"131\"/></p>(_)<img src=\"http://scc.jsyxw.cn/image/20160816/1471330060851619.png\" title=\"1471330060851619.png\" alt=\"blob.png\"/>";
-        // 12
-        // stem = "测试翻译类型的填空题<br/><p>翻译下面的句子<br/>Histories make men wise; poets witty; the mathematics subtile; natural philosophy deep; moral grave; logic and rhetoric able to contend.Abeunt studia in morse.(_)</p>";
         for (String Str : answers) {
             if (mAnswerLength < Str.length()) {
                 mAnswerLength = Str.length();
@@ -110,6 +103,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
             mAnswerSb.append("--");
         }
         mAnswerSb.append(")");
+
         data = stem + "  \n";
         data = data + "  \n";
 
@@ -121,7 +115,6 @@ public class FillBlanksFramelayout extends FrameLayout implements
         txt = MyHtml.fromHtml(mCtx, data, getter, null, null, null);
         tvFillBlank.setText(txt);
         if (!hasImageTagInHtmlText(data)) {
-            isFromImageSizeChange = true;
             ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
             this.getViewTreeObserver().addOnGlobalLayoutListener(listener);
         }
@@ -247,20 +240,17 @@ public class FillBlanksFramelayout extends FrameLayout implements
             // 防止加入重复EditText
             rlMark.removeAllViews();
 
-            //if (isFromImageSizeChange) {
-                String targetWord = mAnswerSb.toString();
-                CharSequence c = tvFillBlank.getText().toString();
-                Pattern pattern = Pattern.compile(targetWord);
-                if (!StringUtils.isEmpty(data)) {
-                    Matcher matcher = pattern.matcher(c);
-                    while (matcher.find()) {
-                        addEditText(matcher.start(), matcher.end());
-                    }
-
+            String targetWord = mAnswerSb.toString();
+            CharSequence c = tvFillBlank.getText().toString();
+            Pattern pattern = Pattern.compile(targetWord);
+            if (!StringUtils.isEmpty(data)) {
+                Matcher matcher = pattern.matcher(c);
+                while (matcher.find()) {
+                    addEditText(matcher.start(), matcher.end());
                 }
-                hideSoftInput();
-                isFromImageSizeChange = false;
-            //}
+
+            }
+            hideSoftInput();
 
             initViewWithData(bean);
         }
@@ -329,7 +319,6 @@ public class FillBlanksFramelayout extends FrameLayout implements
     // 在网络图片加载成功、失败后被调用
     @Override
     public void onFinish() {
-        isFromImageSizeChange = true;
         ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
         this.getViewTreeObserver().addOnGlobalLayoutListener(listener);
     }

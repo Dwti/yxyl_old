@@ -40,6 +40,7 @@ import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.inter.OnPushPullTouchListener;
 import com.yanxiu.gphone.student.utils.Util;
+import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout;
 import com.yanxiu.gphone.student.view.SimpleAudioPlayer;
 import com.yanxiu.gphone.student.view.question.GuideQuestionView;
@@ -202,7 +203,8 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         if (isVisibleToUser) {
             if (vpAnswer != null) {
                 if (!is_reduction) {
-                    vpAnswer.setCurrentItem(0);
+                    vpAnswer.setCurrentItem(YanXiuConstant.index_position);
+                    YanXiuConstant.index_position=0;
                 } else {
                     if (adapter!=null) {
                         vpAnswer.setCurrentItem(adapter.getCount() - 1);
@@ -424,12 +426,14 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     @Override
     public void onResume() {
         super.onResume();
-        if (questionsEntity != null) {
-            vpAnswer.setCurrentItem(childPagerIndex);
-        }
+//        if (questionsEntity != null) {
+//            vpAnswer.setCurrentItem(childPagerIndex);
+//        }
+
         if (vpAnswer != null) {
             if (!is_reduction) {
-                vpAnswer.setCurrentItem(childPagerIndex);
+                vpAnswer.setCurrentItem(YanXiuConstant.index_position);
+                YanXiuConstant.index_position=0;
             } else {
                 vpAnswer.setCurrentItem(adapter.getCount() - 1);
             }

@@ -1,24 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@drawable/yanxiu_my_frgment_bg"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/yanxiu_my_frgment_bg"
+    android:orientation="vertical">
 
     <include
         android:id="@+id/top_layout"
-        layout="@layout/public_top_layout"
-        />
-    <ListView
-        android:id="@+id/material_list"
+        layout="@layout/public_top_layout" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/dimen_30"
-        android:layout_marginRight="@dimen/dimen_30"
-        android:layout_weight="1"
-        android:cacheColorHint="@null"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        android:listSelector="@android:color/transparent"
-        android:scrollbars="none"/>
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/material_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dimen_30"
+            android:layout_marginRight="@dimen/dimen_30"
+            android:layout_weight="1"
+            android:cacheColorHint="@null"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:listSelector="@android:color/transparent"
+            android:scrollbars="none" />
+
+        <RelativeLayout
+            android:id="@+id/relative_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_marginRight="@dimen/dimen_20"
+            android:background="@drawable/my_list_bg_selector"
+            android:paddingTop="@dimen/dimen_15"
+            android:visibility="gone"
+            android:paddingBottom="@dimen/dimen_15">
+
+            <TextView
+                android:id="@+id/text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="30sp"
+                android:text="@string/text_dese"/>
+
+            <TextView
+                android:id="@+id/text_dese"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="还没有错题哦~"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:layout_below="@+id/text_view"
+                android:gravity="center_horizontal"
+                android:textSize="20sp"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
 </LinearLayout>
