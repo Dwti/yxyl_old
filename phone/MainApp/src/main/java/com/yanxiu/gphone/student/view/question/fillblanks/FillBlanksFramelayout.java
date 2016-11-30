@@ -346,10 +346,11 @@ public class FillBlanksFramelayout extends FrameLayout implements
         assert startLine == endLine;
         int line = startLine;
 
-        float left = layout.getSecondaryHorizontal(start);
-        float right = layout.getPrimaryHorizontal(end);
+        float left = layout.getSecondaryHorizontal(start) - 2/*避开底部括号*/;
+        float right = layout.getPrimaryHorizontal(end) + 2/*避开底部括号*/;
+
         float top = layout.getLineTop(line);
-        float bottom = layout.getLineBottom(line);
+        float bottom = layout.getLineBottom(line) - 2 /*微调，我也不知道为什么 <_> */;
 
         // 有图片的情况下，line top算图片了，所以这里用tricky的方法，获得(_)的高度
         // 现在文字和图片是底部对齐，目前暂时不知道怎么搞成居中对齐
@@ -369,7 +370,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
         float descent = Math.abs(layoutForMeasure.getLineDescent(0));
 
         top = (float)layout.getLineBaseline(line) - height/(ascent + descent)*ascent;
-        bottom = layout.getLineBaseline(line) + height/(ascent + descent)*descent;
+        bottom = layout.getLineBaseline(line) + height/(ascent + descent)*descent + 2 /*避开底部括号*/;
 
 
         //top = bottom - height;
