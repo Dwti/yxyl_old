@@ -13,8 +13,10 @@ import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.bean.SubjectiveQuestEventBean;
 import com.yanxiu.gphone.student.fragment.question.BaseQuestionFragment;
 import com.yanxiu.gphone.student.fragment.question.ChoiceQuestionFragment;
+import com.yanxiu.gphone.student.fragment.question.ClassfyQuestionFragment;
 import com.yanxiu.gphone.student.fragment.question.ConnectFragment;
 import com.yanxiu.gphone.student.fragment.question.FillBlanksFragment;
 import com.yanxiu.gphone.student.fragment.question.JudgeQuestionFragment;
@@ -575,7 +577,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
                         ((SubjectiveQuestionFragment) fragment).setIsChild(true,list.size(), parent_template, parent_type, totalCount);
                     } else if (template.equals(YanXiuConstant.CLASSIFY_QUESTION)) {
                         fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_CLASSFY, list.get(i).getQuestions(), answerViewTypyBean, list.get(i).getQuestions().getChildPageIndex(),0,wrongCount);
-                        ((SubjectiveQuestionFragment) fragment).setIsChild(true,list.size(), parent_template, parent_type, totalCount);
+                        ((ClassfyQuestionFragment) fragment).setIsChild(true,list.size(), parent_template, parent_type, totalCount);
                     }  else if (template.equals(YanXiuConstant.CONNECT_QUESTION)) {
                         fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_CONNECT, list.get(i).getQuestions(), answerViewTypyBean, list.get(i).getQuestions().getChildPageIndex(),0,wrongCount);
                         ((ConnectFragment) fragment).setIsChild(true,list.size(), parent_template, parent_type, totalCount);

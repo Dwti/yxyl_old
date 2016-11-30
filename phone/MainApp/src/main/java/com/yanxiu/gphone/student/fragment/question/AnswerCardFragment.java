@@ -74,7 +74,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
     private AnswerCardAdapter answerCardAdapter;
     private Button btnQuestionSubmit;
     private TextView tvQuestionTitle;
-    private RelativeLayout rlAnswerCard;
+    private LinearLayout rlAnswerCard;
     private ImageView ivAnswerCardClose;
     private RelativeLayout rlAnswerCardMark;
 //    private StudentLoadingLayout loadingLayout;
@@ -136,7 +136,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
     private void initView(){
         gridView = (GridView) rootView.findViewById(R.id.answer_card_grid);
         tvQuestionTitle = (TextView) rootView.findViewById(R.id.tv_question_title);
-        rlAnswerCard = (RelativeLayout) rootView.findViewById(R.id.rl_answer_card);
+        rlAnswerCard = (LinearLayout) rootView.findViewById(R.id.rl_answer_card);
         rlAnswerCard.setOnClickListener(null);
         ivAnswerCardClose = (ImageView) rootView.findViewById(R.id.iv_answer_card_close);
         ivAnswerCardClose.setOnClickListener(this);
