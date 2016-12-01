@@ -26,6 +26,7 @@ import com.common.core.view.htmlview.HtmlTextView;
 import com.yanxiu.gphone.student.HtmlParser.MyHtml;
 import com.yanxiu.gphone.student.YanxiuApplication;
 import com.yanxiu.gphone.student.utils.ClassfyImageGetter;
+import com.yanxiu.gphone.student.utils.SpanCenterUtils;
 import com.yanxiu.gphone.student.utils.Util;
 
 import org.xml.sax.XMLReader;
@@ -103,6 +104,7 @@ public class YXiuAnserTextView extends HtmlTextView {
         if (clasfyFlag) {
             imageGetter = new UilImageGetter(this, mCtx, this.application);
             Spanned spanned = Html.fromHtml(text, imageGetter, null);
+            spanned= SpanCenterUtils.getInstence().getSpan(spanned);
             this.setText(spanned);
         } else {
             classfyImageGetter = new ClassfyImageGetter(this, mCtx);

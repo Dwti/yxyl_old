@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.text.Html;
+import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -16,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.common.core.utils.imageloader.UilImageGetter;
+import com.yanxiu.gphone.student.HtmlParser.ConnectImageSpan;
 import com.yanxiu.gphone.student.HtmlParser.Html.HtmlParser;
 import com.yanxiu.gphone.student.HtmlParser.Html.HtmlSchema;
 import com.yanxiu.gphone.student.HtmlParser.Html.HtmlToSpannedConverter;
@@ -25,6 +29,7 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.YanxiuApplication;
 import com.yanxiu.gphone.student.utils.ConnectConverter;
 import com.yanxiu.gphone.student.utils.ConnectImageGetter;
+import com.yanxiu.gphone.student.utils.SpanCenterUtils;
 import com.yanxiu.gphone.student.utils.Util;
 
 /**
@@ -67,6 +72,7 @@ public class ConnectTextView extends TextView implements View.OnClickListener{
     public void setHtmlText(String text){
         imageGetter = new ConnectImageGetter(this, context);
         Spanned spanned = Html(context,text, imageGetter);
+        spanned= SpanCenterUtils.getInstence().getSpan(spanned);
         this.setText(spanned);
     }
 
