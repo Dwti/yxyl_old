@@ -57,6 +57,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
     private int answerViewTypyBean;
     private int textSize = 0;
     private Spanned txt;
+    private MyEdittext trickBottomEtView;
 
     public FillBlanksFramelayout(Context context) {
         super(context);
@@ -106,11 +107,12 @@ public class FillBlanksFramelayout extends FrameLayout implements
         }
         mAnswerSb.append(")");
 
+
         data = stem + "  \n";
         data = data + "  \n";
         data = data + "<p><br/></p>";
 
-        String desReplaceString = " " + mAnswerSb + " ";
+        String desReplaceString = "&nbsp " + mAnswerSb + " &nbsp"; /* 防止在(---)之间换行 */
         data = data.replace("(_)",desReplaceString);
 
         FillBlankImageGetterTrick getter = new FillBlankImageGetterTrick(tvFillBlank, mCtx);
@@ -340,7 +342,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
     // 这个方法目前有点问题，用padding和用margin时居然不一致，不懂为什么，暂时只能2套方案取相对合适的
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void addEditText(int start, int end) {
-        // 前后空格，如果不加空格会出现换行问题
+        // 去掉防止换行的空格前后空格，如果不加空格会出现换行问题
         start--;
         end++;
 
@@ -416,6 +418,10 @@ public class FillBlanksFramelayout extends FrameLayout implements
         }
         rlMark.addView(et, params);
 
+
+        if (trickBottomEtView != null) {
+            rlMark.removeView(trickBottomEtView);
+        }
         final MyEdittext et2 = new MyEdittext(mCtx);
         et2.setVisibility(View.INVISIBLE);
         bottom = bottom1;
@@ -425,5 +431,6 @@ public class FillBlanksFramelayout extends FrameLayout implements
         params2.topMargin = (int) top;
 
         rlMark.addView(et2, params2);
+        trickBottomEtView = et2;
     }
 }

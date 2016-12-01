@@ -148,7 +148,7 @@ public class YXiuAnserTextView extends HtmlTextView {
     protected void initView(){
         this.application = (YanxiuApplication) ((Activity)mCtx).getApplication();
         this.setGravity(Gravity.CENTER_VERTICAL);
-        this.setLineSpacing(DensityUtils.px2dip(this.getContext(), 100), 1);
+        this.setLineSpacing(DensityUtils.px2dip(this.getContext(), 15), 1);
         int textsize= Util.getTextPX((Activity)mCtx);
         this.setTextSize(TypedValue.COMPLEX_UNIT_PX, textsize);//32
         singline_height=getFontHeight(textsize);//32
