@@ -9,13 +9,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/rl_answer_card"
         android:orientation="vertical"
-        android:layout_alignParentBottom="true">
+        android:layout_above="@+id/view_answer_card_three">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_above="@+id/view_answer_card_three">
+            >
 
         <View android:id="@+id/view_answer_card_first"
               android:layout_width="match_parent"
@@ -93,6 +93,7 @@
             <!--android:listSelector="@drawable/selector_common_view"-->
         </FrameLayout>
         </LinearLayout>
+    </LinearLayout>
 
         <View android:id="@+id/view_answer_card_three"
               android:layout_width="match_parent"
@@ -118,7 +119,7 @@
 
         </FrameLayout>
 
-    </LinearLayout>
+
 
     <com.yanxiu.gphone.student.view.StudentLoadingLayout
             android:id="@+id/loading_layout"
