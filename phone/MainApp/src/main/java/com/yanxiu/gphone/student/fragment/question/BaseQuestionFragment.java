@@ -191,7 +191,7 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
         if (!ischild){
             this.wrongId=Integer.parseInt(wrongId);
             this.wrongCount=Integer.parseInt(wrongCount);
-            if (tvQuestionTitleLeft!=null&&tvQuestionTitle!=null&&tvQuestionTitleRight!=null) {
+            if (tvQuestionTitle!=null&&tvQuestionTitleLeft!=null&&tvQuestionTitleRight!=null) {
                 tvQuestionTitleLeft.setText("" + wrongId);
                 tvQuestionTitle.setVisibility(View.VISIBLE);
                 tvQuestionTitleRight.setText("" + wrongCount);

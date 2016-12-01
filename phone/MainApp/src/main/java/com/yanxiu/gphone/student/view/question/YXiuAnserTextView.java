@@ -155,6 +155,11 @@ public class YXiuAnserTextView extends HtmlTextView {
     }
 
 
+    public void setLineSpace(int px){
+        this.setLineSpacing(DensityUtils.px2dip(this.getContext(), px), 1);
+    }
+
+
     private boolean isSendheight=false;
 
     public void setIsSendHeight(boolean isSendheight){

@@ -27,6 +27,8 @@ import com.yanxiu.gphone.student.bean.ChildIndexEvent;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.inter.CorpListener;
+import com.yanxiu.gphone.student.utils.CorpUtils;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout;
 import com.yanxiu.gphone.student.view.YanxiuTypefaceTextView;
@@ -196,6 +198,21 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
             } else {
                 vpAnswer.setCurrentItem(adapter.getCount() - 1);
             }
+        }
+        if (!isVisibleToUser){
+            if (vpAnswer!=null){
+                if (CorpUtils.getInstence().getCorpListener()!=null){
+                    BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
+                    if (fragment instanceof SubjectiveQuestionFragment){
+                        if (((CorpListener)fragment).hashCode()!=CorpUtils.getInstence().getCorpListener().hashCode()){
+                            vpAnswer.setCurrentItem(0);
+                        }
+                    }
+                }else {
+                    vpAnswer.setCurrentItem(0);
+                }
+            }
+
         }
     }
 

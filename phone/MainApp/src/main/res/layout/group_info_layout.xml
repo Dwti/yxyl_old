@@ -69,9 +69,10 @@
             android:id="@+id/group_mem_info_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
             android:layout_marginRight="@dimen/dimen_10"
-            android:layout_alignBottom="@id/group_info_icon"
             android:layout_toRightOf="@id/group_info_icon"
+            android:layout_below="@+id/group_info_num"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -138,9 +139,9 @@
         <TextView
             android:id="@+id/group_info_num"
             style="@style/shadow_text_style"
+            android:layout_marginTop="@dimen/dimen_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/group_mem_info_layout"
             android:layout_below="@id/group_info_name"
             android:layout_toRightOf="@id/group_info_icon"
             android:gravity="center_vertical"
