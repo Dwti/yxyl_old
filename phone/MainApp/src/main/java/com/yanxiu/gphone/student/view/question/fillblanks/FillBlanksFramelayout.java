@@ -411,6 +411,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
         et.setTextSize(textSize);
         et.setBackground(mCtx.getResources().getDrawable(R.drawable.fill_blank_bg));
         et.setGravity(Gravity.CENTER);
+        et.setFocusable(false);
         setEditTextCusrorDrawable(et);
         if (answerViewTypyBean == SubjectExercisesItemBean.RESOLUTION || answerViewTypyBean == SubjectExercisesItemBean.WRONG_SET) {
             et.setEnabled(false);
