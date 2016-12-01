@@ -1106,7 +1106,17 @@ public class CommonCoreUtil {
     public static <T extends Comparable<T>> boolean compare(List<T> a, List<T> b) {
         if(a.size() != b.size())
             return false;
-        return a.containsAll(b) && b.containsAll(a);
+
+        for (int i = 0; i < a.size(); i++) {
+
+            T aaa = a.get(i);
+            T bbb = b.get(i);
+            if (a.get(i).compareTo(b.get(i)) != 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
