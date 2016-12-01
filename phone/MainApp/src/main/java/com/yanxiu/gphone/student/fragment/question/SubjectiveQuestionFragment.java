@@ -103,8 +103,9 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
             FragmentTransaction ft = SubjectiveQuestionFragment.this.getChildFragmentManager().beginTransaction();
             ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
             if (questionsEntity != null && questionsEntity.getStem() != null) {
-                yXiuAnserTextView.setTextHtml(questionsEntity.getStem());
+//                yXiuAnserTextView.setTextHtml("v-stem : \"在2.3737<img class=\"kfformula latex3\" src=\"http://scc.jsyxw.cn/formula/f9/f96217d18c60c280226bac50e510092b.png\" data-latex=\"\\cdot \\cdot \\cdot \"/><span style=\"font-family: 宋体;\">&nbsp;</span>，4.68，，0.8686，3.14159这几个数中，有限小数有____,循环小数有____。\"");
                 yXiuAnserTextView.setTextHtml(questionsEntity.getStem().replaceAll("\\(_\\)", "____"));
+                yXiuAnserTextView.setLineSpace(10);
             }
             IsCreat = true;
             setRegister();
@@ -354,7 +355,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
 //>>>>>>> 3e356847799f860e6412c0cea4a35f6d0b81f6dc
 //        YanXiuConstant.index_position=0;
 //        EventBus.getDefault().unregister(this);
-        }
+//        }
     }
 
     @Override

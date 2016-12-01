@@ -22,7 +22,9 @@ import com.yanxiu.gphone.student.bean.ChildIndexEvent;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.inter.CorpListener;
 import com.yanxiu.gphone.student.inter.OnPushPullTouchListener;
+import com.yanxiu.gphone.student.utils.CorpUtils;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
@@ -169,6 +171,21 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
                 }
             }
         }else {
+
+            if (vpAnswer!=null){
+                BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
+                if (CorpUtils.getInstence().getCorpListener()!=null){
+                    if (fragment instanceof SubjectiveQuestionFragment){
+                        if (((CorpListener)fragment).hashCode()!=CorpUtils.getInstence().getCorpListener().hashCode()){
+                            vpAnswer.setCurrentItem(0);
+                        }
+                    }
+                }else {
+                    vpAnswer.setCurrentItem(0);
+                }
+            }
+
+
 //            try {
 //                ArrayList<Fragment> list= adapter.getmFragments();
 //                for (int i=0;i<list.size();i++){
