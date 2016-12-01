@@ -51,6 +51,7 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
      */
     protected boolean is_reduction = false;
     protected int childPagerIndex;
+    protected int selectPagerIndex=-1;
     public InputMethodManager imm;
     private int number;
     private String parent_template;
@@ -204,6 +205,7 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
 
     public void setChildPagerIndex(int childPagerIndex) {
         this.childPagerIndex = childPagerIndex;
+        this.selectPagerIndex=childPagerIndex;
     }
 
     public void setRefresh() {

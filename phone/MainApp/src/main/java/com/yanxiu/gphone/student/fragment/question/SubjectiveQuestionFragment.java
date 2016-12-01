@@ -211,6 +211,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         Bundle args = new Bundle();
         args.putSerializable("questions", questionsEntity);
         resolutionFragment = Fragment.instantiate(SubjectiveQuestionFragment.this.getActivity(), SubjectiveProblemAnalysisFragment.class.getName(), args);
+        ((SubjectiveProblemAnalysisFragment)resolutionFragment).setIndexposition(this);
         FragmentTransaction ft = SubjectiveQuestionFragment.this.getChildFragmentManager().beginTransaction();
 //         标准动画
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);

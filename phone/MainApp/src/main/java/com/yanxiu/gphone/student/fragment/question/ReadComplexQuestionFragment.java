@@ -96,6 +96,13 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
         }
     }
 
+    private void setViewPagerCurrent(){
+        if (vpAnswer!=null&&selectPagerIndex!=-1&&isVisibleToUser){
+            vpAnswer.setCurrentItem(selectPagerIndex);
+            selectPagerIndex=-1;
+        }
+    }
+
     @Override
     public Fragment getChildFragment() {
         int position=vpAnswer.getCurrentItem();
@@ -148,7 +155,6 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
         onPageCount(count);
         vpAnswer.setAdapter(adapter);
         adapter.setViewPager(vpAnswer);
-        vpAnswer.setCurrentItem(childPagerIndex);
     }
 
     public void onPageCount(int count) {
@@ -287,6 +293,7 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
                 }catch (Exception e){}
             }
         }
+        setViewPagerCurrent();
     }
 
     @Override

@@ -250,6 +250,13 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
 
     }
 
+    private void setViewPagerCurrent(){
+        if (vpAnswer!=null&&selectPagerIndex!=-1&&isVisibleToUser){
+            vpAnswer.setCurrentItem(selectPagerIndex);
+            selectPagerIndex=-1;
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -266,6 +273,7 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
                 vpAnswer.setCurrentItem(adapter.getCount() - 1);
             }
         }
+        setViewPagerCurrent();
     }
     @Override
     public void onClick(View view) {
