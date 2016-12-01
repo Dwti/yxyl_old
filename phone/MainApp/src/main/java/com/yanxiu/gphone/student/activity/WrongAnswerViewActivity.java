@@ -185,7 +185,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
         int currentTotal = adapter.getCount();
         LogInfo.log("haitian", "currentTotal =" + currentTotal + "   position=" + position + "   currentTotal - position - 1 - delQueNum="
                 + (currentTotal - position - 1 - delQueNum) + " adapter.getCount() - position - 1=" + (adapter.getCount() - position - 1));
-        if (wrongCounts > currentTotal && (adapter.getCount() - position - 1) < 2&&isGetDataNow) {
+        if (wrongCounts-delQueNum > currentTotal && (adapter.getCount() - position - 1) < 2&&isGetDataNow) {
             isGetDataNow=false;
             String currentId = null;
             try{
