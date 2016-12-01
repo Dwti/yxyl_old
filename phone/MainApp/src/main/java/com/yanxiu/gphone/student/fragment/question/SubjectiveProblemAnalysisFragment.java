@@ -25,7 +25,9 @@ import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.feedBack.AbstractFeedBack;
+import com.yanxiu.gphone.student.inter.CorpListener;
 import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
+import com.yanxiu.gphone.student.utils.CorpUtils;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 import com.yanxiu.gphone.student.view.question.subjective.SubjectiveHeartLayout;
@@ -79,6 +81,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
     private GridView subjectiveGrid;
     private SubjectiveImageAdapter adapter;
     private List<String> photosList;
+    private CorpListener listener;
 
     //add
     private ImageView ivIcon;
@@ -149,6 +152,10 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
         flowLayout.addView(knowledgeView);
     }
 
+    public void setIndexposition(CorpListener listener){
+        this.listener=listener;
+    }
+
 
     private void initData(){
 
@@ -168,6 +175,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
             subjectiveGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    CorpUtils.getInstence().AddListener(listener);
                     PhotoViewActivity.launch(SubjectiveProblemAnalysisFragment.this.getActivity(), (ArrayList<String>) photosList, position);
                 }
             });

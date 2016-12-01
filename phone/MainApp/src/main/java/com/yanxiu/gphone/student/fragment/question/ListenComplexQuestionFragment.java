@@ -107,6 +107,13 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         }
     }
 
+    private void setViewPagerCurrent(){
+        if (vpAnswer!=null&&selectPagerIndex!=-1&&isVisibleToUser){
+            vpAnswer.setCurrentItem(selectPagerIndex);
+            selectPagerIndex=-1;
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (rootView == null) {
@@ -460,6 +467,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                 }catch (Exception e){}
             }
         }
+        setViewPagerCurrent();
     }
 
     @Override

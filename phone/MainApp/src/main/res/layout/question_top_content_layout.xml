@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
         android:id="@+id/iv_answer_top_icon"
@@ -16,10 +17,12 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/dimen_10"
         android:layout_marginTop="@dimen/dimen_10"
+        style="@style/shadow_answer_view_index_text_style"
+        android:layout_alignBottom="@+id/tv_title_name_left"
         android:gravity="right"
         android:singleLine="true"
         android:textColor="@color/color_b3ab8f"
-        android:textSize="@dimen/dimen_12" />
+        android:textSize="@dimen/dimen_11" />
     <TextView
         android:id="@+id/tv_title_name"
         android:layout_width="wrap_content"
@@ -28,23 +31,26 @@
         android:layout_toLeftOf="@id/tv_title_name_right"
         android:gravity="right"
         android:singleLine="true"
-        android:text="/"
+        android:text=" / "
         android:visibility="gone"
         android:textColor="@color/color_b3ab8f"
         android:textSize="@dimen/dimen_12" />
 
-    <TextView
+
+    <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
         android:id="@+id/tv_title_name_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/shadow_answer_view_index_text_style"
+        app:type_face="metor_bold.OTF"
         android:layout_marginTop="@dimen/dimen_10"
         android:layout_toRightOf="@id/iv_answer_top_icon"
         android:layout_toLeftOf="@id/tv_title_name"
         android:gravity="right"
         android:textStyle="bold"
         android:singleLine="true"
-        android:textColor="@color/color_b3ab8f"
-        android:textSize="@dimen/dimen_12" />
+        android:textColor="@color/color_807c6c"
+        android:textSize="@dimen/dimen_13" />
 
 
 

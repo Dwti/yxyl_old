@@ -105,7 +105,6 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
             if (questionsEntity != null && questionsEntity.getStem() != null) {
 //                yXiuAnserTextView.setTextHtml("v-stem : \"在2.3737<img class=\"kfformula latex3\" src=\"http://scc.jsyxw.cn/formula/f9/f96217d18c60c280226bac50e510092b.png\" data-latex=\"\\cdot \\cdot \\cdot \"/><span style=\"font-family: 宋体;\">&nbsp;</span>，4.68，，0.8686，3.14159这几个数中，有限小数有____,循环小数有____。\"");
                 yXiuAnserTextView.setTextHtml(questionsEntity.getStem().replaceAll("\\(_\\)", "____"));
-                yXiuAnserTextView.setLineSpace(10);
             }
             IsCreat = true;
             setRegister();
@@ -211,6 +210,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         Bundle args = new Bundle();
         args.putSerializable("questions", questionsEntity);
         resolutionFragment = Fragment.instantiate(SubjectiveQuestionFragment.this.getActivity(), SubjectiveProblemAnalysisFragment.class.getName(), args);
+        ((SubjectiveProblemAnalysisFragment)resolutionFragment).setIndexposition(this);
         FragmentTransaction ft = SubjectiveQuestionFragment.this.getChildFragmentManager().beginTransaction();
 //         标准动画
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
