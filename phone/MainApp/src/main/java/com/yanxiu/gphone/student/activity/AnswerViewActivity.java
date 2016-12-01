@@ -868,6 +868,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 
 
         LogInfo.log(TAG, "resultCode = " + resultCode + " ,requestCode = " + requestCode);
+        try {
 
         if (resultCode == RESULT_OK) {
             LogInfo.log(TAG, "CURRENTINDEX: " + currentIndex);
@@ -880,6 +881,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                 currentFragment.onActivityResult(requestCode, resultCode, data);
             }
         }
+
+        }catch (Exception e){}
     }
 
 

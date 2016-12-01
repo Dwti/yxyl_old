@@ -38,7 +38,9 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.LocalPhotoViewActivity;
 import com.yanxiu.gphone.student.activity.takephoto.CameraActivity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
+import com.yanxiu.gphone.student.inter.CorpListener;
 import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
+import com.yanxiu.gphone.student.utils.CorpUtils;
 import com.yanxiu.gphone.student.utils.MediaUtils;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
@@ -62,11 +64,12 @@ public class PicSelView extends RelativeLayout {
     private BasePopupWindow pop;
     private final int updateCode = 0;
     private final int failCode = 1;
+    private final int UIChanged_TRUE=2;
+    private final int UIChanged_FAIL=3;
     private Context mContext;
     private TextView addAnswerView;
     private List<String> currentDrrList;
-    private Fragment fragment;
-    private int position;
+    private CorpListener fragment;
 
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
@@ -80,6 +83,15 @@ public class PicSelView extends RelativeLayout {
                     break;
                 case failCode:
                     Util.showToast(getResources().getString(R.string.loading_fail));
+                    break;
+                case UIChanged_TRUE:
+//                    PicSelView.this.removeView(addAnswerView);
+                    addAnswerView.setVisibility(View.GONE);
+                    noScrollGridView.setVisibility(View.VISIBLE);
+                    break;
+                case UIChanged_FAIL:
+                    addAnswerView.setVisibility(View.VISIBLE);
+                    noScrollGridView.setVisibility(View.GONE);
                     break;
             }
         }
@@ -124,10 +136,6 @@ public class PicSelView extends RelativeLayout {
         initView(context);
     }
 
-    public void setIndex(int position){
-        this.position=position;
-    }
-
     private void initView(Context context) {
         LogInfo.log(TAG, "initView");
         mContext = context;
@@ -146,6 +154,7 @@ public class PicSelView extends RelativeLayout {
     private OnClickListener addAnswerViewListener=new OnClickListener() {
         @Override
         public void onClick(View view) {
+            CorpUtils.getInstence().AddListener(fragment);
             showPicSelPop(view);
         }
     };
@@ -153,6 +162,7 @@ public class PicSelView extends RelativeLayout {
     private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            CorpUtils.getInstence().AddListener(fragment);
             if (currentDrrList == null || i == currentDrrList.size()) {
             //if (i == currentDrrList.size()) {
             //if (ShareBitmapUtils.getInstance().getDrrMaps().get(ShareBitmapUtils.getInstance().getCurrentSbId()) == null || i == currentDrrList.size()) {
@@ -169,7 +179,7 @@ public class PicSelView extends RelativeLayout {
                     return;
                 }
 //                EventBus.getDefault().register(fragment);
-                YanXiuConstant.index_position=position;
+                YanXiuConstant.index_position=YanXiuConstant.catch_position;
                 ShareBitmapUtils.getInstance().setCurrentSbId(currentQuestionId);
                 ActivityJumpUtils.jumpToLocalPhotoViewActivityForResult((Activity) mContext, i, LocalPhotoViewActivity.REQUEST_CODE);
             }
@@ -186,7 +196,8 @@ public class PicSelView extends RelativeLayout {
                 return;
             }
 //            EventBus.getDefault().unregister(fragment);
-            YanXiuConstant.index_position=position;
+            MediaUtils.IsCallBack=true;
+            YanXiuConstant.index_position=YanXiuConstant.catch_position;
 //            EventBus.getDefault().register(fragment);
             MediaUtils.openLocalCamera(((Activity) mContext), path, MediaUtils.OPEN_DEFINE_PIC_BUILD);
         }
@@ -194,11 +205,9 @@ public class PicSelView extends RelativeLayout {
 
     private void controllShowGridAndHideAddAnswView(boolean isShowGrid){
         if(isShowGrid){
-            addAnswerView.setVisibility(View.GONE);
-            noScrollGridView.setVisibility(View.VISIBLE);
+            handler.sendEmptyMessage(UIChanged_TRUE);
         }else{
-            addAnswerView.setVisibility(View.VISIBLE);
-            noScrollGridView.setVisibility(View.GONE);
+            handler.sendEmptyMessage(UIChanged_FAIL);
         }
     }
 
@@ -244,7 +253,8 @@ public class PicSelView extends RelativeLayout {
                     bitmap.recycle();
                 }
                 //在此处进行裁剪
-                YanXiuConstant.index_position=position;
+//                YanXiuConstant.index_position=position;
+//                EventBus.getDefault().register(fragment);
                 MediaUtils.cropImage(activity,uri,MediaUtils.IMAGE_CROP,MediaUtils.FROM_CAMERA);
 //                ShareBitmapUtils.getInstance().addPath(id, path);
             } catch (IOException e) {
@@ -283,8 +293,8 @@ public class PicSelView extends RelativeLayout {
 
     }
 
-    public void setFragment(Fragment fragment){
-        this.fragment=fragment;
+    public void setFragment(CorpListener listener){
+        this.fragment=listener;
     }
 
     public class GridAdapter extends BaseAdapter {

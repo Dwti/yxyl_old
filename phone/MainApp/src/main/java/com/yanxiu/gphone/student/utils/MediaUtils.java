@@ -41,6 +41,8 @@ public class MediaUtils {
 
     public static Uri currentCroppedImageUri;
 
+    public static boolean IsCallBack=false;
+
     public static final int FROM_CAMERA = 0;
     public static final int FROM_PICTURE = 1;
 

@@ -27,10 +27,15 @@ import com.isseiaoki.simplecropview.callback.SaveCallback;
 import com.isseiaoki.simplecropview.util.Utils;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.ImageBucketActivity;
+import com.yanxiu.gphone.student.activity.takephoto.CameraActivity;
 import com.yanxiu.gphone.student.activity.takephoto.CorpActivity;
 import com.yanxiu.gphone.student.bean.CorpBean;
+import com.yanxiu.gphone.student.fragment.question.SubjectiveQuestionFragment;
+import com.yanxiu.gphone.student.utils.CorpUtils;
 import com.yanxiu.gphone.student.utils.FontUtils;
 import com.yanxiu.gphone.student.utils.MediaUtils;
+import com.yanxiu.gphone.student.utils.Util;
+import com.yanxiu.gphone.student.utils.YanXiuConstant;
 
 import java.io.File;
 
@@ -74,6 +79,7 @@ public class CorpFragment extends Fragment {
         if (getActivity() != null) {
             mCorpUri = Uri.parse(getActivity().getIntent().getStringExtra(MediaStore.EXTRA_OUTPUT));
             mFrom = getActivity().getIntent().getIntExtra("from", 0);
+            YanXiuConstant.index_position=YanXiuConstant.catch_position;
             getActivity().getIntent().getData();
         }
     }
@@ -222,13 +228,22 @@ public class CorpFragment extends Fragment {
 
     // Handle button event /////////////////////////////////////////////////////////////////////////
 
+    private boolean IsCropLoad=false;
+
     private final View.OnClickListener btnListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.buttonDone:
-                    CorpFragmentPermissionsDispatcher.cropImageWithCheck(CorpFragment.this);
-                    EventBus.getDefault().post(new CorpBean());
+                    if (!IsCropLoad) {
+                        IsCropLoad=true;
+                        CorpFragmentPermissionsDispatcher.cropImageWithCheck(CorpFragment.this);
+//                        CorpBean bean=new CorpBean();
+//                        bean.setType(SubjectiveQuestionFragment.TYPE_CORP);
+//                        EventBus.getDefault().post(bean);
+                    }else {
+                        Util.showToast(R.string.crop_loading);
+                    }
                     break;
                 case R.id.buttonFitImage:
                     mCropView.setCropMode(CropImageView.CropMode.FIT_IMAGE);
@@ -304,7 +319,10 @@ public class CorpFragment extends Fragment {
         @Override
         public void onSuccess(Uri outputUri) {
             dismissProgress();
-
+            if (CorpUtils.getInstence().getCorpListener()!=null) {
+                CorpUtils.getInstence().getCorpListener().oncorp();
+            }
+                CorpUtils.getInstence().setCorpFinish();
             //Intent Intent=new Intent();
             //((CorpActivity)getActivity()).setResult(((CorpActivity)getActivity()).RESULT_OK,Intent);
             getActivity().finish();

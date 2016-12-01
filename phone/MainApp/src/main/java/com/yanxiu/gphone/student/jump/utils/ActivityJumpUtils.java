@@ -122,6 +122,7 @@ public class ActivityJumpUtils {
         jumpModel.setTargetActivity(ImageBucketActivity.class);
         jumpModel.setRequestCode(requestCode);
         jumpToPageForResultCommonMethod(jumpModel, context);
+
     }
 
     public static void jumpBackFromImageBucketActivity(Activity context,int resultCode){
