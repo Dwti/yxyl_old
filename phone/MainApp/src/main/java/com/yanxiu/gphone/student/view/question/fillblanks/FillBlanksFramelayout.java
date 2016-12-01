@@ -10,6 +10,7 @@ import android.text.Spanned;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -49,6 +50,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
     public Context mCtx;
     private RelativeLayout rlMark;
     private YXiuAnserTextView tvFillBlank;
+    private YXiuAnserTextView trickTextView;
     private String data = "鲁迅，原名(_)字(_)，他的代表作品是小说集(_)、(_)，散文集(_)。\n" +
             "    鲁迅再《琐记》一文中，用了(_)来讥讽洋务派的办学。\n" +
             "    鲁迅写出了中国现代第一篇白话小说(_)，1918年在(_)上发表其后又发表(_)等著名小说。\n";
@@ -106,6 +108,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
 
         data = stem + "  \n";
         data = data + "  \n";
+        data = data + "<p><br/></p>";
 
         String desReplaceString = " " + mAnswerSb + " ";
         data = data.replace("(_)",desReplaceString);
@@ -130,7 +133,9 @@ public class FillBlanksFramelayout extends FrameLayout implements
         textSize = DensityUtils.px2sp(mCtx, px);
         tvFillBlank.setTextSize(textSize);
 
-
+        trickTextView = (YXiuAnserTextView) this.findViewById(R.id.tv_fill_blanks_trick);
+        trickTextView.setTextSize(textSize);
+        trickTextView.setVisibility(View.INVISIBLE);
     }
 
     public void setAnswerViewTypyBean(int answerViewTypyBean) {
@@ -154,10 +159,10 @@ public class FillBlanksFramelayout extends FrameLayout implements
      */
     @Override
     public void initViewWithData(AnswerBean bean) {
+        int actualEditTextCount = rlMark.getChildCount() - 1;
         if (rlMark != null && bean != null && bean.getFillAnswers().size() > 0) {
-            if (bean.getFillAnswers().size() == rlMark.getChildCount()) {
-                int fillCount = rlMark.getChildCount();
-                for (int i = 0; i < fillCount; i++) {
+            if (bean.getFillAnswers().size() == actualEditTextCount) {
+                for (int i = 0; i < actualEditTextCount; i++) {
                     ((EditText) rlMark.getChildAt(i)).setText(bean.getFillAnswers().get(i));
                 }
             }
@@ -180,12 +185,12 @@ public class FillBlanksFramelayout extends FrameLayout implements
         if (rlMark != null && rlMark.getChildCount() > 0) {
             bean.getFillAnswers().clear();
 
-            int fillCount = rlMark.getChildCount();
+            int actualEditTextCount = rlMark.getChildCount() - 1;
             int answerCount = bean.getFillAnswers().size();
 
-            if (fillCount > 0) {
+            if (actualEditTextCount > 0) {
                 boolean flag = true;
-                for (int i = 0; i < fillCount; i++) {
+                for (int i = 0; i < actualEditTextCount; i++) {
                     String fillAnswer = "";
                     if (!StringUtils.isEmpty(
                             ((EditText) rlMark.getChildAt(i)).getText().toString())) {
@@ -195,7 +200,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
                         flag = false;
                     }
 
-                    if (answerCount == fillCount) {
+                    if (answerCount == actualEditTextCount) {
                         bean.getFillAnswers().set(i, fillAnswer);
                     } else {
                         bean.getFillAnswers().add(fillAnswer);
@@ -379,6 +384,16 @@ public class FillBlanksFramelayout extends FrameLayout implements
             top = top2;
         }
 
+
+        trickTextView.setText("(-)");
+        Layout layout3 = trickTextView.getLayout();
+
+        height = layout3.getLineBottom(0) - layout3.getLineTop(0);
+        ascent = Math.abs(layout3.getLineAscent(0));
+
+        top = layout.getLineBaseline(line) - ascent;
+        bottom = top + height;
+
         //top = bottom - height;
 //        left -= width;
 //        right += width;
@@ -400,5 +415,15 @@ public class FillBlanksFramelayout extends FrameLayout implements
             et.setFocusable(false);
         }
         rlMark.addView(et, params);
+
+        final MyEdittext et2 = new MyEdittext(mCtx);
+        et2.setVisibility(View.INVISIBLE);
+        bottom = bottom1;
+        RelativeLayout.LayoutParams params2;
+        params2 = new RelativeLayout.LayoutParams((int) (right - left), (int) (bottom - top));
+        params2.leftMargin = (int) left;
+        params2.topMargin = (int) top;
+
+        rlMark.addView(et2, params2);
     }
 }

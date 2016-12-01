@@ -3,6 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+        android:id="@+id/tv_fill_blanks_trick"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/dimen_10"
+        android:textColor="@color/color_black"
+        />
+
+
+    <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
         android:id="@+id/tv_fill_blanks"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
