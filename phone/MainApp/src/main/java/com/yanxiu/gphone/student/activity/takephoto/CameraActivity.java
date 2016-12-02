@@ -10,6 +10,7 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -48,10 +49,13 @@ import com.yanxiu.gphone.student.view.takephoto.FocusView;
 import com.yanxiu.gphone.student.view.takephoto.RecordVideoStatueCircle;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 import de.greenrobot.event.EventBus;
 import permissions.dispatcher.RuntimePermissions;
@@ -65,11 +69,25 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
     private ScreenSwitchUtils mInstance;
     private boolean portrait;
     public static final int REQUEST_CODE = 0x519;
+    private android.os.Handler mHandler = new android.os.Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what==REQUEST_CODE){
+                Uri uri=MediaUtils.getOutputMediaFileUri(false);
+                MediaUtils.cropImage(CameraActivity.this,uri,MediaUtils.IMAGE_CROP,MediaUtils.FROM_CAMERA);
+            }else {
+                iv_CropImage.setVisibility(View.VISIBLE);
+                iv_CropImage.setImageBitmap(bitmap);
+            }
+        }
+    };
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    private ImageView iv_CropImage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,6 +102,8 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         }
         CorpUtils.getInstence().AddFinishListener(this);
         mFocusView = (FocusView) findViewById(R.id.view_focus);
+
+        iv_CropImage= (ImageView) findViewById(R.id.cropImageView);
 
         fl_preview = (RelativeLayout) findViewById(R.id.fl_preview);
         RecordVideoStatueCircle btn_capture = (RecordVideoStatueCircle) findViewById(R.id.iv_capture);
@@ -157,6 +177,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
 
     @Override
     protected void onResume() {
+        iv_CropImage.setVisibility(View.GONE);
         mInstance.start(this);
         portrait = mInstance.isPortrait();
         sb1.setProgress(0);
@@ -182,46 +203,61 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         super.onPause();
     }
 
-    private Camera.PictureCallback mPicture = new Camera.PictureCallback() {
+    private Bitmap bitmap;
+    public Camera.PictureCallback mPicture = new Camera.PictureCallback() {
         @Override
-        public void onPictureTaken(byte[] data, Camera camera) {
+        public void onPictureTaken(final byte[] data, Camera camera) {
             if (!Environment.getExternalStorageState().equals(
                     Environment.MEDIA_MOUNTED)) {// 没有sd卡
                 return;
             }
-
-            File pictureFile = MediaUtils.getOutputMediaFile(true);
             try {
                 //pictureFile.createNewFile();
-                LogInfo.log("path", "111path" + pictureFile.getPath());
-                FileOutputStream fos = new FileOutputStream(pictureFile);
 
-                final Bitmap bm = BitmapFactory.decodeByteArray(data, 0,
-                        data.length);
-                Matrix matrix = new Matrix();
-                matrix.setRotate(90);
-                Bitmap bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                /**
-                 * 获取图片的旋转角度，有些系统把拍照的图片旋转了，有的没有旋转
-                 */
-                /*int degree = readPictureDegree(pictureFile.getAbsolutePath());
+               Thread thread = new Thread() {
+                   @Override
+                   public void run() {
+                       File pictureFile = MediaUtils.getOutputMediaFile(true);
+                       LogInfo.log("path", "111path" + pictureFile.getPath());
+                       FileOutputStream fos = null;
+                       try {
+                           fos = new FileOutputStream(pictureFile);
+                       } catch (FileNotFoundException e) {
+                           e.printStackTrace();
+                       }
+                       final Bitmap bm = BitmapFactory.decodeByteArray(data, 0,
+                               data.length);
+                       Matrix matrix = new Matrix();
+                       matrix.setRotate(90);
+                       bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
+                       mHandler.sendEmptyMessage(55);
+                       bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                       /**
+                        * 获取图片的旋转角度，有些系统把拍照的图片旋转了，有的没有旋转
+                        */
+                        /*int degree = readPictureDegree(pictureFile.getAbsolutePath());
 
-                BitmapFactory.Options opts=new BitmapFactory.Options();//获取缩略图显示到屏幕上
-                opts.inSampleSize=2;
-                Bitmap cbitmap=BitmapFactory.decodeFile(pictureFile.getAbsolutePath(),opts);*/
+                        BitmapFactory.Options opts=new BitmapFactory.Options();//获取缩略图显示到屏幕上
+                        opts.inSampleSize=2;
+                        Bitmap cbitmap=BitmapFactory.decodeFile(pictureFile.getAbsolutePath(),opts);*/
 
-                /**
-                 * 把图片旋转为正的方向
-                 */
-                /*Bitmap newbitmap = rotaingImageView(degree, cbitmap);
-                newbitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);*/
-                //fos.write(data);
-                fos.flush();
-                fos.close();
+                       /**
+                        * 把图片旋转为正的方向
+                        */
+                        /*Bitmap newbitmap = rotaingImageView(degree, cbitmap);
+                        newbitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);*/
+                       //fos.write(data);
+                       try {
+                           fos.flush();
+                           fos.close();
+                       } catch (IOException e) {
+                           e.printStackTrace();
+                       }
+                       mHandler.sendEmptyMessage(REQUEST_CODE);
+                   }
+               };
+                thread.start();
 
-                Uri uri=MediaUtils.getOutputMediaFileUri(false);
-                MediaUtils.cropImage(CameraActivity.this,uri,MediaUtils.IMAGE_CROP,MediaUtils.FROM_CAMERA);
                 //拍完预览
                 /*Intent intent = new Intent(CameraActivity.this, PictureActivity.class);
                 intent.putExtra("type", getIntent().getIntExtra("type", 0));
@@ -327,7 +363,8 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         //int screenWidth = screenWidth = getWindowManager().getDefaultDisplay().getWidth();
         //int screenHeight = screenHeight = getWindowManager().getDefaultDisplay().getHeight();
         List<Camera.Size> list= params.getSupportedPictureSizes();
-        Camera.Size size=list.get(1);
+        int position=list.size()/2;
+        Camera.Size size=list.get(position);
         params.setPictureSize(size.width, size.height);
         camera.setParameters(params);
         //camera.setDisplayOrientation(90);

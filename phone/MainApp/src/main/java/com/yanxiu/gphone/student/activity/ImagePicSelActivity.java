@@ -16,8 +16,10 @@ import com.common.core.utils.CommonCoreUtil;
 import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.ImagePicSelAdapter;
+import com.yanxiu.gphone.student.inter.CorpFinishListener;
 import com.yanxiu.gphone.student.jump.ImagePicSelJumpModel;
 import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
+import com.yanxiu.gphone.student.utils.CorpUtils;
 import com.yanxiu.gphone.student.utils.MediaUtils;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.view.picsel.bean.ImageItem;
@@ -38,7 +40,7 @@ import java.util.List;
  //            picSelText.setText(String.format(getResources().getString(R.string.has_sel), ""+drr.size()));
  //        }
  */
-public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumListener{
+public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumListener {
     private static final String TAG=ImagePicSelActivity.class.getSimpleName();
     private GridView gridView;
     private TextView picSelText;
@@ -73,6 +75,7 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
 
         picSelText.setText(String.format(getResources().getString(R.string.has_sel), "" + ShareBitmapUtils.getInstance().getRecordBucketPicSelNums()));
         initData();
+        //CorpUtils.getInstence().AddFinishListener(this);
         return view;
     }
 
@@ -169,14 +172,11 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case MediaUtils.OPEN_SYSTEM_PIC_BUILD_CAMERA:
-                this.finish();
-                break;
-        }
+    /*@Override
+    public void onBackPressed() {
+        this.finish();
     }
+    */
 
     @Override
     protected void destoryData() {
@@ -219,4 +219,9 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
             doneText.setTextColor(getResources().getColor(R.color.color_ffdb4d));
         }
     }
+
+    /*@Override
+    public void onfinish() {
+        this.finish();
+    }*/
 }

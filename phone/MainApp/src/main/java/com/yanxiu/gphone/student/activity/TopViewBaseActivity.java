@@ -154,7 +154,7 @@ public abstract class TopViewBaseActivity extends YanxiuJumpBaseActivity impleme
 
     protected void executeFinish(){
         destoryData();
-        //finish();
+        finish();
     }
 
     @Override
