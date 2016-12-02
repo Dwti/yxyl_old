@@ -1,5 +1,6 @@
 package com.yanxiu.gphone.student.activity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -163,6 +164,15 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
                 break;
             case R.id.pub_top_left:
                 ActivityJumpUtils.jumpToImageBucketActivityForResult(ImagePicSelActivity.this, MediaUtils.OPEN_SYSTEM_PIC_BUILD_CAMERA);
+                this.finish();
+                break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case MediaUtils.OPEN_SYSTEM_PIC_BUILD_CAMERA:
                 this.finish();
                 break;
         }
