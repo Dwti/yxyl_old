@@ -76,6 +76,9 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
             if (msg.what==REQUEST_CODE){
                 Uri uri=MediaUtils.getOutputMediaFileUri(false);
                 MediaUtils.cropImage(CameraActivity.this,uri,MediaUtils.IMAGE_CROP,MediaUtils.FROM_CAMERA);
+            }else {
+                iv_CropImage.setVisibility(View.VISIBLE);
+                iv_CropImage.setImageBitmap(bitmap);
             }
         }
     };
@@ -84,6 +87,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    private ImageView iv_CropImage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,6 +102,8 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         }
         CorpUtils.getInstence().AddFinishListener(this);
         mFocusView = (FocusView) findViewById(R.id.view_focus);
+
+        iv_CropImage= (ImageView) findViewById(R.id.cropImageView);
 
         fl_preview = (RelativeLayout) findViewById(R.id.fl_preview);
         RecordVideoStatueCircle btn_capture = (RecordVideoStatueCircle) findViewById(R.id.iv_capture);
@@ -171,6 +177,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
 
     @Override
     protected void onResume() {
+        iv_CropImage.setVisibility(View.GONE);
         mInstance.start(this);
         portrait = mInstance.isPortrait();
         sb1.setProgress(0);
@@ -196,6 +203,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         super.onPause();
     }
 
+    private Bitmap bitmap;
     public Camera.PictureCallback mPicture = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(final byte[] data, Camera camera) {
@@ -221,7 +229,8 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                                data.length);
                        Matrix matrix = new Matrix();
                        matrix.setRotate(90);
-                       Bitmap bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
+                       bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
+                       mHandler.sendEmptyMessage(55);
                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                        /**
                         * 获取图片的旋转角度，有些系统把拍照的图片旋转了，有的没有旋转

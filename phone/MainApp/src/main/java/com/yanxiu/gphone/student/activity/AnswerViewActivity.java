@@ -391,7 +391,9 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     }
 
     private void handleUploadSubjectiveImage(){
-        networkJudge();
+        if (networkJudge()) {
+            return;
+        };
         subjectiveList = QuestionUtils.findSubjectiveQuesition(dataSources);
         mLoadingDialog.setmCurrent(subjectiveQIndex);
         mLoadingDialog.setmNum(subjectiveList.size());
@@ -504,7 +506,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 //        ft.replace(R.id.content_answer_card, new Fragment()).commitAllowingStateLoss();
     }
 
-    private void networkJudge() {
+    private boolean networkJudge() {
         if (!NetWorkTypeUtils.isNetAvailable()) {
             errorDialog = new CommonDialog(AnswerViewActivity.this, AnswerViewActivity.this.getResources().getString(R.string.question_network_error),
                     AnswerViewActivity.this.getResources().getString(R.string.question_continue_finish),
@@ -529,7 +531,9 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                         }
                     });
             errorDialog.show();
-            return;
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -539,7 +543,9 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
             return;
         }
 
-        networkJudge();
+        if (networkJudge()) {
+            return;
+        };
 //        if (!IsSubmitAnswer){
 //            IsSubmitAnswer=true;
 //            return;
