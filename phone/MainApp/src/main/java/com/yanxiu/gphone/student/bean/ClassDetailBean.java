@@ -24,6 +24,7 @@ public class ClassDetailBean extends SrtBaseBean{
     private int periodid;
     private int areaid;
     private int cityid;
+    private String gradename;
     private int provinceid;
     private int gradeid;
     private int schoolid;
@@ -38,6 +39,14 @@ public class ClassDetailBean extends SrtBaseBean{
     private String schoolname;
     private int stageid;
     private int status;
+
+    public String getGradename() {
+        return gradename;
+    }
+
+    public void setGradename(String gradename) {
+        this.gradename = gradename;
+    }
 
     public int getAreaid() {
         return areaid;

@@ -52,6 +52,7 @@
                         android:layout_marginTop="@dimen/dimen_12"
                         android:layout_marginLeft="@dimen/dimen_20"
                         android:layout_marginRight="@dimen/dimen_12"
+                        android:paddingBottom="@dimen/dimen_5"
                         android:layout_marginBottom="@dimen/dimen_12"
                         android:layout_gravity="center"
                         android:textColor="@color/color_black"

@@ -92,7 +92,7 @@ public class RegisterAddGroupActivity extends YanxiuBaseActivity implements View
         TextView school_name = (TextView) findViewById(R.id.school_name);
         school_name.setText("学校：" + detailBean.getSchoolname());
         TextView class_name = (TextView) findViewById(R.id.class_name);
-        class_name.setText("班级：" + detailBean.getName());
+        class_name.setText("班级：" + detailBean.getGradename()+" "+detailBean.getName());
         TextView teacher_name = (TextView) findViewById(R.id.teacher_name);
         teacher_name.setText("老师：" + detailBean.getAdminName());
         name = (EditText) findViewById(R.id.name);

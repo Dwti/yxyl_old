@@ -401,6 +401,9 @@ public class FillBlanksFramelayout extends FrameLayout implements
         // 用trickTextView来计算高度
         trickTextView.setText("(-)");
         Layout layout3 = trickTextView.getLayout();
+        if (layout3==null){
+            return;
+        }
         float height = layout3.getLineBottom(0) - layout3.getLineTop(0);
         float ascent = Math.abs(layout3.getLineAscent(0));
         float top = layout.getLineBaseline(line) - ascent + 2;
