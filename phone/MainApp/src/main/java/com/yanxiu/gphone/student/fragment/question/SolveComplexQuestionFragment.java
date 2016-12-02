@@ -134,7 +134,7 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
         onPageCount(count);
         vpAnswer.setAdapter(adapter);
         adapter.setViewPager(vpAnswer);
-        vpAnswer.setCurrentItem(childPagerIndex);
+//        vpAnswer.setCurrentItem(childPagerIndex);
         if (flag){
             flag=false;
             ((QuestionsListener) getActivity()).flipNextPager(adapter);
@@ -167,7 +167,7 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
                     vpAnswer.setCurrentItem(YanXiuConstant.index_position);
                     YanXiuConstant.index_position=0;
                 } else {
-                    vpAnswer.setCurrentItem(adapter.getCount() - 1);
+//                    vpAnswer.setCurrentItem(adapter.getCount() - 1);
                 }
             }
         }else {
@@ -266,13 +266,19 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
 //        }
 
         if (vpAnswer != null) {
-            if (!is_reduction) {
-                vpAnswer.setCurrentItem(YanXiuConstant.index_position);
-                YanXiuConstant.index_position=0;
-            } else {
-                vpAnswer.setCurrentItem(adapter.getCount() - 1);
-            }
+                BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
+                if (CorpUtils.getInstence().getCorpListener()!=null){
+                    if (fragment instanceof SubjectiveQuestionFragment){
+                        if (((CorpListener)fragment).hashCode()==CorpUtils.getInstence().getCorpListener().hashCode()){
+                            vpAnswer.setCurrentItem(YanXiuConstant.index_position);
+                            YanXiuConstant.index_position=0;
+                        }
+                    }
+                }else {
+                    vpAnswer.setCurrentItem(0);
+                }
         }
+
         setViewPagerCurrent();
     }
     @Override

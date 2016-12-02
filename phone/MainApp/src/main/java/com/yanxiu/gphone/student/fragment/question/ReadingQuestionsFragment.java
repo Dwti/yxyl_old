@@ -196,7 +196,7 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
                 vpAnswer.setCurrentItem(YanXiuConstant.index_position);
                 YanXiuConstant.index_position=0;
             } else {
-                vpAnswer.setCurrentItem(adapter.getCount() - 1);
+//                vpAnswer.setCurrentItem(adapter.getCount() - 1);
             }
         }
         if (!isVisibleToUser){
@@ -295,10 +295,19 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
 
         if (vpAnswer != null) {
             if (!is_reduction) {
-                vpAnswer.setCurrentItem(YanXiuConstant.index_position);
-                YanXiuConstant.index_position=0;
+                BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
+                if (CorpUtils.getInstence().getCorpListener()!=null){
+                    if (fragment instanceof SubjectiveQuestionFragment){
+                        if (((CorpListener)fragment).hashCode()==CorpUtils.getInstence().getCorpListener().hashCode()){
+                            vpAnswer.setCurrentItem(YanXiuConstant.index_position);
+                            YanXiuConstant.index_position=0;
+                        }
+                    }
+                }else {
+                    vpAnswer.setCurrentItem(0);
+                }
             } else {
-                vpAnswer.setCurrentItem(adapter.getCount() - 1);
+//                vpAnswer.setCurrentItem(adapter.getCount() - 1);
             }
         }
     }
