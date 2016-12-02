@@ -2,16 +2,19 @@ package com.yanxiu.gphone.student.view.question.fillblanks;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.Layout;
 import android.text.Spanned;
 import android.util.AttributeSet;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -98,7 +101,21 @@ public class FillBlanksFramelayout extends FrameLayout implements
         }
 
         // 10 - 22 之间
-        mAnswerLength = Math.max(Math.min(22, mAnswerLength), 10);
+        int maxWidth = 22;
+        int minWidth = 10;
+        WindowManager wm = (WindowManager) mCtx.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int screenWidth = size.x;
+
+        if (screenWidth <= 480) {
+            // 要保证占位符号能在一行内显示
+            minWidth = 6;
+            maxWidth = 16;
+        }
+
+        mAnswerLength = Math.max(Math.min(maxWidth, mAnswerLength), minWidth);
 
         // 这里不能使用space空格，因为html text里会省略连续空格
         mAnswerSb.append("o");
@@ -390,11 +407,8 @@ public class FillBlanksFramelayout extends FrameLayout implements
         float height = layout3.getLineBottom(0) - layout3.getLineTop(0);
         float ascent = Math.abs(layout3.getLineAscent(0));
         float top = layout.getLineBaseline(line) - ascent + 2;
-        float bottom = top + height - 4;
+        float bottom = top + height - 2;
 
-        //top = bottom - height;
-//        left -= width;
-//        right += width;
         RelativeLayout.LayoutParams params;
         params = new RelativeLayout.LayoutParams((int) (right - left), (int) (bottom - top));
         params.leftMargin = (int) left;
