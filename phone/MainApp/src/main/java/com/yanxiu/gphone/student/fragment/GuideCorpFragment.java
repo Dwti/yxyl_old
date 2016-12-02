@@ -22,6 +22,8 @@ import com.yanxiu.gphone.student.utils.Utils;
 
 public class GuideCorpFragment extends Fragment{
     private DestoryListener listener;
+    private ImageView iv;
+    private View view;
 
     public interface DestoryListener{
         void DestoryListener();
@@ -31,16 +33,17 @@ public class GuideCorpFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.layout_guide_question,null);
-        final ImageView iv = (ImageView)view.findViewById(R.id.iv_guide_first_gesture);
-//        Glide.with(GuideCorpFragment.this)
-//                .load(R.drawable.first_corp_question)
-//                .asGif()
-//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-//                .into(iv_guide_first_gesture);
+        view=inflater.inflate(R.layout.layout_guide_question,null);
+        iv = (ImageView)view.findViewById(R.id.iv_guide_first_gesture);
+        return view;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
         ObjectAnimator y = ObjectAnimator.ofFloat(iv, "y", (Utils.getWindowHeight())*3/4, (Utils.getWindowHeight())*1/3);
         ObjectAnimator x = ObjectAnimator.ofFloat(iv, "x", Utils.getWindowWidth(), (Utils.getWindowWidth())/2);
-
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(x, y);
         animatorSet.setDuration(2000);
@@ -69,14 +72,12 @@ public class GuideCorpFragment extends Fragment{
             }
         });
         animatorSet.start();
-
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.DestoryListener();
             }
         });
-        return view;
     }
 
     public void setListener(DestoryListener listener){

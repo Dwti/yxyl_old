@@ -50,6 +50,8 @@ public class ConnectFragment extends BaseQuestionFragment implements PageIndex{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView =inflater.inflate(R.layout.fragment_connect,null);
         initview(rootView);
+        FragmentTransaction ft = ConnectFragment.this.getChildFragmentManager().beginTransaction();
+        ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
         selectTypeView();
         return rootView;
     }

@@ -327,7 +327,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         //int screenWidth = screenWidth = getWindowManager().getDefaultDisplay().getWidth();
         //int screenHeight = screenHeight = getWindowManager().getDefaultDisplay().getHeight();
         List<Camera.Size> list= params.getSupportedPictureSizes();
-        Camera.Size size=list.get(list.size()-1);
+        Camera.Size size=list.get(1);
         params.setPictureSize(size.width, size.height);
         camera.setParameters(params);
         //camera.setDisplayOrientation(90);
