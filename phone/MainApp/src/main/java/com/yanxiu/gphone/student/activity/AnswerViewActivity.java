@@ -391,6 +391,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     }
 
     private void handleUploadSubjectiveImage(){
+        networkJudge();
         subjectiveList = QuestionUtils.findSubjectiveQuesition(dataSources);
         mLoadingDialog.setmCurrent(subjectiveQIndex);
         mLoadingDialog.setmNum(subjectiveList.size());
@@ -503,38 +504,42 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 //        ft.replace(R.id.content_answer_card, new Fragment()).commitAllowingStateLoss();
     }
 
+    private void networkJudge() {
+        if (!NetWorkTypeUtils.isNetAvailable()) {
+            errorDialog = new CommonDialog(AnswerViewActivity.this, AnswerViewActivity.this.getResources().getString(R.string.question_network_error),
+                    AnswerViewActivity.this.getResources().getString(R.string.question_continue_finish),
+                    AnswerViewActivity.this.getResources().getString(R.string.question_cancel),
+                    new DelDialog.DelCallBack() {
+                        @Override
+                        public void del() {
+                            //2
+                            Intent intent = new Intent();
+                            setResult(RESULT_OK, intent);
+                            AnswerViewActivity.this.finish();
+                        }
+
+                        @Override
+                        public void sure() {
+                            //1
+                        }
+
+                        @Override
+                        public void cancel() {
+                            errorDialog.dismiss();
+                        }
+                    });
+            errorDialog.show();
+            return;
+        }
+    }
+
 
     private void submitAnswer() {
         if (dataSources == null) {
             return;
         }
 
-        if (!NetWorkTypeUtils.isNetAvailable()) {
-            errorDialog = new CommonDialog(AnswerViewActivity.this, AnswerViewActivity.this.getResources().getString(R.string.question_network_error),
-                        AnswerViewActivity.this.getResources().getString(R.string.question_continue_finish),
-                        AnswerViewActivity.this.getResources().getString(R.string.question_cancel),
-                        new DelDialog.DelCallBack() {
-                            @Override
-                            public void del() {
-                                //2
-                                Intent intent = new Intent();
-                                setResult(RESULT_OK, intent);
-                                AnswerViewActivity.this.finish();
-                            }
-
-                            @Override
-                            public void sure() {
-                                //1
-                            }
-
-                            @Override
-                            public void cancel() {
-                                errorDialog.dismiss();
-                            }
-                        });
-                errorDialog.show();
-            return;
-        }
+        networkJudge();
 //        if (!IsSubmitAnswer){
 //            IsSubmitAnswer=true;
 //            return;
