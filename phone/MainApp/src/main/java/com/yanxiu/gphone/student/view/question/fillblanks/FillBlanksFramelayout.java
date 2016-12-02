@@ -101,18 +101,19 @@ public class FillBlanksFramelayout extends FrameLayout implements
         mAnswerLength = Math.max(Math.min(22, mAnswerLength), 10);
 
         // 这里不能使用space空格，因为html text里会省略连续空格
-        mAnswerSb.append("(");
-        for (int i = 0; i < mAnswerLength - 2; i++) {
-            mAnswerSb.append("--");
+        mAnswerSb.append("o");
+        for (int i = 0; i < mAnswerLength - 4; i++) {
+            mAnswerSb.append("o");
         }
-        mAnswerSb.append(")");
-
+        StringBuffer replacementString = new StringBuffer(mAnswerSb);
+        replacementString.append("o.");
+        mAnswerSb.append("o\\.");
 
         data = stem + "  \n";
         data = data + "  \n";
         data = data + "<p><br/></p>";
 
-        String desReplaceString = "&nbsp " + mAnswerSb + " &nbsp"; /* 防止在(---)之间换行 */
+        String desReplaceString = " &nbsp " + replacementString + " &nbsp "; /* 防止在(---)之间换行 */
         data = data.replace("(_)",desReplaceString);
 
         FillBlankImageGetterTrick getter = new FillBlankImageGetterTrick(tvFillBlank, mCtx);
@@ -234,7 +235,40 @@ public class FillBlanksFramelayout extends FrameLayout implements
      */
     private boolean judgeAnswerIsRight() {
         ArrayList<String> myAnswers = bean.getFillAnswers();
-        return CommonCoreUtil.compare(myAnswers, answers);
+        ArrayList<String> myCodeChangedAnswers = new ArrayList<String>();
+        ArrayList<String> codeChangedAnswers = new ArrayList<String>();
+        for (String s : answers) {
+            codeChangedAnswers.add(full2half(s));
+        }
+        for (String s : myAnswers) {
+            myCodeChangedAnswers.add(full2half(s));
+        }
+
+        return CommonCoreUtil.compare(myCodeChangedAnswers, codeChangedAnswers);
+    }
+
+    private static final char SBC_CHAR_START = 65281;
+    private static final char SBC_CHAR_END = 65374;
+    private static final int CONVERT_STEP = 65248;
+    private static final char SBC_SPACE = 12288;
+    private static final char DBC_SPACE = ' ';
+
+    private String full2half(String src) {
+        if (src == null) {
+            return src;
+        }
+        StringBuilder buf = new StringBuilder(src.length());
+        char[] ca = src.toCharArray();
+        for (int i = 0; i < src.length(); i++) {
+            if (ca[i] >= SBC_CHAR_START && ca[i] <= SBC_CHAR_END) {
+                buf.append((char) (ca[i] - CONVERT_STEP));
+            } else if (ca[i] == SBC_SPACE) {
+                buf.append(DBC_SPACE);
+            } else {
+                buf.append(ca[i]);
+            }
+        }
+        return buf.toString();
     }
 
     /**
@@ -255,7 +289,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
             if (!StringUtils.isEmpty(data)) {
                 Matcher matcher = pattern.matcher(c);
                 while (matcher.find()) {
-                    addEditText(matcher.start(), matcher.end());
+                    addEditText(matcher.start(), matcher.end(), c.length() - 1);
                 }
             }
             hideSoftInput();
@@ -341,60 +375,19 @@ public class FillBlanksFramelayout extends FrameLayout implements
     // 把需要扣掉的部分换成 EditText
     // 这个方法目前有点问题，用padding和用margin时居然不一致，不懂为什么，暂时只能2套方案取相对合适的
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    private void addEditText(int start, int end) {
-        // 去掉防止换行的空格前后空格，如果不加空格会出现换行问题
-        start--;
-        end++;
-
+    private void addEditText(int start, int end, int last) {
         Layout layout = tvFillBlank.getLayout();
+        int line = layout.getLineForOffset((int)((start + end) * 0.5));
+        float left = layout.getSecondaryHorizontal(start);
+        float right = layout.getPrimaryHorizontal(end) + 4;
 
-        int startLine = layout.getLineForOffset(start);
-        int endLine = layout.getLineForOffset(end);
-        assert startLine == endLine;
-        int line = startLine;
-
-        float left = layout.getSecondaryHorizontal(start) - 2/*避开底部括号*/;
-        float right = layout.getPrimaryHorizontal(end) + 2/*避开底部括号*/;
-
-        float top1 = layout.getLineTop(line);
-        float bottom1 = layout.getLineBottom(line);
-
-        // 有图片的情况下，line top算图片了，所以这里用tricky的方法，获得(_)的高度
-        // 现在文字和图片是底部对齐，目前暂时不知道怎么搞成居中对齐
-        final MyEdittext etForMeasure = new MyEdittext(mCtx);
-        etForMeasure.setSingleLine();
-        etForMeasure.setTextColor(mCtx.getResources().getColor(R.color.color_00b8b8));
-        etForMeasure.setTextSize(textSize);
-        etForMeasure.setBackground(mCtx.getResources().getDrawable(R.drawable.fill_blank_bg));
-        etForMeasure.setGravity(Gravity.CENTER);
-        setEditTextCusrorDrawable(etForMeasure);
-        etForMeasure.setText("(-)");
-        etForMeasure.measure(0, 0);
-        float height = etForMeasure.getMeasuredHeight();
-        etForMeasure.getBaseline();
-        Layout layoutForMeasure = etForMeasure.getLayout();
-        float ascent = Math.abs(layoutForMeasure.getLineAscent(0));
-        float descent = Math.abs(layoutForMeasure.getLineDescent(0));
-
-        float top2 = (float)layout.getLineBaseline(line) - height/(ascent + descent)*ascent;
-        float bottom2 = layout.getLineBaseline(line) + height/(ascent + descent)*descent;// + 2 /*避开底部括号*/;
-
-
-        float top = top1;
-        float bottom = Math.max(bottom1, bottom2);
-        if ((bottom2 - top2) < (bottom1 - top1)) {
-            top = top2;
-        }
-
-
+        // 用trickTextView来计算高度
         trickTextView.setText("(-)");
         Layout layout3 = trickTextView.getLayout();
-
-        height = layout3.getLineBottom(0) - layout3.getLineTop(0);
-        ascent = Math.abs(layout3.getLineAscent(0));
-
-        top = layout.getLineBaseline(line) - ascent;
-        bottom = top + height;
+        float height = layout3.getLineBottom(0) - layout3.getLineTop(0);
+        float ascent = Math.abs(layout3.getLineAscent(0));
+        float top = layout.getLineBaseline(line) - ascent + 2;
+        float bottom = top + height - 4;
 
         //top = bottom - height;
 //        left -= width;
@@ -411,6 +404,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
         et.setTextSize(textSize);
         et.setBackground(mCtx.getResources().getDrawable(R.drawable.fill_blank_bg));
         et.setGravity(Gravity.CENTER);
+        et.setFocusable(false);
         setEditTextCusrorDrawable(et);
         if (answerViewTypyBean == SubjectExercisesItemBean.RESOLUTION || answerViewTypyBean == SubjectExercisesItemBean.WRONG_SET) {
             et.setEnabled(false);
@@ -418,13 +412,14 @@ public class FillBlanksFramelayout extends FrameLayout implements
         }
         rlMark.addView(et, params);
 
-
+        // 用trickBottomEtView来保证rlMark能到最底
         if (trickBottomEtView != null) {
             rlMark.removeView(trickBottomEtView);
         }
         final MyEdittext et2 = new MyEdittext(mCtx);
         et2.setVisibility(View.INVISIBLE);
-        bottom = bottom1;
+        int lastLine = layout.getLineForOffset(last);
+        bottom = layout.getLineBottom(lastLine);
         RelativeLayout.LayoutParams params2;
         params2 = new RelativeLayout.LayoutParams((int) (right - left), (int) (bottom - top));
         params2.leftMargin = (int) left;

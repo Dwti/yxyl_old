@@ -6,6 +6,7 @@ import android.graphics.PointF;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
+import android.support.v4.content.ContextCompat;
 import android.util.FloatMath;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -20,6 +21,7 @@ import com.yanxiu.gphone.student.utils.Utils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback, Camera.AutoFocusCallback {
 
@@ -91,9 +93,13 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
     public Parameters getCameraParams() {
         if (mCamera != null) {
-            //获取相机的参数
-            mCamera.setDisplayOrientation(90);//设置相机旋转90
-            return mCamera.getParameters();
+            try {
+                //获取相机的参数
+                mCamera.setDisplayOrientation(90);//设置相机旋转90
+                return mCamera.getParameters();
+            } catch (Exception e) {
+                return null;
+            }
         }
         return null;
     }
