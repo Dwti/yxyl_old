@@ -499,6 +499,10 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             lgClassfyAnswers.setVisibility(View.GONE);
             vgClassfyAnswers.setVisibility(View.VISIBLE);
         }
+        FragmentTransaction ft = ClassfyQuestionFragment.this.getChildFragmentManager().beginTransaction();
+        ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
+
         selectTypeView();
+
     }
 }

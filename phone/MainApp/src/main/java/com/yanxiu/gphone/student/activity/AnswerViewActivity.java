@@ -656,7 +656,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 
     }
 
-
     public void removeFragment() {
         if (Configuration.isDebug() && btnWrongError != null) {
             btnWrongError.setVisibility(View.VISIBLE);
@@ -804,12 +803,9 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
             nextPager_onclick = 0;
         }
 
-
         tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(adapter.getTotalCount())));
         viewPagerLastPosition = position;
 //        changeCurrentSelData();
-
-
     }
 
     @Override
@@ -821,6 +817,9 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     public void selectViewPager() {
         LogInfo.log("geny", "selectViewPager " + (vpAnswer.getCurrentItem() + 1));
         vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
+        if (currentIndex == adapter.getCount() - 1) {
+            upAnswerCard();
+        }
     }
 
     public void calculateLastQuestionTime() {
