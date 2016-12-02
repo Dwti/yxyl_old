@@ -2,10 +2,13 @@ package com.yanxiu.gphone.student.HtmlParser;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.view.Display;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -106,7 +109,18 @@ public class FillBlankImageGetterTrick implements ImageGetterListener {
                 FillBlankImageGetterTrick.this.view.post(new Runnable() {
                     @Override
                     public void run() {
-                        FillBlankImageGetterTrick.this.view.setHeight((FillBlankImageGetterTrick.this.view.getHeight() + (int)(loadedImageheight * factor)));
+                        // 这里非常trick，但实在不知道为什么在两种手机上算出来的高度会有误差，只能暂时如此了
+                        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+                        Display display = wm.getDefaultDisplay();
+                        Point size = new Point();
+                        display.getSize(size);
+                        int screenWidth = size.x;
+                        if (screenWidth <= 480) {
+                            FillBlankImageGetterTrick.this.view.setHeight((FillBlankImageGetterTrick.this.view.getHeight() + (int)(loadedImageheight * factor)));
+                        } else {
+                            FillBlankImageGetterTrick.this.view.setHeight((FillBlankImageGetterTrick.this.view.getHeight() + (int)(drawable.getIntrinsicHeight())));
+                        }
+
                         FillBlankImageGetterTrick.this.view.setEllipsize(null);
                         FillBlankImageGetterTrick.this.view.requestLayout();
                         FillBlankImageGetterTrick.this.view.invalidate();
