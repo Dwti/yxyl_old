@@ -98,8 +98,7 @@ public class FillBlankImageGetterTrick implements ImageGetterListener {
                 Rect bounds = getDefaultImageBounds(context,result);
                 drawable.setBounds(0, 0, bounds.width(), bounds.height());
                 // 这里貌似有多线程问题？？？由于所有图片都用一个ImageGetter，所以factor会算错？
-                float factor = (float)(view.getWidth() - 10.f /*减去左右的margin*/) / (float)loadedImageWidth;
-                factor = Math.min(1.0f, factor);
+                final float factor = Math.min(1.0f, (float)(view.getWidth() / (float)loadedImageWidth));
                 drawable.setBounds(0, 0, (int)(loadedImageWidth * factor), (int)(loadedImageheight * factor));
                 urlDrawable.setBounds(0, 0, (int)(loadedImageWidth * factor), (int)(loadedImageheight * factor));
                 urlDrawable.drawable = drawable;
@@ -107,7 +106,7 @@ public class FillBlankImageGetterTrick implements ImageGetterListener {
                 FillBlankImageGetterTrick.this.view.post(new Runnable() {
                     @Override
                     public void run() {
-                        FillBlankImageGetterTrick.this.view.setHeight((FillBlankImageGetterTrick.this.view.getHeight() + drawable.getIntrinsicHeight()));
+                        FillBlankImageGetterTrick.this.view.setHeight((FillBlankImageGetterTrick.this.view.getHeight() + (int)(loadedImageheight * factor)));
                         FillBlankImageGetterTrick.this.view.setEllipsize(null);
                         FillBlankImageGetterTrick.this.view.requestLayout();
                         FillBlankImageGetterTrick.this.view.invalidate();
