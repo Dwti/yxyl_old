@@ -259,6 +259,8 @@
     <string name="question_submit">提交</string>
     <string name="question_finish">完成</string>
     <string name="question_network_error">当前网络异常，退出答题进度将无法保存</string>
+    <string name="question_save_network_error">保存失败，请检查网络后重试</string>
+    <string name="question_submit_network_error">作业上传失败，请检查网络后重试</string>
     <string name="question_continue_finish">继续退出</string>
     <string name="question_finish_title">提交成功</string>
     <string name="question_finish_hw_tips">请点击“确定”查看解析</string>
@@ -301,6 +303,7 @@
     <string name="view_resolution">查看解析</string>
     <string name="error_resolution">错题解析</string>
     <string name="practice_again">再练一组</string>
+    <string name="try_again">再试一次</string>
 
     <!--拍照 -->
     <string name="photo_tips">请拍照，或选择相册中的图片。</string>
