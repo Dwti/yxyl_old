@@ -183,15 +183,18 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
     private boolean IsFirst=true;
 
     private void setWrongQuestionTitle(int typeId) {
-        if (!ischild&&IsFirst){
-            tvQuestionTitleLeft.setText("" + 1);
-            tvQuestionTitle.setVisibility(View.VISIBLE);
-            tvQuestionTitleRight.setText("" + wrongCount);
-            IsFirst=false;
-        }else {
-            tvQuestionTitleLeft.setText("" + wrongId);
-            tvQuestionTitle.setVisibility(View.VISIBLE);
-            tvQuestionTitleRight.setText("" + wrongCount);
+        if (!ischild){
+            if (IsFirst) {
+                tvQuestionTitleLeft.setText("" + 1);
+                tvQuestionTitle.setVisibility(View.VISIBLE);
+                tvQuestionTitleRight.setText("" + wrongCount);
+                IsFirst = false;
+            }else {
+                tvQuestionTitleLeft.setText("" + wrongId);
+                tvQuestionTitle.setVisibility(View.VISIBLE);
+                tvQuestionTitleRight.setText("" + wrongCount);
+
+            }
         }
     }
 
