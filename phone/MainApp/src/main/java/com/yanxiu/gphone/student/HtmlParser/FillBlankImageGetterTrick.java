@@ -19,7 +19,9 @@ public class FillBlankImageGetterTrick implements ImageGetterListener {
     public interface Callback {
         public void onFinish();
     }
+
     private Callback callback;
+
     public void setCallback(Callback callback) {
         this.callback = callback;
     }
@@ -56,11 +58,10 @@ public class FillBlankImageGetterTrick implements ImageGetterListener {
         protected Bitmap doInBackground(String... params) {
             String source = params[0];
             DisplayImageOptions options = new DisplayImageOptions.Builder()
-                                                        .cacheInMemory(false)                        // 设置下载的图片是否缓存在内存中
-                                                        .cacheOnDisk(false)                       // 设置下载的图片是否缓存在SD卡中
-                                                        .build();
+                    .cacheInMemory(false)                        // 设置下载的图片是否缓存在内存中
+                    .cacheOnDisk(false)                       // 设置下载的图片是否缓存在SD卡中
+                    .build();
             Bitmap bitmap = ImageLoader.getInstance().loadImageSync(source, options);
-
 
 
             return bitmap;
@@ -72,11 +73,11 @@ public class FillBlankImageGetterTrick implements ImageGetterListener {
             final float density = context.getResources().getDisplayMetrics().density;
             float sizeScale;
             //按照240dip,对px和dp做处理
-            if(density == 3){
+            if (density == 3) {
                 sizeScale = (float) 2.5;
-            }else if(density == 2.5){
+            } else if (density == 2.5) {
                 sizeScale = (float) 2.0;
-            }else{
+            } else {
                 sizeScale = density;
             }
             loadedImageWidth = Math.round(bitmap.getWidth() * sizeScale);
@@ -88,27 +89,25 @@ public class FillBlankImageGetterTrick implements ImageGetterListener {
 
         @Override
         protected void onPostExecute(final Bitmap result) {
-            if (result != null) {
-                if (result == null) {
-                    if (callback != null)
-                    {
-                        callback.onFinish();
-                        return;
-                    }
+            if (result == null) {
+                if (callback != null) {
+                    callback.onFinish();
+                    return;
                 }
+            }
 
-                final Drawable drawable=new BitmapDrawable(result);
-                Rect bounds = getDefaultImageBounds(context,result);
-                drawable.setBounds(0, 0, bounds.width(), bounds.height());
-                // 这里貌似有多线程问题？？？由于所有图片都用一个ImageGetter，所以factor会算错？
-                final float factor = Math.min(1.0f, (float)(view.getWidth() / (float)loadedImageWidth));
-                final int width = Math.round(loadedImageWidth * factor);
-                final int height = Math.round(loadedImageheight * factor);
-                drawable.setBounds(0, 0, width, height);
-
+            if (result != null) {
                 FillBlankImageGetterTrick.this.view.post(new Runnable() {
                     @Override
                     public void run() {
+                        final Drawable drawable = new BitmapDrawable(result);
+                        Rect bounds = getDefaultImageBounds(context, result);
+                        drawable.setBounds(0, 0, bounds.width(), bounds.height());
+                        // 这里貌似有多线程问题？？？由于所有图片都用一个ImageGetter，所以factor会算错？
+                        final float factor = Math.min(1.0f, (float) (view.getWidth() / (float) loadedImageWidth));
+                        final int width = Math.round(loadedImageWidth * factor);
+                        final int height = Math.round(loadedImageheight * factor);
+                        drawable.setBounds(0, 0, width, height);
 
                         drawable.setBounds(0, 0, width, height);
                         urlDrawable.setBounds(0, 0, width, height);
@@ -121,9 +120,9 @@ public class FillBlankImageGetterTrick implements ImageGetterListener {
                         display.getSize(size);
                         int screenWidth = size.x;
                         if (screenWidth <= 480) {
-                            FillBlankImageGetterTrick.this.view.setHeight((FillBlankImageGetterTrick.this.view.getHeight() + (int)(loadedImageheight * factor)));
+                            FillBlankImageGetterTrick.this.view.setHeight((FillBlankImageGetterTrick.this.view.getHeight() + (int) (loadedImageheight * factor)));
                         } else {
-                            FillBlankImageGetterTrick.this.view.setHeight((FillBlankImageGetterTrick.this.view.getHeight() + (int)(drawable.getIntrinsicHeight())));
+                            FillBlankImageGetterTrick.this.view.setHeight((FillBlankImageGetterTrick.this.view.getHeight() + (int) (drawable.getIntrinsicHeight())));
                         }
 
                         FillBlankImageGetterTrick.this.view.setHeight(FillBlankImageGetterTrick.this.view.getHeight() + drawable.getIntrinsicHeight());
@@ -136,8 +135,6 @@ public class FillBlankImageGetterTrick implements ImageGetterListener {
                         }
                     }
                 });
-
-
             }
         }
     }
