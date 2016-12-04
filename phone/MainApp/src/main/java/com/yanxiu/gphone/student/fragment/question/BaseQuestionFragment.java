@@ -30,6 +30,8 @@ import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.*;
  */
 public class BaseQuestionFragment extends Fragment implements QuestionsListener {
     protected QuestionEntity questionsEntity;
+    protected QuestionsListener listener;
+
 
     protected int answerViewTypyBean;
     private long startTime, endTime;

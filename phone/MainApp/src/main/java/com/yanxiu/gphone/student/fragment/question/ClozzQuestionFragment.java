@@ -303,7 +303,7 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
 
     @Override
     public void flipNextPager(QuestionsListener listener) {
-
+        this.listener=listener;
     }
 
     @Override

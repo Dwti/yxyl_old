@@ -60,6 +60,7 @@ import com.yanxiu.gphone.student.requestTask.RequestSubmitQuesitonTask;
 import com.yanxiu.gphone.student.utils.Configuration;
 import com.yanxiu.gphone.student.utils.QuestionUtils;
 import com.yanxiu.gphone.student.utils.Util;
+import com.yanxiu.gphone.student.utils.Utils;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.CommonDialog;
 import com.yanxiu.gphone.student.view.DelDialog;
@@ -100,7 +101,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     public int currentIndex = 0;
 
     private CommonDialog dialog;
-    private CommonDialog errorDialog;
 
     public static int childIndex=0;   //当前显示的子题的位置（如果有子题的话）
     private int viewPagerLastPosition;
@@ -391,7 +391,9 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     }
 
     private void handleUploadSubjectiveImage(){
-        networkJudge();
+        if (Utils.networkJudge(this)) {
+            return;
+        };
         subjectiveList = QuestionUtils.findSubjectiveQuesition(dataSources);
         mLoadingDialog.setmCurrent(subjectiveQIndex);
         mLoadingDialog.setmNum(subjectiveList.size());
@@ -504,42 +506,15 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 //        ft.replace(R.id.content_answer_card, new Fragment()).commitAllowingStateLoss();
     }
 
-    private void networkJudge() {
-        if (!NetWorkTypeUtils.isNetAvailable()) {
-            errorDialog = new CommonDialog(AnswerViewActivity.this, AnswerViewActivity.this.getResources().getString(R.string.question_network_error),
-                    AnswerViewActivity.this.getResources().getString(R.string.question_continue_finish),
-                    AnswerViewActivity.this.getResources().getString(R.string.question_cancel),
-                    new DelDialog.DelCallBack() {
-                        @Override
-                        public void del() {
-                            //2
-                            Intent intent = new Intent();
-                            setResult(RESULT_OK, intent);
-                            AnswerViewActivity.this.finish();
-                        }
-
-                        @Override
-                        public void sure() {
-                            //1
-                        }
-
-                        @Override
-                        public void cancel() {
-                            errorDialog.dismiss();
-                        }
-                    });
-            errorDialog.show();
-            return;
-        }
-    }
-
 
     private void submitAnswer() {
         if (dataSources == null) {
             return;
         }
 
-        networkJudge();
+        if (Utils.networkJudge(this)) {
+            return;
+        };
 //        if (!IsSubmitAnswer){
 //            IsSubmitAnswer=true;
 //            return;
@@ -660,7 +635,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         isSubmitFinish = true;
 
     }
-
 
     public void removeFragment() {
         if (Configuration.isDebug() && btnWrongError != null) {
@@ -809,12 +783,9 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
             nextPager_onclick = 0;
         }
 
-
         tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(adapter.getTotalCount())));
         viewPagerLastPosition = position;
 //        changeCurrentSelData();
-
-
     }
 
     @Override
@@ -826,6 +797,9 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     public void selectViewPager() {
         LogInfo.log("geny", "selectViewPager " + (vpAnswer.getCurrentItem() + 1));
         vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
+        if (currentIndex == adapter.getCount() - 1) {
+            upAnswerCard();
+        }
     }
 
     public void calculateLastQuestionTime() {

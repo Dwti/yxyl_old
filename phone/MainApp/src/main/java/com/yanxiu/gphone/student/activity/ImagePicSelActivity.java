@@ -40,7 +40,7 @@ import java.util.List;
  //            picSelText.setText(String.format(getResources().getString(R.string.has_sel), ""+drr.size()));
  //        }
  */
-public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumListener, CorpFinishListener {
+public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumListener {
     private static final String TAG=ImagePicSelActivity.class.getSimpleName();
     private GridView gridView;
     private TextView picSelText;
@@ -75,7 +75,7 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
 
         picSelText.setText(String.format(getResources().getString(R.string.has_sel), "" + ShareBitmapUtils.getInstance().getRecordBucketPicSelNums()));
         initData();
-        CorpUtils.getInstence().AddFinishListener(this);
+        //CorpUtils.getInstence().AddFinishListener(this);
         return view;
     }
 
@@ -163,7 +163,7 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
                 isAddList=true;
                 if(!TextUtils.isEmpty(ImageBucketActivity.mSelectedImagePath))
                     MediaUtils.cropImage(ImagePicSelActivity.this, Uri.fromFile(new File(ImageBucketActivity.mSelectedImagePath)),MediaUtils.IMAGE_CROP,MediaUtils.FROM_PICTURE);
-                destoryData();
+                executeFinish();
                 break;
             case R.id.pub_top_left:
                 ActivityJumpUtils.jumpToImageBucketActivityForResult(ImagePicSelActivity.this, MediaUtils.OPEN_SYSTEM_PIC_BUILD_CAMERA);
@@ -172,10 +172,11 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
         }
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
         this.finish();
     }
+    */
 
     @Override
     protected void destoryData() {
@@ -219,8 +220,8 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
         }
     }
 
-    @Override
+    /*@Override
     public void onfinish() {
         this.finish();
-    }
+    }*/
 }
