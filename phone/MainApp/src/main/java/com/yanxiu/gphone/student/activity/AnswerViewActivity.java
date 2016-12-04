@@ -100,7 +100,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     public int currentIndex = 0;
 
     private CommonDialog dialog;
-    private CommonDialog errorDialog;
+        private CommonDialog errorDialog;
 
     public static int childIndex=0;   //当前显示的子题的位置（如果有子题的话）
     private int viewPagerLastPosition;
