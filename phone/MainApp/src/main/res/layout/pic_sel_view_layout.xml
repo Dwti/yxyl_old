@@ -13,8 +13,8 @@
 
     <ImageView
         android:id="@+id/answerViewFlag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/dimen_28"
+        android:layout_height="@dimen/dimen_30"
         android:src="@drawable/icon_question_a"
         android:layout_marginLeft="@dimen/dimen_10"
         android:layout_marginTop="@dimen/dimen_18"

@@ -1,6 +1,7 @@
 package com.yanxiu.gphone.student.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -27,6 +28,7 @@ import com.yanxiu.gphone.student.view.picsel.inter.PicNumListener;
 import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
