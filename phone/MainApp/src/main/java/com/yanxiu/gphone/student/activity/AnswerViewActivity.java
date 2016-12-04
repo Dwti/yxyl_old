@@ -60,6 +60,7 @@ import com.yanxiu.gphone.student.requestTask.RequestSubmitQuesitonTask;
 import com.yanxiu.gphone.student.utils.Configuration;
 import com.yanxiu.gphone.student.utils.QuestionUtils;
 import com.yanxiu.gphone.student.utils.Util;
+import com.yanxiu.gphone.student.utils.Utils;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.CommonDialog;
 import com.yanxiu.gphone.student.view.DelDialog;
@@ -100,7 +101,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     public int currentIndex = 0;
 
     private CommonDialog dialog;
-    private CommonDialog errorDialog;
 
     public static int childIndex=0;   //当前显示的子题的位置（如果有子题的话）
     private int viewPagerLastPosition;
@@ -391,7 +391,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     }
 
     private void handleUploadSubjectiveImage(){
-        if (networkJudge()) {
+        if (Utils.networkJudge(this)) {
             return;
         };
         subjectiveList = QuestionUtils.findSubjectiveQuesition(dataSources);
@@ -506,44 +506,13 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 //        ft.replace(R.id.content_answer_card, new Fragment()).commitAllowingStateLoss();
     }
 
-    private boolean networkJudge() {
-        if (!NetWorkTypeUtils.isNetAvailable()) {
-            errorDialog = new CommonDialog(AnswerViewActivity.this, AnswerViewActivity.this.getResources().getString(R.string.question_network_error),
-                    AnswerViewActivity.this.getResources().getString(R.string.question_continue_finish),
-                    AnswerViewActivity.this.getResources().getString(R.string.question_cancel),
-                    new DelDialog.DelCallBack() {
-                        @Override
-                        public void del() {
-                            //2
-                            Intent intent = new Intent();
-                            setResult(RESULT_OK, intent);
-                            AnswerViewActivity.this.finish();
-                        }
-
-                        @Override
-                        public void sure() {
-                            //1
-                        }
-
-                        @Override
-                        public void cancel() {
-                            errorDialog.dismiss();
-                        }
-                    });
-            errorDialog.show();
-            return true;
-        } else {
-            return false;
-        }
-    }
-
 
     private void submitAnswer() {
         if (dataSources == null) {
             return;
         }
 
-        if (networkJudge()) {
+        if (Utils.networkJudge(this)) {
             return;
         };
 //        if (!IsSubmitAnswer){

@@ -1,6 +1,8 @@
 package com.yanxiu.gphone.student.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -9,7 +11,12 @@ import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
+import com.common.core.utils.NetWorkTypeUtils;
+import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.YanxiuApplication;
+import com.yanxiu.gphone.student.activity.AnswerViewActivity;
+import com.yanxiu.gphone.student.view.CommonDialog;
+import com.yanxiu.gphone.student.view.DelDialog;
 
 import java.io.File;
 
@@ -153,6 +160,38 @@ public class Utils {
                 .getSystemService(Context.WINDOW_SERVICE);
         int height = wm.getDefaultDisplay().getHeight();
         return height;
+    }
+
+    private static CommonDialog errorDialog;
+    public static boolean networkJudge(final Activity activity) {
+        if (!NetWorkTypeUtils.isNetAvailable()) {
+            errorDialog = new CommonDialog(activity, activity.getResources().getString(R.string.question_network_error),
+                    activity.getResources().getString(R.string.question_continue_finish),
+                    activity.getResources().getString(R.string.question_cancel),
+                    new DelDialog.DelCallBack() {
+                        @Override
+                        public void del() {
+                            //2
+                            Intent intent = new Intent();
+                            activity.setResult(activity.RESULT_OK, intent);
+                            activity.finish();
+                        }
+
+                        @Override
+                        public void sure() {
+                            //1
+                        }
+
+                        @Override
+                        public void cancel() {
+                            errorDialog.dismiss();
+                        }
+                    });
+            errorDialog.show();
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
