@@ -460,8 +460,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                         if(bean != null && ((UploadImageBean)bean).getStatus() != null && ((UploadImageBean)bean).getStatus().getDesc() != null){
                             Util.showToast(((UploadImageBean) bean).getStatus().getDesc());
                         }else{
-                            Util.showToast(R.string.server_connection_erro);
-
+                            //Util.showToast(R.string.server_connection_erro);
+                            saveNetErrorDialog();
                         }
                     }
                 });
@@ -512,10 +512,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         if (dataSources == null) {
             return;
         }
-
-        if (Utils.networkJudge(this)) {
-            return;
-        };
 //        if (!IsSubmitAnswer){
 //            IsSubmitAnswer=true;
 //            return;
@@ -863,6 +859,30 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         }
 
         }catch (Exception e){}
+    }
+
+    private CommonDialog saveNetErrorDialog;
+    public void saveNetErrorDialog() {
+        saveNetErrorDialog = new CommonDialog(AnswerViewActivity.this, AnswerViewActivity.this.getResources().getString(R.string.question_save_network_error),
+                AnswerViewActivity.this.getResources().getString(R.string.try_again),
+                AnswerViewActivity.this.getResources().getString(R.string.question_cancel),
+                new DelDialog.DelCallBack() {
+                    @Override
+                    public void del() {
+                        handleUploadSubjectiveImage();
+                    }
+
+                    @Override
+                    public void sure() {
+                        //1
+                    }
+
+                    @Override
+                    public void cancel() {
+                        AnswerViewActivity.this.finish();
+                    }
+                });
+        saveNetErrorDialog.show();
     }
 
 

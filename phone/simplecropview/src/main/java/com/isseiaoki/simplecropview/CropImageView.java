@@ -1631,6 +1631,7 @@ public class CropImageView extends ImageView {
 
                 // Success
                 if (cropped != null) {
+
                     cropped = scaleBitmapIfNeeded(cropped);
                     final Bitmap tmp = cropped;
                     mOutputImageWidth = tmp.getWidth();
