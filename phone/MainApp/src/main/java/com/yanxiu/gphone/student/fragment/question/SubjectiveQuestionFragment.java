@@ -231,6 +231,13 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         if (bean == null) {
             bean = questionsEntity.getAnswerBean();
         }
+
+        if (CorpUtils.getInstence().getCorpListener()!=null){
+                if (((CorpListener)this).hashCode()==CorpUtils.getInstence().getCorpListener().hashCode()){
+                    YanXiuConstant.index_position=0;
+                }
+        }
+
         //EventBus.getDefault().unregister(this);
     }
 

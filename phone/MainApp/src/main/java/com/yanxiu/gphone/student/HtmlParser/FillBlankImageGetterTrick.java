@@ -56,8 +56,8 @@ public class FillBlankImageGetterTrick implements ImageGetterListener {
         protected Bitmap doInBackground(String... params) {
             String source = params[0];
             DisplayImageOptions options = new DisplayImageOptions.Builder()
-                                                        .cacheInMemory(true)                        // 设置下载的图片是否缓存在内存中
-                                                        .cacheOnDisk(true)                       // 设置下载的图片是否缓存在SD卡中
+                                                        .cacheInMemory(false)                        // 设置下载的图片是否缓存在内存中
+                                                        .cacheOnDisk(false)                       // 设置下载的图片是否缓存在SD卡中
                                                         .build();
             Bitmap bitmap = ImageLoader.getInstance().loadImageSync(source, options);
 
@@ -102,13 +102,18 @@ public class FillBlankImageGetterTrick implements ImageGetterListener {
                 drawable.setBounds(0, 0, bounds.width(), bounds.height());
                 // 这里貌似有多线程问题？？？由于所有图片都用一个ImageGetter，所以factor会算错？
                 final float factor = Math.min(1.0f, (float)(view.getWidth() / (float)loadedImageWidth));
-                drawable.setBounds(0, 0, (int)(loadedImageWidth * factor), (int)(loadedImageheight * factor));
-                urlDrawable.setBounds(0, 0, (int)(loadedImageWidth * factor), (int)(loadedImageheight * factor));
-                urlDrawable.drawable = drawable;
+                final int width = Math.round(loadedImageWidth * factor);
+                final int height = Math.round(loadedImageheight * factor);
+                drawable.setBounds(0, 0, width, height);
 
                 FillBlankImageGetterTrick.this.view.post(new Runnable() {
                     @Override
                     public void run() {
+
+                        drawable.setBounds(0, 0, width, height);
+                        urlDrawable.setBounds(0, 0, width, height);
+                        urlDrawable.drawable = drawable;
+
                         // 这里非常trick，但实在不知道为什么在两种手机上算出来的高度会有误差，只能暂时如此了
                         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
                         Display display = wm.getDefaultDisplay();
@@ -120,6 +125,8 @@ public class FillBlankImageGetterTrick implements ImageGetterListener {
                         } else {
                             FillBlankImageGetterTrick.this.view.setHeight((FillBlankImageGetterTrick.this.view.getHeight() + (int)(drawable.getIntrinsicHeight())));
                         }
+
+                        FillBlankImageGetterTrick.this.view.setHeight(FillBlankImageGetterTrick.this.view.getHeight() + drawable.getIntrinsicHeight());
 
                         FillBlankImageGetterTrick.this.view.setEllipsize(null);
                         FillBlankImageGetterTrick.this.view.requestLayout();

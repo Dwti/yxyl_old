@@ -44,6 +44,7 @@ import com.yanxiu.gphone.student.requestTask.RequestGetQReportTask;
 import com.yanxiu.gphone.student.requestTask.RequestSubmitQuesitonTask;
 import com.yanxiu.gphone.student.utils.QuestionUtils;
 import com.yanxiu.gphone.student.utils.Util;
+import com.yanxiu.gphone.student.utils.Utils;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.utils.statistics.DataStatisticsUploadManager;
 import com.yanxiu.gphone.student.view.CommonDialog;
@@ -311,6 +312,9 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
 
 
     private void handleUploadSubjectiveImage(){
+        if (Utils.networkJudge(getActivity())) {
+            return;
+        };
         subjectiveList = QuestionUtils.findSubjectiveQuesition(dataSources);
         mLoadingDialog.setmCurrent(subjectiveQIndex);
         mLoadingDialog.setmNum(subjectiveList.size());

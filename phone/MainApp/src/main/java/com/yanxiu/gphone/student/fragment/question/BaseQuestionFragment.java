@@ -188,6 +188,10 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
             tvQuestionTitle.setVisibility(View.VISIBLE);
             tvQuestionTitleRight.setText("" + wrongCount);
             IsFirst=false;
+        }else {
+            tvQuestionTitleLeft.setText("" + wrongId);
+            tvQuestionTitle.setVisibility(View.VISIBLE);
+            tvQuestionTitleRight.setText("" + wrongCount);
         }
     }
 

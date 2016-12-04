@@ -30,6 +30,7 @@ public class YanxiuBaseActivity extends YanxiuCommonBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityManager.addActicity(this);
+        Log.d("asd",this.getClass().getName());
     }
     @Override
     protected void onResume() {
