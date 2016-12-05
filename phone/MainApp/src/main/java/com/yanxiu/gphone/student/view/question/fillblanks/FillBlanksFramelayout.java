@@ -94,6 +94,8 @@ public class FillBlanksFramelayout extends FrameLayout implements
      * 设置数据源，替换字符
      */
     public void setData(String stem) {
+        mAnswerLength = 0;
+
         for (String Str : answers) {
             if (mAnswerLength < Str.length()) {
                 mAnswerLength = Str.length();
@@ -119,7 +121,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
 
         // 这里不能使用space空格，因为html text里会省略连续空格
         mAnswerSb.append("o");
-        for (int i = 0; i < mAnswerLength - 4; i++) {
+        for (int i = 0; i < mAnswerLength + 1; i++) {
             mAnswerSb.append("o");
         }
         StringBuffer replacementString = new StringBuffer(mAnswerSb);
@@ -137,10 +139,10 @@ public class FillBlanksFramelayout extends FrameLayout implements
         getter.setCallback(this);
         txt = MyHtml.fromHtml(mCtx, data, getter, null, null, null);
         tvFillBlank.setText(txt);
-        if (!hasImageTagInHtmlText(data)) {
+        //if (!hasImageTagInHtmlText(data)) {
             ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
             this.getViewTreeObserver().addOnGlobalLayoutListener(listener);
-        }
+        //}
     }
 
     private void initView() {
@@ -298,15 +300,18 @@ public class FillBlanksFramelayout extends FrameLayout implements
             FillBlanksFramelayout.this.getViewTreeObserver().removeGlobalOnLayoutListener(
                     this);
             // 防止加入重复EditText
-            rlMark.removeAllViews();
-
             String targetWord = mAnswerSb.toString();
             CharSequence c = tvFillBlank.getText().toString();
             Pattern pattern = Pattern.compile(targetWord);
             if (!StringUtils.isEmpty(data)) {
                 Matcher matcher = pattern.matcher(c);
                 while (matcher.find()) {
-                    addEditText(matcher.start(), matcher.end(), c.length() - 1);
+                    MyEdittext existEtView = (MyEdittext) rlMark.findViewWithTag(matcher.start());
+                    if (existEtView != null) {
+                        changeEditText(matcher.start(), matcher.end(), c.length() - 1, existEtView);
+                    } else {
+                        addEditText(matcher.start(), matcher.end(), c.length() - 1);
+                    }
                 }
             }
             hideSoftInput();
@@ -415,6 +420,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
         params.topMargin = (int) top;
 
         final MyEdittext et = new MyEdittext(mCtx);
+        et.setTag(start);
         et.setPadding(10, 0, 10, 0);
         et.setSingleLine();
         et.setTextColor(mCtx.getResources().getColor(R.color.color_00b8b8));
@@ -430,6 +436,47 @@ public class FillBlanksFramelayout extends FrameLayout implements
         rlMark.addView(et, params);
 
         // 用trickBottomEtView来保证rlMark能到最底
+        if (trickBottomEtView != null) {
+            rlMark.removeView(trickBottomEtView);
+        }
+        final MyEdittext et2 = new MyEdittext(mCtx);
+        et2.setVisibility(View.INVISIBLE);
+        int lastLine = layout.getLineForOffset(last);
+        bottom = layout.getLineBottom(lastLine);
+        RelativeLayout.LayoutParams params2;
+        params2 = new RelativeLayout.LayoutParams((int) (right - left), (int) (bottom - top));
+        params2.leftMargin = (int) left;
+        params2.topMargin = (int) top;
+
+        rlMark.addView(et2, params2);
+        trickBottomEtView = et2;
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private void changeEditText(int start, int end, int last, MyEdittext et) {
+        Layout layout = tvFillBlank.getLayout();
+        int line = layout.getLineForOffset((int)((start + end) * 0.5));
+        float left = layout.getSecondaryHorizontal(start);
+        float right = layout.getPrimaryHorizontal(end) + 4;
+
+        // 用trickTextView来计算高度
+        trickTextView.setText("(-)");
+        Layout layout3 = trickTextView.getLayout();
+        if (layout3==null){
+            return;
+        }
+        float height = layout3.getLineBottom(0) - layout3.getLineTop(0);
+        float ascent = Math.abs(layout3.getLineAscent(0));
+        float top = layout.getLineBaseline(line) - ascent + 2;
+        float bottom = top + height - 2;
+
+        RelativeLayout.LayoutParams params;
+        params = new RelativeLayout.LayoutParams((int) (right - left), (int) (bottom - top));
+        params.leftMargin = (int) left;
+        params.topMargin = (int) top;
+
+        et.setLayoutParams(params);
+
         if (trickBottomEtView != null) {
             rlMark.removeView(trickBottomEtView);
         }
