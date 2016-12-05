@@ -94,6 +94,8 @@ public class FillBlanksFramelayout extends FrameLayout implements
      * 设置数据源，替换字符
      */
     public void setData(String stem) {
+        mAnswerLength = 0;
+
         for (String Str : answers) {
             if (mAnswerLength < Str.length()) {
                 mAnswerLength = Str.length();
@@ -119,7 +121,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
 
         // 这里不能使用space空格，因为html text里会省略连续空格
         mAnswerSb.append("o");
-        for (int i = 0; i < mAnswerLength - 4; i++) {
+        for (int i = 0; i < mAnswerLength + 1; i++) {
             mAnswerSb.append("o");
         }
         StringBuffer replacementString = new StringBuffer(mAnswerSb);
@@ -137,10 +139,10 @@ public class FillBlanksFramelayout extends FrameLayout implements
         getter.setCallback(this);
         txt = MyHtml.fromHtml(mCtx, data, getter, null, null, null);
         tvFillBlank.setText(txt);
-        if (!hasImageTagInHtmlText(data)) {
+        //if (!hasImageTagInHtmlText(data)) {
             ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
             this.getViewTreeObserver().addOnGlobalLayoutListener(listener);
-        }
+        //}
     }
 
     private void initView() {
