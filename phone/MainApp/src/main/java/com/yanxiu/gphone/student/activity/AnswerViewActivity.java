@@ -458,7 +458,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                         //hideDialog();
 //                        loadingLayout.setViewGone();
                         if(bean != null && ((UploadImageBean)bean).getStatus() != null && ((UploadImageBean)bean).getStatus().getDesc() != null){
-                            Util.showToast(((UploadImageBean) bean).getStatus().getDesc());
+                            //Util.showToast(((UploadImageBean) bean).getStatus().getDesc());
+                            saveNetErrorDialog();
                         }else{
                             //Util.showToast(R.string.server_connection_erro);
                             saveNetErrorDialog();

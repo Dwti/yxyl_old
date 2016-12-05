@@ -41,6 +41,8 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.ImageView;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -1449,6 +1451,7 @@ public class CropImageView extends ImageView {
                     final Bitmap sampledBitmap = Utils.decodeSampledBitmapFromUri(getContext(),
                             mSourceUri,
                             requestSize);
+                    //final Bitmap sampledBitmap = ratio(tempBitmap, tempBitmap.getWidth()/2, tempBitmap.getHeight()/2);
                     mInputImageWidth = Utils.sInputImageWidth;
                     mInputImageHeight = Utils.sInputImageHeight;
                     mHandler.post(new Runnable() {

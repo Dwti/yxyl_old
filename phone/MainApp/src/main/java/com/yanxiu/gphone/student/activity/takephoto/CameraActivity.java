@@ -42,6 +42,7 @@ import com.yanxiu.gphone.student.utils.CorpUtils;
 import com.yanxiu.gphone.student.utils.MediaUtils;
 import com.yanxiu.gphone.student.utils.ScreenSwitchUtils;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
+import com.yanxiu.gphone.student.view.StudentLoadingLayout;
 import com.yanxiu.gphone.student.view.picsel.utils.AlbumHelper;
 import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
 import com.yanxiu.gphone.student.view.takephoto.CameraPreview;
@@ -71,6 +72,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
     private ScreenSwitchUtils mInstance;
     private boolean portrait;
     public static final int REQUEST_CODE = 0x519;
+    private StudentLoadingLayout loadingLayout;
     private android.os.Handler mHandler = new android.os.Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -79,8 +81,8 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                 Uri uri=MediaUtils.getOutputMediaFileUri(false);
                 MediaUtils.cropImage(CameraActivity.this,uri,MediaUtils.IMAGE_CROP,MediaUtils.FROM_CAMERA);
             }else {
-                iv_CropImage.setVisibility(View.VISIBLE);
-                iv_CropImage.setImageBitmap(bitmap);
+                //iv_CropImage.setVisibility(View.VISIBLE);
+                //iv_CropImage.setImageBitmap(bitmap);
             }
         }
     };
@@ -89,7 +91,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-    private ImageView iv_CropImage;
+    //private ImageView iv_CropImage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -105,7 +107,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         CorpUtils.getInstence().AddFinishListener(this);
         mFocusView = (FocusView) findViewById(R.id.view_focus);
 
-        iv_CropImage= (ImageView) findViewById(R.id.cropImageView);
+        loadingLayout = (StudentLoadingLayout) findViewById(R.id.loading_layout);
 
         fl_preview = (RelativeLayout) findViewById(R.id.fl_preview);
         RecordVideoStatueCircle btn_capture = (RecordVideoStatueCircle) findViewById(R.id.iv_capture);
@@ -175,11 +177,12 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client.disconnect();
+        loadingLayout.setViewGone();
     }
 
     @Override
     protected void onResume() {
-        iv_CropImage.setVisibility(View.GONE);
+        //iv_CropImage.setVisibility(View.GONE);
         mInstance.start(this);
         portrait = mInstance.isPortrait();
         sb1.setProgress(0);
@@ -219,6 +222,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                Thread thread = new Thread() {
                    @Override
                    public void run() {
+
                        File pictureFile = MediaUtils.getOutputMediaFile(true);
                        LogInfo.log("path", "111path" + pictureFile.getPath());
                        FileOutputStream fos = null;
@@ -233,7 +237,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                        matrix.setRotate(90);
                        bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
                        mHandler.sendEmptyMessage(55);
-                       bitmap = ratio(bitmap, bm.getWidth()/2, bm.getHeight()/2);
+                       bitmap = MediaUtils.ratio(bitmap, bm.getWidth()/2, bm.getHeight()/2);
                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                        /**
                         * 获取图片的旋转角度，有些系统把拍照的图片旋转了，有的没有旋转
@@ -279,49 +283,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         }
     };
 
-    /** 
-        * Compress image by size, this will modify image width/height. 
-        * Used to get thumbnail 
-        * 
-        * @param image 
-        * @param pixelW target pixel of width 
-        * @param pixelH target pixel of height 
-        * @return 
-        */ 
-              public Bitmap ratio(Bitmap image, float pixelW, float pixelH) { 
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
-            image.compress(Bitmap.CompressFormat.JPEG, 100, os); 
-            if( os.toByteArray().length / 1024>500) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
-                  os.reset();//重置baos即清空baos  
-                  image.compress(Bitmap.CompressFormat.JPEG, 50, os);//这里压缩50%，把压缩后的数据存放到baos中  
-                }  
-            ByteArrayInputStream is = new ByteArrayInputStream(os.toByteArray());
-            BitmapFactory.Options newOpts = new BitmapFactory.Options();  
-            //开始读入图片，此时把options.inJustDecodeBounds 设回true了  
-            newOpts.inJustDecodeBounds = true; 
-            newOpts.inPreferredConfig = Bitmap.Config.RGB_565;
-            Bitmap bitmap = BitmapFactory.decodeStream(is, null, newOpts);  
-            newOpts.inJustDecodeBounds = false;  
-            int w = newOpts.outWidth;  
-            int h = newOpts.outHeight;  
-            float hh = pixelH;// 设置高度为240f时，可以明显看到图片缩小了 
-            float ww = pixelW;// 设置宽度为120f，可以明显看到图片缩小了 
-            //缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可  
-            int be = 1;//be=1表示不缩放  
-            if (w > h && w > ww) {//如果宽度大的话根据宽度固定大小缩放  
-                  be = (int) (newOpts.outWidth / ww);  
-                } else if (w < h && h > hh) {//如果高度高的话根据宽度固定大小缩放  
-                  be = (int) (newOpts.outHeight / hh);  
-                }  
-            if (be <= 0) be = 1;  
-            newOpts.inSampleSize = be;//设置缩放比例  
-            //重新读入图片，注意此时已经把options.inJustDecodeBounds 设回false了  
-            is = new ByteArrayInputStream(os.toByteArray());  
-            bitmap = BitmapFactory.decodeStream(is, null, newOpts); 
-            //压缩好比例大小后再进行质量压缩 
-//   return compress(bitmap, maxSize); // 这里再进行质量压缩的意义不大，反而耗资源，删除 
-            return bitmap; 
-          } 
+
 
     /*private void handlerCameraBit(Activity activity,String id ) {
         if(ShareBitmapUtils.getInstance().getDrrMaps().get(id)!=null){
@@ -423,7 +385,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                 //camera.setParameters(params);
 //                camera.takePicture(null, null, mPicture);
                 camera.takePicture(null, null, mPicture);
-
+                loadingLayout.setViewType(StudentLoadingLayout.LoadingType.LAODING_COMMON);
                 break;
             case R.id.iv_flash://auto  on off 切换
                 if (flashMode == -1) {//auto
@@ -503,7 +465,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
 
     @Override
     public void onfinish() {
-        iv_CropImage.setImageBitmap(null);
+        //iv_CropImage.setImageBitmap(null);
         if (bitmap!=null) {
             bitmap.recycle();
             bitmap = null;
