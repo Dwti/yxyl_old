@@ -95,7 +95,7 @@
                      android:layout_height="match_parent"
                      android:background="@drawable/question_book_bg">
 
-            <android.support.v4.view.ViewPager
+            <com.yanxiu.gphone.student.view.MyViewPager
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/answer_viewpager"

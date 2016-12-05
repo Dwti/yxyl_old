@@ -65,6 +65,7 @@ import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.CommonDialog;
 import com.yanxiu.gphone.student.view.DelDialog;
 import com.yanxiu.gphone.student.view.LoadingDialog;
+import com.yanxiu.gphone.student.view.MyViewPager;
 import com.yanxiu.gphone.student.view.picsel.PicSelView;
 import com.yanxiu.gphone.student.view.question.GuideClassfyQuestionView;
 import com.yanxiu.gphone.student.view.question.GuideMultiQuestionView;
@@ -126,6 +127,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 
     private boolean isSubmitFinish = false;
     private boolean IsSubmitAnswer=true;
+    private boolean IsMoveToLeft=false;
 
     private int mNextIndex;
 
@@ -307,7 +309,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                 list.add("2");
                 PreferencesManager.getInstance().setFirstQuestion();
             }
-
             if (PreferencesManager.getInstance().getFirstMultiQuestion() && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getChildren() != null && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getChildren().size() > 0) {
                 list.add("1");
                 PreferencesManager.getInstance().setFirstMultiQuestion();
@@ -317,11 +318,18 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                 PreferencesManager.getInstance().setFirstClassfyQuestion();
             }
             setGif();
-
-
         }
         setReportError();
-
+        vpAnswer.setMoveListener(new MyViewPager.MoveListener() {
+            @Override
+            public void movelistener(int state) {
+                if (state==MyViewPager.Move_To_Left){
+                    IsMoveToLeft=true;
+                }else {
+                    IsMoveToLeft=false;
+                }
+            }
+        });
     }
 
 
@@ -510,6 +518,9 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 
 
     private void submitAnswer() {
+        if (!mLoadingDialog.isShowing()) {
+            mRootView.loading(true);
+        }
         if (dataSources == null) {
             return;
         }
@@ -527,12 +538,20 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
             @Override
             public void update(YanxiuBaseBean result) {
                 EventBus.getDefault().post(new GroupEventHWRefresh());
-                mLoadingDialog.dismiss();
+                if (mLoadingDialog.isShowing()) {
+                    mLoadingDialog.dismiss();
+                }else {
+                    mRootView.finish();
+                }
                 AnswerViewActivity.this.finish();
             }
             @Override
             public void dataError(int type, String msg) {
-                mLoadingDialog.dismiss();
+                if (mLoadingDialog.isShowing()) {
+                    mLoadingDialog.dismiss();
+                }else {
+                    mRootView.finish();
+                }
                 AnswerViewActivity.this.finish();
             }
         });
@@ -648,28 +667,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         ft.commit();
     }
 
-    private boolean IsMoveToLeft=false;
-    private float Down_X;
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()){
-            case MotionEvent.ACTION_DOWN:
-                IsMoveToLeft=false;
-                Down_X=event.getRawX();
-                break;
-            case MotionEvent.ACTION_MOVE:
-                float Move_X=event.getRawX();
-                if (Move_X>Down_X){
-                    IsMoveToLeft=false;
-                }else {
-                    IsMoveToLeft=true;
-                }
-                break;
-            case MotionEvent.ACTION_CANCEL:
-            case MotionEvent.ACTION_UP:
-                break;
-        }
         return super.onTouchEvent(event);
     }
 
