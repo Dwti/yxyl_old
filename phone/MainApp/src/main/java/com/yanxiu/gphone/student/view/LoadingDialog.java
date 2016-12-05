@@ -86,6 +86,6 @@ public class LoadingDialog extends Dialog{
 
     public void updateUI() {
         tv_progress_txt.setText(getmCurrent()+" / "+getmNum());
-        progressbar_progress.setProgress(getmCurrent()/getmNum()*100);
+        progressbar_progress.setProgress((getmCurrent()*100)/getmNum());
     }
 }

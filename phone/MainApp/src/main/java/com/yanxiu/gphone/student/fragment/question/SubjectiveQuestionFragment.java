@@ -66,7 +66,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
 
     private YXiuAnserTextView yXiuAnserTextView;
 
-    private QuestionEntity questionsEntity;
+//    private QuestionEntity questionsEntity;
 
     private Fragment resolutionFragment;
     private int answerViewTypyBean;
@@ -85,9 +85,9 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = getActivity();
-        this.questionsEntity = (getArguments() != null) ? (QuestionEntity) getArguments().getSerializable("questions") : null;
-        this.answerViewTypyBean = (getArguments() != null) ? getArguments().getInt("answerViewTypyBean") : null;
-        this.pageIndex = (getArguments() != null) ? getArguments().getInt("pageIndex") : 0;
+//        this.questionsEntity = (getArguments() != null) ? (QuestionEntity) getArguments().getSerializable("questions") : null;
+//        this.answerViewTypyBean = (getArguments() != null) ? getArguments().getInt("answerViewTypyBean") : null;
+//        this.pageIndex = (getArguments() != null) ? getArguments().getInt("pageIndex") : 0;
         this.isFirstSub = (getArguments() != null) ? getArguments().getBoolean("isFirstSub", false) : false;
 //        EventBus.getDefault().register(this);
 

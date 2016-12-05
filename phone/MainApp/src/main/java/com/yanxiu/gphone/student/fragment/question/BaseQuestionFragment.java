@@ -66,13 +66,31 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("当前", this.getClass().getName());
-        this.questionsEntity = (getArguments() != null) ? (QuestionEntity) getArguments().getSerializable("questions") : null;
-        this.answerViewTypyBean = (getArguments() != null) ? getArguments().getInt("answerViewTypyBean") : null;
-        this.pageIndex = (getArguments() != null) ? getArguments().getInt("pageIndex") : 0;
-        this.wrongId=(getArguments()!=null) ? getArguments().getInt("wrong") : 0;
-        this.wrongCount=(getArguments()!=null) ? getArguments().getInt("wrongCount") : 0;
+//        Log.d("当前", this.getClass().getName());
+        if (savedInstanceState!=null&&savedInstanceState.getSerializable("questionsEntity")!=null){
+            this.questionsEntity= (QuestionEntity) savedInstanceState.getSerializable("questionsEntity");
+            this.answerViewTypyBean=savedInstanceState.getInt("answerViewTypyBean",0);
+            this.pageIndex=savedInstanceState.getInt("pageIndex",0);
+            this.wrongId=savedInstanceState.getInt("wrongId",0);
+            this.wrongCount=savedInstanceState.getInt("wrongCount",0);
+        }else {
+            this.questionsEntity = (getArguments() != null) ? (QuestionEntity) getArguments().getSerializable("questions") : null;
+            this.answerViewTypyBean = (getArguments() != null) ? getArguments().getInt("answerViewTypyBean") : null;
+            this.pageIndex = (getArguments() != null) ? getArguments().getInt("pageIndex") : 0;
+            this.wrongId = (getArguments() != null) ? getArguments().getInt("wrong") : 0;
+            this.wrongCount = (getArguments() != null) ? getArguments().getInt("wrongCount") : 0;
+        }
         imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable("questionsEntity",questionsEntity);
+        outState.putInt("answerViewTypyBean",answerViewTypyBean);
+        outState.putInt("pageIndex",pageIndex);
+        outState.putInt("wrongId",wrongId);
+        outState.putInt("wrongCount",wrongCount);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
