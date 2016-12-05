@@ -102,8 +102,8 @@ public class FillBlanksFramelayout extends FrameLayout implements
             }
         }
 
-        // 10 - 22 之间
-        int maxWidth = 22;
+        // 10 - 18 之间
+        int maxWidth = 18;
         int minWidth = 10;
         WindowManager wm = (WindowManager) mCtx.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -114,7 +114,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
         if (screenWidth <= 480) {
             // 要保证占位符号能在一行内显示
             minWidth = 6;
-            maxWidth = 16;
+            maxWidth = 12;
         }
 
         mAnswerLength = Math.max(Math.min(maxWidth, mAnswerLength), minWidth);
