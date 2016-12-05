@@ -36,6 +36,7 @@ import com.yanxiu.gphone.student.utils.PublicLoadUtils;
 import com.yanxiu.gphone.student.utils.QuestionUtils;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
+import com.yanxiu.gphone.student.view.MyViewPager;
 import com.yanxiu.gphone.student.view.PublicLoadLayout;
 import com.yanxiu.gphone.student.view.StudentLoadingLayout;
 import com.yanxiu.gphone.student.view.YanxiuTypefaceTextView;
@@ -59,7 +60,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
     protected AnswerAdapter adapter;
 
     protected ImageView ivBack;
-    protected ViewPager vpAnswer;
+    protected MyViewPager vpAnswer;
     public YanxiuTypefaceTextView tvToptext;
     protected TextView tvPagerIndex;
     protected TextView tvPagerCount;
@@ -162,7 +163,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 
         loadingLayout = (StudentLoadingLayout) findViewById(R.id.loading_layout);
         ivFavCard = (ImageView) findViewById(R.id.iv_fav_card);
-        vpAnswer = (ViewPager) findViewById(R.id.answer_viewpager);
+        vpAnswer = (MyViewPager) findViewById(R.id.answer_viewpager);
         vpAnswer.setOffscreenPageLimit(4);
         tvPagerIndex = (TextView) findViewById(R.id.tv_pager_index);
         tvPagerCount = (TextView) this.findViewById(R.id.tv_pager_count);
