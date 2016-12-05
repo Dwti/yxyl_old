@@ -1,7 +1,10 @@
 package com.yanxiu.gphone.student.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.common.core.utils.BitmapUtil;
 import com.common.core.utils.CommonCoreUtil;
 import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.R;
@@ -27,6 +31,7 @@ import com.yanxiu.gphone.student.view.picsel.inter.PicNumListener;
 import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -161,9 +166,18 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
         switch (view.getId()){
             case R.id.doneText:
                 isAddList=true;
-                if(!TextUtils.isEmpty(ImageBucketActivity.mSelectedImagePath))
-                    MediaUtils.cropImage(ImagePicSelActivity.this, Uri.fromFile(new File(ImageBucketActivity.mSelectedImagePath)),MediaUtils.IMAGE_CROP,MediaUtils.FROM_PICTURE);
-                executeFinish();
+                if(!TextUtils.isEmpty(ImageBucketActivity.mSelectedImagePath)) {
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            Bitmap bitmap = BitmapFactory.decodeFile(ImageBucketActivity.mSelectedImagePath);
+                            bitmap = MediaUtils.ratio(bitmap, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
+                            BitmapUtil.saveFile(bitmap, String.valueOf(MediaUtils.getOutputMediaFileUri(false)));
+                            MediaUtils.cropImage(ImagePicSelActivity.this, MediaUtils.getOutputMediaFileUri(false), MediaUtils.IMAGE_CROP, MediaUtils.FROM_PICTURE);
+                            executeFinish();
+                        }
+                    }.start();
+                }
                 break;
             case R.id.pub_top_left:
                 ActivityJumpUtils.jumpToImageBucketActivityForResult(ImagePicSelActivity.this, MediaUtils.OPEN_SYSTEM_PIC_BUILD_CAMERA);

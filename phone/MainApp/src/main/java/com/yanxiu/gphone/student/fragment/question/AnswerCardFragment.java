@@ -20,8 +20,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.common.core.utils.LogInfo;
+import com.common.core.utils.NetWorkTypeUtils;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.YanxiuApplication;
@@ -240,7 +242,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                     @Override
                     public void sure() {
                         //1
-//                        AnswerViewActivity.this.finish();
+//                        getActivity().finish();
                     }
 
                     @Override
@@ -290,6 +292,10 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                 rlAnswerCard.startAnimation(ani);
                 break;
             case R.id.btn_question_submit:
+                if (!NetWorkTypeUtils.isNetAvailable()) {
+                    Toast.makeText(getContext(),getContext().getResources().getString(R.string.public_loading_net_null_errtxt), Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 mLoadingDialog = new LoadingDialog(getActivity());
                 ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideFragment();
                 if(dataList != null && !dataList.isEmpty()){
@@ -312,9 +318,6 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
 
 
     private void handleUploadSubjectiveImage(){
-        if (Utils.networkJudge(getActivity())) {
-            return;
-        };
         subjectiveList = QuestionUtils.findSubjectiveQuesition(dataSources);
         mLoadingDialog.setmCurrent(subjectiveQIndex);
         mLoadingDialog.setmNum(subjectiveList.size());
@@ -556,7 +559,8 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
             @Override
             public void dataError(int type, String msg) {
                 if (TextUtils.isEmpty(msg)) {
-                    Util.showToast(R.string.server_connection_erro);
+                    //Util.showToast(R.string.server_connection_erro);
+                    submitNetErrorDialog();
                 } else {
                     Util.showToast(msg);
                 }
@@ -618,6 +622,30 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
             ImageView ivIcon;
             TextView tvIndex;
         }
+    }
+
+    private CommonDialog submitNetErrorDialog;
+    public void submitNetErrorDialog() {
+        submitNetErrorDialog = new CommonDialog(getActivity(), getActivity().getResources().getString(R.string.question_submit_network_error),
+                getActivity().getResources().getString(R.string.try_again),
+                getActivity().getResources().getString(R.string.question_cancel),
+                new DelDialog.DelCallBack() {
+                    @Override
+                    public void del() {
+                        handleUploadSubjectiveImage();
+                    }
+
+                    @Override
+                    public void sure() {
+                        //1
+                    }
+
+                    @Override
+                    public void cancel() {
+                        submitNetErrorDialog.dismiss();
+                    }
+                });
+        submitNetErrorDialog.show();
     }
 
 

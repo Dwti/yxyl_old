@@ -92,7 +92,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     private static final String TAG = AnswerViewActivity.class.getSimpleName();
 
     private int comeFrom;
-    public static final int GROUP = 0x01;
+      public static final int GROUP = 0x01;
 
     private FrameLayout decorView;
 
@@ -101,6 +101,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     public int currentIndex = 0;
 
     private CommonDialog dialog;
+    private CommonDialog errorDialog;
 
     public static int childIndex=0;   //当前显示的子题的位置（如果有子题的话）
     private int viewPagerLastPosition;
@@ -195,19 +196,19 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 //        testUpload();
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-//        super.onSaveInstanceState(outState, outPersistentState);
-        LogInfo.log("geny", "onSaveInstanceState");
-        outState.putSerializable("dataSources", dataSources);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-//        super.onRestoreInstanceState(savedInstanceState);
-        LogInfo.log("geny", "onRestoreInstanceState");
-        dataSources = (SubjectExercisesItemBean) savedInstanceState.get("dataSources");
-    }
+//    @Override
+//    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+////        super.onSaveInstanceState(outState, outPersistentState);
+//        LogInfo.log("geny", "onSaveInstanceState");
+//        outState.putSerializable("dataSources", dataSources);
+//    }
+//
+//    @Override
+//    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+////        super.onRestoreInstanceState(savedInstanceState);
+//        LogInfo.log("geny", "onRestoreInstanceState");
+//        dataSources = (SubjectExercisesItemBean) savedInstanceState.get("dataSources");
+//    }
 
 
     /**
@@ -457,10 +458,11 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                         //hideDialog();
 //                        loadingLayout.setViewGone();
                         if(bean != null && ((UploadImageBean)bean).getStatus() != null && ((UploadImageBean)bean).getStatus().getDesc() != null){
-                            Util.showToast(((UploadImageBean) bean).getStatus().getDesc());
+                            //Util.showToast(((UploadImageBean) bean).getStatus().getDesc());
+                            saveNetErrorDialog();
                         }else{
-                            Util.showToast(R.string.server_connection_erro);
-
+                            //Util.showToast(R.string.server_connection_erro);
+                            saveNetErrorDialog();
                         }
                     }
                 });
@@ -511,10 +513,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         if (dataSources == null) {
             return;
         }
-
-        if (Utils.networkJudge(this)) {
-            return;
-        };
 //        if (!IsSubmitAnswer){
 //            IsSubmitAnswer=true;
 //            return;
@@ -650,11 +648,36 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         ft.commit();
     }
 
+    private boolean IsMoveToLeft=false;
+    private float Down_X;
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                IsMoveToLeft=false;
+                Down_X=event.getRawX();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                float Move_X=event.getRawX();
+                if (Move_X>Down_X){
+                    IsMoveToLeft=false;
+                }else {
+                    IsMoveToLeft=true;
+                }
+                break;
+            case MotionEvent.ACTION_CANCEL:
+            case MotionEvent.ACTION_UP:
+                break;
+        }
+        return super.onTouchEvent(event);
+    }
+
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         super.onPageScrolled(position, positionOffset, positionOffsetPixels);
         //判断是否是最后一页，偏移量都为零  弹出答题卡
-        if (position == adapter.getCount() - 1 && !isSubmitFinish) {
+        if (position == adapter.getCount() - 1 && !isSubmitFinish&&IsMoveToLeft) {
             if (positionOffset == 0 && positionOffsetPixels == 0 && vpState == ViewPager.SCROLL_STATE_DRAGGING) {
                 upAnswerCard();
             }
@@ -862,6 +885,29 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         }
 
         }catch (Exception e){}
+    }
+    private CommonDialog saveNetErrorDialog;
+    public void saveNetErrorDialog() {
+        saveNetErrorDialog = new CommonDialog(AnswerViewActivity.this, AnswerViewActivity.this.getResources().getString(R.string.question_save_network_error),
+                AnswerViewActivity.this.getResources().getString(R.string.try_again),
+                AnswerViewActivity.this.getResources().getString(R.string.question_cancel),
+                new DelDialog.DelCallBack() {
+                    @Override
+                    public void del() {
+                        handleUploadSubjectiveImage();
+                    }
+
+                    @Override
+                    public void sure() {
+                        //1
+                    }
+
+                    @Override
+                    public void cancel() {
+                        AnswerViewActivity.this.finish();
+                    }
+                });
+        saveNetErrorDialog.show();
     }
 
 

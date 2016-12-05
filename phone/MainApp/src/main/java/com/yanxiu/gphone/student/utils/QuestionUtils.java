@@ -645,15 +645,32 @@ public class QuestionUtils {
         return flag;
     }
 
+//    public static <T extends Comparable<T>> boolean compare(List<T> a, List<T> b) {
+//        if (a == null || b == null) {
+//            return false;
+//        }
+//        if (a.size() != b.size()) {
+//            return false;
+//        }
+//        return a.containsAll(b) && b.containsAll(a);
+//    }
+
     public static <T extends Comparable<T>> boolean compare(List<T> a, List<T> b) {
-        if (a == null || b == null) {
+        if(a.size() != b.size())
             return false;
+
+        for (int i = 0; i < a.size(); i++) {
+
+            T aaa = a.get(i);
+            T bbb = b.get(i);
+            if (a.get(i).compareTo(b.get(i)) != 0) {
+                return false;
+            }
         }
-        if (a.size() != b.size()) {
-            return false;
-        }
-        return a.containsAll(b) && b.containsAll(a);
+
+        return true;
     }
+
 
     public static int calculationUnFinishQuestion(List<PaperTestEntity> dataList) {
         int unfinishCount = 0;
