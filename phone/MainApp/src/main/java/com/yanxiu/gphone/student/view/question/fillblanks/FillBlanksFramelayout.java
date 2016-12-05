@@ -121,7 +121,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
 
         // 这里不能使用space空格，因为html text里会省略连续空格
         mAnswerSb.append("o");
-        for (int i = 0; i < mAnswerLength + 1; i++) {
+        for (int i = 0; i < mAnswerLength - 1; i++) {
             mAnswerSb.append("o");
         }
         StringBuffer replacementString = new StringBuffer(mAnswerSb);
@@ -452,6 +452,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
         trickBottomEtView = et2;
     }
 
+    // 为了解决闪烁，只能分成两个方法，重构的时候需要思考这边root cause以及解决方案
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void changeEditText(int start, int end, int last, MyEdittext et) {
         Layout layout = tvFillBlank.getLayout();
