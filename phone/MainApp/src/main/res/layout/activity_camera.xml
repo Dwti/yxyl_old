@@ -51,7 +51,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="@dimen/dimen_15"
             android:textSize="16sp"
-            android:text="@string/picture"
+            android:text="@string/pic_bucket"
             android:textColor="@color/color_12b7f5"
             android:background="?attr/selectableItemBackgroundBorderless"
             />
