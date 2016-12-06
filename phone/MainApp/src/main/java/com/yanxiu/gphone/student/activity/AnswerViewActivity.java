@@ -552,6 +552,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                 }else {
                     mRootView.finish();
                 }
+                saveNetErrorDialog();
                 AnswerViewActivity.this.finish();
             }
         });

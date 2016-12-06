@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 
@@ -266,6 +267,9 @@ public class MediaUtils {
 //        intent.putExtra("outputY", 600);
         intent.putExtra("return-data", false);
         intent.putExtra("from", from);
+        Bundle bundle=new Bundle();
+        bundle.putString("uri",uri.toString());
+        intent.putExtra("bundle",bundle);
         intent.putExtra(MediaStore.EXTRA_OUTPUT,currentCroppedImageUri.toString());
         activity.startActivityForResult(intent, requestCode);
     }
@@ -282,7 +286,7 @@ public class MediaUtils {
     public static Bitmap ratio(Bitmap image, float pixelW, float pixelH) {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, os);
-        if( os.toByteArray().length / 1024>500) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
+        if( os.toByteArray().length / 1024>300) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
             os.reset();//重置baos即清空baos
             image.compress(Bitmap.CompressFormat.JPEG, 50, os);//这里压缩50%，把压缩后的数据存放到baos中
         }

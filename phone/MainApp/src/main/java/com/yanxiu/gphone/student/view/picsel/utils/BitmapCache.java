@@ -71,7 +71,10 @@ public class BitmapCache {
 
 				try {
 					if (isThumbPath) {
-						thumb = BitmapFactory.decodeFile(thumbPath);
+						BitmapFactory.Options options = new BitmapFactory.Options();
+						options.inSampleSize = 2;
+						options.inJustDecodeBounds = false;
+						thumb = BitmapFactory.decodeFile(thumbPath, options);
 						if (thumb == null) {
 							thumb = revitionImageSize(sourcePath);						
 						}						

@@ -404,8 +404,10 @@ public class ClipZoomImageView extends ImageView implements
      */
     public Bitmap clip()
     {
+        //Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(),
+                //Bitmap.Config.ARGB_8888);
         Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(),
-                Bitmap.Config.ARGB_8888);
+                Bitmap.Config.ARGB_4444);
         Canvas canvas = new Canvas(bitmap);
         draw(canvas);
         return Bitmap.createBitmap(bitmap, mHorizontalPadding,
