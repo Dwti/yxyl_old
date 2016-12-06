@@ -176,6 +176,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     CorpUtils.getInstence().AddListener(listener);
+                    YanXiuConstant.index_position=YanXiuConstant.catch_position;
                     PhotoViewActivity.launch(SubjectiveProblemAnalysisFragment.this.getActivity(), (ArrayList<String>) photosList, position);
                 }
             });
