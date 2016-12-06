@@ -236,7 +236,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                            e.printStackTrace();
                        }
                        BitmapFactory.Options options = new BitmapFactory.Options();
-                       options.inSampleSize = 2;
+                       //options.inSampleSize = 2;
                        options.inJustDecodeBounds = false;
                        final Bitmap bm = BitmapFactory.decodeByteArray(data, 0,
                                data.length, options);
