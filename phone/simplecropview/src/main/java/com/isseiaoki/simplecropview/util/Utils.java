@@ -29,6 +29,7 @@ import java.io.InputStream;
 @SuppressWarnings("unused")
 public class Utils {
     private static final String TAG = Utils.class.getSimpleName();
+    //private static final int SIZE_DEFAULT = 2048;
     private static final int SIZE_DEFAULT = 2048;
     private static final int SIZE_LIMIT = 4096;
     public static int sInputImageWidth = 0;

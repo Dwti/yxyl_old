@@ -60,6 +60,7 @@ public class CorpFragment extends Fragment {
     private LinearLayout mRootLayout;
     private Uri mCorpUri;
     private int mFrom;
+    private Uri mFromUri;
 
     // Note: only the system can call this constructor by reflection.
     public CorpFragment() {
@@ -77,6 +78,8 @@ public class CorpFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         if (getActivity() != null) {
+            Bundle bundle = getActivity().getIntent().getBundleExtra("bundle");
+            mFromUri = Uri.fromFile(new File(bundle.getString("uri")));
             mCorpUri = Uri.parse(getActivity().getIntent().getStringExtra(MediaStore.EXTRA_OUTPUT));
             mFrom = getActivity().getIntent().getIntExtra("from", 0);
             YanXiuConstant.index_position=YanXiuConstant.catch_position;
@@ -110,7 +113,13 @@ public class CorpFragment extends Fragment {
             } else {
                 //mCropView.setImageURI(Uri.parse(MediaUtils.getPic_select_string()));
                 File file=new File(MediaUtils.getPic_select_string());
-                mCropView.startLoad(Uri.fromFile(file), mLoadCallback);
+                //mCropView.startLoad(Uri.fromFile(file), mLoadCallback);
+                if (mFromUri != null) {
+                    mCropView.startLoad(mFromUri, mLoadCallback);
+                } else {
+                    mCropView.startLoad(Uri.fromFile(file), mLoadCallback);
+                }
+
             }
 
         }

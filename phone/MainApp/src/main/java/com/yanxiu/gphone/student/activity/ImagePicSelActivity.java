@@ -2,7 +2,9 @@ package com.yanxiu.gphone.student.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.common.core.utils.BitmapUtil;
 import com.common.core.utils.CommonCoreUtil;
 import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.R;
@@ -163,9 +166,31 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
         switch (view.getId()){
             case R.id.doneText:
                 isAddList=true;
-                if(!TextUtils.isEmpty(ImageBucketActivity.mSelectedImagePath))
-                    MediaUtils.cropImage(ImagePicSelActivity.this, Uri.fromFile(new File(ImageBucketActivity.mSelectedImagePath)),MediaUtils.IMAGE_CROP,MediaUtils.FROM_PICTURE);
-                    executeFinish();
+                if(!TextUtils.isEmpty(ImageBucketActivity.mSelectedImagePath)) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Bitmap bitmap = BitmapFactory.decodeFile(MediaUtils.getPic_select_string());
+                                if (bitmap.getByteCount() > 1024 * 1024) {
+                                    bitmap = MediaUtils.ratio(bitmap, bitmap.getWidth() / 10, bitmap.getHeight() / 10);
+                                    String[] ss = MediaUtils.getPic_select_string().split("\\.");
+                                    String path = MediaUtils.getPic_select_string().split("\\.")[0] + "_temp." + MediaUtils.getPic_select_string().split("\\.")[1];
+                                    BitmapUtil.saveFileMain(bitmap, path);
+                                    MediaUtils.cropImage(ImagePicSelActivity.this, Uri.parse(path), MediaUtils.IMAGE_CROP, MediaUtils.FROM_PICTURE);
+                                } else {
+                                    MediaUtils.cropImage(ImagePicSelActivity.this, Uri.parse(MediaUtils.getPic_select_string()), MediaUtils.IMAGE_CROP, MediaUtils.FROM_PICTURE);
+                                }
+                                executeFinish();
+                                if (bitmap != null) {
+                                    bitmap.recycle();
+                                }
+                            } catch (OutOfMemoryError e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).start();
+                }
                 break;
             case R.id.pub_top_left:
                 ActivityJumpUtils.jumpToImageBucketActivityForResult(ImagePicSelActivity.this, MediaUtils.OPEN_SYSTEM_PIC_BUILD_CAMERA);

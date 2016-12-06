@@ -178,6 +178,10 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client.disconnect();
         loadingLayout.setViewGone();
+        if (bitmap!=null) {
+            bitmap.recycle();
+            bitmap = null;
+        }
     }
 
     @Override

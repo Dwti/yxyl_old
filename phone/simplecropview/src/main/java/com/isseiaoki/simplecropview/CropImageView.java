@@ -1448,10 +1448,10 @@ public class CropImageView extends ImageView {
                 int requestSize = Math.max(mViewWidth, mViewHeight);
                 if (requestSize == 0) requestSize = maxSize;
                 try {
-                    final Bitmap tempBitmap = Utils.decodeSampledBitmapFromUri(getContext(),
+                    final Bitmap sampledBitmap = Utils.decodeSampledBitmapFromUri(getContext(),
                             mSourceUri,
                             requestSize);
-                    final Bitmap sampledBitmap = ratio(tempBitmap, tempBitmap.getWidth()/2, tempBitmap.getHeight()/2);
+                    //final Bitmap sampledBitmap = ratio(tempBitmap, tempBitmap.getWidth()/2, tempBitmap.getHeight()/2);
                     mInputImageWidth = Utils.sInputImageWidth;
                     mInputImageHeight = Utils.sInputImageHeight;
                     mHandler.post(new Runnable() {
@@ -1669,6 +1669,7 @@ public class CropImageView extends ImageView {
                     cropped = decodeRegion();
                     if (mCropMode == CropMode.CIRCLE) {
                         Bitmap circle = getCircularBitmap(cropped);
+                        //circle = ratio(circle, circle.getWidth()/2, circle.getHeight()/2);
                         if (cropped != getBitmap()) {
                             cropped.recycle();
                         }

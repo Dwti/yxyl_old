@@ -131,7 +131,8 @@ public class RoundedDrawable extends Drawable {
     int width = Math.max(drawable.getIntrinsicWidth(), 2);
     int height = Math.max(drawable.getIntrinsicHeight(), 2);
     try {
-      bitmap = Bitmap.createBitmap(width, height, Config.ARGB_8888);
+      //bitmap = Bitmap.createBitmap(width, height, Config.ARGB_8888);
+      bitmap = Bitmap.createBitmap(width, height, Config.ARGB_4444);
       Canvas canvas = new Canvas(bitmap);
       drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
       drawable.draw(canvas);
