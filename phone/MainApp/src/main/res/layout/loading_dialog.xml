@@ -44,6 +44,7 @@
             android:progressDrawable="@drawable/load_progress_bar_color" />
 
         <TextView
+            android:id="@+id/tv_progress_tip_txt"
             style="@style/shadow_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

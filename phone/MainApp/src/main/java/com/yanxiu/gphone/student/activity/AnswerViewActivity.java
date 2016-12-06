@@ -552,7 +552,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                 }else {
                     mRootView.finish();
                 }
-                saveNetErrorDialog();
+                submitNetErrorDialog();
                 AnswerViewActivity.this.finish();
             }
         });
@@ -899,7 +899,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 
                     @Override
                     public void sure() {
-                        //1
+                        handleUploadSubjectiveImage();
                     }
 
                     @Override
@@ -908,6 +908,29 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                     }
                 });
         saveNetErrorDialog.show();
+    }
+    private CommonDialog submitNetErrorDialog;
+    public void submitNetErrorDialog() {
+        submitNetErrorDialog = new CommonDialog(AnswerViewActivity.this, AnswerViewActivity.this.getResources().getString(R.string.question_submit_network_error),
+                AnswerViewActivity.this.getResources().getString(R.string.try_again),
+                AnswerViewActivity.this.getResources().getString(R.string.question_cancel),
+                new DelDialog.DelCallBack() {
+                    @Override
+                    public void del() {
+                        handleUploadSubjectiveImage();
+                    }
+
+                    @Override
+                    public void sure() {
+                        handleUploadSubjectiveImage();
+                    }
+
+                    @Override
+                    public void cancel() {
+                        submitNetErrorDialog.dismiss();
+                    }
+                });
+        submitNetErrorDialog.show();
     }
 
 
