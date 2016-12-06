@@ -29,8 +29,8 @@ import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.*;
  * Created by Administrator on 2015/12/17.
  */
 public class BaseQuestionFragment extends Fragment implements QuestionsListener {
-    protected static QuestionEntity questionsEntity;
-    protected static QuestionsListener listener;
+    protected QuestionEntity questionsEntity;
+    protected QuestionsListener listener;
 
 
     protected int answerViewTypyBean;
@@ -67,7 +67,7 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        Log.d("当前", this.getClass().getName());
-        if (savedInstanceState!=null&&savedInstanceState.getSerializable("questionsEntity")!=null){
+        if (questionsEntity==null&&getArguments() == null&&savedInstanceState!=null&&savedInstanceState.getSerializable("questionsEntity")!=null){
             this.questionsEntity= (QuestionEntity) savedInstanceState.getSerializable("questionsEntity");
             this.answerViewTypyBean=savedInstanceState.getInt("answerViewTypyBean",0);
             this.pageIndex=savedInstanceState.getInt("pageIndex",0);

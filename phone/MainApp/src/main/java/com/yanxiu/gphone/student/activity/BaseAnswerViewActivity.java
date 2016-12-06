@@ -125,7 +125,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        if (savedInstanceState!=null&&savedInstanceState.getSerializable("data")!=null){
+        if (dataSources==null&&savedInstanceState!=null&&savedInstanceState.getSerializable("data")!=null){
             dataSources= (SubjectExercisesItemBean) savedInstanceState.getSerializable("data");
         }
         super.onRestoreInstanceState(savedInstanceState);
