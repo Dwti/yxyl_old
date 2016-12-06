@@ -29,8 +29,8 @@ import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.*;
  * Created by Administrator on 2015/12/17.
  */
 public class BaseQuestionFragment extends Fragment implements QuestionsListener {
-    protected QuestionEntity questionsEntity;
-    protected QuestionsListener listener;
+    protected static QuestionEntity questionsEntity;
+    protected static QuestionsListener listener;
 
 
     protected int answerViewTypyBean;

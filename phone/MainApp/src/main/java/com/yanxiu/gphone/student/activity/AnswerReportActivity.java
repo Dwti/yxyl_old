@@ -4,13 +4,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -791,7 +794,6 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
 
     private class AnswerCardAdapter extends BaseAdapter {
 
-        private ViewHolder holder;
         private List<QuestionEntity> mList = new ArrayList<>();
 
         public AnswerCardAdapter(List<QuestionEntity> mList) {
@@ -821,6 +823,7 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                 return null;
             //此处getAnswerBean方法比较特殊，以前里面做了非空判断，为null 的话new了一个
             AnswerBean answerBean = data.getAnswerBean();
+            final ViewHolder holder;
             if (row == null) {
                 LayoutInflater inflater = LayoutInflater.from(mContext);
                 row = inflater.inflate(R.layout.item_report_card,null);
@@ -832,6 +835,17 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
             } else {
                 holder = (ViewHolder) row.getTag();
             }
+
+            holder.flContent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+                @Override
+                public void onGlobalLayout() {
+                    holder.flContent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    int width=holder.flContent.getWidth();
+                    AbsListView.LayoutParams params=new AbsListView.LayoutParams(width,width);
+                    holder.flContent.setLayoutParams(params);
+                }
+            });
 
             if (YanXiuConstant.ANSWER_QUESTION.equals(data.getTemplate())) {                //如果是主观题
                 if (answerBean.getRealStatus() == AnswerBean.ANSER_READED) {                                   //如果已批改

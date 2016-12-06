@@ -19,6 +19,7 @@
             android:layout_width="@dimen/dimen_30"
             android:layout_height="@dimen/dimen_30"
             android:layout_alignParentLeft="true"
+            android:gravity="center"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dimen_10"
             android:background="@drawable/login_back"
@@ -30,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:gravity="center"
             android:layout_marginRight="@dimen/dimen_10"
             android:textColor="@color/color_white"
             android:textSize="@dimen/dimen_15"
@@ -41,9 +43,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:gravity="center"
             android:visibility="gone"/>
 
-        <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
+        <com.yanxiu.gphone.student.view.MyBoldTextView
             android:id="@+id/pub_top_mid"
             style="@style/shadow_text_style"
             android:layout_width="200dp"
@@ -55,7 +58,6 @@
             android:singleLine="true"
             android:textColor="@color/color_006666"
             android:textSize="@dimen/dimen_18"
-            app:type_face="metor_bold.OTF"
             tools:text="top_mid"
             />
 

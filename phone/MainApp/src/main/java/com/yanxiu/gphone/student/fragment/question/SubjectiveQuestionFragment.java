@@ -69,9 +69,9 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
 //    private QuestionEntity questionsEntity;
 
     private Fragment resolutionFragment;
-    private int answerViewTypyBean;
+//    private int answerViewTypyBean;
 
-    private int pageIndex;
+//    private int pageIndex;
     private PicSelView mPicSelView;
     private Activity mActivity;
 
@@ -231,13 +231,13 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         if (bean == null) {
             bean = questionsEntity.getAnswerBean();
         }
-
-        if (CorpUtils.getInstence().getCorpListener()!=null){
-                if (((CorpListener)this).hashCode()==CorpUtils.getInstence().getCorpListener().hashCode()){
-                    YanXiuConstant.index_position=0;
+        if (!ischild) {
+            if (CorpUtils.getInstence().getCorpListener() != null) {
+                if (((CorpListener) this).hashCode() == CorpUtils.getInstence().getCorpListener().hashCode()) {
+                    YanXiuConstant.index_position = 0;
                 }
+            }
         }
-
         //EventBus.getDefault().unregister(this);
     }
 

@@ -7,12 +7,14 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.common.core.utils.CommonCoreUtil;
+import com.common.core.view.xlistview.XListView;
 import com.common.login.LoginModel;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.basecore.exception.ErrorCode;
@@ -120,6 +122,13 @@ public class SchoolSearchActivity extends YanxiuBaseActivity{
             }
         });
 
+        rootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonCoreUtil.hideSoftInput(searchAddView);
+            }
+        });
+
         searchAddView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,6 +166,22 @@ public class SchoolSearchActivity extends YanxiuBaseActivity{
                 }catch (Exception e){
                     e.fillInStackTrace();
                 }
+            }
+        });
+        searchListView.setOnScrollListener(new XListView.OnXScrollListener() {
+            @Override
+            public void onXScrolling(View view) {
+
+            }
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                CommonCoreUtil.hideSoftInput(searchAddView);
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
             }
         });
     }
