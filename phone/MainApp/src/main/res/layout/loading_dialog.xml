@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/dimen_22"
     android:layout_marginRight="@dimen/dimen_22"
-    android:background="@drawable/answer_card_bg">
+    android:background="@color/color_black">
     <ImageView
         android:id="@+id/iv_progress_close"
         android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
             android:id="@+id/progressbar_progress"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dimen_6"
             android:max="100"
             android:layout_marginLeft="@dimen/dimen_20"
             android:layout_marginRight="@dimen/dimen_20"
