@@ -123,6 +123,7 @@ public class CorpFragment extends Fragment {
             }
 
         }
+        mCropView.setInitialFrameScale(0.8f);
         mCropView.setCropMode(CropImageView.CropMode.FREE);
     }
 
