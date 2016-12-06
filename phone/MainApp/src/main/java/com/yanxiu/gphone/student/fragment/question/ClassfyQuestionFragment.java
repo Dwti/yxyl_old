@@ -486,7 +486,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
 
     @Override
     public void updatesuccess() {
-        if (questionsEntity.getContent().getChoices().get(0).contains(YanXiuConstant.IMG_SRC)) {
+        if (questionsEntity.getContent() != null && questionsEntity.getContent().getChoices() != null && questionsEntity.getContent().getChoices().get(0).contains(YanXiuConstant.IMG_SRC)) {
             classfyAnswerAdapter.setData(classfyItem);
             lgClassfyAnswers.setVisibility(View.VISIBLE);
             vgClassfyAnswers.setVisibility(View.GONE);
