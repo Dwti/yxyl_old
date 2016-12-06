@@ -235,8 +235,11 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                        } catch (FileNotFoundException e) {
                            e.printStackTrace();
                        }
+                       BitmapFactory.Options options = new BitmapFactory.Options();
+                       options.inSampleSize = 2;
+                       options.inJustDecodeBounds = false;
                        final Bitmap bm = BitmapFactory.decodeByteArray(data, 0,
-                               data.length);
+                               data.length, options);
                        Matrix matrix = new Matrix();
                        matrix.setRotate(90);
                        bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);

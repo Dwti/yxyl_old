@@ -171,7 +171,10 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
                         @Override
                         public void run() {
                             try {
-                                Bitmap bitmap = BitmapFactory.decodeFile(MediaUtils.getPic_select_string());
+                                BitmapFactory.Options options = new BitmapFactory.Options();
+                                options.inSampleSize = 2;
+                                options.inJustDecodeBounds = false;
+                                Bitmap bitmap = BitmapFactory.decodeFile(MediaUtils.getPic_select_string(), options);
                                 if (bitmap.getByteCount() > 1024 * 1024) {
                                     bitmap = MediaUtils.ratio(bitmap, bitmap.getWidth() / 10, bitmap.getHeight() / 10);
                                     String[] ss = MediaUtils.getPic_select_string().split("\\.");
