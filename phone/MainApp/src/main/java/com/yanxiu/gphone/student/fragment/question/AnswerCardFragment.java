@@ -324,6 +324,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
         if (subjectiveList.size() > 0) {
             mLoadingDialog.show();
             mLoadingDialog.updateUI();
+            mLoadingDialog.setTipText();
         }
         if(!subjectiveList.isEmpty()){
             LogInfo.log("geny", "subjectiveList===" + subjectiveList.size());
@@ -384,10 +385,11 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                         ((AnswerViewActivity)AnswerCardFragment.this.getActivity()).hideDialog();
 //                        loadingLayout.setViewGone();
                         if(bean != null && ((UploadImageBean)bean).getStatus() != null && ((UploadImageBean)bean).getStatus().getDesc() != null){
-                            Util.showToast(((UploadImageBean) bean).getStatus().getDesc());
+                            //Util.showToast(((UploadImageBean) bean).getStatus().getDesc());
                         }else{
-                            Util.showToast(R.string.server_connection_erro);
+                            //Util.showToast(R.string.server_connection_erro);
                         }
+                        saveNetErrorDialog();
                     }
                 });
                 LogInfo.log("geny", "requestUploadImage s =onFail");
@@ -498,10 +500,11 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
             @Override
             public void dataError(int type, String msg) {
                 if (TextUtils.isEmpty(msg)) {
-                    Util.showToast(R.string.server_connection_erro);
+                    //Util.showToast(R.string.server_connection_erro);
                 } else {
-                    Util.showToast(msg);
+                    //Util.showToast(msg);
                 }
+                submitNetErrorDialog();
                 ((AnswerViewActivity)AnswerCardFragment.this.getActivity()).hideDialog();
             }
         });
@@ -559,8 +562,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
             @Override
             public void dataError(int type, String msg) {
                 if (TextUtils.isEmpty(msg)) {
-                    //Util.showToast(R.string.server_connection_erro);
-                    submitNetErrorDialog();
+                    Util.showToast(R.string.server_connection_erro);
                 } else {
                     Util.showToast(msg);
                 }
@@ -624,6 +626,29 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
         }
     }
 
+    private CommonDialog saveNetErrorDialog;
+    public void saveNetErrorDialog() {
+        saveNetErrorDialog = new CommonDialog(getActivity(), getActivity().getResources().getString(R.string.question_save_network_error),
+                getActivity().getResources().getString(R.string.try_again),
+                getActivity().getResources().getString(R.string.question_cancel),
+                new DelDialog.DelCallBack() {
+                    @Override
+                    public void del() {
+                        handleUploadSubjectiveImage();
+                    }
+
+                    @Override
+                    public void sure() {
+                        handleUploadSubjectiveImage();
+                    }
+
+                    @Override
+                    public void cancel() {
+                        saveNetErrorDialog.dismiss();
+                    }
+                });
+        saveNetErrorDialog.show();
+    }
     private CommonDialog submitNetErrorDialog;
     public void submitNetErrorDialog() {
         submitNetErrorDialog = new CommonDialog(getActivity(), getActivity().getResources().getString(R.string.question_submit_network_error),
@@ -637,7 +662,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
 
                     @Override
                     public void sure() {
-                        //1
+                        handleUploadSubjectiveImage();
                     }
 
                     @Override

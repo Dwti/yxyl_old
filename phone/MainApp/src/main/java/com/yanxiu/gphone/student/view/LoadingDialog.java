@@ -27,6 +27,8 @@ public class LoadingDialog extends Dialog{
     private TextView tv_progress_txt;
     private ProgressBar progressbar_progress;
     private OnCloseListener listener;
+    private TextView tv_progress_tip_txt;
+    private Context mContext;
 
     public int getmCurrent() {
         return mCurrent;
@@ -48,6 +50,7 @@ public class LoadingDialog extends Dialog{
         super(context);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         init(context);
+        mContext = context;
     }
 
     public interface OnCloseListener{
@@ -71,6 +74,7 @@ public class LoadingDialog extends Dialog{
         iv_progress_close = (ImageView) view.findViewById(R.id.iv_progress_close);
         tv_progress_txt = (TextView)view.findViewById(R.id.tv_progress_txt);
         progressbar_progress = (ProgressBar) view.findViewById(R.id.progressbar_progress);
+        tv_progress_tip_txt = (TextView)view.findViewById(R.id.tv_progress_tip_txt);
 
         iv_progress_close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,5 +91,9 @@ public class LoadingDialog extends Dialog{
     public void updateUI() {
         tv_progress_txt.setText(getmCurrent()+" / "+getmNum());
         progressbar_progress.setProgress((getmCurrent()*100)/getmNum());
+    }
+
+    public void setTipText() {
+        tv_progress_tip_txt.setText(mContext.getResources().getString(R.string.submit_group_picture));
     }
 }
