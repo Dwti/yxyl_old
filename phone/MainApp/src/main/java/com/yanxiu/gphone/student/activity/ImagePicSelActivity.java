@@ -176,7 +176,7 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
                                 options.inJustDecodeBounds = false;
                                 Bitmap bitmap = BitmapFactory.decodeFile(MediaUtils.getPic_select_string(), options);
                                 if (bitmap.getByteCount() > 1024 * 1024) {
-                                    bitmap = MediaUtils.ratio(bitmap, bitmap.getWidth() / 10, bitmap.getHeight() / 10);
+                                    bitmap = MediaUtils.ratio(bitmap, bitmap.getWidth() / 5, bitmap.getHeight() / 5);
                                     String[] ss = MediaUtils.getPic_select_string().split("\\.");
                                     String path = MediaUtils.getPic_select_string().split("\\.")[0] + "_temp." + MediaUtils.getPic_select_string().split("\\.")[1];
                                     BitmapUtil.saveFileMain(bitmap, path);
