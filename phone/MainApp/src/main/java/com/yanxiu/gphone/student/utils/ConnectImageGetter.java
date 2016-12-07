@@ -66,7 +66,7 @@ public class ConnectImageGetter implements ImageGetterListener {
         public Rect getDefaultImageBounds(Context context, Bitmap bitmap) {
             loadedImageWidth = Math.round(bitmap.getWidth());
             loadedImageheight = Math.round(bitmap.getHeight());
-            if (loadedImageWidth>px) {
+            if (loadedImageWidth!=px) {
                 loadedImageheight = loadedImageheight * px / loadedImageWidth;
                 loadedImageWidth = px;
             }

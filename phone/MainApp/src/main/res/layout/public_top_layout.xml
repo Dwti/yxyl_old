@@ -10,14 +10,14 @@
     <RelativeLayout
         android:id="@+id/topTitleView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_44"
+        android:layout_height="@dimen/dimen_51"
         android:background="@color/color_00cccc"
         >
 
         <TextView
             android:id="@+id/pub_top_left"
-            android:layout_width="@dimen/dimen_30"
-            android:layout_height="@dimen/dimen_30"
+            android:layout_width="@dimen/dimen_25"
+            android:layout_height="@dimen/dimen_25"
             android:layout_alignParentLeft="true"
             android:gravity="center"
             android:layout_centerVertical="true"
@@ -90,21 +90,25 @@
                 tools:text="pub_top_sub_right"/>
 
         </RelativeLayout>
+
+        <View
+            android:id="@+id/lineView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_4"
+            android:layout_above="@+id/bottom_view"
+            android:background="@color/color_009999"
+            />
+
+        <View
+            android:layout_alignParentBottom="true"
+            android:id="@+id/bottom_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_3"
+            android:background="@color/color_007373"
+            />
+
+
+
     </RelativeLayout>
 
-    <View
-        android:id="@+id/lineView"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_4"
-        android:layout_below="@id/topTitleView"
-        android:background="@color/color_009999"
-        />
-
-    <View
-        android:id="@+id/bottom_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_3"
-        android:layout_below="@id/lineView"
-        android:background="@color/color_007373"
-        />
 </RelativeLayout>
