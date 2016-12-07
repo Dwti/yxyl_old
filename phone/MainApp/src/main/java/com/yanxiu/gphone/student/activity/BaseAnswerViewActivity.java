@@ -318,7 +318,6 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
     @Override
     public void
     onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        CorpUtils.getInstence().setClear();
     }
 
 
@@ -338,6 +337,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
     @Override
     public void onPageScrollStateChanged(int state) {
         vpState = state;
+        CorpUtils.getInstence().setClear();
     }
 
     @Override

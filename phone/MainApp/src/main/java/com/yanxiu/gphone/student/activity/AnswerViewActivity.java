@@ -673,6 +673,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         return super.onTouchEvent(event);
     }
 
+
+
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         super.onPageScrolled(position, positionOffset, positionOffsetPixels);
