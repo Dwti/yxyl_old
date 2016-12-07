@@ -239,6 +239,11 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                        }
                        BitmapFactory.Options options = new BitmapFactory.Options();
                        //options.inSampleSize = 2;
+                       //开始读入图片，此时把options.inJustDecodeBounds 设回true了
+                       options.inJustDecodeBounds = true;
+                       options.inPreferredConfig = Bitmap.Config.RGB_565;
+                       Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0,
+                               data.length, options);
                        options.inJustDecodeBounds = false;
                        final Bitmap bm = BitmapFactory.decodeByteArray(data, 0,
                                data.length, options);
@@ -246,7 +251,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                        matrix.setRotate(90);
                        bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
                        //mHandler.sendEmptyMessage(55);
-                       bitmap = MediaUtils.ratio(bitmap, bm.getWidth()/2, bm.getHeight()/2, 700);
+                       bitmap = MediaUtils.ratio(bitmap, bm.getWidth()/2, bm.getHeight()/2, 800);
                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                        /**
                         * 获取图片的旋转角度，有些系统把拍照的图片旋转了，有的没有旋转
@@ -381,7 +386,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         //int screenWidth = screenWidth = getWindowManager().getDefaultDisplay().getWidth();
         //int screenHeight = screenHeight = getWindowManager().getDefaultDisplay().getHeight();
         List<Camera.Size> list= params.getSupportedPictureSizes();
-        int position=list.size()/2;
+        int position=list.size()/3;
         Camera.Size size=list.get(position);
         params.setPictureSize(size.width, size.height);
         camera.setParameters(params);
