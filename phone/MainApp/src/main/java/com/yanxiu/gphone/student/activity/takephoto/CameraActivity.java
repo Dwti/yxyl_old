@@ -192,7 +192,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         sb1.setProgress(0);
         cameraPreview = new CameraPreview(this);
         cameraPreview.setFocusView(mFocusView);
-        cameraPreview.setFocus();
+        //cameraPreview.setFocus();
 
         fl_preview.addView(cameraPreview);
         Camera.Parameters params = cameraPreview.getCameraParams();
@@ -245,8 +245,8 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                        Matrix matrix = new Matrix();
                        matrix.setRotate(90);
                        bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
-                       mHandler.sendEmptyMessage(55);
-                       bitmap = MediaUtils.ratio(bitmap, bm.getWidth()/2, bm.getHeight()/2);
+                       //mHandler.sendEmptyMessage(55);
+                       bitmap = MediaUtils.ratio(bitmap, bm.getWidth()/2, bm.getHeight()/2, 700);
                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                        /**
                         * 获取图片的旋转角度，有些系统把拍照的图片旋转了，有的没有旋转
