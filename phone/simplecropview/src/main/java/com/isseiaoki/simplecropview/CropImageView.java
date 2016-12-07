@@ -1496,7 +1496,7 @@ public class CropImageView extends ImageView {
         BitmapFactory.Options newOpts = new BitmapFactory.Options();
         //开始读入图片，此时把options.inJustDecodeBounds 设回true了
         newOpts.inJustDecodeBounds = true;
-        newOpts.inPreferredConfig = Bitmap.Config.RGB_565;
+        newOpts.inPreferredConfig = Bitmap.Config.ARGB_8888;
         Bitmap bitmap = BitmapFactory.decodeStream(is, null, newOpts);
         newOpts.inJustDecodeBounds = false;
         int w = newOpts.outWidth;

@@ -171,12 +171,22 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
                         @Override
                         public void run() {
                             try {
-                                BitmapFactory.Options options = new BitmapFactory.Options();
-                                options.inSampleSize = 2;
-                                options.inJustDecodeBounds = false;
-                                Bitmap bitmap = BitmapFactory.decodeFile(MediaUtils.getPic_select_string(), options);
+
+                                BitmapFactory.Options newOpts = new BitmapFactory.Options();
+                                //开始读入图片，此时把options.inJustDecodeBounds 设回true了
+                                newOpts.inJustDecodeBounds = true;
+                                newOpts.inPreferredConfig = Bitmap.Config.RGB_565;
+                                Bitmap bitmap = BitmapFactory.decodeFile(MediaUtils.getPic_select_string(), newOpts);
+                                newOpts.inJustDecodeBounds = false;
+                                newOpts.inSampleSize = 2;//设置缩放比例
+
+
+//                                BitmapFactory.Options options = new BitmapFactory.Options();
+//                                //options.inSampleSize = 2;
+//                                options.inJustDecodeBounds = false;
+                                bitmap = BitmapFactory.decodeFile(MediaUtils.getPic_select_string(), newOpts);
                                 if (bitmap.getByteCount() > 1024 * 1024) {
-                                    bitmap = MediaUtils.ratio(bitmap, bitmap.getWidth() / 5, bitmap.getHeight() / 5, 800);
+                                    bitmap = MediaUtils.ratio(bitmap, bitmap.getWidth() / 2, bitmap.getHeight() / 2, 800);
                                     String[] ss = MediaUtils.getPic_select_string().split("\\.");
                                     String path = MediaUtils.getPic_select_string().split("\\.")[0] + "_temp." + MediaUtils.getPic_select_string().split("\\.")[1];
                                     BitmapUtil.saveFileMain(bitmap, path);
