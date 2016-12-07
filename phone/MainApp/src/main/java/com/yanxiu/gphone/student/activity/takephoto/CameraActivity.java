@@ -192,6 +192,8 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         sb1.setProgress(0);
         cameraPreview = new CameraPreview(this);
         cameraPreview.setFocusView(mFocusView);
+        cameraPreview.setFocus();
+
         fl_preview.addView(cameraPreview);
         Camera.Parameters params = cameraPreview.getCameraParams();
         if (params == null) {

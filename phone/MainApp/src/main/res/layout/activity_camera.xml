@@ -13,7 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_centerInParent="true"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
     <SeekBar
         android:id="@+id/sb1"
         android:layout_marginTop="5dp"
