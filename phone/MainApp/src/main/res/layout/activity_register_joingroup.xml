@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/yanxiu_group_bg">
+    android:background="@drawable/yanxiu_group_bg"
+    android:orientation="vertical">
 
     <include android:id="@+id/group_add_top"
         layout="@layout/public_top_layout"
         />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -124,4 +128,5 @@
             android:textSize="@dimen/dimen_12"
             android:visibility="visible" />
     </RelativeLayout>
-</RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>
