@@ -128,8 +128,11 @@ public class ShareBitmapUtils implements YanxiuBaseBean {
                 } else {
                     try {
                         List<String> list=drrMaps.get(id);
-                        if (loadIndex<0||loadIndex>list.size()){
+                        if (loadIndex<0){
                             loadIndex += 1;
+                            listIndexMaps.put(id, loadIndex);
+                        }else if (loadIndex>list.size()){
+                            loadIndex -= 1;
                             listIndexMaps.put(id, loadIndex);
                         }else {
                             String path = drrMaps.get(id).get(loadIndex);
