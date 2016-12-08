@@ -30,14 +30,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_100"
                 android:layout_marginTop="@dimen/dimen_25"
-                android:padding="@dimen/dimen_5"
                 android:background="@drawable/my_list_bg_selector"
                 >
 
                 <com.common.core.view.roundview.RoundedImageView
                     android:id="@+id/user_icon"
-                    android:layout_width="@dimen/dimen_80"
-                    android:layout_height="@dimen/dimen_80"
+                    android:layout_width="@dimen/dimen_75"
+                    android:layout_height="@dimen/dimen_75"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/dimen_10"
                     android:scaleType="centerCrop"
@@ -45,8 +44,8 @@
 
                 <ImageView
                     android:id="@+id/usr_icon_decorate"
-                    android:layout_width="@dimen/dimen_80"
-                    android:layout_height="@dimen/dimen_80"
+                    android:layout_width="@dimen/dimen_75"
+                    android:layout_height="@dimen/dimen_75"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/dimen_10"
                     android:background="@drawable/user_info_icon_bg"
