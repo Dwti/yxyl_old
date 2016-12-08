@@ -215,7 +215,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
     }
 
     private Bitmap bitmap;
-    public Camera.PictureCallback mPicture = new Camera.PictureCallback() {
+    private Camera.PictureCallback mPicture = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(final byte[] data, Camera camera) {
             if (!Environment.getExternalStorageState().equals(
@@ -238,21 +238,22 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                            e.printStackTrace();
                        }
                        BitmapFactory.Options options = new BitmapFactory.Options();
-                       //options.inSampleSize = 2;
+
                        //开始读入图片，此时把options.inJustDecodeBounds 设回true了
                        options.inJustDecodeBounds = true;
                        options.inPreferredConfig = Bitmap.Config.RGB_565;
                        Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0,
                                data.length, options);
+                       options.inSampleSize = 2;
                        options.inJustDecodeBounds = false;
                        final Bitmap bm = BitmapFactory.decodeByteArray(data, 0,
                                data.length, options);
                        Matrix matrix = new Matrix();
                        matrix.setRotate(90);
-                       bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
+                       Bitmap saveBitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
                        //mHandler.sendEmptyMessage(55);
-                       bitmap = MediaUtils.ratio(bitmap, bm.getWidth()/2, bm.getHeight()/2, 800);
-                       bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                       //saveBitmap = MediaUtils.ratio(saveBitmap, bm.getWidth()/2, bm.getHeight()/2, 800);
+                       saveBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                        /**
                         * 获取图片的旋转角度，有些系统把拍照的图片旋转了，有的没有旋转
                         */
