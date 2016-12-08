@@ -159,12 +159,23 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
         rightText.setOnClickListener(this);
         leftView.setOnClickListener(this);
     }
+    private boolean mIsFirstClick = true;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mIsFirstClick = true;
+    }
 
     @Override
     public void onClick(View view) {
         super.onClick(view);
         switch (view.getId()){
             case R.id.doneText:
+                if (!mIsFirstClick) {
+                    return;
+                }
+                mIsFirstClick = false;
                 isAddList=true;
                 if(!TextUtils.isEmpty(ImageBucketActivity.mSelectedImagePath)) {
                     new Thread(new Runnable() {
