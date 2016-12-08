@@ -483,8 +483,10 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                 UploadImageBean uploadImageBean = (UploadImageBean) bean;
                 if(uploadImageBean.getData() != null){
                     subjectiveQIndex++;
-                    ArrayList<String> uploadBean = (ArrayList<String>) uploadImageBean.getData();
+                    ArrayList<String> uploadBean = new ArrayList<String>();
+                    ArrayList<String> tempBean = (ArrayList<String>) uploadImageBean.getData();
                     uploadBean.addAll(httpUrl);
+                    uploadBean.addAll(tempBean);
                     entity.getAnswerBean().setSubjectivImageUri(uploadBean);
                 }
                 handleUploadSubjectiveImage();
