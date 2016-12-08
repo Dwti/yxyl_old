@@ -189,6 +189,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         initView();
         initData();
         mLoadingDialog = new LoadingDialog(this);
+        mLoadingDialog.setCanceledOnTouchOutside(false);
         mLoadingDialog.setOnCloseListener(new LoadingDialog.OnCloseListener() {
             @Override
             public void onClose() {

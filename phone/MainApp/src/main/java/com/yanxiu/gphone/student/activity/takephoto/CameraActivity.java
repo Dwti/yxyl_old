@@ -252,7 +252,9 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                        matrix.setRotate(90);
                        Bitmap saveBitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
                        //mHandler.sendEmptyMessage(55);
-                       //saveBitmap = MediaUtils.ratio(saveBitmap, bm.getWidth()/2, bm.getHeight()/2, 800);
+                       if (saveBitmap.getByteCount() > 1024 * 1024) {
+                           saveBitmap = MediaUtils.ratio(saveBitmap, bm.getWidth() / 2, bm.getHeight() / 2, 800);
+                       }
                        saveBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                        /**
                         * 获取图片的旋转角度，有些系统把拍照的图片旋转了，有的没有旋转
