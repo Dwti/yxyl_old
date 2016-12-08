@@ -55,7 +55,7 @@
                       android:textSize="@dimen/dimen_17"
                       android:textColor="@color/color_805500"
                       android:id="@+id/login_out_txt"
-                      android:layout_marginTop="@dimen/dimen_15"
+                      android:layout_gravity="center"
                       android:gravity="center"
                       android:text="@string/login_out_txt"
                       style="@style/text_fff99_shadow_style"
