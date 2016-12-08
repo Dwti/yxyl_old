@@ -72,7 +72,7 @@ public class PhotoFragment extends Fragment implements View.OnClickListener{
 //            asyncTask.execute(uri);
 //            requestBitmap(uri);
 //            com.nostra13.universalimageloader.core.ImageLoader.getInstance().displayImage(uri, ivPhotoView, options);
-            Glide.with(this).load(uri).override(300,500).into(ivPhotoView);
+            Glide.with(this).load(uri).into(ivPhotoView);
 
         }
 
