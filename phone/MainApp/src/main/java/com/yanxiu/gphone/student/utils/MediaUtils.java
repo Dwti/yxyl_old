@@ -19,6 +19,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  *  多媒体相关工具  (相机 录音 图像 视频 音频 ) 相关处理工具
@@ -148,6 +149,33 @@ public class MediaUtils {
         }
         return Uri.fromFile(croppedImageFile);
     }
+    public static File getCameraOutputMediaFile(boolean isNewFile) {
+        File mediaStorageDir = null;
+        try {
+            mediaStorageDir = new File(Environment
+                    .getExternalStorageDirectory().getAbsolutePath()+"/"+TEMP_UPLOAD_PIC_DIR);
+        } catch (Exception e) {
+            mediaStorageDir = new File(YanXiuConstant.SDCARD_ROOT_PATH, TEMP_UPLOAD_PIC_DIR);
+            e.printStackTrace();
+        } finally {
+            if (!mediaStorageDir.exists()) {
+                if (!mediaStorageDir.mkdirs()) {
+                    return null;
+                }
+            }
+            if(isNewFile){
+                if(currentFile!=null){
+                    currentFile=null;
+                }
+                File mediaFile;
+                mediaFile = new File(mediaStorageDir.getPath() + File.separator
+                        + System.currentTimeMillis()+".png");
+                currentFile=mediaFile;
+            }
+            return currentFile;
+        }
+    }
+
     public static File getOutputMediaFile(boolean isNewFile) {
         File mediaStorageDir = null;
         try {
@@ -170,6 +198,7 @@ public class MediaUtils {
                 File mediaFile;
                 mediaFile = new File(mediaStorageDir.getPath() + File.separator
                         + System.currentTimeMillis()+".png");
+
                 currentFile=mediaFile;
             }
             return currentFile;

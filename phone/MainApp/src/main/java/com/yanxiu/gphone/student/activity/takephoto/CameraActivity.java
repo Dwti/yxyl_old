@@ -49,6 +49,7 @@ import com.yanxiu.gphone.student.view.takephoto.CameraPreview;
 import com.yanxiu.gphone.student.view.takephoto.FocusView;
 import com.yanxiu.gphone.student.view.takephoto.RecordVideoStatueCircle;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -229,11 +230,11 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                    @Override
                    public void run() {
 
-                       File pictureFile = MediaUtils.getOutputMediaFile(true);
+                       File pictureFile = MediaUtils.getCameraOutputMediaFile(true);
                        LogInfo.log("path", "111path" + pictureFile.getPath());
-                       FileOutputStream fos = null;
+                       BufferedOutputStream fos = null;
                        try {
-                           fos = new FileOutputStream(pictureFile);
+                           fos = new BufferedOutputStream(new FileOutputStream(pictureFile));
                        } catch (FileNotFoundException e) {
                            e.printStackTrace();
                        }

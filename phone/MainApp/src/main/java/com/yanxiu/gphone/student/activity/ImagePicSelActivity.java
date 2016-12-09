@@ -180,11 +180,6 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
 
     //临时文件上传地址
     public static final String TEMP_UPLOAD_PIC_DIR="YanxiuCameraImg";
-    /**
-     * 保存文件
-     * @param bm
-     * @throws IOException
-     */
 
     @Override
     public void onClick(View view) {
