@@ -7,6 +7,7 @@ import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
+import android.os.Environment;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -180,35 +181,57 @@ public class BitmapUtil {
 
 	}
 
+	public final static String ROOT_DIR = "/YanxiuStudent/";
+	//临时文件上传地址
+	public static final String TEMP_UPLOAD_PIC_DIR="YanxiuCameraImg";
+	/**
+	 * 整个应用程序运行过程中用到的数据
+	 */
+	public static final String SDCARD_ROOT_PATH = android.os.Environment.getExternalStorageDirectory().getAbsolutePath()+ROOT_DIR;//路径
 	/**
 	 * 保存文件
 	 * @param bm
 	 * @throws IOException
 	 */
 	public static void saveFileMain(final Bitmap bm, final String filePath){
-				File myCaptureFile = null;
-				BufferedOutputStream bos = null;
-				try{
-					myCaptureFile = new File(filePath);
-					if(myCaptureFile.exists()){
-						myCaptureFile.delete();
-					}
-					myCaptureFile.createNewFile();
-					bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
-					bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);
-					bos.flush();
-					bos.close();
-				} catch (Exception e){
-					if(bos != null ){
-						try {
-							bos.close();
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}
-					}
-					bos = null;
+		File mediaStorageDir = null;
+		try {
+			mediaStorageDir = new File(Environment
+					.getExternalStoragePublicDirectory(
+							Environment.DIRECTORY_PICTURES),TEMP_UPLOAD_PIC_DIR);
+		} catch (Exception e) {
+			mediaStorageDir = new File(SDCARD_ROOT_PATH, TEMP_UPLOAD_PIC_DIR);
+			e.printStackTrace();
+		} finally {
+			if (!mediaStorageDir.exists()) {
+				if (!mediaStorageDir.mkdirs()) {
+					return;
 				}
 			}
+		}
+		File myCaptureFile = null;
+		BufferedOutputStream bos = null;
+		try{
+			myCaptureFile = new File(filePath);
+			if(myCaptureFile.exists()){
+				myCaptureFile.delete();
+			}
+			myCaptureFile.createNewFile();
+			bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
+			bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+			bos.flush();
+			bos.close();
+		} catch (Exception e){
+			if(bos != null ){
+				try {
+					bos.close();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+			bos = null;
+		}
+	}
 	/**
 	 * 读取图片文件旋转的角度
 	 * @param path 图片绝对路径

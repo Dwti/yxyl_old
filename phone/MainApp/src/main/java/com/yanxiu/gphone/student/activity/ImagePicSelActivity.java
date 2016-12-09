@@ -121,13 +121,13 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
         if (bucketPos != 0) {
             tempList = ShareBitmapUtils.getInstance().getDataList().get(bucketPos).getImageList();
         } else {
-            //int sum = 0;
+            int sum = 0;
             for (int i=0; i<ShareBitmapUtils.getInstance().getDataList().size(); i++) {
-                //sum = sum + ShareBitmapUtils.getInstance().getDataList().get(i).getImageList().size();
+                sum = sum + ShareBitmapUtils.getInstance().getDataList().get(i).getImageList().size();
                 tempList.addAll(ShareBitmapUtils.getInstance().getDataList().get(i).getImageList());
-                /*if (sum > 50) {
+                if (sum > 50) {
                     break;
-                }*/
+                }
             }
         }
 
@@ -215,9 +215,6 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
                                     MediaUtils.cropImage(ImagePicSelActivity.this, Uri.parse(MediaUtils.getPic_select_string()), MediaUtils.IMAGE_CROP, MediaUtils.FROM_PICTURE);
                                 }
                                 executeFinish();
-                                if (bitmap != null) {
-                                    bitmap.recycle();
-                                }
                             } catch (OutOfMemoryError e) {
                                 e.printStackTrace();
                             }
