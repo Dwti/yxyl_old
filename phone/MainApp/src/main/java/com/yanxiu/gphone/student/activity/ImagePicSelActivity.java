@@ -72,7 +72,7 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
         gridView.setBackgroundColor(getResources().getColor(R.color.color_008080));
 
         picSelText=(TextView)view.findViewById(R.id.picSelText);
-        loadingLayout = (StudentLoadingLayout) findViewById(R.id.loading_layout);
+        loadingLayout = (StudentLoadingLayout) view.findViewById(R.id.loading_layout);
         TextPaint picTextPaint=picSelText.getPaint();
         picTextPaint.setFakeBoldText(true);
         picSelText.setShadowLayer(2F, 0F, 4F, getResources().getColor(R.color.color_005959));
@@ -283,7 +283,9 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
     @Override
     public void onStop() {
         super.onStop();
-        loadingLayout.setViewGone();
+        if (loadingLayout != null) {
+            loadingLayout.setViewGone();
+        }
     }
 
     /*@Override
