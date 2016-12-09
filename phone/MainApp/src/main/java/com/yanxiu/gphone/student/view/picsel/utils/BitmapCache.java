@@ -90,10 +90,8 @@ public class BitmapCache {
 //					thumb = BitmapFactory.decodeResource(YanxiuApplication.getInstance().getResources(), R.drawable.add_pic_icon);
 //				}
 				Log.e(TAG, "-------thumb------"+thumb);
-                /*if (thumb!=null) {
-                    thumb = MediaUtils.ratio(thumb, thumb.getWidth() / 2, thumb.getHeight() / 2, 200);
-                }*/
 				if (thumb!=null) {
+//					thumb = MediaUtils.ratio(thumb, thumb.getWidth(), thumb.getHeight(), 500);
 					put(path, thumb);
 				}
 

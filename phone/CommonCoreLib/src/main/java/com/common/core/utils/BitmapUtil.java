@@ -7,6 +7,7 @@ import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
+import android.os.Environment;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -180,35 +181,30 @@ public class BitmapUtil {
 
 	}
 
-	/**
-	 * 保存文件
-	 * @param bm
-	 * @throws IOException
-	 */
 	public static void saveFileMain(final Bitmap bm, final String filePath){
-				File myCaptureFile = null;
-				BufferedOutputStream bos = null;
-				try{
-					myCaptureFile = new File(filePath);
-					if(myCaptureFile.exists()){
-						myCaptureFile.delete();
-					}
-					myCaptureFile.createNewFile();
-					bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
-					bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);
-					bos.flush();
+		File myCaptureFile = null;
+		BufferedOutputStream bos = null;
+		try{
+			myCaptureFile = new File(filePath);
+			if(myCaptureFile.exists()){
+				myCaptureFile.delete();
+			}
+			myCaptureFile.createNewFile();
+			bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
+			bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+			bos.flush();
+			bos.close();
+		} catch (Exception e){
+			if(bos != null ){
+				try {
 					bos.close();
-				} catch (Exception e){
-					if(bos != null ){
-						try {
-							bos.close();
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}
-					}
-					bos = null;
+				} catch (IOException e1) {
+					e1.printStackTrace();
 				}
 			}
+			bos = null;
+		}
+	}
 	/**
 	 * 读取图片文件旋转的角度
 	 * @param path 图片绝对路径

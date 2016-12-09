@@ -49,6 +49,7 @@ import com.yanxiu.gphone.student.view.takephoto.CameraPreview;
 import com.yanxiu.gphone.student.view.takephoto.FocusView;
 import com.yanxiu.gphone.student.view.takephoto.RecordVideoStatueCircle;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -229,11 +230,11 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                    @Override
                    public void run() {
 
-                       File pictureFile = MediaUtils.getOutputMediaFile(true);
+                       File pictureFile = MediaUtils.getCameraOutputMediaFile(true);
                        LogInfo.log("path", "111path" + pictureFile.getPath());
-                       FileOutputStream fos = null;
+                       BufferedOutputStream fos = null;
                        try {
-                           fos = new FileOutputStream(pictureFile);
+                           fos = new BufferedOutputStream(new FileOutputStream(pictureFile));
                        } catch (FileNotFoundException e) {
                            e.printStackTrace();
                        }
@@ -252,7 +253,9 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                        matrix.setRotate(90);
                        Bitmap saveBitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
                        //mHandler.sendEmptyMessage(55);
-                       //saveBitmap = MediaUtils.ratio(saveBitmap, bm.getWidth()/2, bm.getHeight()/2, 800);
+                       if (saveBitmap.getByteCount() > 1024 * 1024) {
+                           saveBitmap = MediaUtils.ratio(saveBitmap, bm.getWidth() / 2, bm.getHeight() / 2, 800);
+                       }
                        saveBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                        /**
                         * 获取图片的旋转角度，有些系统把拍照的图片旋转了，有的没有旋转

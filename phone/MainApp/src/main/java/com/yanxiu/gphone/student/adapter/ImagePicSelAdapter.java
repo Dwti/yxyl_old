@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.ImageBucketActivity;
 import com.common.core.utils.CommonCoreUtil;
@@ -16,6 +17,8 @@ import com.yanxiu.gphone.student.view.picsel.inter.PicNumListener;
 import com.yanxiu.gphone.student.view.picsel.utils.BitmapCache;
 import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
 import com.common.core.view.roundview.RoundedImageView;
+
+import java.io.File;
 
 /**
  * Created by Administrator on 2015/9/29.
@@ -78,6 +81,8 @@ public class ImagePicSelAdapter extends YXiuCustomerBaseAdapter<ImageItem> {
         final ImageItem item=getItem(position);
         mHolder.pic.setTag(item.getImagePath());
         cache.displayBmp(mHolder.pic, item.getThumbnailPath(), item.getImagePath(), callback);
+        //File file=new File(item.getImagePath());
+       //Glide.with(mContext).load(file).into(mHolder.pic);
         if(item.isSelected()){
             lastSelectedPosition=position;
             mHolder.picDecorate.setSelected(true);

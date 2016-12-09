@@ -199,7 +199,8 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
         answerCardAdapter  = new AnswerCardAdapter(this.getActivity());
         gridView.setAdapter(answerCardAdapter);
         answerCardAdapter.setList(questionList);
-
+        mLoadingDialog = new LoadingDialog(getActivity());
+        mLoadingDialog.setCanceledOnTouchOutside(false);
 
     }
 
@@ -258,7 +259,6 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
         switch (v.getId()) {
             case R.id.rl_answer_card_mark :
                 ((AnswerViewActivity)getActivity()).hideFragment();
-                mLoadingDialog = new LoadingDialog(getActivity());
                 Animation ani = AnimationUtils.loadAnimation(this.getActivity(), R.anim.answer_card_bottom_out);
                 ani.setFillAfter(true);
                 ani.setAnimationListener(new Animation.AnimationListener() {
@@ -296,7 +296,6 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                     Toast.makeText(getContext(),getContext().getResources().getString(R.string.public_loading_net_null_errtxt), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                mLoadingDialog = new LoadingDialog(getActivity());
                 ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideFragment();
                 if(dataList != null && !dataList.isEmpty()){
                     int unFinishCount = QuestionUtils.calculationUnFinishQuestion(dataList);
