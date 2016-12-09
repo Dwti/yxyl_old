@@ -30,6 +30,8 @@
             android:id="@+id/public_layout_history_iv"
             style="@style/my_list_head_img_style"
             android:layout_alignParentRight="true"
+            android:layout_width="@dimen/dimen_25"
+            android:layout_height="@dimen/dimen_25"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dimen_10"
             android:background="@drawable/exise_his"
@@ -38,8 +40,8 @@
 
         <ImageView
             android:id="@+id/public_layout_top_iv"
-            android:layout_width="@dimen/dimen_30"
-            android:layout_height="@dimen/dimen_30"
+            android:layout_width="@dimen/dimen_25"
+            android:layout_height="@dimen/dimen_25"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/public_layout_history_iv"
             android:background="@drawable/group_top_add"
