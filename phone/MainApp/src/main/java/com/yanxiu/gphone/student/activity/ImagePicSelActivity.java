@@ -26,6 +26,7 @@ import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
 import com.yanxiu.gphone.student.utils.CorpUtils;
 import com.yanxiu.gphone.student.utils.MediaUtils;
 import com.yanxiu.gphone.student.utils.Util;
+import com.yanxiu.gphone.student.view.StudentLoadingLayout;
 import com.yanxiu.gphone.student.view.picsel.bean.ImageItem;
 import com.yanxiu.gphone.student.view.picsel.inter.PicNumListener;
 import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
@@ -55,6 +56,7 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
     private boolean isAttachMax=false;//已经达到最大值
     public final static int REQUEST_CODE=0X00;
     private ImagePicSelAdapter adapter;
+    private StudentLoadingLayout loadingLayout;
 
     @Override
     protected boolean isAttach() {
@@ -70,6 +72,7 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
         gridView.setBackgroundColor(getResources().getColor(R.color.color_008080));
 
         picSelText=(TextView)view.findViewById(R.id.picSelText);
+        loadingLayout = (StudentLoadingLayout) findViewById(R.id.loading_layout);
         TextPaint picTextPaint=picSelText.getPaint();
         picTextPaint.setFakeBoldText(true);
         picSelText.setShadowLayer(2F, 0F, 4F, getResources().getColor(R.color.color_005959));
@@ -118,8 +121,13 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
         if (bucketPos != 0) {
             tempList = ShareBitmapUtils.getInstance().getDataList().get(bucketPos).getImageList();
         } else {
+            //int sum = 0;
             for (int i=0; i<ShareBitmapUtils.getInstance().getDataList().size(); i++) {
+                //sum = sum + ShareBitmapUtils.getInstance().getDataList().get(i).getImageList().size();
                 tempList.addAll(ShareBitmapUtils.getInstance().getDataList().get(i).getImageList());
+                /*if (sum > 50) {
+                    break;
+                }*/
             }
         }
 
@@ -175,6 +183,7 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
                 if (!mIsFirstClick) {
                     return;
                 }
+                loadingLayout.setViewType(StudentLoadingLayout.LoadingType.LAODING_COMMON);
                 mIsFirstClick = false;
                 isAddList=true;
                 if(!TextUtils.isEmpty(ImageBucketActivity.mSelectedImagePath)) {
@@ -269,6 +278,12 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
             picSelText.setTextColor(getResources().getColor(R.color.color_ffdb4d));
             doneText.setTextColor(getResources().getColor(R.color.color_ffdb4d));
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        loadingLayout.setViewGone();
     }
 
     /*@Override
