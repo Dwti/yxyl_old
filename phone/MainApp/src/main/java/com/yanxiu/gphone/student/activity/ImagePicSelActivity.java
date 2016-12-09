@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -26,6 +27,7 @@ import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
 import com.yanxiu.gphone.student.utils.CorpUtils;
 import com.yanxiu.gphone.student.utils.MediaUtils;
 import com.yanxiu.gphone.student.utils.Util;
+import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.StudentLoadingLayout;
 import com.yanxiu.gphone.student.view.picsel.bean.ImageItem;
 import com.yanxiu.gphone.student.view.picsel.inter.PicNumListener;
@@ -33,6 +35,7 @@ import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -175,6 +178,14 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
         mIsFirstClick = true;
     }
 
+    //临时文件上传地址
+    public static final String TEMP_UPLOAD_PIC_DIR="YanxiuCameraImg";
+    /**
+     * 保存文件
+     * @param bm
+     * @throws IOException
+     */
+
     @Override
     public void onClick(View view) {
         super.onClick(view);
@@ -206,9 +217,24 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
 //                                options.inJustDecodeBounds = false;
                                 bitmap = BitmapFactory.decodeFile(MediaUtils.getPic_select_string(), newOpts);
                                 if (bitmap.getByteCount() > 1024 * 1024) {
+                                    File mediaStorageDir = null;
+                                    try {
+                                        mediaStorageDir = new File(Environment
+                                                .getExternalStoragePublicDirectory(
+                                                        Environment.DIRECTORY_PICTURES),TEMP_UPLOAD_PIC_DIR);
+                                    } catch (Exception e) {
+                                        mediaStorageDir = new File(YanXiuConstant.SDCARD_ROOT_PATH, TEMP_UPLOAD_PIC_DIR);
+                                        e.printStackTrace();
+                                    } finally {
+                                        if (!mediaStorageDir.exists()) {
+                                            if (!mediaStorageDir.mkdirs()) {
+                                                return;
+                                            }
+                                        }
+                                    }
                                     bitmap = MediaUtils.ratio(bitmap, bitmap.getWidth() / 2, bitmap.getHeight() / 2, 800);
                                     String[] ss = MediaUtils.getPic_select_string().split("\\.");
-                                    String path = MediaUtils.getPic_select_string().split("\\.")[0] + "_temp." + MediaUtils.getPic_select_string().split("\\.")[1];
+                                    String path = mediaStorageDir + "_temp." + MediaUtils.getPic_select_string().split("\\.")[1];
                                     BitmapUtil.saveFileMain(bitmap, path);
                                     MediaUtils.cropImage(ImagePicSelActivity.this, Uri.parse(path), MediaUtils.IMAGE_CROP, MediaUtils.FROM_PICTURE);
                                 } else {
