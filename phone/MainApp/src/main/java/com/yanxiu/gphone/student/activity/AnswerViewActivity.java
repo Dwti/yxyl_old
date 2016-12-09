@@ -821,9 +821,10 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 
     public void selectViewPager() {
         LogInfo.log("geny", "selectViewPager " + (vpAnswer.getCurrentItem() + 1));
-        vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
-        if (currentIndex == adapter.getCount() - 1) {
+        if (vpAnswer.getCurrentItem() == adapter.getCount() - 1) {
             upAnswerCard();
+        }else {
+            vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
         }
     }
 
