@@ -13,6 +13,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.Request;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -20,6 +24,7 @@ import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.utils.Util;
+import com.yanxiu.gphone.student.view.StudentLoadingLayout;
 import com.yanxiu.gphone.student.view.ZoomImageView;
 import com.yanxiu.gphone.student.view.picsel.bean.LocalImageView;
 
@@ -35,6 +40,7 @@ public class PhotoFragment extends Fragment implements View.OnClickListener{
     private ZoomImageView ivPhotoView;
 
     private DisplayImageOptions options;                                 // 创建配置过得DisplayImageOption对象
+    private StudentLoadingLayout loadingLayout;
 
 
     @Override
@@ -47,7 +53,6 @@ public class PhotoFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = LayoutInflater.from(getActivity()).inflate(R.layout.item_photo_view, null);
-
         return rootView;
     }
 
@@ -55,26 +60,40 @@ public class PhotoFragment extends Fragment implements View.OnClickListener{
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ivPhotoView = (ZoomImageView) rootView.findViewById(R.id.iv_photo_view);
+        loadingLayout = (StudentLoadingLayout) rootView.findViewById(R.id.loading_layout);
+        loadingLayout.setViewType(StudentLoadingLayout.LoadingType.LAODING_COMMON);
 //        ivPhotoView.setScaleType(ImageView.ScaleType.CENTER);
 
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        loadingLayout.setViewGone();
+    }
 
     private void initData(){
-        if(!TextUtils.isEmpty(uri) && uri.startsWith("http")){
+        if(!TextUtils.isEmpty(uri) && uri.startsWith("http")) {
 
             options = new DisplayImageOptions.Builder()
-                                            .cacheInMemory(true)                        // 设置下载的图片是否缓存在内存中
-                                            .cacheOnDisk(true)                       // 设置下载的图片是否缓存在SD卡中
-                                            .build();                                   // 创建配置过得DisplayImageOption对象
+                    .cacheInMemory(true)                        // 设置下载的图片是否缓存在内存中
+                    .cacheOnDisk(true)                       // 设置下载的图片是否缓存在SD卡中
+                    .build();                                   // 创建配置过得DisplayImageOption对象
 //            ivPhotoView.setImageUrl(uri, YanxiuApplication.getInstance().getImageLoader());
 //            ImageGetterAsyncTask asyncTask = new ImageGetterAsyncTask();
 //            asyncTask.execute(uri);
 //            requestBitmap(uri);
 //            com.nostra13.universalimageloader.core.ImageLoader.getInstance().displayImage(uri, ivPhotoView, options);
-            Glide.with(this).load(uri).override(400,667).into(ivPhotoView);
-
+            Glide.with(this).load(uri).override(400, 667).into(new GlideDrawableImageViewTarget(ivPhotoView) {
+                @Override
+                public void onResourceReady(GlideDrawable drawable, GlideAnimation anim) {
+                    super.onResourceReady(drawable, anim);
+                    //在这里添加一些图片加载完成的操作
+                    loadingLayout.setViewGone();
+                }
+            });
         }
+
 
     }
 

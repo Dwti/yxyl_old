@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 
 import com.common.core.utils.LogInfo;
+import com.yanxiu.gphone.student.YanxiuApplication;
 import com.yanxiu.gphone.student.activity.takephoto.CameraActivity;
 import com.yanxiu.gphone.student.activity.takephoto.CorpActivity;
 
@@ -149,28 +150,41 @@ public class MediaUtils {
         }
         return Uri.fromFile(croppedImageFile);
     }
+
+    public static String fileUrl="";
     public static File getCameraOutputMediaFile(boolean isNewFile) {
         File mediaStorageDir = null;
+        File yygypath = null;
         try {
-            mediaStorageDir = new File(Environment
-                    .getExternalStorageDirectory().getAbsolutePath()+"/"+TEMP_UPLOAD_PIC_DIR);
+//            mediaStorageDir = new File(Environment
+//                    .getExternalStorageDirectory().getAbsolutePath()+"/"+TEMP_UPLOAD_PIC_DIR);
+
+            yygypath = YanxiuApplication.getInstance().getFilesDir();//this.getCacheDir();
+
         } catch (Exception e) {
-            mediaStorageDir = new File(YanXiuConstant.SDCARD_ROOT_PATH, TEMP_UPLOAD_PIC_DIR);
+            //mediaStorageDir = new File(YanXiuConstant.SDCARD_ROOT_PATH, TEMP_UPLOAD_PIC_DIR);
             e.printStackTrace();
         } finally {
-            if (!mediaStorageDir.exists()) {
+            /*if (!mediaStorageDir.exists()) {
                 if (!mediaStorageDir.mkdirs()) {
                     return null;
                 }
-            }
+            }*/
             if(isNewFile){
                 if(currentFile!=null){
                     currentFile=null;
                 }
-                File mediaFile;
-                mediaFile = new File(mediaStorageDir.getPath() + File.separator
-                        + System.currentTimeMillis()+".png");
-                currentFile=mediaFile;
+//                File mediaFile;
+//                mediaFile = new File(mediaStorageDir.getPath() + File.separator
+//                        + System.currentTimeMillis()+".png");
+                File file = new File(yygypath, System.currentTimeMillis()+".png");
+                currentFile=file;
+                fileUrl=file.getPath();
+                try {
+                    currentFile.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             return currentFile;
         }
