@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -425,8 +426,8 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     }
 
     @Override
-    public void oncorp() {
-        String filePath = PictureHelper.getPath(getActivity(), MediaUtils.currentCroppedImageUri);
+    public void oncorp(Uri url) {
+        String filePath = PictureHelper.getPath(getActivity(), url);
         ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), filePath);
         updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
 //

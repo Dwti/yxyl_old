@@ -80,7 +80,9 @@ public class CorpFragment extends Fragment {
         if (getActivity() != null) {
             Bundle bundle = getActivity().getIntent().getBundleExtra("bundle");
             mFromUri = Uri.fromFile(new File(bundle.getString("uri")));
-            mCorpUri = Uri.parse(getActivity().getIntent().getStringExtra(MediaStore.EXTRA_OUTPUT));
+            File file=getActivity().getFilesDir();
+            File file1=new File(file,System.currentTimeMillis()+"_corp.png");
+            mCorpUri = Uri.fromFile(file1);
             mFrom = getActivity().getIntent().getIntExtra("from", 0);
             YanXiuConstant.index_position=YanXiuConstant.catch_position;
             getActivity().getIntent().getData();
@@ -108,7 +110,7 @@ public class CorpFragment extends Fragment {
             LogInfo.log("ttttttt2", ""+mFrom);
             LogInfo.log("ttttttt2", ""+MediaUtils.getOutputMediaFileUri(false));
             if (mFrom == MediaUtils.FROM_CAMERA) {
-                mCropView.startLoad(MediaUtils.getOutputMediaFileUri(false), mLoadCallback);
+                mCropView.startLoad(mFromUri, mLoadCallback);
                 //mCropView.setImageResource(R.drawable.blue_arrow);
             } else {
                 //mCropView.setImageURI(Uri.parse(MediaUtils.getPic_select_string()));
@@ -333,7 +335,7 @@ public class CorpFragment extends Fragment {
         public void onSuccess(Uri outputUri) {
             dismissProgress();
             if (CorpUtils.getInstence().getCorpListener()!=null) {
-                CorpUtils.getInstence().getCorpListener().oncorp();
+                CorpUtils.getInstence().getCorpListener().oncorp(outputUri);
             }
                 CorpUtils.getInstence().setCorpFinish();
             //Intent Intent=new Intent();

@@ -17,7 +17,7 @@
         android:layout_below="@id/main_public_top_my"
         android:fadingEdge="vertical"
         android:paddingBottom="@dimen/dimen_5"
-        android:paddingLeft="@dimen/dimen_30"
+        android:paddingLeft="@dimen/dimen_10"
         android:paddingRight="@dimen/dimen_30"
         android:scrollbars="none">
 

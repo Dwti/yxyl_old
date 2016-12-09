@@ -79,7 +79,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what==REQUEST_CODE){
-                Uri uri=MediaUtils.getOutputMediaFileUri(false);
+                Uri uri=Uri.parse(MediaUtils.fileUrl);
                 MediaUtils.cropImage(CameraActivity.this,uri,MediaUtils.IMAGE_CROP,MediaUtils.FROM_CAMERA);
             }else {
                 //iv_CropImage.setVisibility(View.VISIBLE);
