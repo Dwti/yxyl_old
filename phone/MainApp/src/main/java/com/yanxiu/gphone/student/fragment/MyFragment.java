@@ -121,7 +121,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         if (Configuration.isTestData()) {
             testdataLayout.setVisibility(View.VISIBLE);
         } else {
-            testdataLayout.setVisibility(View.VISIBLE);
+            testdataLayout.setVisibility(View.GONE);
         }
         feedbackLayout=rootView.findViewById(R.id.feedback_layout);
 
