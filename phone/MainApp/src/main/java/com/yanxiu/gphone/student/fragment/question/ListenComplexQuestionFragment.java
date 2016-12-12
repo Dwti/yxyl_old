@@ -228,7 +228,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                 }
             }
         } else {
-            if (vpAnswer!=null){
+            if (vpAnswer!=null&&adapter!=null){
                 if (CorpUtils.getInstence().getCorpListener()!=null){
                     BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
                     if (fragment instanceof SubjectiveQuestionFragment){
@@ -453,7 +453,7 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
 //        }
 
         if (vpAnswer != null) {
-            if (!is_reduction) {
+            if (!is_reduction&&adapter!=null) {
                 BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
                 if (CorpUtils.getInstence().getCorpListener()!=null){
                     if (fragment instanceof SubjectiveQuestionFragment){

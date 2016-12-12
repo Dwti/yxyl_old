@@ -172,7 +172,7 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
             }
         }else {
 
-            if (vpAnswer!=null){
+            if (vpAnswer!=null&&adapter!=null){
                 BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
                 if (CorpUtils.getInstence().getCorpListener()!=null){
                     if (fragment instanceof SubjectiveQuestionFragment){
@@ -265,7 +265,7 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
 //            vpAnswer.setCurrentItem(childPagerIndex);
 //        }
 
-        if (vpAnswer != null) {
+        if (vpAnswer != null&&adapter!=null) {
                 BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
                 if (CorpUtils.getInstence().getCorpListener()!=null){
                     if (fragment instanceof SubjectiveQuestionFragment){
