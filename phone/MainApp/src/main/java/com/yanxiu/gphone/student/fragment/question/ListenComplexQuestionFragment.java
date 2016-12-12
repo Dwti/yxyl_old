@@ -454,17 +454,19 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
 
         if (vpAnswer != null) {
             if (!is_reduction&&adapter!=null) {
-                BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
-                if (CorpUtils.getInstence().getCorpListener()!=null){
-                    if (fragment instanceof SubjectiveQuestionFragment){
-                        if (((CorpListener)fragment).hashCode()==CorpUtils.getInstence().getCorpListener().hashCode()){
-                            vpAnswer.setCurrentItem(YanXiuConstant.index_position);
-                            YanXiuConstant.index_position=0;
+                try {
+                    BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
+                    if (CorpUtils.getInstence().getCorpListener()!=null){
+                        if (fragment instanceof SubjectiveQuestionFragment){
+                            if (((CorpListener)fragment).hashCode()==CorpUtils.getInstence().getCorpListener().hashCode()){
+                                vpAnswer.setCurrentItem(YanXiuConstant.index_position);
+                                YanXiuConstant.index_position=0;
+                            }
                         }
+                    }else {
+                        vpAnswer.setCurrentItem(0);
                     }
-                }else {
-                    vpAnswer.setCurrentItem(0);
-                }
+                }catch (Exception e){}
             } else {
 //                vpAnswer.setCurrentItem(adapter.getCount() - 1);
             }

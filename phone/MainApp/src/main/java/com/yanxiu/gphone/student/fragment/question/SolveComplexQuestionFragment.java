@@ -266,6 +266,7 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
 //        }
 
         if (vpAnswer != null&&adapter!=null) {
+            try {
                 BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
                 if (CorpUtils.getInstence().getCorpListener()!=null){
                     if (fragment instanceof SubjectiveQuestionFragment){
@@ -277,8 +278,8 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
                 }else {
                     vpAnswer.setCurrentItem(0);
                 }
+            }catch (Exception e){}
         }
-
         setViewPagerCurrent();
     }
     @Override
