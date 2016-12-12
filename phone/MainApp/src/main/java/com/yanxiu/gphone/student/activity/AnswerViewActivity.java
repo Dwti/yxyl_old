@@ -867,7 +867,13 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         LogInfo.log(TAG, "onDestroy");
         totalTime=0;
         lastTime=0;
-        PicSelView.resetAllData();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                PicSelView.resetAllData();
+            }
+        }).start();
+
     }
 
     @Override
