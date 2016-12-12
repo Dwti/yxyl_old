@@ -393,7 +393,8 @@
             <RelativeLayout
                 android:id="@+id/my_test_data_layout"
                 style="@style/my_list_style"
-                android:layout_below="@id/my_setting_layout">
+                android:layout_below="@id/my_setting_layout"
+                android:visibility="gone">
 
 
                 <ImageView
