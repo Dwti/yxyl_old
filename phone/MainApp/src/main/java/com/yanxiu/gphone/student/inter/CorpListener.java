@@ -1,5 +1,7 @@
 package com.yanxiu.gphone.student.inter;
 
+import android.net.Uri;
+
 import com.yanxiu.gphone.student.bean.DeleteImageBean;
 
 /**
@@ -10,6 +12,6 @@ import com.yanxiu.gphone.student.bean.DeleteImageBean;
  */
 
 public interface CorpListener {
-    void oncorp();
+    void oncorp(Uri url);
     void ondelete(DeleteImageBean bean);
 }

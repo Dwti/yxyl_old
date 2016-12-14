@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             custom:scv_crop_mode="fit_image"
             custom:scv_background_color="@color/windowBackground"
-            custom:scv_handle_color="@color/color_cccccc"
+            custom:scv_handle_color="@color/color_99cccccc"
             custom:scv_guide_color="@color/color_ffffff"
             custom:scv_overlay_color="@color/overlay"
             custom:scv_frame_color="@color/color_ffffff"

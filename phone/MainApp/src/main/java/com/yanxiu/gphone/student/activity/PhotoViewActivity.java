@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.PhotoAdapter;
 import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
+import com.yanxiu.gphone.student.view.StudentLoadingLayout;
 
 import java.util.ArrayList;
 

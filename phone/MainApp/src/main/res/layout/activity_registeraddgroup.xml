@@ -119,6 +119,7 @@
             android:padding="@dimen/dimen_5"
             android:background="@drawable/login_content_input_bg"
             android:layout_below="@id/dash_line"
+            android:maxLength="25"
             android:layout_marginLeft="@dimen/dimen_15"
             android:layout_marginRight="@dimen/dimen_15"
             android:layout_height="50dp" />

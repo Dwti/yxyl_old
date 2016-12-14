@@ -200,17 +200,20 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
             }
         }
         if (!isVisibleToUser){
-            if (vpAnswer!=null){
-                if (CorpUtils.getInstence().getCorpListener()!=null){
-                    BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
-                    if (fragment instanceof SubjectiveQuestionFragment){
-                        if (((CorpListener)fragment).hashCode()!=CorpUtils.getInstence().getCorpListener().hashCode()){
-                            vpAnswer.setCurrentItem(0);
+            if (vpAnswer!=null&&adapter!=null){
+                try {
+                    if (CorpUtils.getInstence().getCorpListener()!=null){
+                        BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
+                        if (fragment instanceof SubjectiveQuestionFragment){
+                            if (((CorpListener)fragment).hashCode()!=CorpUtils.getInstence().getCorpListener().hashCode()){
+                                vpAnswer.setCurrentItem(0);
+                            }
                         }
+                    }else {
+                        vpAnswer.setCurrentItem(0);
                     }
-                }else {
-                    vpAnswer.setCurrentItem(0);
-                }
+                }catch (Exception e){}
+
             }
 
         }
@@ -293,7 +296,7 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
 //            vpAnswer.setCurrentItem(childPagerIndex);
 //        }
 
-        if (vpAnswer != null) {
+        if (vpAnswer != null&&adapter!=null) {
             if (!is_reduction) {
                 BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
                 if (CorpUtils.getInstence().getCorpListener()!=null){

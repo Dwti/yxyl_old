@@ -19,8 +19,8 @@
     <ImageView
         android:id="@+id/item_right_arrow"
         style="@style/my_list_right_img_style"
-        android:layout_width="@dimen/dimen_30"
-        android:layout_height="@dimen/dimen_30"
+        android:layout_width="@dimen/dimen_28"
+        android:layout_height="@dimen/dimen_28"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/dimen_15"

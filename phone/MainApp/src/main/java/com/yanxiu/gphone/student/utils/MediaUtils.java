@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 
 import com.common.core.utils.LogInfo;
+import com.yanxiu.gphone.student.YanxiuApplication;
 import com.yanxiu.gphone.student.activity.takephoto.CameraActivity;
 import com.yanxiu.gphone.student.activity.takephoto.CorpActivity;
 
@@ -19,6 +20,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  *  多媒体相关工具  (相机 录音 图像 视频 音频 ) 相关处理工具
@@ -148,6 +150,46 @@ public class MediaUtils {
         }
         return Uri.fromFile(croppedImageFile);
     }
+
+    public static String fileUrl="";
+    public static File getCameraOutputMediaFile(boolean isNewFile) {
+        File mediaStorageDir = null;
+        File yygypath = null;
+        try {
+//            mediaStorageDir = new File(Environment
+//                    .getExternalStorageDirectory().getAbsolutePath()+"/"+TEMP_UPLOAD_PIC_DIR);
+
+            yygypath = YanxiuApplication.getInstance().getFilesDir();//this.getCacheDir();
+
+        } catch (Exception e) {
+            //mediaStorageDir = new File(YanXiuConstant.SDCARD_ROOT_PATH, TEMP_UPLOAD_PIC_DIR);
+            e.printStackTrace();
+        } finally {
+            /*if (!mediaStorageDir.exists()) {
+                if (!mediaStorageDir.mkdirs()) {
+                    return null;
+                }
+            }*/
+            if(isNewFile){
+                if(currentFile!=null){
+                    currentFile=null;
+                }
+//                File mediaFile;
+//                mediaFile = new File(mediaStorageDir.getPath() + File.separator
+//                        + System.currentTimeMillis()+".png");
+                File file = new File(yygypath, System.currentTimeMillis()+".png");
+                currentFile=file;
+                fileUrl=file.getPath();
+                try {
+                    currentFile.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return currentFile;
+        }
+    }
+
     public static File getOutputMediaFile(boolean isNewFile) {
         File mediaStorageDir = null;
         try {
@@ -170,6 +212,7 @@ public class MediaUtils {
                 File mediaFile;
                 mediaFile = new File(mediaStorageDir.getPath() + File.separator
                         + System.currentTimeMillis()+".png");
+
                 currentFile=mediaFile;
             }
             return currentFile;
@@ -283,10 +326,10 @@ public class MediaUtils {
      * @param pixelH target pixel of height
      * @return
      */
-    public static Bitmap ratio(Bitmap image, float pixelW, float pixelH) {
+    public static Bitmap ratio(Bitmap image, float pixelW, float pixelH, int quality) {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, os);
-        if( os.toByteArray().length / 1024>300) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
+        if( os.toByteArray().length / 1024>quality) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
             os.reset();//重置baos即清空baos
             image.compress(Bitmap.CompressFormat.JPEG, 50, os);//这里压缩50%，把压缩后的数据存放到baos中
         }
@@ -294,7 +337,7 @@ public class MediaUtils {
         BitmapFactory.Options newOpts = new BitmapFactory.Options();
         //开始读入图片，此时把options.inJustDecodeBounds 设回true了
         newOpts.inJustDecodeBounds = true;
-        newOpts.inPreferredConfig = Bitmap.Config.RGB_565;
+        newOpts.inPreferredConfig = Bitmap.Config.ARGB_8888;
         Bitmap bitmap = BitmapFactory.decodeStream(is, null, newOpts);
         newOpts.inJustDecodeBounds = false;
         int w = newOpts.outWidth;

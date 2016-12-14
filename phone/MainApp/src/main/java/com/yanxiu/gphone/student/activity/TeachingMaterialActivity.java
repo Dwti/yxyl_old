@@ -265,7 +265,9 @@ public class TeachingMaterialActivity extends YanxiuBaseActivity {
                 if (TextUtils.isEmpty(mMistakeEditionBean.getStatus().getDesc())) {
                     mRootView.dataNull(true);
                 } else {
-                    mRootView.dataNull(mMistakeEditionBean.getStatus().getDesc());
+                    relative_layout.setVisibility(View.VISIBLE);
+                    text_dese.setText(mMistakeEditionBean.getStatus().getDesc());
+//                    mRootView.dataNull(mMistakeEditionBean.getStatus().getDesc());
                 }
             } else {
                 if (type == PRACTICE_ERROR_COLLECTION_ACTIVITY || type == PRACTICE_HISTORY_ACTIVITY) {
@@ -283,6 +285,8 @@ public class TeachingMaterialActivity extends YanxiuBaseActivity {
                 if (TextUtils.isEmpty(msg)) {
                     mRootView.dataNull(true);
                 } else {
+//                    relative_layout.setVisibility(View.VISIBLE);
+//                    text_dese.setText(msg);
                     mRootView.dataNull(msg);
                 }
             }

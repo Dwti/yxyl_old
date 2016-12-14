@@ -476,4 +476,5 @@
     <string name="permission_crop_rationale">WRITE_EXTERNAL_STORAGE permission is needed to save cropped image.</string>
     <string name="permission_denied">Permission was denied. Please consider granting it in order to use all features.</string>
     <string name="permission_denied_never_ask_again">Permission was denied with never ask again.</string>
+    <string name="exchange_txt_hint"><Data><![CDATA[请使用<font color="#ff0000"><b>%1$s</b></font>牛兑换<font color="#00ff00"><b>%2$s</b></font>%3$s 上网时长]]></Data></string> 
 </resources>

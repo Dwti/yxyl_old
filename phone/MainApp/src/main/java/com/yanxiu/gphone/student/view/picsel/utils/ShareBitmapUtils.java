@@ -127,12 +127,21 @@ public class ShareBitmapUtils implements YanxiuBaseBean {
                     break;
                 } else {
                     try {
-                        String path = drrMaps.get(id).get(loadIndex);
-                        MediaUtils.scanFile(YanxiuApplication.getContext(),path);
-                        LogInfo.log(TAG, "Add new Pic Path: " + path);
-                        LogInfo.log(TAG, "LIST_INDEX " + loadIndex);
-                        loadIndex += 1;
-                        listIndexMaps.put(id, loadIndex);
+                        List<String> list=drrMaps.get(id);
+                        if (loadIndex<0){
+                            loadIndex += 1;
+                            listIndexMaps.put(id, loadIndex);
+                        }else if (loadIndex>list.size()){
+                            loadIndex -= 1;
+                            listIndexMaps.put(id, loadIndex);
+                        }else {
+                            String path = drrMaps.get(id).get(loadIndex);
+                            MediaUtils.scanFile(YanxiuApplication.getContext(), path);
+                            LogInfo.log(TAG, "Add new Pic Path: " + path);
+                            LogInfo.log(TAG, "LIST_INDEX " + loadIndex);
+                            loadIndex += 1;
+                            listIndexMaps.put(id, loadIndex);
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

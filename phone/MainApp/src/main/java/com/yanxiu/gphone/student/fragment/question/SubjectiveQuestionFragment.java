@@ -1,8 +1,10 @@
 package com.yanxiu.gphone.student.fragment.question;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -153,6 +155,16 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     }
 
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
+    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser&&!ischild){
@@ -161,7 +173,9 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
             }catch (Exception e){}
         }
         if (isVisibleToUser){
-            YanXiuConstant.catch_position=pageIndex;
+            if (ischild) {
+                YanXiuConstant.catch_position = pageIndex;
+            }
             IsVisible=true;
         }else {
             IsVisible=false;
@@ -412,8 +426,8 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     }
 
     @Override
-    public void oncorp() {
-        String filePath = PictureHelper.getPath(getActivity(), MediaUtils.currentCroppedImageUri);
+    public void oncorp(Uri url) {
+        String filePath = PictureHelper.getPath(getActivity(), url);
         ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), filePath);
         updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
 //

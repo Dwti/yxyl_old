@@ -423,7 +423,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
         et.setTag(start);
         et.setPadding(10, 0, 10, 0);
         et.setSingleLine();
-        et.setTextColor(mCtx.getResources().getColor(R.color.color_00b8b8));
+        et.setTextColor(mCtx.getResources().getColor(R.color.color_333333));
         et.setTextSize(textSize);
         et.setBackground(mCtx.getResources().getDrawable(R.drawable.fill_blank_bg));
 //        et.setGravity(Gravity.CENTER);

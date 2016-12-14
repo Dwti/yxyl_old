@@ -207,7 +207,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
                     for (String str : questionsEntity.getAnswer()) {
                         answerString.append(str).append(" ");
                     }
-                    if (!TextUtils.isEmpty(answerString.toString())) {
+                    if (!TextUtils.isEmpty(answerString.toString().trim())) {
                         tvAnswerText.setTextHtml(answerString.toString());
                         llAnswer.setVisibility(View.VISIBLE);
                     }

@@ -72,7 +72,7 @@ public class ConnectTextView extends TextView implements View.OnClickListener{
     public void setHtmlText(String text){
         imageGetter = new ConnectImageGetter(this, context);
         Spanned spanned = Html(context,text, imageGetter);
-        spanned= SpanCenterUtils.getInstence().getSpan(spanned);
+//        spanned= SpanCenterUtils.getInstence().getSpan(spanned);
         this.setText(spanned);
     }
 

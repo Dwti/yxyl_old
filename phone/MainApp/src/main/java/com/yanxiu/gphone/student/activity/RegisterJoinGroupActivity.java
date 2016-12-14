@@ -22,6 +22,7 @@ import com.yanxiu.gphone.student.utils.DoubleKillUtils;
 import com.yanxiu.gphone.student.utils.PublicLoadUtils;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
+import com.yanxiu.gphone.student.view.MyBoldTextView;
 import com.yanxiu.gphone.student.view.PublicLoadLayout;
 import com.yanxiu.gphone.student.view.YanxiuTypefaceTextView;
 import com.yanxiu.gphone.student.view.passwordview.GridPasswordView;
@@ -90,7 +91,7 @@ public class RegisterJoinGroupActivity extends YanxiuBaseActivity implements Vie
         group_bottom_submit.setTextColor(getResources().getColor(R.color.color_e4b62e));
         TextView pub_top_left= (TextView) findViewById(R.id.pub_top_left);
         pub_top_left.setOnClickListener(this);
-        YanxiuTypefaceTextView pub_top_mid= (YanxiuTypefaceTextView) findViewById(R.id.pub_top_mid);
+        MyBoldTextView pub_top_mid= (MyBoldTextView) findViewById(R.id.pub_top_mid);
         pub_top_mid.setText(R.string.class_add);
         TextView pub_top_right= (TextView) findViewById(R.id.pub_top_right);
         pub_top_right.setVisibility(View.INVISIBLE);

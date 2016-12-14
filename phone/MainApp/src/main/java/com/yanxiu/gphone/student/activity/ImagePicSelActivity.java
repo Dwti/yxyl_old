@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -26,12 +27,15 @@ import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
 import com.yanxiu.gphone.student.utils.CorpUtils;
 import com.yanxiu.gphone.student.utils.MediaUtils;
 import com.yanxiu.gphone.student.utils.Util;
+import com.yanxiu.gphone.student.utils.YanXiuConstant;
+import com.yanxiu.gphone.student.view.StudentLoadingLayout;
 import com.yanxiu.gphone.student.view.picsel.bean.ImageItem;
 import com.yanxiu.gphone.student.view.picsel.inter.PicNumListener;
 import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +59,7 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
     private boolean isAttachMax=false;//已经达到最大值
     public final static int REQUEST_CODE=0X00;
     private ImagePicSelAdapter adapter;
+    private StudentLoadingLayout loadingLayout;
 
     @Override
     protected boolean isAttach() {
@@ -70,6 +75,7 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
         gridView.setBackgroundColor(getResources().getColor(R.color.color_008080));
 
         picSelText=(TextView)view.findViewById(R.id.picSelText);
+        loadingLayout = (StudentLoadingLayout) view.findViewById(R.id.loading_layout);
         TextPaint picTextPaint=picSelText.getPaint();
         picTextPaint.setFakeBoldText(true);
         picSelText.setShadowLayer(2F, 0F, 4F, getResources().getColor(R.color.color_005959));
@@ -118,8 +124,13 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
         if (bucketPos != 0) {
             tempList = ShareBitmapUtils.getInstance().getDataList().get(bucketPos).getImageList();
         } else {
+            int sum = 0;
             for (int i=0; i<ShareBitmapUtils.getInstance().getDataList().size(); i++) {
+                sum = sum + ShareBitmapUtils.getInstance().getDataList().get(i).getImageList().size();
                 tempList.addAll(ShareBitmapUtils.getInstance().getDataList().get(i).getImageList());
+                if (sum > 50) {
+                    break;
+                }
             }
         }
 
@@ -159,35 +170,72 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
         rightText.setOnClickListener(this);
         leftView.setOnClickListener(this);
     }
+    private boolean mIsFirstClick = true;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mIsFirstClick = true;
+    }
+
+    //临时文件上传地址
+    public static final String TEMP_UPLOAD_PIC_DIR="YanxiuCameraImg";
 
     @Override
     public void onClick(View view) {
         super.onClick(view);
         switch (view.getId()){
             case R.id.doneText:
+                if (!mIsFirstClick) {
+                    return;
+                }
+                loadingLayout.setViewType(StudentLoadingLayout.LoadingType.LAODING_COMMON);
+                mIsFirstClick = false;
                 isAddList=true;
                 if(!TextUtils.isEmpty(ImageBucketActivity.mSelectedImagePath)) {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
                             try {
-                                BitmapFactory.Options options = new BitmapFactory.Options();
-                                options.inSampleSize = 2;
-                                options.inJustDecodeBounds = false;
-                                Bitmap bitmap = BitmapFactory.decodeFile(MediaUtils.getPic_select_string(), options);
+
+                                BitmapFactory.Options newOpts = new BitmapFactory.Options();
+                                //开始读入图片，此时把options.inJustDecodeBounds 设回true了
+                                newOpts.inJustDecodeBounds = true;
+                                newOpts.inPreferredConfig = Bitmap.Config.RGB_565;
+                                Bitmap bitmap = BitmapFactory.decodeFile(MediaUtils.getPic_select_string(), newOpts);
+                                newOpts.inJustDecodeBounds = false;
+                                newOpts.inSampleSize = 2;//设置缩放比例
+
+
+//                                BitmapFactory.Options options = new BitmapFactory.Options();
+//                                //options.inSampleSize = 2;
+//                                options.inJustDecodeBounds = false;
+                                bitmap = BitmapFactory.decodeFile(MediaUtils.getPic_select_string(), newOpts);
                                 if (bitmap.getByteCount() > 1024 * 1024) {
-                                    bitmap = MediaUtils.ratio(bitmap, bitmap.getWidth() / 10, bitmap.getHeight() / 10);
+                                    File mediaStorageDir = null;
+                                    try {
+                                        mediaStorageDir = new File(Environment
+                                                .getExternalStoragePublicDirectory(
+                                                        Environment.DIRECTORY_PICTURES),TEMP_UPLOAD_PIC_DIR);
+                                    } catch (Exception e) {
+                                        mediaStorageDir = new File(YanXiuConstant.SDCARD_ROOT_PATH, TEMP_UPLOAD_PIC_DIR);
+                                        e.printStackTrace();
+                                    } finally {
+                                        if (!mediaStorageDir.exists()) {
+                                            if (!mediaStorageDir.mkdirs()) {
+                                                return;
+                                            }
+                                        }
+                                    }
+                                    bitmap = MediaUtils.ratio(bitmap, bitmap.getWidth() / 2, bitmap.getHeight() / 2, 800);
                                     String[] ss = MediaUtils.getPic_select_string().split("\\.");
-                                    String path = MediaUtils.getPic_select_string().split("\\.")[0] + "_temp." + MediaUtils.getPic_select_string().split("\\.")[1];
+                                    String path = mediaStorageDir + "_temp." + MediaUtils.getPic_select_string().split("\\.")[1];
                                     BitmapUtil.saveFileMain(bitmap, path);
                                     MediaUtils.cropImage(ImagePicSelActivity.this, Uri.parse(path), MediaUtils.IMAGE_CROP, MediaUtils.FROM_PICTURE);
                                 } else {
                                     MediaUtils.cropImage(ImagePicSelActivity.this, Uri.parse(MediaUtils.getPic_select_string()), MediaUtils.IMAGE_CROP, MediaUtils.FROM_PICTURE);
                                 }
                                 executeFinish();
-                                if (bitmap != null) {
-                                    bitmap.recycle();
-                                }
                             } catch (OutOfMemoryError e) {
                                 e.printStackTrace();
                             }
@@ -247,6 +295,14 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
         }else{
             picSelText.setTextColor(getResources().getColor(R.color.color_ffdb4d));
             doneText.setTextColor(getResources().getColor(R.color.color_ffdb4d));
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (loadingLayout != null) {
+            loadingLayout.setViewGone();
         }
     }
 

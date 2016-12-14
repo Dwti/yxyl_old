@@ -49,6 +49,7 @@ import com.yanxiu.gphone.student.view.takephoto.CameraPreview;
 import com.yanxiu.gphone.student.view.takephoto.FocusView;
 import com.yanxiu.gphone.student.view.takephoto.RecordVideoStatueCircle;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -78,7 +79,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what==REQUEST_CODE){
-                Uri uri=MediaUtils.getOutputMediaFileUri(false);
+                Uri uri=Uri.parse(MediaUtils.fileUrl);
                 MediaUtils.cropImage(CameraActivity.this,uri,MediaUtils.IMAGE_CROP,MediaUtils.FROM_CAMERA);
             }else {
                 //iv_CropImage.setVisibility(View.VISIBLE);
@@ -192,6 +193,8 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         sb1.setProgress(0);
         cameraPreview = new CameraPreview(this);
         cameraPreview.setFocusView(mFocusView);
+        //cameraPreview.setFocus();
+
         fl_preview.addView(cameraPreview);
         Camera.Parameters params = cameraPreview.getCameraParams();
         if (params == null) {
@@ -213,7 +216,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
     }
 
     private Bitmap bitmap;
-    public Camera.PictureCallback mPicture = new Camera.PictureCallback() {
+    private Camera.PictureCallback mPicture = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(final byte[] data, Camera camera) {
             if (!Environment.getExternalStorageState().equals(
@@ -227,25 +230,33 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
                    @Override
                    public void run() {
 
-                       File pictureFile = MediaUtils.getOutputMediaFile(true);
+                       File pictureFile = MediaUtils.getCameraOutputMediaFile(true);
                        LogInfo.log("path", "111path" + pictureFile.getPath());
-                       FileOutputStream fos = null;
+                       BufferedOutputStream fos = null;
                        try {
-                           fos = new FileOutputStream(pictureFile);
+                           fos = new BufferedOutputStream(new FileOutputStream(pictureFile));
                        } catch (FileNotFoundException e) {
                            e.printStackTrace();
                        }
                        BitmapFactory.Options options = new BitmapFactory.Options();
+
+                       //开始读入图片，此时把options.inJustDecodeBounds 设回true了
+                       options.inJustDecodeBounds = true;
+                       options.inPreferredConfig = Bitmap.Config.RGB_565;
+                       Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0,
+                               data.length, options);
                        options.inSampleSize = 2;
                        options.inJustDecodeBounds = false;
                        final Bitmap bm = BitmapFactory.decodeByteArray(data, 0,
                                data.length, options);
                        Matrix matrix = new Matrix();
                        matrix.setRotate(90);
-                       bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
-                       mHandler.sendEmptyMessage(55);
-                       bitmap = MediaUtils.ratio(bitmap, bm.getWidth()/2, bm.getHeight()/2);
-                       bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                       Bitmap saveBitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
+                       //mHandler.sendEmptyMessage(55);
+                       if (saveBitmap.getByteCount() > 1024 * 1024) {
+                           saveBitmap = MediaUtils.ratio(saveBitmap, bm.getWidth() / 2, bm.getHeight() / 2, 800);
+                       }
+                       saveBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                        /**
                         * 获取图片的旋转角度，有些系统把拍照的图片旋转了，有的没有旋转
                         */
@@ -379,7 +390,7 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
         //int screenWidth = screenWidth = getWindowManager().getDefaultDisplay().getWidth();
         //int screenHeight = screenHeight = getWindowManager().getDefaultDisplay().getHeight();
         List<Camera.Size> list= params.getSupportedPictureSizes();
-        int position=list.size()/2;
+        int position=list.size()/3;
         Camera.Size size=list.get(position);
         params.setPictureSize(size.width, size.height);
         camera.setParameters(params);

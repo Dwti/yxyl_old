@@ -16,6 +16,7 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.common.core.utils.CommonCoreUtil;
@@ -141,6 +142,14 @@ public class LoginActivity extends YanxiuBaseActivity implements
     }
 
     private void findView () {
+        RelativeLayout relative_layout= (RelativeLayout) findViewById(R.id.relative_layout);
+        relative_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonCoreUtil.hideSoftInput(userNameText);
+                CommonCoreUtil.hideSoftInput(passwordText);
+            }
+        });
         logoImage = (ImageView) findViewById(R.id.login_logo);
         userNameText = (EditText) findViewById(R.id.login_username);
         Util.setViewTypeface(YanxiuTypefaceTextView.TypefaceType.METRO_BOLD, userNameText);

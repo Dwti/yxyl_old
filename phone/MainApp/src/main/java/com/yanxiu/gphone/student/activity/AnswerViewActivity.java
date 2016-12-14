@@ -189,6 +189,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         initView();
         initData();
         mLoadingDialog = new LoadingDialog(this);
+        mLoadingDialog.setCanceledOnTouchOutside(false);
         mLoadingDialog.setOnCloseListener(new LoadingDialog.OnCloseListener() {
             @Override
             public void onClose() {
@@ -482,8 +483,10 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                 UploadImageBean uploadImageBean = (UploadImageBean) bean;
                 if(uploadImageBean.getData() != null){
                     subjectiveQIndex++;
-                    ArrayList<String> uploadBean = (ArrayList<String>) uploadImageBean.getData();
+                    ArrayList<String> uploadBean = new ArrayList<String>();
+                    ArrayList<String> tempBean = (ArrayList<String>) uploadImageBean.getData();
                     uploadBean.addAll(httpUrl);
+                    uploadBean.addAll(tempBean);
                     entity.getAnswerBean().setSubjectivImageUri(uploadBean);
                 }
                 handleUploadSubjectiveImage();
@@ -673,6 +676,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         return super.onTouchEvent(event);
     }
 
+
+
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         super.onPageScrolled(position, positionOffset, positionOffsetPixels);
@@ -819,9 +824,10 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 
     public void selectViewPager() {
         LogInfo.log("geny", "selectViewPager " + (vpAnswer.getCurrentItem() + 1));
-        vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
-        if (currentIndex == adapter.getCount() - 1) {
+        if (vpAnswer.getCurrentItem() == adapter.getCount() - 1) {
             upAnswerCard();
+        }else {
+            vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
         }
     }
 
@@ -861,7 +867,13 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         LogInfo.log(TAG, "onDestroy");
         totalTime=0;
         lastTime=0;
-        PicSelView.resetAllData();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                PicSelView.resetAllData();
+            }
+        }).start();
+
     }
 
     @Override
