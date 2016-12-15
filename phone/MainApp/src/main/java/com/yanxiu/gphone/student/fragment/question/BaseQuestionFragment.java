@@ -62,7 +62,7 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
     private int pageNumber;
     private int wrongId;
     private int wrongCount;
-
+private Object message;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +91,14 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
         outState.putInt("wrongId",wrongId);
         outState.putInt("wrongCount",wrongCount);
         super.onSaveInstanceState(outState);
+    }
+
+    public void setTagMessage(Object message){
+       this.message=message;
+    }
+
+    public Object getTagMessage(){
+        return message;
     }
 
     @Override

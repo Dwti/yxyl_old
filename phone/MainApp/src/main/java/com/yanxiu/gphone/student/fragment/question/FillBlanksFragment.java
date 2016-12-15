@@ -28,8 +28,7 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
     //    private FragmentTransaction ft;
     private Fragment resolutionFragment;
     private Button addBtn;
-    private boolean isVisibleToUser;
-
+    private boolean isVisibleToUser=false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,20 +37,20 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (rootView == null) {
-            rootView = LayoutInflater.from(getActivity()).inflate(
-                    R.layout.fragment_fill_blanks, null);
-            fillBlanksFramelayout = (FillBlanksFramelayout) rootView.findViewById(R.id.fb_item);
-            if (questionsEntity != null && questionsEntity.getStem() != null) {
-                fillBlanksFramelayout.setAnswers(questionsEntity.getAnswer());
-                fillBlanksFramelayout.setData(questionsEntity.getStem());
+//        if (rootView == null) {
+                rootView = LayoutInflater.from(getActivity()).inflate(
+                        R.layout.fragment_fill_blanks, null);
+                fillBlanksFramelayout = (FillBlanksFramelayout) rootView.findViewById(R.id.fb_item);
+                if (questionsEntity != null && questionsEntity.getStem() != null) {
+                    fillBlanksFramelayout.setAnswers(questionsEntity.getAnswer());
+                    fillBlanksFramelayout.setData(questionsEntity.getStem());
 //            Log.d("asd", "Stem+++++" + questionsEntity.getStem());
-            }
+                }
 
-            FragmentTransaction ft = FillBlanksFragment.this.getChildFragmentManager().beginTransaction();
-            ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
-            selectTypeView();
-        }
+                FragmentTransaction ft = FillBlanksFragment.this.getChildFragmentManager().beginTransaction();
+                ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
+                selectTypeView();
+//        }
         return rootView;
     }
 
@@ -91,6 +90,7 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        this.isVisibleToUser=isVisibleToUser;
         if (!isVisibleToUser && fillBlanksFramelayout != null) {
             fillBlanksFramelayout.hideSoftInput();
             if (bean != null) {
@@ -175,16 +175,16 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
     @Override
     public void onDestroy() {
         super.onDestroy();
-        rootView = null;
-        fillBlanksFramelayout = null;
-        bean = null;
-        resolutionFragment = null;
-        addBtn = null;
-        rootView = null;
-        fillBlanksFramelayout = null;
-        bean = null;
-        resolutionFragment = null;
-        addBtn = null;
+//        rootView = null;
+//        fillBlanksFramelayout = null;
+//        bean = null;
+//        resolutionFragment = null;
+//        addBtn = null;
+//        rootView = null;
+//        fillBlanksFramelayout = null;
+//        bean = null;
+//        resolutionFragment = null;
+//        addBtn = null;
 
         System.gc();
     }

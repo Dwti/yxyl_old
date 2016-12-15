@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.common.core.utils.LogInfo;
@@ -14,6 +15,7 @@ import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.bean.SubjectiveQuestEventBean;
+import com.yanxiu.gphone.student.fragment.question.BaseComplexFragment;
 import com.yanxiu.gphone.student.fragment.question.BaseQuestionFragment;
 import com.yanxiu.gphone.student.fragment.question.ChoiceQuestionFragment;
 import com.yanxiu.gphone.student.fragment.question.ClassfyQuestionFragment;
@@ -125,6 +127,10 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
         BaseQuestionFragment fragment = (BaseQuestionFragment) mFragments.get(position);
         fragment.setRefresh();
         fragment.setTotalCount(getTotalCount());
+        ViewHolder holder=new ViewHolder();
+        holder.question_ID=dataList.get(position).getId();
+        holder.position=position;
+        fragment.setTagMessage(holder);
         return fragment;
     }
 
@@ -543,7 +549,8 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 
     public void addDataSourcesForReadingQuestion(List<PaperTestEntity> list, String parent_template, int parent_type, int totalCount) {
         if (list != null) {
-            int count = list.size();
+            dataList.addAll(list);
+            int count = dataList.size();
             List<QuestionEntity> dirtyData = new ArrayList<>();
             for (int i = 0; i < count; i++) {
                 if (list.get(i) != null) {
@@ -606,7 +613,6 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
         notifyDataSetChanged();
     }
 
-
     @Override
     public void setDataSources(AnswerBean bean) {
         // do nothing
@@ -629,8 +635,23 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
     }
 
     @Override
+    public boolean isViewFromObject(View view, Object object) {
+        return view==((Fragment)object).getView();
+    }
+
+    @Override
     public int getItemPosition(Object object) {
-        return PagerAdapter.POSITION_NONE;
+        ViewHolder holder= (ViewHolder) ((BaseComplexFragment)object).getTagMessage();
+        if (dataList.get(holder.position).getId()==holder.question_ID){
+            return POSITION_UNCHANGED;
+        }else {
+            return PagerAdapter.POSITION_NONE;
+        }
+    }
+
+    class ViewHolder{
+        public int question_ID;
+        public int position;
     }
 
     /**
