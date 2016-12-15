@@ -182,7 +182,8 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
             }
 
         });
-        rlAnswerCard.startAnimation(ani);
+        //rlAnswerCard.startAnimation(ani);
+        rlAnswerCardMark.startAnimation(ani);
     }
 
 
@@ -289,7 +290,8 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                     }
 
                 });
-                rlAnswerCard.startAnimation(ani);
+                //rlAnswerCard.startAnimation(ani);
+                rlAnswerCardMark.startAnimation(ani);
                 break;
             case R.id.btn_question_submit:
                 if (!NetWorkTypeUtils.isNetAvailable()) {
@@ -308,7 +310,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                 }
                 break;
             case R.id.iv_answer_card_close:
-                ((AnswerViewActivity)getActivity()).hideFragment();
+                ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).removeFragment();
                 break;
         }
 
