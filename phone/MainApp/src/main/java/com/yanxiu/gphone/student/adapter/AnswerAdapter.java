@@ -614,6 +614,12 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
     }
 
     @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        super.destroyItem(container, position, object);
+
+    }
+
+    @Override
     public void setDataSources(AnswerBean bean) {
         // do nothing
     }
@@ -641,7 +647,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
 
     @Override
     public int getItemPosition(Object object) {
-        ViewHolder holder= (ViewHolder) ((BaseComplexFragment)object).getTagMessage();
+        ViewHolder holder= (ViewHolder) ((BaseQuestionFragment)object).getTagMessage();
         if (dataList.get(holder.position).getId()==holder.question_ID){
             return POSITION_UNCHANGED;
         }else {
