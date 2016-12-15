@@ -19,6 +19,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
+import com.tendcloud.tenddata.TCAgent;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.basecore.utils.BaseCoreLogInfo;
 //import com.yanxiu.gphone.parent.utils.ParentConfigConstant;
@@ -62,6 +63,10 @@ public class YanxiuApplication extends CommonCoreApplication {
         /**
          * 注册全局异常捕获
          * */
+
+        TCAgent.LOG_ON = true;
+        TCAgent.init(this, "A3A47ECEBAB1C56762367CE55629C402", "all android markets");
+        TCAgent.setReportUncaughtExceptions(true);
 
         instance = this;
         volleryRequest = Volley.newRequestQueue(this);
