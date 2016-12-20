@@ -101,11 +101,10 @@
                     android:id="@+id/answer_viewpager"
                     android:fadingEdge="none"
                     android:spacing="0dip" />
-            <!--
+
             <FrameLayout android:layout_width="match_parent"
                          android:layout_height="match_parent"
                          android:background="@drawable/answer_view_mark" />
-                         -->
 
 
             <Button android:layout_width="wrap_content"
