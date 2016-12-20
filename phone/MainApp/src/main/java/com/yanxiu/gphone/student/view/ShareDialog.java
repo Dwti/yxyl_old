@@ -35,6 +35,7 @@ public class ShareDialog extends Dialog{
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Window win = getWindow();
+        win.setWindowAnimations(R.style.dialogWindowAnim);
         win.getDecorView().setPadding(0, 0, 0, 0);
         WindowManager.LayoutParams lp = win.getAttributes();
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;

@@ -13,8 +13,8 @@
 
     <ImageView
         android:id="@+id/item_right_arrow"
-        android:layout_width="@dimen/dimen_30"
-        android:layout_height="@dimen/dimen_30"
+        android:layout_width="@dimen/dimen_25"
+        android:layout_height="@dimen/dimen_25"
         style="@style/my_list_right_img_style" />
 
     <TextView
