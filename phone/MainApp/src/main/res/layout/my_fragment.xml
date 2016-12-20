@@ -28,7 +28,7 @@
             <RelativeLayout
                 android:id="@+id/user_info_layout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_100"
+                android:layout_height="@dimen/dimen_116"
                 android:layout_marginTop="@dimen/dimen_25"
                 android:background="@drawable/my_list_bg_selector"
                 >
@@ -55,8 +55,8 @@
                 <ImageView
                     android:id="@+id/icon_right_arrow"
                     style="@style/my_list_right_img_style"
-                    android:layout_width="@dimen/dimen_28"
-                    android:layout_height="@dimen/dimen_28"/>
+                    android:layout_width="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_25"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -71,9 +71,7 @@
                         android:id="@+id/user_name"
                         style="@style/text_fff99_shadow_style"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_centerVertical="true"
-                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:gravity="left|center_vertical"
                         android:singleLine="true"
@@ -85,8 +83,8 @@
                     <TextView
                         android:id="@+id/stdUidTv"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_10"
                         android:ellipsize="end"
                         android:gravity="left|center_vertical"
                         android:maxLines="2"
@@ -108,8 +106,8 @@
                 <ImageView
                     android:id="@+id/my_favourite_right_arrow"
                     style="@style/my_list_right_img_style"
-                    android:layout_width="@dimen/dimen_30"
-                    android:layout_height="@dimen/dimen_30"/>
+                    android:layout_width="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_25"/>
 
                 <ImageView
                     android:id="@+id/my_favourite_icon"
@@ -150,8 +148,8 @@
                 <ImageView
                     android:id="@+id/error_collection_right_arrow"
                     style="@style/my_list_right_img_style"
-                    android:layout_width="@dimen/dimen_28"
-                    android:layout_height="@dimen/dimen_28"/>
+                    android:layout_width="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_25"/>
 
                 <ImageView
                     android:id="@+id/error_collection_icon"
@@ -182,8 +180,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_below="@id/error_collection_layout"
-                android:layout_marginLeft="@dimen/dimen_7"
-                android:layout_marginRight="@dimen/dimen_7"
+                android:layout_marginLeft="@dimen/dimen_13"
+                android:layout_marginRight="@dimen/dimen_13"
                 />
 
             <RelativeLayout
@@ -195,8 +193,8 @@
                 <ImageView
                     android:id="@+id/practice_history_right_arrow"
                     style="@style/my_list_right_img_style"
-                    android:layout_width="@dimen/dimen_30"
-                    android:layout_height="@dimen/dimen_30"/>
+                    android:layout_width="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_25"/>
 
                 <ImageView
                     android:id="@+id/practice_history_icon"
@@ -235,8 +233,8 @@
                 <ImageView
                     android:id="@+id/my_stage_right_arrow"
                     style="@style/my_list_right_img_style"
-                    android:layout_width="@dimen/dimen_28"
-                    android:layout_height="@dimen/dimen_28"/>
+                    android:layout_width="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_25"/>
 
                 <TextView
                     android:id="@+id/my_stage_content"
@@ -273,8 +271,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/my_stage_layout"
-                android:layout_marginLeft="@dimen/dimen_7"
-                android:layout_marginRight="@dimen/dimen_7"
+                android:layout_marginLeft="@dimen/dimen_13"
+                android:layout_marginRight="@dimen/dimen_13"
                 />
 
             <RelativeLayout
@@ -287,8 +285,8 @@
                 <ImageView
                     android:id="@+id/teaching_material_right_arrow"
                     style="@style/my_list_right_img_style"
-                    android:layout_width="@dimen/dimen_28"
-                    android:layout_height="@dimen/dimen_28"/>
+                    android:layout_width="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_25"/>
 
                 <ImageView
                     android:id="@+id/teaching_material_icon"
@@ -324,8 +322,8 @@
                 <ImageView
                     android:id="@+id/feedback_right_arrow"
                     style="@style/my_list_right_img_style"
-                    android:layout_width="@dimen/dimen_28"
-                    android:layout_height="@dimen/dimen_28"/>
+                    android:layout_width="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_25"/>
 
                 <ImageView
                     android:id="@+id/feedback_icon"
@@ -355,8 +353,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/feedback_layout"
-                android:layout_marginLeft="@dimen/dimen_7"
-                android:layout_marginRight="@dimen/dimen_7"
+                android:layout_marginLeft="@dimen/dimen_13"
+                android:layout_marginRight="@dimen/dimen_13"
                 />
 
             <RelativeLayout
@@ -368,8 +366,8 @@
                 <ImageView
                     android:id="@+id/my_setting_right_arrow"
                     style="@style/my_list_right_img_style"
-                    android:layout_width="@dimen/dimen_28"
-                    android:layout_height="@dimen/dimen_28"/>
+                    android:layout_width="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_25"/>
 
                 <ImageView
                     android:id="@+id/my_setting_icon"
@@ -400,8 +398,8 @@
                 <ImageView
                     android:id="@+id/my_test_data_right_arrow"
                     style="@style/my_list_right_img_style"
-                    android:layout_width="@dimen/dimen_28"
-                    android:layout_height="@dimen/dimen_28"/>
+                    android:layout_width="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_25"/>
 
                 <ImageView
                     android:id="@+id/my_test_data_icon"

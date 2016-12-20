@@ -124,13 +124,8 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
         if (bucketPos != 0) {
             tempList = ShareBitmapUtils.getInstance().getDataList().get(bucketPos).getImageList();
         } else {
-            int sum = 0;
             for (int i=0; i<ShareBitmapUtils.getInstance().getDataList().size(); i++) {
-                sum = sum + ShareBitmapUtils.getInstance().getDataList().get(i).getImageList().size();
                 tempList.addAll(ShareBitmapUtils.getInstance().getDataList().get(i).getImageList());
-                if (sum > 50) {
-                    break;
-                }
             }
         }
 
@@ -198,7 +193,7 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
                         public void run() {
                             try {
 
-                                BitmapFactory.Options newOpts = new BitmapFactory.Options();
+                                /*BitmapFactory.Options newOpts = new BitmapFactory.Options();
                                 //开始读入图片，此时把options.inJustDecodeBounds 设回true了
                                 newOpts.inJustDecodeBounds = true;
                                 newOpts.inPreferredConfig = Bitmap.Config.RGB_565;
@@ -210,7 +205,8 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
 //                                BitmapFactory.Options options = new BitmapFactory.Options();
 //                                //options.inSampleSize = 2;
 //                                options.inJustDecodeBounds = false;
-                                bitmap = BitmapFactory.decodeFile(MediaUtils.getPic_select_string(), newOpts);
+                                bitmap = BitmapFactory.decodeFile(MediaUtils.getPic_select_string(), newOpts);*/
+                                Bitmap bitmap = CommonCoreUtil.getImage(MediaUtils.getPic_select_string());
                                 if (bitmap.getByteCount() > 1024 * 1024) {
                                     File mediaStorageDir = null;
                                     try {
@@ -227,7 +223,7 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
                                             }
                                         }
                                     }
-                                    bitmap = MediaUtils.ratio(bitmap, bitmap.getWidth() / 2, bitmap.getHeight() / 2, 800);
+
                                     String[] ss = MediaUtils.getPic_select_string().split("\\.");
                                     String path = mediaStorageDir + "_temp." + MediaUtils.getPic_select_string().split("\\.")[1];
                                     BitmapUtil.saveFileMain(bitmap, path);

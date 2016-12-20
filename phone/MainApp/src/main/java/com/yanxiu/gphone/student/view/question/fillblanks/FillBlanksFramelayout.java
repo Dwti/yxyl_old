@@ -399,6 +399,9 @@ public class FillBlanksFramelayout extends FrameLayout implements
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void addEditText(int start, int end, int last) {
         Layout layout = tvFillBlank.getLayout();
+        if (layout==null){
+            return;
+        }
         int line = layout.getLineForOffset((int)((start + end) * 0.5));
         float left = layout.getSecondaryHorizontal(start);
         float right = layout.getPrimaryHorizontal(end) + 4;
@@ -456,6 +459,9 @@ public class FillBlanksFramelayout extends FrameLayout implements
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void changeEditText(int start, int end, int last, MyEdittext et) {
         Layout layout = tvFillBlank.getLayout();
+        if (layout==null){
+            return;
+        }
         int line = layout.getLineForOffset((int)((start + end) * 0.5));
         float left = layout.getSecondaryHorizontal(start);
         float right = layout.getPrimaryHorizontal(end) + 4;

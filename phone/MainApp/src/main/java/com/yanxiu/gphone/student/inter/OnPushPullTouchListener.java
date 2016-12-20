@@ -21,6 +21,8 @@ public class OnPushPullTouchListener implements View.OnTouchListener ,View.OnCli
     private RelativeLayout top_view;
     private float top_height;
     private float bottom_height;
+    private final int MIN_HEIGHT = 100;
+    private final int MAX_HEIGHT = 300;
 
     public OnPushPullTouchListener(LinearLayout bottom_view, RelativeLayout top_view, Activity activity) {
         this.bottom_view = bottom_view;
@@ -67,7 +69,7 @@ public class OnPushPullTouchListener implements View.OnTouchListener ,View.OnCli
         float height=bottom_height-move_y;
 
         if (move_y>0){
-            if (height>100){
+            if (height>MIN_HEIGHT){
                 float bottom_weight=(height)/tital_height;
                 float top_weight=1-bottom_weight;
 
@@ -80,7 +82,7 @@ public class OnPushPullTouchListener implements View.OnTouchListener ,View.OnCli
                 top_view.setLayoutParams(layoutParams1);
             }
         }else if (move_y<0){
-            if (top_height+move_y>300){
+            if (top_height+move_y>MAX_HEIGHT){
                 float bottom_weight=(height)/tital_height;
                 float top_weight=1-bottom_weight;
 

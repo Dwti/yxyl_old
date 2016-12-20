@@ -335,9 +335,9 @@ public class CorpFragment extends Fragment {
         public void onSuccess(Uri outputUri) {
             dismissProgress();
             if (CorpUtils.getInstence().getCorpListener()!=null) {
-                CorpUtils.getInstence().getCorpListener().oncorp(outputUri);
+                //CorpUtils.getInstence().getCorpListener().oncorp(outputUri);
             }
-                CorpUtils.getInstence().setCorpFinish();
+                //CorpUtils.getInstence().setCorpFinish();
             //Intent Intent=new Intent();
             //((CorpActivity)getActivity()).setResult(((CorpActivity)getActivity()).RESULT_OK,Intent);
             getActivity().finish();

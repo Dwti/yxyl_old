@@ -30,7 +30,7 @@
             <RelativeLayout
                     android:id="@+id/user_info_headiv_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_75"
+                    android:layout_height="@dimen/dimen_81"
                     android:background="@drawable/my_list_bg_selector">
 
                 <com.common.core.view.roundview.RoundedImageView
@@ -74,8 +74,8 @@
                         />
                 <ImageView
                     android:id="@+id/right_arrow"
-                    android:layout_width="@dimen/dimen_30"
-                    android:layout_height="@dimen/dimen_30"
+                    android:layout_width="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_25"
                     style="@style/my_list_right_img_style"/>
             </RelativeLayout>
             <include
@@ -83,8 +83,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/user_info_headiv_layout"
-                android:layout_marginLeft="@dimen/dimen_7"
-                android:layout_marginRight="@dimen/dimen_7"
+                android:layout_marginLeft="@dimen/dimen_13"
+                android:layout_marginRight="@dimen/dimen_13"
                 layout="@layout/bitmap_repeat_layout"
                 />
             <include
@@ -100,8 +100,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/user_info_name_layout"
-                android:layout_marginLeft="@dimen/dimen_7"
-                android:layout_marginRight="@dimen/dimen_7"
+                android:layout_marginLeft="@dimen/dimen_13"
+                android:layout_marginRight="@dimen/dimen_13"
                 layout="@layout/bitmap_repeat_layout"
                 />
 
@@ -132,8 +132,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/user_info_gender_layout"
-                android:layout_marginLeft="@dimen/dimen_7"
-                android:layout_marginRight="@dimen/dimen_7"
+                android:layout_marginLeft="@dimen/dimen_13"
+                android:layout_marginRight="@dimen/dimen_13"
+                android:visibility="gone"
                 layout="@layout/bitmap_repeat_layout"
                 />
 
@@ -153,8 +154,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/user_info_area_layout"
-                android:layout_marginLeft="@dimen/dimen_7"
-                android:layout_marginRight="@dimen/dimen_7"
+                android:layout_marginLeft="@dimen/dimen_13"
+                android:layout_marginRight="@dimen/dimen_13"
                 layout="@layout/bitmap_repeat_layout"
                 />
 

@@ -900,6 +900,54 @@ public class CommonCoreUtil {
         bitmap = BitmapFactory.decodeFile(imagePath, options);
         return bitmap;
     }
+
+    public static Bitmap getImage(final byte[] data) {
+        Bitmap bitmap;
+        int maxH = 400;//
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        // 获取这个图片的宽和高
+        bitmap = BitmapFactory.decodeByteArray(data, 0,
+                data.length, options);
+        //计算缩放比
+        int be = (int) (options.outHeight / (float) maxH);
+        int ys = options.outHeight % maxH;//求余数
+        float fe = ys / (float) maxH;
+        if (fe >= 0.5) be = be + 1;
+        if (be <= 0) {
+            be = 1;
+        }
+        options.inSampleSize = be;
+
+        //重新读入图片，注意这次要把options.inJustDecodeBounds 设为 false
+        options.inJustDecodeBounds = false;
+        bitmap = BitmapFactory.decodeByteArray(data, 0,
+                data.length, options);
+        return bitmap;
+    }
+
+    public static Bitmap getImage(Uri uri) {
+        Bitmap bitmap;
+        int maxH = 400;//
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        // 获取这个图片的宽和高
+        bitmap = BitmapFactory.decodeFile(uri.getPath(), options); //此时返回bm为空
+        //计算缩放比
+        int be = (int) (options.outHeight / (float) maxH);
+        int ys = options.outHeight % maxH;//求余数
+        float fe = ys / (float) maxH;
+        if (fe >= 0.5) be = be + 1;
+        if (be <= 0) {
+            be = 1;
+        }
+        options.inSampleSize = be;
+
+        //重新读入图片，注意这次要把options.inJustDecodeBounds 设为 false
+        options.inJustDecodeBounds = false;
+        bitmap = BitmapFactory.decodeFile(uri.getPath(), options);
+        return bitmap;
+    }
     public static String fileToType(File file){
         String path = file.getAbsolutePath();
         String type = null;
