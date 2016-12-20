@@ -281,7 +281,11 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                                 }
                             }
                         }else{
-                            ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).removeFragment();
+                            try {
+                                ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).removeFragment();
+                            }catch (Exception e){
+                                e.toString();
+                            }
                         }
                     }
 

@@ -663,12 +663,12 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         }
         isShowAnswerCard = false;
 
-
         FragmentTransaction ft = this.getSupportFragmentManager().beginTransaction();
-        if (answerCardFragment != null) {
+        if (ft!=null&&answerCardFragment != null) {
             ft.remove(answerCardFragment);
+            ft.commit();
         }
-        ft.commit();
+        ft=null;
     }
 
     @Override
