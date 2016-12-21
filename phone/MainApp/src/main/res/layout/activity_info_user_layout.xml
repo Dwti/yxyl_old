@@ -30,7 +30,7 @@
             <RelativeLayout
                     android:id="@+id/user_info_headiv_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_81"
+                    android:layout_height="@dimen/dimen_90"
                     android:background="@drawable/my_list_bg_selector">
 
                 <com.common.core.view.roundview.RoundedImageView
@@ -83,14 +83,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/user_info_headiv_layout"
-                android:layout_marginLeft="@dimen/dimen_13"
-                android:layout_marginRight="@dimen/dimen_13"
+                android:layout_marginLeft="@dimen/dimen_16"
+                android:layout_marginRight="@dimen/dimen_16"
                 layout="@layout/bitmap_repeat_layout"
                 />
             <include
                      android:layout_below="@id/firstLine"
                      android:layout_width="match_parent"
-                     android:layout_height="@dimen/dimen_48"
+                     android:layout_height="@dimen/dimen_61"
                      android:id="@+id/user_info_name_layout"
                      layout="@layout/activity_info_user_public_item"
                     />
@@ -100,8 +100,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/user_info_name_layout"
-                android:layout_marginLeft="@dimen/dimen_13"
-                android:layout_marginRight="@dimen/dimen_13"
+                android:layout_marginLeft="@dimen/dimen_16"
+                android:layout_marginRight="@dimen/dimen_16"
                 layout="@layout/bitmap_repeat_layout"
                 />
 
@@ -109,7 +109,7 @@
             <include
                      android:layout_below="@id/secLine"
                      android:layout_width="match_parent"
-                     android:layout_height="@dimen/dimen_48"
+                     android:layout_height="@dimen/dimen_61"
                      android:id="@+id/user_info_nickname_layout"
                      layout="@layout/activity_info_user_public_item"
                     />
@@ -121,7 +121,7 @@
                      android:layout_marginTop="@dimen/dimen_15"
                      android:layout_below="@id/user_info_nickname_layout"
                      android:layout_width="match_parent"
-                     android:layout_height="@dimen/dimen_48"
+                     android:layout_height="@dimen/dimen_61"
                      android:id="@+id/user_info_gender_layout"
                      layout="@layout/activity_info_user_public_item"
                     />
@@ -132,8 +132,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/user_info_gender_layout"
-                android:layout_marginLeft="@dimen/dimen_13"
-                android:layout_marginRight="@dimen/dimen_13"
+                android:layout_marginLeft="@dimen/dimen_16"
+                android:layout_marginRight="@dimen/dimen_16"
                 android:visibility="gone"
                 layout="@layout/bitmap_repeat_layout"
                 />
@@ -144,7 +144,7 @@
             <include
                      android:layout_below="@id/fourLiner"
                      android:layout_width="match_parent"
-                     android:layout_height="@dimen/dimen_48"
+                     android:layout_height="@dimen/dimen_61"
                      android:id="@+id/user_info_area_layout"
                      layout="@layout/activity_info_user_public_item"
                     />
@@ -154,8 +154,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/user_info_area_layout"
-                android:layout_marginLeft="@dimen/dimen_13"
-                android:layout_marginRight="@dimen/dimen_13"
+                android:layout_marginLeft="@dimen/dimen_16"
+                android:layout_marginRight="@dimen/dimen_16"
                 layout="@layout/bitmap_repeat_layout"
                 />
 
@@ -163,7 +163,7 @@
             <include
                 android:layout_below="@id/fiveLiner"
                     android:layout_width="match_parent"
-                     android:layout_height="@dimen/dimen_48"
+                     android:layout_height="@dimen/dimen_61"
                      android:id="@+id/user_info_school_layout"
                      layout="@layout/activity_info_user_public_item"
                     />

@@ -15,31 +15,31 @@
         android:paddingRight="@dimen/dimen_30"
         android:paddingLeft="@dimen/dimen_30">
         <include android:layout_width="match_parent"
-                 android:layout_height="@dimen/dimen_48"
+                 android:layout_height="@dimen/dimen_61"
                  android:id="@+id/primary_stage_layout"
                  layout="@layout/activity_info_select_public_item"
             />
         <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dimen_7"
-            android:layout_marginRight="@dimen/dimen_7"
+            android:layout_marginLeft="@dimen/dimen_16"
+            android:layout_marginRight="@dimen/dimen_16"
             layout="@layout/bitmap_repeat_layout"
             />
         <include android:layout_width="match_parent"
-                 android:layout_height="@dimen/dimen_48"
+                 android:layout_height="@dimen/dimen_61"
                  android:id="@+id/juinor_stage_layout"
                  layout="@layout/activity_info_select_public_item"
             />
         <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dimen_7"
-            android:layout_marginRight="@dimen/dimen_7"
+            android:layout_marginLeft="@dimen/dimen_16"
+            android:layout_marginRight="@dimen/dimen_16"
             layout="@layout/bitmap_repeat_layout"
             />
         <include android:layout_width="match_parent"
-                 android:layout_height="@dimen/dimen_48"
+                 android:layout_height="@dimen/dimen_61"
                  android:id="@+id/high_stage_layout"
                  layout="@layout/activity_info_select_public_item"
             />

@@ -14,9 +14,13 @@ style="@style/my_list_style">
 
 <ImageView
     android:id="@+id/left_icon"
-    android:background="@drawable/my_stage_icon"
+    android:background="@null"
     style="@style/my_list_head_img_style"
     />
+
+    <!--
+    android:background="@drawable/my_stage_icon"
+    -->
 
 <TextView
     android:id="@+id/name"
