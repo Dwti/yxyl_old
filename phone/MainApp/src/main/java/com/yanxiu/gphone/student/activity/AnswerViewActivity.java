@@ -137,7 +137,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     private int subjectiveQIndex = 0;
 
     private LoadingDialog mLoadingDialog;
-
+    private boolean IsResume=false;
 
 //    private ProgressLayout progressLayout;
 
@@ -157,6 +157,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
             }
         }
     };
+    private RequestSubmitQuesitonTask requestSubmitQuesitonTask;
 
     public static void launch(Activity context, SubjectExercisesItemBean bean) {
         Intent intent = new Intent(context, AnswerViewActivity.class);
@@ -347,7 +348,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        this.IsResume=true;
         addTimeHandler();
     }
 
@@ -537,7 +538,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         calculateLastQuestionTime();
         //QuestionUtils.clearSubjectiveQuesition(dataSources);
         dataSources.getData().get(0).getPaperStatus().setCosttime(AnswerViewActivity.totalTime);
-        RequestSubmitQuesitonTask requestSubmitQuesitonTask = new RequestSubmitQuesitonTask(this, dataSources, RequestSubmitQuesitonTask.LIVE_CODE, new AsyncCallBack() {
+        requestSubmitQuesitonTask = new RequestSubmitQuesitonTask(this, dataSources, RequestSubmitQuesitonTask.LIVE_CODE, new AsyncCallBack() {
             @Override
             public void update(YanxiuBaseBean result) {
                 EventBus.getDefault().post(new GroupEventHWRefresh());
@@ -592,7 +593,9 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         } else if (isSubmitFinish) {
             super.onBackPressed();
         } else {
-            quitSubmmitDialog();
+            if (IsResume) {
+                quitSubmmitDialog();
+            }
         }
         /*if (mLoadingDialog.isShowing()) {
             mLoadingDialog.dismiss();
@@ -861,19 +864,48 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         }
     }
 
-    @java.lang.Override
+    @Override
     protected void onDestroy() {
-        super.onDestroy();
         LogInfo.log(TAG, "onDestroy");
         totalTime=0;
         lastTime=0;
+        if (dialog!=null){
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
+            dialog=null;
+        }
+        if (mLoadingDialog!=null){
+            if (mLoadingDialog.isShowing()){
+                mLoadingDialog.dismiss();
+            }
+            mLoadingDialog=null;
+        }
+        if (requestSubmitQuesitonTask!=null){
+            if (!requestSubmitQuesitonTask.isCancelled()) {
+                requestSubmitQuesitonTask.cancel();
+            }
+            requestSubmitQuesitonTask=null;
+        }
+        if (submitNetErrorDialog!=null){
+            if (submitNetErrorDialog.isShowing()){
+                submitNetErrorDialog.dismiss();
+            }
+            submitNetErrorDialog=null;
+        }
+        if (saveNetErrorDialog!=null){
+            if (saveNetErrorDialog.isShowing()){
+                saveNetErrorDialog.dismiss();
+            }
+            saveNetErrorDialog=null;
+        }
         new Thread(new Runnable() {
             @Override
             public void run() {
                 PicSelView.resetAllData();
             }
         }).start();
-
+        super.onDestroy();
     }
 
     @Override
@@ -919,7 +951,9 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                         AnswerViewActivity.this.finish();
                     }
                 });
-        saveNetErrorDialog.show();
+        if (IsResume) {
+            saveNetErrorDialog.show();
+        }
     }
     private CommonDialog submitNetErrorDialog;
     public void submitNetErrorDialog() {

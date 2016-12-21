@@ -270,7 +270,11 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                     @Override
                     public void onAnimationEnd(Animation animation) {
                         if(v == btnQuestionSubmit){
-                            ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideFragment();
+                            try {
+                                ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideFragment();
+                            }catch (Exception e){
+                                e.toString();
+                            }
                             if(dataList != null && !dataList.isEmpty()){
                                 int unFinishCount = QuestionUtils.calculationUnFinishQuestion(dataList);
                                 if(unFinishCount > 0){

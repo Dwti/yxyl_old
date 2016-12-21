@@ -300,23 +300,25 @@ public class FillBlanksFramelayout extends FrameLayout implements
             FillBlanksFramelayout.this.getViewTreeObserver().removeGlobalOnLayoutListener(
                     this);
             // 防止加入重复EditText
-            String targetWord = mAnswerSb.toString();
-            CharSequence c = tvFillBlank.getText().toString();
-            Pattern pattern = Pattern.compile(targetWord);
-            if (!StringUtils.isEmpty(data)) {
-                Matcher matcher = pattern.matcher(c);
-                while (matcher.find()) {
-                    MyEdittext existEtView = (MyEdittext) rlMark.findViewWithTag(matcher.start());
-                    if (existEtView != null) {
-                        changeEditText(matcher.start(), matcher.end(), c.length() - 1, existEtView);
-                    } else {
-                        addEditText(matcher.start(), matcher.end(), c.length() - 1);
+            if (mAnswerSb!=null&&tvFillBlank!=null&&rlMark!=null) {
+                String targetWord = mAnswerSb.toString();
+                CharSequence c = tvFillBlank.getText().toString();
+                Pattern pattern = Pattern.compile(targetWord);
+                if (!StringUtils.isEmpty(data)) {
+                    Matcher matcher = pattern.matcher(c);
+                    while (matcher.find()) {
+                        MyEdittext existEtView = (MyEdittext) rlMark.findViewWithTag(matcher.start());
+                        if (existEtView != null) {
+                            changeEditText(matcher.start(), matcher.end(), c.length() - 1, existEtView);
+                        } else {
+                            addEditText(matcher.start(), matcher.end(), c.length() - 1);
+                        }
                     }
                 }
-            }
-            hideSoftInput();
+                hideSoftInput();
 
-            initViewWithData(bean);
+                initViewWithData(bean);
+            }
         }
     }
 

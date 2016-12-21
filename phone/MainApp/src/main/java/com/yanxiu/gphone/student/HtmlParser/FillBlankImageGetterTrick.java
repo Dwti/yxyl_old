@@ -101,19 +101,23 @@ public class FillBlankImageGetterTrick implements ImageGetterListener {
                     @Override
                     public void run() {
                         final Drawable drawable = new BitmapDrawable(result);
-                        Rect bounds = getDefaultImageBounds(context, result);
-                        drawable.setBounds(0, 0, bounds.width(), bounds.height());
+//                        Rect bounds = getDefaultImageBounds(context, result);
+//                        drawable.setBounds(0, 0, bounds.width(), bounds.height());
                         // 这里貌似有多线程问题？？？由于所有图片都用一个ImageGetter，所以factor会算错？
                         final float factor = Math.min(1.0f, (float) (view.getWidth() / (float) loadedImageWidth));
                         final int width = Math.round(loadedImageWidth * factor);
                         final int height = Math.round(loadedImageheight * factor);
-                        drawable.setBounds(0, 0, width, height);
+//                        drawable.setBounds(0, 0, width, height);
 
                         drawable.setBounds(0, 0, width, height);
                         urlDrawable.setBounds(0, 0, width, height);
                         urlDrawable.drawable = drawable;
 
                         // 这里非常trick，但实在不知道为什么在两种手机上算出来的高度会有误差，只能暂时如此了
+                        /**
+                         * windowmanger获得Display,然后getsize这个方法本身就有问题不够精确，后期处理，改为getrealsize或其他方式
+                         * cwq
+                         * */
                         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
                         Display display = wm.getDefaultDisplay();
                         Point size = new Point();

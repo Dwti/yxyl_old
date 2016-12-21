@@ -22,17 +22,18 @@ import java.util.List;
 public class YanxiuPushUpdateReceiver extends BroadcastReceiver {
     public static final String PUSH_RECEIVER_INTENT_ACTION = "com.yanxiu.gphone.student.yanxiu_push_update_receiver";
 
-    @Override public void onReceive(Context context, Intent intent) {
+    @Override
+    public void onReceive(Context context, Intent intent) {
         // TODO Auto-generated method stub
         isAppOnForeground(MainActivity.getInstance() != null ?
                 MainActivity.getInstance() :
                 context);
-        if(LoginModel.getLoginBean() == null || LoginModel.getUserinfoEntity() == null || YanxiuApplication.getInstance().isForceUpdate()){
+        if (LoginModel.getLoginBean() == null || LoginModel.getUserinfoEntity() == null || YanxiuApplication.getInstance().isForceUpdate()) {
             LogInfo.log("haitian", "-----------isForceUpdate------LoginBeanIsNull------UserInfoIsNull-----");
             return;
         }
         PushMsgBean mPushMsgBean = (PushMsgBean) intent.getSerializableExtra("mPushMsgBean");
-        if(mPushMsgBean != null) {
+        if (mPushMsgBean != null) {
             if (MainActivity.getInstance() != null && mPushMsgBean.getMsg_type() != MainActivity.NOTIFICATION_ACTION_JOIN_THE_CLASS) {
                 MainActivity.getInstance().judgeToJump(intent);
             } else {
@@ -46,7 +47,8 @@ public class YanxiuPushUpdateReceiver extends BroadcastReceiver {
      *
      * @return
      */
-    @SuppressLint("NewApi") public boolean isAppOnForeground(Context mContext) {
+    @SuppressLint("NewApi")
+    public boolean isAppOnForeground(Context mContext) {
         ActivityManager activityManager = (ActivityManager) mContext
                 .getSystemService(Context.ACTIVITY_SERVICE);
         String packageName = mContext.getPackageName();
