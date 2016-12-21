@@ -7,16 +7,20 @@
 
     <ImageView
         android:id="@+id/right_arrow"
-        android:layout_width="@dimen/dimen_30"
-        android:layout_height="@dimen/dimen_30"
+        android:layout_width="@dimen/dimen_25"
+        android:layout_height="@dimen/dimen_25"
         android:visibility="gone"
         style="@style/my_list_right_select_img_style"/>
 
     <ImageView
         android:id="@+id/left_icon"
-        android:background="@drawable/my_stage_icon"
+        android:background="@null"
         style="@style/my_list_head_img_style"
         />
+
+    <!--
+    android:background="@drawable/my_stage_icon"
+    -->
 
     <TextView
         android:id="@+id/name"

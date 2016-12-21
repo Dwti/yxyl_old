@@ -10,7 +10,7 @@
             android:layout_height="@dimen/dimen_193"
             android:layout_margin="@dimen/dimen_10"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/share_dialog_bg"
+            android:background="@drawable/my_list_bg"
             >
 
 
@@ -56,9 +56,9 @@
                 >
             <FrameLayout
                     android:id="@+id/share_wechat"
-                    android:layout_width="@dimen/dimen_50"
+                    android:layout_width="@dimen/dimen_52"
                     android:background="@drawable/selector_share_btn"
-                    android:layout_height="@dimen/dimen_50"
+                    android:layout_height="@dimen/dimen_52"
                     android:orientation="vertical"
                     >
                 <ImageView
@@ -81,10 +81,10 @@
             </FrameLayout>
             <FrameLayout
                     android:id="@+id/share_wechat_friends"
-                    android:layout_width="@dimen/dimen_50"
+                    android:layout_width="@dimen/dimen_52"
                     android:background="@drawable/selector_share_btn"
-                    android:layout_height="@dimen/dimen_50"
-                    android:layout_marginLeft="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_52"
+                    android:layout_marginLeft="@dimen/dimen_27"
                     android:orientation="vertical"
                     >
                 <ImageView
@@ -107,10 +107,10 @@
             </FrameLayout>
             <FrameLayout
                     android:id="@+id/share_qq"
-                    android:layout_width="@dimen/dimen_50"
+                    android:layout_width="@dimen/dimen_52"
                     android:background="@drawable/selector_share_btn"
-                    android:layout_height="@dimen/dimen_50"
-                    android:layout_marginLeft="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_52"
+                    android:layout_marginLeft="@dimen/dimen_27"
                     android:orientation="vertical"
                     >
                 <ImageView
@@ -133,10 +133,10 @@
             </FrameLayout>
             <FrameLayout
                     android:id="@+id/share_qzone"
-                    android:layout_width="@dimen/dimen_50"
+                    android:layout_width="@dimen/dimen_52"
                     android:background="@drawable/selector_share_btn"
-                    android:layout_height="@dimen/dimen_50"
-                    android:layout_marginLeft="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_52"
+                    android:layout_marginLeft="@dimen/dimen_27"
                     android:orientation="vertical"
                     >
                 <ImageView
@@ -166,7 +166,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/share_tip"
-                android:textSize="@dimen/dimen_12"
+                android:textSize="@dimen/dimen_13"
                 android:textColor="@color/color_805500" />
 
         <View

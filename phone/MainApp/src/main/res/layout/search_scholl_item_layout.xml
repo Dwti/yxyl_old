@@ -25,17 +25,17 @@
             android:layout_height="@dimen/dimen_40"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dimen_5"
+            android:layout_marginLeft="@dimen/dimen_10"
             android:background="@drawable/logo"/>
 
         <ImageView
             android:id="@+id/item_right_arrow"
             style="@style/my_list_right_img_style"
-            android:layout_width="@dimen/dimen_30"
-            android:layout_height="@dimen/dimen_30"
+            android:layout_width="@dimen/dimen_28"
+            android:layout_height="@dimen/dimen_28"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dimen_15"
+            android:layout_marginRight="@dimen/dimen_17"
             />
 
         <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_50"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_marginLeft="@dimen/dimen_5"
             android:layout_toLeftOf="@+id/item_sub_content"
             android:layout_toRightOf="@+id/item_icon"
             android:ellipsize="end"

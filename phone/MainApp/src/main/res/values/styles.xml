@@ -232,7 +232,7 @@
     <!--我的界面 列表框style -->
     <style name="my_list_style">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/dimen_57</item>
+        <item name="android:layout_height">@dimen/dimen_61</item>
         <item name="android:background">@drawable/my_list_bg_selector</item>
     </style>
 
@@ -274,7 +274,7 @@
     <style name="my_list_right_img_parent_style">
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_centerInParent">true</item>
-        <item name="android:layout_marginRight">@dimen/dimen_12</item>
+        <item name="android:layout_marginRight">@dimen/dimen_17</item>
     </style>
 
 

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.common.core.utils.LogInfo;
@@ -85,6 +87,10 @@ public class MyStageSelectActivity extends YanxiuBaseActivity implements View.On
             stageLayout[i].setOnClickListener(this);
             stageTxt[i] = (TextView) stageLayout[i].findViewById(R.id.name);
             stageTxt[i].setText(stageTxtId[i]);
+            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(stageTxt[i].getLayoutParams());
+            lp.addRule(RelativeLayout.CENTER_VERTICAL);
+            lp.setMargins(50, 0, 0, 0);
+            stageTxt[i].setLayoutParams(lp);
             stageTv[i] = (ImageView) stageLayout[i].findViewById(R.id.right_arrow);
             stageTv[i].setVisibility(View.GONE);
             stageLayout[i].findViewById(R.id.left_icon).setVisibility(View.GONE);
