@@ -21,7 +21,8 @@
                 android:id="@+id/share_cel"
                 android:layout_marginLeft="@dimen/dimen_15"
                 android:layout_marginRight="@dimen/dimen_15"
-                android:layout_marginBottom="@dimen/dimen_13"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_marginBottom="@dimen/dimen_16"
                 android:background="@drawable/register_code_selector"
                 android:layout_alignParentBottom="true"
                 android:text="@string/share_cancel"
@@ -58,9 +59,9 @@
                 >
             <FrameLayout
                     android:id="@+id/share_wechat"
-                    android:layout_width="@dimen/dimen_52"
+                    android:layout_width="@dimen/dimen_53"
                     android:background="@drawable/selector_share_btn"
-                    android:layout_height="@dimen/dimen_52"
+                    android:layout_height="@dimen/dimen_53"
                     android:orientation="vertical"
                     >
                 <ImageView
@@ -83,9 +84,9 @@
             </FrameLayout>
             <FrameLayout
                     android:id="@+id/share_wechat_friends"
-                    android:layout_width="@dimen/dimen_52"
+                    android:layout_width="@dimen/dimen_53"
                     android:background="@drawable/selector_share_btn"
-                    android:layout_height="@dimen/dimen_52"
+                    android:layout_height="@dimen/dimen_53"
                     android:layout_marginLeft="@dimen/dimen_27"
                     android:orientation="vertical"
                     >
@@ -109,9 +110,9 @@
             </FrameLayout>
             <FrameLayout
                     android:id="@+id/share_qq"
-                    android:layout_width="@dimen/dimen_52"
+                    android:layout_width="@dimen/dimen_53"
                     android:background="@drawable/selector_share_btn"
-                    android:layout_height="@dimen/dimen_52"
+                    android:layout_height="@dimen/dimen_53"
                     android:layout_marginLeft="@dimen/dimen_27"
                     android:orientation="vertical"
                     >
@@ -135,9 +136,9 @@
             </FrameLayout>
             <FrameLayout
                     android:id="@+id/share_qzone"
-                    android:layout_width="@dimen/dimen_52"
+                    android:layout_width="@dimen/dimen_53"
                     android:background="@drawable/selector_share_btn"
-                    android:layout_height="@dimen/dimen_52"
+                    android:layout_height="@dimen/dimen_53"
                     android:layout_marginLeft="@dimen/dimen_27"
                     android:orientation="vertical"
                     >
