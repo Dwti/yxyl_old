@@ -6,6 +6,7 @@
                 android:background="@color/color_4c000000"
         >
     <RelativeLayout
+            android:id="@+id/share_relative_layout_wrap_content"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_193"
             android:layout_margin="@dimen/dimen_10"

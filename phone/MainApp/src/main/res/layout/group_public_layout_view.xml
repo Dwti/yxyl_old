@@ -97,6 +97,7 @@
         android:layout_marginLeft="@dimen/dimen_10"
         android:layout_marginRight="@dimen/dimen_10"
         android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginBottom="@dimen/dimen_13"
         android:background="@drawable/register_code_selector"
         android:gravity="center"
         android:padding="@dimen/dimen_5"
@@ -108,12 +109,10 @@
         />
     <TextView
         android:id="@+id/group_add_tips"
-        android:paddingTop="@dimen/dimen_13"
-        android:paddingBottom="@dimen/dimen_4"
         android:layout_below="@id/group_bottom_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dimen_23"
+        android:layout_marginBottom="@dimen/dimen_13"
         android:textSize="@dimen/dimen_12"
         android:textColor="@color/color_805500"
         style="@style/shadow_color_ffff99"

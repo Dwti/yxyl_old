@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.yanxiu.gphone.student.R;
 
@@ -21,6 +24,7 @@ public class ShareDialog extends Dialog{
     protected FrameLayout qqView;
     protected FrameLayout qzoneView;
     protected TextView celView;
+    protected RelativeLayout rlShareDialog;
 
     protected ShareCallBack shareCallBack;
 
@@ -35,7 +39,6 @@ public class ShareDialog extends Dialog{
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Window win = getWindow();
-        win.setWindowAnimations(R.style.dialogWindowAnim);
         win.getDecorView().setPadding(0, 0, 0, 0);
         WindowManager.LayoutParams lp = win.getAttributes();
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
@@ -48,7 +51,8 @@ public class ShareDialog extends Dialog{
         qqView = (FrameLayout)findViewById(R.id.share_qq);
         qzoneView = (FrameLayout)findViewById(R.id.share_qzone);
         celView = (TextView)findViewById(R.id.share_cel);
-
+        rlShareDialog = (RelativeLayout) findViewById(R.id.share_relative_layout_wrap_content);
+        setShareDialogPopup();
 
         wechatView.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
@@ -90,6 +94,28 @@ public class ShareDialog extends Dialog{
                 }
             }
         });
+    }
+
+    public void setShareDialogPopup(){
+        Animation ani = AnimationUtils.loadAnimation(mContext, R.anim.answer_card_bottom_in);
+        ani.setFillAfter(true);
+        ani.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+
+        });
+        //rlAnswerCard.startAnimation(ani);
+        rlShareDialog.startAnimation(ani);
     }
     public interface ShareCallBack{
         void cancel();

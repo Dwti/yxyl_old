@@ -15,7 +15,7 @@
         android:visibility="gone"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_55"
+        android:layout_height="@dimen/dimen_61"
         android:layout_gravity="center_vertical"
         android:background="@drawable/my_list_bg_selector"
         >
@@ -79,8 +79,8 @@
         android:id="@+id/item_divider_line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dimen_8"
-        android:layout_marginRight="@dimen/dimen_8"
+        android:layout_marginLeft="@dimen/dimen_16"
+        android:layout_marginRight="@dimen/dimen_16"
         android:background="@drawable/my_module_repeat_dash_line"
         android:visibility="visible"
         />

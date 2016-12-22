@@ -390,7 +390,7 @@
 
     <style name="list_item_text_style" parent="text_fff99_shadow_style">
         <item name="android:textColor">@color/color_805500</item>
-        <item name="android:textSize">@dimen/dimen_17</item>
+        <item name="android:textSize">@dimen/dimen_17</item>list
         <item name="android:gravity">center_vertical</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>

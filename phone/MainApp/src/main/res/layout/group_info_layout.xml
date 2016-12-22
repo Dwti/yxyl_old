@@ -166,6 +166,7 @@
             android:layout_marginLeft="@dimen/dimen_15"
             android:layout_marginRight="@dimen/dimen_15"
             android:layout_marginTop="@dimen/dimen_15"
+            android:layout_marginBottom="@dimen/dimen_13"
             android:background="@drawable/register_code_selector"
             android:gravity="center"
             android:padding="@dimen/dimen_5"

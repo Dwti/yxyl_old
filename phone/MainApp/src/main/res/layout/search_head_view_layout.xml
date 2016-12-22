@@ -4,8 +4,8 @@
               android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/head_flag"
-        android:layout_width="@dimen/dimen_22"
-        android:layout_height="@dimen/dimen_22"
+        android:layout_width="@dimen/dimen_25"
+        android:layout_height="@dimen/dimen_25"
         android:background="@drawable/tips_icon"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="@dimen/dimen_10"

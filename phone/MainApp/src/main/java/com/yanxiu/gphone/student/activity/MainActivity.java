@@ -40,6 +40,7 @@ import com.yanxiu.gphone.student.manager.ActivityManager;
 import com.yanxiu.gphone.student.preference.PreferencesManager;
 import com.yanxiu.gphone.student.requestTask.RequestGetQReportTask;
 import com.yanxiu.gphone.student.requestTask.RequestGroupHwDotNumTask;
+import com.yanxiu.gphone.student.service.YanxiuIntentService;
 import com.yanxiu.gphone.student.upgrade.UpgradeUtils;
 import com.yanxiu.gphone.student.utils.PublicLoadUtils;
 import com.yanxiu.gphone.student.utils.QuestionUtils;

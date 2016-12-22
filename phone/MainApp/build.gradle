@@ -151,7 +151,7 @@ dependencies {
     compile project(':ShareCommonLibs')
     compile project(':simplecropview')
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.getui:sdk:+'
+    compile 'com.getui:sdk:2.9.5.0'
     compile 'com.android.support:support-v4:+'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
