@@ -95,7 +95,7 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = LayoutInflater.from(getActivity()).inflate(R.layout.hw_report_parse_bottom,null);
+        rootView = inflater.inflate(R.layout.hw_report_parse_bottom,null);
         initView();
         initData();
         return rootView;

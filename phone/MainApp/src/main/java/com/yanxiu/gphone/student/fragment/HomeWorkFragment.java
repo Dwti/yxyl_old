@@ -134,6 +134,9 @@ public class HomeWorkFragment extends Fragment implements View.OnClickListener {
     }
 
     private void requestData() {
+        if (LoginModel.getUserinfoEntity()==null){
+            return;
+        }
         rootView.loading(true);
         requestSubjectInfoTask = new RequestSubjectInfoTask(getActivity(),
                 LoginModel.getUserinfoEntity().getStageid(), new AsyncLocalCallBack() {

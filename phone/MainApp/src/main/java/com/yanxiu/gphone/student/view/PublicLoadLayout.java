@@ -59,7 +59,9 @@ public class PublicLoadLayout extends FrameLayout implements View.OnClickListene
     }
 
     public void addContent(int viewId) {
-        inflate(getContext(), viewId, content);
+        try {
+            inflate(getContext(), viewId, content);
+        }catch (Exception e){}
     }
 
     private void findView() {

@@ -65,7 +65,7 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by Administrator on 2015/7/7.
  */
-public class AnswerCardFragment extends Fragment implements View.OnClickListener{
+public class AnswerCardFragment extends Fragment implements View.OnClickListener {
 
     public static final int GROUP = 0x01;
 
@@ -81,7 +81,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
     private ImageView ivAnswerCardClose;
     private RelativeLayout rlAnswerCardMark;
     private LinearLayout llAnswerCardMark;
-//    private StudentLoadingLayout loadingLayout;
+    //    private StudentLoadingLayout loadingLayout;
     private RequestSubmitQuesitonTask requestSubmitQuesitonTask;
     private RequestGetQReportTask requestGetQReportTask;
     private CommonDialog dialog;
@@ -95,17 +95,16 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
     private LoadingDialog mLoadingDialog;
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
-        this.comeFrom = (arguments == null? 0: arguments.getInt("comeFrom"));
+        this.comeFrom = (arguments == null ? 0 : arguments.getInt("comeFrom"));
         LogInfo.log("geny", "AnswerCardFragment comeFrom------" + comeFrom);
 
-        SubjectExercisesItemBean dataSources = (arguments == null? null:(SubjectExercisesItemBean) arguments.getSerializable("subjectExercisesItemBean"));
+        SubjectExercisesItemBean dataSources = (arguments == null ? null : (SubjectExercisesItemBean) arguments.getSerializable("subjectExercisesItemBean"));
         //SubjectExercisesItemBean dataSources = Util.getSubjectExercisesItemBean();
-        if(dataSources != null && dataSources.getData() != null && !dataSources.getData().isEmpty()){
+        if (dataSources != null && dataSources.getData() != null && !dataSources.getData().isEmpty()) {
             dataList = dataSources.getData().get(0).getPaperTest();
             questionTitle = dataSources.getData().get(0).getName();
             this.dataSources = dataSources;
@@ -115,7 +114,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 //        Bundle arguments = getArguments();
-        rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_answer_card,null);
+        rootView = inflater.inflate(R.layout.fragment_answer_card, null);
         initView();
         initData();
         return rootView;
@@ -126,18 +125,19 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
         super.onResume();
 
     }
+
     public void setUserVisibleHint(boolean isVisibleToUser) {
         LogInfo.log("geny", "setUserVisibleHint");
         super.setUserVisibleHint(isVisibleToUser);
-        if(getUserVisibleHint()) {
+        if (getUserVisibleHint()) {
             LogInfo.log("geny", "getUserVisibleHint");
-            if(answerCardAdapter != null)
+            if (answerCardAdapter != null)
                 answerCardAdapter.notifyDataSetChanged();
         }
     }
 
 
-    private void initView(){
+    private void initView() {
         gridView = (GridView) rootView.findViewById(R.id.answer_card_grid);
         tvQuestionTitle = (TextView) rootView.findViewById(R.id.tv_question_title);
         rlAnswerCard = (LinearLayout) rootView.findViewById(R.id.rl_answer_card);
@@ -166,7 +166,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
     }
 
 
-    public void setAnswerCardPopup(){
+    public void setAnswerCardPopup() {
         Animation ani = AnimationUtils.loadAnimation(this.getActivity(), R.anim.answer_card_bottom_in);
         ani.setFillAfter(true);
         ani.setAnimationListener(new Animation.AnimationListener() {
@@ -189,24 +189,21 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
     }
 
 
+    private void initData() {
 
-
-    private void initData(){
-
-        if(dataList != null){
+        if (dataList != null) {
             questionList = QuestionUtils.addChildQuestionToParent(dataList);
         }
-        if(!TextUtils.isEmpty(questionTitle)){
+        if (!TextUtils.isEmpty(questionTitle)) {
             tvQuestionTitle.setText(questionTitle);
         }
-        answerCardAdapter  = new AnswerCardAdapter(this.getActivity());
+        answerCardAdapter = new AnswerCardAdapter(this.getActivity());
         gridView.setAdapter(answerCardAdapter);
         answerCardAdapter.setList(questionList);
         mLoadingDialog = new LoadingDialog(getActivity());
         mLoadingDialog.setCanceledOnTouchOutside(false);
 
     }
-
 
 
     @Override
@@ -217,25 +214,25 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
 
     public void setDataSources(SubjectExercisesItemBean dataSources) {
         this.dataSources = dataSources;
-        if(this.dataSources != null && this.dataSources.getData() != null && !dataSources.getData().isEmpty()){
+        if (this.dataSources != null && this.dataSources.getData() != null && !dataSources.getData().isEmpty()) {
             dataList = this.dataSources.getData().get(0).getPaperTest();
-        }else{
+        } else {
             LogInfo.log("geny", "dataSources = null");
         }
     }
 
     public void refreshAnswerCard() {
-        if(answerCardAdapter != null){
+        if (answerCardAdapter != null) {
             answerCardAdapter.notifyDataSetChanged();
         }
     }
 
 
-    private void quitSubmmitDialog(){
-        dialog = new CommonDialog(this.getActivity(),this.getActivity().getResources().getString(R.string.question_no_finish),
+    private void quitSubmmitDialog() {
+        dialog = new CommonDialog(this.getActivity(), this.getActivity().getResources().getString(R.string.question_no_finish),
                 this.getActivity().getResources().getString(R.string.question_submit),
                 this.getActivity().getResources().getString(R.string.question_cancel),
-                new DelDialog.DelCallBack(){
+                new DelDialog.DelCallBack() {
                     @Override
                     public void del() {
                         //2
@@ -260,61 +257,64 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(final View v) {
         switch (v.getId()) {
-            case R.id.rl_answer_card_mark :
-                ((AnswerViewActivity)getActivity()).hideFragment();
-                Animation ani = AnimationUtils.loadAnimation(this.getActivity(), R.anim.answer_card_bottom_out);
-                ani.setFillAfter(true);
-                ani.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                    }
+            case R.id.rl_answer_card_mark:
+                try {
+                    ((AnswerViewActivity) getActivity()).hideFragment();
+                    Animation ani = AnimationUtils.loadAnimation(this.getActivity(), R.anim.answer_card_bottom_out);
+                    ani.setFillAfter(true);
+                    ani.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+                        }
 
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        if(v == btnQuestionSubmit){
-                            try {
-                                ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideFragment();
-                            }catch (Exception e){
-                                e.toString();
-                            }
-                            if(dataList != null && !dataList.isEmpty()){
-                                int unFinishCount = QuestionUtils.calculationUnFinishQuestion(dataList);
-                                if(unFinishCount > 0){
-                                    Log.i("unfinish",unFinishCount+"");
-                                    quitSubmmitDialog();
-                                }else{
-                                    handleUploadSubjectiveImage();
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            if (v == btnQuestionSubmit) {
+                                try {
+                                    ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideFragment();
+                                } catch (Exception e) {
+                                    e.toString();
+                                }
+                                if (dataList != null && !dataList.isEmpty()) {
+                                    int unFinishCount = QuestionUtils.calculationUnFinishQuestion(dataList);
+                                    if (unFinishCount > 0) {
+                                        Log.i("unfinish", unFinishCount + "");
+                                        quitSubmmitDialog();
+                                    } else {
+                                        handleUploadSubjectiveImage();
+                                    }
+                                }
+                            } else {
+                                try {
+                                    ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).removeFragment();
+                                } catch (Exception e) {
+                                    e.toString();
                                 }
                             }
-                        }else{
-                            try {
-                                ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).removeFragment();
-                            }catch (Exception e){
-                                e.toString();
-                            }
                         }
-                    }
 
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-                    }
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+                        }
 
-                });
-                //rlAnswerCard.startAnimation(ani);
-                llAnswerCardMark.startAnimation(ani);
+                    });
+                    //rlAnswerCard.startAnimation(ani);
+                    llAnswerCardMark.startAnimation(ani);
+                } catch (Exception e) {
+                }
                 break;
             case R.id.btn_question_submit:
                 if (!NetWorkTypeUtils.isNetAvailable()) {
-                    Toast.makeText(getContext(),getContext().getResources().getString(R.string.public_loading_net_null_errtxt), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getContext().getResources().getString(R.string.public_loading_net_null_errtxt), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideFragment();
-                if(dataList != null && !dataList.isEmpty()){
+                if (dataList != null && !dataList.isEmpty()) {
                     int unFinishCount = QuestionUtils.calculationUnFinishQuestion(dataList);
-                    if(unFinishCount > 0){
-                        Log.i("unfinish",unFinishCount+"");
+                    if (unFinishCount > 0) {
+                        Log.i("unfinish", unFinishCount + "");
                         quitSubmmitDialog();
-                    }else{
+                    } else {
                         handleUploadSubjectiveImage();
                     }
                 }
@@ -327,8 +327,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
     }
 
 
-
-    private void handleUploadSubjectiveImage(){
+    private void handleUploadSubjectiveImage() {
         subjectiveList = QuestionUtils.findSubjectiveQuesition(dataSources);
         mLoadingDialog.setmCurrent(subjectiveQIndex);
         mLoadingDialog.setmNum(subjectiveList.size());
@@ -337,17 +336,17 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
             mLoadingDialog.updateUI();
             mLoadingDialog.setTipText();
         }
-        if(!subjectiveList.isEmpty()){
+        if (!subjectiveList.isEmpty()) {
             LogInfo.log("geny", "subjectiveList===" + subjectiveList.size());
 
-            if(subjectiveQIndex < subjectiveList.size()){
+            if (subjectiveQIndex < subjectiveList.size()) {
                 uploadSubjectiveImage(subjectiveList.get(subjectiveQIndex));
-            }else{
+            } else {
                 mLoadingDialog.dismiss();
                 requestSubmmit();
             }
 
-        }else{
+        } else {
             mLoadingDialog.dismiss();
             requestSubmmit();
         }
@@ -358,12 +357,12 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
     /**
      * 上传主观题图片
      */
-    private void uploadSubjectiveImage(final QuestionEntity entity){
+    private void uploadSubjectiveImage(final QuestionEntity entity) {
         Map<String, File> fileMap = new LinkedHashMap<String, File>();
         List<String> photoUri = entity.getPhotoUri();
         final ArrayList<String> httpUrl = new ArrayList<>();
-        if(photoUri != null && !photoUri.isEmpty()){
-            for(String uri : photoUri){
+        if (photoUri != null && !photoUri.isEmpty()) {
+            for (String uri : photoUri) {
                 LogInfo.log("geny", "uri===" + uri);
                 if (!uri.startsWith("http")) {
                     fileMap.put(String.valueOf(uri.hashCode()), new File(uri));
@@ -371,7 +370,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                     httpUrl.add(uri);
                 }
             }
-        }else{
+        } else {
             subjectiveQIndex++;
             handleUploadSubjectiveImage();
             return;
@@ -393,11 +392,11 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                     @Override
                     public void run() {
                         subjectiveQIndex = 0;
-                        ((AnswerViewActivity)AnswerCardFragment.this.getActivity()).hideDialog();
+                        ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideDialog();
 //                        loadingLayout.setViewGone();
-                        if(bean != null && ((UploadImageBean)bean).getStatus() != null && ((UploadImageBean)bean).getStatus().getDesc() != null){
+                        if (bean != null && ((UploadImageBean) bean).getStatus() != null && ((UploadImageBean) bean).getStatus().getDesc() != null) {
                             //Util.showToast(((UploadImageBean) bean).getStatus().getDesc());
-                        }else{
+                        } else {
                             //Util.showToast(R.string.server_connection_erro);
                         }
                         saveNetErrorDialog();
@@ -410,7 +409,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
             public void onSuccess(YanxiuBaseBean bean) {
 
                 UploadImageBean uploadImageBean = (UploadImageBean) bean;
-                if(uploadImageBean.getData() != null){
+                if (uploadImageBean.getData() != null) {
                     subjectiveQIndex++;
                     ArrayList<String> uploadBean = (ArrayList<String>) uploadImageBean.getData();
                     uploadBean.addAll(httpUrl);
@@ -422,7 +421,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
 
             @Override
             public void onProgress(int progress) {
-                if(progress % 10 == 9){
+                if (progress % 10 == 9) {
                     LogInfo.log("geny", "requestUploadImage s =onProgress-----------------" + progress);
                 }
             }
@@ -430,13 +429,13 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
     }
 
 
-    private void requestSubmmit(){
-        ((AnswerViewActivity)this.getActivity()).showCommonDialog();
-        if(requestSubmitQuesitonTask != null && requestSubmitQuesitonTask.isCancelled()){
+    private void requestSubmmit() {
+        ((AnswerViewActivity) this.getActivity()).showCommonDialog();
+        if (requestSubmitQuesitonTask != null && requestSubmitQuesitonTask.isCancelled()) {
             requestSubmitQuesitonTask.cancel();
         }
-        if(AnswerCardFragment.this.getActivity() instanceof AnswerViewActivity){
-            ((AnswerViewActivity)AnswerCardFragment.this.getActivity()).calculateLastQuestionTime();
+        if (AnswerCardFragment.this.getActivity() instanceof AnswerViewActivity) {
+            ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).calculateLastQuestionTime();
         }
         long endtime = System.currentTimeMillis();
         final long groupStartTime = dataSources.getData().get(0).getBegintime();
@@ -446,26 +445,26 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
         requestSubmitQuesitonTask = new RequestSubmitQuesitonTask(YanxiuApplication.getContext(), dataSources, RequestSubmitQuesitonTask.SUBMIT_CODE, new AsyncCallBack() {
             @Override
             public void update(YanxiuBaseBean result) {
-                ((AnswerViewActivity)AnswerCardFragment.this.getActivity()).hideDialog();
+                ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideDialog();
                 DataStatusEntityBean bean = (DataStatusEntityBean) result;
-                if(bean.getCode() == 0){
+                if (bean.getCode() == 0) {
 
                     int showana = dataSources.getShowana();
-                    if (showana == GroupHwActivity.NOT_FINISH_STATUS){
+                    if (showana == GroupHwActivity.NOT_FINISH_STATUS) {
                         LogInfo.log("haitian", "comeFrom=" + comeFrom);
                         if (comeFrom == AnswerViewActivity.GROUP && groupEndtime > groupStartTime &&
                                 ((groupEndtime - System.currentTimeMillis()) >= 3 * 60 * 1000)) {//作业截止时间判断，还未到截止时间不产生作业报告
                             Util.showToast(R.string.update_sucess);
                             EventBus.getDefault().post(new ThridExamiEvent(true));
                             EventBus.getDefault().post(new GroupEventHWRefresh());
-                            ((AnswerViewActivity)AnswerCardFragment.this.getActivity()).addFinishFragment(dataSources, YanXiuConstant.END_TIME);
-                        }else{
+                            ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).addFinishFragment(dataSources, YanXiuConstant.END_TIME);
+                        } else {
                             jumpReport();
                         }
 
-                    }else if(showana == GroupHwActivity.HAS_FINISH_CHECK_REPORT){
+                    } else if (showana == GroupHwActivity.HAS_FINISH_CHECK_REPORT) {
                         jumpReport();
-                    }else{
+                    } else {
                         Util.showToast(R.string.update_sucess);
 
                         EventBus.getDefault().post(new ThridExamiEvent(true));
@@ -473,11 +472,11 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                         getActivity().finish();
                     }
 
-                    if(comeFrom == YanXiuConstant.HISTORY_REPORT){
+                    if (comeFrom == YanXiuConstant.HISTORY_REPORT) {
                         EventBus.getDefault().post(new ExHistoryEventBus());
                     }
                     ArrayList<StatisticHashMap> arrayList = new ArrayList<StatisticHashMap>();
-                    for (int i=0; i<dataSources.getData().size(); i++) {
+                    for (int i = 0; i < dataSources.getData().size(); i++) {
                         StatisticHashMap statisticHashMap = new StatisticHashMap();
                         statisticHashMap.put(YanXiuConstant.eventID, "20:event_3");//3:提交练习/作业
                         HashMap reserveHashMap = new HashMap();
@@ -488,8 +487,8 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                         reserveHashMap.put(YanXiuConstant.paperType, String.valueOf(comeFrom));
                         reserveHashMap.put(YanXiuConstant.quesNum, String.valueOf(dataSources.getData().get(i).getQuesnum()));
                         String questionId = "[";
-                        for (int j=0; j<dataSources.getData().get(i).getPaperTest().size(); j++) {
-                            questionId = questionId + "\""+dataSources.getData().get(i).getPaperTest().get(j).getQid()+"\"" + ",";
+                        for (int j = 0; j < dataSources.getData().get(i).getPaperTest().size(); j++) {
+                            questionId = questionId + "\"" + dataSources.getData().get(i).getPaperTest().get(j).getQid() + "\"" + ",";
                         }
                         questionId = questionId.substring(0, questionId.lastIndexOf(",")) + "]";
                         reserveHashMap.put(YanXiuConstant.qID, questionId);
@@ -498,10 +497,10 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                     }
                     submitQuestionStatistic(arrayList);
 
-                }else{
-                    if(bean != null && bean.getDesc() != null){
+                } else {
+                    if (bean != null && bean.getDesc() != null) {
                         Util.showToast(bean.getDesc());
-                    }else{
+                    } else {
                         Util.showToast(R.string.server_connection_erro);
                     }
                 }
@@ -516,7 +515,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                     //Util.showToast(msg);
                 }
                 submitNetErrorDialog();
-                ((AnswerViewActivity)AnswerCardFragment.this.getActivity()).hideDialog();
+                ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideDialog();
             }
         });
         requestSubmitQuesitonTask.start();
@@ -533,25 +532,25 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
         DataStatisticsUploadManager.getInstance().NormalUpLoadData(getActivity(), submitQuestionHashMap);
     }
 
-    private void jumpReport(){
+    private void jumpReport() {
         requestReport();
         EventBus.getDefault().post(new ThridExamiEvent(true));
         EventBus.getDefault().post(new GroupEventHWRefresh());
     }
 
 
-    private void requestReport(){
-        ((AnswerViewActivity)this.getActivity()).showCommonDialog();
-        if(requestGetQReportTask != null && requestGetQReportTask.isCancelled()){
+    private void requestReport() {
+        ((AnswerViewActivity) this.getActivity()).showCommonDialog();
+        if (requestGetQReportTask != null && requestGetQReportTask.isCancelled()) {
             requestGetQReportTask.cancel();
         }
         LogInfo.log("geny", "requestReport ppid = " + String.valueOf(dataSources.getData().get(0).getId()));
         requestGetQReportTask = new RequestGetQReportTask(YanxiuApplication.getContext(), String.valueOf(dataSources.getData().get(0).getId()), new AsyncCallBack() {
             @Override
             public void update(YanxiuBaseBean result) {
-                ((AnswerViewActivity)AnswerCardFragment.this.getActivity()).hideDialog();
+                ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideDialog();
                 SubjectExercisesItemBean bean = (SubjectExercisesItemBean) result;
-                if(bean.getData() != null && bean.getStatus() != null && bean.getStatus().getCode() == 0){
+                if (bean.getData() != null && bean.getStatus() != null && bean.getStatus().getCode() == 0) {
                     LogInfo.log("geny", "-------------------->RequestGetQReportTask-------dataSources===" + bean.getData().toString());
 
                     QuestionUtils.initDataWithAnswer(bean);
@@ -560,11 +559,11 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                     bean.setBegintime(dataSources.getBegintime());
 
                     LogInfo.log("geny", "RequestGetQReportTask comeFrome------" + comeFrom);
-                    ((AnswerViewActivity)AnswerCardFragment.this.getActivity()).addFinishFragment(bean, comeFrom);
-                }else{
-                    if(bean != null && bean.getStatus() != null && bean.getStatus().getDesc() != null){
+                    ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).addFinishFragment(bean, comeFrom);
+                } else {
+                    if (bean != null && bean.getStatus() != null && bean.getStatus().getDesc() != null) {
                         Util.showToast(bean.getStatus().getDesc());
-                    }else{
+                    } else {
                         Util.showToast(R.string.server_connection_erro);
                     }
                 }
@@ -577,25 +576,23 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                 } else {
                     Util.showToast(msg);
                 }
-                ((AnswerViewActivity)AnswerCardFragment.this.getActivity()).hideDialog();
+                ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideDialog();
             }
         });
         requestGetQReportTask.start();
     }
 
 
-
-
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(requestSubmitQuesitonTask != null && requestSubmitQuesitonTask.isCancelled()){
+        if (requestSubmitQuesitonTask != null && requestSubmitQuesitonTask.isCancelled()) {
             requestSubmitQuesitonTask.cancel();
         }
     }
 
 
-    private class AnswerCardAdapter extends YXiuCustomerBaseAdapter<QuestionEntity>{
+    private class AnswerCardAdapter extends YXiuCustomerBaseAdapter<QuestionEntity> {
         private ViewHolder holder;
 
         public AnswerCardAdapter(Activity context) {
@@ -608,7 +605,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
             if (row == null) {
                 LayoutInflater inflater = mContext.getLayoutInflater();
                 row = inflater.inflate(R.layout.item_answer_card, null);
-                holder  = new ViewHolder();
+                holder = new ViewHolder();
                 holder.ivIcon = (ImageView) row.findViewById(R.id.answer_card_icon);
                 holder.tvIndex = (TextView) row.findViewById(R.id.answer_card_text);
                 row.setTag(holder);
@@ -618,15 +615,15 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
 
             QuestionEntity data = mList.get(position);
             LogInfo.log("geny", "----------------------->" + data.getAnswerBean().isFinish());
-            if(data.getAnswerBean().isFinish()){
+            if (data.getAnswerBean().isFinish()) {
                 holder.ivIcon.setBackgroundResource(R.drawable.answer_card_done);
-            }else{
+            } else {
                 holder.ivIcon.setBackgroundResource(R.drawable.answer_card_undone);
             }
-            if( data.getChildPositionForCard()==-1){             //等于-1表示不是复合题类型的解答题(只有是复合题且是解答题的时候才需要显示小题号)
-                holder.tvIndex.setText((data.getPositionForCard()+1)+"");
-            }else{
-                holder.tvIndex.setText((data.getPositionForCard()+1)+"-"+(data.getChildPositionForCard()+1));
+            if (data.getChildPositionForCard() == -1) {             //等于-1表示不是复合题类型的解答题(只有是复合题且是解答题的时候才需要显示小题号)
+                holder.tvIndex.setText((data.getPositionForCard() + 1) + "");
+            } else {
+                holder.tvIndex.setText((data.getPositionForCard() + 1) + "-" + (data.getChildPositionForCard() + 1));
             }
             return row;
         }
@@ -638,6 +635,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
     }
 
     private CommonDialog saveNetErrorDialog;
+
     public void saveNetErrorDialog() {
         saveNetErrorDialog = new CommonDialog(getActivity(), getActivity().getResources().getString(R.string.question_save_network_error),
                 getActivity().getResources().getString(R.string.try_again),
@@ -660,7 +658,9 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                 });
         saveNetErrorDialog.show();
     }
+
     private CommonDialog submitNetErrorDialog;
+
     public void submitNetErrorDialog() {
         submitNetErrorDialog = new CommonDialog(getActivity(), getActivity().getResources().getString(R.string.question_submit_network_error),
                 getActivity().getResources().getString(R.string.try_again),

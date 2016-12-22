@@ -97,6 +97,9 @@ public class ShareDialog extends Dialog{
     }
 
     public void setShareDialogPopup(){
+        if (mContext==null){
+            return;
+        }
         Animation ani = AnimationUtils.loadAnimation(mContext, R.anim.answer_card_bottom_in);
         ani.setFillAfter(true);
         ani.setAnimationListener(new Animation.AnimationListener() {

@@ -1,8 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:tool="http://schemas.android.com/tools"
     android:id="@+id/rl_answer_card_mark"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/color_99000000">
 
     <LinearLayout
@@ -11,126 +12,135 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
-    <LinearLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/rl_answer_card"
-        android:orientation="vertical"
-        android:layout_above="@+id/view_answer_card_three">
 
         <LinearLayout
+            android:id="@+id/rl_answer_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:layout_above="@+id/view_answer_card_three"
+            android:orientation="vertical">
 
-        <View android:id="@+id/view_answer_card_first"
-              android:layout_width="match_parent"
-              android:layout_height="@dimen/dimen_5"
-              android:background="@color/color_19000000" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/rl_answer_card_first"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_57"
-            android:background="@color/color_ffe580">
+                <View
+                    android:id="@+id/view_answer_card_first"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_5"
+                    android:background="@color/color_19000000" />
 
-            <ImageView android:layout_width="@dimen/dimen_26"
-                android:layout_height="@dimen/dimen_26"
-                android:layout_marginLeft="@dimen/dimen_15"
-                android:visibility="gone"
-                android:layout_centerVertical="true"
-                android:id="@+id/iv_answer_card"
-                android:src="@drawable/icon_answer_card" />
+                <RelativeLayout
+                    android:id="@+id/rl_answer_card_first"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_57"
+                    android:background="@color/color_ffe580">
 
-            <ImageView android:layout_width="@dimen/dimen_26"
-                android:layout_height="@dimen/dimen_26"
-                android:layout_marginLeft="@dimen/dimen_15"
-                android:layout_centerVertical="true"
-                android:id="@+id/iv_answer_card_close"
-                android:src="@drawable/answer_exam_delete"
-                android:layout_alignParentLeft="true" />
+                    <ImageView
+                        android:id="@+id/iv_answer_card"
+                        android:layout_width="@dimen/dimen_26"
+                        android:layout_height="@dimen/dimen_26"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dimen_15"
+                        android:src="@drawable/icon_answer_card"
+                        android:visibility="gone" />
 
-            <TextView style="@style/answer_card_text_style"
-                android:layout_marginLeft="@dimen/dimen_10"
-                android:textColor="@color/color_805500"
-                android:textStyle="bold"
-                android:visibility="gone"
-                tool:text="@string/answer_card"
-                android:id="@+id/tv_answer_card"
-                android:layout_toRightOf="@id/iv_answer_card"/>
+                    <ImageView
+                        android:id="@+id/iv_answer_card_close"
+                        android:layout_width="@dimen/dimen_26"
+                        android:layout_height="@dimen/dimen_26"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dimen_15"
+                        android:src="@drawable/answer_exam_delete" />
 
-            <TextView style="@style/answer_card_text_style"
-                android:textStyle="bold"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="@dimen/dimen_90"
-                tool:text="语文练习第一章第一节"
-                android:id="@+id/tv_question_title"
-                android:textColor="@color/color_996600" />
+                    <TextView
+                        android:id="@+id/tv_answer_card"
+                        style="@style/answer_card_text_style"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:layout_toRightOf="@id/iv_answer_card"
+                        android:textColor="@color/color_805500"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        tool:text="@string/answer_card" />
 
-        </RelativeLayout>
+                    <TextView
+                        android:id="@+id/tv_question_title"
+                        style="@style/answer_card_text_style"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="@dimen/dimen_90"
+                        android:textColor="@color/color_996600"
+                        android:textStyle="bold"
+                        tool:text="语文练习第一章第一节" />
 
-        <View android:id="@+id/view_answer_card_second"
-              android:layout_width="match_parent"
-              android:layout_height="@dimen/dimen_1"
-              android:background="@drawable/repeat_common_line" />
+                </RelativeLayout>
 
-        <FrameLayout android:id="@+id/fl_answer_card_grid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="@dimen/dimen_164"
-            android:background="@color/color_fff0b2">
+                <View
+                    android:id="@+id/view_answer_card_second"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_1"
+                    android:background="@drawable/repeat_common_line" />
 
-            <GridView
-                    android:id="@+id/answer_card_grid"
-                    android:cacheColorHint="@color/color_white"
-                    android:layout_marginTop="@dimen/dimen_26"
-                    android:layout_marginLeft="@dimen/dimen_25"
-                    android:layout_marginRight="@dimen/dimen_25"
-                    android:layout_marginBottom="@dimen/dimen_26"
-                    android:listSelector="@android:color/transparent"
-                    android:numColumns="5"
-                    android:stretchMode="columnWidth"
+                <FrameLayout
+                    android:id="@+id/fl_answer_card_grid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:verticalSpacing="@dimen/dimen_25"
-                    android:scrollbars="none"
-                    android:fadingEdge="none">
-            </GridView>
-            <!--android:listSelector="@drawable/selector_common_view"-->
-        </FrameLayout>
+                    android:background="@color/color_fff0b2"
+                    android:minHeight="@dimen/dimen_164">
+
+                    <GridView
+                        android:id="@+id/answer_card_grid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_26"
+                        android:layout_marginLeft="@dimen/dimen_25"
+                        android:layout_marginRight="@dimen/dimen_25"
+                        android:layout_marginTop="@dimen/dimen_26"
+                        android:cacheColorHint="@color/color_white"
+                        android:fadingEdge="none"
+                        android:listSelector="@android:color/transparent"
+                        android:numColumns="5"
+                        android:scrollbars="none"
+                        android:stretchMode="columnWidth"
+                        android:verticalSpacing="@dimen/dimen_25"></GridView>
+                    <!--android:listSelector="@drawable/selector_common_view"-->
+                </FrameLayout>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-        <View android:id="@+id/view_answer_card_three"
-              android:layout_width="match_parent"
-              android:layout_height="@dimen/dimen_1"
-              android:layout_above="@+id/fl_answer_card_second"
-              android:background="@drawable/repeat_common_line" />
+        <View
+            android:id="@+id/view_answer_card_three"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1"
+            android:layout_above="@+id/fl_answer_card_second"
+            android:background="@drawable/repeat_common_line" />
 
-        <FrameLayout android:id="@+id/fl_answer_card_second"
-                     android:layout_width="match_parent"
-                     android:layout_height="@dimen/dimen_90"
-                     android:layout_alignParentBottom="true"
-                     android:background="@color/color_ffe580">
+        <FrameLayout
+            android:id="@+id/fl_answer_card_second"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_90"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_ffe580">
 
-            <Button android:layout_width="@dimen/dimen_175"
-                    android:layout_height="@dimen/dimen_50"
-                    style="@style/text_fff99_shadow_style"
-                    android:layout_gravity="center"
-                    android:textStyle="bold"
-                    android:textColor="@color/color_805500"
-                    android:background="@drawable/selector_question_submit"
-                    android:text="@string/question_submit"
-                    android:id="@+id/btn_question_submit"/>
+            <Button
+                android:id="@+id/btn_question_submit"
+                style="@style/text_fff99_shadow_style"
+                android:layout_width="@dimen/dimen_175"
+                android:layout_height="@dimen/dimen_50"
+                android:layout_gravity="center"
+                android:background="@drawable/selector_question_submit"
+                android:text="@string/question_submit"
+                android:textColor="@color/color_805500"
+                android:textStyle="bold" />
 
         </FrameLayout>
     </LinearLayout>
-
 
 
     <com.yanxiu.gphone.student.view.StudentLoadingLayout
-            android:id="@+id/loading_layout"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent" />
+        android:id="@+id/loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.yanxiu.gphone.student.HtmlParser.Interface.ImageSpanOnclickListener;
 import com.yanxiu.gphone.student.HtmlParser.Span.ImageClickableSpan;
+import com.yanxiu.gphone.student.HtmlParser.Utils.CatchUtils;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.view.ClozzTextview;
 
@@ -48,17 +49,29 @@ public class MyImageSpan extends ImageClickableSpan {
         Drawable drawable=null;
         if (buttonbean.isSelect()){
             //选中
-            drawable=ContextCompat.getDrawable(context,R.drawable.nowanswer);
-            drawable.setBounds(rect.left,rect.top,rect.right,rect.bottom);
+            drawable= CatchUtils.getInstence().get(R.drawable.nowanswer+"");
+            if (drawable==null) {
+                drawable = ContextCompat.getDrawable(context, R.drawable.nowanswer);
+                drawable.setBounds(rect.left, rect.top, rect.right, rect.bottom);
+                CatchUtils.getInstence().put(R.drawable.nowanswer+"",drawable);
+            }
         }else {
             if (TextUtils.isEmpty(buttonbean.getText())){
                 //未作答
-                drawable=ContextCompat.getDrawable(context,R.drawable.noanswer);
-                drawable.setBounds(rect.left,rect.top,rect.right,rect.bottom);
+                drawable=CatchUtils.getInstence().get(R.drawable.noanswer+"");
+                if (drawable==null) {
+                    drawable = ContextCompat.getDrawable(context, R.drawable.noanswer);
+                    drawable.setBounds(rect.left, rect.top, rect.right, rect.bottom);
+                    CatchUtils.getInstence().put(R.drawable.noanswer+"",drawable);
+                }
             }else {
                 //已做答
-                drawable=ContextCompat.getDrawable(context,R.drawable.answer);
-                drawable.setBounds(rect.left,rect.top,rect.right,rect.bottom);
+                drawable=CatchUtils.getInstence().get(R.drawable.answer+"");
+                if (drawable==null) {
+                    drawable = ContextCompat.getDrawable(context, R.drawable.answer);
+                    drawable.setBounds(rect.left, rect.top, rect.right, rect.bottom);
+                    CatchUtils.getInstence().put(R.drawable.answer+"",drawable);
+                }
             }
         }
         return drawable;

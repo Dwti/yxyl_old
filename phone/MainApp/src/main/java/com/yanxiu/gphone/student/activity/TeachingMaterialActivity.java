@@ -205,10 +205,12 @@ public class TeachingMaterialActivity extends YanxiuBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (type == PRACTICE_ERROR_COLLECTION_ACTIVITY) {
-            requestMistakeEditionTask(LoginModel.getUserinfoEntity().getStageid() + "");
-        } else if (type == MY_FAVOURITE_COLLECTION_ACTIVITY) {
-            requestMyFavouriteTask(LoginModel.getUserinfoEntity().getStageid() + "");
+        if (LoginModel.getUserinfoEntity()!=null) {
+            if (type == PRACTICE_ERROR_COLLECTION_ACTIVITY) {
+                requestMistakeEditionTask(LoginModel.getUserinfoEntity().getStageid() + "");
+            } else if (type == MY_FAVOURITE_COLLECTION_ACTIVITY) {
+                requestMyFavouriteTask(LoginModel.getUserinfoEntity().getStageid() + "");
+            }
         }
     }
 

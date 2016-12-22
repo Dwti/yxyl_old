@@ -30,7 +30,7 @@ public class YanxiuBaseActivity extends YanxiuCommonBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityManager.addActicity(this);
-        Log.d("asd",this.getClass().getName());
+//        Log.d("asd",this.getClass().getName());
     }
     @Override
     protected void onResume() {
@@ -91,23 +91,23 @@ public class YanxiuBaseActivity extends YanxiuCommonBaseActivity {
     public boolean isAppOnForeground() {
         // Returns a list of application processes that are running on the
         // device
+        try {
+            android.app.ActivityManager activityManager = (android.app.ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+            String packageName = getApplicationContext().getPackageName();
 
-        android.app.ActivityManager activityManager = (android.app.ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
-        String packageName = getApplicationContext().getPackageName();
+            List<android.app.ActivityManager.RunningAppProcessInfo> appProcesses = activityManager
+                    .getRunningAppProcesses();
+            if (appProcesses == null)
+                return false;
 
-        List<android.app.ActivityManager.RunningAppProcessInfo> appProcesses = activityManager
-                .getRunningAppProcesses();
-        if (appProcesses == null)
-            return false;
-
-        for (android.app.ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
-            // The name of the process that this object is associated with.
-            if (appProcess.processName.equals(packageName)
-                    && appProcess.importance == android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                return true;
+            for (android.app.ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+                // The name of the process that this object is associated with.
+                if (appProcess.processName.equals(packageName)
+                        && appProcess.importance == android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                    return true;
+                }
             }
-        }
-
+        }catch (Exception e){}
         return false;
     }
 

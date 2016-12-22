@@ -450,7 +450,7 @@
     <string name="exam_grasp_title">~ 考点掌握度 ~</string>
     <string name="third_exam_value">掌握度 %s</string>
     <string name="section_value">考点完全掌握 %s</string>
-
+    <string name="contentDescription"></string>
 
     <string name="copy_data">已复制,长按输入框即可粘贴</string>
     <string name="popup_ics_txt">点击查看你的考点掌握情况~</string>

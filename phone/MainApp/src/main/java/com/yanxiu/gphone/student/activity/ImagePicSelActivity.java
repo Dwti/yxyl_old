@@ -207,7 +207,7 @@ public class ImagePicSelActivity extends  TopViewBaseActivity implements PicNumL
 //                                options.inJustDecodeBounds = false;
                                 bitmap = BitmapFactory.decodeFile(MediaUtils.getPic_select_string(), newOpts);*/
                                 Bitmap bitmap = CommonCoreUtil.getImage(MediaUtils.getPic_select_string());
-                                if (bitmap.getByteCount() > 1024 * 1024) {
+                                if (bitmap!=null&&bitmap.getByteCount() > 1024 * 1024) {
                                     File mediaStorageDir = null;
                                     try {
                                         mediaStorageDir = new File(Environment
