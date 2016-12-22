@@ -301,7 +301,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
 
                 });
                 //rlAnswerCard.startAnimation(ani);
-                rlAnswerCardMark.startAnimation(ani);
+                llAnswerCardMark.startAnimation(ani);
                 break;
             case R.id.btn_question_submit:
                 if (!NetWorkTypeUtils.isNetAvailable()) {
