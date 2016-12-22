@@ -52,7 +52,7 @@ public class ShareDialog extends Dialog{
         qzoneView = (FrameLayout)findViewById(R.id.share_qzone);
         celView = (TextView)findViewById(R.id.share_cel);
         rlShareDialog = (RelativeLayout) findViewById(R.id.share_relative_layout_wrap_content);
-        setShareDialogPopup();
+        //setShareDialogPopup();
 
         wechatView.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
