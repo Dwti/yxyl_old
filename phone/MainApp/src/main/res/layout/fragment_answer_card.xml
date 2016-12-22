@@ -5,6 +5,12 @@
     android:id="@+id/rl_answer_card_mark"
     android:background="@color/color_99000000">
 
+    <LinearLayout
+        android:id="@+id/ll_answer_card_mark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/rl_answer_card"
@@ -118,6 +124,7 @@
                     android:id="@+id/btn_question_submit"/>
 
         </FrameLayout>
+    </LinearLayout>
 
 
 

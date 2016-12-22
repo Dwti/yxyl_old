@@ -80,6 +80,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
     private LinearLayout rlAnswerCard;
     private ImageView ivAnswerCardClose;
     private RelativeLayout rlAnswerCardMark;
+    private LinearLayout llAnswerCardMark;
 //    private StudentLoadingLayout loadingLayout;
     private RequestSubmitQuesitonTask requestSubmitQuesitonTask;
     private RequestGetQReportTask requestGetQReportTask;
@@ -145,6 +146,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
         ivAnswerCardClose.setOnClickListener(this);
         rlAnswerCardMark = (RelativeLayout) rootView.findViewById(R.id.rl_answer_card_mark);
         rlAnswerCardMark.setOnClickListener(this);
+        llAnswerCardMark = (LinearLayout) rootView.findViewById(R.id.ll_answer_card_mark);
 //        loadingLayout = (StudentLoadingLayout) rootView.findViewById(R.id.loading_layout);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -183,7 +185,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
 
         });
         //rlAnswerCard.startAnimation(ani);
-        rlAnswerCardMark.startAnimation(ani);
+        llAnswerCardMark.startAnimation(ani);
     }
 
 
