@@ -101,7 +101,7 @@ public class FillBlankImageGetterTrick implements ImageGetterListener {
                     @Override
                     public void run() {
                         final Drawable drawable = new BitmapDrawable(result);
-//                        Rect bounds = getDefaultImageBounds(context, result);
+                        Rect bounds = getDefaultImageBounds(context, result);
 //                        drawable.setBounds(0, 0, bounds.width(), bounds.height());
                         // 这里貌似有多线程问题？？？由于所有图片都用一个ImageGetter，所以factor会算错？
                         final float factor = Math.min(1.0f, (float) (view.getWidth() / (float) loadedImageWidth));

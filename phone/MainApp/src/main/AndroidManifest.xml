@@ -351,24 +351,24 @@
 
         <!-- 【可选】APP实现的Receiver，用于接收消息透传和操作结果的回调，请根据需要添加 -->
         <!-- YOUR_PACKAGE_PATH.CustomPushReceiver需要改为自己的Receiver： -->
-        <receiver android:name="com.yanxiu.gphone.student.receiver.YanxiuMessageReceiver" >
-            <intent-filter>
-                <!-- 接收消息透传 -->
-                <action android:name="com.tencent.android.tpush.action.PUSH_MESSAGE" />
-                <!-- 监听注册、反注册、设置/删除标签、通知被点击等处理结果 -->
-                <action android:name="com.tencent.android.tpush.action.FEEDBACK" />
-            </intent-filter>
-        </receiver>
+        <!--<receiver android:name="com.yanxiu.gphone.student.receiver.YanxiuMessageReceiver" >-->
+            <!--<intent-filter>-->
+                <!--&lt;!&ndash; 接收消息透传 &ndash;&gt;-->
+                <!--<action android:name="com.tencent.android.tpush.action.PUSH_MESSAGE" />-->
+                <!--&lt;!&ndash; 监听注册、反注册、设置/删除标签、通知被点击等处理结果 &ndash;&gt;-->
+                <!--<action android:name="com.tencent.android.tpush.action.FEEDBACK" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
         <!--&lt;!&ndash; 【必须】 请修改为APP的AccessId，“21”开头的10位数字，中间没空格 &ndash;&gt;-->
         <!-- 正式 ID-->
-        <meta-data
-                android:name="XG_V2_ACCESS_ID"
-                android:value="2100148057" />
+        <!--<meta-data-->
+                <!--android:name="XG_V2_ACCESS_ID"-->
+                <!--android:value="2100148057" />-->
         <!-- 【必须】 请修改为APP的AccessKey，“A”开头的12位字符串，中间没空格 -->
-        <meta-data
-                android:name="XG_V2_ACCESS_KEY"
-                android:value="A6F8K5C2K6RG" />
+        <!--<meta-data-->
+                <!--android:name="XG_V2_ACCESS_KEY"-->
+                <!--android:value="A6F8K5C2K6RG" />-->
 
         <!--&lt;!&ndash; 【！！不需要添加！！】 此处的secretkey主要是为了Demo一键诊断用，实际APP不用添加，切记！ &ndash;&gt;-->
         <!--<meta-data-->

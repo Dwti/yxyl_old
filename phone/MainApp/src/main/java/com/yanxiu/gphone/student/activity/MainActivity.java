@@ -38,7 +38,6 @@ import com.yanxiu.gphone.student.inter.AsyncCallBack;
 import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
 import com.yanxiu.gphone.student.manager.ActivityManager;
 import com.yanxiu.gphone.student.preference.PreferencesManager;
-import com.yanxiu.gphone.student.push.PushManagerProxy;
 import com.yanxiu.gphone.student.requestTask.RequestGetQReportTask;
 import com.yanxiu.gphone.student.requestTask.RequestGroupHwDotNumTask;
 import com.yanxiu.gphone.student.upgrade.UpgradeUtils;
@@ -92,7 +91,7 @@ public class MainActivity extends YanxiuBaseActivity implements View.OnClickList
      */
     private static MainActivity mainInstance;
     public NaviFragmentFactory mNaviFragmentFactory;
-    private PushManagerProxy mPushManager;
+//    private PushManagerProxy mPushManager;
 
 
     private RequestGroupHwDotNumTask mRequestGroupHwDotNumTask;
@@ -107,7 +106,7 @@ public class MainActivity extends YanxiuBaseActivity implements View.OnClickList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PushManager.getInstance().initialize(this.getApplicationContext());
+//        PushManager.getInstance().initialize(this.getApplicationContext());
         rootView = PublicLoadUtils.createPage(this, R.layout.activity_btm_navi);
         setContentView(rootView);
         EventBus.getDefault().register(this);
@@ -182,11 +181,11 @@ public class MainActivity extends YanxiuBaseActivity implements View.OnClickList
         context.startActivity(i);
     }
 
-    private void initXGPush() {
-        mPushManager=new PushManagerProxy();
-        mPushManager.initXGPush();
-        mPushManager.setPushNotifyStyle(null);
-    }
+//    private void initXGPush() {
+//        mPushManager=new PushManagerProxy();
+//        mPushManager.initXGPush();
+//        mPushManager.setPushNotifyStyle(null);
+//    }
 
 
     @Override

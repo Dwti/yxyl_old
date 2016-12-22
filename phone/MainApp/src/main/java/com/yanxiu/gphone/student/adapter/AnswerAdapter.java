@@ -128,7 +128,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
         fragment.setRefresh();
         fragment.setTotalCount(getTotalCount());
         ViewHolder holder=new ViewHolder();
-        holder.question_ID=dataList.get(position).getId();
+        holder.question_ID=dataList.get(position).getWqid();
         holder.position=position;
         fragment.setTagMessage(holder);
         return fragment;
@@ -648,15 +648,19 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
     @Override
     public int getItemPosition(Object object) {
         ViewHolder holder= (ViewHolder) ((BaseQuestionFragment)object).getTagMessage();
-        if (dataList.get(holder.position).getId()==holder.question_ID){
-            return POSITION_UNCHANGED;
-        }else {
+        if (holder.position>=dataList.size()){
             return PagerAdapter.POSITION_NONE;
+        }else {
+            if (dataList.get(holder.position).getWqid().equals(holder.question_ID)) {
+                return POSITION_UNCHANGED;
+            } else {
+                return PagerAdapter.POSITION_NONE;
+            }
         }
     }
 
     class ViewHolder{
-        public int question_ID;
+        public String question_ID;
         public int position;
     }
 

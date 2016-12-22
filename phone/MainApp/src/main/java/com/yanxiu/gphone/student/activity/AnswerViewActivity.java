@@ -184,6 +184,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         super.onCreate(savedInstanceState);
         LogInfo.log(TAG, "onCreate");
         LogInfo.log("lee", "onCreate");
+        totalTime=0;
+        lastTime=0;
         ActivityManager.destoryAllEntelliTopActivity();
         PicSelView.resetAllData();
 //        setContentView(R.layout.activity_answer_question);
@@ -398,7 +400,9 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                         //3
                     }
                 });
-        dialog.show();
+        if (IsResume) {
+            dialog.show();
+        }
     }
 
     private void handleUploadSubjectiveImage(){
@@ -551,7 +555,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
             }
             @Override
             public void dataError(int type, String msg) {
-                if (mLoadingDialog.isShowing()) {
+                if (mLoadingDialog!=null&&mLoadingDialog.isShowing()) {
                     mLoadingDialog.dismiss();
                 }else {
                     mRootView.finish();
@@ -867,8 +871,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     @Override
     protected void onDestroy() {
         LogInfo.log(TAG, "onDestroy");
-        totalTime=0;
-        lastTime=0;
+//        totalTime=0;
+//        lastTime=0;
         if (dialog!=null){
             if (dialog.isShowing()) {
                 dialog.dismiss();
@@ -976,7 +980,9 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                         submitNetErrorDialog.dismiss();
                     }
                 });
-        submitNetErrorDialog.show();
+        if (IsResume) {
+            submitNetErrorDialog.show();
+        }
     }
 
 

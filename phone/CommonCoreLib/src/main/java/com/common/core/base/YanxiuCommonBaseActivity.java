@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.WindowManager;
 
 import com.common.core.utils.CommonCoreUtil;
-import com.tencent.android.tpush.XGPushManager;
 
 import java.util.List;
 

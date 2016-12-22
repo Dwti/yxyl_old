@@ -133,7 +133,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
             vpAnswer.setCurrentItem(position);
             tvPagerIndex.setText(String.valueOf(position + 1));
             //tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(adapter.getTotalCount())));
-            tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), wrongCounts-delQueNum));
+            tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), (wrongCounts-delQueNum)+""));
             tvToptext.setText(this.getResources().getString(R.string.questiong_resolution));
             tvToptext.setCompoundDrawables(null, null, null, null);
 //            tvAnswerCard.setVisibility(View.GONE);
@@ -177,7 +177,6 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
         BaseQuestionFragment fragment= (BaseQuestionFragment) list.get(vpAnswer.getCurrentItem());
         fragment.setWrongQuestionTitle(position+1+"",String.valueOf((wrongCounts - delQueNum)));
 
-
         tvPagerIndex.setText(String.valueOf(position + 1));
 
         tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf((wrongCounts - delQueNum))));
@@ -185,7 +184,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
         int currentTotal = adapter.getCount();
         LogInfo.log("haitian", "currentTotal =" + currentTotal + "   position=" + position + "   currentTotal - position - 1 - delQueNum="
                 + (currentTotal - position - 1 - delQueNum) + " adapter.getCount() - position - 1=" + (adapter.getCount() - position - 1));
-        if (wrongCounts-delQueNum > currentTotal && (adapter.getCount() - position - 1) < 2&&isGetDataNow) {
+        if (wrongCounts-delQueNum > currentTotal && (adapter.getCount() - position - 1) < 2&&isGetDataNow&&currentTotal>5) {
             isGetDataNow=false;
             String currentId = null;
             try{
@@ -502,6 +501,17 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
             } else {
                 finishResult(true);
             }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mRequestWrongQuestionTask!=null){
+            if (!mRequestWrongQuestionTask.isCancelled()){
+                mRequestWrongQuestionTask.cancel();
+            }
+            mRequestWrongQuestionTask=null;
         }
     }
 }

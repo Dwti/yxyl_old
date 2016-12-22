@@ -53,7 +53,7 @@ public class YanxiuHttpApi {
     //一级考点ID
     public static final String CHAPTER_ID="chapterId";
 
-    public static final boolean isTest = false;   //是否是测试环境
+    public static final boolean isTest = true;   //是否是测试环境
     public static final boolean isDev = false;    //是否是测试环境中的开发环境
 
     /**
@@ -73,10 +73,6 @@ public class YanxiuHttpApi {
         String QUESTION_ID="quesId"; //题目Id
         String TRACE_UID="trace_uid";
     }
-
-
-
-
 
     /**
      * 正式接口
