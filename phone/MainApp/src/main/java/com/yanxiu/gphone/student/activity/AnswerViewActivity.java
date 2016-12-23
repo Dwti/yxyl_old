@@ -507,7 +507,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         });
     }
 
-
     public void hideFragment() {
         if (Configuration.isDebug() && btnWrongError != null) {
             btnWrongError.setVisibility(View.VISIBLE);
@@ -523,7 +522,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 //        FragmentTransaction ft = this.getSupportFragmentManager().beginTransaction();
 //        ft.replace(R.id.content_answer_card, new Fragment()).commitAllowingStateLoss();
     }
-
 
     private void submitAnswer() {
         if (!mLoadingDialog.isShowing()) {
@@ -580,7 +578,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         }
     }
 
-
     @Override
     public void onBackPressed() {
         if (mMultiGifImageView != null && mMultiGifImageView.isShown()) {
@@ -623,7 +620,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                 addFragment();
             }
         }
-
     }
 
     AnswerCardFragment answerCardFragment;
@@ -647,7 +643,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         ft.commit();
 
     }
-
 
     public void addFinishFragment(SubjectExercisesItemBean bean, int comeFrom) {
         FragmentTransaction ft = this.getSupportFragmentManager().beginTransaction();
@@ -683,8 +678,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         return super.onTouchEvent(event);
     }
 
-
-
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         super.onPageScrolled(position, positionOffset, positionOffsetPixels);
@@ -698,6 +691,9 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     }
 
     public void setViewPagerPosition(int position, int childPosition) {
+        if (position>=adapter.getmFragments().size()){
+            return;
+        }
         vpAnswer.setCurrentItem(position);
         ((BaseQuestionFragment) adapter.getmFragments().get(position)).setChildPagerIndex(childPosition);
 //        LogInfo.log("geny", "position" + position + "----childPosition" + childPosition + "----childPosition" + childPosition);

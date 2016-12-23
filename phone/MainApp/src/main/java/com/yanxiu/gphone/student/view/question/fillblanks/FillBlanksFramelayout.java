@@ -6,6 +6,8 @@ import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.DrawableRes;
+import android.support.v4.content.ContextCompat;
 import android.text.Layout;
 import android.text.Spanned;
 import android.util.AttributeSet;
@@ -363,7 +365,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
             Field fCursorDrawableRes = TextView.class.getDeclaredField(
                     "mCursorDrawableRes");
             fCursorDrawableRes.setAccessible(true);
-            int mCursorDrawableRes = fCursorDrawableRes.getInt(editText);
+            @DrawableRes int mCursorDrawableRes = fCursorDrawableRes.getInt(editText);
             Field fEditor = TextView.class.getDeclaredField("mEditor");
             fEditor.setAccessible(true);
             Object editor = fEditor.get(editText);
