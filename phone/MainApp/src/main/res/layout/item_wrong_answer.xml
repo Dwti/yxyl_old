@@ -69,8 +69,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_answer_exam_wrong"
-        android:layout_marginLeft="@dimen/dimen_8"
-        android:layout_marginRight="@dimen/dimen_8"
+        android:layout_marginLeft="@dimen/dimen_16"
+        android:layout_marginRight="@dimen/dimen_16"
         android:background="@drawable/my_module_repeat_dash_line"
         android:visibility="visible" />
 </RelativeLayout>

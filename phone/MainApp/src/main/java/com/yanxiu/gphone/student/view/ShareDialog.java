@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -40,6 +41,8 @@ public class ShareDialog extends Dialog{
         super.onCreate(savedInstanceState);
         Window win = getWindow();
         win.getDecorView().setPadding(0, 0, 0, 0);
+        win.setWindowAnimations(R.style.dialogWindowAnim);
+        win.setGravity(Gravity.BOTTOM);
         WindowManager.LayoutParams lp = win.getAttributes();
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
