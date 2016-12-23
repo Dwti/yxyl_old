@@ -112,11 +112,11 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
         return super.instantiateItem(container, position);
     }
 
-    /*@Override
+    @Override
     public long getItemId(int position) {
         int hashCode = mFragments.get(position).hashCode();
         return hashCode;
-    }*/
+    }
 
     public int getListCount() {
         return dataList.size();
