@@ -258,50 +258,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
     public void onClick(final View v) {
         switch (v.getId()) {
             case R.id.rl_answer_card_mark:
-                try {
-                    ((AnswerViewActivity) getActivity()).hideFragment();
-                    Animation ani = AnimationUtils.loadAnimation(this.getActivity(), R.anim.answer_card_bottom_out);
-                    ani.setFillAfter(true);
-                    ani.setAnimationListener(new Animation.AnimationListener() {
-                        @Override
-                        public void onAnimationStart(Animation animation) {
-                        }
-
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
-                            if (v == btnQuestionSubmit) {
-                                try {
-                                    ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideFragment();
-                                } catch (Exception e) {
-                                    e.toString();
-                                }
-                                if (dataList != null && !dataList.isEmpty()) {
-                                    int unFinishCount = QuestionUtils.calculationUnFinishQuestion(dataList);
-                                    if (unFinishCount > 0) {
-                                        Log.i("unfinish", unFinishCount + "");
-                                        quitSubmmitDialog();
-                                    } else {
-                                        handleUploadSubjectiveImage();
-                                    }
-                                }
-                            } else {
-                                try {
-                                    ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).removeFragment();
-                                } catch (Exception e) {
-                                    e.toString();
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animation animation) {
-                        }
-
-                    });
-                    //rlAnswerCard.startAnimation(ani);
-                    llAnswerCardMark.startAnimation(ani);
-                } catch (Exception e) {
-                }
+                hideCardFragment();
                 break;
             case R.id.btn_question_submit:
                 if (!NetWorkTypeUtils.isNetAvailable()) {
@@ -320,10 +277,39 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                 }
                 break;
             case R.id.iv_answer_card_close:
-                ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).removeFragment();
+                hideCardFragment();
                 break;
         }
 
+    }
+
+    private void hideCardFragment() {
+        try {
+            Animation ani = AnimationUtils.loadAnimation(this.getActivity(), R.anim.answer_card_bottom_out);
+            ani.setFillAfter(true);
+            ani.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    try {
+                        ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).removeFragment();
+                    } catch (Exception e) {
+                        e.toString();
+                    }
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+
+            });
+            //rlAnswerCard.startAnimation(ani);
+            llAnswerCardMark.startAnimation(ani);
+        } catch (Exception e) {
+        }
     }
 
 

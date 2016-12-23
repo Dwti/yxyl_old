@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/share_relative_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_4c000000"
-        >
-    <RelativeLayout
             android:id="@+id/share_relative_layout_wrap_content"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_193"
@@ -179,7 +173,5 @@
             android:layout_height="@dimen/dimen_1"
             android:layout_below="@+id/share_title"
             android:background="@drawable/repeat_common_line" />
-
-
-    </RelativeLayout>
+    
 </RelativeLayout>
