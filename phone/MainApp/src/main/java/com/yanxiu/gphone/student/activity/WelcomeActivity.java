@@ -39,13 +39,13 @@ import java.util.List;
 /**
  * Created by Administrator on 2015/7/17.
  */
-public class WelcomeActivity extends YanxiuBaseActivity{
+public class WelcomeActivity extends YanxiuBaseActivity {
 
     private final static int GO_LOGIN_CHOICE = 0x01;
     private final static int GO_MAIN = 0x02;
     private final static int GO_PARENT_MAIN = 0x03;
     private final static int GO_FEATURE = 0x04;
-    private final static int GO_BIND_INFO=0x05;
+    private final static int GO_BIND_INFO = 0x05;
     private RelativeLayout rootView;
     private ViewPager viewpager;
     private MyViewPagerAdapter adapter;
@@ -53,13 +53,14 @@ public class WelcomeActivity extends YanxiuBaseActivity{
 
     private List<View> views;
     private RequestCreateShareIconTask createShareIconTask;
-    private Handler mHander = new Handler(){
-        @Override public void handleMessage(Message msg) {
+    private Handler mHander = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case GO_LOGIN_CHOICE:
                     //ActivityJumpUtils.jumpToLoginChoiceActivity(WelcomeActivity.this);
-                    LoginActivity.launcherActivity(WelcomeActivity.this,0);
+                    LoginActivity.launcherActivity(WelcomeActivity.this, 0);
                     WelcomeActivity.this.finish();
                     break;
                 case GO_MAIN:
@@ -82,7 +83,8 @@ public class WelcomeActivity extends YanxiuBaseActivity{
         }
     };
 
-    @Override public void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
         initMAT();
@@ -90,55 +92,56 @@ public class WelcomeActivity extends YanxiuBaseActivity{
         savaShareIconImage();
     }
 
-    private void savaShareIconImage(){
-        createShareIconTask=new RequestCreateShareIconTask(this);
+    private void savaShareIconImage() {
+        createShareIconTask = new RequestCreateShareIconTask(this);
         createShareIconTask.start();
     }
 
-    private void launch(){
+    private void launch() {
         rootView = (RelativeLayout) findViewById(R.id.root_view);
         viewpager = (ViewPager) findViewById(R.id.wel_vp);
         initviews();
         adapter = new MyViewPagerAdapter();
         viewpager.setAdapter(adapter);
         viewpager.setOnTouchListener(new View.OnTouchListener() {
-            @Override public boolean onTouch(View v, MotionEvent event) {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    lastX = (int) event.getX();
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    if ((lastX - event.getX()) > 100 && (
-                            viewpager.getCurrentItem() == views.size() - 1)) {
-                        vertifyLoginStatus();
-                    }
-                    break;
-                case MotionEvent.ACTION_UP:
-                    break;
-                default:
-                    break;
+                    case MotionEvent.ACTION_DOWN:
+                        lastX = (int) event.getX();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        if ((lastX - event.getX()) > 100 && (
+                                viewpager.getCurrentItem() == views.size() - 1)) {
+                            vertifyLoginStatus();
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        break;
+                    default:
+                        break;
                 }
                 return false;
             }
         });
 
-        if(PreferencesManager.getInstance().getFristApp()){
-            mHander.sendEmptyMessageDelayed(GO_FEATURE,2000);
+        if (PreferencesManager.getInstance().getFristApp()) {
+            mHander.sendEmptyMessageDelayed(GO_FEATURE, 2000);
             PreferencesManager.getInstance().setFristApp(false);
-        }else{
+        } else {
             vertifyLoginStatus();
         }
     }
 
     private void vertifyLoginStatus() {
-        if(LoginModel.getCacheData()==null|| StringUtils.isEmpty(LoginModel.getCacheData().getCacheData())){
-            mHander.sendEmptyMessageDelayed(GO_LOGIN_CHOICE,1000);
-        }else{
+        if (LoginModel.getCacheData() == null || StringUtils.isEmpty(LoginModel.getCacheData().getCacheData())) {
+            mHander.sendEmptyMessageDelayed(GO_LOGIN_CHOICE, 1000);
+        } else {
             //int poleID=LoginModel.getCacheData().getPoleId();
             int poleID = LoginConstants.ROLE_STUDENT;
-            switch (poleID){
+            switch (poleID) {
                 case LoginConstants.ROLE_STUDENT:
-                    mHander.sendEmptyMessageDelayed(GO_MAIN,2000);
+                    mHander.sendEmptyMessageDelayed(GO_MAIN, 2000);
                     break;
                 /*case LoginConstants.ROLE_PARENT:
                     ParentInfoBean loginInBean= (ParentInfoBean) LoginModel.getRoleLoginBean();
@@ -167,6 +170,7 @@ public class WelcomeActivity extends YanxiuBaseActivity{
 
     class MyViewPagerAdapter extends PagerAdapter {
         ImageView btn;
+
         @Override
         public int getCount() {
             return views.size();
@@ -186,7 +190,7 @@ public class WelcomeActivity extends YanxiuBaseActivity{
 
         @Override
         public void destroyItem(View container, int position,
-                Object object) {
+                                Object object) {
             ((ViewPager) container).removeView(views.get(position));
         }
     }
@@ -195,13 +199,12 @@ public class WelcomeActivity extends YanxiuBaseActivity{
 
     }
 
-    @Override protected void onDestroy() {
+    @Override
+    protected void onDestroy() {
         super.onDestroy();
         viewpager.removeAllViewsInLayout();
         viewpager.setAdapter(null);
         viewpager = null;
-
-
     }
 
     /**
