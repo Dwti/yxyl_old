@@ -190,17 +190,21 @@ public class PicSelView extends RelativeLayout {
         /*pop.showAtLocation(view, Gravity.BOTTOM, 0, 0);*/
         if(!TextUtils.isEmpty(currentQuestionId))
             ShareBitmapUtils.getInstance().setCurrentSbId(currentQuestionId);
-        if (CommonCoreUtil.sdCardMounted()) {
-            String path=MediaUtils.getOutputMediaFileUri(true).toString();
-            if(StringUtils.isEmpty(path)){
-                return;
-            }
-//            EventBus.getDefault().unregister(fragment);
-            MediaUtils.IsCallBack=true;
-            YanXiuConstant.index_position=YanXiuConstant.catch_position;
-//            EventBus.getDefault().register(fragment);
-            MediaUtils.openLocalCamera(((Activity) mContext), path, MediaUtils.OPEN_DEFINE_PIC_BUILD);
-        }
+//        if (CommonCoreUtil.sdCardMounted()) {
+//            String path=MediaUtils.getOutputMediaFileUri(true).toString();
+//            if(StringUtils.isEmpty(path)){
+//                return;
+//            }
+////            EventBus.getDefault().unregister(fragment);
+//            MediaUtils.IsCallBack=true;
+//            YanXiuConstant.index_position=YanXiuConstant.catch_position;
+////            EventBus.getDefault().register(fragment);
+//            MediaUtils.openLocalCamera(((Activity) mContext), path, MediaUtils.OPEN_DEFINE_PIC_BUILD);
+//        }
+        EventBus.getDefault().unregister(fragment);
+        YanXiuConstant.index_position=YanXiuConstant.catch_position;
+        EventBus.getDefault().register(fragment);
+        MediaUtils.openLocalCamera(((Activity) mContext), MediaUtils.CAPATURE_AND_CROP);
     }
 
     private void controllShowGridAndHideAddAnswView(boolean isShowGrid){

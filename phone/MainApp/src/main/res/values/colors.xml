@@ -219,4 +219,8 @@
     <color name="overlay">#AA1C1C1C</color>
     <color name="divider">#333333</color>
 
+    <color name="colorRectStroke">#ffffff</color>
+    <color name="colorOverViewBg">#99000000</color>
+    <color name="colorDot">#99cccccc</color>
+
 </resources>

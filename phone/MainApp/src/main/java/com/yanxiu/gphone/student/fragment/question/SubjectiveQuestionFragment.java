@@ -22,7 +22,9 @@ import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.AnswerViewActivity;
 import com.yanxiu.gphone.student.activity.BaseAnswerViewActivity;
+import com.yanxiu.gphone.student.activity.CapatureActivity;
 import com.yanxiu.gphone.student.activity.ImageBucketActivity;
+import com.yanxiu.gphone.student.activity.ImageCropActivity;
 import com.yanxiu.gphone.student.activity.LocalPhotoViewActivity;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.CorpBean;
@@ -348,8 +350,16 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
                 break;
             case LocalPhotoViewActivity.REQUEST_CODE:
                 updataPhotoView(LocalPhotoViewActivity.REQUEST_CODE);
-//                EventBus.getDefault().unregister(this);
-//                YanXiuConstant.index_position=0;
+                break;
+            case MediaUtils.CAPATURE_AND_CROP:
+                if(resultCode == mActivity.RESULT_OK){
+                    CapatureActivity.bitmap = null;
+                    String imagePath = data.getStringExtra(ImageCropActivity.IMAGE_PATH);
+                    ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), imagePath);
+                    updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
+                }
+                break;
+            default:
                 break;
         }
 
