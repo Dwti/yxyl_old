@@ -112,11 +112,11 @@ public class FavouriteViewActivity extends BaseAnswerViewActivity {
     public void onPageSelected(int position) {
         super.onPageSelected(position);
 
-        if(vpAnswer.getCurrentItem() == pageCount - delQueNum - 1){
-            btnNextQuestion.setVisibility(View.GONE);
-        }else{
-            btnNextQuestion.setVisibility(View.VISIBLE);
-        }
+//        if(vpAnswer.getCurrentItem() == pageCount - delQueNum - 1){
+//            btnNextQuestion.setVisibility(View.GONE);
+//        }else{
+//            btnNextQuestion.setVisibility(View.VISIBLE);
+//        }
 
         tvPagerIndex.setText(String.valueOf(position + 1));
         tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf((pageCount - delQueNum))));

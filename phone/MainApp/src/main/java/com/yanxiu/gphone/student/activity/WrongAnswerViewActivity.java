@@ -124,11 +124,11 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
     public void initData() {
         super.initData();
         //if (dataSources != null && dataSources.getData() != null) {
-            if (position+1 == wrongCounts-delQueNum) {
-                btnNextQuestion.setVisibility(View.GONE);
-            } else {
-                btnNextQuestion.setVisibility(View.VISIBLE);
-            }
+//            if (position+1 == wrongCounts-delQueNum) {
+//                btnNextQuestion.setVisibility(View.GONE);
+//            } else {
+//                btnNextQuestion.setVisibility(View.VISIBLE);
+//            }
             pageIndex = position;
             vpAnswer.setCurrentItem(position);
             tvPagerIndex.setText(String.valueOf(position + 1));
@@ -451,16 +451,16 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
         if (dataSources.getData().get(0).getPaperTest() != null && dataSources.getData().get(0).getPaperTest().size() > index) {
             dataSources.getData().get(0).getPaperTest().remove(index);
         }
-        if(currentPageCount == 1){
-            btnNextQuestion.setVisibility(View.GONE);
-            btnLastQuestion.setVisibility(View.GONE);
-        }
-
-        if(vpAnswer.getCurrentItem() == wrongCounts - delQueNum - 1){
-            btnNextQuestion.setVisibility(View.GONE);
-        }else{
-            btnNextQuestion.setVisibility(View.VISIBLE);
-        }
+//        if(currentPageCount == 1){
+//            btnNextQuestion.setVisibility(View.GONE);
+//            btnLastQuestion.setVisibility(View.GONE);
+//        }
+//
+//        if(vpAnswer.getCurrentItem() == wrongCounts - delQueNum - 1){
+//            btnNextQuestion.setVisibility(View.GONE);
+//        }else{
+//            btnNextQuestion.setVisibility(View.VISIBLE);
+//        }
 
         delQuestionTmpList.add(questionId);
         adapter.deleteFragment(index);

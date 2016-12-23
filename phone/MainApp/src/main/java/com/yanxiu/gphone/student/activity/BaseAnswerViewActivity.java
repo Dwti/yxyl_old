@@ -91,7 +91,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
     protected Button btnWrongError;
     protected StudentLoadingLayout loadingLayout;
 
-    protected Button btnLastQuestion, btnNextQuestion;
+//    protected Button btnLastQuestion, btnNextQuestion;
     protected QuestionsListener listener;
     protected int nextPager_onclick = 0;
 
@@ -148,13 +148,16 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 
     protected void initView() {
         gif_framelayout = (FrameLayout) this.findViewById(R.id.gif_framelayout);
-        btnLastQuestion = (Button) this.findViewById(R.id.btn_last_question);
-        btnLastQuestion.setVisibility(View.GONE);
-        btnNextQuestion = (Button) this.findViewById(R.id.btn_next_question);
-        btnNextQuestion.setVisibility(View.VISIBLE);
+//        try {
+//            btnLastQuestion = (Button) this.findViewById(R.id.btn_last_question);
+//            btnLastQuestion.setVisibility(View.GONE);
+//            btnNextQuestion = (Button) this.findViewById(R.id.btn_next_question);
+//            btnNextQuestion.setVisibility(View.VISIBLE);
+//
+//            btnNextQuestion.setOnClickListener(this);
+//            btnLastQuestion.setOnClickListener(this);
+//        }catch (Exception e){}
 
-        btnNextQuestion.setOnClickListener(this);
-        btnLastQuestion.setOnClickListener(this);
 
         ivBack = (ImageView) findViewById(R.id.iv_top_back);
         tvToptext = (YanxiuTypefaceTextView) findViewById(R.id.tv_top_title);
@@ -271,9 +274,9 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
                 LogInfo.log(TAG, "Adapter Refresh ");
                 pageCount = adapter.getCount();
 
-                if (1 == adapter.getTotalCount()) {
-                    btnNextQuestion.setVisibility(View.GONE);
-                }
+//                if (1 == adapter.getTotalCount()) {
+//                    btnNextQuestion.setVisibility(View.GONE);
+//                }
 
                 ivBack.setOnClickListener(this);
                 ivAnswerCard.setOnClickListener(this);
@@ -342,62 +345,62 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 
     @Override
     public void onClick(View v) {
-        if (v == btnLastQuestion) {
-            flag = true;
-            nextPager_onclick = 1;
-            btnNextQuestion.setVisibility(View.VISIBLE);
-//            if(vpAnswer.getCurrentItem() != 0){
-            if (listener != null) {
-                int tatle_count = ((AnswerAdapter) listener).getCount();
-                int currenItem = ((AnswerAdapter) listener).getViewPagerCurrentItem();
-
-                if (currenItem == 1 && vpAnswer.getCurrentItem() == 0) {
-                    btnLastQuestion.setVisibility(View.GONE);
-                } else {
-                    btnLastQuestion.setVisibility(View.VISIBLE);
-                }
-
-                if (currenItem == 0) {
-                    YanXiuConstant.OnClick_TYPE = 1;
-                    vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() - 1));
-                } else {
-                    ((AnswerAdapter) listener).setPagerLift();
-                }
-            } else {
-                YanXiuConstant.OnClick_TYPE = 1;
-                vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() - 1));
-            }
+//        if (v == btnLastQuestion) {
+//            flag = true;
+//            nextPager_onclick = 1;
+//            btnNextQuestion.setVisibility(View.VISIBLE);
+////            if(vpAnswer.getCurrentItem() != 0){
+//            if (listener != null) {
+//                int tatle_count = ((AnswerAdapter) listener).getCount();
+//                int currenItem = ((AnswerAdapter) listener).getViewPagerCurrentItem();
+//
+//                if (currenItem == 1 && vpAnswer.getCurrentItem() == 0) {
+//                    btnLastQuestion.setVisibility(View.GONE);
+//                } else {
+//                    btnLastQuestion.setVisibility(View.VISIBLE);
+//                }
+//
+//                if (currenItem == 0) {
+//                    YanXiuConstant.OnClick_TYPE = 1;
+//                    vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() - 1));
+//                } else {
+//                    ((AnswerAdapter) listener).setPagerLift();
+//                }
+//            } else {
+//                YanXiuConstant.OnClick_TYPE = 1;
+//                vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() - 1));
 //            }
-
-
-        } else if (v == btnNextQuestion) {
-            btnLastQuestion.setVisibility(View.VISIBLE);
-//            if(vpAnswer.getCurrentItem() != adapter.getTotalCount() - 1 || vpAnswer.getCurrentItem() != adapter.getListCount() - 1){
-            LogInfo.log(vpAnswer.getCurrentItem() + "");
-            LogInfo.log(adapter.getTotalCount() + "");
-            if (listener != null) {
-                int tatle_count = ((AnswerAdapter) listener).getCount();
-                int currenItem = ((AnswerAdapter) listener).getViewPagerCurrentItem();
-                if (vpAnswer.getCurrentItem() == adapter.getCount() - 1 && tatle_count - 2 == currenItem) {
-                    btnNextQuestion.setVisibility(View.GONE);
-                } else {
-                    btnNextQuestion.setVisibility(View.VISIBLE);
-                }
-                if (currenItem < tatle_count - 1) {
-                    listener.flipNextPager(listener);
-                } else {
-                    if (vpAnswer.getCurrentItem() < adapter.getCount() - 1) {
-                        vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
-                    }
-                }
-            } else {
-                if (vpAnswer.getCurrentItem() < adapter.getCount() - 1) {
-                    vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
-                }
-            }
-//                vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
+////            }
+//
+//
+//        } else if (v == btnNextQuestion) {
+//            btnLastQuestion.setVisibility(View.VISIBLE);
+////            if(vpAnswer.getCurrentItem() != adapter.getTotalCount() - 1 || vpAnswer.getCurrentItem() != adapter.getListCount() - 1){
+//            LogInfo.log(vpAnswer.getCurrentItem() + "");
+//            LogInfo.log(adapter.getTotalCount() + "");
+//            if (listener != null) {
+//                int tatle_count = ((AnswerAdapter) listener).getCount();
+//                int currenItem = ((AnswerAdapter) listener).getViewPagerCurrentItem();
+//                if (vpAnswer.getCurrentItem() == adapter.getCount() - 1 && tatle_count - 2 == currenItem) {
+//                    btnNextQuestion.setVisibility(View.GONE);
+//                } else {
+//                    btnNextQuestion.setVisibility(View.VISIBLE);
+//                }
+//                if (currenItem < tatle_count - 1) {
+//                    listener.flipNextPager(listener);
+//                } else {
+//                    if (vpAnswer.getCurrentItem() < adapter.getCount() - 1) {
+//                        vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
+//                    }
+//                }
+//            } else {
+//                if (vpAnswer.getCurrentItem() < adapter.getCount() - 1) {
+//                    vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
+//                }
 //            }
-        }
+////                vpAnswer.setCurrentItem((vpAnswer.getCurrentItem() + 1));
+////            }
+//        }
     }
 
     public SubjectExercisesItemBean getDataSources() {
@@ -411,45 +414,45 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
     @Override
     public void flipNextPager(QuestionsListener listener) {
         this.listener = listener;
-        if (listener != null) {
-            int tatle_count = ((AnswerAdapter) listener).getCount();
-            int currenItem = ((AnswerAdapter) listener).getViewPagerCurrentItem();
-            if (vpAnswer.getCurrentItem() == adapter.getCount() - 1 && tatle_count - 1 == currenItem) {
-                btnNextQuestion.setVisibility(View.GONE);
-            } else {
-                btnNextQuestion.setVisibility(View.VISIBLE);
-            }
-            if (currenItem == 0 && vpAnswer.getCurrentItem() == 0) {
-                btnLastQuestion.setVisibility(View.GONE);
-            } else {
-                btnLastQuestion.setVisibility(View.VISIBLE);
-            }
-        } else {
-            if (vpAnswer.getCurrentItem() == 0) {
-                btnLastQuestion.setVisibility(View.GONE);
-            } else {
-                btnLastQuestion.setVisibility(View.VISIBLE);
-            }
-
-            if (vpAnswer.getCurrentItem() == adapter.getCount() - 1) {
-                btnNextQuestion.setVisibility(View.GONE);
-            } else {
-                btnNextQuestion.setVisibility(View.VISIBLE);
-            }
-        }
+//        if (listener != null) {
+//            int tatle_count = ((AnswerAdapter) listener).getCount();
+//            int currenItem = ((AnswerAdapter) listener).getViewPagerCurrentItem();
+//            if (vpAnswer.getCurrentItem() == adapter.getCount() - 1 && tatle_count - 1 == currenItem) {
+//                btnNextQuestion.setVisibility(View.GONE);
+//            } else {
+//                btnNextQuestion.setVisibility(View.VISIBLE);
+//            }
+//            if (currenItem == 0 && vpAnswer.getCurrentItem() == 0) {
+//                btnLastQuestion.setVisibility(View.GONE);
+//            } else {
+//                btnLastQuestion.setVisibility(View.VISIBLE);
+//            }
+//        } else {
+//            if (vpAnswer.getCurrentItem() == 0) {
+//                btnLastQuestion.setVisibility(View.GONE);
+//            } else {
+//                btnLastQuestion.setVisibility(View.VISIBLE);
+//            }
+//
+//            if (vpAnswer.getCurrentItem() == adapter.getCount() - 1) {
+//                btnNextQuestion.setVisibility(View.GONE);
+//            } else {
+//                btnNextQuestion.setVisibility(View.VISIBLE);
+//            }
+//        }
     }
 
     public void setPagerSelect(int count, int position) {
-        if (vpAnswer.getCurrentItem() == adapter.getCount() - 1 && count - 1 == position) {
-            btnNextQuestion.setVisibility(View.GONE);
-        } else {
-            btnNextQuestion.setVisibility(View.VISIBLE);
-        }
-        if (vpAnswer.getCurrentItem() == 0 && position == 0) {
-            btnLastQuestion.setVisibility(View.GONE);
-        } else {
-            btnLastQuestion.setVisibility(View.VISIBLE);
-        }
+//        if (vpAnswer.getCurrentItem() == adapter.getCount() - 1 && count - 1 == position) {
+//            btnNextQuestion.setVisibility(View.GONE);
+//        } else {
+//            btnNextQuestion.setVisibility(View.VISIBLE);
+//        }
+//        if (vpAnswer.getCurrentItem() == 0 && position == 0) {
+//            btnLastQuestion.setVisibility(View.GONE);
+//        } else {
+//            btnLastQuestion.setVisibility(View.VISIBLE);
+//        }
     }
 
     @Override
@@ -532,6 +535,6 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
     }
 
     protected void setNextShow() {
-        btnNextQuestion.setVisibility(View.VISIBLE);
+//        btnNextQuestion.setVisibility(View.VISIBLE);
     }
 }
