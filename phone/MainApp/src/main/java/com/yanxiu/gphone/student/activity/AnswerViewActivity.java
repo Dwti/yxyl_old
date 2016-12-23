@@ -769,6 +769,12 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         super.onPageSelected(position);
         LogInfo.log(TAG, "onPageSelected position: " + position);
         LogInfo.log("TTTT", "onPageSelected" + position);
+        if (dataSources.getData()==null||dataSources.getData().size()==0){
+            return;
+        }
+        if (position>=dataSources.getData().get(0).getPaperTest().size()){
+            return;
+        }
         currentIndex = position;
         int costTime = totalTime - lastTime;
         lastTime = totalTime;

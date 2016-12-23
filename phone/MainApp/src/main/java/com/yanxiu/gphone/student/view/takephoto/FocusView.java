@@ -38,7 +38,8 @@ public class FocusView extends View {
 		init();
 	}
 
-	@SuppressLint("NewApi") private void init() {
+	@SuppressLint("NewApi")
+	private void init() {
 		mLinePaint = new Paint();
 		mLinePaint.setAntiAlias(true);
 		mLinePaint.setStyle(Paint.Style.STROKE);
@@ -67,7 +68,8 @@ public class FocusView extends View {
 	private AnimatorSet animSet;
 	private ObjectAnimator fadeInOut;
 	private boolean isFocusing = false;
-	@SuppressLint("NewApi") public void beginFocus() {
+	@SuppressLint("NewApi")
+	public void beginFocus() {
 		isFocusing = true;
 		if (animSet == null) {
 			ObjectAnimator scaleX = ObjectAnimator.ofFloat(this, "scaleX", 1f, 1.3f, 1f);

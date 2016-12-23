@@ -22,6 +22,7 @@ import com.common.core.utils.imageloader.UniversalImageLoadTool;
 import com.common.core.view.roundview.RoundedImageView;
 import com.common.login.LoginModel;
 import com.common.login.model.UserInfo;
+import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.MyStageSelectActivity;
 import com.yanxiu.gphone.student.activity.MyUserInfoActivity;
@@ -97,9 +98,14 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         myStage = (TextView) rootView.findViewById(R.id.my_stage_content);
 
         stdUidTv=(TextView)rootView.findViewById(R.id.stdUidTv);
-        UserInfo userInfo= (UserInfo) LoginModel.getRoleUserInfoEntity();
-        stdUidTv.setText(String.format(getResources().getString(R.string.std_uid_text),String.valueOf(userInfo.getMobile())));
-
+        YanxiuBaseBean bean=LoginModel.getRoleUserInfoEntity();
+        UserInfo userInfo = null;
+        if (bean!=null){
+            userInfo= (UserInfo) LoginModel.getRoleUserInfoEntity();
+        }
+        if (userInfo.getMobile()!=null) {
+            stdUidTv.setText(String.format(getResources().getString(R.string.std_uid_text), String.valueOf(userInfo.getMobile())));
+        }
         userHeadIv = (RoundedImageView) rootView.findViewById(R.id.user_icon);
         userHeadIv.setCornerRadius(getResources().getDimensionPixelOffset(R.dimen.dimen_12));
         if(mUserinfoEntity != null){
@@ -180,9 +186,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
         }
-
-
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         LogInfo.log("haitian", ">>>>>>>>>>>------requestCode="+requestCode);

@@ -25,9 +25,9 @@ public class YanxiuPushUpdateReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         // TODO Auto-generated method stub
-        isAppOnForeground(MainActivity.getInstance() != null ?
-                MainActivity.getInstance() :
-                context);
+//        isAppOnForeground(MainActivity.getInstance() != null ?
+//                MainActivity.getInstance() :
+//                context);
         if (LoginModel.getLoginBean() == null || LoginModel.getUserinfoEntity() == null || YanxiuApplication.getInstance().isForceUpdate()) {
             LogInfo.log("haitian", "-----------isForceUpdate------LoginBeanIsNull------UserInfoIsNull-----");
             return;
