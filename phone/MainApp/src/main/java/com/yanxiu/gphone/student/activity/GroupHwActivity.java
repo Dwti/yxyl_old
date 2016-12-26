@@ -40,26 +40,28 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by Administrator on 2015/7/10.
  */
-public class GroupHwActivity extends YanxiuBaseActivity{
-    private final static int HAS_FINISH_STATUS=2; //已z完成
-    public final static int NOT_FINISH_STATUS=1;//未完成 不可补做  查看解析报告
-    private final static int WAIT_FINISH_STATUS=0;//待完成  可以做题
-    public final static int HAS_FINISH_CHECK_REPORT=0;   //已完成  可以查看答题报告
+public class GroupHwActivity extends YanxiuBaseActivity {
+    private final static int HAS_FINISH_STATUS = 2; //已z完成
+    public final static int NOT_FINISH_STATUS = 1;//未完成 不可补做  查看解析报告
+    private final static int WAIT_FINISH_STATUS = 0;//待完成  可以做题
+    public final static int HAS_FINISH_CHECK_REPORT = 0;   //已完成  可以查看答题报告
     public final static int LAUNCHER_GROUP_HW = 0x03;
 
-    public static void launchActivity(Activity activity,int classId,int groupId,String groupName,int requestCode){
-        Intent intent = new Intent(activity,GroupHwActivity.class);
-        intent.putExtra("classId",classId);
-        intent.putExtra("groupId",groupId);
-        intent.putExtra("groupName",groupName);
+    public static void launchActivity(Activity activity, int classId, int groupId, String groupName, int requestCode) {
+        Intent intent = new Intent(activity, GroupHwActivity.class);
+        intent.putExtra("classId", classId);
+        intent.putExtra("groupId", groupId);
+        intent.putExtra("groupName", groupName);
         activity.startActivityForResult(intent, requestCode);
     }
-    public static void launchActivity(Activity activity, int groupId, String groupName){
-        Intent intent = new Intent(activity,GroupHwActivity.class);
-        intent.putExtra("groupId",groupId);
-        intent.putExtra("groupName",groupName);
+
+    public static void launchActivity(Activity activity, int groupId, String groupName) {
+        Intent intent = new Intent(activity, GroupHwActivity.class);
+        intent.putExtra("groupId", groupId);
+        intent.putExtra("groupName", groupName);
         activity.startActivity(intent);
     }
+
     private PublicLoadLayout rootView;
     private TextView backView;
     private TextView titleView;
@@ -79,19 +81,21 @@ public class GroupHwActivity extends YanxiuBaseActivity{
     private GroupHwListAdapter groupHwListAdapter;
     private List<GroupHwBean> dataList = new ArrayList<GroupHwBean>();
 
-    @Override public void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        if(intent != null){
-            classId = intent.getIntExtra("classId",0);
-            groupId = intent.getIntExtra("groupId",0);
+        if (intent != null) {
+            classId = intent.getIntExtra("classId", 0);
+            groupId = intent.getIntExtra("groupId", 0);
             groupName = intent.getStringExtra("groupName");
         }
         rootView = PublicLoadUtils.createPage(this, R.layout.group_homework_list_layout);
         rootView.setmRefreshData(new PublicLoadLayout.RefreshData() {
-            @Override public void refreshData() {
-                    pageIndex = 1;
-                    requestHwList(false, true, false);
+            @Override
+            public void refreshData() {
+                pageIndex = 1;
+                requestHwList(false, true, false);
             }
         });
         setContentView(rootView);
@@ -105,20 +109,21 @@ public class GroupHwActivity extends YanxiuBaseActivity{
         super.onResume();
     }
 
-    private void findView(){
-        backView = (TextView)findViewById(R.id.pub_top_left);
-        titleView = (TextView)findViewById(R.id.pub_top_mid);
+    private void findView() {
+        backView = (TextView) findViewById(R.id.pub_top_left);
+        titleView = (TextView) findViewById(R.id.pub_top_mid);
 //        groupView = (TextView)findViewById(R.id.pub_top_right);
 //        groupView.setBackgroundResource(R.drawable.group_list_person);
-        noCommentView = (RelativeLayout)findViewById(R.id.no_group_hw_list);
-        listView = (XListView)findViewById(R.id.group_hw_list);
+        noCommentView = (RelativeLayout) findViewById(R.id.no_group_hw_list);
+        listView = (XListView) findViewById(R.id.group_hw_list);
         listView.setScrollable(false);
         listView.setPullLoadEnable(false);
         listView.setXListViewListener(ixListViewListener);
         groupHwListAdapter = new GroupHwListAdapter(this);
         listView.setAdapter(groupHwListAdapter);
         backView.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
                 cancelTaskAndFinish();
             }
         });
@@ -129,23 +134,22 @@ public class GroupHwActivity extends YanxiuBaseActivity{
 //            }
 //        });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override public void onItemClick(AdapterView<?> parent, View view,
-                    int position, long id) {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
                 if (groupHwListAdapter != null) {
                     List<GroupHwBean> list = groupHwListAdapter.getList();
                     if (list != null && list.size() > 0) {
-                        GroupHwBean entity = list
-                                .get(position - listView.getHeaderViewsCount());
+                        int index = position - listView.getHeaderViewsCount();
+                        if (index < 0 || index >= list.size()) {
+                            return;
+                        }
+                        GroupHwBean entity = list.get(index);
                         if (entity != null && entity.getPaperStatus() != null) {
-                            if (entity.getPaperStatus().getStatus()
-                                    == HAS_FINISH_STATUS) {  //已完成
-                                requestQReportList(entity.getId() + "",
-                                        entity.getShowana(),
-                                        entity.getOverTime());
+                            if (entity.getPaperStatus().getStatus() == HAS_FINISH_STATUS) {  //已完成
+                                requestQReportList(entity.getId() + "", entity.getShowana(), entity.getOverTime());
                             } else {  //未完成  待完成
-                                requestQuestionList(entity.getId() + "",
-                                        entity.getShowana(),
-                                        entity.getPaperStatus().getStatus());
+                                requestQuestionList(entity.getId() + "", entity.getShowana(), entity.getPaperStatus().getStatus());
                             }
                         }
                     }
@@ -154,84 +158,88 @@ public class GroupHwActivity extends YanxiuBaseActivity{
         });
     }
 
-    private XListView.IXListViewListener ixListViewListener = new XListView.IXListViewListener(){
+    private XListView.IXListViewListener ixListViewListener = new XListView.IXListViewListener() {
 
-        @Override public void onRefresh(XListView view) {
-            if(NetWorkTypeUtils.isNetAvailable()){
+        @Override
+        public void onRefresh(XListView view) {
+            if (NetWorkTypeUtils.isNetAvailable()) {
                 pageIndex = 1;
                 requestHwList(true, false, false);
-            }else {
+            } else {
                 listView.stopRefresh();
                 Util.showUserToast(R.string.net_null, -1, -1);
             }
         }
 
-        @Override public void onLoadMore(XListView view) {
-            if(NetWorkTypeUtils.isNetAvailable()){
+        @Override
+        public void onLoadMore(XListView view) {
+            if (NetWorkTypeUtils.isNetAvailable()) {
                 requestHwList(false, false, true);
-            }else {
+            } else {
                 listView.stopLoadMore();
                 Util.showUserToast(R.string.net_null, -1, -1);
             }
         }
     };
 
-    private void requestHwList(final boolean isRefresh,final boolean showLoading,
-            final boolean isLoaderMore){
-        if(showLoading){
+    private void requestHwList(final boolean isRefresh, final boolean showLoading,
+                               final boolean isLoaderMore) {
+        if (showLoading) {
             rootView.loading(true);
         }
         int page = pageIndex;
-        if(isLoaderMore){
-            page +=1;
+        if (isLoaderMore) {
+            page += 1;
         }
         if (requestGroupHwListTask != null) {
             requestGroupHwListTask.cancel();
             requestGroupHwListTask = null;
         }
-        requestGroupHwListTask = new RequestGroupHwListTask(this,groupId, page, PAGESIZE, new AsyncCallBack() {
-            @Override public void update(YanxiuBaseBean result) {
+        requestGroupHwListTask = new RequestGroupHwListTask(this, groupId, page, PAGESIZE, new AsyncCallBack() {
+            @Override
+            public void update(YanxiuBaseBean result) {
                 rootView.finish();
                 listView.stopRefresh();
                 listView.stopLoadMore();
-                GroupHwListBean groupHwListBean = (GroupHwListBean)result;
+                GroupHwListBean groupHwListBean = (GroupHwListBean) result;
                 ArrayList<GroupHwBean> data = groupHwListBean.getData();
-                if(data!=null && data.size()>0) {
-                    if(isLoaderMore){
-                        pageIndex +=1;
-                    }else if(isRefresh){
+                if (data != null && data.size() > 0) {
+                    if (isLoaderMore) {
+                        pageIndex += 1;
+                    } else if (isRefresh) {
                         pageIndex = 1;
                         dataList.clear();
                     }
                     dataList.addAll(data);
                     PageBean pageBean = groupHwListBean.getPage();
-                    if(pageBean!=null){
-                        if(pageIndex == pageBean.getTotalPage()){
+                    if (pageBean != null) {
+                        if (pageIndex == pageBean.getTotalPage()) {
                             listView.setPullLoadEnable(false);
-                        }else{
+                        } else {
                             listView.setPullLoadEnable(true);
                         }
-                    }else{
+                    } else {
                         listView.setPullLoadEnable(false);
                     }
                     updateUI();
-                }else{
+                } else {
                     rootView.dataNull(getResources().getString(R.string.no_group_hw_list_tip));
 //                    noCommentView.setVisibility(View.VISIBLE);
                 }
             }
 
-            @Override public void dataError(int type, String msg) {
+            @Override
+            public void dataError(int type, String msg) {
                 rootView.finish();
                 listView.stopRefresh();
                 listView.stopLoadMore();
-                if(isRefresh || isLoaderMore){
-                    if(!StringUtils.isEmpty(msg)){
+                if (isRefresh || isLoaderMore) {
+                    if (!StringUtils.isEmpty(msg)) {
                         Util.showUserToast(msg, null, null);
-                    } else{
+                    } else {
                         Util.showUserToast(R.string.net_null_one, -1, -1);
                     }
-                }else if(showLoading){
+                } else if (showLoading) {
                     rootView.netError(true);
                 }
             }
@@ -239,10 +247,10 @@ public class GroupHwActivity extends YanxiuBaseActivity{
         requestGroupHwListTask.start();
     }
 
-    private void forResult(){
+    private void forResult() {
         Intent intent = new Intent();
         boolean resultToRefresh = true;
-        if(groupHwListAdapter == null || groupHwListAdapter.getCount() <= 0) {
+        if (groupHwListAdapter == null || groupHwListAdapter.getCount() <= 0) {
             resultToRefresh = false;
         }
         intent.putExtra("toRefresh", resultToRefresh);
@@ -254,74 +262,79 @@ public class GroupHwActivity extends YanxiuBaseActivity{
 //        super.onBackPressed();
 //    }
 
-    @Override protected void onActivityResult(int requestCode, int resultCode,
-            Intent data) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
         /*if(resultCode == RESULT_OK && requestCode == AnswerViewActivity.LAUNCHER_FROM_GROUP){
             pageIndex = 1;
             requestHwList(true, false, false);
         }*/
     }
+
     public void onEventMainThread(GroupEventHWRefresh event) {
         EventBus.getDefault().post(new GroupEventRefresh());
         pageIndex = 1;
         requestHwList(true, false, false);
     }
+
     /**
      * 更新列表UI
-     * */
-    private void updateUI(){
+     */
+    private void updateUI() {
         rootView.finish();
 //        noCommentView.setVisibility(View.GONE);
         listView.setScrollable(true);
         listView.setPullRefreshEnable(true);
-        if(groupHwListAdapter!=null){
+        if (groupHwListAdapter != null) {
             groupHwListAdapter.setList(dataList);
         }
     }
 
     /**
      * 请求作业群组试题列表接口
-     * */
-    private void requestQuestionList(String paperId,final int showana, final int status){
+     */
+    private void requestQuestionList(String paperId, final int showana, final int status) {
 
-        if(requestQuestionListTask == null || requestQuestionListTask.isCancelled()){
+        if (requestQuestionListTask == null || requestQuestionListTask.isCancelled()) {
             rootView.loading(true);
             if (requestQuestionListTask != null) {
                 requestQuestionListTask.cancel();
                 requestQuestionListTask = null;
             }
             requestQuestionListTask = new RequestQuestionListTask(this, paperId, new AsyncCallBack() {
-                @Override public void update(YanxiuBaseBean result) {
+                @Override
+                public void update(YanxiuBaseBean result) {
                     rootView.finish();
-                    SubjectExercisesItemBean subjectExercisesItemBean = (SubjectExercisesItemBean)result;
-                    if(subjectExercisesItemBean!=null && subjectExercisesItemBean.getData()!=null
-                            && subjectExercisesItemBean.getData().size()>0 && subjectExercisesItemBean.getData().get(0).getPaperTest()!=null){
+                    SubjectExercisesItemBean subjectExercisesItemBean = (SubjectExercisesItemBean) result;
+                    if (subjectExercisesItemBean != null && subjectExercisesItemBean.getData() != null
+                            && subjectExercisesItemBean.getData().size() > 0 && subjectExercisesItemBean.getData().get(0).getPaperTest() != null) {
                         subjectExercisesItemBean.setShowana(showana);
-                        if(status == NOT_FINISH_STATUS){
+                        if (status == NOT_FINISH_STATUS) {
                             subjectExercisesItemBean.setIsResolution(true);
                             QuestionUtils.initDataWithAnswer(
                                     subjectExercisesItemBean);
                             ResolutionAnswerViewActivity.launch(GroupHwActivity.this,
                                     subjectExercisesItemBean, YanXiuConstant.HOMEWORK_REPORT);
-                        }else if(status == WAIT_FINISH_STATUS){
+                        } else if (status == WAIT_FINISH_STATUS) {
                             QuestionUtils.initDataWithAnswer(subjectExercisesItemBean);
                             AnswerViewActivity.launchForResult(GroupHwActivity.this,
                                     subjectExercisesItemBean, AnswerViewActivity.GROUP);
                         }
-                    }else{
-                        if(subjectExercisesItemBean.getStatus() == null){
+                    } else {
+                        if (subjectExercisesItemBean.getStatus() == null) {
                             Util.showUserToast(R.string.net_null, -1, -1);
-                        }else{
+                        } else {
                             Util.showUserToast(subjectExercisesItemBean.getStatus().getDesc(), null, null);
                         }
                     }
                 }
 
-                @Override public void dataError(int type, String msg) {
+                @Override
+                public void dataError(int type, String msg) {
                     rootView.finish();
-                    if(!StringUtils.isEmpty(msg)){
+                    if (!StringUtils.isEmpty(msg)) {
                         Util.showUserToast(msg, null, null);
-                    }else{
+                    } else {
                         Util.showUserToast(R.string.net_null, -1, -1);
                     }
                 }
@@ -332,43 +345,45 @@ public class GroupHwActivity extends YanxiuBaseActivity{
 
     /**
      * 请求作业群组试题列表接口
-     * */
-    private void requestQReportList(String paperId,final  int showana,final String endTime){
-        if(requestGetQReportTask == null || requestGetQReportTask.isCancelled()){
+     */
+    private void requestQReportList(String paperId, final int showana, final String endTime) {
+        if (requestGetQReportTask == null || requestGetQReportTask.isCancelled()) {
             rootView.loading(true);
             if (requestGetQReportTask != null) {
                 requestGetQReportTask.cancel();
                 requestGetQReportTask = null;
             }
             requestGetQReportTask = new RequestGetQReportTask(this, paperId, new AsyncCallBack() {
-                @Override public void update(YanxiuBaseBean result) {
+                @Override
+                public void update(YanxiuBaseBean result) {
                     rootView.finish();
-                    SubjectExercisesItemBean subjectExercisesItemBean = (SubjectExercisesItemBean)result;
+                    SubjectExercisesItemBean subjectExercisesItemBean = (SubjectExercisesItemBean) result;
                     QuestionUtils.initDataWithAnswer(subjectExercisesItemBean);
-                    if(subjectExercisesItemBean!=null && subjectExercisesItemBean.getData()!=null
-                            && subjectExercisesItemBean.getData().size()>0 && subjectExercisesItemBean.getData().get(0).getPaperTest()!=null){
-                        if (showana == HAS_FINISH_CHECK_REPORT){
+                    if (subjectExercisesItemBean != null && subjectExercisesItemBean.getData() != null
+                            && subjectExercisesItemBean.getData().size() > 0 && subjectExercisesItemBean.getData().get(0).getPaperTest() != null) {
+                        if (showana == HAS_FINISH_CHECK_REPORT) {
                             subjectExercisesItemBean.setIsResolution(true);
-                            AnswerReportActivity.launch(GroupHwActivity.this, subjectExercisesItemBean,YanXiuConstant.HOMEWORK_REPORT,Intent.FLAG_ACTIVITY_FORWARD_RESULT, true);
-                        }else{
-                            String toast1 = GroupHwActivity.this.getResources().getString(R.string.group_hw_done_not_cat_ana,endTime);
+                            AnswerReportActivity.launch(GroupHwActivity.this, subjectExercisesItemBean, YanXiuConstant.HOMEWORK_REPORT, Intent.FLAG_ACTIVITY_FORWARD_RESULT, true);
+                        } else {
+                            String toast1 = GroupHwActivity.this.getResources().getString(R.string.group_hw_done_not_cat_ana, endTime);
                             String toast2 = GroupHwActivity.this.getResources().getString(R.string.group_hw_done_not_cat_ana_2);
                             Util.showUserToast(toast1, toast2, null);
                         }
-                    }else{
-                        if(subjectExercisesItemBean.getStatus() == null){
+                    } else {
+                        if (subjectExercisesItemBean.getStatus() == null) {
                             Util.showUserToast(R.string.net_null, -1, -1);
-                        }else{
+                        } else {
                             Util.showUserToast(subjectExercisesItemBean.getStatus().getDesc(), null, null);
                         }
                     }
                 }
 
-                @Override public void dataError(int type, String msg) {
+                @Override
+                public void dataError(int type, String msg) {
                     rootView.finish();
-                    if(!StringUtils.isEmpty(msg)){
+                    if (!StringUtils.isEmpty(msg)) {
                         Util.showUserToast(msg, null, null);
-                    }else{
+                    } else {
                         Util.showUserToast(R.string.net_null, -1, -1);
                     }
                 }
@@ -376,6 +391,7 @@ public class GroupHwActivity extends YanxiuBaseActivity{
             requestGetQReportTask.start();
         }
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -385,12 +401,14 @@ public class GroupHwActivity extends YanxiuBaseActivity{
             return super.onKeyDown(keyCode, event);
         }
     }
-    private void cancelTaskAndFinish(){
+
+    private void cancelTaskAndFinish() {
         cancelTask();
         forResult();
         GroupHwActivity.this.finish();
     }
-    private void cancelTask(){
+
+    private void cancelTask() {
         if (requestGroupHwListTask != null) {
             requestGroupHwListTask.cancel();
             requestGroupHwListTask = null;
@@ -404,7 +422,9 @@ public class GroupHwActivity extends YanxiuBaseActivity{
             requestGetQReportTask = null;
         }
     }
-    @Override protected void onDestroy() {
+
+    @Override
+    protected void onDestroy() {
         super.onDestroy();
         cancelTask();
         EventBus.getDefault().unregister(this);

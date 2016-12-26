@@ -235,8 +235,6 @@ public class CameraActivity extends YanxiuBaseActivity implements View.OnClickLi
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
         }
     };
 
