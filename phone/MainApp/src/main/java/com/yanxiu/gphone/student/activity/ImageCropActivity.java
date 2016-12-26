@@ -28,13 +28,12 @@ import java.io.File;
 
 public class ImageCropActivity extends Activity implements View.OnClickListener, OnTaskCompleteListener<File> {
 
-    ImageCropOverView image_over_view;
-    ImageView mImageView;
-    TextView tv_crop, tv_cancel;
-    View rl_crop;
-    String imagePath;
+    private ImageCropOverView image_over_view;
+    private ImageView mImageView;
+    private TextView tv_crop, tv_cancel;
+    private View rl_crop;
+    private String imagePath;
     private Bitmap mBitmap;
-//    public static Bitmap bitmap;
     public static final int REQUEST_IMAGE_CROP = 0x04;
     private boolean isWritting = false;
     public static final String IMAGE_PATH = "imagePath";
@@ -78,14 +77,6 @@ public class ImageCropActivity extends Activity implements View.OnClickListener,
             bitmapWorkerTask.execute(imagePath, String.valueOf(Utils.getScreenWidth()), String.valueOf(Utils.getScreenHeight()));
         }
     }
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if(hasFocus){
-
-        }
-    }
-
 
     @Override
     public void onClick(View view) {
@@ -94,7 +85,6 @@ public class ImageCropActivity extends Activity implements View.OnClickListener,
                 if(isWritting || mBitmap ==null){
                     return;
                 }
-//                Bitmap sourceBmp = ((BitmapDrawable)mImageView.getDrawable()).getBitmap();
                 isWritting = true;
                 Rect rect = image_over_view.getRect();
 
@@ -102,13 +92,10 @@ public class ImageCropActivity extends Activity implements View.OnClickListener,
 
                 Bitmap crop_bitmap = Bitmap.createBitmap(sourceBmp, rect.left, rect.top,
                         rect.width(), rect.height());
-                if(TextUtils.isEmpty(imagePath)){
-                    //imagePath为空，说明是从拍照界面跳转过来的，如果不为空，则是从照片选择界面跳转过来的
-                    imagePath = MediaUtils.getOutputMediaFile(true).getAbsolutePath();
-                }
+                File outputFile =  MediaUtils.getOutputMediaFile(true);
                 isWritting = true;
                 WriteBitmapToFileWorkerTask workerTask = new WriteBitmapToFileWorkerTask(this);
-                workerTask.execute(imagePath,crop_bitmap);
+                workerTask.execute(outputFile,crop_bitmap);
                 break;
             case R.id.tv_cancel:
                 setResult(RESULT_CANCELED);
@@ -120,10 +107,17 @@ public class ImageCropActivity extends Activity implements View.OnClickListener,
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(!mBitmap.isRecycled())
+            mBitmap.recycle();
+    }
+
+    @Override
     public void onComplete(File file) {
         if (file != null) {
             Intent intent = new Intent();
-            intent.putExtra(IMAGE_PATH,imagePath);
+            intent.putExtra(IMAGE_PATH,file.getAbsolutePath());
             setResult(RESULT_OK,intent);
         } else {
             setResult(RESULT_CANCELED);

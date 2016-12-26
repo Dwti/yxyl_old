@@ -353,11 +353,15 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
                 break;
             case MediaUtils.CAPATURE_AND_CROP:
                 if(resultCode == mActivity.RESULT_OK){
-                    CapatureActivity.bitmap = null;
+
                     String imagePath = data.getStringExtra(ImageCropActivity.IMAGE_PATH);
                     ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), imagePath);
                     updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
                 }
+                if(!CapatureActivity.bitmap.isRecycled()){
+                    CapatureActivity.bitmap.recycle();
+                }
+                CapatureActivity.bitmap = null;
                 break;
             default:
                 break;

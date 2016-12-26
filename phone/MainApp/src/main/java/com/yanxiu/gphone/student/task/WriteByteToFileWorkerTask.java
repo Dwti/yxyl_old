@@ -1,6 +1,5 @@
 package com.yanxiu.gphone.student.task;
 
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
 import com.yanxiu.gphone.student.commoninterface.OnTaskCompleteListener;
@@ -11,34 +10,33 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Created by sp on 16-12-23.
+ * Created by sp on 16-12-26.
  */
 
-public class WriteBitmapToFileWorkerTask extends AsyncTask<Object,Integer,File> {
+public class WriteByteToFileWorkerTask extends AsyncTask<Object,Integer,File> {
     private OnTaskCompleteListener<File> onTaskCompleteListener;
 
-    public WriteBitmapToFileWorkerTask(OnTaskCompleteListener<File> onTaskCompleteListener) {
+    public WriteByteToFileWorkerTask(OnTaskCompleteListener<File> onTaskCompleteListener) {
         this.onTaskCompleteListener = onTaskCompleteListener;
     }
 
     @Override
     protected File doInBackground(Object... params) {
         File file = (File) params[0];
-        Bitmap bitmap = (Bitmap) params[1];
+        byte[] data = (byte[]) params[1];
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG,100,fos);
-            fos.flush();
+            fos.write(data);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return null;
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             return null;
-        }
-        finally {
+        }finally {
             try {
+                fos.flush();
                 fos.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -50,7 +48,8 @@ public class WriteBitmapToFileWorkerTask extends AsyncTask<Object,Integer,File> 
 
     @Override
     protected void onPostExecute(File file) {
-        if(onTaskCompleteListener != null)
+        if(onTaskCompleteListener != null){
             onTaskCompleteListener.onComplete(file);
+        }
     }
 }

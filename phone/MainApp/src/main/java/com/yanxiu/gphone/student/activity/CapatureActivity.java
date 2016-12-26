@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.hardware.Camera;
+import android.media.ExifInterface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -17,12 +19,22 @@ import android.widget.Toast;
 
 import com.common.core.utils.CommonCoreUtil;
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.commoninterface.OnTaskCompleteListener;
+import com.yanxiu.gphone.student.task.WriteByteToFileWorkerTask;
+import com.yanxiu.gphone.student.utils.MediaUtils;
 import com.yanxiu.gphone.student.utils.Utils;
 import com.yanxiu.gphone.student.view.CameraPreview;
 import com.yanxiu.gphone.student.view.picsel.utils.AlbumHelper;
 import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
 import com.yanxiu.gphone.student.view.takephoto.RecordVideoStatueCircle;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 
 import static android.hardware.SensorManager.SENSOR_DELAY_NORMAL;
@@ -77,8 +89,6 @@ public class CapatureActivity extends Activity implements View.OnClickListener {
                 Camera.Parameters parameters = mCamera.getParameters();
                 parameters.setRotation(rotation);
                 mCamera.setParameters(parameters);
-                Log.i("rotation ", "rotation:" + rotation);
-                Log.i("cameraOritation ", "cameraOritation:" + info.orientation);
             }
         };
 
@@ -128,7 +138,7 @@ public class CapatureActivity extends Activity implements View.OnClickListener {
             qOpened = (mCamera != null);
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this,"打开摄像头失败", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"打开摄像头失败,请检查权限", Toast.LENGTH_SHORT).show();
             finish();
         }
         return qOpened;
@@ -201,14 +211,63 @@ public class CapatureActivity extends Activity implements View.OnClickListener {
             if (data != null) {
                 bitmap = decodeBitmap(data,Utils.getScreenWidth(), Utils.getScreenHeight());
                 if(bitmap != null){
-                    Intent intent = new Intent(CapatureActivity.this,ImageCropActivity.class);
-                    startActivityForResult(intent,ImageCropActivity.REQUEST_IMAGE_CROP);
+                    //正常不用把Bitmap存一次文件，存文件是为了读取Exif信息，获取照片的旋转角度（针对三星系列手机，非三星系列手机，得到的bitmap就是旋转过的）
+                    File temFile = MediaUtils.getOutputMediaFile(true);
+                    WriteByteToFileWorkerTask writeFileTask = new WriteByteToFileWorkerTask(new FileWriteCompleteListener());
+                    writeFileTask.execute(temFile,data);
                 }else {
-                    Toast.makeText(CapatureActivity.this,"保存照片失败！",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CapatureActivity.this,"拍照失败！",Toast.LENGTH_SHORT).show();
+                    isTakingPhoto = false;
                     finish();
                 }
-                isTakingPhoto = false;
             }
+        }
+    }
+
+    class FileWriteCompleteListener implements OnTaskCompleteListener<File> {
+        @Override
+        public void onComplete(File file) {
+            if(file == null){
+                Toast.makeText(CapatureActivity.this,"保存照片失败!",Toast.LENGTH_SHORT).show();
+                setResult(RESULT_CANCELED);
+                file.delete();
+                isTakingPhoto = false;
+                finish();
+                return;
+            }
+            int orientation = ExifInterface.ORIENTATION_NORMAL;
+            ExifInterface exifInterface ;
+            try {
+                exifInterface = new ExifInterface(file.getAbsolutePath());
+                orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION,ExifInterface.ORIENTATION_NORMAL);
+                switch (orientation){
+                    case ExifInterface.ORIENTATION_ROTATE_90:
+                        orientation = 90;
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_180:
+                        orientation = 180;
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_270:
+                        orientation = 270;
+                        break;
+                }
+                Log.i("jpegorientation",orientation+"");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //一般的手机，上面在orientationEventListener中，根据屏幕旋转的角度直接设置rotation就可以直接旋转图片 ，但是对于三星系列的手机，setRotation没有效果，但是这个rotation会
+            //写入到exif信息中。一般手机，不管在相机中调没调用params.setRotaion()，exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION,ExifInterface.ORIENTATION_NORMAL)
+            //都会返回ExifInterface.ORIENTATION_UNDEFINED；三星的手机如果调用了会返回实际设置的rotation（横屏拍照也会返回ExifInterface.ORIENTATION_NORMAL），没调用的话，会返回ExifInterface.ORIENTATION_NORMAL（非设置的默认值）
+            if(orientation != ExifInterface.ORIENTATION_UNDEFINED && orientation != ExifInterface.ORIENTATION_NORMAL){
+                Matrix matrix = new Matrix();
+                matrix.setRotate(orientation);
+                Bitmap bmpTemp = Bitmap.createBitmap(bitmap,0,0, bitmap.getWidth(), bitmap.getHeight(),matrix,true);
+                bitmap = bmpTemp;
+            }
+            file.delete();
+            Intent intent = new Intent(CapatureActivity.this,ImageCropActivity.class);
+            startActivityForResult(intent,ImageCropActivity.REQUEST_IMAGE_CROP);
+            isTakingPhoto = false;
         }
     }
 

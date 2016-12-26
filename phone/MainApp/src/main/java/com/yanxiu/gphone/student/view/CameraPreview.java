@@ -121,7 +121,11 @@ public class CameraPreview extends FrameLayout implements SurfaceHolder.Callback
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                mCamera.autoFocus(null);
+                try {
+                    mCamera.autoFocus(null);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 return true;
             case MotionEvent.ACTION_UP:
                 break;
