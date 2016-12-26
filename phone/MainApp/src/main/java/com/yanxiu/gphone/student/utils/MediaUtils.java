@@ -13,7 +13,7 @@ import android.provider.MediaStore;
 
 import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.YanxiuApplication;
-import com.yanxiu.gphone.student.activity.CapatureActivity;
+import com.yanxiu.gphone.student.activity.CaptureActivity;
 import com.yanxiu.gphone.student.activity.takephoto.CameraActivity;
 import com.yanxiu.gphone.student.activity.takephoto.CorpActivity;
 
@@ -90,7 +90,7 @@ public class MediaUtils {
 
     public static  void openLocalCamera(Activity activity,int open_camera_request){
 
-        Intent intent = new Intent(activity, CapatureActivity.class);
+        Intent intent = new Intent(activity, CaptureActivity.class);
         activity.startActivityForResult(intent,open_camera_request);
     }
 

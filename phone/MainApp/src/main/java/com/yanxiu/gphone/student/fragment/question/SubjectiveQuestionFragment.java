@@ -3,13 +3,11 @@ package com.yanxiu.gphone.student.fragment.question;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +16,8 @@ import android.widget.Button;
 import com.common.core.utils.LogInfo;
 import com.common.core.utils.PictureHelper;
 import com.common.core.utils.StringUtils;
-import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
-import com.yanxiu.gphone.student.activity.AnswerViewActivity;
-import com.yanxiu.gphone.student.activity.BaseAnswerViewActivity;
-import com.yanxiu.gphone.student.activity.CapatureActivity;
-import com.yanxiu.gphone.student.activity.ImageBucketActivity;
+import com.yanxiu.gphone.student.activity.CaptureActivity;
 import com.yanxiu.gphone.student.activity.ImageCropActivity;
 import com.yanxiu.gphone.student.activity.LocalPhotoViewActivity;
 import com.yanxiu.gphone.student.bean.AnswerBean;
@@ -31,29 +25,16 @@ import com.yanxiu.gphone.student.bean.CorpBean;
 import com.yanxiu.gphone.student.bean.DeleteImageBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
-import com.yanxiu.gphone.student.bean.UploadImageBean;
-import com.yanxiu.gphone.student.httpApi.YanxiuHttpApi;
 import com.yanxiu.gphone.student.inter.CorpListener;
 import com.yanxiu.gphone.student.utils.CorpUtils;
 import com.yanxiu.gphone.student.utils.MediaUtils;
-import com.yanxiu.gphone.student.utils.QuestionUtils;
-import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.picsel.PicSelView;
 import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import de.greenrobot.event.EventBus;
-
-import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SOLVE_COMPLEX;
-import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SUBJECTIVE;
 
 /**
  * Created by lidm on 2015/9/25.
@@ -358,10 +339,10 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
                     ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), imagePath);
                     updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
                 }
-                if(!CapatureActivity.bitmap.isRecycled()){
-                    CapatureActivity.bitmap.recycle();
+                if(!CaptureActivity.bitmap.isRecycled()){
+                    CaptureActivity.bitmap.recycle();
                 }
-                CapatureActivity.bitmap = null;
+                CaptureActivity.bitmap = null;
                 break;
             default:
                 break;

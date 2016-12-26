@@ -3,7 +3,6 @@ package com.yanxiu.gphone.student.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -56,7 +55,7 @@ public class ImageCropActivity extends Activity implements View.OnClickListener,
     private void initData(){
         imagePath = getIntent().getStringExtra(IMAGE_PATH);
         if(TextUtils.isEmpty(imagePath)){
-            mBitmap = CapatureActivity.bitmap;
+            mBitmap = CaptureActivity.bitmap;
             mImageView.setImageBitmap(mBitmap);
         }else {
             BitmapWorkerTask bitmapWorkerTask = new BitmapWorkerTask(new OnTaskCompleteListener<Bitmap>() {

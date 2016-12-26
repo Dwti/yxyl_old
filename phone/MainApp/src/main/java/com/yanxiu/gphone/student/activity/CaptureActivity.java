@@ -8,11 +8,9 @@ import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.media.ExifInterface;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.OrientationEventListener;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,13 +26,8 @@ import com.yanxiu.gphone.student.view.picsel.utils.AlbumHelper;
 import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
 import com.yanxiu.gphone.student.view.takephoto.RecordVideoStatueCircle;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.ParseException;
 
 import static android.hardware.SensorManager.SENSOR_DELAY_NORMAL;
@@ -43,7 +36,7 @@ import static android.hardware.SensorManager.SENSOR_DELAY_NORMAL;
  * Created by sp on 16-12-19.
  */
 
-public class CapatureActivity extends Activity implements View.OnClickListener {
+public class CaptureActivity extends Activity implements View.OnClickListener {
 
     private Camera mCamera;
     private CameraPreview mCameraPreview;
@@ -216,7 +209,7 @@ public class CapatureActivity extends Activity implements View.OnClickListener {
                     WriteByteToFileWorkerTask writeFileTask = new WriteByteToFileWorkerTask(new FileWriteCompleteListener());
                     writeFileTask.execute(temFile,data);
                 }else {
-                    Toast.makeText(CapatureActivity.this,"拍照失败！",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CaptureActivity.this,"拍照失败！",Toast.LENGTH_SHORT).show();
                     isTakingPhoto = false;
                     finish();
                 }
@@ -228,7 +221,7 @@ public class CapatureActivity extends Activity implements View.OnClickListener {
         @Override
         public void onComplete(File file) {
             if(file == null){
-                Toast.makeText(CapatureActivity.this,"保存照片失败!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(CaptureActivity.this,"保存照片失败!",Toast.LENGTH_SHORT).show();
                 setResult(RESULT_CANCELED);
                 file.delete();
                 isTakingPhoto = false;
@@ -265,7 +258,7 @@ public class CapatureActivity extends Activity implements View.OnClickListener {
                 bitmap = bmpTemp;
             }
             file.delete();
-            Intent intent = new Intent(CapatureActivity.this,ImageCropActivity.class);
+            Intent intent = new Intent(CaptureActivity.this,ImageCropActivity.class);
             startActivityForResult(intent,ImageCropActivity.REQUEST_IMAGE_CROP);
             isTakingPhoto = false;
         }
