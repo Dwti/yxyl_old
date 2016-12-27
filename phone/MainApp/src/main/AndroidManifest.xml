@@ -296,6 +296,7 @@
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
         <activity android:name=".activity.ImageCropActivity"
             android:screenOrientation="portrait"
+            android:hardwareAccelerated="false"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:launchMode="singleTop"/>
 

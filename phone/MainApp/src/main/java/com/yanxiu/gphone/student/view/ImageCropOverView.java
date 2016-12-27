@@ -15,6 +15,7 @@ import com.yanxiu.gphone.student.utils.Util;
 
 /**
  * Created by sp on 16-12-8.
+ * 注意：需要禁用activity或当前view的硬件加速功能，因为 硬件加速的影响 ，canvas.clipRect(mClipRect, Region.Op.DIFFERENCE)只对api版本18以上的有效果
  */
 
 public class ImageCropOverView extends View {
