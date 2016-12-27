@@ -25,7 +25,6 @@ public class CameraPreview extends FrameLayout implements SurfaceHolder.Callback
     private Camera.Size mPreviewSize;
     private Camera.Size mPictureSize;
     private boolean isSupportAutoFocus = false;
-    private int orientation;
 
     public CameraPreview(Context context) {
         super(context);
@@ -69,19 +68,7 @@ public class CameraPreview extends FrameLayout implements SurfaceHolder.Callback
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         if (mCamera == null)
             return;
-        orientation = getResources().getConfiguration().orientation;
-        Camera.Parameters parameters = mCamera.getParameters();
-        parameters.setPreviewSize(mPreviewSize.width, mPreviewSize.height);
-        List<String> focusModes = parameters.getSupportedFocusModes();
-        if (focusModes.contains(Camera.Parameters.FOCUS_MODE_AUTO)) {
-            isSupportAutoFocus = true;
-            parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
-        }
-        parameters.setPictureSize(mPictureSize.width, mPictureSize.height);
-        mCamera.setDisplayOrientation(90);
-        requestLayout();
-        mCamera.setParameters(parameters);
-
+        initCameraParams(mCamera);
         mCamera.startPreview();
         if (isSupportAutoFocus)
             mCamera.autoFocus(null);
@@ -97,9 +84,7 @@ public class CameraPreview extends FrameLayout implements SurfaceHolder.Callback
         if (mCamera == camera) {
             return;
         }
-
         stopPreviewAndFreeCamera();
-
         mCamera = camera;
         if (mCamera != null) {
             List<Camera.Size> supportPreviewSizes = mCamera.getParameters().getSupportedPreviewSizes();
@@ -107,13 +92,31 @@ public class CameraPreview extends FrameLayout implements SurfaceHolder.Callback
 
             List<Camera.Size> supportPictureSizes = mCamera.getParameters().getSupportedPictureSizes();
             mPictureSize = Utils.getCloselyPreSize(Utils.getScreenWidth(), Utils.getScreenHeight(), supportPictureSizes);
+
+            initCameraParams(mCamera);
             try {
                 mCamera.setPreviewDisplay(mHolder);
+                mCamera.startPreview();
             } catch (IOException e) {
                 e.printStackTrace();
+                return;
             }
         }
 
+    }
+
+    private void initCameraParams(Camera camera) {
+        Camera.Parameters parameters = camera.getParameters();
+        parameters.setPreviewSize(mPreviewSize.width, mPreviewSize.height);
+        List<String> focusModes = parameters.getSupportedFocusModes();
+        if (focusModes.contains(Camera.Parameters.FOCUS_MODE_AUTO)) {
+            isSupportAutoFocus = true;
+            parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+        }
+        parameters.setPictureSize(mPictureSize.width, mPictureSize.height);
+        camera.setDisplayOrientation(90);
+//        requestLayout();
+        camera.setParameters(parameters);
     }
 
 
