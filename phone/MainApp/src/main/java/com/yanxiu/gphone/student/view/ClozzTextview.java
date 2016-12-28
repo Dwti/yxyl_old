@@ -142,6 +142,22 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
+    public void setTextColor(){
+        if (answers.size()!=list.size()){
+            return;
+        }
+        for (int i=0;i<answers.size();i++){
+            String ans=answers.get(i);
+            Buttonbean bean=list.get(i);
+            if (bean.getText().equals(ans)){
+                bean.setTextcolor(Buttonbean.COLOR_CORRECT);
+            }else {
+                bean.setTextcolor(Buttonbean.COLOR_ERROR);
+            }
+        }
+        this.invalidate();
+    }
+
     private void setAnswers_cache(Buttonbean buttonbean, int i){
         if (bean.getFillAnswers().size()>i){
             String answer=bean.getFillAnswers().get(i);
@@ -329,12 +345,31 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
     }
 
     public class Buttonbean{
+
+        /**
+         * 正确时的错题颜色
+         * */
+        public static final String COLOR_CORRECT="#00cccc";
+        /**
+         * 错误时的错题颜色
+         * */
+        public static final String COLOR_ERROR="#ff80aa";
+
         private int id;
         private int question_id;
         private String text;
+        private String textcolor="#000000";
         private float textsize;
         private boolean select;
         private int y;
+
+        public String getTextcolor() {
+            return textcolor;
+        }
+
+        public void setTextcolor(String textcolor) {
+            this.textcolor = textcolor;
+        }
 
         public int getY() {
             return y;

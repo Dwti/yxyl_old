@@ -116,6 +116,7 @@ public class MyImageSpan extends ImageClickableSpan {
         } else {
             string = buttonbean.getQuestion_id() + "." + buttonbean.getText();
         }
+        paint1.setColor(Color.parseColor(buttonbean.getTextcolor()));
         canvas.drawText(string, targetRect.centerX(), baseline, paint1);
     }
 

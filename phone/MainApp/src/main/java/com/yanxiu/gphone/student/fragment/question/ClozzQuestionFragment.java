@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,7 +29,10 @@ import com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.fillblanks.FillBlanksButtonFramelayout;
 
+import org.json.JSONArray;
+
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,8 +70,19 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
         rootView = inflater.inflate(R.layout.fragment_clozz, null);
         initview();
         listener();
+        selectTypeView();
         return rootView;
     }
+
+    private void selectTypeView(){
+        switch (answerViewTypyBean){
+            case SubjectExercisesItemBean.RESOLUTION:
+            case SubjectExercisesItemBean.WRONG_SET:
+                fill_blanks_button.setTextColor();
+                break;
+        }
+    }
+
 
     @Override
     public void setChildPagerIndex(int childPagerIndex) {

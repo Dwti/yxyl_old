@@ -46,6 +46,7 @@ public class GroupHwActivity extends YanxiuBaseActivity {
     private final static int WAIT_FINISH_STATUS = 0;//待完成  可以做题
     public final static int HAS_FINISH_CHECK_REPORT = 0;   //已完成  可以查看答题报告
     public final static int LAUNCHER_GROUP_HW = 0x03;
+    private RelativeLayout no_home_work;
 
     public static void launchActivity(Activity activity, int classId, int groupId, String groupName, int requestCode) {
         Intent intent = new Intent(activity, GroupHwActivity.class);
@@ -112,6 +113,8 @@ public class GroupHwActivity extends YanxiuBaseActivity {
     private void findView() {
         backView = (TextView) findViewById(R.id.pub_top_left);
         titleView = (TextView) findViewById(R.id.pub_top_mid);
+        no_home_work= (RelativeLayout) findViewById(R.id.no_home_work);
+        no_home_work.setVisibility(View.GONE);
 //        groupView = (TextView)findViewById(R.id.pub_top_right);
 //        groupView.setBackgroundResource(R.drawable.group_list_person);
         noCommentView = (RelativeLayout) findViewById(R.id.no_group_hw_list);
@@ -203,13 +206,13 @@ public class GroupHwActivity extends YanxiuBaseActivity {
                 listView.stopLoadMore();
                 GroupHwListBean groupHwListBean = (GroupHwListBean) result;
                 ArrayList<GroupHwBean> data = groupHwListBean.getData();
+                if (isLoaderMore) {
+                    pageIndex += 1;
+                } else if (isRefresh) {
+                    pageIndex = 1;
+                    dataList.clear();
+                }
                 if (data != null && data.size() > 0) {
-                    if (isLoaderMore) {
-                        pageIndex += 1;
-                    } else if (isRefresh) {
-                        pageIndex = 1;
-                        dataList.clear();
-                    }
                     dataList.addAll(data);
                     PageBean pageBean = groupHwListBean.getPage();
                     if (pageBean != null) {
@@ -223,7 +226,8 @@ public class GroupHwActivity extends YanxiuBaseActivity {
                     }
                     updateUI();
                 } else {
-                    rootView.dataNull(getResources().getString(R.string.no_group_hw_list_tip));
+                    no_home_work.setVisibility(View.VISIBLE);
+//                    rootView.dataNull(getResources().getString(R.string.no_group_hw_list_tip));
 //                    noCommentView.setVisibility(View.VISIBLE);
                 }
             }

@@ -1,6 +1,8 @@
 package com.yanxiu.gphone.student.activity;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +11,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.common.core.utils.CommonCoreUtil;
 import com.common.core.utils.LogInfo;
 import com.yanxiu.basecore.exception.ErrorCode;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.exampoint.PullDownTitleView;
 import com.yanxiu.gphone.student.utils.Configuration;
+import com.yanxiu.gphone.student.utils.LoadingLocalImgUtils;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.view.PublicLoadLayout;
 
@@ -114,10 +118,8 @@ public abstract class TopViewBaseActivity extends YanxiuJumpBaseActivity impleme
         contentParams.leftMargin= CommonCoreUtil.dipToPx(this, 15);
         contentParams.rightMargin= CommonCoreUtil.dipToPx(this, 15);
         contentContainer.setLayoutParams(contentParams);
-        contentContainer.setBackgroundResource(R.drawable.plastic_bg);
+        LoadingLocalImgUtils.getInstence().getImage(contentContainer,R.drawable.plastic_bg);
     }
-
-
 
     /**
      * 初始化child Activity 布局View 除去 TopView

@@ -9,7 +9,7 @@ android {
     //useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "com.yanxiu.gphone.student"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 21
         versionCode 15
         versionName "2.3.3"

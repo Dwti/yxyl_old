@@ -129,7 +129,7 @@
     <string name="class_define_content">班级是由老师在“易学历练教师端”中创建，给学生布置批改作业的班级群。\n每个易学易练班级都有一个8位数班级号码，如：“班级号码: 12345678”。</string>
     <string name="add_class_define_title">怎样加入班级</string>
     <string name="add_class_define_content">第一步：老师在“易学历练教师端”中创建班级，并将班级号码分享或告知学生们。\n第二步：同学们在“易学易练学生端”作业页面，点击“加入班级”输入班级号码，即可加入班级，然后就可以通过手机来完成来自教师布置的作业了</string>
-
+    <string name="no_home_work">O(∩_∩)O</string>
 
     <string name="std_uid_text">账号:%s</string>
     <string name="my_fragment_txt">我的</string>

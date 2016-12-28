@@ -51,4 +51,12 @@
             android:textSize="@dimen/dimen_15"
             />
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/no_home_work"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/group_hw_list_top"
+        android:gravity="center">
+        <include layout="@layout/no_homework"/>
+    </RelativeLayout>
 </RelativeLayout>
