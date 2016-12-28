@@ -13,6 +13,7 @@ import android.provider.MediaStore;
 
 import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.YanxiuApplication;
+import com.yanxiu.gphone.student.activity.CaptureActivity;
 import com.yanxiu.gphone.student.activity.takephoto.CameraActivity;
 import com.yanxiu.gphone.student.activity.takephoto.CorpActivity;
 
@@ -42,6 +43,8 @@ public class MediaUtils {
     public final static int OPEN_SYSTEM_CAMERA = 0x203;
     //打开系统裁剪的requestCode
     public final static int IMAGE_CROP = 0x204;
+    //打开摄像头进入自定义拍照见面，拍照完了并裁剪照片
+    public final static int CAPATURE_AND_CROP = 0x205;
 
     private static final String RETURN_DATA="return-data";
 
@@ -85,6 +88,11 @@ public class MediaUtils {
         activity.startActivityForResult(intent,open_camera_request);
     }
 
+    public static  void openLocalCamera(Activity activity,int open_camera_request){
+
+        Intent intent = new Intent(activity, CaptureActivity.class);
+        activity.startActivityForResult(intent,open_camera_request);
+    }
 
     public static File currentFile;
     public static String saveCroppedImage(Bitmap bmp){
@@ -211,7 +219,7 @@ public class MediaUtils {
                 }
                 File mediaFile;
                 mediaFile = new File(mediaStorageDir.getPath() + File.separator
-                        + System.currentTimeMillis()+".png");
+                        + System.currentTimeMillis()+".jpg");
 
                 currentFile=mediaFile;
             }

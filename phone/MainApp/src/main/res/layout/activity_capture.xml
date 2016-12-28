@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:record="http://schemas.android.com/apk/res-auto">
+
+
+    <com.yanxiu.gphone.student.view.CameraPreview
+        android:id="@+id/cameraPreview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:background="#30000000"
+        android:layout_height="44dp">
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dimen_5"
+            android:src="@drawable/iv_return" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:background="#4C000000"
+        android:layout_height="110dp">
+        <TextView
+            android:id="@+id/tv_photos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/dimen_15"
+            android:textSize="16sp"
+            android:text="@string/pic_bucket"
+            android:gravity="center"
+            android:textColor="@color/color_white"
+            android:background="@drawable/shape_camera_picture"
+            />
+        <com.yanxiu.gphone.student.view.takephoto.RecordVideoStatueCircle
+            android:id="@+id/btn_capture"
+            android:layout_width="@dimen/dimen_70"
+            android:layout_height="@dimen/dimen_70"
+            android:layout_centerInParent="true"
+            android:visibility="visible"
+            record:rectCol="@color/color_ffffff"
+            record:rectRoundW="@dimen/dimen_2"
+            record:rectW="@dimen/dimen_26"
+            record:ringCol="@color/color_ffffff"
+            record:ringStrokeWidth="@dimen/dimen_3"
+            record:ringWidth="@dimen/dimen_35"
+            record:statueCircleColor="@color/color_ffffff"
+            record:statueCircleWidth="@dimen/dimen_28"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -36,6 +36,7 @@ public class ImageBucketActivity extends TopViewBaseActivity {
     public static List<String> mTempDrrList;
     public static String mSelectedImagePath;
     private static final String TAG=ImageBucketActivity.class.getSimpleName();
+    public final static String ALBUM_POS = "albumPos";
 
     @Override
     protected boolean isAttach() {
@@ -136,11 +137,16 @@ public class ImageBucketActivity extends TopViewBaseActivity {
     protected void setContentListener() {
         mGridView.setOnItemClickListener(onItemClickListener);
     }
+
     private final AdapterView.OnItemClickListener onItemClickListener=new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             if(ShareBitmapUtils.getInstance().getDataList()!=null&&ShareBitmapUtils.getInstance().getDataList().size()>0){
-                ActivityJumpUtils.jumpToImagePicSelActivityForResult(ImageBucketActivity.this, i, ImagePicSelActivity.REQUEST_CODE);
+//                ActivityJumpUtils.jumpToImagePicSelActivityForResult(ImageBucketActivity.this, i, ImagePicSelActivity.REQUEST_CODE);
+                Intent intent = new Intent();
+                intent.putExtra(ALBUM_POS,i);
+                setResult(RESULT_OK,intent);
+
             }
             ImageBucketActivity.this.finish();
         }
