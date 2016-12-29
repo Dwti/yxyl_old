@@ -200,7 +200,7 @@
     <string name="group_add_name_null">请填写真实姓名</string>
     <string name="group_add_success">加入成功</string>
     <string name="group_add_no_right">该班级不允许加入</string>
-    <string name="group_add_needcheck_one">申请成功</string>
+    <string name="group_add_needcheck_one">提交成功</string>
     <string name="group_add_needcheck_two">请等待老师审核</string>
     <string name="group_item_info">最新作业：%s</string>
     <string name="group_item_waitfinish_info">份待完成</string>
@@ -390,7 +390,7 @@
     <string name="hw_report_time">总用时</string>
     <string name="hw_report_parse_statue_title">当前状态</string>
     <string name="hw_report_my_answer_title">我的答案</string>
-    <string name="hw_report_orrecting_homework_title">批改结果</string>
+    <string name="hw_report_orrecting_homework_title">得分</string>
     <string name="hw_report_parse_statue_text" formatted="false">正确答案%s,你的答案%s,答题用时%s秒</string>
     <string name="hw_report_parse_statistics_title">个人统计</string>
     <string name="hw_report_parse_statistics_text" formatted="false">累计作答本题%s次,做错%s次,平均用时%s秒</string>
