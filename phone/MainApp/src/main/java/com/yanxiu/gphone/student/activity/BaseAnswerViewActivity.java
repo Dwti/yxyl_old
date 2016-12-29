@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
@@ -121,6 +122,20 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
     protected void onSaveInstanceState(Bundle outState) {
         outState.putSerializable("data",dataSources);
         super.onSaveInstanceState(outState);
+    }
+
+    public boolean getCurrent(int fragment_ID){
+        try {
+            Fragment fragment=adapter.getmFragments().get(vpAnswer.getCurrentItem());
+            if (fragment.hashCode()==fragment_ID){
+                return true;
+            }else {
+                return false;
+            }
+        }catch (Exception e){
+            e.toString();
+        }
+        return false;
     }
 
     @Override

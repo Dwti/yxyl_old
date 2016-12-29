@@ -3,6 +3,7 @@ package com.yanxiu.gphone.student.fragment.question;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.AnswerViewActivity;
+import com.yanxiu.gphone.student.activity.BaseAnswerViewActivity;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
@@ -177,6 +179,17 @@ private Object message;
             }
         }
 
+    }
+
+    protected void setCurrent(ViewPager pager){
+        try {
+            boolean isShowing=((BaseAnswerViewActivity)getActivity()).getCurrent(this.hashCode());
+            if (!isShowing){
+                pager.setCurrentItem(0);
+            }
+        }catch (Exception e){
+            e.toString();
+        }
     }
 
     private void setQuestionTitle(int typeId) {

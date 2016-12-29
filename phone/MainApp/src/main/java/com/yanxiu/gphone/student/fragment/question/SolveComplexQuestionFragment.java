@@ -162,28 +162,28 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
                     flag=true;
                 }
             }
-            if (vpAnswer != null) {
-                if (!is_reduction) {
-                    vpAnswer.setCurrentItem(YanXiuConstant.index_position);
-                    YanXiuConstant.index_position=0;
-                } else {
-//                    vpAnswer.setCurrentItem(adapter.getCount() - 1);
-                }
-            }
+//            if (vpAnswer != null) {
+//                if (!is_reduction) {
+//                    vpAnswer.setCurrentItem(YanXiuConstant.index_position);
+//                    YanXiuConstant.index_position=0;
+//                } else {
+////                    vpAnswer.setCurrentItem(adapter.getCount() - 1);
+//                }
+//            }
         }else {
 
-            if (vpAnswer!=null&&adapter!=null){
-                BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
-                if (CorpUtils.getInstence().getCorpListener()!=null){
-                    if (fragment instanceof SubjectiveQuestionFragment){
-                        if (((CorpListener)fragment).hashCode()!=CorpUtils.getInstence().getCorpListener().hashCode()){
-                            vpAnswer.setCurrentItem(0);
-                        }
-                    }
-                }else {
-                    vpAnswer.setCurrentItem(0);
-                }
-            }
+//            if (vpAnswer!=null&&adapter!=null){
+//                BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
+//                if (CorpUtils.getInstence().getCorpListener()!=null){
+//                    if (fragment instanceof SubjectiveQuestionFragment){
+//                        if (((CorpListener)fragment).hashCode()!=CorpUtils.getInstence().getCorpListener().hashCode()){
+//                            vpAnswer.setCurrentItem(0);
+//                        }
+//                    }
+//                }else {
+//                    vpAnswer.setCurrentItem(0);
+//                }
+//            }
 
 
 //            try {
@@ -194,6 +194,9 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
 //                }
 //            }catch (Exception e){}
             answerViewClick();
+        }
+        if (!isVisibleToUser) {
+            setCurrent(vpAnswer);
         }
     }
 
@@ -265,22 +268,25 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
 //            vpAnswer.setCurrentItem(childPagerIndex);
 //        }
 
-        if (vpAnswer != null&&adapter!=null) {
-            try {
-                BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
-                if (CorpUtils.getInstence().getCorpListener()!=null){
-                    if (fragment instanceof SubjectiveQuestionFragment){
-                        if (((CorpListener)fragment).hashCode()==CorpUtils.getInstence().getCorpListener().hashCode()){
-                            vpAnswer.setCurrentItem(YanXiuConstant.index_position);
-                            YanXiuConstant.index_position=0;
-                        }
-                    }
-                }else {
-                    vpAnswer.setCurrentItem(0);
-                }
-            }catch (Exception e){}
-        }
+//        if (vpAnswer != null&&adapter!=null) {
+//            try {
+//                BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
+//                if (CorpUtils.getInstence().getCorpListener()!=null){
+//                    if (fragment instanceof SubjectiveQuestionFragment){
+//                        if (((CorpListener)fragment).hashCode()==CorpUtils.getInstence().getCorpListener().hashCode()){
+//                            vpAnswer.setCurrentItem(YanXiuConstant.index_position);
+//                            YanXiuConstant.index_position=0;
+//                        }
+//                    }
+//                }else {
+//                    vpAnswer.setCurrentItem(0);
+//                }
+//            }catch (Exception e){}
+//        }
         setViewPagerCurrent();
+//        if (!isVisibleToUser) {
+            setCurrent(vpAnswer);
+//        }
     }
     @Override
     public void onClick(View view) {

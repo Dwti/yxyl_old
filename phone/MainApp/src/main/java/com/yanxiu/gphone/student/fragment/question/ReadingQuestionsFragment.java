@@ -191,31 +191,34 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
                 ((QuestionsListener)getActivity()).flipNextPager(adapter);
             }
         }
-        if (vpAnswer != null) {
-            if (!is_reduction) {
-                vpAnswer.setCurrentItem(YanXiuConstant.index_position);
-                YanXiuConstant.index_position=0;
-            } else {
-//                vpAnswer.setCurrentItem(adapter.getCount() - 1);
-            }
-        }
-        if (!isVisibleToUser){
-            if (vpAnswer!=null&&adapter!=null){
-                try {
-                    if (CorpUtils.getInstence().getCorpListener()!=null){
-                        BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
-                        if (fragment instanceof SubjectiveQuestionFragment){
-                            if (((CorpListener)fragment).hashCode()!=CorpUtils.getInstence().getCorpListener().hashCode()){
-                                vpAnswer.setCurrentItem(0);
-                            }
-                        }
-                    }else {
-                        vpAnswer.setCurrentItem(0);
-                    }
-                }catch (Exception e){}
-
-            }
-
+//        if (vpAnswer != null) {
+//            if (!is_reduction) {
+//                vpAnswer.setCurrentItem(YanXiuConstant.index_position);
+//                YanXiuConstant.index_position=0;
+//            } else {
+////                vpAnswer.setCurrentItem(adapter.getCount() - 1);
+//            }
+//        }
+//        if (!isVisibleToUser){
+//            if (vpAnswer!=null&&adapter!=null){
+//                try {
+//                    if (CorpUtils.getInstence().getCorpListener()!=null){
+//                        BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
+//                        if (fragment instanceof SubjectiveQuestionFragment){
+//                            if (((CorpListener)fragment).hashCode()!=CorpUtils.getInstence().getCorpListener().hashCode()){
+//                                vpAnswer.setCurrentItem(0);
+//                            }
+//                        }
+//                    }else {
+//                        vpAnswer.setCurrentItem(0);
+//                    }
+//                }catch (Exception e){}
+//
+//            }
+//
+//        }
+        if (!isVisibleToUser) {
+            setCurrent(vpAnswer);
         }
     }
 
@@ -296,23 +299,26 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
 //            vpAnswer.setCurrentItem(childPagerIndex);
 //        }
 
-        if (vpAnswer != null&&adapter!=null) {
-            if (!is_reduction) {
-                BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
-                if (CorpUtils.getInstence().getCorpListener()!=null){
-                    if (fragment instanceof SubjectiveQuestionFragment){
-                        if (((CorpListener)fragment).hashCode()==CorpUtils.getInstence().getCorpListener().hashCode()){
-                            vpAnswer.setCurrentItem(YanXiuConstant.index_position);
-                            YanXiuConstant.index_position=0;
-                        }
-                    }
-                }else {
-                    vpAnswer.setCurrentItem(0);
-                }
-            } else {
-//                vpAnswer.setCurrentItem(adapter.getCount() - 1);
-            }
-        }
+//        if (vpAnswer != null&&adapter!=null) {
+//            if (!is_reduction) {
+//                BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
+//                if (CorpUtils.getInstence().getCorpListener()!=null){
+//                    if (fragment instanceof SubjectiveQuestionFragment){
+//                        if (((CorpListener)fragment).hashCode()==CorpUtils.getInstence().getCorpListener().hashCode()){
+//                            vpAnswer.setCurrentItem(YanXiuConstant.index_position);
+//                            YanXiuConstant.index_position=0;
+//                        }
+//                    }
+//                }else {
+//                    vpAnswer.setCurrentItem(0);
+//                }
+//            } else {
+////                vpAnswer.setCurrentItem(adapter.getCount() - 1);
+//            }
+//        }
+//        if (!isVisibleToUser) {
+            setCurrent(vpAnswer);
+//        }
     }
 
     @Override

@@ -168,14 +168,14 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
         super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
         if (isVisibleToUser&&isVisible()){
-            if (vpAnswer != null) {
-                if (!is_reduction) {
-                    vpAnswer.setCurrentItem(YanXiuConstant.index_position);
-                    YanXiuConstant.index_position=0;
-                } else {
-//                    vpAnswer.setCurrentItem(adapter.getCount() - 1);
-                }
-            }
+//            if (vpAnswer != null) {
+//                if (!is_reduction) {
+//                    vpAnswer.setCurrentItem(YanXiuConstant.index_position);
+//                    YanXiuConstant.index_position=0;
+//                } else {
+////                    vpAnswer.setCurrentItem(adapter.getCount() - 1);
+//                }
+//            }
             if (!ischild) {
                 if (adapter != null) {
                     try {
@@ -193,21 +193,24 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
 //                }
 //            }catch (Exception e){}
 
-            if (vpAnswer!=null&&adapter!=null){
-                try {
-                    if (CorpUtils.getInstence().getCorpListener()!=null){
-                        BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
-                        if (fragment instanceof SubjectiveQuestionFragment){
-                            if (((CorpListener)fragment).hashCode()!=CorpUtils.getInstence().getCorpListener().hashCode()){
-                                vpAnswer.setCurrentItem(0);
-                            }
-                        }
-                    }else {
-                        vpAnswer.setCurrentItem(0);
-                    }
-                }catch (Exception e){}
-            }
+//            if (vpAnswer!=null&&adapter!=null){
+//                try {
+//                    if (CorpUtils.getInstence().getCorpListener()!=null){
+//                        BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
+//                        if (fragment instanceof SubjectiveQuestionFragment){
+//                            if (((CorpListener)fragment).hashCode()!=CorpUtils.getInstence().getCorpListener().hashCode()){
+//                                vpAnswer.setCurrentItem(0);
+//                            }
+//                        }
+//                    }else {
+//                        vpAnswer.setCurrentItem(0);
+//                    }
+//                }catch (Exception e){}
+//            }
             answerViewClick();
+        }
+        if (!isVisibleToUser) {
+            setCurrent(vpAnswer);
         }
     }
 
@@ -277,23 +280,23 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
 //            vpAnswer.setCurrentItem(childPagerIndex);
 //        }
 
-        if (vpAnswer != null&&adapter!=null) {
-            if (!is_reduction) {
-                BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
-                if (CorpUtils.getInstence().getCorpListener()!=null){
-                    if (fragment instanceof SubjectiveQuestionFragment){
-                        if (((CorpListener)fragment).hashCode()==CorpUtils.getInstence().getCorpListener().hashCode()){
-                            vpAnswer.setCurrentItem(YanXiuConstant.index_position);
-                            YanXiuConstant.index_position=0;
-                        }
-                    }
-                }else {
-                    vpAnswer.setCurrentItem(0);
-                }
-            } else {
-//                vpAnswer.setCurrentItem(adapter.getCount() - 1);
-            }
-        }
+//        if (vpAnswer != null&&adapter!=null) {
+//            if (!is_reduction) {
+//                BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
+//                if (CorpUtils.getInstence().getCorpListener()!=null){
+//                    if (fragment instanceof SubjectiveQuestionFragment){
+//                        if (((CorpListener)fragment).hashCode()==CorpUtils.getInstence().getCorpListener().hashCode()){
+//                            vpAnswer.setCurrentItem(YanXiuConstant.index_position);
+//                            YanXiuConstant.index_position=0;
+//                        }
+//                    }
+//                }else {
+//                    vpAnswer.setCurrentItem(0);
+//                }
+//            } else {
+////                vpAnswer.setCurrentItem(adapter.getCount() - 1);
+//            }
+//        }
 
         if (!ischild&&isVisibleToUser) {
             if (adapter != null) {
@@ -303,6 +306,9 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
             }
         }
         setViewPagerCurrent();
+//        if (!isVisibleToUser) {
+            setCurrent(vpAnswer);
+//        }
     }
 
     @Override
