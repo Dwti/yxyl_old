@@ -42,7 +42,7 @@ import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTI
  * Created by Administrator on 2015/7/7.
  * 题目分析界面
  */
-public class ProblemAnalysisFragment extends Fragment implements View.OnClickListener{
+public class ProblemAnalysisFragment extends Fragment implements View.OnClickListener {
     protected int stageId;
     protected String subjectId;
     protected String subjectName;
@@ -88,20 +88,22 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
     private LinearLayout llReportParse;
     private LinearLayout llDifficullty;
     private LinearLayout llAnswer;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         this.questionsEntity = (getArguments() != null) ? (QuestionEntity) getArguments().getSerializable("questions") : null;
         super.onCreate(savedInstanceState);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.hw_report_parse_bottom,null);
+        rootView = inflater.inflate(R.layout.hw_report_parse_bottom, null);
         initView();
         initData();
         return rootView;
     }
 
-    private void initView(){
+    private void initView() {
         tvKnowledgePoint = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_parse_knowledge_point);
         tvReportParseText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_parse_text);
         tvReportParseStatueText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_parse_statue_text);
@@ -128,8 +130,8 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
     }
 
 
-    private void initData(){
-        SubjectExercisesItemBean dataSources = ((BaseAnswerViewActivity)this.getActivity()).getDataSources();
+    private void initData() {
+        SubjectExercisesItemBean dataSources = ((BaseAnswerViewActivity) this.getActivity()).getDataSources();
         if (dataSources != null && dataSources.getData() != null && !dataSources.getData().isEmpty()) {
             stageId = LoginModel.getUserinfoEntity().getStageid();
             subjectId = dataSources.getData().get(0).getSubjectid();
@@ -148,26 +150,26 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
 
         }
 
-        if(dataSources != null && dataSources.getData() != null &&
-                                dataSources.getData().get(0) != null &&
-                                dataSources.getData().get(0).getPaperTest() != null &&
-                                !dataSources.getData().get(0).getPaperTest().isEmpty()){
-            qid = dataSources.getData().get(0).getPaperTest().get(((BaseAnswerViewActivity)this.getActivity()).getCurrentIndex()).getQid() + "";
+        if (dataSources != null && dataSources.getData() != null &&
+                dataSources.getData().get(0) != null &&
+                dataSources.getData().get(0).getPaperTest() != null &&
+                !dataSources.getData().get(0).getPaperTest().isEmpty()) {
+            qid = dataSources.getData().get(0).getPaperTest().get(((BaseAnswerViewActivity) this.getActivity()).getCurrentIndex()).getQid() + "";
 
         }
 
-        if(questionsEntity != null){
-           if(questionsEntity.getPoint() != null && !questionsEntity.getPoint().isEmpty()){
+        if (questionsEntity != null) {
+            if (questionsEntity.getPoint() != null && !questionsEntity.getPoint().isEmpty()) {
                 List<QuestionEntity.PointEntity> pointList = questionsEntity.getPoint();
                 int count = pointList.size();
-                for(int i = 0; i < count; i++){
+                for (int i = 0; i < count; i++) {
                     addPointBtn(pointList.get(i));
                 }
-           }else{
-               llParseKnowledge.setVisibility(View.GONE);
-           }
+            } else {
+                llParseKnowledge.setVisibility(View.GONE);
+            }
 
-            if(questionsEntity != null){
+            if (questionsEntity != null) {
                 difficultyStart.selectStarCount(questionsEntity.getDifficulty());
                 tvDifficulltyText.setTextHtml(getTypeKey(String.valueOf(questionsEntity.getDifficulty())));
                 tvDifficulltyText.setVisibility(View.GONE);
@@ -181,34 +183,43 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                     if (!TextUtils.isEmpty(answerString.toString())) {
                         tvAnswerText.setTextHtml(answerString.toString());
                         llAnswer.setVisibility(View.VISIBLE);
+                    }else {
+                        llAnswer.setVisibility(View.GONE);
                     }
                 }
             }
-            if(questionsEntity.getAnalysis() != null && !TextUtils.isEmpty(questionsEntity.getAnalysis())){
+            if (questionsEntity.getAnalysis() != null && !TextUtils.isEmpty(questionsEntity.getAnalysis())) {
                 tvReportParseText.setTextHtml(questionsEntity.getAnalysis());
-            }else{
+            } else {
                 llReportParse.setVisibility(View.GONE);
             }
-            if(questionsEntity.getExtend() != null && questionsEntity.getExtend().getData() != null){
+            if (questionsEntity.getExtend() != null && questionsEntity.getExtend().getData() != null) {
                 ExtendEntity.DataEntity dataEntity = questionsEntity.getExtend().getData();
-                if(!TextUtils.isEmpty(dataEntity.getAnswerCompare())){
-                    if (questionsEntity.getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)) {
+                if (!TextUtils.isEmpty(dataEntity.getAnswerCompare())) {//填空、归类、连线，当前状态为空时显示，不为空时不显示
+                    if (questionsEntity.getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)) {//归类
                         tvReportParseStatueText.setClasfyFlag(false);
-                        tvReportParseStatueText.setTextHtml(dataEntity.getAnswerCompare().replaceAll("<img","<imgFy"));
+                        tvReportParseStatueText.setTextHtml(dataEntity.getAnswerCompare().replaceAll("<img", "<imgFy"));
+                        llAnswer.setVisibility(View.GONE);
                     } else {
                         tvReportParseStatueText.setTextHtml(dataEntity.getAnswerCompare());
+                        switch (questionsEntity.getTemplate()) {
+                            case YanXiuConstant.CONNECT_QUESTION://连线
+                            case YanXiuConstant.FILL_BLANK://填空
+                                llAnswer.setVisibility(View.GONE);
+                                break;
+                        }
                     }
-                }else{
+                } else {
                     llReportParseStatue.setVisibility(View.GONE);
                 }
-                if(!TextUtils.isEmpty(dataEntity.getGlobalStatis())){
+                if (!TextUtils.isEmpty(dataEntity.getGlobalStatis())) {
 
                     tvReportParseStatisticsText.setTextHtml(dataEntity.getGlobalStatis());
-                }else{
+                } else {
                     llReportParseStatistics.setVisibility(View.GONE);
                 }
 
-            }else{
+            } else {
                 llReportParseStatue.setVisibility(View.GONE);
                 llReportParseStatistics.setVisibility(View.GONE);
             }
@@ -216,10 +227,11 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
 
 
     }
-    private String getTypeKey(String key){
+
+    private String getTypeKey(String key) {
         Map<String, String> relation = CommonCoreUtil.getDataRelationMap(this.getActivity(), R.array.analysis_list);
         String value = relation.get(key);
-        if(TextUtils.isEmpty(value)){
+        if (TextUtils.isEmpty(value)) {
             value = "";
             return value;
         }
@@ -227,14 +239,14 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
     }
 
 
-    private void addPointBtn(final QuestionEntity.PointEntity pointEntity){
+    private void addPointBtn(final QuestionEntity.PointEntity pointEntity) {
         View knowledgeView = LayoutInflater.from(this.getActivity()).inflate(R.layout.item_knowledge, null);
         knowledgeView.setFocusable(isTestCenterOnclick);
-        if(isTestCenterOnclick){
+        if (isTestCenterOnclick) {
             tvKnowledgePoint.setVisibility(View.VISIBLE);
         }
         TextView tvKnowlegdeName = (TextView) knowledgeView.findViewById(R.id.tv_knowledge_name);
-        if(pointEntity != null && !TextUtils.isEmpty(pointEntity.getName())){
+        if (pointEntity != null && !TextUtils.isEmpty(pointEntity.getName())) {
             tvKnowlegdeName.setText(pointEntity.getName());
             if (knowledgeView != null && isTestCenterOnclick) {
                 knowledgeView.setOnClickListener(new View.OnClickListener() {
@@ -251,7 +263,7 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
 
     protected void requestSubjectKnpExercises(String pointId) {
         LogInfo.log("geny", "requestSubjectExercises");
-        ((BaseAnswerViewActivity)this.getActivity()).showDialog();
+        ((BaseAnswerViewActivity) this.getActivity()).showDialog();
         new RequestKnpointQBlockTask(this.getActivity(), stageId, subjectId, pointId, "", "", RequestKnpointQBlockTask.ANA_QUSETION, new AsyncCallBack() {
             @Override
             public void update(YanxiuBaseBean result) {
@@ -287,12 +299,12 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                     }
                 } else {
                     if (subjectExercisesItemBean != null && subjectExercisesItemBean.getStatus() != null && subjectExercisesItemBean.getStatus().getDesc() != null) {
-                       Util.showToast(subjectExercisesItemBean.getStatus().getDesc());
+                        Util.showToast(subjectExercisesItemBean.getStatus().getDesc());
                     } else {
                         Util.showToast(R.string.server_connection_erro);
                     }
                 }
-                ((BaseAnswerViewActivity)ProblemAnalysisFragment.this.getActivity()).hideDialog();
+                ((BaseAnswerViewActivity) ProblemAnalysisFragment.this.getActivity()).hideDialog();
             }
 
             @Override
@@ -303,12 +315,11 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                 } else {
                     Util.showToast(msg);
                 }
-                ((BaseAnswerViewActivity)ProblemAnalysisFragment.this.getActivity()).hideDialog();
+                ((BaseAnswerViewActivity) ProblemAnalysisFragment.this.getActivity()).hideDialog();
             }
         }).start();
 
     }
-
 
 
     @Override
@@ -319,7 +330,7 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        if(tvReportQuestionError == v){
+        if (tvReportQuestionError == v) {
             ActivityJumpUtils.jumpToFeedBackActivity(this.getActivity(), qid, AbstractFeedBack.ERROR_FEED_BACK);
             (this.getActivity()).overridePendingTransition(R.anim.fade, R.anim.hold);
         }

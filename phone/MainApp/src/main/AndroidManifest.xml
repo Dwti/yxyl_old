@@ -294,17 +294,19 @@
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
-        <activity android:name=".activity.ImageCropActivity"
-            android:screenOrientation="portrait"
+        <activity
+            android:name=".activity.ImageCropActivity"
             android:hardwareAccelerated="false"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:launchMode="singleTop"/>
-
-        <activity android:name=".activity.CaptureActivity"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize"/>
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+        <activity
+            android:name=".activity.CaptureActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <!-- 【必须】 (2.30及以上版新增)展示通知的activity -->
         <!-- 【必须】 exported设置为true -->
         <!--
@@ -465,7 +467,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" /> 
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <!-- 在SDCard中创建与删除文件权限 -->
     <uses-permission android:name="android.permission.RESTART_PACKAGES" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
@@ -509,5 +511,4 @@
     <permission
         android:name="getui.permission.GetuiService.${GETUI_APP_ID}"
         android:protectionLevel="normal"></permission>
-
 </manifest>
