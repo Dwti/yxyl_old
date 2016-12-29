@@ -559,7 +559,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                     mRootView.finish();
                 }
                 submitNetErrorDialog();
-                AnswerViewActivity.this.finish();
+//                AnswerViewActivity.this.finish();
             }
         });
         requestSubmitQuesitonTask.start();

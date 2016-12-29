@@ -137,7 +137,7 @@ public class GroupFragment extends Fragment {
 
         initNoGroupView();
 
-        groupList.setScrollable(false);
+        groupList.setScrollable(true);
         groupList.setPullLoadEnable(false);
         groupList.setXListViewListener(ixListViewListener);
         mGroupListAdapter = new GroupListAdapter(getActivity());
@@ -366,7 +366,7 @@ public class GroupFragment extends Fragment {
             groupList.setPullRefreshEnable(true);
         } else {
             setNoGroupViewDisp(true);
-            groupList.setScrollable(false);
+//            groupList.setScrollable(false);
         }
         if (mGroupListAdapter != null) {
             mGroupListAdapter.setList(datalist);
@@ -441,8 +441,8 @@ public class GroupFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         LogInfo.log(TAG, "groupFragment onActivityResult requestGroupData");
         boolean toRefresh = data.getBooleanExtra("toRefresh", true);
-        if(toRefresh){
+//        if(toRefresh){
             requestGroupData(true, false);
-        }
+//        }
     }
 }

@@ -119,7 +119,7 @@ public class GroupHwActivity extends YanxiuBaseActivity {
 //        groupView.setBackgroundResource(R.drawable.group_list_person);
         noCommentView = (RelativeLayout) findViewById(R.id.no_group_hw_list);
         listView = (XListView) findViewById(R.id.group_hw_list);
-        listView.setScrollable(false);
+        listView.setScrollable(true);
         listView.setPullLoadEnable(false);
         listView.setXListViewListener(ixListViewListener);
         groupHwListAdapter = new GroupHwListAdapter(this);
@@ -213,6 +213,7 @@ public class GroupHwActivity extends YanxiuBaseActivity {
                     dataList.clear();
                 }
                 if (data != null && data.size() > 0) {
+                    no_home_work.setVisibility(View.GONE);
                     dataList.addAll(data);
                     PageBean pageBean = groupHwListBean.getPage();
                     if (pageBean != null) {
