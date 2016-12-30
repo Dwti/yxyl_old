@@ -79,7 +79,7 @@
                       android:layout_marginLeft="@dimen/dimen_20"
                       android:background="@drawable/repeat_common_line" />
 
-                <ImageView android:layout_width="@dimen/dimen_60"
+                <ImageView android:layout_width="@dimen/dimen_32"
                            android:layout_height="@dimen/dimen_18"
                            android:layout_below="@id/correcting_result_line"
                            android:layout_marginLeft="@dimen/dimen_20"
