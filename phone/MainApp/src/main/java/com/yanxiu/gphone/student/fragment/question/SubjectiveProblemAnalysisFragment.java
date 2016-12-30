@@ -168,8 +168,8 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
     private void initData() {
 
         if (questionsEntity != null) {
-            //主观题如果未作答 则隐藏批改结果
-            if (questionsEntity.getAnswerBean().getStatus() == AnswerBean.ANSER_UNFINISH) {
+            //主观题如果未作答且未批改 则隐藏批改结果
+            if (questionsEntity.getAnswerBean().getStatus() == AnswerBean.ANSER_UNFINISH || questionsEntity.getAnswerBean().getRealStatus() != AnswerBean.ANSER_READED) {
                 mLlReportParse.setVisibility(View.GONE);
             } else {
                 mLlReportParse.setVisibility(View.VISIBLE);
