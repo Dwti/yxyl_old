@@ -27,7 +27,7 @@ import java.util.ArrayList;
 /**
  * Created by Administrator on 2016/9/7.
  */
-public class ConnectFragment extends BaseQuestionFragment implements PageIndex{
+public class ConnectFragment extends BaseQuestionFragment implements PageIndex {
 
     private QuestionsListener listener;
     public int typeId;
@@ -48,7 +48,7 @@ public class ConnectFragment extends BaseQuestionFragment implements PageIndex{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView =inflater.inflate(R.layout.fragment_connect,null);
+        rootView = inflater.inflate(R.layout.fragment_connect, null);
         initview(rootView);
         FragmentTransaction ft = ConnectFragment.this.getChildFragmentManager().beginTransaction();
         ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
@@ -59,23 +59,23 @@ public class ConnectFragment extends BaseQuestionFragment implements PageIndex{
     @Override
     public void onResume() {
         super.onResume();
-        if (ischild){
-            if (questionsEntity!=null&&TextUtils.isEmpty(questionsEntity.getStem())){
+        if (ischild) {
+            if (questionsEntity != null && TextUtils.isEmpty(questionsEntity.getStem())) {
                 ll_answer.setVisibility(View.GONE);
-            }else {
+            } else {
                 ll_answer.setVisibility(View.VISIBLE);
             }
         }
     }
 
     private void initview(View rootView) {
-        ll_answer= (FrameLayout) rootView.findViewById(R.id.ll_answer);
-        YXiuAnserTextView connect_question= (YXiuAnserTextView) rootView.findViewById(R.id.connect_question);
-        connect_lineslinearlayout= (ConnectLinesLinearLayout) rootView.findViewById(R.id.connect_lineslinearlayout);
-        if (questionsEntity!=null) {
+        ll_answer = (FrameLayout) rootView.findViewById(R.id.ll_answer);
+        YXiuAnserTextView connect_question = (YXiuAnserTextView) rootView.findViewById(R.id.connect_question);
+        connect_lineslinearlayout = (ConnectLinesLinearLayout) rootView.findViewById(R.id.connect_lineslinearlayout);
+        if (questionsEntity != null) {
             connect_question.setTextHtml(questionsEntity.getStem());
             connect_lineslinearlayout.setAnswers(questionsEntity.getAnswer());
-            if (bean!=null) {
+            if (bean != null) {
                 connect_lineslinearlayout.setAnswerBean(bean);
             }
             connect_lineslinearlayout.setDatas(questionsEntity.getContent().getChoices());
@@ -83,8 +83,8 @@ public class ConnectFragment extends BaseQuestionFragment implements PageIndex{
         }
     }
 
-    private void selectTypeView(){
-        switch (answerViewTypyBean){
+    private void selectTypeView() {
+        switch (answerViewTypyBean) {
             case SubjectExercisesItemBean.RESOLUTION:
                 connect_lineslinearlayout.setIsResolution(true);
                 connect_lineslinearlayout.setIsClick(false);
@@ -122,7 +122,7 @@ public class ConnectFragment extends BaseQuestionFragment implements PageIndex{
         }
     }
 
-    private void addAnalysisFragment(){
+    private void addAnalysisFragment() {
         Bundle args = new Bundle();
         args.putSerializable("questions", questionsEntity);
         resolutionFragment = Fragment.instantiate(ConnectFragment.this.getActivity(), ProblemAnalysisFragment.class.getName(), args);
@@ -137,17 +137,17 @@ public class ConnectFragment extends BaseQuestionFragment implements PageIndex{
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        this.isVisibleToUser=isVisibleToUser;
+        this.isVisibleToUser = isVisibleToUser;
         if (!isVisibleToUser && connect_lineslinearlayout != null) {
             if (bean != null) {
                 connect_lineslinearlayout.saveAnswers();
             }
         }
         if (isVisibleToUser) {
-            if (!ischild){
+            if (!ischild) {
                 try {
                     ((QuestionsListener) getActivity()).flipNextPager(null);
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
             }
@@ -172,7 +172,7 @@ public class ConnectFragment extends BaseQuestionFragment implements PageIndex{
     @Override
     public void setDataSources(AnswerBean bean) {
         this.bean = bean;
-        if (connect_lineslinearlayout!=null){
+        if (connect_lineslinearlayout != null) {
             connect_lineslinearlayout.setAnswerBean(bean);
         }
     }
@@ -180,7 +180,7 @@ public class ConnectFragment extends BaseQuestionFragment implements PageIndex{
     @Override
     public void initViewWithData(AnswerBean bean) {
         this.bean = bean;
-        if (connect_lineslinearlayout!=null){
+        if (connect_lineslinearlayout != null) {
             connect_lineslinearlayout.setAnswerBean(bean);
         }
     }

@@ -25,6 +25,7 @@ import com.yanxiu.gphone.student.view.StudentLoadingLayout;
 
 /**
  * Created by Administrator on 2015/7/28.
+ * 不可补做作业题目解析
  */
 public class ResolutionAnswerViewActivity extends BaseAnswerViewActivity {
     private int pagerIndex;

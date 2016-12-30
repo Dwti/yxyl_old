@@ -191,6 +191,7 @@ public class CaptureActivity extends Activity implements View.OnClickListener {
         int scaleFactor = Utils.calculateInSampleSize(bmOptions, width, height);
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPreferredConfig = Bitmap.Config.RGB_565;
 
         Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length, bmOptions);
         return bitmap;
@@ -244,7 +245,6 @@ public class CaptureActivity extends Activity implements View.OnClickListener {
                         orientation = 270;
                         break;
                 }
-                Log.i("jpegorientation",orientation+"");
             } catch (IOException e) {
                 e.printStackTrace();
             }

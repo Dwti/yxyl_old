@@ -42,9 +42,9 @@ import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTI
 
 /**
  * Created by lidm on 2015/9/25.
- *   主观题的题目分析界面
+ * 主观题的题目分析界面
  */
-public class SubjectiveProblemAnalysisFragment extends Fragment implements View.OnClickListener{
+public class SubjectiveProblemAnalysisFragment extends Fragment implements View.OnClickListener {
 
     private YXiuAnserTextView tvKnowledgePoint;
     private YXiuAnserTextView tvReportParseText;
@@ -53,7 +53,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
 //    private ReadingQuestionsFragment rlAnswerPen;
 
     private SubjectiveHeartLayout subjectiveStarLayout;
-//
+    //
     private YXiuAnserTextView tvDifficulltyText;
 
     private YXiuAnserTextView tvAnswerText;
@@ -86,11 +86,17 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
     //add
     private ImageView ivIcon;
     private FrameLayout flCorrectionContent;
+    /**
+     * 批改结果模块
+     **/
+    private LinearLayout mLlReportParse;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         this.questionsEntity = (getArguments() != null) ? (QuestionEntity) getArguments().getSerializable("questions") : null;
         super.onCreate(savedInstanceState);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = LayoutInflater.from(getActivity()).inflate(R.layout.hw_subjective_report_parse_bottom, null);
@@ -99,7 +105,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
         return rootView;
     }
 
-    private void initView(){
+    private void initView() {
         tvKnowledgePoint = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_parse_knowledge_point);
         tvReportParseText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_parse_text);
         tvCorrectionResultText = (YXiuAnserTextView) rootView.findViewById(R.id.correction_result_text);
@@ -135,16 +141,18 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
 
         ivIcon = (ImageView) rootView.findViewById(R.id.icon_correction_result);
         flCorrectionContent = (FrameLayout) rootView.findViewById(R.id.fl_correction_result_content);
+        mLlReportParse = (LinearLayout) rootView.findViewById(R.id.hw_report_parse_statistics_layout);
+
 
     }
 
-    private void addPointBtn(final QuestionEntity.PointEntity pointEntity){
+    private void addPointBtn(final QuestionEntity.PointEntity pointEntity) {
         View knowledgeView = LayoutInflater.from(this.getActivity()).inflate(R.layout.item_knowledge, null);
         knowledgeView.setFocusable(false);
         FlowLayout.LayoutParams params = new FlowLayout.LayoutParams(FlowLayout.LayoutParams.WRAP_CONTENT, FlowLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(CommonCoreUtil.dipToPx(10), CommonCoreUtil.dipToPx(10), 0, 0);
         TextView tvKnowlegdeName = (TextView) knowledgeView.findViewById(R.id.tv_knowledge_name);
-        if(pointEntity != null && !TextUtils.isEmpty(pointEntity.getName())){
+        if (pointEntity != null && !TextUtils.isEmpty(pointEntity.getName())) {
             tvKnowlegdeName.setText(pointEntity.getName());
         }
         knowledgeView.setLayoutParams(params);
@@ -152,22 +160,27 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
         flowLayout.addView(knowledgeView);
     }
 
-    public void setIndexposition(CorpListener listener){
-        this.listener=listener;
+    public void setIndexposition(CorpListener listener) {
+        this.listener = listener;
     }
 
 
-    private void initData(){
+    private void initData() {
 
-        if(questionsEntity != null){
-
+        if (questionsEntity != null) {
+            //主观题如果未作答且未批改 则隐藏批改结果
+            if (questionsEntity.getAnswerBean().getStatus() == AnswerBean.ANSER_UNFINISH || questionsEntity.getAnswerBean().getRealStatus() != AnswerBean.ANSER_READED) {
+                mLlReportParse.setVisibility(View.GONE);
+            } else {
+                mLlReportParse.setVisibility(View.VISIBLE);
+            }
             photosList = questionsEntity.getAnswerBean().getSubjectivImageUri();
             adapter.addMoreData(photosList);
 
-            if(photosList == null || photosList.isEmpty()){
+            if (photosList == null || photosList.isEmpty()) {
                 subjectiveGrid.setVisibility(View.GONE);
                 rlSubjectNoanswer.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 subjectiveGrid.setVisibility(View.VISIBLE);
                 rlSubjectNoanswer.setVisibility(View.GONE);
             }
@@ -176,27 +189,27 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     CorpUtils.getInstence().AddListener(listener);
-                    YanXiuConstant.index_position=YanXiuConstant.catch_position;
+                    YanXiuConstant.index_position = YanXiuConstant.catch_position;
                     PhotoViewActivity.launch(SubjectiveProblemAnalysisFragment.this.getActivity(), (ArrayList<String>) photosList, position);
                 }
             });
 
-            if(questionsEntity.getPad() != null && questionsEntity.getPad().getTeachercheck() != null && questionsEntity.getPad().getStatus() == AnswerBean.ANSER_READED){
+            if (questionsEntity.getPad() != null && questionsEntity.getPad().getTeachercheck() != null && questionsEntity.getPad().getStatus() == AnswerBean.ANSER_READED) {
                 subjectiveStarLayout.selectStarCount(questionsEntity.getPad().getTeachercheck().getScore());
-                if(!TextUtils.isEmpty(questionsEntity.getPad().getTeachercheck().getQcomment())){
+                if (!TextUtils.isEmpty(questionsEntity.getPad().getTeachercheck().getQcomment())) {
                     tvCorrectionResultText.setTextHtml(questionsEntity.getPad().getTeachercheck().getQcomment());
-                }else{
+                } else {
                     ivIcon.setVisibility(View.GONE);
                     flCorrectionContent.setVisibility(View.GONE);
                 }
-            }else{
+            } else {
                 subjectiveStarLayout.setVisibility(View.GONE);
                 ivIcon.setVisibility(View.GONE);
                 flCorrectionContent.setBackgroundColor(this.getActivity().getResources().getColor(android.R.color.transparent));
                 tvCorrectionResultText.setTextHtml(this.getActivity().getResources().getString(R.string.subjective_questions_unread));
             }
 
-            if(questionsEntity != null){
+            if (questionsEntity != null) {
                 difficultyStart.selectStarCount(questionsEntity.getDifficulty());
                 tvDifficulltyText.setTextHtml(getTypeKey(String.valueOf(questionsEntity.getDifficulty())));
             }
@@ -215,28 +228,28 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
             }
 
 
-           if(questionsEntity.getPoint() != null && !questionsEntity.getPoint().isEmpty()){
+            if (questionsEntity.getPoint() != null && !questionsEntity.getPoint().isEmpty()) {
                 List<QuestionEntity.PointEntity> pointList = questionsEntity.getPoint();
                 int count = pointList.size();
-                for(int i = 0; i < count; i++){
+                for (int i = 0; i < count; i++) {
                     addPointBtn(pointList.get(i));
                 }
-           }else{
-               llParseKnowledge.setVisibility(View.GONE);
-           }
-            if(questionsEntity.getAnalysis() != null && !TextUtils.isEmpty(questionsEntity.getAnalysis())){
+            } else {
+                llParseKnowledge.setVisibility(View.GONE);
+            }
+            if (questionsEntity.getAnalysis() != null && !TextUtils.isEmpty(questionsEntity.getAnalysis())) {
                 tvReportParseText.setTextHtml(questionsEntity.getAnalysis());
-            }else{
+            } else {
                 llReportParse.setVisibility(View.GONE);
             }
 
         }
     }
 
-    private String getTypeKey(String key){
+    private String getTypeKey(String key) {
         Map<String, String> relation = CommonCoreUtil.getDataRelationMap(this.getActivity(), R.array.analysis_list);
         String value = relation.get(key);
-        if(TextUtils.isEmpty(value)){
+        if (TextUtils.isEmpty(value)) {
             value = "";
             return value;
         }
@@ -251,14 +264,14 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
 
     @Override
     public void onClick(View v) {
-        if(tvReportQuestionError == v){
-            SubjectExercisesItemBean dataSources = ((BaseAnswerViewActivity)this.getActivity()).getDataSources();
+        if (tvReportQuestionError == v) {
+            SubjectExercisesItemBean dataSources = ((BaseAnswerViewActivity) this.getActivity()).getDataSources();
 
-            if(dataSources != null && dataSources.getData() != null &&
+            if (dataSources != null && dataSources.getData() != null &&
                     dataSources.getData().get(0) != null &&
                     dataSources.getData().get(0).getPaperTest() != null &&
-                    !dataSources.getData().get(0).getPaperTest().isEmpty()){
-                qid = dataSources.getData().get(0).getPaperTest().get(((BaseAnswerViewActivity)this.getActivity()).getCurrentIndex()).getQid() + "";
+                    !dataSources.getData().get(0).getPaperTest().isEmpty()) {
+                qid = dataSources.getData().get(0).getPaperTest().get(((BaseAnswerViewActivity) this.getActivity()).getCurrentIndex()).getQid() + "";
                 LogInfo.log("geny", "subject question qid----" + qid);
             }
             ActivityJumpUtils.jumpToFeedBackActivity(this.getActivity(), qid, AbstractFeedBack.ERROR_FEED_BACK);
