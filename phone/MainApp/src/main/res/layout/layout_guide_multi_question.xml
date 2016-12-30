@@ -9,7 +9,6 @@
         android:id="@+id/iv_guide_multi_gesture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/contentDescription"
         android:layout_centerInParent="true" />
     <!--<com.yanxiu.gphone.student.view.GifView
         android:id="@+id/gifview"
