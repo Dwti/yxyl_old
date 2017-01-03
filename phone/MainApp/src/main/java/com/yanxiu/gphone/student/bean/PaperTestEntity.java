@@ -9,8 +9,9 @@ public class PaperTestEntity implements YanxiuBaseBean {
     public static final int UN_FAVORITE = 0;
     public static final int FAVORITE = 1;
     private QuestionEntity questions;
+    private boolean isHomeWorkFinished;
     private int pid;
-//    "isfavorite" : 0,      // 0标示为收藏， 1 标示已经收藏 是否收藏;
+    //    "isfavorite" : 0,      // 0标示为收藏， 1 标示已经收藏 是否收藏;
     private int isfavorite;
     private int id;
     private int sectionid;
@@ -19,6 +20,14 @@ public class PaperTestEntity implements YanxiuBaseBean {
     private String wqid;
 
     private ExtendEntity extend;
+
+    public boolean isHomeWorkFinished() {
+        return isHomeWorkFinished;
+    }
+
+    public void setHomeWorkFinished(boolean homeWorkFinished) {
+        isHomeWorkFinished = homeWorkFinished;
+    }
 
     public String getWqid() {
         return wqid;

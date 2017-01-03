@@ -55,7 +55,8 @@ public class ResolutionAnswerViewActivity extends BaseAnswerViewActivity {
         context.startActivity(intent);
     }
 
-    @Override public void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
         initData();
@@ -64,14 +65,14 @@ public class ResolutionAnswerViewActivity extends BaseAnswerViewActivity {
 
 
     @Override
-    public void initData(){
+    public void initData() {
         super.initData();
         loadingLayout = (StudentLoadingLayout) findViewById(R.id.loading_layout);
         pagerIndex = getIntent().getIntExtra("pagerIndex", 0);
         childIndex = getIntent().getIntExtra("childIndex", 0);
         comeFrom = getIntent().getIntExtra("comeFrom", 0);
         LogInfo.log("geny-", "childIndex------" + childIndex + "----pagerIndex-----" + pagerIndex);
-        if(dataSources != null && dataSources.getData() != null){
+        if (dataSources != null && dataSources.getData() != null) {
             tvPagerIndex.setText("1");
             tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(adapter.getTotalCount())));
             tvToptext.setText(this.getResources().getString(R.string.questiong_resolution));
@@ -84,7 +85,7 @@ public class ResolutionAnswerViewActivity extends BaseAnswerViewActivity {
 
         }
 
-        switch (comeFrom){
+        switch (comeFrom) {
             case YanXiuConstant.HOMEWORK_REPORT:
                 ivAnswerCard.setVisibility(View.GONE);
                 break;
@@ -100,15 +101,15 @@ public class ResolutionAnswerViewActivity extends BaseAnswerViewActivity {
     }
 
 
-    private void setIsFavorite(){
-        if(AnswerReportActivity.dataSources != null && AnswerReportActivity.dataSources.getData() != null &&
-                                                AnswerReportActivity.dataSources.getData().get(0) != null &&
-                                                AnswerReportActivity.dataSources.getData().get(0).getPaperTest() != null &&
-                                                !AnswerReportActivity.dataSources.getData().get(0).getPaperTest().isEmpty()){
+    private void setIsFavorite() {
+        if (AnswerReportActivity.dataSources != null && AnswerReportActivity.dataSources.getData() != null &&
+                AnswerReportActivity.dataSources.getData().get(0) != null &&
+                AnswerReportActivity.dataSources.getData().get(0).getPaperTest() != null &&
+                !AnswerReportActivity.dataSources.getData().get(0).getPaperTest().isEmpty()) {
             PaperTestEntity paperTestEntity = AnswerReportActivity.dataSources.getData().get(0).getPaperTest().get(currentIndex);
-            if(paperTestEntity != null){
+            if (paperTestEntity != null) {
                 LogInfo.log("geny", "paperTestEntity.getIsfavorite()------" + paperTestEntity.getIsfavorite());
-                switch (paperTestEntity.getIsfavorite()){
+                switch (paperTestEntity.getIsfavorite()) {
                     case PaperTestEntity.FAVORITE:
                         ivAnswerCard.setBackgroundResource(R.drawable.selector_answer_collection);
                         break;
@@ -131,15 +132,15 @@ public class ResolutionAnswerViewActivity extends BaseAnswerViewActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(AnswerReportActivity.dataSources != null && AnswerReportActivity.dataSources.getData() != null &&
-                                                AnswerReportActivity.dataSources.getData().get(0) != null &&
-                                                AnswerReportActivity.dataSources.getData().get(0).getPaperTest() != null &&
-                                                !AnswerReportActivity.dataSources.getData().get(0).getPaperTest().isEmpty()) {
+        if (AnswerReportActivity.dataSources != null && AnswerReportActivity.dataSources.getData() != null &&
+                AnswerReportActivity.dataSources.getData().get(0) != null &&
+                AnswerReportActivity.dataSources.getData().get(0).getPaperTest() != null &&
+                !AnswerReportActivity.dataSources.getData().get(0).getPaperTest().isEmpty()) {
             ExercisesDataEntity exercisesDataEntity = AnswerReportActivity.dataSources.getData().get(0);
 
             int ptype = AnswerReportActivity.dataSources.getData().get(0).getPtype();
 
-            switch (ptype){
+            switch (ptype) {
                 case YanXiuConstant.INTELLI_REPORT:
                     AnswerReportActivity.dataSources.getData().get(0).setIsChapterSection(0);
                     break;
@@ -154,12 +155,13 @@ public class ResolutionAnswerViewActivity extends BaseAnswerViewActivity {
 
     }
 
-    public void setViewPagerPosition(int position, int childPosition){
+    public void setViewPagerPosition(int position, int childPosition) {
         vpAnswer.setCurrentItem(position);
-        ((BaseQuestionFragment)adapter.getmFragments().get(position)).setChildPagerIndex(childPosition);
+        adapter.isHomeWorkFinished(false);
+        ((BaseQuestionFragment) adapter.getmFragments().get(position)).setChildPagerIndex(childPosition);
     }
 
-    public void setIndexFromRead(int position){
+    public void setIndexFromRead(int position) {
 //        tvPagerIndex.setText(position + "/" + adapter.getTotalCount());
         tvPagerIndex.setText(position + "");
     }
@@ -169,10 +171,10 @@ public class ResolutionAnswerViewActivity extends BaseAnswerViewActivity {
     public void onPageSelected(int position) {
         super.onPageSelected(position);
         QuestionEntity questionEntity = dataSources.getData().get(0).getPaperTest().get(position).getQuestions();
-        tvPagerIndex.setText(questionEntity.getPositionForCard()+1+"");
+        tvPagerIndex.setText(questionEntity.getPositionForCard() + 1 + "");
         tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(adapter.getTotalCount())));
 
-        switch (comeFrom){
+        switch (comeFrom) {
             case YanXiuConstant.INTELLI_REPORT:
             case YanXiuConstant.KPN_REPORT:
             case YanXiuConstant.HISTORY_REPORT:
@@ -189,17 +191,17 @@ public class ResolutionAnswerViewActivity extends BaseAnswerViewActivity {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        if(v == ivBack){
+        if (v == ivBack) {
             this.finish();
-        }else if(v == ivAnswerCard){
+        } else if (v == ivAnswerCard) {
 
-            if(AnswerReportActivity.dataSources != null && AnswerReportActivity.dataSources.getData() != null &&
+            if (AnswerReportActivity.dataSources != null && AnswerReportActivity.dataSources.getData() != null &&
                     AnswerReportActivity.dataSources.getData().get(0) != null &&
                     AnswerReportActivity.dataSources.getData().get(0).getPaperTest() != null &&
-                    !AnswerReportActivity.dataSources.getData().get(0).getPaperTest().isEmpty()){
+                    !AnswerReportActivity.dataSources.getData().get(0).getPaperTest().isEmpty()) {
                 PaperTestEntity paperTestEntity = AnswerReportActivity.dataSources.getData().get(0).getPaperTest().get(currentIndex);
-                if(paperTestEntity != null){
-                    switch (paperTestEntity.getIsfavorite()){
+                if (paperTestEntity != null) {
+                    switch (paperTestEntity.getIsfavorite()) {
                         case PaperTestEntity.FAVORITE:
                             requestDelFavourite();
                             break;
@@ -214,28 +216,28 @@ public class ResolutionAnswerViewActivity extends BaseAnswerViewActivity {
         }
     }
 
-    private void requestDelFavourite(){
+    private void requestDelFavourite() {
 
-        if(requestDelFavouriteTask != null){
+        if (requestDelFavouriteTask != null) {
             requestDelFavouriteTask.cancel();
         }
-        if(requestSubmitFavouriteTask != null){
+        if (requestSubmitFavouriteTask != null) {
             requestSubmitFavouriteTask.cancel();
         }
 
         loadingLayout.setViewType(StudentLoadingLayout.LoadingType.LAODING_COMMON);
-        if(dataSources != null && dataSources.getData() != null &&
+        if (dataSources != null && dataSources.getData() != null &&
                 dataSources.getData().get(0) != null &&
                 dataSources.getData().get(0).getPaperTest() != null &&
-                !dataSources.getData().get(0).getPaperTest().isEmpty()){
+                !dataSources.getData().get(0).getPaperTest().isEmpty()) {
 //            String stageId, String subjectId, String beditionId, String volumeId, String chapterId, String sectionId, String questionId
 //            RequestFeedBackTask.startFeedBack(BaseAnswerViewActivity.this, dataSources.getData().get(0).getPaperTest().get(currentIndex).getQid() + "");
             final ExercisesDataEntity exercisesDataEntity = dataSources.getData().get(0);
             final PaperTestEntity paperTestEntity = dataSources.getData().get(0).getPaperTest().get(currentIndex);
             requestDelFavouriteTask = new RequestDelFavouriteTask(ResolutionAnswerViewActivity.this,
-                                                                    String.valueOf(paperTestEntity.getQid()),
+                    String.valueOf(paperTestEntity.getQid()),
 
-                    new AsyncCallBack(){
+                    new AsyncCallBack() {
 
                         @Override
                         public void update(YanxiuBaseBean result) {
@@ -248,13 +250,13 @@ public class ResolutionAnswerViewActivity extends BaseAnswerViewActivity {
 
 
                             PublicFavouriteQuestionBean.deleteFavQuestion(exercisesDataEntity.getStageid(),
-                                                                            exercisesDataEntity.getSubjectid(),
-                                                                            exercisesDataEntity.getBedition(),
-                                                                            exercisesDataEntity.getVolume(),
-                                                                            exercisesDataEntity.getChapterid(),
-                                                                            exercisesDataEntity.getSectionid(),
-                                                                            exercisesDataEntity.getCellid(),
-                                                                            String.valueOf(paperTestEntity.getQid()));
+                                    exercisesDataEntity.getSubjectid(),
+                                    exercisesDataEntity.getBedition(),
+                                    exercisesDataEntity.getVolume(),
+                                    exercisesDataEntity.getChapterid(),
+                                    exercisesDataEntity.getSectionid(),
+                                    exercisesDataEntity.getCellid(),
+                                    String.valueOf(paperTestEntity.getQid()));
                             loadingLayout.setViewGone();
                         }
 
@@ -272,61 +274,60 @@ public class ResolutionAnswerViewActivity extends BaseAnswerViewActivity {
         requestDelFavouriteTask.start();
     }
 
-    private void requestSubFavourite(){
-        if(requestDelFavouriteTask != null){
+    private void requestSubFavourite() {
+        if (requestDelFavouriteTask != null) {
             requestDelFavouriteTask.cancel();
         }
-        if(requestSubmitFavouriteTask != null){
+        if (requestSubmitFavouriteTask != null) {
             requestSubmitFavouriteTask.cancel();
         }
 
         loadingLayout.setViewType(StudentLoadingLayout.LoadingType.LAODING_COMMON);
-        if(dataSources != null && dataSources.getData() != null &&
+        if (dataSources != null && dataSources.getData() != null &&
                 dataSources.getData().get(0) != null &&
                 dataSources.getData().get(0).getPaperTest() != null &&
-                !dataSources.getData().get(0).getPaperTest().isEmpty()){
+                !dataSources.getData().get(0).getPaperTest().isEmpty()) {
 //            String stageId, String subjectId, String beditionId, String volumeId, String chapterId, String sectionId, String questionId
 //            RequestFeedBackTask.startFeedBack(BaseAnswerViewActivity.this, dataSources.getData().get(0).getPaperTest().get(currentIndex).getQid() + "");
             final ExercisesDataEntity exercisesDataEntity = dataSources.getData().get(0);
             final PaperTestEntity paperTestEntity = dataSources.getData().get(0).getPaperTest().get(currentIndex);
 
             requestSubmitFavouriteTask = new RequestSubmitFavouriteTask(ResolutionAnswerViewActivity.this,
-                                                                        exercisesDataEntity.getStageid(),
-                                                                        exercisesDataEntity.getSubjectid(),
-                                                                        exercisesDataEntity.getBedition(),
-                                                                        exercisesDataEntity.getVolume(),
-                                                                        exercisesDataEntity.getChapterid(),
-                                                                        exercisesDataEntity.getSectionid(),
-                                                                        String.valueOf(paperTestEntity.getQid()),
-                                                                        exercisesDataEntity.getCellid(),
-                                                                        dataSources.getData().get(0).getPtype(),
+                    exercisesDataEntity.getStageid(),
+                    exercisesDataEntity.getSubjectid(),
+                    exercisesDataEntity.getBedition(),
+                    exercisesDataEntity.getVolume(),
+                    exercisesDataEntity.getChapterid(),
+                    exercisesDataEntity.getSectionid(),
+                    String.valueOf(paperTestEntity.getQid()),
+                    exercisesDataEntity.getCellid(),
+                    dataSources.getData().get(0).getPtype(),
 
-                            new AsyncCallBack(){
+                    new AsyncCallBack() {
 
-                                @Override
-                                public void update(YanxiuBaseBean result) {
-                                    LogInfo.log("geny", "RequestSubmitFavouriteTask 收藏成功" + ((RequestBean) result).getStatus());
-                                    AnswerReportActivity.dataSources.getData().get(0).getPaperTest().get(currentIndex).getQuestions().getAnswerBean().setIsCollectionn(true);
-                                    AnswerReportActivity.dataSources.getData().get(0).getPaperTest().get(currentIndex).setIsfavorite(PaperTestEntity.FAVORITE);
-                                    LogInfo.log("geny", "paperTestEntity.getIsfavorite()------收藏成功---" + paperTestEntity.getIsfavorite() + paperTestEntity.toString());
-                                    ivAnswerCard.setBackgroundResource(R.drawable.selector_answer_collection);
-                                    loadingLayout.setViewGone();
-                                }
+                        @Override
+                        public void update(YanxiuBaseBean result) {
+                            LogInfo.log("geny", "RequestSubmitFavouriteTask 收藏成功" + ((RequestBean) result).getStatus());
+                            AnswerReportActivity.dataSources.getData().get(0).getPaperTest().get(currentIndex).getQuestions().getAnswerBean().setIsCollectionn(true);
+                            AnswerReportActivity.dataSources.getData().get(0).getPaperTest().get(currentIndex).setIsfavorite(PaperTestEntity.FAVORITE);
+                            LogInfo.log("geny", "paperTestEntity.getIsfavorite()------收藏成功---" + paperTestEntity.getIsfavorite() + paperTestEntity.toString());
+                            ivAnswerCard.setBackgroundResource(R.drawable.selector_answer_collection);
+                            loadingLayout.setViewGone();
+                        }
 
-                                @Override
-                                public void dataError(int type, String msg) {
-                                    if (type == ErrorCode.NETWORK_NOT_AVAILABLE) {
-                                        Util.showToast(ResolutionAnswerViewActivity.this.getResources().getString(R.string.public_loading_net_null_errtxt));
-                                    }
-                                    loadingLayout.setViewGone();
-                                    LogInfo.log("geny", "RequestSubmitFavouriteTask 收藏成功" + msg);
-                                }
-                            });
+                        @Override
+                        public void dataError(int type, String msg) {
+                            if (type == ErrorCode.NETWORK_NOT_AVAILABLE) {
+                                Util.showToast(ResolutionAnswerViewActivity.this.getResources().getString(R.string.public_loading_net_null_errtxt));
+                            }
+                            loadingLayout.setViewGone();
+                            LogInfo.log("geny", "RequestSubmitFavouriteTask 收藏成功" + msg);
+                        }
+                    });
 
         }
         requestSubmitFavouriteTask.start();
     }
-
 
 
 }

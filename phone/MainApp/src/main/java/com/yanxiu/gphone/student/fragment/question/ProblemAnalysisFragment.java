@@ -18,6 +18,7 @@ import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.AnswerViewActivity;
 import com.yanxiu.gphone.student.activity.BaseAnswerViewActivity;
+import com.yanxiu.gphone.student.activity.ResolutionAnswerViewActivity;
 import com.yanxiu.gphone.student.bean.ExercisesDataEntity;
 import com.yanxiu.gphone.student.bean.ExtendEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
@@ -174,14 +175,17 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                 tvDifficulltyText.setTextHtml(getTypeKey(String.valueOf(questionsEntity.getDifficulty())));
                 tvDifficulltyText.setVisibility(View.GONE);
             }
-            if (questionsEntity.getTemplate().equals(YanXiuConstant.ANSWER_QUESTION)) {
+
+            if (questionsEntity.getTemplate().equals(YanXiuConstant.ANSWER_QUESTION)||questionsEntity.getTemplate().equals(YanXiuConstant.FILL_BLANK)) {
                 if (questionsEntity.getAnswer() != null && questionsEntity.getAnswer().size() > 0) {
                     StringBuffer answerString = new StringBuffer();
                     for (String str : questionsEntity.getAnswer()) {
                         answerString.append(str);
                     }
                     if (!TextUtils.isEmpty(answerString.toString())) {
+//                        tvAnswerText.setTextHtml("what happened");
                         tvAnswerText.setTextHtml(answerString.toString());
+                        tvAnswerText.setVisibility(View.VISIBLE);
                         llAnswer.setVisibility(View.VISIBLE);
                     }else {
                         llAnswer.setVisibility(View.GONE);
@@ -223,6 +227,9 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                 llReportParseStatue.setVisibility(View.GONE);
                 llReportParseStatistics.setVisibility(View.GONE);
             }
+//            if (getActivity().getClass().getSimpleName().equals(ResolutionAnswerViewActivity.class.getSimpleName())) {
+//                llAnswer.setVisibility(View.VISIBLE);
+//            }
         }
 
 

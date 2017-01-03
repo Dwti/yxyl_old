@@ -3,6 +3,7 @@ package com.yanxiu.gphone.student.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -311,6 +312,7 @@ public class GroupHwActivity extends YanxiuBaseActivity {
                 public void update(YanxiuBaseBean result) {
                     rootView.finish();
                     SubjectExercisesItemBean subjectExercisesItemBean = (SubjectExercisesItemBean) result;
+                    Log.e("frc",result.toString());
                     if (subjectExercisesItemBean != null && subjectExercisesItemBean.getData() != null
                             && subjectExercisesItemBean.getData().size() > 0 && subjectExercisesItemBean.getData().get(0).getPaperTest() != null) {
                         subjectExercisesItemBean.setShowana(showana);

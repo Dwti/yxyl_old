@@ -20,6 +20,7 @@ import com.common.core.view.flowview.FlowLayout;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.BaseAnswerViewActivity;
 import com.yanxiu.gphone.student.activity.PhotoViewActivity;
+import com.yanxiu.gphone.student.activity.ResolutionAnswerViewActivity;
 import com.yanxiu.gphone.student.adapter.SubjectiveImageAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
@@ -243,6 +244,10 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
                 llReportParse.setVisibility(View.GONE);
             }
 
+
+//            if (getActivity().getClass().getSimpleName().equals(ResolutionAnswerViewActivity.class.getSimpleName())) {
+//                llAnswer.setVisibility(View.VISIBLE);
+//            }
         }
     }
 
