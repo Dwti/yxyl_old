@@ -125,6 +125,7 @@ public class ConnectFragment extends BaseQuestionFragment implements PageIndex {
     private void addAnalysisFragment() {
         Bundle args = new Bundle();
         args.putSerializable("questions", questionsEntity);
+
         resolutionFragment = Fragment.instantiate(ConnectFragment.this.getActivity(), ProblemAnalysisFragment.class.getName(), args);
         FragmentTransaction ft = ConnectFragment.this.getChildFragmentManager().beginTransaction();
 //         标准动画

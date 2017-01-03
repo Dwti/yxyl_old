@@ -138,7 +138,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 
     private LoadingDialog mLoadingDialog;
     private boolean IsResume=false;
-
+    private boolean IsDestroy=false;
 //    private ProgressLayout progressLayout;
 
 
@@ -400,7 +400,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                         //3
                     }
                 });
-        if (IsResume) {
+        if (IsResume&&!IsDestroy) {
             dialog.show();
         }
     }
@@ -594,7 +594,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         } else if (isSubmitFinish) {
             super.onBackPressed();
         } else {
-            if (IsResume) {
+            if (IsResume&&IsDestroy) {
                 quitSubmmitDialog();
             }
         }
@@ -875,6 +875,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         LogInfo.log(TAG, "onDestroy");
 //        totalTime=0;
 //        lastTime=0;
+        IsDestroy=true;
         if (dialog!=null){
             if (dialog.isShowing()) {
                 dialog.dismiss();
@@ -957,7 +958,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                         AnswerViewActivity.this.finish();
                     }
                 });
-        if (IsResume) {
+        if (IsResume&&IsDestroy) {
             saveNetErrorDialog.show();
         }
     }
@@ -982,7 +983,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                         submitNetErrorDialog.dismiss();
                     }
                 });
-        if (IsResume) {
+        if (IsResume&&IsDestroy) {
             submitNetErrorDialog.show();
         }
     }
