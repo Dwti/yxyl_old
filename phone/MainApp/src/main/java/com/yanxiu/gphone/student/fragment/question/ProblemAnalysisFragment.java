@@ -18,6 +18,7 @@ import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.AnswerViewActivity;
 import com.yanxiu.gphone.student.activity.BaseAnswerViewActivity;
+import com.yanxiu.gphone.student.activity.ResolutionAnswerViewActivity;
 import com.yanxiu.gphone.student.bean.ExercisesDataEntity;
 import com.yanxiu.gphone.student.bean.ExtendEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
@@ -174,20 +175,22 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                 tvDifficulltyText.setTextHtml(getTypeKey(String.valueOf(questionsEntity.getDifficulty())));
                 tvDifficulltyText.setVisibility(View.GONE);
             }
-            if (questionsEntity.getTemplate().equals(YanXiuConstant.ANSWER_QUESTION)) {
-                if (questionsEntity.getAnswer() != null && questionsEntity.getAnswer().size() > 0) {
-                    StringBuffer answerString = new StringBuffer();
-                    for (String str : questionsEntity.getAnswer()) {
-                        answerString.append(str);
-                    }
-                    if (!TextUtils.isEmpty(answerString.toString())) {
-                        tvAnswerText.setTextHtml(answerString.toString());
-                        llAnswer.setVisibility(View.VISIBLE);
-                    }else {
-                        llAnswer.setVisibility(View.GONE);
-                    }
+
+//            if (questionsEntity.getTemplate().equals(YanXiuConstant.ANSWER_QUESTION)||questionsEntity.getTemplate().equals(YanXiuConstant.FILL_BLANK)||questionsEntity.getTemplate().equals(YanXiuConstant.CONNECT_QUESTION))) {
+            if (questionsEntity.getAnswer() != null && questionsEntity.getAnswer().size() > 0) {
+                StringBuffer answerString = new StringBuffer();
+                for (String str : questionsEntity.getAnswer()) {
+                    answerString.append(str);
+                }
+                if (!TextUtils.isEmpty(answerString.toString())) {
+                    tvAnswerText.setTextHtml(answerString.toString());
+                    tvAnswerText.setVisibility(View.VISIBLE);
+                    llAnswer.setVisibility(View.VISIBLE);
+                } else {
+                    llAnswer.setVisibility(View.GONE);
                 }
             }
+
             if (questionsEntity.getAnalysis() != null && !TextUtils.isEmpty(questionsEntity.getAnalysis())) {
                 tvReportParseText.setTextHtml(questionsEntity.getAnalysis());
             } else {
@@ -196,19 +199,32 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
             if (questionsEntity.getExtend() != null && questionsEntity.getExtend().getData() != null) {
                 ExtendEntity.DataEntity dataEntity = questionsEntity.getExtend().getData();
                 if (!TextUtils.isEmpty(dataEntity.getAnswerCompare())) {//填空、归类、连线，当前状态为空时显示，不为空时不显示
-                    if (questionsEntity.getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)) {//归类
-                        tvReportParseStatueText.setClasfyFlag(false);
-                        tvReportParseStatueText.setTextHtml(dataEntity.getAnswerCompare().replaceAll("<img", "<imgFy"));
-                        llAnswer.setVisibility(View.GONE);
-                    } else {
-                        tvReportParseStatueText.setTextHtml(dataEntity.getAnswerCompare());
-                        switch (questionsEntity.getTemplate()) {
-                            case YanXiuConstant.CONNECT_QUESTION://连线
-                            case YanXiuConstant.FILL_BLANK://填空
-                                llAnswer.setVisibility(View.GONE);
-                                break;
-                        }
+//                    if (questionsEntity.getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)) {//归类
+//
+//                        llAnswer.setVisibility(View.GONE);
+//                    } else {
+//
+                    switch (questionsEntity.getTemplate()) {
+                        case YanXiuConstant.CONNECT_QUESTION://连线
+                            tvReportParseStatueText.setTextHtml(dataEntity.getAnswerCompare());
+                            llAnswer.setVisibility(View.GONE);
+                            break;
+                        case YanXiuConstant.FILL_BLANK://填空
+                            tvReportParseStatueText.setTextHtml(dataEntity.getAnswerCompare());
+                            llAnswer.setVisibility(View.GONE);
+                            break;
+                        case YanXiuConstant.CLASSIFY_QUESTION://归类
+                            tvReportParseStatueText.setClasfyFlag(false);
+                            tvReportParseStatueText.setTextHtml(dataEntity.getAnswerCompare().replaceAll("<img", "<imgFy"));
+                            llAnswer.setVisibility(View.GONE);
+                            break;
+                        case YanXiuConstant.ANSWER_QUESTION://问答
+                            tvReportParseStatueText.setTextHtml(dataEntity.getAnswerCompare());
+                            break;
                     }
+                    llReportParseStatue.setVisibility(View.VISIBLE);
+
+//                    }
                 } else {
                     llReportParseStatue.setVisibility(View.GONE);
                 }
@@ -223,6 +239,9 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                 llReportParseStatue.setVisibility(View.GONE);
                 llReportParseStatistics.setVisibility(View.GONE);
             }
+//            if (getActivity().getClass().getSimpleName().equals(ResolutionAnswerViewActivity.class.getSimpleName())) {
+//                llAnswer.setVisibility(View.VISIBLE);
+//            }
         }
 
 
