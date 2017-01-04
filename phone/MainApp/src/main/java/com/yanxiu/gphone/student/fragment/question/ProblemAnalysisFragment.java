@@ -194,10 +194,10 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                             String ss=object.getString("answer");
                             String[] answer=ss.split(",");
                             if (Integer.parseInt(answer[0])<list.size()){
-                                answerString.append("左"+Integer.parseInt(answer[0]));
+                                answerString.append("左"+Integer.parseInt(answer[0])+1);
                             }
                             if (Integer.parseInt(answer[1])>=list.size()){
-                                answerString.append("右"+(Integer.parseInt(answer[1])-list.size()));
+                                answerString.append("右"+(Integer.parseInt(answer[1])-list.size()+1));
                             }
                             answerString.append(" ");
                         } catch (JSONException e) {
