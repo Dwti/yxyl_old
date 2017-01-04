@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_008080">
+
+    <include layout="@layout/simple_title_layout"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/photo_item_margin"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#393a3f">
+
+        <TextView
+            android:id="@+id/tv_switch_dir"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/picker_all_image"
+            android:gravity="center_vertical"
+            android:paddingLeft="28dp"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/selector_photo_dir"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

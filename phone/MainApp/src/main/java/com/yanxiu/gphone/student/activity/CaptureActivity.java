@@ -47,6 +47,7 @@ public class CaptureActivity extends Activity implements View.OnClickListener {
     private ImageView iv_close;
     private TextView tv_photos;
     private boolean isTakingPhoto = false;
+    private static final int IMAGE_SELECT = 0x08;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,13 +160,13 @@ public class CaptureActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.tv_photos:
                 if (CommonCoreUtil.sdCardMounted()) {
-                    try {
-                        initImageData();
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    Intent intent = new Intent(this, ImagePicSelActivity.class);
-                    startActivityForResult(intent,ImagePicSelActivity.IMAGE_SELECT);
+//                    try {
+//                        initImageData();
+//                    } catch (ParseException e) {
+//                        e.printStackTrace();
+//                    }
+                    Intent intent = new Intent(this, PhotoSelectActivity.class);
+                    startActivityForResult(intent,IMAGE_SELECT);
                 }
                 break;
             default:
@@ -285,11 +286,11 @@ public class CaptureActivity extends Activity implements View.OnClickListener {
                     finish();
                 }
                 break;
-            case ImagePicSelActivity.IMAGE_SELECT:
+            case IMAGE_SELECT:
                 if(resultCode == RESULT_OK){
                     setResult(RESULT_OK,data);
+                    finish();
                 }
-                finish();
                 break;
             default:
                 break;
