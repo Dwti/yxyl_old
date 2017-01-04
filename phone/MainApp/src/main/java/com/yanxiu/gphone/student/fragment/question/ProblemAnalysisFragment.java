@@ -191,7 +191,7 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                     for (String str:list){
                         try {
                             JSONObject object=new JSONObject(str);
-                            String ss=object.getString("answer");
+                            String ss=object.optString("answer");
                             String[] answer=ss.split(",");
                             if (Integer.parseInt(answer[0])<list.size()){
                                 answerString.append("左"+Integer.parseInt(answer[0])+1);
@@ -211,9 +211,10 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                     List<String> data = questionsEntity.getAnswer();
                     for (String str : data) {
                         try {
+                            tvAnswerText.setClasfyFlag(false);
                             JSONObject object = new JSONObject(str);
-                            String ss = object.getString("answer");
-                            String name = object.getString("name"+":");
+                            String ss = object.optString("answer");
+                            String name = object.optString("name")+":";
                             answerString.append(name);
                             String[] answer = ss.split(",");
                             for (String s : answer) {
