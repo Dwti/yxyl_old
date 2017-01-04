@@ -33,6 +33,9 @@ import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 import com.yanxiu.gphone.student.view.question.classfy.ClassfyQuestions;
 import com.yanxiu.gphone.student.view.question.subjective.SubjectiveStarLayout;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 import java.util.Map;
 
@@ -181,6 +184,45 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                 StringBuffer answerString = new StringBuffer();
                 for (String str : questionsEntity.getAnswer()) {
                     answerString.append(str);
+                }
+                if (questionsEntity.getTemplate().equals(YanXiuConstant.CONNECT_QUESTION)){
+                    answerString=new StringBuffer();
+                    List<String> list= questionsEntity.getAnswer();
+                    for (String str:list){
+                        try {
+                            JSONObject object=new JSONObject(str);
+                            String ss=object.getString("answer");
+                            String[] answer=ss.split(",");
+                            if (Integer.parseInt(answer[0])<list.size()){
+                                answerString.append("左"+Integer.parseInt(answer[0]));
+                            }
+                            if (Integer.parseInt(answer[1])>=list.size()){
+                                answerString.append("右"+(Integer.parseInt(answer[1])-list.size()));
+                            }
+                            answerString.append(" ");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                if (questionsEntity.getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)) {
+                    answerString = new StringBuffer();
+                    List<String> list = questionsEntity.getContent().getChoices();
+                    List<String> data = questionsEntity.getAnswer();
+                    for (String str : data) {
+                        try {
+                            JSONObject object = new JSONObject(str);
+                            String ss = object.getString("answer");
+                            String name = object.getString("name"+":");
+                            answerString.append(name);
+                            String[] answer = ss.split(",");
+                            for (String s : answer) {
+                                answerString.append(list.get(Integer.parseInt(s))+" ");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
                 if (!TextUtils.isEmpty(answerString.toString())) {
                     tvAnswerText.setTextHtml(answerString.toString());

@@ -594,7 +594,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         } else if (isSubmitFinish) {
             super.onBackPressed();
         } else {
-            if (IsResume&&IsDestroy) {
+            if (IsResume&&!IsDestroy) {
                 quitSubmmitDialog();
             }
         }
@@ -958,7 +958,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                         AnswerViewActivity.this.finish();
                     }
                 });
-        if (IsResume&&IsDestroy) {
+        if (IsResume&&!IsDestroy) {
             saveNetErrorDialog.show();
         }
     }
@@ -983,7 +983,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                         submitNetErrorDialog.dismiss();
                     }
                 });
-        if (IsResume&&IsDestroy) {
+        if (IsResume&&!IsDestroy) {
             submitNetErrorDialog.show();
         }
     }
