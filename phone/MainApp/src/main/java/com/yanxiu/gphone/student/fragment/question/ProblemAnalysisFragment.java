@@ -186,6 +186,14 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                     tvAnswerText.setTextHtml(answerString.toString());
                     tvAnswerText.setVisibility(View.VISIBLE);
                     llAnswer.setVisibility(View.VISIBLE);
+                    switch (questionsEntity.getTemplate()) {
+                        case YanXiuConstant.SINGLE_CHOICES://单选题
+                        case YanXiuConstant.MULTI_CHOICES://多选题
+                        case YanXiuConstant.JUDGE_QUESTION://判断题
+                        case YanXiuConstant.CLOZE_QUESTION://完形填空
+                            llAnswer.setVisibility(View.GONE);
+                            break;
+                    }
                 } else {
                     llAnswer.setVisibility(View.GONE);
                 }
@@ -221,6 +229,7 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                         case YanXiuConstant.ANSWER_QUESTION://问答
                             tvReportParseStatueText.setTextHtml(dataEntity.getAnswerCompare());
                             break;
+
                     }
                     llReportParseStatue.setVisibility(View.VISIBLE);
 
