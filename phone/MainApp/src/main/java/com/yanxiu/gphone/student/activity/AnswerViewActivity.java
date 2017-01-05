@@ -361,6 +361,12 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         removeTimeHandler();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        IsResume=false;
+    }
+
     private void quitSubmmitDialog() {
         if (comeFrom == GROUP) {
             Intent intent = new Intent();
@@ -401,7 +407,11 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                     }
                 });
         if (IsResume&&!IsDestroy) {
-            dialog.show();
+            try {
+                dialog.show();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
@@ -413,7 +423,11 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         mLoadingDialog.setmCurrent(subjectiveQIndex);
         mLoadingDialog.setmNum(subjectiveList.size());
         if (subjectiveList.size() > 0) {
-            mLoadingDialog.show();
+            try {
+                mLoadingDialog.show();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             mLoadingDialog.updateUI();
         }
 
@@ -959,7 +973,11 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                     }
                 });
         if (IsResume&&!IsDestroy) {
-            saveNetErrorDialog.show();
+            try{
+                saveNetErrorDialog.show();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
     private CommonDialog submitNetErrorDialog;
@@ -984,7 +1002,11 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                     }
                 });
         if (IsResume&&!IsDestroy) {
-            submitNetErrorDialog.show();
+            try{
+                submitNetErrorDialog.show();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
