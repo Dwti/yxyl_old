@@ -52,9 +52,9 @@ public class MyEdittext extends EditText {
             @Override
             public void afterTextChanged(Editable s) {
                 if (MyEdittext.this.getText().length()>0){
-                    MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_full_bg));
-                }else {
                     MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_empty_bg));
+                }else {
+                    MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_full_bg));
                 }
             }
         });
