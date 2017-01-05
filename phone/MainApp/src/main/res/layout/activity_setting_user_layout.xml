@@ -19,7 +19,7 @@
                       android:layout_height="match_parent">
 
             <include android:layout_width="match_parent"
-                     android:layout_height="@dimen/dimen_50"
+                     android:layout_height="@dimen/dimen_61"
                      android:id="@+id/setting_modify_pwd_layout"
                      layout="@layout/activity_info_user_icon_public_item"
                     />
@@ -27,24 +27,24 @@
                 android:id="@+id/setting_modify_pwd_dividerline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimen_7"
-                android:layout_marginRight="@dimen/dimen_7"
+                android:layout_marginLeft="@dimen/dimen_16"
+                android:layout_marginRight="@dimen/dimen_16"
                 layout="@layout/bitmap_repeat_layout"
                 />
             <include android:layout_width="match_parent"
-                     android:layout_height="@dimen/dimen_50"
+                     android:layout_height="@dimen/dimen_61"
                      android:id="@+id/setting_update_layout"
                      layout="@layout/activity_info_user_icon_public_item"
                     />
             <include
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimen_7"
-                android:layout_marginRight="@dimen/dimen_7"
+                android:layout_marginLeft="@dimen/dimen_16"
+                android:layout_marginRight="@dimen/dimen_16"
                 layout="@layout/bitmap_repeat_layout"
                 />
             <include android:layout_width="match_parent"
-                     android:layout_height="@dimen/dimen_50"
+                     android:layout_height="@dimen/dimen_61"
                      android:id="@+id/setting_about_us_layout"
                      layout="@layout/activity_info_user_icon_public_item"
                     />
