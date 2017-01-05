@@ -143,11 +143,12 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
     }
 
     public void setTextColor(){
-        if (answers.size()!=list.size()){
-            return;
-        }
-        for (int i=0;i<answers.size();i++){
-            String ans=answers.get(i);
+//        if (answers.size()!=list.size()){
+//            return;
+//        }
+        List<PaperTestEntity> children_list=questionsEntity.getChildren();
+        for (int i=0;i<children_list.size();i++){
+            String ans=children_list.get(i).getQuestions().getAnswer().get(0);
             Buttonbean bean=list.get(i);
             if (bean.getText().equals(ans)){
                 bean.setTextcolor(Buttonbean.COLOR_CORRECT);
@@ -295,6 +296,13 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
      * 所以只需要挨个比较标准答案及用户填写的答案即可
      */
     private boolean judgeAnswerIsRight() {
+        //形势所致，只能改为这样
+        List<PaperTestEntity> children_list=questionsEntity.getChildren();
+        answers.clear();
+        for (int i=0;i<children_list.size();i++){
+            String ans=children_list.get(i).getQuestions().getAnswer().get(0);
+            answers.add(ans);
+        }
         ArrayList<String> myAnswers = bean.getFillAnswers();
         return CommonCoreUtil.compare(myAnswers, answers);
     }
@@ -357,7 +365,7 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
 
         private int id;
         private int question_id;
-        private String text;
+        private String text="";
         private String textcolor="#000000";
         private float textsize;
         private boolean select;
