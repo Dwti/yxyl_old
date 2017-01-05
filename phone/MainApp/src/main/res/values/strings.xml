@@ -480,6 +480,6 @@
 
     <string name="picker_all_image">最近照片</string>
     <string name="all_picture">所有图片</string>
-    <string name="picker_image_count">%1$d</string>
+    <string name="picker_image_count">%1$d张</string>
      
 </resources>

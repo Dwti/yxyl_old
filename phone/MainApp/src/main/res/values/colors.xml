@@ -225,8 +225,8 @@
 
     <color name="colorPickerCommonPrimary">#f3f3f3</color>
     <color name="colorPickerBlack_40">#282828</color>
-    <color name="colorPickerText_40">#282828</color>
-    <color name="colorPickerText_80">#505050</color>
+    <color name="colorPickerText_40">#000000</color>
+    <color name="colorPickerText_80">#979797</color>
     <color name="colorPickerText_120">#787878</color>
 
 </resources>

@@ -61,13 +61,20 @@ public class PopupDirectoryListAdapter extends BaseAdapter {
         }
 
         holder.bindData(directories.get(position));
-        if(position==currentSelectPos){
+        if (position == currentSelectPos) {
             holder.iv_select_flag.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             holder.iv_select_flag.setVisibility(View.GONE);
         }
 
         return convertView;
+    }
+
+    public void updateSelectPos(int position) {
+        if (position >= 0 && position < getCount()){
+            currentSelectPos = position;
+            notifyDataSetChanged();
+        }
     }
 
     private class ViewHolder {

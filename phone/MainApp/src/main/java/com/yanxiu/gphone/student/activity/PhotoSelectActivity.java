@@ -82,14 +82,15 @@ public class PhotoSelectActivity extends Activity {
         listPopupWindow = new ListPopupWindow(this);
         listPopupWindow.setWidth(ListPopupWindow.MATCH_PARENT);
         listPopupWindow.setHeight(COUNT_MAX * getResources().getDimensionPixelOffset(R.dimen.picker_item_directory_height));
+//        listPopupWindow.setPromptPosition(ListPopupWindow.POSITION_PROMPT_ABOVE);
         listPopupWindow.setAnchorView(ll_bottom);
         listPopupWindow.setAdapter(popDirListAdapter);
         listPopupWindow.setModal(true);
-        listPopupWindow.setDropDownGravity(Gravity.BOTTOM);
-
+//        listPopupWindow.setDropDownGravity(Gravity.TOP);
         listPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                popDirListAdapter.updateSelectPos(position);
                 listPopupWindow.dismiss();
                 PhotoDirectory directory = directories.get(position);
                 tv_switch_dir.setText(directory.getName());
