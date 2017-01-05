@@ -22,6 +22,7 @@ public class PopupDirectoryListAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<PhotoDirectory> directories = new ArrayList<>();
+    private int currentSelectPos = 0;
 
     public PopupDirectoryListAdapter(Context context, List<PhotoDirectory> directories) {
         this.directories = directories;
@@ -60,6 +61,11 @@ public class PopupDirectoryListAdapter extends BaseAdapter {
         }
 
         holder.bindData(directories.get(position));
+        if(position==currentSelectPos){
+            holder.iv_select_flag.setVisibility(View.VISIBLE);
+        }else {
+            holder.iv_select_flag.setVisibility(View.GONE);
+        }
 
         return convertView;
     }
@@ -69,19 +75,19 @@ public class PopupDirectoryListAdapter extends BaseAdapter {
         public ImageView ivCover;
         public TextView tvName;
         public TextView tvCount;
+        public ImageView iv_select_flag;
 
         public ViewHolder(View rootView) {
             ivCover = (ImageView) rootView.findViewById(R.id.iv_dir_cover);
             tvName = (TextView) rootView.findViewById(R.id.tv_dir_name);
             tvCount = (TextView) rootView.findViewById(R.id.tv_dir_count);
+            iv_select_flag = (ImageView) rootView.findViewById(R.id.iv_select_flag);
         }
 
         public void bindData(PhotoDirectory directory) {
             Glide.with(mContext).load(directory.getCoverPath())
                     .dontAnimate()
                     .thumbnail(0.1f)
-//                    .placeholder(R.drawable.__picker_ic_photo_black_48dp)
-//                    .error(R.drawable.__picker_ic_broken_image_black_48dp)
                     .into(ivCover);
             tvName.setText(directory.getName());
             tvCount.setText(tvCount.getContext().getString(R.string.picker_image_count, directory.getPhotos().size()));

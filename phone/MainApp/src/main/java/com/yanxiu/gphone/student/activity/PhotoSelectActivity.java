@@ -15,9 +15,13 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.yanxiu.gphone.student.R;
@@ -37,7 +41,7 @@ import java.util.List;
 
 public class PhotoSelectActivity extends Activity {
     private RecyclerView recyclerView;
-    private ImageView iv_left;
+    private ImageView iv_left,iv_arrow;
     private View ll_bottom;
     private TextView tv_title;
     private final int COLUMN = 3;
@@ -54,6 +58,7 @@ public class PhotoSelectActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_select);
         iv_left = (ImageView) findViewById(R.id.iv_left);
+        iv_arrow = (ImageView) findViewById(R.id.iv_arrow);
         tv_title = (TextView) findViewById(R.id.tv_title);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         tv_switch_dir = (TextView) findViewById(R.id.tv_switch_dir);
@@ -65,7 +70,6 @@ public class PhotoSelectActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(photoGridAdapter);
         tv_title.setText(R.string.picker_all_image);
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         photoGridAdapter.setOnItemClickListener(new PhotoGridAdapter.OnItemClickListener() {
             @Override
@@ -87,9 +91,7 @@ public class PhotoSelectActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 listPopupWindow.dismiss();
-
                 PhotoDirectory directory = directories.get(position);
-
                 tv_switch_dir.setText(directory.getName());
                 tv_title.setText(directory.getName());
                 photos.clear();
@@ -99,14 +101,31 @@ public class PhotoSelectActivity extends Activity {
             }
         });
 
+        listPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+//                RotateAnimation rotateAnimation = new RotateAnimation(-180,0, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+//                rotateAnimation.setFillAfter(true);
+//                rotateAnimation.setDuration(500);
+//                iv_arrow.startAnimation(rotateAnimation);
+
+                Animation animation = AnimationUtils.loadAnimation(PhotoSelectActivity.this,R.anim.photo_dir_arrow_down);
+                iv_arrow.startAnimation(animation);
+            }
+        });
         tv_switch_dir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listPopupWindow.isShowing()) {
                     listPopupWindow.dismiss();
                 } else if (!isFinishing()) {
-//                    adjustHeight();
                     listPopupWindow.show();
+//                    RotateAnimation rotateAnimation = new RotateAnimation(0,-180, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+//                    rotateAnimation.setFillAfter(true);
+//                    rotateAnimation.setDuration(500);
+//                    iv_arrow.startAnimation(rotateAnimation);
+                    Animation animation = AnimationUtils.loadAnimation(PhotoSelectActivity.this,R.anim.photo_dir_arrow_up);
+                    iv_arrow.startAnimation(animation);
                 }
             }
         });
@@ -146,14 +165,6 @@ public class PhotoSelectActivity extends Activity {
         photos.addAll(directories.get(PhotoStoreHelper.INDEX_ALL_PHOTOS).getPhotos());
         Log.i("count",photos.size()+"");
         photoGridAdapter.notifyDataSetChanged();
-    }
-
-    private void adjustHeight() {
-        if (popDirListAdapter == null) return;
-        int count = popDirListAdapter.getCount();
-        if (listPopupWindow != null) {
-            listPopupWindow.setHeight(COUNT_MAX * getResources().getDimensionPixelOffset(R.dimen.picker_item_directory_height));
-        }
     }
 
     private void dispatchImageCropIntent(String data){
