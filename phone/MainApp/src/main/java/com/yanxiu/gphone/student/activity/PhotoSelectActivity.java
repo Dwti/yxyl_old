@@ -17,6 +17,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yanxiu.gphone.student.R;
@@ -36,6 +37,8 @@ import java.util.List;
 
 public class PhotoSelectActivity extends Activity {
     private RecyclerView recyclerView;
+    private ImageView iv_left;
+    private View ll_bottom;
     private TextView tv_title;
     private final int COLUMN = 3;
     private TextView tv_switch_dir;
@@ -50,9 +53,11 @@ public class PhotoSelectActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_select);
+        iv_left = (ImageView) findViewById(R.id.iv_left);
         tv_title = (TextView) findViewById(R.id.tv_title);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         tv_switch_dir = (TextView) findViewById(R.id.tv_switch_dir);
+        ll_bottom = findViewById(R.id.ll_bottom);
         popDirListAdapter = new PopupDirectoryListAdapter(this,directories);
         photoGridAdapter = new PhotoGridAdapter(this,photos);
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(COLUMN, OrientationHelper.VERTICAL);
@@ -72,7 +77,8 @@ public class PhotoSelectActivity extends Activity {
         });
         listPopupWindow = new ListPopupWindow(this);
         listPopupWindow.setWidth(ListPopupWindow.MATCH_PARENT);
-        listPopupWindow.setAnchorView(tv_switch_dir);
+        listPopupWindow.setHeight(COUNT_MAX * getResources().getDimensionPixelOffset(R.dimen.picker_item_directory_height));
+        listPopupWindow.setAnchorView(ll_bottom);
         listPopupWindow.setAdapter(popDirListAdapter);
         listPopupWindow.setModal(true);
         listPopupWindow.setDropDownGravity(Gravity.BOTTOM);
@@ -99,9 +105,16 @@ public class PhotoSelectActivity extends Activity {
                 if (listPopupWindow.isShowing()) {
                     listPopupWindow.dismiss();
                 } else if (!isFinishing()) {
-                    adjustHeight();
+//                    adjustHeight();
                     listPopupWindow.show();
                 }
+            }
+        });
+
+        iv_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
         int hasPer = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
@@ -138,9 +151,8 @@ public class PhotoSelectActivity extends Activity {
     private void adjustHeight() {
         if (popDirListAdapter == null) return;
         int count = popDirListAdapter.getCount();
-        count = count < COUNT_MAX ? count : COUNT_MAX;
         if (listPopupWindow != null) {
-            listPopupWindow.setHeight(count * getResources().getDimensionPixelOffset(R.dimen.picker_item_directory_height));
+            listPopupWindow.setHeight(COUNT_MAX * getResources().getDimensionPixelOffset(R.dimen.picker_item_directory_height));
         }
     }
 

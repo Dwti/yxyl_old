@@ -25,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.common.core.utils.BasePopupWindow;
 import com.common.core.utils.BitmapUtil;
 import com.common.core.utils.CommonCoreUtil;
@@ -43,6 +44,7 @@ import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
 import com.yanxiu.gphone.student.utils.CorpUtils;
 import com.yanxiu.gphone.student.utils.MediaUtils;
 import com.yanxiu.gphone.student.utils.Util;
+import com.yanxiu.gphone.student.utils.Utils;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
 
@@ -164,8 +166,6 @@ public class PicSelView extends RelativeLayout {
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             CorpUtils.getInstence().AddListener(fragment);
             if (currentDrrList == null || i == currentDrrList.size()) {
-            //if (i == currentDrrList.size()) {
-            //if (ShareBitmapUtils.getInstance().getDrrMaps().get(ShareBitmapUtils.getInstance().getCurrentSbId()) == null || i == currentDrrList.size()) {
                 if (ShareBitmapUtils.getInstance().getCurrentSbId() == null) {
                     LogInfo.log(TAG, "ShareBitmapUtils.getInstance().getCurrentSbId()==null");
                     return;
@@ -304,10 +304,12 @@ public class PicSelView extends RelativeLayout {
     public class GridAdapter extends BaseAdapter {
         private LayoutInflater inflater;
         private Context context;
+        private int imgWidth;
 
         public GridAdapter(Context context) {
             this.context=context;
             inflater = LayoutInflater.from(context);
+            imgWidth = Util.convertDpToPx(context,35);
         }
 
         @Override
@@ -352,13 +354,18 @@ public class PicSelView extends RelativeLayout {
             } else {
                 holder.decorateImage.setBackgroundResource(R.drawable.upload_pic);
                 String absolutePath = currentDrrList.get(position);
-                if (!absolutePath.startsWith("http")) {
-                    UniversalImageLoadTool.disPlay("file://" + absolutePath,
-                            new RotateImageViewAware(holder.image, absolutePath), R.drawable.image_default);
-                } else {
-                    UniversalImageLoadTool.disPlay(absolutePath,
-                            new RotateImageViewAware(holder.image, absolutePath), R.drawable.image_default);
-                }
+//                if (!absolutePath.startsWith("http")) {
+//                    UniversalImageLoadTool.disPlay("file://" + absolutePath,
+//                            new RotateImageViewAware(holder.image, absolutePath), R.drawable.image_default);
+//                } else {
+//                    UniversalImageLoadTool.disPlay(absolutePath,
+//                            new RotateImageViewAware(holder.image, absolutePath), R.drawable.image_default);
+//                }
+                Glide.with(context)
+                        .load(absolutePath).asBitmap()
+                        .placeholder(R.drawable.image_default)
+                        .error(R.drawable.image_default)
+                        .override(imgWidth,imgWidth).into(holder.image);
             }
 
             return convertView;

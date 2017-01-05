@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.common.core.utils.LogInfo;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -62,18 +63,10 @@ public class LocalPhotoViewAdapter extends PagerAdapter {
         ZoomImageView imageView=(ZoomImageView) view.findViewById(R.id.iv_photo_view);
         if(ShareBitmapUtils.getInstance().getDrrMaps().get(ShareBitmapUtils.getInstance().getCurrentSbId()).size()>0){
             String path=ShareBitmapUtils.getInstance().getDrrMaps().get(ShareBitmapUtils.getInstance().getCurrentSbId()).get(position);
-            if (!path.startsWith("http")) {
-                com.nostra13.universalimageloader.core.ImageLoader.getInstance().displayImage("file://" + path, imageView, options);
-            } else {
-                com.nostra13.universalimageloader.core.ImageLoader.getInstance().displayImage(path, imageView, options);
-            }
-//            Bitmap bitmap=null;
-//            try {
-//                bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse("file://" + path));
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            imageView.setImageBitmap(bitmap);
+            Glide.with(context).load(path).asBitmap()
+                    .placeholder(R.drawable.image_default)
+                    .error(R.drawable.image_default)
+                    .into(imageView);
         }
         container.addView(view, 0);
         return view;
@@ -83,7 +76,6 @@ public class LocalPhotoViewAdapter extends PagerAdapter {
             DeleteImageBean bean=new DeleteImageBean();
             bean.setType(SubjectiveQuestionFragment.TYPE);
             bean.setImage_url(ShareBitmapUtils.getInstance().getDrrMaps().get(ShareBitmapUtils.getInstance().getCurrentSbId()).get(position));
-//            EventBus.getDefault().post(bean);
             CorpUtils.getInstence().getCorpListener().ondelete(bean);
             ShareBitmapUtils.getInstance().getDrrMaps().get(ShareBitmapUtils.getInstance().getCurrentSbId()).remove(position);
             int loadIndex=ShareBitmapUtils.getInstance().getListIndexMaps().get(ShareBitmapUtils.getInstance().getCurrentSbId());

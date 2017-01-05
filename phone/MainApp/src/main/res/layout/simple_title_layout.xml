@@ -5,14 +5,14 @@
     android:background="@color/color_00cccc"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/tv_back"
-        android:layout_width="@dimen/dimen_25"
-        android:layout_height="@dimen/dimen_25"
+    <ImageView
+        android:id="@+id/iv_left"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:gravity="center"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/dimen_10"
-        android:background="@drawable/login_back"/>
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/login_back"/>
 
 
     <TextView
@@ -24,4 +24,14 @@
         android:textSize="18sp"
         android:layout_centerInParent="true"
         />
+
+    <ImageView
+        android:id="@+id/iv_right"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/icon_del_selector"
+        android:visibility="gone"/>
 </RelativeLayout>

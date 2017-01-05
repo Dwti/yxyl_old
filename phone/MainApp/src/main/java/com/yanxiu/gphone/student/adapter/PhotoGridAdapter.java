@@ -34,7 +34,7 @@ public class PhotoGridAdapter extends RecyclerView.Adapter<PhotoGridAdapter.Phot
 
     @Override
     public PhotoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new PhotoViewHolder(inflater.inflate(R.layout.item_photo_grid, null));
+        return new PhotoViewHolder(inflater.inflate(R.layout.item_photo_grid, parent,false));
     }
 
     @Override

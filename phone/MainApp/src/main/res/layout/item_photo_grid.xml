@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.yanxiu.gphone.student.view.SquareItemLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/photo_item_margin">
 
-    <ImageView
+    <com.common.core.view.roundview.RoundedImageView
         android:id="@+id/iv_photo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:layout_gravity="center"
-        android:adjustViewBounds="true"
-        android:layout_margin="@dimen/photo_item_margin"
+        app:riv_corner_radius="12dp"
+        android:background="@drawable/pic_not_sel"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
         android:background="@drawable/pic_not_sel"/>
 
 </com.yanxiu.gphone.student.view.SquareItemLayout>
