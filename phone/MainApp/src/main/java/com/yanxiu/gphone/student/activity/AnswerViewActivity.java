@@ -340,6 +340,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     public void onStop() {
         super.onStop();
         this.isResume = false;
+        isResume=false;
     }
 
     private void quitSubmmitDialog() {
@@ -394,7 +395,11 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         mLoadingDialog.setmCurrent(subjectiveQIndex);
         mLoadingDialog.setmNum(subjectiveList.size());
         if (subjectiveList.size() > 0) {
-            mLoadingDialog.show();
+            try {
+                mLoadingDialog.show();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             mLoadingDialog.updateUI();
         }
 
