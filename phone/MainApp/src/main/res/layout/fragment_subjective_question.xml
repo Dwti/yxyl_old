@@ -73,17 +73,6 @@
                 android:layout_height="wrap_content"
                 android:visibility="visible" />
 
-
-            <!--<Button android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_45"
-                    android:layout_below="@+id/ll_answer_content"
-                    android:visibility="gone"
-                    android:layout_margin="@dimen/dimen_10"
-                    android:textColor="@color/color_white"
-                    android:background="@drawable/selector_question_submit"
-                    android:text="@string/view_resolution"
-                    android:id="@+id/add_problem_analysis"/>-->
-
             <com.yanxiu.gphone.student.view.YanxiuTypefaceButton
                 android:id="@+id/add_problem_analysis"
                 android:layout_below="@+id/ll_answer_content"

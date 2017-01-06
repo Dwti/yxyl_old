@@ -63,7 +63,6 @@ public class PicSelView extends RelativeLayout {
     private final int MAX_PIC_SIZE = 9;//最大图片显示个数
     private String currentQuestionId;    //当前题目的id 用来跟上传的图片绑定
     private GridAdapter gridAdapter;
-    private BasePopupWindow pop;
     private final int updateCode = 0;
     private final int failCode = 1;
     private final int UIChanged_TRUE=2;
@@ -149,7 +148,6 @@ public class PicSelView extends RelativeLayout {
         gridAdapter = new GridAdapter(context);
         noScrollGridView.setAdapter(gridAdapter);
         noScrollGridView.setOnItemClickListener(onItemClickListener);
-        pop = new PicSelPopup(context);
         controllShowGridAndHideAddAnswView(false);
     }
 
@@ -187,20 +185,8 @@ public class PicSelView extends RelativeLayout {
     };
 
     private void showPicSelPop(View view){
-        /*pop.showAtLocation(view, Gravity.BOTTOM, 0, 0);*/
         if(!TextUtils.isEmpty(currentQuestionId))
             ShareBitmapUtils.getInstance().setCurrentSbId(currentQuestionId);
-//        if (CommonCoreUtil.sdCardMounted()) {
-//            String path=MediaUtils.getOutputMediaFileUri(true).toString();
-//            if(StringUtils.isEmpty(path)){
-//                return;
-//            }
-////            EventBus.getDefault().unregister(fragment);
-//            MediaUtils.IsCallBack=true;
-//            YanXiuConstant.index_position=YanXiuConstant.catch_position;
-////            EventBus.getDefault().register(fragment);
-//            MediaUtils.openLocalCamera(((Activity) mContext), path, MediaUtils.OPEN_DEFINE_PIC_BUILD);
-//        }
         EventBus.getDefault().unregister(fragment);
         YanXiuConstant.index_position=YanXiuConstant.catch_position;
         EventBus.getDefault().register(fragment);
