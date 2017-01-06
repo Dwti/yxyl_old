@@ -84,7 +84,7 @@ public class CameraPreview extends FrameLayout implements SurfaceHolder.Callback
         if (mCamera == camera) {
             return;
         }
-        stopPreviewAndFreeCamera();
+//        stopPreviewAndFreeCamera();
         mCamera = camera;
         if (mCamera != null) {
             List<Camera.Size> supportPreviewSizes = mCamera.getParameters().getSupportedPreviewSizes();
