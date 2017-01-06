@@ -29,6 +29,8 @@
     <!-- 90% 透明度黑色 -->
     <color name="color_19000000">#19000000</color>
 
+    <color name="colorLine">#ececec</color>
+
     <color name="color_ff2a2a2a">#ff2a2a2a</color>
     <color name="color_ff868686">#ff868686</color>
     <color name="color_ff2d97de">#ff2d97de</color>

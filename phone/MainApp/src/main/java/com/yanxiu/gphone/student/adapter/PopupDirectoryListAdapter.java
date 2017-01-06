@@ -66,7 +66,11 @@ public class PopupDirectoryListAdapter extends BaseAdapter {
         } else {
             holder.iv_select_flag.setVisibility(View.GONE);
         }
-
+        if(position == getCount() -1){
+            holder.divider.setVisibility(View.INVISIBLE);
+        }else {
+            holder.divider.setVisibility(View.VISIBLE);
+        }
         return convertView;
     }
 
@@ -83,12 +87,14 @@ public class PopupDirectoryListAdapter extends BaseAdapter {
         public TextView tv_name;
         public TextView tv_count;
         public ImageView iv_select_flag;
+        public View divider;
 
         public ViewHolder(View rootView) {
             iv_cover = (ImageView) rootView.findViewById(R.id.iv_dir_cover);
             tv_name = (TextView) rootView.findViewById(R.id.tv_dir_name);
             tv_count = (TextView) rootView.findViewById(R.id.tv_dir_count);
             iv_select_flag = (ImageView) rootView.findViewById(R.id.iv_select_flag);
+            divider = rootView.findViewById(R.id.divider);
         }
 
         public void bindData(PhotoDirectory directory) {
