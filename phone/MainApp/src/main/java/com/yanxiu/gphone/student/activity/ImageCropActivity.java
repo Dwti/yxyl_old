@@ -105,12 +105,6 @@ public class ImageCropActivity extends Activity implements View.OnClickListener,
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if(!mBitmap.isRecycled())
-            mBitmap.recycle();
-    }
 
     @Override
     public void onComplete(File file) {
