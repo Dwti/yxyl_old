@@ -340,7 +340,7 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
                     ans="D";
                     break;
             }
-            
+
             answers.add(ans);
         }
         ArrayList<String> myAnswers = bean.getFillAnswers();
