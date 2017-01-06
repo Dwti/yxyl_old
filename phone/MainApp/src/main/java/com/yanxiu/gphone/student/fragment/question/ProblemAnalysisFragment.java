@@ -179,7 +179,6 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                 tvDifficulltyText.setVisibility(View.GONE);
             }
 
-//            if (questionsEntity.getTemplate().equals(YanXiuConstant.ANSWER_QUESTION)||questionsEntity.getTemplate().equals(YanXiuConstant.FILL_BLANK)||questionsEntity.getTemplate().equals(YanXiuConstant.CONNECT_QUESTION))) {
             if (questionsEntity.getAnswer() != null && questionsEntity.getAnswer().size() > 0) {
                 StringBuffer answerString = new StringBuffer();
                 for (String str : questionsEntity.getAnswer()) {
@@ -229,7 +228,7 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                     tvAnswerText.setTextHtml(answerString.toString());
                     tvAnswerText.setVisibility(View.VISIBLE);
                     llAnswer.setVisibility(View.VISIBLE);
-                    switch (questionsEntity.getTemplate()) {
+                    switch (questionsEntity.getTemplate()) {//以下几种题型不显示答案
                         case YanXiuConstant.SINGLE_CHOICES://单选题
                         case YanXiuConstant.MULTI_CHOICES://多选题
                         case YanXiuConstant.JUDGE_QUESTION://判断题
@@ -250,11 +249,7 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
             if (questionsEntity.getExtend() != null && questionsEntity.getExtend().getData() != null) {
                 ExtendEntity.DataEntity dataEntity = questionsEntity.getExtend().getData();
                 if (!TextUtils.isEmpty(dataEntity.getAnswerCompare())) {//填空、归类、连线，当前状态为空时显示，不为空时不显示
-//                    if (questionsEntity.getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)) {//归类
-//
-//                        llAnswer.setVisibility(View.GONE);
-//                    } else {
-//
+
                     switch (questionsEntity.getTemplate()) {
                         case YanXiuConstant.CONNECT_QUESTION://连线
                             tvReportParseStatueText.setTextHtml(dataEntity.getAnswerCompare());
@@ -272,6 +267,8 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                         case YanXiuConstant.ANSWER_QUESTION://问答
                             tvReportParseStatueText.setTextHtml(dataEntity.getAnswerCompare());
                             break;
+                        default:
+                            tvReportParseStatueText.setTextHtml(dataEntity.getAnswerCompare());
 
                     }
                     llReportParseStatue.setVisibility(View.VISIBLE);
