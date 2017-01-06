@@ -1,6 +1,7 @@
 package com.yanxiu.gphone.student.view;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -38,6 +39,7 @@ public class MyEdittext extends EditText {
 
     private void init(Context context) {
         this.mContext = context;
+        this.setTextColor(Color.parseColor("#6ebcf9"));
         this.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
