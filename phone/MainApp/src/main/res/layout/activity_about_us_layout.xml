@@ -78,8 +78,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/official_weixin_layout"
-                    android:layout_marginLeft="@dimen/dimen_7"
-                    android:layout_marginRight="@dimen/dimen_7"
+                    android:layout_marginLeft="@dimen/dimen_16"
+                    android:layout_marginRight="@dimen/dimen_16"
                     layout="@layout/bitmap_repeat_layout"
                     />
                 <RelativeLayout
@@ -105,8 +105,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/services_tel_num_layout"
-                    android:layout_marginLeft="@dimen/dimen_7"
-                    android:layout_marginRight="@dimen/dimen_7"
+                    android:layout_marginLeft="@dimen/dimen_16"
+                    android:layout_marginRight="@dimen/dimen_16"
                     layout="@layout/bitmap_repeat_layout"
                     />
                 <RelativeLayout

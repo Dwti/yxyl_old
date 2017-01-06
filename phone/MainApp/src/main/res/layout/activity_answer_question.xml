@@ -15,10 +15,10 @@
                 android:layout_height="@dimen/dimen_44" >
 
             <ImageView
-                    android:layout_width="@dimen/dimen_40"
-                    android:layout_height="@dimen/dimen_30"
+                    android:layout_width="@dimen/dimen_28"
+                    android:layout_height="@dimen/dimen_28"
                     android:id="@+id/iv_top_back"
-                    android:paddingRight="@dimen/dimen_10"
+                    android:layout_marginRight="@dimen/dimen_10"
                     android:layout_marginLeft="@dimen/dimen_10"
                     android:layout_centerVertical="true"
                     android:src="@drawable/login_back" />

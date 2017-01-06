@@ -16,8 +16,8 @@
 
         <TextView
             android:id="@+id/pub_top_left"
-            android:layout_width="@dimen/dimen_26"
-            android:layout_height="@dimen/dimen_26"
+            android:layout_width="@dimen/dimen_28"
+            android:layout_height="@dimen/dimen_28"
             android:layout_alignParentLeft="true"
             android:gravity="center"
             android:layout_centerVertical="true"

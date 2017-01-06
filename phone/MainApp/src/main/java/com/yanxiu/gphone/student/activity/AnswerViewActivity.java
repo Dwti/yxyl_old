@@ -2,35 +2,18 @@ package com.yanxiu.gphone.student.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.AssetFileDescriptor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentController;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.util.SparseArrayCompat;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.common.core.utils.CommonCoreUtil;
 import com.common.core.utils.LogInfo;
-import com.common.core.utils.NetWorkTypeUtils;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.AnswerAdapter;
@@ -41,16 +24,12 @@ import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.bean.UploadImageBean;
 import com.yanxiu.gphone.student.fragment.GuideClassfyFragment;
-import com.yanxiu.gphone.student.fragment.GuideCorpFragment;
 import com.yanxiu.gphone.student.fragment.GuideFragment;
 import com.yanxiu.gphone.student.fragment.GuideMultiFragment;
 import com.yanxiu.gphone.student.fragment.question.AnswerCardFragment;
 import com.yanxiu.gphone.student.fragment.question.AnswerFinishFragment;
 import com.yanxiu.gphone.student.fragment.question.BaseQuestionFragment;
-import com.yanxiu.gphone.student.fragment.question.FillBlanksFragment;
-import com.yanxiu.gphone.student.fragment.question.PageIndex;
 import com.yanxiu.gphone.student.fragment.question.ReadingQuestionsFragment;
-import com.yanxiu.gphone.student.fragment.question.SolveComplexQuestionFragment;
 import com.yanxiu.gphone.student.fragment.question.SubjectiveQuestionFragment;
 import com.yanxiu.gphone.student.httpApi.YanxiuHttpApi;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
@@ -59,7 +38,6 @@ import com.yanxiu.gphone.student.preference.PreferencesManager;
 import com.yanxiu.gphone.student.requestTask.RequestSubmitQuesitonTask;
 import com.yanxiu.gphone.student.utils.Configuration;
 import com.yanxiu.gphone.student.utils.QuestionUtils;
-import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.Utils;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.CommonDialog;
@@ -73,15 +51,12 @@ import com.yanxiu.gphone.student.view.question.GuideQuestionView;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 
 import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.zip.Inflater;
 
 import de.greenrobot.event.EventBus;
 
@@ -137,8 +112,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     private int subjectiveQIndex = 0;
 
     private LoadingDialog mLoadingDialog;
-    private boolean IsResume=false;
-    private boolean IsDestroy=false;
+    private boolean isResume =false;
+
 //    private ProgressLayout progressLayout;
 
 
@@ -350,7 +325,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        this.IsResume=true;
+        this.isResume =true;
         addTimeHandler();
     }
 
@@ -364,7 +339,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
     @Override
     public void onStop() {
         super.onStop();
-        IsResume=false;
+        this.isResume = false;
+        isResume=false;
     }
 
     private void quitSubmmitDialog() {
@@ -406,12 +382,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                         //3
                     }
                 });
-        if (IsResume&&!IsDestroy) {
-            try {
-                dialog.show();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+        if (isResume) {
+            dialog.show();
         }
     }
 
@@ -608,7 +580,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         } else if (isSubmitFinish) {
             super.onBackPressed();
         } else {
-            if (IsResume&&!IsDestroy) {
+            if (isResume) {
                 quitSubmmitDialog();
             }
         }
@@ -889,7 +861,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         LogInfo.log(TAG, "onDestroy");
 //        totalTime=0;
 //        lastTime=0;
-        IsDestroy=true;
         if (dialog!=null){
             if (dialog.isShowing()) {
                 dialog.dismiss();
@@ -972,12 +943,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                         AnswerViewActivity.this.finish();
                     }
                 });
-        if (IsResume&&!IsDestroy) {
-            try{
-                saveNetErrorDialog.show();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+        if (isResume) {
+            saveNetErrorDialog.show();
         }
     }
     private CommonDialog submitNetErrorDialog;
@@ -1001,12 +968,8 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
                         submitNetErrorDialog.dismiss();
                     }
                 });
-        if (IsResume&&!IsDestroy) {
-            try{
-                submitNetErrorDialog.show();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+        if (isResume) {
+            submitNetErrorDialog.show();
         }
     }
 
