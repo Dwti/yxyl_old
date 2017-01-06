@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by donglua on 15/6/28.
+ * Created by sunpeng on 16/12/30.
  */
 public class PopupDirectoryListAdapter extends BaseAdapter {
 
@@ -79,15 +79,15 @@ public class PopupDirectoryListAdapter extends BaseAdapter {
 
     private class ViewHolder {
 
-        public ImageView ivCover;
-        public TextView tvName;
-        public TextView tvCount;
+        public ImageView iv_cover;
+        public TextView tv_name;
+        public TextView tv_count;
         public ImageView iv_select_flag;
 
         public ViewHolder(View rootView) {
-            ivCover = (ImageView) rootView.findViewById(R.id.iv_dir_cover);
-            tvName = (TextView) rootView.findViewById(R.id.tv_dir_name);
-            tvCount = (TextView) rootView.findViewById(R.id.tv_dir_count);
+            iv_cover = (ImageView) rootView.findViewById(R.id.iv_dir_cover);
+            tv_name = (TextView) rootView.findViewById(R.id.tv_dir_name);
+            tv_count = (TextView) rootView.findViewById(R.id.tv_dir_count);
             iv_select_flag = (ImageView) rootView.findViewById(R.id.iv_select_flag);
         }
 
@@ -95,9 +95,9 @@ public class PopupDirectoryListAdapter extends BaseAdapter {
             Glide.with(mContext).load(directory.getCoverPath())
                     .dontAnimate()
                     .thumbnail(0.1f)
-                    .into(ivCover);
-            tvName.setText(directory.getName());
-            tvCount.setText(tvCount.getContext().getString(R.string.picker_image_count, directory.getPhotos().size()));
+                    .into(iv_cover);
+            tv_name.setText(directory.getName());
+            tv_count.setText(tv_count.getContext().getString(R.string.picker_image_count, directory.getPhotos().size()));
         }
     }
 
