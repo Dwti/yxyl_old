@@ -151,6 +151,25 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
             String ans=children_list.get(i).getQuestions().getAnswer().get(0);
             Buttonbean bean=list.get(i);
 //            if (!TextUtils.isEmpty(bean.getText())) {
+
+                switch (ans){
+                    case "0":
+                        ans="A";
+                        break;
+
+                    case "1":
+                        ans="B";
+                        break;
+
+                    case "2":
+                        ans="C";
+                        break;
+
+                    case "3":
+                        ans="D";
+                        break;
+                }
+
                 if (bean.getText().equals(ans)) {
                     bean.setTextcolor(Buttonbean.COLOR_CORRECT);
                 } else {
@@ -303,6 +322,25 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
         answers.clear();
         for (int i=0;i<children_list.size();i++){
             String ans=children_list.get(i).getQuestions().getAnswer().get(0);
+
+            switch (ans){
+                case "0":
+                    ans="A";
+                    break;
+
+                case "1":
+                    ans="B";
+                    break;
+
+                case "2":
+                    ans="C";
+                    break;
+
+                case "3":
+                    ans="D";
+                    break;
+            }
+            
             answers.add(ans);
         }
         ArrayList<String> myAnswers = bean.getFillAnswers();
