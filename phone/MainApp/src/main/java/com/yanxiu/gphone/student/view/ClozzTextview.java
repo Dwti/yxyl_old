@@ -150,10 +150,12 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
         for (int i=0;i<children_list.size();i++){
             String ans=children_list.get(i).getQuestions().getAnswer().get(0);
             Buttonbean bean=list.get(i);
-            if (bean.getText().equals(ans)){
-                bean.setTextcolor(Buttonbean.COLOR_CORRECT);
-            }else {
-                bean.setTextcolor(Buttonbean.COLOR_ERROR);
+            if (!TextUtils.isEmpty(bean.getText())) {
+                if (bean.getText().equals(ans)) {
+                    bean.setTextcolor(Buttonbean.COLOR_CORRECT);
+                } else {
+                    bean.setTextcolor(Buttonbean.COLOR_ERROR);
+                }
             }
         }
         this.invalidate();
