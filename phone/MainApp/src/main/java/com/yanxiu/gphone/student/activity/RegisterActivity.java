@@ -146,7 +146,7 @@ public class RegisterActivity extends YanxiuBaseActivity{
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
-        RegisterJoinGroupActivity.launchActivity(this);
+//        RegisterJoinGroupActivity.launchActivity(this);
 //        startActivity(new Intent(this,SetPasswordActivity.class));
         LogInfo.log("king", "RegisterActivity onCreate");
         Intent intent = getIntent();
