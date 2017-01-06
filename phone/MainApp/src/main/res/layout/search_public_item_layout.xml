@@ -2,9 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/item_public_layout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_45"
-                android:paddingLeft="@dimen/dimen_20"
-                android:paddingRight="@dimen/dimen_10">
+                android:layout_height="@dimen/dimen_45">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:paddingLeft="@dimen/dimen_20"
+    android:paddingRight="@dimen/dimen_10"
+    android:layout_height="@dimen/dimen_44">
     <TextView android:layout_width="wrap_content"
               android:layout_height="match_parent"
               android:id="@+id/item_name"
@@ -33,5 +36,18 @@
         android:layout_marginRight="@dimen/dimen_12"
         android:visibility="gone"
         android:src="@drawable/trans_yellow_arrow"/>
+</RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_dash_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1"
+        android:paddingLeft="@dimen/dimen_5"
+        android:paddingRight="@dimen/dimen_5"
+        android:layout_alignParentBottom="true">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/repeat_suebject_section_dash_line"/>
+    </LinearLayout>
 </RelativeLayout>

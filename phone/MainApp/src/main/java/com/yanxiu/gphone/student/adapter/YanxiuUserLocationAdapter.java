@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
@@ -34,7 +35,7 @@ public class YanxiuUserLocationAdapter extends YXiuCustomerBaseAdapter<YanxiuBas
             mViewHolder.locationName = (TextView) convertView.findViewById(R.id.item_name);
             mViewHolder.itemSelect = (ImageView) convertView.findViewById(R.id.item_select_view);
             mViewHolder.rightArrow = (ImageView) convertView.findViewById(R.id.item_right_arrow);
-
+            mViewHolder.ll_dash_line= (LinearLayout) convertView.findViewById(R.id.ll_dash_line);
             convertView.setTag(mViewHolder);
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
@@ -60,6 +61,11 @@ public class YanxiuUserLocationAdapter extends YXiuCustomerBaseAdapter<YanxiuBas
             }
             mViewHolder.locationName.setText(districtModel.getName());
         }
+        if (position==getCount()-1){
+            mViewHolder.ll_dash_line.setVisibility(View.GONE);
+        }else {
+            mViewHolder.ll_dash_line.setVisibility(View.VISIBLE);
+        }
         return convertView;
     }
 
@@ -73,6 +79,7 @@ public class YanxiuUserLocationAdapter extends YXiuCustomerBaseAdapter<YanxiuBas
     }
 
     public final class ViewHolder{
+        public LinearLayout ll_dash_line;
         public TextView locationName;
         public ImageView rightArrow;
         public ImageView itemSelect;

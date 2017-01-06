@@ -5,18 +5,19 @@
               android:background="@drawable/yanxiu_my_frgment_bg"
               android:orientation="vertical">
     <include android:id="@+id/top_layout"
-             layout="@layout/public_top_layout"
-        />
+             layout="@layout/public_top_layout"/>
 
     <ListView
         android:id="@+id/location_list"
         style="@style/listview_style"
+        android:divider="@null"
+        android:dividerHeight="@dimen/dimen_0"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/dimen_25"
+        android:layout_marginBottom="@dimen/dimen_23"
         android:layout_marginLeft="@dimen/dimen_30"
         android:layout_marginRight="@dimen/dimen_30"
-        android:layout_marginTop="@dimen/dimen_25"
+        android:layout_marginTop="@dimen/dimen_15"
         />
 
 

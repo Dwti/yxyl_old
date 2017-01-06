@@ -66,18 +66,20 @@
                     android:scaleType="centerCrop"
                     android:visibility="gone"/>
         </LinearLayout>
-        <ImageView
-            android:id="@+id/userinfo_dash_line_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/username_layout_view"
-            android:visibility="gone"
-            android:layout_alignRight="@id/username_layout_view"
-            android:layout_below="@id/username_layout_view"
-            android:layout_marginLeft="@dimen/dimen_10"
-            android:layout_marginRight="@dimen/dimen_10"
-            android:background="@drawable/repeat_common_line"
-            />
+
+    <include
+        android:id="@+id/userinfo_dash_line_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/username_layout_view"
+        android:layout_alignRight="@id/username_layout_view"
+        android:layout_below="@id/username_layout_view"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:visibility="gone"
+        android:layout_marginRight="@dimen/dimen_10"
+        layout="@layout/bitmap_repeat_layout"
+        />
+
         <LinearLayout
             android:id="@+id/nickname_layout_view"
             android:layout_width="match_parent"
@@ -120,17 +122,17 @@
                     android:scaleType="centerCrop"
                     />
         </LinearLayout>
-        <ImageView
-            android:id="@+id/userinfo_dash_line_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/username_layout_view"
-            android:layout_alignRight="@id/username_layout_view"
-            android:layout_below="@id/nickname_layout_view"
-            android:layout_marginLeft="@dimen/dimen_10"
-            android:layout_marginRight="@dimen/dimen_10"
-            android:background="@drawable/repeat_common_line"
-            />
+    <include
+        android:id="@+id/userinfo_dash_line_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/username_layout_view"
+        android:layout_alignRight="@id/username_layout_view"
+        android:layout_below="@id/nickname_layout_view"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_10"
+        layout="@layout/bitmap_repeat_layout"
+        />
 
         <LinearLayout
             android:id="@+id/area_layout_view"
@@ -172,18 +174,20 @@
                     android:scaleType="centerCrop"
                     />
         </LinearLayout>
-        <ImageView
-            android:id="@+id/userinfo_dash_line_3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:layout_alignLeft="@id/username_layout_view"
-            android:layout_alignRight="@id/username_layout_view"
-            android:layout_below="@id/area_layout_view"
-            android:layout_marginLeft="@dimen/dimen_10"
-            android:layout_marginRight="@dimen/dimen_10"
-            android:background="@drawable/repeat_common_line"
-            />
+
+    <include
+        android:id="@+id/userinfo_dash_line_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/username_layout_view"
+        android:layout_alignRight="@id/username_layout_view"
+        android:layout_below="@id/area_layout_view"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:visibility="gone"
+        android:layout_marginRight="@dimen/dimen_10"
+        layout="@layout/bitmap_repeat_layout"
+        />
+
         <LinearLayout
             android:id="@+id/school_layout_view"
             android:layout_width="match_parent"
@@ -223,17 +227,18 @@
                     android:scaleType="centerCrop"
                     />
         </LinearLayout>
-        <ImageView
-            android:id="@+id/userinfo_dash_line_4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/username_layout_view"
-            android:layout_alignRight="@id/username_layout_view"
-            android:layout_below="@id/school_layout_view"
-            android:layout_marginLeft="@dimen/dimen_10"
-            android:layout_marginRight="@dimen/dimen_10"
-            android:background="@drawable/repeat_common_line"
-            />
+
+    <include
+        android:id="@+id/userinfo_dash_line_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/username_layout_view"
+        android:layout_alignRight="@id/username_layout_view"
+        android:layout_below="@id/school_layout_view"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_10"
+        layout="@layout/bitmap_repeat_layout"
+        />
         <LinearLayout
             android:id="@+id/stage_layout_view"
             android:layout_width="match_parent"
@@ -273,7 +278,6 @@
                     android:scaleType="centerCrop"
                     />
         </LinearLayout>
-
 
         <TextView
             android:id="@+id/edit_next"

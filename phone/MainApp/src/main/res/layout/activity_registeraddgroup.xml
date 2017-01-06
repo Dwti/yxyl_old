@@ -105,7 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/linear"
-            android:layout_marginBottom="26px"
+            android:layout_marginBottom="@dimen/dimen_15"
             android:background="@drawable/repeat_common_line"/>
 
         <EditText
@@ -131,7 +131,7 @@
             android:layout_below="@id/name"
             android:layout_marginLeft="@dimen/dimen_15"
             android:layout_marginRight="@dimen/dimen_15"
-            android:layout_marginTop="19sp"
+            android:layout_marginTop="@dimen/dimen_23"
             android:layout_marginBottom="@dimen/dimen_13"
             android:background="@drawable/register_code_selector"
             android:gravity="center"
