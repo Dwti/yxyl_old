@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.commoninterface.OnTaskCompleteListener;
 import com.yanxiu.gphone.student.task.BitmapWorkerTask;
@@ -35,12 +38,14 @@ public class ImageCropActivity extends Activity implements View.OnClickListener,
     private Bitmap mBitmap;
     public static final int REQUEST_IMAGE_CROP = 0x04;
     private boolean isWritting = false;
+    private Activity mActivity;
     public static final String IMAGE_PATH = "imagePath";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_crop);
+        mActivity = this;
         mImageView = (ImageView) findViewById(R.id.image);
         image_over_view = (ImageCropOverView) findViewById(R.id.image_over_view);
         tv_crop = (TextView) findViewById(R.id.tv_crop);
@@ -74,6 +79,21 @@ public class ImageCropActivity extends Activity implements View.OnClickListener,
             });
 //            bitmapWorkerTask.execute(imagePath, String.valueOf(rl_crop.getWidth()), String.valueOf(rl_crop.getHeight()));
             bitmapWorkerTask.execute(imagePath, String.valueOf(Utils.getScreenWidth()), String.valueOf(Utils.getScreenHeight()));
+
+
+//            Glide.with(mActivity).load(imagePath).asBitmap().listener(new RequestListener<String, Bitmap>() {
+//                @Override
+//                public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+//                    Toast.makeText(mActivity,"读取照片失败", Toast.LENGTH_SHORT).show();
+//                    return false;
+//                }
+//
+//                @Override
+//                public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+//                    mBitmap = resource;
+//                    return false;
+//                }
+//            }).into(mImageView);
         }
     }
 
