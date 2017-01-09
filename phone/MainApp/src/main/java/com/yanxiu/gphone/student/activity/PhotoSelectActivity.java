@@ -123,6 +123,7 @@ public class PhotoSelectActivity extends Activity {
         listPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
+                //两种动画方式都行
 //                RotateAnimation rotateAnimation = new RotateAnimation(-180,0, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
 //                rotateAnimation.setFillAfter(true);
 //                rotateAnimation.setDuration(500);
