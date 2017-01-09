@@ -57,12 +57,12 @@ public class ImageCropActivity extends Activity implements View.OnClickListener,
         image_over_view.setTargetView(mImageView);
     }
 
-    private void initData(){
+    private void initData() {
         imagePath = getIntent().getStringExtra(IMAGE_PATH);
-        if(TextUtils.isEmpty(imagePath)){
+        if (TextUtils.isEmpty(imagePath)) {
             mBitmap = CaptureActivity.bitmap;
             mImageView.setImageBitmap(mBitmap);
-        }else {
+        } else {
 //            BitmapWorkerTask bitmapWorkerTask = new BitmapWorkerTask(new OnTaskCompleteListener<Bitmap>() {
 //                @Override
 //                public void onComplete(Bitmap bitmap) {
@@ -84,8 +84,10 @@ public class ImageCropActivity extends Activity implements View.OnClickListener,
             Glide.with(mActivity).load(imagePath).asBitmap().listener(new RequestListener<String, Bitmap>() {
                 @Override
                 public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
-                    Toast.makeText(mActivity,"读取照片失败", Toast.LENGTH_SHORT).show();
-                    return false;
+                    Toast.makeText(mActivity, "读取照片失败", Toast.LENGTH_SHORT).show();
+                    setResult(RESULT_CANCELED);
+                    finish();
+                    return true;
                 }
 
                 @Override
@@ -101,7 +103,7 @@ public class ImageCropActivity extends Activity implements View.OnClickListener,
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_crop:
-                if(isWritting || mBitmap ==null){
+                if (isWritting || mBitmap == null) {
                     return;
                 }
                 isWritting = true;
@@ -111,10 +113,10 @@ public class ImageCropActivity extends Activity implements View.OnClickListener,
 
                 Bitmap crop_bitmap = Bitmap.createBitmap(sourceBmp, rect.left, rect.top,
                         rect.width(), rect.height());
-                File outputFile =  MediaUtils.getOutputMediaFile(true);
+                File outputFile = MediaUtils.getOutputMediaFile(true);
                 isWritting = true;
                 WriteBitmapToFileWorkerTask workerTask = new WriteBitmapToFileWorkerTask(this);
-                workerTask.execute(outputFile,crop_bitmap);
+                workerTask.execute(outputFile, crop_bitmap);
                 break;
             case R.id.tv_cancel:
                 setResult(RESULT_CANCELED);
@@ -130,8 +132,8 @@ public class ImageCropActivity extends Activity implements View.OnClickListener,
     public void onComplete(File file) {
         if (file != null) {
             Intent intent = new Intent();
-            intent.putExtra(IMAGE_PATH,file.getAbsolutePath());
-            setResult(RESULT_OK,intent);
+            intent.putExtra(IMAGE_PATH, file.getAbsolutePath());
+            setResult(RESULT_OK, intent);
         } else {
             setResult(RESULT_CANCELED);
             Toast.makeText(this, "保存图片文件失败！", Toast.LENGTH_SHORT).show();
