@@ -182,7 +182,7 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
             if (questionsEntity.getAnswer() != null && questionsEntity.getAnswer().size() > 0) {
                 StringBuffer answerString = new StringBuffer();
                 for (String str : questionsEntity.getAnswer()) {
-                    answerString.append(str);
+                    answerString.append(str).append(" ");
                 }
                 if (questionsEntity.getTemplate().equals(YanXiuConstant.CONNECT_QUESTION)){
                     answerString=new StringBuffer();
