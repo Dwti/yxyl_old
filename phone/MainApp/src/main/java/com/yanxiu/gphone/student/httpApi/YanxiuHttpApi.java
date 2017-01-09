@@ -1,5 +1,6 @@
 package com.yanxiu.gphone.student.httpApi;
 
+import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -21,6 +22,7 @@ import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.bean.UploadFileBean;
 import com.yanxiu.gphone.student.bean.UploadImageBean;
+import com.yanxiu.gphone.student.bean.UrlBean;
 import com.yanxiu.gphone.student.parser.UploadFileParser;
 import com.yanxiu.gphone.student.parser.UploadImageParser;
 import com.yanxiu.gphone.student.utils.Configuration;
@@ -48,13 +50,20 @@ import java.util.Map;
  * Created by Administrator on 2015/5/19.
  */
 public class YanxiuHttpApi {
-    public static final String SUBJECT_ID="subjectId";
-    public static final String STAGE_ID="stageId";
+    public static final String SUBJECT_ID = "subjectId";
+    public static final String STAGE_ID = "stageId";
     //一级考点ID
-    public static final String CHAPTER_ID="chapterId";
+    public static final String CHAPTER_ID = "chapterId";
 
     public static final boolean isTest = true;   //是否是测试环境
     public static final boolean isDev = false;    //是否是测试环境中的开发环境
+    private static UrlBean mUrlBean = null;
+
+    public static void setBaseURL(UrlBean urlBean) {
+        if (mUrlBean == null) {
+            mUrlBean = urlBean;
+        }
+    }
 
     /**
      * 公共参数  KEY
@@ -67,11 +76,11 @@ public class YanxiuHttpApi {
         String PAGEINDEX_KEY = "pageindex";
         String PAGESIZE_KEY = "pagesize";
         String OS = "osType";
-        String OS_VERSION="osversion"; //操作系统版本号
-        String OS_NAME="os";  //操作系统名称
-        String BRAND="brand"; //手机品牌
-        String QUESTION_ID="quesId"; //题目Id
-        String TRACE_UID="trace_uid";
+        String OS_VERSION = "osversion"; //操作系统版本号
+        String OS_NAME = "os";  //操作系统名称
+        String BRAND = "brand"; //手机品牌
+        String QUESTION_ID = "quesId"; //题目Id
+        String TRACE_UID = "trace_uid";
     }
 
     /**
@@ -101,10 +110,13 @@ public class YanxiuHttpApi {
 //    }
 
     public static String getPublicUrl() {
+        if (mUrlBean != null) {
+            return mUrlBean.getInitializeUrl();
+        }
         if (isTest) {
-            if(isDev){
+            if (isDev) {
                 return TEST_URL.DYNAMIC_DEV_BASE_URL;
-            }else {
+            } else {
                 return TEST_URL.DYNAMIC_TEST_BASE_URL;
             }
         } else {
@@ -113,16 +125,24 @@ public class YanxiuHttpApi {
     }
 
     public static String getInitUrl() {
-        if (isTest) {
-            return TEST_URL.DYNAMIC_APP_UPLOAD;
+        if (mUrlBean != null) {
+            return mUrlBean.getUploadServer();
         } else {
-            return OFFICIAL_URL.DYNAMIC_APP_UPLOAD;
+            if (isTest) {
+                return TEST_URL.DYNAMIC_APP_UPLOAD;
+            } else {
+                return OFFICIAL_URL.DYNAMIC_APP_UPLOAD;
+            }
         }
 
     }
 
     private static String getStaticHead() {
-        return getPublicUrl();
+        if (mUrlBean != null) {
+            return mUrlBean.getInitializeUrl();
+        } else {
+            return getPublicUrl();
+        }
     }
 
     private static String getStaticEnd() {
@@ -139,8 +159,8 @@ public class YanxiuHttpApi {
     }
 
     /**
-     *
      * 生成请求地址公用方法
+     *
      * @param httpParameter
      * @param <T>
      * @param <D>
@@ -197,7 +217,7 @@ public class YanxiuHttpApi {
 
         Bundle params = new Bundle();
         params.putString("groupId", groupId + "");
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -221,13 +241,13 @@ public class YanxiuHttpApi {
      * @return
      */
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestAddClass(
-            int updataId,long classId, String validMsg, YanxiuMainParser<T, D> parser) {
+            int updataId, long classId, String validMsg, YanxiuMainParser<T, D> parser) {
         String baseUrl = getStaticHead() + "/class/joinClass.do";
 
         Bundle params = new Bundle();
         params.putString("classId", classId + "");
         params.putString("validMsg", validMsg);
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -239,28 +259,28 @@ public class YanxiuHttpApi {
     }
 
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestNewAddClass(
-            int updataId,long classId,int stageid,int areaid,int cityid,String mobile,
-            String realname,int schoolid,String schoolName,int provinceid,YanxiuMainParser<T, D> parser) {
+            int updataId, long classId, int stageid, int areaid, int cityid, String mobile,
+            String realname, int schoolid, String schoolName, int provinceid, YanxiuMainParser<T, D> parser) {
         String baseUrl = getStaticHead() + "/user/registerByJoinClass.do";
 
         Bundle params = new Bundle();
         params.putString("classId", classId + "");
-        params.putString("stageid",stageid+"");
-        if (areaid!=0) {
+        params.putString("stageid", stageid + "");
+        if (areaid != 0) {
             params.putString("areaid", areaid + "");
         }
-        if (cityid!=0) {
+        if (cityid != 0) {
             params.putString("cityid", cityid + "");
         }
-        params.putString("mobile",mobile+"");
-        params.putString("realname",realname);
-        params.putString("schoolid",schoolid+"");
-        params.putString("schoolName",schoolName);
-        if (provinceid!=0) {
+        params.putString("mobile", mobile + "");
+        params.putString("realname", realname);
+        params.putString("schoolid", schoolid + "");
+        params.putString("schoolName", schoolName);
+        if (provinceid != 0) {
             params.putString("provinceid", provinceid + "");
         }
-        String validKey= MD5.toMd5(mobile+"&"+"yxylmobile");
-        params.putString("validKey",validKey);
+        String validKey = MD5.toMd5(mobile + "&" + "yxylmobile");
+        params.putString("validKey", validKey);
         params.putString("deviceId", CommonCoreUtil.getAppDeviceId(YanxiuApplication.getInstance()));
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -270,32 +290,33 @@ public class YanxiuHttpApi {
         LogInfo.log("king", "加入班级接口 url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
         return request(httpParameter);
     }
+
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> thirdRequestNewAddClass(
             int updataId, int classId, int stageid, int areaid, int cityid,
-            String openid, String realname, int schoolid,String pltform, String schoolName,
-            String headimg,int sex, int provinceid,YanxiuMainParser<T, D> parser) {
+            String openid, String realname, int schoolid, String pltform, String schoolName,
+            String headimg, int sex, int provinceid, YanxiuMainParser<T, D> parser) {
         String baseUrl = getStaticHead() + "/user/thirdRegisterByJoinClass.do";
 
         Bundle params = new Bundle();
 
-        params.putString("stageid",stageid+"");
-        if (areaid!=0) {
+        params.putString("stageid", stageid + "");
+        if (areaid != 0) {
             params.putString("areaid", areaid + "");
         }
-        if (cityid!=0) {
+        if (cityid != 0) {
             params.putString("cityid", cityid + "");
         }
-        params.putString("openid",openid+"");
-        params.putString("realname",realname);
-        params.putString("schoolid",schoolid+"");
-        params.putString("pltform",pltform);
-        params.putString("sex",sex+"");
-        params.putString("schoolName",schoolName);
+        params.putString("openid", openid + "");
+        params.putString("realname", realname);
+        params.putString("schoolid", schoolid + "");
+        params.putString("pltform", pltform);
+        params.putString("sex", sex + "");
+        params.putString("schoolName", schoolName);
         params.putString("classId", classId + "");
-        if (provinceid!=0) {
+        if (provinceid != 0) {
             params.putString("provinceid", provinceid + "");
         }
-        params.putString("headimg",headimg);
+        params.putString("headimg", headimg);
         params.putString("deviceId", CommonCoreUtil.getAppDeviceId(YanxiuApplication.getInstance()));
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -317,12 +338,12 @@ public class YanxiuHttpApi {
      * @return
      */
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestExitClass(
-            int updataId,long classId, YanxiuMainParser<T, D> parser) {
+            int updataId, long classId, YanxiuMainParser<T, D> parser) {
         String baseUrl = getStaticHead() + "/class/exitClass.do";
 
         Bundle params = new Bundle();
         params.putString("classId", classId + "");
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -344,12 +365,12 @@ public class YanxiuHttpApi {
      * @return
      */
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestCancelClass(
-            int updataId,long classId, YanxiuMainParser<T, D> parser) {
+            int updataId, long classId, YanxiuMainParser<T, D> parser) {
         String baseUrl = getStaticHead() + "/class/cancelReply.do";
 
         Bundle params = new Bundle();
         params.putString("classId", classId + "");
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -362,6 +383,7 @@ public class YanxiuHttpApi {
 
     /**
      * "作业"小红点获取待完成作业数量接口
+     *
      * @param parser
      * @param <T>
      * @param <D>
@@ -372,7 +394,7 @@ public class YanxiuHttpApi {
         String baseUrl = getStaticHead() + "/class/getWaitfinishHwknum.do";
 
         Bundle params = new Bundle();
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -381,6 +403,7 @@ public class YanxiuHttpApi {
                 YanxiuHttpParameter.Type.GET, parser, 0);
         return request(httpParameter);
     }
+
     /**
      * 待完成作业列表
      *
@@ -399,7 +422,7 @@ public class YanxiuHttpApi {
         Bundle params = new Bundle();
         params.putString("page", page + "");
         params.putString("pageSize", pagesize + "");
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -430,7 +453,7 @@ public class YanxiuHttpApi {
         params.putString("groupId", groupId + "");
         params.putString("page", page + "");
         params.putString("pageSize", pagesize + "");
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -455,7 +478,7 @@ public class YanxiuHttpApi {
         String baseUrl = getStaticHead() + "/class/listGroups.do";
 
         Bundle params = new Bundle();
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -482,7 +505,7 @@ public class YanxiuHttpApi {
 
         Bundle params = new Bundle();
         params.putString("groupId", groupId + "");
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -509,7 +532,7 @@ public class YanxiuHttpApi {
 
         Bundle params = new Bundle();
         params.putString("stageId", stageId + "");
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -538,8 +561,8 @@ public class YanxiuHttpApi {
 
         Bundle params = new Bundle();
         params.putString("stageId", stageId);
-        params.putString("subjectId", subjectId );
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString("subjectId", subjectId);
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -596,7 +619,7 @@ public class YanxiuHttpApi {
      * @return
      */
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestRegisterInfo(
-            int updataId, String mobile, String password, String realName, String nickName,String provinceId,String cityId,
+            int updataId, String mobile, String password, String realName, String nickName, String provinceId, String cityId,
             String areaId, String schoolId, int stageId, String schoolName, YanxiuMainParser<T, D> parser) {
         String baseUrl = getStaticHead() + "/user/register.do";
 
@@ -623,9 +646,9 @@ public class YanxiuHttpApi {
 
     /**
      * 注册第三步新接口
-     * **/
+     **/
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestNewRegisterInfo(
-            int updataId, String mobile, String realName,String provinceId,String cityId,
+            int updataId, String mobile, String realName, String provinceId, String cityId,
             String areaId, String schoolId, int stageId, String schoolName, YanxiuMainParser<T, D> parser) {
         String baseUrl = getStaticHead() + "/user/registerV2.do";
 
@@ -638,8 +661,8 @@ public class YanxiuHttpApi {
         params.putString("schoolid", schoolId);
         params.putString("stageid", stageId + "");
         params.putString("schoolName", schoolName);
-        String validKey= MD5.toMd5(mobile+"&"+"yxylmobile");
-        params.putString("validKey",validKey);
+        String validKey = MD5.toMd5(mobile + "&" + "yxylmobile");
+        params.putString("validKey", validKey);
         params.putString("deviceId", CommonCoreUtil.getAppDeviceId(YanxiuApplication.getInstance()));
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -734,17 +757,15 @@ public class YanxiuHttpApi {
     }
 
     /**
-     *
      * 注册新接口
-     *
-     * **/
-    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestNewCode(int updataId, String mobile,String password,String code,int type, YanxiuMainParser<T, D> parser){
-        String baseUrl=getStaticHead()+"/user/firstStepCommitV2.do";
+     **/
+    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestNewCode(int updataId, String mobile, String password, String code, int type, YanxiuMainParser<T, D> parser) {
+        String baseUrl = getStaticHead() + "/user/firstStepCommitV2.do";
 
         Bundle params = new Bundle();
         params.putString("mobile", mobile);
         params.putString("code", code);
-        params.putString("password",password);
+        params.putString("password", password);
         params.putString("type", type + "");
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -769,7 +790,7 @@ public class YanxiuHttpApi {
         String baseUrl = getStaticHead() + "/personalData/getUser.do";
 
         Bundle params = new Bundle();
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -781,6 +802,7 @@ public class YanxiuHttpApi {
 
     /**
      * 修改用户信息通用接口
+     *
      * @param updataId
      * @param parser
      * @param paramsMap
@@ -802,7 +824,7 @@ public class YanxiuHttpApi {
                 params.putString(key, val);
             }
         }
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -814,6 +836,7 @@ public class YanxiuHttpApi {
 
     /**
      * 修改用户密码
+     *
      * @param updataId
      * @param parser
      * @param paramsMap
@@ -835,7 +858,7 @@ public class YanxiuHttpApi {
                 params.putString(key, val);
             }
         }
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -887,7 +910,7 @@ public class YanxiuHttpApi {
 
         Bundle params = new Bundle();
         params.putString("stageId", stageId);
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -926,7 +949,7 @@ public class YanxiuHttpApi {
         params.putString("volume", volume);
         params.putString("nextPage", nextPage + "");
         params.putString("pageSize", pageSize + "");
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -940,17 +963,17 @@ public class YanxiuHttpApi {
      * 获取考点的练习历史
      *
      * @param updataId
-     * @param stageId    学段Id
-     * @param subjectId  科目Id
-     * @param nextPage   请求页
-     * @param pageSize   一页大小
+     * @param stageId   学段Id
+     * @param subjectId 科目Id
+     * @param nextPage  请求页
+     * @param pageSize  一页大小
      * @param parser
      * @param <T>
      * @param <D>
      * @return
      */
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestPracticeHistoryByKnow(
-            int updataId, String stageId, String subjectId,int nextPage, int pageSize,
+            int updataId, String stageId, String subjectId, int nextPage, int pageSize,
             YanxiuMainParser<T, D> parser) {
         String baseUrl = getStaticHead() + "/personalData/getPracticeHistoryByKnow.do";
 
@@ -959,7 +982,7 @@ public class YanxiuHttpApi {
         params.putString("subjectId", subjectId);
         params.putString("nextPage", nextPage + "");
         params.putString("pageSize", pageSize + "");
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -986,7 +1009,7 @@ public class YanxiuHttpApi {
 
         Bundle params = new Bundle();
         params.putString("paperId", paperId);
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -1017,7 +1040,7 @@ public class YanxiuHttpApi {
         Bundle params = new Bundle();
         //params.putString("stageId", stageId);
         params.putString("stageId", "0");
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -1053,7 +1076,7 @@ public class YanxiuHttpApi {
         params.putString("subjectId", subjectId);
         params.putString("beditionId", beditionId);
         params.putString("volume", volume);
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -1080,7 +1103,7 @@ public class YanxiuHttpApi {
 
         Bundle params = new Bundle();
         params.putString("questionId", questionId);
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -1092,46 +1115,46 @@ public class YanxiuHttpApi {
 
 
     /**
-     *  获得智能练习题目
+     * 获得智能练习题目
+     *
      * @param updataId
      * @param parser
      * @param <T>
      * @param <D>
      * @return
-     *
      */
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestIntelliExe(
             int updataId, int stageId, String subjectId, String editionId, String chapterId, String sectionId, int questNum, String volumeId, String cellId,
             YanxiuMainParser<T, D> parser) {
 //        http://mobile.hwk.yanxiu.com/app/q/genSectionQBlock.do?token=1&stageId=1204&subjectId=1102&editionId=1406&chapterId=32080&sectionId=0&questNum=2&volumeId=32079
-        String baseUrl = getStaticHead()+"/q/genSectionQBlock.do";
+        String baseUrl = getStaticHead() + "/q/genSectionQBlock.do";
 //        baseUrl = "http://mobile.hwk.yanxiu.com/internal/testQuestion.do?type_id=5";
 
         Bundle params = new Bundle();
         params.putString("stageId", String.valueOf(stageId));
-        if(!TextUtils.isEmpty(subjectId)){
+        if (!TextUtils.isEmpty(subjectId)) {
             params.putString("subjectId", String.valueOf(subjectId));
         }
-        if(!TextUtils.isEmpty(editionId)){
+        if (!TextUtils.isEmpty(editionId)) {
             params.putString("editionId", String.valueOf(editionId));
         }
-        if(!TextUtils.isEmpty(chapterId)){
+        if (!TextUtils.isEmpty(chapterId)) {
             params.putString("chapterId", String.valueOf(chapterId));
         }
         params.putString("questNum", String.valueOf(questNum));
-        if(!TextUtils.isEmpty(sectionId)){
+        if (!TextUtils.isEmpty(sectionId)) {
             params.putString("sectionId", String.valueOf(sectionId));
         }
 
         ////////////////////////////////////////////////////////////////////
-        if(!TextUtils.isEmpty(volumeId)){
+        if (!TextUtils.isEmpty(volumeId)) {
             params.putString("volumeId", String.valueOf(volumeId));
         }
 
-        if(!TextUtils.isEmpty(cellId)){
+        if (!TextUtils.isEmpty(cellId)) {
             params.putString("cellId", String.valueOf(cellId));
         }
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -1145,50 +1168,50 @@ public class YanxiuHttpApi {
 
 
     /**
-     *  2.4 保存用户版本信息：
+     * 2.4 保存用户版本信息：
+     *
      * @param updataId
      * @param parser
      * @param <T>
      * @param <D>
      * @return
-     *
      */
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestSaveEditionInfo(
             int updataId, int stageId, String subjectId, String beditionId,
             YanxiuMainParser<T, D> parser) {
 //        http://mobile.hwk.yanxiu.com/app/common/saveEditionInfo.do?stageId=1203&subjectId=1102&beditionId=1406&token=ece8f582bfcf9c69d0caac6b05ad5c36
-        String baseUrl = getStaticHead()+"/common/saveEditionInfo.do";
+        String baseUrl = getStaticHead() + "/common/saveEditionInfo.do";
 
         Bundle params = new Bundle();
         params.putString("stageId", String.valueOf(stageId));
         params.putString("subjectId", String.valueOf(subjectId));
         params.putString("beditionId", String.valueOf(beditionId));
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
         params.putString(PUBLIC_PARAMETERS.OS, YanXiuConstant.OS_TYPE);
         YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
                 YanxiuHttpParameter.Type.GET, parser, updataId);
-        LogInfo.log("geny","requestSaveEditionInfo url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
+        LogInfo.log("geny", "requestSaveEditionInfo url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
         return request(httpParameter);
     }
 
 
     /**
-     *  2.2 获得章节信息：/app/common/getChapterList.do?stageId=1&volume=23&subjectId=234&editionId=2344
+     * 2.2 获得章节信息：/app/common/getChapterList.do?stageId=1&volume=23&subjectId=234&editionId=2344
+     *
      * @param updataId
      * @param parser
      * @param <T>
      * @param <D>
      * @return
-     *
      */
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestGetChapterList(
-            int updataId, int stageId, String subjectId, String editionId,String volume,
+            int updataId, int stageId, String subjectId, String editionId, String volume,
             YanxiuMainParser<T, D> parser) {
 //       http://mobile.hwk.yanxiu.com/app/common/getChapterList.do?stageId=1203&volume=31243&subjectId=1102&editionId=1406&token=ece8f582bfcf9c69d0caac6b05ad5c36
-        String baseUrl = getStaticHead()+"/common/getChapterList.do";
+        String baseUrl = getStaticHead() + "/common/getChapterList.do";
 
         Bundle params = new Bundle();
         params.putString("stageId", String.valueOf(stageId));
@@ -1196,31 +1219,31 @@ public class YanxiuHttpApi {
         params.putString("editionId", String.valueOf(editionId));
         params.putString("volume", String.valueOf(volume));
 //        params.putString("version", "1.2");
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
         params.putString(PUBLIC_PARAMETERS.OS, YanXiuConstant.OS_TYPE);
         YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
                 YanxiuHttpParameter.Type.GET, parser, updataId);
-        LogInfo.log("geny","requestGetChapterList url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
+        LogInfo.log("geny", "requestGetChapterList url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
         return request(httpParameter);
     }
 
 
     /**
-     *  2.5 获取知识点信息 (ver1.2)
+     * 2.5 获取知识点信息 (ver1.2)
+     *
      * @param updataId
      * @param parser
      * @param <T>
      * @param <D>
-     * @return
-     *knpId1=2345&knpId2=2345&knpId3=3456
+     * @return knpId1=2345&knpId2=2345&knpId3=3456
      */
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestGetKnpList(
             int updataId, int stageId, String subjectId, YanxiuMainParser<T, D> parser) {
 //       http://mobile.hwk.yanxiu.com/app/common/getChapterList.do?stageId=1203&volume=31243&subjectId=1102&editionId=1406&token=ece8f582bfcf9c69d0caac6b05ad5c36
-        String baseUrl = getStaticHead()+"/common/getKnpList.do";
+        String baseUrl = getStaticHead() + "/common/getKnpList.do";
 
         Bundle params = new Bundle();
         params.putString("stageId", String.valueOf(stageId));
@@ -1240,52 +1263,52 @@ public class YanxiuHttpApi {
 //        if(!TextUtils.isEmpty(ana)){
 //            params.putString("ana", String.valueOf(ana));
 //        }
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
         params.putString(PUBLIC_PARAMETERS.OS, YanXiuConstant.OS_TYPE);
         YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
                 YanxiuHttpParameter.Type.GET, parser, updataId);
-        LogInfo.log("geny","requestGetKnpLis url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
+        LogInfo.log("geny", "requestGetKnpLis url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
         return request(httpParameter);
     }
 
 
     /**
-     *  2.5 获取知识点信息 (ver1.2)
+     * 2.5 获取知识点信息 (ver1.2)
+     *
      * @param updataId
      * @param parser
      * @param <T>
      * @param <D>
-     * @return
-     *knpId1=2345&knpId2=2345&knpId3=3456
+     * @return knpId1=2345&knpId2=2345&knpId3=3456
      */
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestGetKnpointQBlock(
             int updataId, int stageId, String subjectId, String knpId1, String knpId2, String knpId3,
             String fromType, YanxiuMainParser<T, D> parser) {
 //       http://mobile.hwk.yanxiu.com/app/common/getChapterList.do?stageId=1203&volume=31243&subjectId=1102&editionId=1406&token=ece8f582bfcf9c69d0caac6b05ad5c36
-        String baseUrl = getStaticHead()+"/q/genKnpointQBlock.do";
+        String baseUrl = getStaticHead() + "/q/genKnpointQBlock.do";
 
         Bundle params = new Bundle();
         params.putString("stageId", String.valueOf(stageId));
         params.putString("subjectId", String.valueOf(subjectId));
-        if(!TextUtils.isEmpty(knpId1)){
+        if (!TextUtils.isEmpty(knpId1)) {
             params.putString("knpId1", String.valueOf(knpId1));
         }
-        if(!TextUtils.isEmpty(knpId2)){
+        if (!TextUtils.isEmpty(knpId2)) {
             params.putString("knpId2", String.valueOf(knpId2));
         }
-        if(!TextUtils.isEmpty(knpId3)){
+        if (!TextUtils.isEmpty(knpId3)) {
             params.putString("knpId3", String.valueOf(knpId3));
         }
-        if(!TextUtils.isEmpty(fromType)){
+        if (!TextUtils.isEmpty(fromType)) {
             params.putString("fromType", String.valueOf(fromType));
         }
 //        if(!TextUtils.isEmpty(ana)){
 //            params.putString("ana", String.valueOf(ana));
 //        }
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -1293,28 +1316,28 @@ public class YanxiuHttpApi {
         YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
                 YanxiuHttpParameter.Type.GET, parser, updataId);
         httpParameter.setIsEncode(true);
-        LogInfo.log("geny","requestGetKnpLis url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
+        LogInfo.log("geny", "requestGetKnpLis url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
         return request(httpParameter);
     }
 
     /**
      * 3. 获得章错题
-     请求接口（post || get）:
-     /app/q/getChapterWrongQ.do
-     参数：
-     stageId 学段id
-     subjectId 学科id
-     editionId 教材版本
-     volumeId 册
-     chapterId 章id
-     pageSize 页面大小
-     currentPage 请求页面索引
+     * 请求接口（post || get）:
+     * /app/q/getChapterWrongQ.do
+     * 参数：
+     * stageId 学段id
+     * subjectId 学科id
+     * editionId 教材版本
+     * volumeId 册
+     * chapterId 章id
+     * pageSize 页面大小
+     * currentPage 请求页面索引
      */
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestWrongQuestion(
-            int updataId, String stageId, String subjectId, String editionId,String volumeId, String chapterId,
+            int updataId, String stageId, String subjectId, String editionId, String volumeId, String chapterId,
             String sectionId, int pageSize, int currentPage, String currentId, String cellId, int ptype,
             YanxiuMainParser<T, D> parser) {
-        String baseUrl = getStaticHead()+"/q/getWrongQs.do";
+        String baseUrl = getStaticHead() + "/q/getWrongQs.do";
 
         Bundle params = new Bundle();
         params.putString("stageId", stageId);
@@ -1328,14 +1351,14 @@ public class YanxiuHttpApi {
         params.putString("pageSize", String.valueOf(pageSize));
         params.putString("currentPage", String.valueOf(currentPage));//从 1 开始请求
 
-        if(!TextUtils.isEmpty(currentId) && !"0".equals(currentId)){
+        if (!TextUtils.isEmpty(currentId) && !"0".equals(currentId)) {
             params.putString("currentId", currentId);
         }
-        if(!TextUtils.isEmpty(cellId) && !"0".equals(cellId)){
+        if (!TextUtils.isEmpty(cellId) && !"0".equals(cellId)) {
             params.putString("cellId", cellId);
         }
-        params.putString("ptype", ptype+"");
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString("ptype", ptype + "");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -1349,19 +1372,19 @@ public class YanxiuHttpApi {
 
     /**
      * 获得学科错题
-     请求接口（post || get）:
-     /app/q/getChapterWrongQ.do
-     参数：
-     stageId 学段id
-     subjectId 学科id
-     pageSize 页面大小
-     currentPage 请求页面索引
-     ptype  请求类型，2按时间排序倒序（默认）
+     * 请求接口（post || get）:
+     * /app/q/getChapterWrongQ.do
+     * 参数：
+     * stageId 学段id
+     * subjectId 学科id
+     * pageSize 页面大小
+     * currentPage 请求页面索引
+     * ptype  请求类型，2按时间排序倒序（默认）
      */
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestWrongAllQuestion(
             int updataId, String stageId, String subjectId, int pageSize, int currentPage, String currentId, int ptype,
             YanxiuMainParser<T, D> parser) {
-        String baseUrl = getStaticHead()+"/q/getWrongQsV2.do";
+        String baseUrl = getStaticHead() + "/q/getWrongQsV2.do";
 
         Bundle params = new Bundle();
         params.putString("stageId", stageId);
@@ -1370,12 +1393,12 @@ public class YanxiuHttpApi {
         params.putString("pageSize", String.valueOf(pageSize));
         params.putString("currentPage", String.valueOf(currentPage));//从 1 开始请求
 
-        if(!TextUtils.isEmpty(currentId) && !"0".equals(currentId)){
+        if (!TextUtils.isEmpty(currentId) && !"0".equals(currentId)) {
             params.putString("currentId", currentId);
         }
 
-        params.putString("ptype", ptype+"");
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString("ptype", ptype + "");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -1388,17 +1411,17 @@ public class YanxiuHttpApi {
     }
 
 
-//    //    1 提交答题：
+    //    //    1 提交答题：
 //    //    提交作业： /app/q/submitQ.do?answers=&token=kk&ppId=344
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestsubmitQ(
-            int updataId, SubjectExercisesItemBean bean,int ppstatus, YanxiuMainParser<T, D> parser) {
-    //       http://mobile.hwk.yanxiu.com/app/common/getChapterList.do?stageId=1203&volume=31243&subjectId=1102&editionId=1406&token=ece8f582bfcf9c69d0caac6b05ad5c36
-        String baseUrl = getStaticHead()+"/q/submitQ.do";
+            int updataId, SubjectExercisesItemBean bean, int ppstatus, YanxiuMainParser<T, D> parser) {
+        //       http://mobile.hwk.yanxiu.com/app/common/getChapterList.do?stageId=1203&volume=31243&subjectId=1102&editionId=1406&token=ece8f582bfcf9c69d0caac6b05ad5c36
+        String baseUrl = getStaticHead() + "/q/submitQ.do";
         String id = "-1";
         String childId = "-1";
         String paperTestId = "-1";
         Bundle params = new Bundle();
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -1412,7 +1435,7 @@ public class YanxiuHttpApi {
             int count = bean.getData().get(0).getPaperTest().size();
             JSONArray array = new JSONArray();
 
-            for(int i = 0; i < count; i++){
+            for (int i = 0; i < count; i++) {
 //                LogInfo.log("geny", i + "---answer " + bean.getData().get(0).getPaperTest().get(i).getQuestions().getAnswerBean().getAnswerStr());
                 JSONObject questionBean = new JSONObject();
                 //if(bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren() != null && bean.getData().get(0).getPaperTest().get(i).getQuestions().getType_id() == QUESTION_READING.type){
@@ -1420,14 +1443,14 @@ public class YanxiuHttpApi {
                         || bean.getData().get(0).getPaperTest().get(i).getQuestions().getTemplate().equals(YanXiuConstant.CLOZE_QUESTION)
                         || bean.getData().get(0).getPaperTest().get(i).getQuestions().getTemplate().equals(YanXiuConstant.LISTEN_QUESTION)) {
                     List<PaperTestEntity> questionList = bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren();
-                    if(questionList==null || questionList.isEmpty())
+                    if (questionList == null || questionList.isEmpty())
                         continue;
                     int childrenCount = questionList.size();
                     boolean isFalse = false;
                     boolean isFinish = false;
                     JSONArray childrenQuestionBean = new JSONArray();
                     JSONArray childrenBean = new JSONArray();
-                    for(int j = 0; j < childrenCount; j++){
+                    for (int j = 0; j < childrenCount; j++) {
                         JSONObject answerJson = new JSONObject();
                         answerJson.put("answer", Util.sortQuestionData(questionList.get(j).getQuestions()));
                         answerJson.put("qid", bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getQuestions().getId());
@@ -1436,7 +1459,7 @@ public class YanxiuHttpApi {
                         isFinish = isFinish || questionList.get(j).getQuestions().getAnswerBean().isFinish();
                         isFalse = isFalse || !questionList.get(j).getQuestions().getAnswerBean().isRight();
                         JSONObject childJson = new JSONObject();
-                        if(bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getQuestions().getPad() != null) {
+                        if (bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getQuestions().getPad() != null) {
                             childId = String.valueOf(bean.getData().get(0).getPaperTest().get(i).getQuestions().getChildren().get(j).getQuestions().getPad().getId());
                         }
                         childJson.put("id", childId);
@@ -1450,23 +1473,23 @@ public class YanxiuHttpApi {
                         childrenBean.put(childJson);
                         questionBean.put("children", childrenBean);
                     }
-                    if(isFinish){
+                    if (isFinish) {
                         bean.getData().get(0).getPaperTest().get(i).getQuestions().getAnswerBean().setIsFinish(isFinish);
                     }
-                    if(isFalse){
+                    if (isFalse) {
                         bean.getData().get(0).getPaperTest().get(i).getQuestions().getAnswerBean().setIsRight(!isFalse);
                     }
-                }else{
+                } else {
                     questionBean.put("answer", Util.sortQuestionData(bean.getData().get(0).getPaperTest().get(i).getQuestions()));
                 }
                 questionBean.put("costtime", bean.getData().get(0).getPaperTest().get(i).getQuestions().getAnswerBean().getConsumeTime());
                 LogInfo.log("geny", i + "=====costtime =   " + bean.getData().get(0).getPaperTest().get(i).getQuestions().getAnswerBean().getConsumeTime());
                 questionBean.put("ptid", bean.getData().get(0).getPaperTest().get(i).getId());
                 questionBean.put("qid", bean.getData().get(0).getPaperTest().get(i).getQuestions().getId());
-                if(bean.getData().get(0).getPaperTest().get(i).getQuestions().getPad() != null  && bean.getData().get(0).getPaperTest().get(i).getQuestions().getPad().getId() != -1){
+                if (bean.getData().get(0).getPaperTest().get(i).getQuestions().getPad() != null && bean.getData().get(0).getPaperTest().get(i).getQuestions().getPad().getId() != -1) {
                     id = String.valueOf(bean.getData().get(0).getPaperTest().get(i).getQuestions().getPad().getId());
                     questionBean.put("id", id);
-                }else{
+                } else {
                     questionBean.put("id", id);
                 }
                 questionBean.put("status", bean.getData().get(0).getPaperTest().get(i).getQuestions().getAnswerBean().getStatus());
@@ -1484,10 +1507,10 @@ public class YanxiuHttpApi {
 //            paperStatusNode.put("costtime", bean.getEndtime() - bean.getBegintime());
             paperStatusNode.put("costtime", bean.getData().get(0).getPaperStatus().getCosttime());
             paperStatusNode.put("ppid", bean.getData().get(0).getId());
-            if(bean.getData().get(0).getPaperStatus() != null && bean.getData().get(0).getPaperStatus().getId() != 0){
+            if (bean.getData().get(0).getPaperStatus() != null && bean.getData().get(0).getPaperStatus().getId() != 0) {
                 paperTestId = String.valueOf(bean.getData().get(0).getPaperStatus().getId());
                 paperStatusNode.put("id", paperTestId);
-            }else{
+            } else {
                 paperStatusNode.put("id", paperTestId);
             }
             ////////这两个属性写死
@@ -1501,37 +1524,37 @@ public class YanxiuHttpApi {
             LogInfo.log("geny", "requestsubmitQ json = " + node.toString());
             params.putString("answers", node.toString());
 //            params.putString("answers", URLEncoder.encode(node.toString(), "UTF-8"));
-        }catch (JSONException e){
-            if(e != null)
+        } catch (JSONException e) {
+            if (e != null)
                 LogInfo.log("geny", "requestsubmitQ JSONException =   " + e.getMessage());
-        }catch (Exception e) {
-            if(e != null)
+        } catch (Exception e) {
+            if (e != null)
                 LogInfo.log("geny", "requestsubmitQ Exception =   " + e.getMessage());
         }
 
         YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
                 YanxiuHttpParameter.Type.POST, parser, updataId);
-        LogInfo.log("geny","requestsubmitQ url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
+        LogInfo.log("geny", "requestsubmitQ url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
         return request(httpParameter);
     }
 
     /**
-     *   获取试题列表
+     * 获取试题列表
+     *
      * @param updataId
      * @param parser
      * @param <T>
      * @param <D>
      * @param paperId
      * @return
-     *
      */
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestGetQuestionList(
             int updataId, String paperId, YanxiuMainParser<T, D> parser) {
-        String baseUrl = getStaticHead()+"/personalData/getQuestionList.do";
+        String baseUrl = getStaticHead() + "/personalData/getQuestionList.do";
 
         Bundle params = new Bundle();
         params.putString("paperId", paperId);
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -1540,24 +1563,23 @@ public class YanxiuHttpApi {
         YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
                 YanxiuHttpParameter.Type.GET, parser, updataId);
         httpParameter.setIsEncode(true);
-        LogInfo.log("king","获取试题列表 url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
+        LogInfo.log("king", "获取试题列表 url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
         return request(httpParameter);
     }
 
 
     /**
-     *   /app/q/getQReport.do?ppid=1233&flag=0
-     *
+     * /app/q/getQReport.do?ppid=1233&flag=0
      */
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestGetQReport(
             int updataId, String ppid, YanxiuMainParser<T, D> parser) {
-        String baseUrl = getStaticHead()+"/q/getQReport.do";
+        String baseUrl = getStaticHead() + "/q/getQReport.do";
 
         Bundle params = new Bundle();
         params.putString("ppid", ppid);
         LogInfo.log("geny", "getQReport ppid = " + ppid);
         params.putString("flag", "1");
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -1572,24 +1594,24 @@ public class YanxiuHttpApi {
 
     /**
      * 开机接口
-     * */
-    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestInitialize( int updataId,String content,YanxiuMainParser<T, D> parser){
+     */
+    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestInitialize(int updataId, String content, YanxiuMainParser<T, D> parser) {
 
         String baseUrl = getInitUrl() + "/initialize";
 
         Bundle params = new Bundle();
 
         //params.putString("did",YanXiuConstant.DEVICEID);
-        params.putString("did",CommonCoreUtil.getAppDeviceId(YanxiuApplication.getInstance()));
-        params.putString("brand",YanXiuConstant.BRAND);
+        params.putString("did", CommonCoreUtil.getAppDeviceId(YanxiuApplication.getInstance()));
+        params.putString("brand", YanXiuConstant.BRAND);
         params.putString("nettype", NetWorkTypeUtils.getNetWorkType());
         params.putString("osType", YanXiuConstant.OS_TYPE);
         params.putString("os", YanXiuConstant.OS);
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString("token", LoginModel.getToken());
         params.putString("appVersion", YanXiuConstant.VERSION);
         params.putString("content", content);
-        params.putString("mode", Configuration.isForTest()?"test":"release");
+        params.putString("mode", Configuration.isForTest() ? "test" : "release");
         params.putString("operType", YanXiuConstant.OPERTYPE);
         params.putString("phone", LoginModel.getUserinfoEntity().getMobile() == null ? "-" : LoginModel.getUserinfoEntity().getMobile());
         params.putString("remoteIp", "");
@@ -1615,16 +1637,18 @@ public class YanxiuHttpApi {
 
     /**
      * 头像上传
+     *
      * @param files
      * @param listener
      * @return
      */
-    public static AsyncTask requestUploadFile(final Map<String, File> files, final UploadFileListener listener){
-        AsyncTask task = new AsyncTask<Object,Void,String>(){
+    public static AsyncTask requestUploadFile(final Map<String, File> files, final UploadFileListener listener) {
+        AsyncTask task = new AsyncTask<Object, Void, String>() {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
             }
+
             @Override
             protected String doInBackground(Object... params) {
                 // /app/common/uploadHeadImg.do?token=3kdkkslkdn0ldjk
@@ -1636,13 +1660,14 @@ public class YanxiuHttpApi {
                 String result = reuqestUploadFile(sb.toString(), files, listener);
                 return result;
             }
+
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                if(TextUtils.isEmpty(s)){
+                if (TextUtils.isEmpty(s)) {
                     listener.onFail(null);
                 } else {
-                    LogInfo.log("haitian", "requestUploadFile s ="+s);
+                    LogInfo.log("haitian", "requestUploadFile s =" + s);
                     UploadFileBean bean = null;
                     try {
                         JSONObject obj = new JSONObject(s);
@@ -1666,12 +1691,12 @@ public class YanxiuHttpApi {
 
     /**
      * 上传bitmap
+     *
      * @param actionUrl
      * @param files
      * @return
-     *
      */
-    public static String reuqestUploadBitmap(String actionUrl, Map<String, File> files, final UploadFileListener listener){
+    public static String reuqestUploadBitmap(String actionUrl, Map<String, File> files, final UploadFileListener listener) {
         String BOUNDARY = java.util.UUID.randomUUID().toString();
         String PREFIX = "--", LINEND = "\r\n";
         String MULTIPART_FROM_DATA = "multipart/form-data";
@@ -1706,7 +1731,7 @@ public class YanxiuHttpApi {
                             "name=\"" + file.getKey() + "\"; " +
                             "filename=\""
                             + file.getValue().getName() + "\"" + LINEND);
-                    sb1.append("Content-Type: application/octet-stream"+LINEND);
+                    sb1.append("Content-Type: application/octet-stream" + LINEND);
                     sb1.append(LINEND);
                     LogInfo.log("geny", sb1.toString());
                     outStream.write(sb1.toString().getBytes());
@@ -1724,9 +1749,9 @@ public class YanxiuHttpApi {
                     while ((len = bis.read(buffer)) != -1) {
                         outStream.write(buffer, 0, len);
                         uploadSize += len;
-                        progress = (int)((uploadSize*100)/size);
-                        if(tempProgress != progress){
-                            if(listener != null ){
+                        progress = (int) ((uploadSize * 100) / size);
+                        if (tempProgress != progress) {
+                            if (listener != null) {
                                 listener.onProgress(progress);
                             }
                             tempProgress = progress;
@@ -1758,28 +1783,28 @@ public class YanxiuHttpApi {
                 in.close();
                 conn.disconnect();
             }
-        } catch (InterruptedIOException e){
-            if(e != null){
+        } catch (InterruptedIOException e) {
+            if (e != null) {
                 LogInfo.log("geny", "InterruptedIOException msg =" + e.getMessage());
             }
         } catch (Exception e) {
-            if(e != null){
+            if (e != null) {
                 LogInfo.log("geny", "Exception msg =" + e.getMessage());
             }
         }
 //        LogInfo.log("geny", "请求结束标志 -- sb" + sb2.toString());
         return in == null ? null : sb2.toString();
     }
+
     /**
      * 上传文件接口
+     *
      * @param actionUrl
      * @param files
-     * @return
-     *
-     * 注意params 为空  次接口只有文件的是post其他为get
+     * @return 注意params 为空  次接口只有文件的是post其他为get
      */
     public static String reuqestUploadFile(String actionUrl, Map<String, File> files, final UploadFileListener
-            listener){
+            listener) {
         String BOUNDARY = java.util.UUID.randomUUID().toString();
         String PREFIX = "--", LINEND = "\r\n";
         String MULTIPART_FROM_DATA = "multipart/form-data";
@@ -1830,9 +1855,9 @@ public class YanxiuHttpApi {
                     while ((len = is.read(buffer)) != -1) {
                         outStream.write(buffer, 0, len);
                         uploadSize += len;
-                        progress = (int)((uploadSize*100)/size);
-                        if(tempProgress != progress){
-                            if(listener != null ){
+                        progress = (int) ((uploadSize * 100) / size);
+                        if (tempProgress != progress) {
+                            if (listener != null) {
                                 listener.onProgress(progress);
                             }
                             tempProgress = progress;
@@ -1864,18 +1889,19 @@ public class YanxiuHttpApi {
                 in.close();
                 conn.disconnect();
             }
-        } catch (InterruptedIOException e){
-            if(e != null){
+        } catch (InterruptedIOException e) {
+            if (e != null) {
                 LogInfo.log("geny", "InterruptedIOException msg =" + e.getMessage());
             }
         } catch (Exception e) {
-            if(e != null){
+            if (e != null) {
                 LogInfo.log("geny", "Exception msg =" + e.getMessage());
             }
         }
 //        LogInfo.log("geny", "请求结束标志 -- sb" + sb2.toString());
         return in == null ? null : sb2.toString();
     }
+
     /**
      * 获取科目版本收藏数
      *
@@ -1893,7 +1919,7 @@ public class YanxiuHttpApi {
 
         Bundle params = new Bundle();
         params.putString("stageId", stageId);
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -1904,14 +1930,14 @@ public class YanxiuHttpApi {
     }
 
     /**
-     *  获取章节收藏数
+     * 获取章节收藏数
      *
      * @param updataId
      * @param stageId    学段Id
      * @param subjectId  科目Id
      * @param beditionId 教材版本Id
      * @param volume     年级Id
-     * @param ptype     ptype=0代表章节  ptype=1代表知识点
+     * @param ptype      ptype=0代表章节  ptype=1代表知识点
      * @param parser
      * @param <T>
      * @param <D>
@@ -1928,8 +1954,8 @@ public class YanxiuHttpApi {
         params.putString("subjectId", subjectId);
         params.putString("beditionId", beditionId);
         params.putString("volumeId", volume);
-        params.putString("ptype", ptype+"");
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString("ptype", ptype + "");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -1941,6 +1967,7 @@ public class YanxiuHttpApi {
 
     /**
      * 获取收藏题目
+     *
      * @param updataId
      * @param stageId
      * @param subjectId
@@ -1952,17 +1979,17 @@ public class YanxiuHttpApi {
      * @param currentPage
      * @param currentId
      * @param parser
-     * @param cellId 小节ID
+     * @param cellId      小节ID
      * @param ptype
      * @param <T>
      * @param <D>
      * @return
      */
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestFavouriteQuestion(
-            int updataId, String stageId, String subjectId, String editionId,String volumeId, String chapterId,
+            int updataId, String stageId, String subjectId, String editionId, String volumeId, String chapterId,
             String sectionId, int pageSize, int currentPage, String currentId, String cellId, int ptype,
             YanxiuMainParser<T, D> parser) {
-        String baseUrl = getStaticHead()+"/personalData/getFavoriteQ.do";
+        String baseUrl = getStaticHead() + "/personalData/getFavoriteQ.do";
 
         Bundle params = new Bundle();
         params.putString("stageId", stageId);
@@ -1976,14 +2003,14 @@ public class YanxiuHttpApi {
         params.putString("pageSize", String.valueOf(pageSize));
         params.putString("currentPage", String.valueOf(currentPage));//从 1 开始请求
 
-        if(!TextUtils.isEmpty(currentId) && !"0".equals(currentId)){
+        if (!TextUtils.isEmpty(currentId) && !"0".equals(currentId)) {
             params.putString("currentId", currentId);
         }
-        if(!TextUtils.isEmpty(cellId) && !"0".equals(cellId)){
+        if (!TextUtils.isEmpty(cellId) && !"0".equals(cellId)) {
             params.putString("cellId", cellId);
         }
-        params.putString("ptype", ptype+"");
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString("ptype", ptype + "");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -1994,8 +2021,10 @@ public class YanxiuHttpApi {
         LogInfo.log("geny", "requestFavouriteQuestion url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
         return request(httpParameter);
     }
+
     /**
-     *  增加收藏
+     * 增加收藏
+     *
      * @param updataId
      * @param stageId
      * @param subjectId
@@ -2010,7 +2039,7 @@ public class YanxiuHttpApi {
      * @return
      */
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestSubmitFavourite(
-            int updataId, String stageId, String subjectId, String beditionId, String volumeId, String chapterId, String sectionId, String questionId, String cellId,  int ptype,
+            int updataId, String stageId, String subjectId, String beditionId, String volumeId, String chapterId, String sectionId, String questionId, String cellId, int ptype,
             YanxiuMainParser<T, D> parser) {
         String baseUrl = getStaticHead() + "/personalData/addFavoriteQ.do";
 
@@ -2025,7 +2054,7 @@ public class YanxiuHttpApi {
         params.putString("cellId", cellId);
         params.putString("ptype", String.valueOf(ptype));
 
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -2035,6 +2064,7 @@ public class YanxiuHttpApi {
         LogInfo.log("geny", "requestFavouriteQuestion url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
         return request(httpParameter);
     }
+
     /**
      * 删除收藏
      *
@@ -2052,7 +2082,7 @@ public class YanxiuHttpApi {
 
         Bundle params = new Bundle();
         params.putString("questionId", questionId);
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -2065,6 +2095,7 @@ public class YanxiuHttpApi {
 
     /**
      * 批量删除收藏
+     *
      * @param updataId
      * @param quesArrayStr
      * @param parser
@@ -2079,7 +2110,7 @@ public class YanxiuHttpApi {
 
         Bundle params = new Bundle();
         params.putString("data", quesArrayStr);//data=[1,2,3,4]
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
@@ -2089,18 +2120,19 @@ public class YanxiuHttpApi {
         LogInfo.log("geny", "requestFavouriteQuestion url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
         return request(httpParameter);
     }
+
     /**
-     *
      * @param files
      * @param listener
      * @return
      */
-    public static AsyncTask requestUploadImage(final Map<String, File> files, final UploadFileListener listener){
-        AsyncTask task = new AsyncTask<Object,Void,String>(){
+    public static AsyncTask requestUploadImage(final Map<String, File> files, final UploadFileListener listener) {
+        AsyncTask task = new AsyncTask<Object, Void, String>() {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
             }
+
             @Override
             protected String doInBackground(Object... params) {
                 // /app/common/uploadHeadImg.do?token=3kdkkslkdn0ldjk
@@ -2112,13 +2144,14 @@ public class YanxiuHttpApi {
                 String result = reuqestUploadBitmap(sb.toString(), files, listener);
                 return result;
             }
+
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                if(TextUtils.isEmpty(s)){
+                if (TextUtils.isEmpty(s)) {
                     listener.onFail(null);
                 } else {
-                    LogInfo.log("geny", "requestUploadFile s ="+s);
+                    LogInfo.log("geny", "requestUploadFile s =" + s);
                     UploadImageBean bean = null;
                     try {
                         JSONObject obj = new JSONObject(s);
@@ -2139,37 +2172,38 @@ public class YanxiuHttpApi {
         return task;
     }
 
-    public interface UploadFileListener<T extends YanxiuBaseBean>{
+    public interface UploadFileListener<T extends YanxiuBaseBean> {
         void onFail(T bean);
+
         void onSuccess(T bean);
+
         void onProgress(int progress);
     }
 
     /**
      * 请求排行榜
      */
-    public static   <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestRankingList(int updataId, YanxiuMainParser<T, D> parser){
-        String baseUrl=getStaticHead()+"/q/weekRank.do";
+    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestRankingList(int updataId, YanxiuMainParser<T, D> parser) {
+        String baseUrl = getStaticHead() + "/q/weekRank.do";
         Bundle params = new Bundle();
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
         params.putString(PUBLIC_PARAMETERS.OS, YanXiuConstant.OS_TYPE);
         YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
                 YanxiuHttpParameter.Type.GET, parser, updataId);
-        LogInfo.log("lee",generatePath(httpParameter));
+        LogInfo.log("lee", generatePath(httpParameter));
         return request(httpParameter);
     }
 
- 
 
     //*****************************************************第三方登录接口start***************************************************//
 
     /**
      * 根据微信code换取token
-     * */
+     */
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestWXToken(
-            String  code, String appid, String secret,String grandType,YanxiuMainParser<T, D> parser) {
+            String code, String appid, String secret, String grandType, YanxiuMainParser<T, D> parser) {
         String baseUrl = "https://api.weixin.qq.com/sns/oauth2/access_token";
 
         Bundle params = new Bundle();
@@ -2180,15 +2214,15 @@ public class YanxiuHttpApi {
 
         YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
                 YanxiuHttpParameter.Type.GET, parser, 0);
-        LogInfo.log("king","wechat token = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
+        LogInfo.log("king", "wechat token = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
         return request(httpParameter);
     }
 
     /**
      * 获取微信用户信息
-     * */
+     */
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestWXUserInfo(String access_token,
-            String openid, YanxiuMainParser<T, D> parser) {
+                                                                                    String openid, YanxiuMainParser<T, D> parser) {
         String baseUrl = "https://api.weixin.qq.com/sns/userinfo";
         Bundle params = new Bundle();
         params.putString("access_token", access_token);
@@ -2197,7 +2231,7 @@ public class YanxiuHttpApi {
 
         YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
                 YanxiuHttpParameter.Type.GET, parser, 0);
-        LogInfo.log("king","wechat userinfo = " + httpParameter.getBaseUrl()+httpParameter.encodeUrl());
+        LogInfo.log("king", "wechat userinfo = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
         return request(httpParameter);
     }
 
@@ -2205,10 +2239,10 @@ public class YanxiuHttpApi {
      * 第三方登录接口（目前仅支持 qq/weixin）
      * openid 用户第三方平台唯一标示
      * platform 平台id(qq标示qq平台， weixin标示微信平台)
-     * */
+     */
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestThirdLoginUserInfo(String openid,
-            String uniqid, String platfor, YanxiuMainParser<T, D> parser) {
-        String baseUrl = getStaticHead()+"/user/oauthLogin.do";
+                                                                                            String uniqid, String platfor, YanxiuMainParser<T, D> parser) {
+        String baseUrl = getStaticHead() + "/user/oauthLogin.do";
         Bundle params = new Bundle();
         params.putString("openid", openid);
         params.putString("uniqid", uniqid);
@@ -2217,7 +2251,7 @@ public class YanxiuHttpApi {
 
         YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
                 YanxiuHttpParameter.Type.GET, parser, 0);
-        LogInfo.log("king","第三方登录接口 url = " + httpParameter.getBaseUrl()+httpParameter.encodeUrl());
+        LogInfo.log("king", "第三方登录接口 url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
         return request(httpParameter);
     }
 
@@ -2225,11 +2259,11 @@ public class YanxiuHttpApi {
      * 第三方登录注册接口（仅适用第三方登录注册）
      * openid 用户第三方平台唯一标示
      * platform 平台id(qq标示qq平台， weixin标示微信平台)
-     * */
+     */
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestThirdRegister(String nickName,
-            String sex,String headimg,String openid,String uniqid, String pltform,String deviceId,String realname,
-            String provinceid,String schoolname,String schoolid,String cityid,String areaid,String stageid, YanxiuMainParser<T, D> parser) {
-        String baseUrl = getStaticHead()+"/user/thirdRegister.do";
+                                                                                       String sex, String headimg, String openid, String uniqid, String pltform, String deviceId, String realname,
+                                                                                       String provinceid, String schoolname, String schoolid, String cityid, String areaid, String stageid, YanxiuMainParser<T, D> parser) {
+        String baseUrl = getStaticHead() + "/user/thirdRegister.do";
         Bundle params = new Bundle();
         params.putString("openid", openid);
         params.putString("openid", openid);
@@ -2248,44 +2282,45 @@ public class YanxiuHttpApi {
 
         YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
                 YanxiuHttpParameter.Type.GET, parser, 0);
-        LogInfo.log("king","第三方登录注册接口 url = " + httpParameter.getBaseUrl()+httpParameter.encodeUrl());
+        LogInfo.log("king", "第三方登录注册接口 url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
         return request(httpParameter);
     }
 
     //*****************************************************第三方登录接口end*****************************************************//
 
-    private static final String CONTENT="content";
+    private static final String CONTENT = "content";
+
     /**
      * 意见反馈
      */
-    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> RequestUploadFeedBack(int updataId, String feedBackContent,YanxiuMainParser<T, D> parser){
-        String baseUrl=getStaticHead()+"/common/feedback.do";
-        Bundle params=new Bundle();
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> RequestUploadFeedBack(int updataId, String feedBackContent, YanxiuMainParser<T, D> parser) {
+        String baseUrl = getStaticHead() + "/common/feedback.do";
+        Bundle params = new Bundle();
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
-        params.putString(CONTENT,feedBackContent);
+        params.putString(CONTENT, feedBackContent);
         params.putString(PUBLIC_PARAMETERS.OS_NAME, YanXiuConstant.OS);
-        params.putString(PUBLIC_PARAMETERS.OS_VERSION,YanXiuConstant.OS_VERSION);
+        params.putString(PUBLIC_PARAMETERS.OS_VERSION, YanXiuConstant.OS_VERSION);
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
-        params.putString(PUBLIC_PARAMETERS.BRAND,YanXiuConstant.BRAND);
+        params.putString(PUBLIC_PARAMETERS.BRAND, YanXiuConstant.BRAND);
 
         YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
                 YanxiuHttpParameter.Type.GET, parser, 0);
-        LogInfo.log("lee",generatePath(httpParameter));
+        LogInfo.log("lee", generatePath(httpParameter));
         return request(httpParameter);
     }
 
     /**
      * 题目报错
      */
-    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestErrorFeedBack(String questionId,String content,YanxiuMainParser<T, D> parser){
+    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestErrorFeedBack(String questionId, String content, YanxiuMainParser<T, D> parser) {
         String baseUrl = "http://mobile.hwk.yanxiu.com/internal/feedback.do";
-        Bundle params=new Bundle();
-        params.putString(PUBLIC_PARAMETERS.MOD_KEY,String.valueOf(LoginModel.getUid()));
-        params.putString(CONTENT,content);
-        params.putString(PUBLIC_PARAMETERS.QUESTION_ID,questionId);
+        Bundle params = new Bundle();
+        params.putString(PUBLIC_PARAMETERS.MOD_KEY, String.valueOf(LoginModel.getUid()));
+        params.putString(CONTENT, content);
+        params.putString(PUBLIC_PARAMETERS.QUESTION_ID, questionId);
         params.putString(PUBLIC_PARAMETERS.OS_NAME, YanXiuConstant.OS);
-        params.putString(PUBLIC_PARAMETERS.OS_VERSION,YanXiuConstant.OS_VERSION);
+        params.putString(PUBLIC_PARAMETERS.OS_VERSION, YanXiuConstant.OS_VERSION);
 
         YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
                 YanxiuHttpParameter.Type.GET, parser, 0);
@@ -2295,21 +2330,20 @@ public class YanxiuHttpApi {
     }
 
 
-
-
-    /**‰
+    /**
+     * ‰
      * 考点诊断
      */
-    public static  <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestExamInfo(String subjectId,YanxiuMainParser<T, D> parser){
-        String baseUrl=getStaticHead()+"/anaofstd/listKnpStat.do";
-        Bundle params=new Bundle();
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestExamInfo(String subjectId, YanxiuMainParser<T, D> parser) {
+        String baseUrl = getStaticHead() + "/anaofstd/listKnpStat.do";
+        Bundle params = new Bundle();
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
 
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
         params.putString(PUBLIC_PARAMETERS.OS, YanXiuConstant.OS_TYPE);
-        params.putString(SUBJECT_ID,subjectId);
-        params.putString(STAGE_ID,String.valueOf(LoginModel.getUserinfoEntity().getStageid()) );
+        params.putString(SUBJECT_ID, subjectId);
+        params.putString(STAGE_ID, String.valueOf(LoginModel.getUserinfoEntity().getStageid()));
 
         YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
                 YanxiuHttpParameter.Type.GET, parser, 0);
@@ -2319,18 +2353,17 @@ public class YanxiuHttpApi {
 
     /**
      * 请求一个考点下的所有信息
-     *
      */
-    public static <T extends YanxiuBaseBean,D> YanxiuDataHull<T> requestSingleExamInfo(String subjectId,String chapterId,YanxiuMainParser<T, D> parser){
-        String baseUrl=getStaticHead()+"/anaofstd/listLevel1KnpStat.do";
-        Bundle params=new Bundle();
-        params.putString(PUBLIC_PARAMETERS.TRACE_UID,LoginModel.getUid()+"");
+    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestSingleExamInfo(String subjectId, String chapterId, YanxiuMainParser<T, D> parser) {
+        String baseUrl = getStaticHead() + "/anaofstd/listLevel1KnpStat.do";
+        Bundle params = new Bundle();
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
         params.putString(PUBLIC_PARAMETERS.OS, YanXiuConstant.OS_TYPE);
-        params.putString(SUBJECT_ID,subjectId);
-        params.putString(STAGE_ID,String.valueOf(LoginModel.getUserinfoEntity().getStageid()) );
-        params.putString(CHAPTER_ID,chapterId);
+        params.putString(SUBJECT_ID, subjectId);
+        params.putString(STAGE_ID, String.valueOf(LoginModel.getUserinfoEntity().getStageid()));
+        params.putString(CHAPTER_ID, chapterId);
         YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
                 YanxiuHttpParameter.Type.GET, parser, 0);
         LogInfo.log("lee", generatePath(httpParameter));

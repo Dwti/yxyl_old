@@ -1,8 +1,10 @@
 package com.yanxiu.gphone.student;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
@@ -24,9 +26,11 @@ import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.basecore.utils.BaseCoreLogInfo;
 //import com.yanxiu.gphone.parent.utils.ParentConfigConstant;
 import com.yanxiu.gphone.student.bean.SubjectVersionBean;
+import com.yanxiu.gphone.student.bean.UrlBean;
 import com.yanxiu.gphone.student.bean.statistics.InstantUploadErrorData;
 import com.yanxiu.gphone.student.bean.statistics.StatisticHashMap;
 import com.yanxiu.gphone.student.bean.statistics.UploadInstantPointDataBean;
+import com.yanxiu.gphone.student.httpApi.YanxiuHttpApi;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
 import com.yanxiu.gphone.student.utils.Configuration;
 import com.yanxiu.gphone.student.utils.CrashHandler;
@@ -37,6 +41,8 @@ import com.yanxiu.gphone.student.utils.statistics.DataStatisticsUploadManager;
 import com.yanxiu.gphone.student.utils.statistics.requestAsycn.UploadInstantPointDataTask;
 //import com.yanxiu.gphone.upgrade.utils.UpgradeConstant;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -54,9 +60,10 @@ public class YanxiuApplication extends CommonCoreApplication {
     private SubjectVersionBean subjectVersionBean;
     private CrashHandler crashHandler;
     private boolean isForceUpdate = false;
-    
+    private Object urlJson;
+
     @Override
-    public void onCreate () {
+    public void onCreate() {
 
         super.onCreate();
 //		LeakCanary.install(this);
@@ -78,10 +85,12 @@ public class YanxiuApplication extends CommonCoreApplication {
             crashHandler = CrashHandler.getInstance();
             crashHandler.init(this);
         }
-        LogInfo.log("haitian", "DevoceId="+YanXiuConstant.DEVICEID);
+        LogInfo.log("haitian", "DevoceId=" + YanXiuConstant.DEVICEID);
         initParentConstant();
         initUpgradeConstant();
         startStatistics();
+
+        getUrlJson();
 
 
     }
@@ -266,6 +275,28 @@ public class YanxiuApplication extends CommonCoreApplication {
         this.isForceUpdate = isForceUpdate;
     }
 
+    public Object getUrlJson() {
+        AssetManager assetManager = getAssets();
+        String urlBeanJson=getFromAssets("env_config.json");
+        UrlBean urlBean=JSON.parseObject(urlBeanJson, UrlBean.class);
+        YanxiuHttpApi.setBaseURL(urlBean);
+        return urlJson;
+    }
+    public String getFromAssets(String fileName) {
+        try {
+            InputStreamReader inputReader = new InputStreamReader(getResources().getAssets().open(fileName));
+            BufferedReader bufReader = new BufferedReader(inputReader);
+            String line = "";
+            String Result = "";
+            while ((line = bufReader.readLine()) != null)
+                Result += line;
+            return Result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+
+    }
 //	@Override
 //	protected void attachBaseContext (Context base) {//让应用支持多DEX文件
 //		super.attachBaseContext(base);
