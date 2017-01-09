@@ -1,36 +1,42 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
 
-    <include layout="@layout/question_top_content_layout"
-        android:layout_height="wrap_content"
+    <include
+        android:id="@+id/rl_top"
+        layout="@layout/question_top_content_layout"
         android:layout_width="match_parent"
-        android:id="@+id/rl_top" />
+        android:layout_height="wrap_content" />
 
-    <ScrollView android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/dimen_10"
-        android:layout_below="@id/rl_top">
+        android:layout_below="@id/rl_top"
+        android:layout_marginBottom="@dimen/dimen_10">
 
-        <RelativeLayout android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="@dimen/dimen_10">
 
-            <LinearLayout android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:layout_margin="@dimen/dimen_20"
-                          android:orientation="horizontal"
-                          android:id="@+id/ll_answer_content">
+            <LinearLayout
+                android:id="@+id/ll_answer_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_20"
+                android:orientation="horizontal">
 
-                <FrameLayout android:layout_width="@dimen/dimen_40"
-                             android:layout_height="match_parent">
+                <FrameLayout
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="match_parent">
 
-                    <ImageView android:layout_width="@dimen/dimen_28"
-                               android:layout_height="@dimen/dimen_30"
-                               android:layout_marginTop="@dimen/dimen_7"
-                               android:src="@drawable/icon_question_q"/>
+                    <ImageView
+                        android:layout_width="@dimen/dimen_28"
+                        android:layout_height="@dimen/dimen_30"
+                        android:layout_marginTop="@dimen/dimen_7"
+                        android:src="@drawable/icon_question_q" />
 
                 </FrameLayout>
 
@@ -49,13 +55,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/view_line_ccc4a3"
-                        android:layout_marginTop="@dimen/dimen_12"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="@dimen/dimen_12"
                         android:layout_marginLeft="@dimen/dimen_20"
                         android:layout_marginRight="@dimen/dimen_12"
+                        android:layout_marginTop="@dimen/dimen_12"
                         android:paddingBottom="@dimen/dimen_5"
                         android:paddingTop="@dimen/dimen_5"
-                        android:layout_marginBottom="@dimen/dimen_12"
-                        android:layout_gravity="center"
                         android:textColor="@color/color_black"
                         android:textSize="@dimen/dimen_15" />
 
@@ -63,34 +69,33 @@
 
 
             </LinearLayout>
+
             <com.yanxiu.gphone.student.view.picsel.PicSelView
                 android:id="@+id/picSelView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_below="@+id/ll_answer_content"
                 android:layout_marginBottom="@dimen/dimen_20"
                 android:background="@color/color_transparent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:visibility="visible" />
 
             <com.yanxiu.gphone.student.view.YanxiuTypefaceButton
                 android:id="@+id/add_problem_analysis"
-                android:layout_below="@+id/ll_answer_content"
                 style="@style/btn_problem_analysis"
+                android:layout_below="@+id/ll_answer_content"
                 app:type_face="metor_bold.OTF" />
 
             <FrameLayout
-                    android:id="@+id/content_problem_analysis"
-                    android:layout_below="@+id/ll_answer_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                android:id="@+id/content_problem_analysis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_answer_content" />
 
 
         </RelativeLayout>
 
     </ScrollView>
-
-
 
 
 </RelativeLayout>
