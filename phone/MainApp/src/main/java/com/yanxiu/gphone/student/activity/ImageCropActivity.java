@@ -63,37 +63,37 @@ public class ImageCropActivity extends Activity implements View.OnClickListener,
             mBitmap = CaptureActivity.bitmap;
             mImageView.setImageBitmap(mBitmap);
         }else {
-            BitmapWorkerTask bitmapWorkerTask = new BitmapWorkerTask(new OnTaskCompleteListener<Bitmap>() {
+//            BitmapWorkerTask bitmapWorkerTask = new BitmapWorkerTask(new OnTaskCompleteListener<Bitmap>() {
+//                @Override
+//                public void onComplete(Bitmap bitmap) {
+//                    if(bitmap == null){
+//                        Toast.makeText(ImageCropActivity.this,"读取照片失败", Toast.LENGTH_SHORT).show();
+//                        setResult(RESULT_CANCELED);
+//                        finish();
+//                        return;
+//                    }
+//                    mImageView.setImageBitmap(bitmap);
+//                    mBitmap = bitmap;
+//                    image_over_view.postInvalidate();
+//                }
+//            });
+////            bitmapWorkerTask.execute(imagePath, String.valueOf(rl_crop.getWidth()), String.valueOf(rl_crop.getHeight()));
+//            bitmapWorkerTask.execute(imagePath, String.valueOf(Utils.getScreenWidth()), String.valueOf(Utils.getScreenHeight()));
+
+
+            Glide.with(mActivity).load(imagePath).asBitmap().listener(new RequestListener<String, Bitmap>() {
                 @Override
-                public void onComplete(Bitmap bitmap) {
-                    if(bitmap == null){
-                        Toast.makeText(ImageCropActivity.this,"读取照片失败", Toast.LENGTH_SHORT).show();
-                        setResult(RESULT_CANCELED);
-                        finish();
-                        return;
-                    }
-                    mImageView.setImageBitmap(bitmap);
-                    mBitmap = bitmap;
-                    image_over_view.postInvalidate();
+                public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+                    Toast.makeText(mActivity,"读取照片失败", Toast.LENGTH_SHORT).show();
+                    return false;
                 }
-            });
-//            bitmapWorkerTask.execute(imagePath, String.valueOf(rl_crop.getWidth()), String.valueOf(rl_crop.getHeight()));
-            bitmapWorkerTask.execute(imagePath, String.valueOf(Utils.getScreenWidth()), String.valueOf(Utils.getScreenHeight()));
 
-
-//            Glide.with(mActivity).load(imagePath).asBitmap().listener(new RequestListener<String, Bitmap>() {
-//                @Override
-//                public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
-//                    Toast.makeText(mActivity,"读取照片失败", Toast.LENGTH_SHORT).show();
-//                    return false;
-//                }
-//
-//                @Override
-//                public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
-//                    mBitmap = resource;
-//                    return false;
-//                }
-//            }).into(mImageView);
+                @Override
+                public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                    mBitmap = resource;
+                    return false;
+                }
+            }).into(mImageView);
         }
     }
 
