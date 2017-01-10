@@ -16,10 +16,8 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.commoninterface.OnTaskCompleteListener;
-import com.yanxiu.gphone.student.task.BitmapWorkerTask;
 import com.yanxiu.gphone.student.task.WriteBitmapToFileWorkerTask;
 import com.yanxiu.gphone.student.utils.MediaUtils;
-import com.yanxiu.gphone.student.utils.Utils;
 import com.yanxiu.gphone.student.view.ImageCropOverView;
 
 import java.io.File;
@@ -60,7 +58,7 @@ public class ImageCropActivity extends Activity implements View.OnClickListener,
     private void initData() {
         imagePath = getIntent().getStringExtra(IMAGE_PATH);
         if (TextUtils.isEmpty(imagePath)) {
-            mBitmap = CaptureActivity.bitmap;
+            mBitmap = CameraActivity.bitmap;
             mImageView.setImageBitmap(mBitmap);
         } else {
 //            BitmapWorkerTask bitmapWorkerTask = new BitmapWorkerTask(new OnTaskCompleteListener<Bitmap>() {

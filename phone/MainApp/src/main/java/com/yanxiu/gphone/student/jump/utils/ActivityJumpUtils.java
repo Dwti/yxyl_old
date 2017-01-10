@@ -9,8 +9,6 @@ import android.os.Bundle;
 import com.yanxiu.gphone.student.YanxiuApplication;
 import com.yanxiu.gphone.student.activity.ExamPointActivity;
 import com.yanxiu.gphone.student.activity.FeedBackActivity;
-import com.yanxiu.gphone.student.activity.ImageBucketActivity;
-import com.yanxiu.gphone.student.activity.ImagePicSelActivity;
 import com.yanxiu.gphone.student.activity.LocalPhotoViewActivity;
 import com.yanxiu.gphone.student.activity.LoginChoiceActivity;
 import com.yanxiu.gphone.student.activity.NoGroupAddTipsActivity;
@@ -23,9 +21,7 @@ import com.yanxiu.gphone.student.jump.BaseJumpModel;
 import com.yanxiu.gphone.student.jump.ExamPointJumpModel;
 import com.yanxiu.gphone.student.jump.FeedbackJumpModel;
 import com.yanxiu.gphone.student.jump.ImageBucketJumpBackModel;
-import com.yanxiu.gphone.student.jump.ImageBucketJumpBean;
 import com.yanxiu.gphone.student.jump.ImagePicSelJumpBackModel;
-import com.yanxiu.gphone.student.jump.ImagePicSelJumpModel;
 import com.yanxiu.gphone.student.jump.LocalPhotoViewJumpBackModel;
 import com.yanxiu.gphone.student.jump.LocalPhotoViewJumpModel;
 import com.yanxiu.gphone.student.jump.LoginChoiceJumpModel;
@@ -112,38 +108,10 @@ public class ActivityJumpUtils {
         jumpToPageCommonMethod(jumpModel, context);
     }
 
-    /**
-     * 跳转到相册目录
-     * @param context
-     * @param requestCode
-     */
-    public static void jumpToImageBucketActivityForResult(Activity context,int requestCode){
-        ImageBucketJumpBean jumpModel=new ImageBucketJumpBean();
-        jumpModel.setTargetActivity(ImageBucketActivity.class);
-        jumpModel.setRequestCode(requestCode);
-        jumpToPageForResultCommonMethod(jumpModel, context);
-
-    }
-
     public static void jumpBackFromImageBucketActivity(Activity context,int resultCode){
         ImageBucketJumpBackModel jumpBackModel=new ImageBucketJumpBackModel();
         jumpBackCommonMethod(jumpBackModel, context, resultCode);
     }
-
-
-    /**
-     * 跳转到相册目录下的相册
-     * @param context
-     * @param pos
-     */
-    public static void jumpToImagePicSelActivityForResult(Activity context,int pos,int requestCode){
-        ImagePicSelJumpModel jumpModel=new ImagePicSelJumpModel();
-        jumpModel.setSelPos(pos);
-        jumpModel.setRequestCode(requestCode);
-        jumpModel.setTargetActivity(ImagePicSelActivity.class);
-        jumpToPageForResultCommonMethod(jumpModel, context);
-    }
-
     public static void jumpBackFromImagePicSelActivity(Activity context,boolean isAddList,int resultCode){
         ImagePicSelJumpBackModel jumpBackModel=new ImagePicSelJumpBackModel();
         jumpBackModel.setIsAddList(isAddList);

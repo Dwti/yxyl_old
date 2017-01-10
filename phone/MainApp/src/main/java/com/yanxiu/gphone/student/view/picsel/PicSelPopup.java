@@ -89,13 +89,6 @@ public class PicSelPopup extends BasePopupWindow {
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-
-            case R.id.secLinear:
-                if (CommonCoreUtil.sdCardMounted()){
-                    ActivityJumpUtils.jumpToImageBucketActivityForResult(((Activity)mContext),MediaUtils.OPEN_DEFINE_PIC_BUILD);
-                }
-                dismiss();
-                break;
             case R.id.thrLinear:
                 if (CommonCoreUtil.sdCardMounted()) {
                     String path=MediaUtils.getOutputMediaFileUri(true).toString();
