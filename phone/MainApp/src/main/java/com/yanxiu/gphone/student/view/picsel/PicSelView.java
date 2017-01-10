@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -12,7 +11,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -23,28 +21,20 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.common.core.utils.BasePopupWindow;
 import com.common.core.utils.BitmapUtil;
-import com.common.core.utils.CommonCoreUtil;
 import com.common.core.utils.LogInfo;
 import com.common.core.utils.PictureHelper;
 import com.common.core.utils.StringUtils;
-import com.common.core.utils.imageloader.RotateImageViewAware;
-import com.common.core.utils.imageloader.UniversalImageLoadTool;
 import com.common.core.view.roundview.RoundedImageView;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.LocalPhotoViewActivity;
-import com.yanxiu.gphone.student.activity.takephoto.CameraActivity;
-import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.inter.CorpListener;
 import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
 import com.yanxiu.gphone.student.utils.CorpUtils;
 import com.yanxiu.gphone.student.utils.MediaUtils;
 import com.yanxiu.gphone.student.utils.Util;
-import com.yanxiu.gphone.student.utils.Utils;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
 
@@ -206,9 +196,6 @@ public class PicSelView extends RelativeLayout {
             case LocalPhotoViewActivity.REQUEST_CODE:
                 handler.sendEmptyMessage(updateCode);
                 break;
-            case MediaUtils.OPEN_SYSTEM_CAMERA:
-                handlerCameraBit(activity,id);
-                break;
             case MediaUtils.OPEN_DEFINE_PIC_BUILD :
                 currentDrrList = ShareBitmapUtils.getInstance().getDrrMaps().get(id);
                 handler.sendEmptyMessage(updateCode);
@@ -220,41 +207,6 @@ public class PicSelView extends RelativeLayout {
         currentDrrList = ShareBitmapUtils.getInstance().getDrrMaps().get(id);
         handler.sendEmptyMessage(updateCode);
     }
-    private void handlerCameraBit(Activity activity,String id ) {
-        if(ShareBitmapUtils.getInstance().getDrrMaps().get(id)!=null){
-            Uri uri=MediaUtils.getOutputMediaFileUri(false);
-            String path = null;
-            if(uri!=null){
-                path= PictureHelper.getPath(mContext,
-                        uri);
-                LogInfo.log(TAG, "111path"+path);
-            }
-            if(path==null){
-//                YanXiuConstant.index_position=0;
-//                EventBus.getDefault().unregister(fragment);
-                return;
-            }
-
-            Bitmap bitmap = null;
-            try {
-                bitmap = BitmapUtil.revitionImageSize(path);
-                BitmapUtil.reviewPicRotate(bitmap, path, true);
-                if(bitmap != null && !bitmap.isRecycled()){
-                    bitmap.recycle();
-                }
-                //在此处进行裁剪
-//                YanXiuConstant.index_position=position;
-//                EventBus.getDefault().register(fragment);
-                MediaUtils.cropImage(activity,uri,MediaUtils.IMAGE_CROP,MediaUtils.FROM_CAMERA);
-//                ShareBitmapUtils.getInstance().addPath(id, path);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }else {
-//            YanXiuConstant.index_position=0;
-        }
-    }
-
 
     /**
      * 切换到当前主观题答案List 刷新主观题缩略图

@@ -41,7 +41,7 @@
             android:textColor="@color/color_white"
             android:background="@drawable/shape_camera_picture"
             />
-        <com.yanxiu.gphone.student.view.takephoto.RecordVideoStatueCircle
+        <com.yanxiu.gphone.student.view.RecordVideoStatueCircle
             android:id="@+id/btn_capture"
             android:layout_width="@dimen/dimen_70"
             android:layout_height="@dimen/dimen_70"

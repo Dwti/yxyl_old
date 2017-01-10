@@ -17,11 +17,10 @@ import com.common.core.utils.LogInfo;
 import com.common.core.utils.PictureHelper;
 import com.common.core.utils.StringUtils;
 import com.yanxiu.gphone.student.R;
-import com.yanxiu.gphone.student.activity.CaptureActivity;
+import com.yanxiu.gphone.student.activity.CameraActivity;
 import com.yanxiu.gphone.student.activity.ImageCropActivity;
 import com.yanxiu.gphone.student.activity.LocalPhotoViewActivity;
 import com.yanxiu.gphone.student.bean.AnswerBean;
-import com.yanxiu.gphone.student.bean.CorpBean;
 import com.yanxiu.gphone.student.bean.DeleteImageBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
@@ -33,8 +32,6 @@ import com.yanxiu.gphone.student.view.picsel.PicSelView;
 import com.yanxiu.gphone.student.view.picsel.utils.ShareBitmapUtils;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
-
-import de.greenrobot.event.EventBus;
 
 /**
  * Created by lidm on 2015/9/25.
@@ -263,7 +260,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
                     ShareBitmapUtils.getInstance().addPath(ShareBitmapUtils.getInstance().getCurrentSbId(), imagePath);
                     updataPhotoView(MediaUtils.OPEN_DEFINE_PIC_BUILD);
                 }
-                CaptureActivity.bitmap = null;
+                CameraActivity.bitmap = null;
                 break;
             default:
                 break;

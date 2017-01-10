@@ -1,4 +1,4 @@
-package com.yanxiu.gphone.student.view.takephoto;
+package com.yanxiu.gphone.student.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;

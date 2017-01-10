@@ -16,8 +16,8 @@
         <LinearLayout
             android:id="@+id/rl_answer_card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/view_answer_card_three"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <LinearLayout
@@ -103,7 +103,7 @@
                         android:numColumns="5"
                         android:scrollbars="none"
                         android:stretchMode="columnWidth"
-                        android:verticalSpacing="@dimen/dimen_25"></GridView>
+                        android:verticalSpacing="@dimen/dimen_25" />
                     <!--android:listSelector="@drawable/selector_common_view"-->
                 </FrameLayout>
             </LinearLayout>
