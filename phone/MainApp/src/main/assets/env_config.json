@@ -1,7 +1,7 @@
 {
-	"server":"http://mobile.hwk.yanxiu.com/",
-	"loginServer":"http://mobile.hwk.yanxiu.com/",
-	"uploadServer":"http://upload.yanxiu.com/resource/index.jsp",
-	"initializeUrl":"http://mobile.yanxiu.com/v14/api",
-	"mode":"release"
+	"server":"http://test.hwk.yanxiu.com/app",
+	"loginServer":"http://test.hwk.yanxiu.com/app",
+	"uploadServer":"",
+	"initializeUrl":"http://mobile.yanxiu.com/test/api",
+	"mode":"test"
 }
