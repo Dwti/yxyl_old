@@ -111,7 +111,7 @@ public class YanxiuHttpApi {
 
     public static String getPublicUrl() {
         if (mUrlBean != null) {
-            return mUrlBean.getInitializeUrl();
+            return mUrlBean.getServer();
         }
         if (isTest) {
             if (isDev) {
@@ -139,7 +139,7 @@ public class YanxiuHttpApi {
 
     private static String getStaticHead() {
         if (mUrlBean != null) {
-            return mUrlBean.getInitializeUrl();
+            return mUrlBean.getServer();
         } else {
             return getPublicUrl();
         }
