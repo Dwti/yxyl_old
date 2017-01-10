@@ -37,7 +37,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.1.1'
     compile files('libs/litepal_db_1.1.1.jar')
-    compile files('libs/TalkingData_Analytics_Android_SDK.jar')
+    compile files('libs/TalkingData_Analytics_Android_SDK_V2.2.48.jar')
     compile 'com.android.support:recyclerview-v7:21.+'
     compile 'com.android.support:cardview-v7:21.+'
     compile 'com.zhy:percent-support-extends:1.0.1'
