@@ -39,7 +39,7 @@ public class MyEdittext extends EditText {
 
     private void init(Context context) {
         this.mContext = context;
-        this.setTextColor(Color.parseColor("#ffe580"));
+        this.setTextColor(Color.BLACK);
         this.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -56,7 +56,11 @@ public class MyEdittext extends EditText {
                 if (MyEdittext.this.getText().length()>0){
                     MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_empty_bg));
                 }else {
-                    MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_full_bg));
+                    if (focused){
+                        MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_empty_bg));
+                    }else {
+                        MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_full_bg));
+                    }
                 }
             }
         });
@@ -68,8 +72,14 @@ public class MyEdittext extends EditText {
         this.focused = focused;
         if (focused) {
             this.setSelection(this.getText().toString().length());
+            MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_empty_bg));
         } else {
             this.setText(this.getText().toString());
+            if (MyEdittext.this.getText().length()>0){
+                MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_empty_bg));
+            }else {
+                MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_full_bg));
+            }
         }
     }
 
