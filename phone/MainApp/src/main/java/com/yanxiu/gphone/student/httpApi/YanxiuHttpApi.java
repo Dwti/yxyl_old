@@ -1,6 +1,5 @@
 package com.yanxiu.gphone.student.httpApi;
 
-import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;

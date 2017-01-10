@@ -37,12 +37,13 @@ public class ResolutionAnswerViewActivity extends BaseAnswerViewActivity {
     private RequestDelFavouriteTask requestDelFavouriteTask;
 
     private int comeFrom = 0;
-
+    public static boolean isNotFinished = false;
 
     public static void launch(Activity context, SubjectExercisesItemBean bean, int comeFrom) {
         Intent intent = new Intent(context, ResolutionAnswerViewActivity.class);
         intent.putExtra("subjectExercisesItemBean", bean);
         intent.putExtra("comeFrom", comeFrom);
+        isNotFinished = true;
         context.startActivity(intent);
     }
 
@@ -52,6 +53,7 @@ public class ResolutionAnswerViewActivity extends BaseAnswerViewActivity {
         intent.putExtra("pagerIndex", pagerIndex);
         intent.putExtra("childIndex", childIndex);
         intent.putExtra("comeFrom", comeFrom);
+        isNotFinished = false;
         context.startActivity(intent);
     }
 
