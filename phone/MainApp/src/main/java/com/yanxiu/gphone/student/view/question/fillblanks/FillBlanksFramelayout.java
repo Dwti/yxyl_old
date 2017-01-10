@@ -50,7 +50,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
     private QuestionsListener listener;
     private AnswerBean bean;
     private List<String> answers = new ArrayList<String>();
-    private int mAnswerLength = 10;
+    private int mAnswerLength = 8;
     private StringBuffer mAnswerSb = new StringBuffer();
     public Context mCtx;
     private RelativeLayout rlMark;
@@ -106,7 +106,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
 
         // 10 - 18 之间
         int maxWidth = 18;
-        int minWidth = 10;
+        int minWidth = 8;
         WindowManager wm = (WindowManager) mCtx.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point size = new Point();
@@ -122,8 +122,8 @@ public class FillBlanksFramelayout extends FrameLayout implements
         mAnswerLength = Math.max(Math.min(maxWidth, mAnswerLength), minWidth);
 
         // 这里不能使用space空格，因为html text里会省略连续空格
-        mAnswerSb.append("o");
-        for (int i = 0; i < mAnswerLength - 1; i++) {
+//        mAnswerSb.append("o");
+        for (int i = 0; i < mAnswerLength - 2; i++) {
             mAnswerSb.append("o");
         }
         StringBuffer replacementString = new StringBuffer(mAnswerSb);
