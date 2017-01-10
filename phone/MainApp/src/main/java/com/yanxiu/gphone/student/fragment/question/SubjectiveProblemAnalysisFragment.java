@@ -3,6 +3,7 @@ package com.yanxiu.gphone.student.fragment.question;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -169,12 +170,17 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
     private void initData() {
 
         if (questionsEntity != null) {
-            //主观题如果未作答且未批改 则隐藏批改结果
-            if (questionsEntity.getAnswerBean().getStatus() == AnswerBean.ANSER_UNFINISH || questionsEntity.getAnswerBean().getRealStatus() != AnswerBean.ANSER_READED) {
+            //不可补做的题 隐藏批改结果
+            if (getActivity().getClass().getSimpleName().equals(ResolutionAnswerViewActivity.class.getSimpleName()) && ((ResolutionAnswerViewActivity) getActivity()).isNotFinished) {
                 mLlReportParse.setVisibility(View.GONE);
             } else {
                 mLlReportParse.setVisibility(View.VISIBLE);
             }
+//            if (questionsEntity.getAnswerBean().getRealStatus() == AnswerBean.ANSER_READED ) {
+//                mLlReportParse.setVisibility(View.VISIBLE);
+//            } else {
+//                mLlReportParse.setVisibility(View.GONE);
+//            }
             photosList = questionsEntity.getAnswerBean().getSubjectivImageUri();
             adapter.addMoreData(photosList);
 
@@ -245,9 +251,6 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
             }
 
 
-//            if (getActivity().getClass().getSimpleName().equals(ResolutionAnswerViewActivity.class.getSimpleName())) {
-//                llAnswer.setVisibility(View.VISIBLE);
-//            }
         }
     }
 
