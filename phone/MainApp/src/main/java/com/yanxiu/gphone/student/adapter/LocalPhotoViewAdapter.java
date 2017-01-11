@@ -65,7 +65,7 @@ public class LocalPhotoViewAdapter extends PagerAdapter {
             String path=ShareBitmapUtils.getInstance().getDrrMaps().get(ShareBitmapUtils.getInstance().getCurrentSbId()).get(position);
             Glide.with(context).load(path).asBitmap()
 //                    .placeholder(R.drawable.image_default)
-//                    .error(R.drawable.image_default)
+                    .error(R.drawable.load_image_error)
                     .into(imageView);
         }
         container.addView(view, 0);
