@@ -48,6 +48,7 @@ public class CameraActivity extends Activity implements View.OnClickListener {
     private TextView tv_photos;
     private boolean isTakingPhoto = false;
     private static final int IMAGE_SELECT = 0x08;
+    private boolean isOrientationUnknown = true;  //拍照时是否能检测到手机的旋转角度（华为系列的手机安装APP之后会弹出是否允许读取运动权限的请求，如果禁用则读取不到旋转的角度）
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +69,10 @@ public class CameraActivity extends Activity implements View.OnClickListener {
             public void onOrientationChanged(int orientation) {
 
                 if (orientation == OrientationEventListener.ORIENTATION_UNKNOWN || mCamera == null) {
-                    return;  //手机平放时，检测不到有效的角度
+                    isOrientationUnknown = true;
+                    return;  //手机平放时或者读取运动权限被禁止，检测不到有效的角度
                 }
+                isOrientationUnknown = false;
                 android.hardware.Camera.CameraInfo info =
                         new android.hardware.Camera.CameraInfo();
                 android.hardware.Camera.getCameraInfo(backCameraId, info);
@@ -250,9 +253,16 @@ public class CameraActivity extends Activity implements View.OnClickListener {
                 e.printStackTrace();
             }
             //一般的手机，上面在orientationEventListener中，根据屏幕旋转的角度直接设置rotation就可以直接旋转图片 ，但是对于三星系列的手机，setRotation没有效果，但是这个rotation会
-            //写入到exif信息中。一般手机，不管在相机中调没调用params.setRotaion()，exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION,ExifInterface.ORIENTATION_NORMAL)
-            //都会返回ExifInterface.ORIENTATION_UNDEFINED；三星的手机如果调用了会返回实际设置的rotation（横屏拍照也会返回ExifInterface.ORIENTATION_NORMAL），没调用的话，会返回ExifInterface.ORIENTATION_NORMAL（非设置的默认值）
-            if(orientation != ExifInterface.ORIENTATION_UNDEFINED && orientation != ExifInterface.ORIENTATION_NORMAL){
+            //写入到exif信息中。
+            // 一般手机，不管在相机中调没调用params.setRotaion()，exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION,ExifInterface.ORIENTATION_NORMAL)
+            //都会返回ExifInterface.ORIENTATION_UNDEFINED；而三星的手机如果调用了会返回实际设置的rotation（横屏拍照返回ExifInterface.ORIENTATION_NORMAL），没调用的话，会返回ExifInterface.ORIENTATION_NORMAL（非设置的默认值）
+            //下面主要分为两种情况处理：
+            //第一种情况是拍照的时候有旋转角度但是生成的照片并没有旋转（主要针对三星系列手机）；第二种情况为拍摄的时候检测不到旋转角度（手机平放或者读取运动数据权限被禁止）
+            if((orientation != ExifInterface.ORIENTATION_UNDEFINED && orientation != ExifInterface.ORIENTATION_NORMAL) || isOrientationUnknown){
+                if(isOrientationUnknown){
+                    //如果在上面的OrientationEventListener中检测不到旋转角度的话，所有的照片默认旋转90度。
+                    orientation = 90;
+                }
                 Matrix matrix = new Matrix();
                 matrix.setRotate(orientation);
                 Bitmap bmpTemp = Bitmap.createBitmap(bitmap,0,0, bitmap.getWidth(), bitmap.getHeight(),matrix,true);
