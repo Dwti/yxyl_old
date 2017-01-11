@@ -1604,13 +1604,14 @@ public class YanxiuHttpApi {
         params.putString("did", CommonCoreUtil.getAppDeviceId(YanxiuApplication.getInstance()));
         params.putString("brand", YanXiuConstant.BRAND);
         params.putString("nettype", NetWorkTypeUtils.getNetWorkType());
-        params.putString("osType", YanXiuConstant.OS_TYPE);
+        //1代表phone 2代表pad由于与其他接口冲突暂时写在这里
+        params.putString("osType", "1");
         params.putString("os", YanXiuConstant.OS);
         params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
-        params.putString("token", LoginModel.getToken());
         params.putString("appVersion", YanXiuConstant.VERSION);
+        params.putString("version", YanXiuConstant.VERSION);
         params.putString("content", content);
-        params.putString("mode", Configuration.isForTest() ? "test" : "release");
+        params.putString("mode", mUrlBean!=null ? mUrlBean.getMode() : "test");
         params.putString("operType", YanXiuConstant.OPERTYPE);
         params.putString("phone", LoginModel.getUserinfoEntity().getMobile() == null ? "-" : LoginModel.getUserinfoEntity().getMobile());
         params.putString("remoteIp", "");

@@ -110,8 +110,8 @@ public class YanxiuApplication extends CommonCoreApplication {
      * 升级环境配置
      */
     private void initUpgradeConstant(){
-        //UpgradeConstant.setDEVICEID(YanXiuConstant.DEVICEID);
-        //UpgradeConstant.setIsForTest(Configuration.isDebug());
+//        UpgradeConstant.setDEVICEID(YanXiuConstant.DEVICEID);
+//        UpgradeConstant.setIsForTest(Configuration.isDebug());
     }
     /**
      * 家长端初始化
