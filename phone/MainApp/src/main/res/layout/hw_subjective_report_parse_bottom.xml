@@ -209,7 +209,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/hw_report_answer_layout"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <RelativeLayout android:layout_width="match_parent"
             android:layout_height="wrap_content" >
