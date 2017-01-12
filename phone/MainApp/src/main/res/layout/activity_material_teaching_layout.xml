@@ -37,7 +37,7 @@
             android:minHeight="@dimen/dimen_140"
             android:background="@drawable/my_list_bg_selector"
             android:paddingTop="@dimen/dimen_15"
-            android:visibility="visible"
+            android:visibility="gone"
             android:paddingBottom="@dimen/dimen_15">
 
             <TextView
