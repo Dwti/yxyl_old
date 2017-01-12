@@ -20,6 +20,7 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.commoninterface.OnTaskCompleteListener;
 import com.yanxiu.gphone.student.task.WriteByteToFileWorkerTask;
 import com.yanxiu.gphone.student.utils.MediaUtils;
+import com.yanxiu.gphone.student.utils.ToastMaster;
 import com.yanxiu.gphone.student.utils.Utils;
 import com.yanxiu.gphone.student.view.CameraPreview;
 import com.yanxiu.gphone.student.view.picsel.utils.AlbumHelper;
@@ -63,7 +64,7 @@ public class CameraActivity extends Activity implements View.OnClickListener {
         iv_close.setOnClickListener(this);
         tv_photos.setOnClickListener(this);
         Log.i("lifeCircle:","onCreate");
-        backCameraId = getBackCameraId();
+//        backCameraId = getBackCameraId();
         orientationEventListener = new OrientationEventListener(this,SENSOR_DELAY_NORMAL) {
             @Override
             public void onOrientationChanged(int orientation) {
@@ -75,7 +76,7 @@ public class CameraActivity extends Activity implements View.OnClickListener {
                 isOrientationUnknown = false;
                 android.hardware.Camera.CameraInfo info =
                         new android.hardware.Camera.CameraInfo();
-                android.hardware.Camera.getCameraInfo(backCameraId, info);
+                android.hardware.Camera.getCameraInfo(Camera.CameraInfo.CAMERA_FACING_BACK, info);
                 orientation = (orientation + 45) / 90 * 90;
                 int rotation = 0;
                 if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
@@ -131,12 +132,16 @@ public class CameraActivity extends Activity implements View.OnClickListener {
         boolean qOpened = false;
         try {
             releaseCameraAndPreview();
-            mCamera = Camera.open(backCameraId);
+            mCamera = Camera.open();
             qOpened = (mCamera != null);
+            if(qOpened){
+                mCamera.getParameters();
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this,"打开摄像头失败,请检查权限", Toast.LENGTH_SHORT).show();
+            ToastMaster.showShortToast(this,"打开摄像头失败,请检查权限");
             finish();
+            return false;
         }
         return qOpened;
     }
