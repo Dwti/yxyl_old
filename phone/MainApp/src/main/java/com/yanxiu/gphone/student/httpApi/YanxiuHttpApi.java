@@ -1604,8 +1604,7 @@ public class YanxiuHttpApi {
         params.putString("did", CommonCoreUtil.getAppDeviceId(YanxiuApplication.getInstance()));
         params.putString("brand", YanXiuConstant.BRAND);
         params.putString("nettype", NetWorkTypeUtils.getNetWorkType());
-        //1代表phone 2代表pad由于与其他接口冲突暂时写在这里
-        params.putString("osType", "1");
+        params.putString("osType", YanXiuConstant.OS_TYPE);
         params.putString("os", YanXiuConstant.OS);
         params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString("appVersion", YanXiuConstant.VERSION);
