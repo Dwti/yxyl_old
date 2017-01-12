@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -90,6 +91,8 @@ public class GroupFragment extends Fragment {
     private final int NO_CLASS_FLAG=71;
     private final int HAS_CLASS_FLAG=72;
     private RelativeLayout no_class;
+    private RelativeLayout ll_class;
+    private RelativeLayout rl_group;
 
     @Override
     public View onCreateView (LayoutInflater inflater,
@@ -117,8 +120,10 @@ public class GroupFragment extends Fragment {
                 .public_layout_top_tv);
         groupTitle.setText(R.string.navi_tbm_group);
 
+        ll_class= (RelativeLayout) rootView.findViewById(R.id.ll_class);
         no_class= (RelativeLayout) rootView.findViewById(R.id.no_class);
         no_class.setVisibility(View.GONE);
+        ll_class.setVisibility(View.GONE);
         TextView TextViewInfo= (TextView) rootView.findViewById(R.id.TextViewInfo);
         TextViewInfo.setText(R.string.class_no_work);
 
@@ -173,8 +178,10 @@ public class GroupFragment extends Fragment {
      */
     private void initNoGroupView() {
         noGroupTopView = rootView.findViewById(R.id.no_group_top_view);
+        rl_group= (RelativeLayout) rootView.findViewById(R.id.rl_group);
         noGroupView = (RelativeLayout) rootView.findViewById(R.id.no_group);
         noGroupView.setVisibility(View.GONE);
+        rl_group.setVisibility(View.GONE);
         noGroupTextView = (TextView) noGroupView.findViewById(R.id.top_tip_tx);
         noGroupTextView.setText(R.string.no_class_tip);
         noGroupAddView = (TextView) noGroupView.findViewById(R.id.group_bottom_submit);
@@ -251,6 +258,7 @@ public class GroupFragment extends Fragment {
             @Override
             public void update (YanxiuBaseBean result) {
                 no_class.setVisibility(View.GONE);
+                ll_class.setVisibility(View.GONE);
                 rootView.finish();
                 groupList.stopLoadMore();
                 groupList.stopRefresh();
@@ -321,6 +329,7 @@ public class GroupFragment extends Fragment {
                             //还未布置作业
 //                            Util.showCustomToast(R.string.class_no_work);
                             no_class.setVisibility(View.VISIBLE);
+                            ll_class.setVisibility(View.VISIBLE);
                             setNoGroupViewDisp(false);
                         }
                     }
@@ -380,9 +389,10 @@ public class GroupFragment extends Fragment {
         if (toDisp) {
             noGroupTopView.setVisibility(View.VISIBLE);
             noGroupView.setVisibility(View.VISIBLE);
-
+            rl_group.setVisibility(View.VISIBLE);
         } else {
             noGroupView.setVisibility(View.GONE);
+            rl_group.setVisibility(View.GONE);
             noGroupTopView.setVisibility(View.GONE);
 
         }

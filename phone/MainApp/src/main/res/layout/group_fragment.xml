@@ -75,6 +75,12 @@
         android:visibility="gone"
         />
 
+    <RelativeLayout
+        android:id="@+id/rl_group"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <include
         android:id="@+id/no_group"
         layout="@layout/group_public_layout_view"
@@ -85,6 +91,14 @@
         android:layout_marginRight="@dimen/dimen_20"
         />
 
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ll_class"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <include
         android:id="@+id/no_class"
         layout="@layout/custom_toast"
@@ -92,4 +106,5 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         />
+    </RelativeLayout>
 </RelativeLayout>

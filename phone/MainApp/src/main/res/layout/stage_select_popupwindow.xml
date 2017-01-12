@@ -6,23 +6,35 @@
               android:background="@drawable/login_and_pwd_selector"
               android:orientation="vertical"
     >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/dimen_10"
+    android:drawablePadding="@dimen/dimen_5"
+    android:paddingLeft="@dimen/dimen_15"
+    android:paddingTop="@dimen/dimen_18"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+    <ImageView
+        android:layout_width="@dimen/dimen_25"
+        android:layout_height="@dimen/dimen_25"
+        android:gravity="left|center_vertical"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="@dimen/dimen_10"
+        android:src="@drawable/tips_icon"/>
     <TextView
         android:id="@+id/stage_title_tv"
         style="@style/shadow_text_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left|center_vertical"
-        android:drawableLeft="@drawable/tips_icon"
-        android:paddingBottom="@dimen/dimen_10"
-        android:drawablePadding="@dimen/dimen_5"
-        android:paddingLeft="@dimen/dimen_15"
-        android:paddingTop="@dimen/dimen_10"
         android:shadowColor="@color/color_ffff99"
         android:text="@string/stage_tag"
         android:textColor="@color/color_805500"
         android:textSize="@dimen/dimen_17"
         android:textStyle="bold"
         />
+</LinearLayout>
     <TextView
         android:id="@+id/stage_desc_tv"
         style="@style/shadow_text_style"
@@ -30,7 +42,7 @@
         android:layout_height="wrap_content"
         android:gravity="left|center_vertical"
         android:lineSpacingExtra="@dimen/dimen_3"
-        android:paddingLeft="@dimen/dimen_10"
+        android:paddingLeft="@dimen/dimen_15"
         android:paddingRight="@dimen/dimen_10"
         android:shadowColor="@color/color_ffff99"
         android:text="@string/stage_description_txt"
@@ -43,7 +55,7 @@
         style="@style/shadow_text_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/dimen_10"
+        android:paddingTop="@dimen/dimen_20"
         android:paddingBottom="@dimen/dimen_10"
         android:gravity="center"
         android:shadowColor="@color/color_ffff99"
@@ -57,6 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_10"
+        android:paddingBottom="@dimen/dimen_15"
         android:orientation="horizontal"
         >
         <TextView

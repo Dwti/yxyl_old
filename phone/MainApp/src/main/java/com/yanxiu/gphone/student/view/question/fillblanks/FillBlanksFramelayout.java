@@ -156,7 +156,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
         int px = DensityUtils.dip2px(mCtx, 15);
         textSize = DensityUtils.px2sp(mCtx, px);
         tvFillBlank.setTextSize(textSize);
-        tvFillBlank.setLineSpacing(DensityUtils.px2dip(this.getContext(), 30), 1);
+        tvFillBlank.setLineSpacing(DensityUtils.px2dip(this.getContext(), 60), 1);
 
         trickTextView = (YXiuAnserTextView) this.findViewById(R.id.tv_fill_blanks_trick);
         trickTextView.setTextSize(textSize);
