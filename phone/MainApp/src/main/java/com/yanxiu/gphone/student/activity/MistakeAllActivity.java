@@ -96,6 +96,8 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
     }
 
     private void findView() {
+        View top_space_view=findViewById(R.id.top_space_view);
+        top_space_view.setVisibility(View.VISIBLE);
         backView = (TextView)findViewById(R.id.pub_top_left);
         titleView = (TextView)findViewById(R.id.pub_top_mid);
         titleView.setText(title);

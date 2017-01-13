@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_15"
         android:layout_below="@id/rl_top_wrong_all_view"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
     <com.common.core.view.xlistview.XListView
         android:id="@+id/mistack_all_list"
         android:layout_width="match_parent"

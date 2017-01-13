@@ -30,7 +30,7 @@ import com.yanxiu.gphone.student.view.stickhome.StickHomeLayout;
 /**
  * Created by Administrator on 2015/7/7.
  */
-public class HomeWorkFragment extends Fragment implements View.OnClickListener {
+ public class HomeWorkFragment extends Fragment implements View.OnClickListener {
 
     private RelativeLayout noSubjectView;
     private TextView noSubjectTextView;
