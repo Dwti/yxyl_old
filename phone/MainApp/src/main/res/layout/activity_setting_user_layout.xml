@@ -48,7 +48,13 @@
                      android:id="@+id/setting_about_us_layout"
                      layout="@layout/activity_info_user_icon_public_item"
                     />
-
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_16"
+                android:layout_marginRight="@dimen/dimen_16"
+                layout="@layout/bitmap_repeat_layout"
+                />
             <TextView android:layout_width="match_parent"
                       android:layout_height="@dimen/dimen_62"
                       android:background="@drawable/my_list_bg_selector"

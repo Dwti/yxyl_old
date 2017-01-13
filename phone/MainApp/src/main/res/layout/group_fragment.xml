@@ -79,6 +79,7 @@
         android:id="@+id/rl_group"
         android:clickable="true"
         android:focusable="true"
+        android:layout_below="@+id/main_public_top_group"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <include
@@ -98,6 +99,7 @@
         android:clickable="true"
         android:focusable="true"
         android:layout_width="match_parent"
+        android:layout_below="@+id/main_public_top_group"
         android:layout_height="match_parent">
     <include
         android:id="@+id/no_class"
