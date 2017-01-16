@@ -6,29 +6,27 @@ apply plugin: 'android-apt'
 android {
     compileSdkVersion 21
     buildToolsVersion '21.1.2'
-    //useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "com.yanxiu.gphone.student"
         minSdkVersion 16
         targetSdkVersion 21
-        versionCode 16
-        versionName "2.3.4.1"
+        versionCode 15
+        versionName "2.3.3"
         multiDexEnabled true//multiDexEnabled true
-        manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "MTA"]
 
         buildConfigField "boolean", "YANXIU_DEBUG", "${yanxiu_debug}"
-        buildConfigField "boolean", "YANXIU_ERROR_CATCH","${yanxiu_error_catch}"
+        buildConfigField "boolean", "YANXIU_ERROR_CATCH", "${yanxiu_error_catch}"
         buildConfigField "boolean", "YANXIU_FORTEST", "${yanxiu_fortest}"
         buildConfigField "String", "YANXIU_PCODE", "\"${yanxiu_pcode}\""
-        buildConfigField "boolean", "YANXIU_ANALYLAYOUTHIERARCHY","${yanxiu_analylayouthierarchy}"
+        buildConfigField "boolean", "YANXIU_ANALYLAYOUTHIERARCHY", "${yanxiu_analylayouthierarchy}"
         buildConfigField "boolean", "YANXIU_MOKE", "${yanxiu_moke}"
 
         //参数说明
         manifestPlaceholders = [
-                GETUI_APP_ID : "FXeG42IpmI9C9KpKbNPbs1", //APP_ID
-                GETUI_APP_KEY : "Gk4NS64CY07lV5mvEB2QT4",   //APP_KEY
-                GETUI_APP_SECRET : "L3PVLZ2a4Z8v4Bsdzynkx4",   //APPSECRET
-                PACKAGE_NAME : applicationId   //applicationId
+                GETUI_APP_ID    : "FXeG42IpmI9C9KpKbNPbs1", //APP_ID
+                GETUI_APP_KEY   : "Gk4NS64CY07lV5mvEB2QT4",   //APP_KEY
+                GETUI_APP_SECRET: "L3PVLZ2a4Z8v4Bsdzynkx4",   //APPSECRET
+                PACKAGE_NAME    : applicationId   //applicationId
         ]
         //APP_ID、APP_KEY、APP_SECRET请根据个推开发者后台申请到的应用参数进行相应替换
 
@@ -44,8 +42,8 @@ android {
         incremental true
     }
 
-    sourceSets{
-        main{
+    sourceSets {
+        main {
             jniLibs.srcDir(['libs'])
             manifest.srcFile 'src/main/AndroidManifest.xml'
             java.srcDirs = ['src/main/java', 'src/main/aidl']
@@ -55,21 +53,9 @@ android {
             assets.srcDirs = ['src/main/assets']
         }
     }
-    signingConfigs {
-        debug {
-            //No debug config
-        }
-        release {
-            storeFile file('E:\\yxyl\\Key\\EEKey\\yanxiuandroid.keystore')
-            storePassword 'yanxiusrt1qaz@wsx'
-            keyAlias 'E:\\yxyl\\Key\\EEKey\\yanxiuandroid.keystore'
-            keyPassword 'yanxiusrt1qaz@wsx'
-        }
-    }
     buildTypes {
         debug {
             buildConfigField "boolean", "LOG_DEBUG", "true"
-//            versionNameSuffix "-debug"
             minifyEnabled false
             zipAlignEnabled false
             shrinkResources false
@@ -77,80 +63,24 @@ android {
         }
         release {
             buildConfigField "boolean", "LOG_DEBUG", "false"
-
             minifyEnabled false
-            zipAlignEnabled true
-            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
-
-//            applicationVariants.all { variant ->
-//                variant.outputs.each { output ->def outputFile= output.outputFile
-//                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
-//                        // ���apk����Ϊyanxiu_v1.0_2015-01-15_wandoujia.apk
-//                        def fileName="yanxiu_student_v${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
-//                        output.outputFile =new File(outputFile.parent, fileName)
-//                    }
-//                }
-//            }
         }
     }
 
-    productFlavors {
-        yanxiu_com {
-            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "yanxiu_com"]
-        }
-//        shoujizhushou360 {
-//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "shoujizhushou360"]//
-//        }
-//        baidushoujizhushou {
-//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "baidushoujizhushou"]//
-//        }
-//        wandoujia {
-//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "wandoujia"]//
-//        }
-//        xiaomi {
-//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "xiaomi"]//
-//        }
-//        txyingyongbao {
-//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "txyingyongbao"]//
-//        }
-//
-//        lenovomm {
-//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "lenovomm"]//
-//        }
-//
-//        huaweihuizhi {
-//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "huaweihuizhi"]//
-//        }
-//        vivo {
-//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "vivo"]//
-//        }
-//        oppo {
-//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "oppo"]//
-//        }
-//        others {
-//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "others"]//其他渠道
-//        }
+    ext {
+        permissionsDispatcherVersion = '2.1.2'
     }
-    productFlavors.all { flavor ->
-        flavor.manifestPlaceholders =[INSTALL_CHANNEL_VALUE:name]
+
+    dependencies {
+        compile fileTree(include: ['*.jar'], dir: 'libs')
+        compile project(':CommonCoreLib')
+        compile project(':LoginCommonLibs')
+        compile project(':ShareCommonLibs')
+        compile fileTree(include: ['*.jar'], dir: 'libs')
+        compile 'com.getui:sdk:2.9.5.0'
+        compile 'com.android.support:support-v4:+'
+        compile 'com.github.bumptech.glide:glide:3.7.0'
+        compile 'com.google.android.gms:play-services-appindexing:8.4.0'
     }
-}
-
-ext {
-    permissionsDispatcherVersion = '2.1.2'
-}
-
-dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':CommonCoreLib')
-    compile project(':LoginCommonLibs')
-    compile project(':ShareCommonLibs')
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.getui:sdk:2.9.5.0'
-    compile 'com.android.support:support-v4:+'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
-//    compile project(':YanxiuUpgradeLib')
 }
