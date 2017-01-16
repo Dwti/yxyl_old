@@ -97,9 +97,9 @@ android {
     }
 
     productFlavors {
-        yanxiu_com {
-            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "yanxiu_com"]
-        }
+//        yanxiu_com {
+//            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "yanxiu_com"]
+//        }
 //        shoujizhushou360 {
 //            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "shoujizhushou360"]//
 //        }

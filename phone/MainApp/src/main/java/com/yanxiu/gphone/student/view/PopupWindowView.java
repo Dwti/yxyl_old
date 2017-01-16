@@ -39,11 +39,11 @@ public class PopupWindowView {
         popupWindow.setOutsideTouchable(true);
     }
 
-    public void setGif(int resID){
-        if (gifview!=null){
-            gifview.setMovieResource(resID);
-        }
-    }
+//    public void setGif(int resID){
+//        if (gifview!=null){
+//            gifview.setMovieResource(resID);
+//        }
+//    }
 
     public void setPopShowing(View view){
         popupWindow.showAsDropDown(view,0,0);
