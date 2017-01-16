@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
-def releaseTime() {
-    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
-}
+//def releaseTime() {
+//    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+//}
 android {
     compileSdkVersion 21
     buildToolsVersion '21.1.2'
@@ -84,15 +84,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
 
-            applicationVariants.all { variant ->
-                variant.outputs.each { output ->def outputFile= output.outputFile
-                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                        // ���apk����Ϊyanxiu_v1.0_2015-01-15_wandoujia.apk
-                        def fileName="yanxiu_student_v${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
-                        output.outputFile =new File(outputFile.parent, fileName)
-                    }
-                }
-            }
+//            applicationVariants.all { variant ->
+//                variant.outputs.each { output ->def outputFile= output.outputFile
+//                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                        // ���apk����Ϊyanxiu_v1.0_2015-01-15_wandoujia.apk
+//                        def fileName="yanxiu_student_v${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
+//                        output.outputFile =new File(outputFile.parent, fileName)
+//                    }
+//                }
+//            }
         }
     }
 
@@ -100,38 +100,38 @@ android {
         yanxiu_com {
             manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "yanxiu_com"]
         }
-        shoujizhushou360 {
-            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "shoujizhushou360"]//
-        }
-        baidushoujizhushou {
-            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "baidushoujizhushou"]//
-        }
-        wandoujia {
-            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "wandoujia"]//
-        }
-        xiaomi {
-            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "xiaomi"]//
-        }
-        txyingyongbao {
-            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "txyingyongbao"]//
-        }
-
-        lenovomm {
-            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "lenovomm"]//
-        }
-
-        huaweihuizhi {
-            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "huaweihuizhi"]//
-        }
-        vivo {
-            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "vivo"]//
-        }
-        oppo {
-            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "oppo"]//
-        }
-        others {
-            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "others"]//其他渠道
-        }
+//        shoujizhushou360 {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "shoujizhushou360"]//
+//        }
+//        baidushoujizhushou {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "baidushoujizhushou"]//
+//        }
+//        wandoujia {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "wandoujia"]//
+//        }
+//        xiaomi {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "xiaomi"]//
+//        }
+//        txyingyongbao {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "txyingyongbao"]//
+//        }
+//
+//        lenovomm {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "lenovomm"]//
+//        }
+//
+//        huaweihuizhi {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "huaweihuizhi"]//
+//        }
+//        vivo {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "vivo"]//
+//        }
+//        oppo {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "oppo"]//
+//        }
+//        others {
+//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "others"]//其他渠道
+//        }
     }
     productFlavors.all { flavor ->
         flavor.manifestPlaceholders =[INSTALL_CHANNEL_VALUE:name]
