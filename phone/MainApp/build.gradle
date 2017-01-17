@@ -26,11 +26,6 @@ android {
                 GETUI_APP_ID    : "FXeG42IpmI9C9KpKbNPbs1", //APP_ID
                 GETUI_APP_KEY   : "Gk4NS64CY07lV5mvEB2QT4",   //APP_KEY
                 GETUI_APP_SECRET: "L3PVLZ2a4Z8v4Bsdzynkx4",   //APPSECRET
-
-//                GETUI_APP_ID    : "06JONKg7WO8ga06hryxph3", //APP_ID
-//                GETUI_APP_KEY   : "frDjLnCBoe9FAoMNqRA7V7",   //APP_KEY
-//                GETUI_APP_SECRET: "HzTOhVYOya7OC3fUxMSih5",   //APPSECRET
-
                 PACKAGE_NAME    : applicationId   //applicationId
         ]
         //APP_ID、APP_KEY、APP_SECRET请根据个推开发者后台申请到的应用参数进行相应替换
@@ -38,10 +33,6 @@ android {
         ndk {
             abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "mips", "mips64", "x86", "x86_64"
         }
-    }
-
-    dexOptions {
-        incremental true
     }
 
     sourceSets {
@@ -55,6 +46,19 @@ android {
             assets.srcDirs = ['src/main/assets']
         }
     }
+
+    signingConfigs {
+        debug {
+            //No debug config
+        }
+        release {
+            storeFile file('/home/sp/yxylkey/yanxiuandroid.keystore')
+            storePassword 'yanxiusrt1qaz@wsx'
+            keyAlias '/home/sp/yxylkey/yanxiuandroid.keystore'
+            keyPassword 'yanxiusrt1qaz@wsx'
+        }
+    }
+
     buildTypes {
         debug {
             buildConfigField "boolean", "LOG_DEBUG", "true"
@@ -66,47 +70,66 @@ android {
         release {
             buildConfigField "boolean", "LOG_DEBUG", "false"
             minifyEnabled false
+            zipAlignEnabled true
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        def fileName = "yanxiu_student_v${defaultConfig.versionName}_${variant.productFlavors[0].name}.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
         }
     }
 
     productFlavors {
-//        yanxiu_com {
-//            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "yanxiu_com"]
-//        }
-//        shoujizhushou360 {
-//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "shoujizhushou360"]//
-//        }
-//        baidushoujizhushou {
-//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "baidushoujizhushou"]//
-//        }
-//        wandoujia {
-//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "wandoujia"]//
-//        }
-//        xiaomi {
-//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "xiaomi"]//
-//        }
-//        txyingyongbao {
-//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "txyingyongbao"]//
-//        }
-//
-//        lenovomm {
-//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "lenovomm"]//
-//        }
-//
-//        huaweihuizhi {
-//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "huaweihuizhi"]//
-//        }
-//        vivo {
-//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "vivo"]//
-//        }
-//        oppo {
-//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "oppo"]//
-//        }
-//        others {
-//            manifestPlaceholders =[INSTALL_CHANNEL_VALUE: "others"]//其他渠道
-//        }
+        yanxiu_com {
+            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "yanxiu_com"]
+        }
+        shoujizhushou360 {
+            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "shoujizhushou360"]//
+        }
+        baidushoujizhushou {
+            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "baidushoujizhushou"]//
+        }
+        wandoujia {
+            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "wandoujia"]//
+        }
+        xiaomi {
+            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "xiaomi"]//
+        }
+        txyingyongbao {
+            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "txyingyongbao"]//
+        }
+
+        lenovomm {
+            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "lenovomm"]//
+        }
+
+        huaweihuizhi {
+            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "huaweihuizhi"]//
+        }
+        vivo {
+            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "vivo"]//
+        }
+        oppo {
+            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "oppo"]//
+        }
+        others {
+            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "others"]//其他渠道
+        }
     }
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [INSTALL_CHANNEL_VALUE: name]
+    }
+
+
     ext {
         permissionsDispatcherVersion = '2.1.2'
     }
