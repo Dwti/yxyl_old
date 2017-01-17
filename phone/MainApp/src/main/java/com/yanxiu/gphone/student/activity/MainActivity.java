@@ -41,6 +41,7 @@ import com.yanxiu.gphone.student.preference.PreferencesManager;
 import com.yanxiu.gphone.student.requestTask.RequestGetQReportTask;
 import com.yanxiu.gphone.student.requestTask.RequestGroupHwDotNumTask;
 import com.yanxiu.gphone.student.service.YanxiuIntentService;
+import com.yanxiu.gphone.student.service.YanxiuService;
 import com.yanxiu.gphone.student.upgrade.UpgradeUtils;
 import com.yanxiu.gphone.student.utils.PublicLoadUtils;
 import com.yanxiu.gphone.student.utils.QuestionUtils;
@@ -108,7 +109,8 @@ public class MainActivity extends YanxiuBaseActivity implements View.OnClickList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        PushManager.getInstance().initialize(this.getApplicationContext());
-        PushManager.getInstance().initialize(this.getApplicationContext(), YanxiuIntentService.class);
+        PushManager.getInstance().initialize(this.getApplicationContext(), YanxiuService.class);
+//        PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), YanxiuIntentService.class);
         rootView = PublicLoadUtils.createPage(this, R.layout.activity_btm_navi);
         setContentView(rootView);
         EventBus.getDefault().register(this);

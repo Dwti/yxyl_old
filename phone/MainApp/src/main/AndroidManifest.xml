@@ -23,11 +23,6 @@
         <meta-data
             android:name="TA_APPKEY"
             android:value="A1XDURM19G9L" />
-        <!-- 请将value改为app发布的市场名称，如在应用宝就写：应用宝、play写play< -->
-        <meta-data
-            android:name="InstallChannel"
-            android:value="${INSTALL_CHANNEL_VALUE}" />
-
         <activity
             android:name=".activity.WelcomeActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -349,6 +344,13 @@
         -->
         <service android:name=".service.YanxiuIntentService" />
 
+        <service
+            android:name="com.yanxiu.gphone.student.service.YanxiuService"
+            android:exported="true"
+            android:label="PushService"
+            android:process=":pushservice">
+        </service>
+
         <!-- 【可选】APP实现的Receiver，用于接收消息透传和操作结果的回调，请根据需要添加 -->
         <!-- YOUR_PACKAGE_PATH.CustomPushReceiver需要改为自己的Receiver： -->
         <!--<receiver android:name="com.yanxiu.gphone.student.receiver.YanxiuMessageReceiver" >-->
@@ -486,9 +488,20 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="getui.permission.GetuiService.${GETUI_APP_ID}" />
+<!--
+    <uses-permission android:name="getui.permission.GetuiService.com.yanxiu.gphone.student" />
+-->
+
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!-- 自定义权限-->
     <permission
         android:name="getui.permission.GetuiService.${GETUI_APP_ID}"
         android:protectionLevel="normal"></permission>
+
+
+<!--
+    <permission
+    android:name="getui.permission.GetuiService.com.yanxiu.gphone.student"
+    android:protectionLevel="normal"></permission>
+-->
 </manifest>
