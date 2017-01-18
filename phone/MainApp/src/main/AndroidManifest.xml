@@ -17,6 +17,9 @@
         <meta-data
             android:name="TA_APPKEY"
             android:value="A1XDURM19G9L" />
+        <meta-data
+            android:name="InstallChannel"
+            android:value="${INSTALL_CHANNEL_VALUE}"/>
         <activity
             android:name=".activity.WelcomeActivity"
             android:configChanges="keyboardHidden|orientation"

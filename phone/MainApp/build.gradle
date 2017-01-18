@@ -1,8 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
-//def releaseTime() {
-//    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
-//}
+
 android {
     compileSdkVersion 21
     buildToolsVersion '21.1.2'
@@ -47,25 +45,25 @@ android {
         }
     }
 
-    signingConfigs {
-        debug {
-            //No debug config
-        }
-        release {
-            storeFile file('/home/sp/yxylkey/yanxiuandroid.keystore')
-            storePassword 'yanxiusrt1qaz@wsx'
-            keyAlias '/home/sp/yxylkey/yanxiuandroid.keystore'
-            keyPassword 'yanxiusrt1qaz@wsx'
-        }
-    }
+//    signingConfigs {
+//        debug {
+//            //No debug config
+//        }
+//        release {
+//            storeFile file('/home/sp/yxylkey/yanxiuandroid.keystore')
+//            storePassword 'yanxiusrt1qaz@wsx'
+//            keyAlias '/home/sp/yxylkey/yanxiuandroid.keystore'
+//            keyPassword 'yanxiusrt1qaz@wsx'
+//        }
+//    }
 
     buildTypes {
         debug {
             buildConfigField "boolean", "LOG_DEBUG", "true"
             minifyEnabled false
-            zipAlignEnabled false
+            zipAlignEnabled true
             shrinkResources false
-            signingConfig signingConfigs.debug
+//            signingConfig signingConfigs.debug
         }
         release {
             buildConfigField "boolean", "LOG_DEBUG", "false"
@@ -73,7 +71,7 @@ android {
             zipAlignEnabled true
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+//            signingConfig signingConfigs.release
 
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
