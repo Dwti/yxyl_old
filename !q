@@ -1,0 +1,2160 @@
+[33mcommit 943647bcb543e5b59373bab2998a1c7b98b9b940[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Mon Jan 16 14:14:28 2017 +0800
+
+    提交打包脚本
+
+[33mcommit b332465403618b29388da17fbdba406382286fe1[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Jan 13 15:41:20 2017 +0800
+
+    UI修改
+
+[33mcommit e7064388d4b5c83a0088e3c671d170e94e3d4333[m
+Merge: fc06177 cc81eae
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Jan 13 15:07:54 2017 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit fc06177bdc0747af094706ccc0aed0ca0bb95416[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Jan 13 15:07:22 2017 +0800
+
+    bug修改
+
+[33mcommit cc81eae27ccef7b4b6b8997acceea1e5b8c639c1[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Fri Jan 13 15:05:26 2017 +0800
+
+    第一次进入裁剪界面，增加引导动画
+
+[33mcommit 56f92335624199802e2bbbfb6371091ef35599b6[m
+Merge: 4394e42 37579b0
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Jan 13 11:21:13 2017 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit 4394e4217a0ad60ba029eee1b816e57c658275a9[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Jan 13 11:20:32 2017 +0800
+
+    UI调整
+
+[33mcommit 37579b05150f35ef44a46d3bd578acecef683347[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Thu Jan 12 19:57:15 2017 +0800
+
+    在三星部分手機上，如果用三方權限管理軟件禁用了拍照權限，点击上传答案崩溃的问题。添加ToastMaster类
+
+[33mcommit ae22c426cdb1f0e17907a119b019c1c7f834a348[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Jan 12 18:35:32 2017 +0800
+
+    替换背景图片
+
+[33mcommit 21c73516404981da89a071bd35135108ed228a3c[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Jan 12 17:36:30 2017 +0800
+
+    UI修改
+
+[33mcommit 6bb3579ab111290b39cddf38f89f2b47b8483c4b[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Jan 12 15:59:37 2017 +0800
+
+    答案隐藏
+
+[33mcommit 99cef2d70cdec9178cb6f65d593686c398ebcb8c[m
+Merge: dd0fbc6 ddb9f6f
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Jan 12 11:35:41 2017 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit dd0fbc667dba12fb6ac66a5db2a76e90da92efb6[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Jan 12 11:35:08 2017 +0800
+
+    解答题修改答案背景图
+
+[33mcommit ddb9f6fa3760f7a9a15330859ca4b60844bf0cf6[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Thu Jan 12 10:50:44 2017 +0800
+
+    替换图片加载失败时的默认显示图片
+
+[33mcommit 46698491bcf5d1d4c2ac42154565147dccdb5a76[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Jan 12 10:45:28 2017 +0800
+
+    修改升级接口参数
+
+[33mcommit 429d25ea6c4a9b9347cdeb30fee354496d472750[m
+Merge: 3091fec d4eaf00
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Jan 11 18:02:54 2017 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit 3091fec50b4332546578a2f89a91ac06e8dfb714[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Jan 11 18:02:12 2017 +0800
+
+    修改答案背景图
+
+[33mcommit d4eaf000673e243b4300527e6b9c0b52cd90cccc[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Wed Jan 11 17:30:27 2017 +0800
+
+    添加主观题预览图片时，图片加载失败时的默认图片
+
+[33mcommit 12e43199b112f265bf82863ef5205afd0717e7e4[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Wed Jan 11 17:26:34 2017 +0800
+
+    拍照部分修改：如果禁用了读取运动权限或者手机平方检测不到拍照时的旋转角度，默认拍完旋转90度；否则就按拍照时旋转的角度旋转照片
+
+[33mcommit aac1c8fcb1bb19be4aa8e6837c1750c015691c16[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Jan 11 11:45:07 2017 +0800
+
+    修改答案边框
+
+[33mcommit 3aed2557dc2e038483cc546aabd8c455c75aa419[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Jan 10 18:39:35 2017 +0800
+
+    修改填空长度
+
+[33mcommit 4fb1d44cc19cc903d5ffae552f4d4628d41bc4dd[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Jan 10 17:52:39 2017 +0800
+
+    修改takingdata
+
+[33mcommit 2bcb4fa554278813d5572b42538b60dd678ee2c2[m
+Merge: d9b80e5 b96deb7
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Jan 10 17:06:49 2017 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit d9b80e5b02025ea4310bdf3c538826c4819535ad[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Jan 10 17:05:45 2017 +0800
+
+    点9图bug修改
+
+[33mcommit b96deb7cf6ae7a1e5420d1fa4ec119283cd4e59b[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Tue Jan 10 16:32:24 2017 +0800
+
+    fix bug mes-1052
+
+[33mcommit dc7ca1a71019a7213afa09989dc14008da75142f[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Tue Jan 10 16:15:18 2017 +0800
+
+    fix bug mes-1051
+
+[33mcommit 6d0c3b75d0f65afed49c0e786a6b9c3cbf5d53d3[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Tue Jan 10 15:26:45 2017 +0800
+
+    移除旧版拍照跟照片选择裁剪相关的Moudle，类以及功能函数，布局文件等
+
+[33mcommit 5e2625869873083d83a2727ff8bec2e563dc3b85[m
+Merge: 1b74390 f1c8aef
+Author: fengrongcheng <fengrongcheng@yanxiu.com>
+Date:   Tue Jan 10 16:11:25 2017 +0800
+
+    Merge branch 'master' of git.oschina.net:fengrongcheng/YXEStudent_Android
+
+[33mcommit 1b7439044d3c7dc73baa02080c9c793ae27d6498[m
+Author: fengrongcheng <fengrongcheng@yanxiu.com>
+Date:   Tue Jan 10 16:10:43 2017 +0800
+
+    bug:MES-1049
+
+[33mcommit f1c8aefc5bc8a999469b71ae345f3a4d49173f41[m
+Author: fengrongcheng <fengrongcheng@yanxiu.com>
+Date:   Tue Jan 10 16:10:43 2017 +0800
+
+    bug:MES-1049
+
+[33mcommit e38a5a6eb5821f3e1d7712db910cd562b3e6ec2a[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Jan 10 15:48:29 2017 +0800
+
+    填空题逻辑再次修改
+
+[33mcommit f6dc5a50accb5ad42eb8327e9aee903c16f20359[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Jan 10 12:06:06 2017 +0800
+
+    连线题答案文案修改
+
+[33mcommit 7d00396d815fd1073ca3ce61ed63a5cdd7373726[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Jan 10 11:52:21 2017 +0800
+
+    修改填空题间距
+
+[33mcommit d29853ec28530afd1a6d57c4efba04f8579431ea[m
+Author: fengrongcheng <fengrongcheng@yanxiu.com>
+Date:   Tue Jan 10 10:31:37 2017 +0800
+
+    切换为测试接口
+
+[33mcommit ca2d5f31dc35b689be58fc45279f2442bb314d5e[m
+Author: fengrongcheng <fengrongcheng@yanxiu.com>
+Date:   Tue Jan 10 10:27:42 2017 +0800
+
+    修改接口配置文件
+
+[33mcommit 49d8f56ca3138fdb657f6182a0dce090a60cab20[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Mon Jan 9 12:10:07 2017 +0800
+
+    删除MainActivity intent-filter中的android.intent.category.BROWSABLE
+
+[33mcommit ac89a7f0f0f5e624fd33812500faa500c5e36790[m
+Author: fengrongcheng <fengrongcheng@yanxiu.com>
+Date:   Mon Jan 9 18:28:11 2017 +0800
+
+    add: 添加配置文件
+
+[33mcommit f8142c1ea9d26e0cc58b11b13feb8ed8c26a7080[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Mon Jan 9 17:14:46 2017 +0800
+
+    UI修改
+
+[33mcommit 498b22cf162c57b05ed83cb54d8cd0cb40b03126[m
+Merge: bb89822 3ab1f19
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Mon Jan 9 16:38:56 2017 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit bb8982209a36b8ce761517bb93c2a61fba935756[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Mon Jan 9 16:38:19 2017 +0800
+
+    bug修改
+
+[33mcommit 3ab1f1979b6195e790e2ea4b2650ac84d6bdf7b1[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Mon Jan 9 11:49:41 2017 +0800
+
+    图片裁剪界面Glide加载图片添加加载失败处理逻辑
+
+[33mcommit d606fe9aa1279c4f4937e129fca2e55ad4398de7[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Mon Jan 9 11:24:31 2017 +0800
+
+    图片裁剪界面的图片加载替换为Glide加载
+
+[33mcommit cfa7b52e74ac0f667bfd3da1121181f9b7306524[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Sat Jan 7 13:56:27 2017 +0800
+
+    测试图片裁剪界面的图片用Glide加载
+
+[33mcommit 0d78c87e7cf971fd8c822271e968099a1437c765[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Fri Jan 6 16:51:32 2017 +0800
+
+    解决图片裁剪界面空指针的问题
+
+[33mcommit c14e8c5b04fd0ac1af791c1a3a42dabd58a2d70d[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Jan 6 16:42:41 2017 +0800
+
+    逻辑修改
+
+[33mcommit 59a1931cdf30340dc419f7fcd2d18030d2cae0da[m
+Merge: ddbf451 4fdf21e
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Jan 6 16:10:49 2017 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit ddbf451772124441350e997759b47342e64a4253[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Jan 6 16:10:15 2017 +0800
+
+    逻辑修改
+
+[33mcommit 4fdf21eb20094c5bb02fe10da0ec9f918c70713f[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Fri Jan 6 15:21:50 2017 +0800
+
+    fix bug mes-1038
+
+[33mcommit 280baa28b19ed0f2550a1f90d71a271b4a8e5393[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Jan 6 15:14:35 2017 +0800
+
+    bug修改
+
+[33mcommit f0eb9711cd06756995c5c713c6be1e25954474b8[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Fri Jan 6 14:50:57 2017 +0800
+
+    fix bug mes-1037
+
+[33mcommit c411a255f78b1b0866e6faa3450a63ef4e3c8493[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Fri Jan 6 12:26:06 2017 +0800
+
+    相册目录的item加上分隔线与按下背景色
+
+[33mcommit 4c7bf63bfe6c5f037302c05b884162ada989733a[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Jan 6 14:32:54 2017 +0800
+
+    逻辑修改
+
+[33mcommit 5908d923c9c8b274714fdd5c1a71fc5d194a22ea[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Jan 6 12:26:19 2017 +0800
+
+    bug修改
+
+[33mcommit c7ed528f7a344dd0f1d97701a3a022ce89a3753c[m
+Merge: aafc3df ac5a7f7
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Jan 6 11:46:13 2017 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+    
+    # Conflicts:
+    #	phone/MainApp/src/main/java/com/yanxiu/gphone/student/activity/AnswerViewActivity.java
+
+[33mcommit aafc3dfc6db51ba86149adcfe4cda13a45a9630a[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Jan 6 11:19:41 2017 +0800
+
+    ui调整
+
+[33mcommit ac5a7f74022e90cb6cb42c82a4c9df933aa6c681[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Thu Jan 5 18:37:48 2017 +0800
+
+    调整间隔线左右边距
+
+[33mcommit 9d41cdc2b36afaa5bc2584705caabd29cdba027b[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Jan 5 18:08:54 2017 +0800
+
+    逻辑顺序优化
+
+[33mcommit 9b751065e3d31fd0ce10edd35a95ff380f8d9f26[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Jan 5 13:35:47 2017 +0800
+
+    bug修改
+
+[33mcommit cac2435955e7d0828c36bcdb288dfeefe4a1bb2f[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Fri Jan 6 10:39:52 2017 +0800
+
+    variable rename
+
+[33mcommit ab88db63943bcbd5310483e0fe39a7bea253d99d[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Thu Jan 5 20:59:43 2017 +0800
+
+    UI細節調整，增加相冊選擇箭頭動畫
+
+[33mcommit 2515320429a6968a15727de7bce717e7014a2b6e[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Thu Jan 5 20:59:43 2017 +0800
+
+    UI細節調整，增加相冊選擇箭頭動畫
+
+[33mcommit f7f4354314bb8eaedb1c445875e7fd3ba404303e[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Thu Jan 5 16:30:15 2017 +0800
+
+    相冊圖片加上圓角邊框，主觀題圖片預覽界面重寫
+
+[33mcommit 7b57374981592f3b4e75ef68f114daea33ea8c30[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Wed Jan 4 19:02:22 2017 +0800
+
+    替換相冊张选择模块
+
+[33mcommit 4dbd6d8fa6e9cdef97dafbb7a2d89d5342d1ef79[m
+Merge: f998d50 12828fd
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Jan 6 10:13:54 2017 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit f998d50586a50d3dc5597a34fc272221cd61a2c1[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Jan 6 10:13:19 2017 +0800
+
+    字体颜色修改
+
+[33mcommit 4228cb936f6366fddbdfc6dd7e37d76a19bdd926[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Jan 5 18:08:54 2017 +0800
+
+    逻辑顺序优化
+
+[33mcommit f00acbe9928db0a5a9aa1a9d80a8625639efce84[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Jan 5 13:35:47 2017 +0800
+
+    bug修改
+
+[33mcommit 12828fdeb802c0667a8a7cade6799de532672c7f[m
+Author: fengrongcheng <fengrongcheng@yanxiu.com>
+Date:   Thu Jan 5 12:31:19 2017 +0800
+
+    bug :MES-1029
+
+[33mcommit ee0edc30f62f1dfdd3204b309dccf301469605a8[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Jan 5 11:10:43 2017 +0800
+
+    数字加一
+
+[33mcommit 26cf3f631f25203b6dd1f1c114315efe1e4024ca[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Jan 4 17:54:47 2017 +0800
+
+    图片大小更改
+
+[33mcommit 9d60bdb3258b5793b1044536e5406345770f5847[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Jan 4 15:33:28 2017 +0800
+
+    数字加一
+
+[33mcommit 2e19fbfc73ccee0908a29c3c93006d4552e3bd65[m
+Merge: ac1bfca 265f99b
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Jan 4 12:25:43 2017 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit ac1bfca9e814e7c16ab5aa543a49be80b4be448d[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Jan 4 12:24:18 2017 +0800
+
+    需求处理
+
+[33mcommit 265f99b777b5520e7f435c0191bdaafb8cfe6208[m
+Author: fengrongcheng <fengrongcheng@yanxiu.com>
+Date:   Wed Jan 4 12:16:03 2017 +0800
+
+    bug:MLS-1019
+
+[33mcommit 50516a9573a66008a15821c5d2f92db90e065fd9[m
+Merge: c50762b 37c7eba
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Jan 3 20:05:27 2017 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit c50762b6e515702fb6b44d3c7e5f293c21c3bc18[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Jan 3 20:02:36 2017 +0800
+
+    提交
+
+[33mcommit 37c7ebae892135ca8e1c36051c8ad43716de007e[m
+Author: fengrongcheng <fengrongcheng@yanxiu.com>
+Date:   Tue Jan 3 18:29:13 2017 +0800
+
+    修改四个模板的显示答案逻辑
+
+[33mcommit 37229e6392bf2952194718a2d279b6ef4cc75ef0[m
+Author: fengrongcheng <fengrongcheng@yanxiu.com>
+Date:   Tue Jan 3 15:06:20 2017 +0800
+
+    bug MLS:1019
+
+[33mcommit c649524a2c7c8ca19ea9b810f80adf2e4598494f[m
+Merge: 5abbfe9 211fca1
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Dec 30 15:50:41 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit 5abbfe99a394ab905bdcae92a78043eaf315daea[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Dec 30 15:49:49 2016 +0800
+
+    修改bug
+
+[33mcommit 211fca123c1bdcf8c6ffae31f6d705aa260c79ae[m
+Author: fengrongcheng <fengrongcheng@yanxiu.com>
+Date:   Fri Dec 30 14:39:03 2016 +0800
+
+    修改提示文字逻辑
+
+[33mcommit 9fe660a9d2925d64718f971d88687b59dc83cecd[m
+Author: fengrongcheng <fengrongcheng@yanxiu.com>
+Date:   Fri Dec 30 10:13:04 2016 +0800
+
+    修改答案图片位置
+
+[33mcommit bb1625adb84f1b5dcc67b302fbf1a82cbb37c6e5[m
+Author: fengrongcheng <fengrongcheng@yanxiu.com>
+Date:   Thu Dec 29 18:40:04 2016 +0800
+
+    替换得分图片
+
+[33mcommit 822a172d9226b05599183fcaf065d194638da1f2[m
+Merge: f33031b e970d86
+Author: fengrongcheng <fengrongcheng@yanxiu.com>
+Date:   Thu Dec 29 17:24:04 2016 +0800
+
+    megre weiqi
+
+[33mcommit f33031b46b69f6ef9e89c25cf360e0db34147062[m
+Author: fengrongcheng <fengrongcheng@yanxiu.com>
+Date:   Thu Dec 29 16:59:05 2016 +0800
+
+    v 2.3.4
+    requrements
+
+[33mcommit 7412b3b964526e6121f37e70563a468288dbf4b7[m
+Author: fengrongcheng <fengrongcheng@yanxiu.com>
+Date:   Fri Dec 23 19:35:59 2016 +0800
+
+    没改什么
+
+[33mcommit e970d86016602f8280296fb6af50eff58396e024[m
+Author: fengrongcheng <fengrongcheng@yanxiu.com>
+Date:   Thu Dec 29 16:59:05 2016 +0800
+
+    v 2.3.4
+    requrements
+
+[33mcommit 771d151a9bfd6424cddde142008117b944c904a3[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Thu Dec 29 16:47:49 2016 +0800
+
+    修复从手机相册选择照片裁剪，如果照片分辨率过大，decode照片OOM的问题
+
+[33mcommit 1755a97a482840bea864dc2b9794ed61afe09fe6[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Dec 29 14:56:53 2016 +0800
+
+    修改历史遗留
+
+[33mcommit 0e7a87b5ef7ad32442a49920d2a00d6f0d60e2fe[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Dec 29 11:41:44 2016 +0800
+
+    填空题背景图替换，滑动时默认显示页逻辑修改
+
+[33mcommit ab42c0ea01b9bf85ff01842945e8645f5549b20d[m
+Merge: d194f1e 200f885
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Dec 28 14:50:09 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit d194f1e4266df8c69da9ee46d9fd649ee32abecc[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Dec 28 14:48:56 2016 +0800
+
+    bug修改
+
+[33mcommit 200f885c9b5d754e127cd41add26b9fe7925c05b[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Tue Dec 27 18:45:59 2016 +0800
+
+    加上异常捕获日志
+
+[33mcommit 3bde789b600d448f4d138e9f0aa467cee70e2676[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Tue Dec 27 17:04:28 2016 +0800
+
+    fix bug mes-993
+
+[33mcommit 4caa71e11e648e986b0780fa5f1550c7e8671564[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Tue Dec 27 15:06:55 2016 +0800
+
+    collapse manifest.xml all empty tag
+
+[33mcommit af50430a5eba6f2c31e47149138e922b0488011b[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Tue Dec 27 14:59:41 2016 +0800
+
+    修复android 4.3以下版本，图片裁剪区域不透明的问题
+
+[33mcommit d7c04b655ceb293a1f43c2f9541ea98e302352d6[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Mon Dec 26 19:10:29 2016 +0800
+
+    rename CapatureActivity toCaptureActivity
+
+[33mcommit ff2cb496d832e3aead2e84f77883edffffd3e75e[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Mon Dec 26 18:50:18 2016 +0800
+
+    修正在三星系列手机拍照，生成的照片旋转角度不对的问题
+
+[33mcommit 9f24c3e36e7c9358d5f5dc9cebc7532b32b9229a[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Fri Dec 23 21:52:12 2016 +0800
+
+    拍照跟裁剪更能替换
+
+[33mcommit 4287684dc867f23777c4c694abfbe93a26c6e757[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Fri Dec 23 10:44:44 2016 +0800
+
+    update gradle version
+
+[33mcommit ffffcd9556995a8f9c40dd52439a2c04a0ae67d1[m
+Author: sunpeng <sunpeng@yanxiu.com>
+Date:   Mon Dec 19 16:03:58 2016 +0800
+
+    gradle 版本升级
+
+[33mcommit 20d0078bc966508174764f8d9c3dc68af35a65b6[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Mon Dec 26 16:43:28 2016 +0800
+
+    bug修改
+
+[33mcommit fb8b0dae726f0bbadf71854f674fcb7de5c6bd42[m
+Author: fengrongcheng <fengrongcheng@yanxiu.com>
+Date:   Fri Dec 23 19:35:59 2016 +0800
+
+    没改什么
+
+[33mcommit 72534c9d27a3d5f720078249768c4f1e2e9d98c9[m
+Merge: e941710 00dc7d9
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Dec 23 17:46:36 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit e94171070fbc94b0944fdfaf2a66f2d567640896[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Dec 23 17:45:56 2016 +0800
+
+    bug修改
+
+[33mcommit 00dc7d9df678a8df16bdd3f69a362ee54849dc63[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Fri Dec 23 17:45:11 2016 +0800
+
+    升级个推2.9.5.0
+
+[33mcommit 0d3831a85a3bbf75b69306dc1e294b35a998926d[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Dec 23 14:36:26 2016 +0800
+
+    隐藏bug修改
+
+[33mcommit 2e057b86b478a710d4fcb1461141be2fcd7353bb[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Dec 23 12:19:15 2016 +0800
+
+    bug修改
+
+[33mcommit 2987b2188a0220406a59552e34ecacdb6023ca71[m
+Merge: a059907 da2345c
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Dec 23 12:13:53 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit a059907791b7d70a106a7049385283dfadaf2928[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Dec 23 12:13:07 2016 +0800
+
+    bug修改
+
+[33mcommit da2345cc22d181ca140aea31adcfdb5832cc070b[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Fri Dec 23 12:11:12 2016 +0800
+
+    恢复getItemId调用
+
+[33mcommit 1400e5faded9324c0975a0f69e51ca5be0230c88[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Fri Dec 23 11:57:51 2016 +0800
+
+    修改提交答案后分享对话框的动画
+
+[33mcommit 012bdef5ec2d0b153acd96e007a3d4637b0093a4[m
+Merge: 0aaed63 0bb66a4
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Dec 22 18:17:33 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 0aaed63b3bf0fb374fce9dd4ce10606273da3e4b[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Dec 22 18:16:15 2016 +0800
+
+    bug修改
+
+[33mcommit 0bb66a4a6026050c2c4cf49c13526984e9468b93[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Thu Dec 22 17:33:01 2016 +0800
+
+    调整分享对话框布局
+
+[33mcommit 251a94600282bf01e99b3da32c9386ca5a70e9cd[m
+Merge: d65e9d7 d133669
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Dec 22 12:00:36 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit d65e9d7ecba6ca917331cfceb4cab3f60aa3b012[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Dec 22 11:59:24 2016 +0800
+
+    删除信鸽
+
+[33mcommit d1336694e8ab25ab838cf68d7318d25b5e9b9135[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Thu Dec 22 11:32:20 2016 +0800
+
+    调整提交的取消动画
+
+[33mcommit f453a133c1e638f83f402ef10ce8851804e3ac56[m
+Merge: 0e063f3 af9807e
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Dec 22 11:30:47 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+    
+    # Conflicts:
+    #	phone/MainApp/build.gradle
+    #	phone/MainApp/src/main/java/com/yanxiu/gphone/student/activity/MainActivity.java
+
+[33mcommit 0e063f31940e91ffe615552c426d6247faeacdb9[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Dec 22 11:28:19 2016 +0800
+
+    删除信鸽
+
+[33mcommit af9807eb78f8b18ea6d72f179a91860632862c1c[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Thu Dec 22 10:35:19 2016 +0800
+
+    个推升级到2.9.5.0版本
+
+[33mcommit c24590f0364fb9ba49aa1c1e72448aaa31fb664d[m
+Merge: 1e987e4 66d026d
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Dec 21 11:40:30 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 1e987e4f45cf3305f4c9533ba7cefc858614aa77[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Dec 21 11:39:33 2016 +0800
+
+    bug修改
+
+[33mcommit 66d026d8b9ec346a1183a92c251babe28cd03795[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Wed Dec 21 11:39:06 2016 +0800
+
+    修改我的界面的布局
+
+[33mcommit 1a9709f26b876a03aa87b35003485b2495ddc143[m
+Merge: a67b1d4 71d9900
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Dec 20 15:59:31 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 71d990053d4a0fc1c832dac437164f76cf9e4a84[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Tue Dec 20 15:55:08 2016 +0800
+
+    根据UI设计图调整
+
+[33mcommit a67b1d4f3979d6cd4b0fcfefee21b59c8e9eeebb[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Dec 20 14:38:35 2016 +0800
+
+    修复答题卡动画崩溃问题，修复计时崩溃问题
+
+[33mcommit 099d945c3607478bc2dac2a9243d24a9de6f67c6[m
+Merge: 4011140 71e67bd
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Dec 20 10:16:57 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 4011140370c31ac98cd78578dda8fe27cfa8d788[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Dec 20 10:15:58 2016 +0800
+
+    引用版本修改
+
+[33mcommit 71e67bd1fb36375aa0beb6e8c09693db2b898526[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Thu Dec 15 15:38:39 2016 +0800
+
+    切换环境到正式环境
+
+[33mcommit c8b8053482b95bf6bc358aa2243e35bafbc4a15b[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Thu Dec 15 15:21:41 2016 +0800
+
+    我的错题删除题目不刷新
+
+[33mcommit 6bac31ff2ec9ae0f50fbacc0f1ccd8220d6898bb[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Thu Dec 15 10:38:50 2016 +0800
+
+    答题界面的遮板修改
+
+[33mcommit e0516b167e1f05c38278dbc2a449c88f226c38e5[m
+Merge: 2fe2119 1b4ea4a
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Dec 15 12:19:59 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 2fe2119a18fdfd589a980efeb386bd30adaae8eb[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Dec 15 12:19:21 2016 +0800
+
+    修改填空题bug
+
+[33mcommit 1b4ea4a10bdf53fe8c8bdb9ef1b621c69a73beb0[m
+Merge: f66b84a 2508719
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Wed Dec 14 12:02:36 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit f66b84a1967ea0ce8fa0889c1dc76d32fe2ea076[m
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Wed Dec 14 12:02:15 2016 +0800
+
+    add talking data crash log
+
+[33mcommit 250871933ee4f9eca29a6b7b41af38f89e82c181[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Mon Dec 12 13:54:11 2016 +0800
+
+    关闭测试数据入口
+
+[33mcommit 0cd1142d65f55731c057752b5696b5bcbf1aeb4a[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Mon Dec 12 13:44:30 2016 +0800
+
+    添加判断，防止sever抽风
+
+[33mcommit 71922e035cc42125c299f0188707cf04d71c51cd[m
+Merge: 086f03e 7001383
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Mon Dec 12 12:25:57 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 086f03e363fbc9b490d40dbcfeab7450a6082dde[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Mon Dec 12 12:24:52 2016 +0800
+
+    添加几个判断，防止同时创建的对象一个是null另一个不是
+
+[33mcommit 70013831dc91c8f5f3756a550c0ce9445e2e2002[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Mon Dec 12 12:23:26 2016 +0800
+
+    隐藏测试数据入口
+
+[33mcommit 4055f42f436b4592f651666f9274946191da7b5b[m
+Merge: 7a37d32 2a6c711
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Mon Dec 12 10:30:40 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 7a37d32b9402d560e62ad0e00ffe8f21ce7c91e1[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Mon Dec 12 10:29:54 2016 +0800
+
+    添加解答题没答案时，答案模块忽略
+
+[33mcommit 2a6c711059099cd38f11f8af3b52e4e16f970ff2[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Mon Dec 12 10:28:02 2016 +0800
+
+    多线程处理资源释放
+
+[33mcommit ebbdf3090009239d3d719f1d6e01389d8629fdff[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Fri Dec 9 19:21:11 2016 +0800
+
+    切换到正式环境
+
+[33mcommit f1575a72b63d66b7ba4342b04d11fb1adcd81bae[m
+Merge: b730d0a 135ee07
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Dec 9 18:46:41 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 135ee07af8bcd6423a61971ae7c0a991125779b6[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Fri Dec 9 18:45:56 2016 +0800
+
+    调整我的界面的左间距
+
+[33mcommit b730d0aa1525607953eaa7d4960f235b1e91d282[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Dec 9 18:45:20 2016 +0800
+
+    bug修改
+
+[33mcommit 90032a5a3333da498301c88d4ae61a2ae1ac4168[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Fri Dec 9 18:11:00 2016 +0800
+
+    批改后的作业图片加旋转框
+
+[33mcommit e4126208c23c7c75abc6930f5902b5943fb5e60e[m
+Merge: fe2d239 adeab52
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Dec 9 16:39:47 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit fe2d2393a1baa1fad8a5b4a1b50e4b3dde61cb27[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Dec 9 16:39:03 2016 +0800
+
+    bug修改
+
+[33mcommit adeab5216e3c6b96c6741d8ad157c963872cd0c7[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Fri Dec 9 16:38:42 2016 +0800
+
+    三星手机适配
+
+[33mcommit c09d33ce5ee88d80dafde1a03cf85fd41947f4a8[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Fri Dec 9 13:55:08 2016 +0800
+
+    某些华为手机不能在照相机文件夹创建文件
+
+[33mcommit 204db6aac6659aebce8af4d8c2cb1b69ad0a1b99[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Fri Dec 9 13:21:48 2016 +0800
+
+    华为手机没有文件夹的情况下无法创建文件
+
+[33mcommit 969dd9bff5c3795782814b9ef7debdf08e58bbb6[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Fri Dec 9 10:43:44 2016 +0800
+
+    对等待框增加判空处理
+
+[33mcommit 10e2dc79842e0886ed25c7354786b705b5e6cf05[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Fri Dec 9 10:16:14 2016 +0800
+
+    遇到大图片卡顿时增加等待标记
+
+[33mcommit a53c507100b871b514ef4d7bde59c95d5219d833[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Thu Dec 8 18:14:52 2016 +0800
+
+    扫描文件index过大时缩小检查
+
+[33mcommit cedc44367775b7819ff041c5194ca99fe37d9452[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Thu Dec 8 18:12:02 2016 +0800
+
+    删除图片后刷新界面死循环
+
+[33mcommit 71246ca6f29311008e36e8be379aba80deb973c6[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Thu Dec 8 17:15:30 2016 +0800
+
+    更改图片上传顺序
+
+[33mcommit 7cc928d63c5fe24bfdfe2a9f3b4a160085492810[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Thu Dec 8 16:23:02 2016 +0800
+
+    提交作业时提交作业框点击空白不消失
+
+[33mcommit 2e12eb3b086d68ef6b39347f7999b6c0fa20b91d[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Thu Dec 8 14:56:28 2016 +0800
+
+    题目解析图片查看慢
+
+[33mcommit b43f968d318c2cbac5bbd9235cabebc633a45d95[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Thu Dec 8 14:38:58 2016 +0800
+
+    选择图片防止二次点击
+
+[33mcommit 89391cacfcf321d3076dbcfec8cec599807963bd[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Thu Dec 8 12:57:12 2016 +0800
+
+    无练习历史提示框
+
+[33mcommit 60f4431261a732753f536a25970860798dde5963[m
+Merge: d59cda5 5e3ea0f
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Dec 8 12:26:03 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit d59cda52a39998bebaf8892deda55ad1752ebd35[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Dec 8 12:24:41 2016 +0800
+
+    bug修改
+
+[33mcommit 5e3ea0f22ad1a8f45cf2717593e1bb8adbc63986[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Thu Dec 8 12:23:37 2016 +0800
+
+    退出登录居中
+
+[33mcommit bf29e78a91bdbd71bd27ed22751af2c24463ed49[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Thu Dec 8 10:46:25 2016 +0800
+
+    应用第一次安装时图片内存溢出
+
+[33mcommit c3143f6fe17e4d601733591b7c1b7e96803648a1[m
+Merge: fdbdfb7 c51152c
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Dec 7 18:39:13 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit fdbdfb77f59de77cac33284981df74394ac0f81e[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Dec 7 18:38:41 2016 +0800
+
+    bug修改
+
+[33mcommit c51152cd09ea8d52c8724642338a725e0d447ec0[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Wed Dec 7 18:36:29 2016 +0800
+
+    图片去掉压缩
+
+[33mcommit 1f595a420ff73ff7dd68e8a8bf09fd587728820e[m
+Merge: 2615791 0196a30
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Dec 7 18:07:38 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 2615791588bc89884e81fd15fb1a03738e10e6da[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Dec 7 18:07:01 2016 +0800
+
+    bug修改
+
+[33mcommit 0196a30aa3705d7110198a1e54b5265655521320[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Wed Dec 7 18:06:12 2016 +0800
+
+    读取图片前先读取图片大小
+
+[33mcommit 22c1c47ae93015adfad81e98e332e57078e43c85[m
+Merge: 3f4e061 d0b125a
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Dec 7 15:18:33 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 3f4e0610e7cdc40c40cc8bf60476c7e151d8b567[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Dec 7 15:17:14 2016 +0800
+
+    UI修改
+
+[33mcommit d0b125a5373b6dbb29c8b340965c48901cfe3a3f[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Wed Dec 7 15:15:53 2016 +0800
+
+    提高拍照照片分辨率
+
+[33mcommit e4ce4a729d3a60a4d4996378f245985aeb15361a[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Wed Dec 7 15:01:43 2016 +0800
+
+    照相增加自动对焦
+
+[33mcommit 860394cf55aad12b572419a943000c11c2fa5673[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Wed Dec 7 12:32:48 2016 +0800
+
+    调整相机透明度
+
+[33mcommit d381b1e9a45ee49b6099e643fcf3e92e5b456ece[m
+Merge: 2ccba6d ee0dd4f
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Dec 7 12:31:09 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 2ccba6dcb714fe4d18a48ffcab78cccb890f9874[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Dec 7 12:16:32 2016 +0800
+
+    bug修改
+
+[33mcommit ee0dd4fc2aff5368d37fb77aa559ebf374a5670e[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Wed Dec 7 12:15:36 2016 +0800
+
+    相机增加自动对焦
+
+[33mcommit b49fb99e093bfbdafb7b16cf7fdc3c34f44b0e48[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Tue Dec 6 18:50:32 2016 +0800
+
+    去除部分因内存优化而影响画质的部分
+
+[33mcommit 7f33ea8db8862f0f6d6c94b7ae920c5b1432362d[m
+Merge: 16143e4 5cf3907
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Dec 6 18:28:52 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 16143e41fcc40dafdfd148144aaced0b22c08223[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Dec 6 18:28:12 2016 +0800
+
+    bug修改
+
+[33mcommit 5cf390767ccf4b8799b3b00e5c42f0fee85f65af[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Tue Dec 6 18:27:39 2016 +0800
+
+    调整图片剪裁的初始框大小
+
+[33mcommit 7a8b0e4f8d2e6a1c789889bbf832e146e1a3840e[m
+Merge: ddb6cb6 62525f9
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Dec 6 17:44:51 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 62525f94666c34ecef6f4d97fdecb3c207e53803[m
+Merge: 4ecddd6 6c79b6d
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Tue Dec 6 17:42:12 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit 4ecddd63e8298b2a6ee1952880a7852e29992d44[m
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Tue Dec 6 17:42:05 2016 +0800
+
+    fix , reopen MES-921
+
+[33mcommit ddb6cb6fe98334f0860db1698893be400bd37a9b[m
+Merge: a2975e0 6c79b6d
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Dec 6 17:40:42 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 6c79b6d0368f1c4beeffd70bbf7740fbc6119cdb[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Tue Dec 6 17:39:42 2016 +0800
+
+    归类题增加判空判断
+
+[33mcommit a2975e0f41cb9a6a73d9d31b8761400d8f720808[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Dec 6 17:39:08 2016 +0800
+
+    bug修改
+
+[33mcommit 54cb8e176b4859e4ab695811989aaae3b42957c7[m
+Merge: da9baac 17a5324
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Dec 6 17:02:49 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit da9baacf2809aecb5f5edddf628b915f1fa9d96d[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Dec 6 17:02:05 2016 +0800
+
+    bug修改
+
+[33mcommit 17a53247ca7f560205b07bba5fdb1d46f54e58a9[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Tue Dec 6 17:01:18 2016 +0800
+
+    图片和作业提交提示框
+
+[33mcommit 008ec148d0e664af481240fdf1de5809ae999299[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Dec 6 15:41:41 2016 +0800
+
+    bug修改
+
+[33mcommit cbb4392502a3a70b144877553932cd2b71e27e73[m
+Merge: cb67e75 a26a663
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Dec 6 12:33:07 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit cb67e751bc5133898c06e12935aa9ae2ae8c57e8[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Dec 6 12:32:28 2016 +0800
+
+    bug修改
+
+[33mcommit a26a663efb541424036d3e1fd1c0a134e2b3f480[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Tue Dec 6 12:32:08 2016 +0800
+
+    修改提交图片进度条大小
+
+[33mcommit 83760b4df172773aac98e92e0252618d2113e430[m
+Merge: 29b3104 d3f7b92
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Dec 6 10:29:01 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 29b3104190188091ae475e8d5aefd8eed30d5976[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Dec 6 10:28:15 2016 +0800
+
+    bug修改
+
+[33mcommit d3f7b920f28c908e527437d90ae3c2fbcaa2db79[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Tue Dec 6 10:27:10 2016 +0800
+
+    转bitmap优化内存
+
+[33mcommit f6fc51dd87494263684a63cb8eb3b52b575f3da9[m
+Merge: 10c8523 d9fd8c1
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Tue Dec 6 10:10:06 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit 10c85230130bcf54d5f0399552149c61cf8e57b3[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Tue Dec 6 10:09:40 2016 +0800
+
+    裁剪慢的优化
+
+[33mcommit d9fd8c179af7de9f30df25b18c6cb5fa8501eddf[m
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Mon Dec 5 16:00:35 2016 +0800
+
+    fix , MES-931
+
+[33mcommit bf9bc8deca322d1e5b03660d98d226dce246650b[m
+Merge: d219970 68a92ea
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Mon Dec 5 15:01:21 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit d21997018d0280f36917fa388b5c4442142cb462[m
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Mon Dec 5 14:36:38 2016 +0800
+
+    more on description
+
+[33mcommit 68a92ea237856a378eba6923fab25020013e6501[m
+Merge: 9036f05 f8908ec
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Mon Dec 5 14:49:32 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 9036f05c3b37287c24b8284f6dd2497050330b74[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Mon Dec 5 14:48:49 2016 +0800
+
+    bug修改
+
+[33mcommit f8908ec719f495aaa1d2bea52b79fbb0f41da1f4[m
+Merge: d830c93 302528d
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Mon Dec 5 14:47:57 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit d830c93cf6df6c9037bacd23ebddcaf38a0be8be[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Mon Dec 5 14:47:43 2016 +0800
+
+    调整剪裁图片前的压缩率
+
+[33mcommit 302528d776325ac95e67dafe57ae24d4ddd33aae[m
+Merge: 0771126 e42338b
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Mon Dec 5 14:22:15 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit 0771126a32438dd88782962150d20b8aa46fd80c[m
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Mon Dec 5 14:21:46 2016 +0800
+
+    fix, MES-931
+
+[33mcommit 1e09f032fa4565ce624c992cf6b6e4b9d8570ad3[m
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Sun Dec 4 17:52:56 2016 +0800
+
+    fix, MES-921
+
+[33mcommit e42338b6b6ceab45d3298a153f73a9751d7b388f[m
+Merge: 45afa86 ffcb8bd
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Mon Dec 5 12:19:34 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 45afa861cd7be31c928e9fb225a9a9d6fd0117ca[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Mon Dec 5 12:18:47 2016 +0800
+
+    bug修改
+
+[33mcommit ffcb8bdfd06a7ddb8a7130cb38e4c727a4f3bf38[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Mon Dec 5 12:17:46 2016 +0800
+
+    照相增加等待框
+
+[33mcommit be32cb024561369c8ed9ec69616e5d57e70fd41d[m
+Merge: 32af450 a613757
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Sun Dec 4 18:35:51 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 32af4509076845e8ade4eca8326fa127256232d0[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Sun Dec 4 18:35:16 2016 +0800
+
+    bug修改
+
+[33mcommit a6137574288ca3aab1d35eebf2ee11f11feaff36[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Sun Dec 4 18:34:15 2016 +0800
+
+    调整主观题问答图片大小
+
+[33mcommit 6645d179d363b13c7869f55a087d5eb57257ab99[m
+Merge: 6b5124a 43ce3a2
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Sun Dec 4 17:08:52 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 6b5124a7256f1366c3ca45eb94b04d402db63091[m
+Merge: b701af7 dc62c2d
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Sun Dec 4 17:08:06 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+    
+    # Conflicts:
+    #	phone/MainApp/src/main/java/com/yanxiu/gphone/student/activity/AnswerViewActivity.java
+
+[33mcommit 43ce3a24f4e23683e3dceea488ec5967fb0314d1[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Sun Dec 4 17:05:11 2016 +0800
+
+    提交断网提示
+
+[33mcommit b701af73f520d7c501441df8e7d03aedec3058e0[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Sun Dec 4 15:34:40 2016 +0800
+
+    bug修改
+
+[33mcommit dc62c2dc4c98d4f16658dd5d713a6d83464a84e6[m
+Merge: cecaa9b f08d22b
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Sun Dec 4 12:30:52 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit cecaa9b35b54c65d9ad93abbb53abb7f7d15e1b3[m
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Sun Dec 4 12:30:47 2016 +0800
+
+    fix, MES-916
+
+[33mcommit f08d22bd4d553841fd3693ee2785587bc0857529[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Sun Dec 4 11:34:42 2016 +0800
+
+    图片裁剪很慢
+
+[33mcommit 7a94561426e2770afa3b3ad2a2ccbdf4acdbada0[m
+Merge: a0c8383 00ea977
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Dec 2 17:52:22 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit a0c83833578c66cb8bc39a333e03ff8eabc441e6[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Dec 2 17:51:43 2016 +0800
+
+    bug修改
+
+[33mcommit 00ea9776081343b27f79733a0e4127785b0d8240[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Fri Dec 2 17:50:50 2016 +0800
+
+    解决相机到裁剪的黑屏问题
+
+[33mcommit 313d4f78a0156f17dcf7f1f444be2ee9d8ebc84e[m
+Merge: 3217f1f 006267e
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Fri Dec 2 16:03:29 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit 3217f1f5726c22f8ee4773ab9e9dd5135a071a86[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Fri Dec 2 16:02:49 2016 +0800
+
+    调整拍照清晰度
+
+[33mcommit 006267e85c62e2a92898dd347de24774a9253feb[m
+Merge: 7144689 d6a16b7
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Fri Dec 2 15:55:19 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit 7144689d0050c1ae441ac0a5c73722c57ef980e6[m
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Fri Dec 2 15:55:02 2016 +0800
+
+    trick fix MES-906
+
+[33mcommit d6a16b757c0140bf05bd29f1068801135ff052c4[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Fri Dec 2 14:26:43 2016 +0800
+
+    无网络提交答案提示
+
+[33mcommit 2bc5a4c1805ad480a7a46455c10b099a89e620bb[m
+Merge: 60e4aa2 29eb439
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Dec 2 14:28:13 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 60e4aa2c8d5fa1aa4fef97e227cac0d22e7d90a6[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Dec 2 14:27:21 2016 +0800
+
+    bug修改
+
+[33mcommit 29eb4397998ae5405006949fee4dd253b294dd88[m
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Fri Dec 2 14:19:33 2016 +0800
+
+    fix MES-906
+
+[33mcommit 618274c6edc02b41d66cadd62a904305fd25c96e[m
+Merge: 08b2e1d d4cd85b
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Dec 2 10:23:26 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 08b2e1d382643c2e2d6660d34db30dfcd58c877b[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Dec 2 10:22:40 2016 +0800
+
+    修改特殊情况下出现的bug
+
+[33mcommit d4cd85bad25c090352c57d710d8f65a36a6ea541[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Fri Dec 2 10:21:17 2016 +0800
+
+    相机图库裁剪跳转过程中图库不关闭
+
+[33mcommit acdadfdfe7935089b86f178067780c72f3921c0c[m
+Merge: 84c0de8 5ee9480
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Thu Dec 1 19:05:38 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit 84c0de805b084d2e512c87253dc0dd12d9645181[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Thu Dec 1 19:05:11 2016 +0800
+
+    第一题为填空题时不弹出键盘
+
+[33mcommit 5ee94803977c52ac5271b2cea18cf10e1b954ad0[m
+Merge: c0defa0 366bb97
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Thu Dec 1 18:14:38 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit c0defa0e69b4dfa5e6873b905f609dbc9a2e010e[m
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Thu Dec 1 18:14:26 2016 +0800
+
+    fix MES-896
+
+[33mcommit 366bb970a76f0a0ba82a1ca26199ae1d3a26c93e[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Thu Dec 1 17:31:32 2016 +0800
+
+    关闭摄像头某些机型崩溃
+
+[33mcommit 90f4f128b451be34bb00e4e4de275f9f70146d90[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Dec 1 17:54:28 2016 +0800
+
+    bug修改
+
+[33mcommit bf19b19efefba66cf17961ad7645f10a8a8a6bdb[m
+Merge: eb18c4a 745494c
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Dec 1 16:35:38 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit eb18c4a0b7ba237b599c3e3fd5e8b8f489b36719[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Dec 1 16:34:55 2016 +0800
+
+    bug修改
+
+[33mcommit 745494cfe6855754314caa166d374dcca9a9b888[m
+Merge: 22e7b35 32b04e2
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Thu Dec 1 15:30:05 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit 22e7b35e9af0edf210989dfa79f55337507af880[m
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Thu Dec 1 15:20:39 2016 +0800
+
+    fix MES-896, MES-897
+
+[33mcommit 32b04e26ad43027ca61472b8292e753a5cc40485[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Thu Dec 1 15:05:26 2016 +0800
+
+    提交答案显示太多遮挡提交按钮
+
+[33mcommit 3555432a751cd0a1892939a893c665080f345af6[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Dec 1 15:06:31 2016 +0800
+
+    bug修改
+
+[33mcommit 075515dbcf19c7baff463cd4705a98f4f17987f8[m
+Merge: 09c9112 cfd1f50
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Dec 1 14:33:23 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+    
+    # Conflicts:
+    #	phone/MainApp/src/main/java/com/yanxiu/gphone/student/fragment/question/BaseQuestionFragment.java
+    #	phone/MainApp/src/main/java/com/yanxiu/gphone/student/fragment/question/SubjectiveQuestionFragment.java
+
+[33mcommit 09c9112c40d195ee4b8b96a04831238e20322ced[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Dec 1 14:29:32 2016 +0800
+
+    bug修改
+
+[33mcommit cfd1f50afd3c3a8112afeb717517e9f8190dc069[m
+Merge: 762a53c 49f8894
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Thu Dec 1 11:29:24 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit 762a53c7b3ddbc1b70810f1139842b2e91886c85[m
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Wed Nov 30 19:56:49 2016 +0800
+
+    trick
+
+[33mcommit 49f8894185016a3b2e1a54bfefddee206b58a949[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Wed Nov 30 20:25:15 2016 +0800
+
+    错题题号的添加判空条件
+
+[33mcommit 95414f0fdcf6636f49a2f7964fb71af958ca334a[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Wed Nov 30 19:35:18 2016 +0800
+
+    上传图片不出现重复的现象
+
+[33mcommit ef5d9dd008bae460c0e91f31a7b6f52121db5e05[m
+Merge: 994827f 3e35684
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Nov 30 19:14:37 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+    
+    # Conflicts:
+    #	phone/MainApp/src/main/java/com/yanxiu/gphone/student/fragment/question/SubjectiveQuestionFragment.java
+
+[33mcommit 994827f5fd758d5a31c6eb79defe5bd15bf10e33[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Nov 30 19:12:26 2016 +0800
+
+    bug修改
+
+[33mcommit 3e356847799f860e6412c0cea4a35f6d0b81f6dc[m
+Merge: 4ead074 30cae33
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Wed Nov 30 18:15:18 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit 30cae33fc93b83496bfc0d8bab84d9dbd2d4254c[m
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Wed Nov 30 18:13:07 2016 +0800
+
+    fix MES-878, MES-879
+
+[33mcommit 4ead07453d24d669d5c5b9eaa77aaab34a4e774f[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Wed Nov 30 17:21:30 2016 +0800
+
+    答题卡点击其他区域答题卡隐藏
+
+[33mcommit dda0f5cf5f8858ec9495aed91385d66b02ecf57e[m
+Merge: f5d4755 91833e6
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Nov 30 16:13:31 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit f5d475575bff0ea27e613d716dd41d3983e3e252[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Nov 30 16:12:47 2016 +0800
+
+    bug修改
+
+[33mcommit 91833e6a4d057c8b50803bed4c4770e126a31c95[m
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Wed Nov 30 15:52:44 2016 +0800
+
+    fix MES-875
+
+[33mcommit 8aa2076d6429df991aee82ebf3ba8f28482d930e[m
+Merge: a79fc53 adc0803
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Wed Nov 30 15:25:50 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit a79fc53897d859639f95809923f5abbcb677eee9[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Wed Nov 30 15:00:03 2016 +0800
+
+    修改引导图背景的透明度
+
+[33mcommit adc0803304462283158bb80f7a6949443215e993[m
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Wed Nov 30 14:23:23 2016 +0800
+
+    fix 保留答案问题
+
+[33mcommit 83b81b7300015460951bdf7b1366c336570bf124[m
+Merge: 531f7cb bd55a47
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Wed Nov 30 13:57:04 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit 531f7cb7c143863097d8a132de2e7b358f4a7ec2[m
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Wed Nov 30 13:38:16 2016 +0800
+
+    存储题目答案
+
+[33mcommit 58d9eb825745f84570f0285d092466a51e8f6999[m
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Tue Nov 29 20:20:43 2016 +0800
+
+    trick的方法，挖空
+
+[33mcommit bd55a47bdaa6adfe7d4b74fd65f9d839c68504b7[m
+Merge: 4352ef9 769a138
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Nov 29 20:05:03 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 4352ef9cb20e5061c3167cfdead6baf11e44d084[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Nov 29 20:03:59 2016 +0800
+
+    bug修改
+
+[33mcommit 769a13871651e24fcd191bc1b03d74a2e1da31bf[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Tue Nov 29 19:26:38 2016 +0800
+
+    增加断网下的网络判断
+
+[33mcommit 528af2ce139e4b5dc26c6aafcb82a95f6f35804a[m
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Tue Nov 29 18:00:51 2016 +0800
+
+    一些修正
+
+[33mcommit 081f11522bd4dea23afcfb75c20ace0fd08f523a[m
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Tue Nov 29 16:22:30 2016 +0800
+
+    替换过 imagegetter
+
+[33mcommit c55e8bff83efb782b5fd17c9bc82550e761a7c40[m
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Tue Nov 29 15:58:08 2016 +0800
+
+    图片有潜在bug
+
+[33mcommit 2e053174845aa38ad17ee2109b9ade33a3b26877[m
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Tue Nov 29 14:34:12 2016 +0800
+
+    tmp 图片宽度
+
+[33mcommit 0ba46f928176feed1ff6cb9fbe1c93c30e140ceb[m
+Merge: c36865c 885c19f
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Nov 29 14:35:05 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 885c19f847b814e632944b27c59eea49ec48d021[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Tue Nov 29 14:33:45 2016 +0800
+
+    断网下提交数据提示框
+
+[33mcommit c36865c5cd79a2e87592f6dfa34eec13292386c5[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Nov 29 14:31:50 2016 +0800
+
+    bug修改
+
+[33mcommit 51af89802417761072c5af0d87f6b5ea9208dfe3[m
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Mon Nov 28 21:06:45 2016 +0800
+
+    tmp
+
+[33mcommit 9f676f21b89ab61bca6b7f4a7bbf1b5a483d65a1[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Tue Nov 29 11:01:34 2016 +0800
+
+    引入simplecorplib引用
+
+[33mcommit a2f4510f891d2242125f5071029d5348231c1312[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Nov 29 10:11:05 2016 +0800
+
+    bug修改
+
+[33mcommit 24e5ac9990e19191512ddfd577448c5de71badd7[m
+Merge: ffcbe64 ba7824f
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Nov 29 10:06:28 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit ba7824f68574009492c79f24fb816e07b3a7375f[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Tue Nov 29 10:02:38 2016 +0800
+
+    提交图片重复注册
+
+[33mcommit ffcbe64bc8236b2fc5b0879d5665604ff87d42ba[m
+Merge: 56bb9cf 39b126c
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Mon Nov 28 19:03:31 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 56bb9cff53b1d3888711bf366d5d221badfa64de[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Mon Nov 28 19:02:50 2016 +0800
+
+    背景遮挡bug
+
+[33mcommit 39b126c298be25b6cc4288bd4e258583c8ea3adb[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Mon Nov 28 18:12:03 2016 +0800
+
+    修改拍照崩溃问题
+
+[33mcommit 6f377cf393aa0c59faccd6265b13f7ce10401dba[m
+Merge: 1d4675f 3d99082
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Mon Nov 28 17:15:57 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android
+
+[33mcommit 1d4675fb494a9f18b1af8683fc779553ac1b2eb9[m
+Author: cailei <cailei_gtd@outlook.com>
+Date:   Mon Nov 28 17:07:15 2016 +0800
+
+    fix bug: MES-803
+    填空题button高度适配问题
+
+[33mcommit 3d990823b38cb72aa55d20e7331f348814a1132a[m
+Merge: 2bca076 43bd826
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Mon Nov 28 16:34:12 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 43bd826d54a1bfd50940416029670ee596af1d37[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Mon Nov 28 16:20:40 2016 +0800
+
+    修改上传后的图片跳转问题
+
+[33mcommit 2bca07675a75ce4cb2cc0653fe0cc6eeb8da72bf[m
+Merge: 39184b9 306bc2a
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Mon Nov 28 16:20:13 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+    
+    # Conflicts:
+    #	phone/MainApp/src/main/java/com/yanxiu/gphone/student/view/picsel/PicSelView.java
+
+[33mcommit 39184b9446bcbc316c3515f669cb6a786ebad49d[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Mon Nov 28 16:11:01 2016 +0800
+
+    bug修改
+
+[33mcommit 306bc2a897e2137d357106913ac5548e0c7fa1c1[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Mon Nov 28 15:55:16 2016 +0800
+
+    修改网络失败提示语
+
+[33mcommit d3907fcdc37d00692eff57eee685029b11e68af5[m
+Merge: fb41212 29b24ff
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Mon Nov 28 10:09:18 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 29b24ff72ed7fa318428188988344fa3ac68ca6e[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Mon Nov 28 10:08:00 2016 +0800
+
+    没有图片时可以跳转
+
+[33mcommit fb412121c76d8bb369960b1ce80b75cb92c2b9b4[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Mon Nov 28 10:05:39 2016 +0800
+
+    修改bug
+
+[33mcommit 3ea1c5136aa3830487462c3e510c8248aacbd102[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Fri Nov 25 18:33:26 2016 +0800
+
+    关闭测试数据
+
+[33mcommit 45e47bf4acb10b91f3309d00cbc6b7ba47a64f76[m
+Merge: 73ff8f0 90014d4
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Nov 25 18:28:34 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 73ff8f05b3f82297a679617cd82ca534d6086478[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Nov 25 18:27:36 2016 +0800
+
+    bug修改
+
+[33mcommit 90014d49b5f53a3b70036a52fd48c2337a6e2b2b[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Fri Nov 25 18:24:38 2016 +0800
+
+    放开测试数据
+
+[33mcommit eb25865d942a0870a94a9930baa2fec1137c8349[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Fri Nov 25 14:12:05 2016 +0800
+
+    替换作业的背景图片
+
+[33mcommit 4541675d860527ded38a64855b54f818dfb8888a[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Fri Nov 25 11:19:09 2016 +0800
+
+    修改保存图片提示语
+
+[33mcommit 92a7677ba1aa17455f32cdfba060b7a593d60fd8[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Fri Nov 25 11:08:14 2016 +0800
+
+    修改照相图片转向问题
+
+[33mcommit f8fe16296742054f9f214e5fa143af532f5270e2[m
+Merge: b7d2749 6c82bb5
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Nov 24 17:38:23 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 6c82bb543c862277ac7624ef9cb6aff8e8819bdd[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Thu Nov 24 17:05:21 2016 +0800
+
+    图片上传取消过滤
+
+[33mcommit b7d274942bcb7f50a6aca161be361cbc9d1e6c31[m
+Merge: cff492e d9096f3
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Nov 24 15:53:35 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit cff492e897608ff85ff9fa54d27baeb5fd75fdb1[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Nov 24 15:52:36 2016 +0800
+
+    bug修改
+
+[33mcommit d9096f36562ffa642a821b7e7137a723acd29101[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Thu Nov 24 15:33:11 2016 +0800
+
+    修改答案提交界面
+
+[33mcommit 0487bf6a38a3947f8b0a03ab737e4f9dd05865c7[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Wed Nov 23 16:42:02 2016 +0800
+
+    修改图片加载的方向
+
+[33mcommit dc690d3948617f65376154797394b00c4bf0de5a[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Wed Nov 23 15:29:55 2016 +0800
+
+    修改主观题图片点击跳转
+
+[33mcommit 653638ef435be92e43031aca8bdce3c2302808dc[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Wed Nov 23 14:17:46 2016 +0800
+
+    填空题修改背景
+
+[33mcommit 2bffe4f612655b0a134512de793af53b37527846[m
+Merge: 3e1f413 e11971b
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Nov 22 17:40:44 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit e11971b0cc5e53eb472bcacbead3b4e9a8d321a1[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Tue Nov 22 17:39:30 2016 +0800
+
+    修改填空题长度
+
+[33mcommit 3e1f4131c00e5d30c3460758d03b3ee9522dc716[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Nov 22 17:36:22 2016 +0800
+
+    复制粘贴功能修改
+
+[33mcommit 7d5f80f8ed1672715b0c0c9d20ef0ecd2a2ec052[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Tue Nov 22 17:18:49 2016 +0800
+
+    填空题失去焦点后从头显示
+
+[33mcommit fb155ceca9d0faa694de61ead64ec1abbd7ad15b[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Tue Nov 22 16:04:44 2016 +0800
+
+    修改相机权限被禁后的提示
+
+[33mcommit c7ce01bd4f6184e6fa25b66cac6850646c24921d[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Tue Nov 22 14:27:23 2016 +0800
+
+    修复bug判断题未展示题号
+
+[33mcommit f747021fcaca40d805b9281c2f1ce02a86c39499[m
+Merge: 54ac09f b64912c
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Nov 22 10:59:07 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 54ac09f7b258c46a15e371deda276ae7baf7a231[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Tue Nov 22 10:58:18 2016 +0800
+
+    输入框功能重新整理
+
+[33mcommit b64912cc91166ba1a4b9fe0fa6a3e88e700efe36[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Tue Nov 22 10:57:16 2016 +0800
+
+    回退照相和图库跳转
+
+[33mcommit 48dfec742ec311974b22e39705c81c5d9e0b50d0[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Mon Nov 21 14:19:11 2016 +0800
+
+    去掉上传图片的trace
+
+[33mcommit d5b497e7c318a6b44c63e04a379d82c982a24d8a[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Fri Nov 18 18:39:31 2016 +0800
+
+    阅读理解题的小题题号
+
+[33mcommit be8b5de203c119ace0295ecf99666ef146c3a91a[m
+Merge: 6e73442 deb1f73
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Nov 18 18:37:53 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 6e7344295747d19a2edfe149345b2fce75e0ea3f[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Nov 18 18:37:09 2016 +0800
+
+    处理历史遗留问题
+
+[33mcommit deb1f73de4115f4f18cfc8d56a6fee42768fdd5e[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Fri Nov 18 18:36:24 2016 +0800
+
+    解答和计算题小题题号
+
+[33mcommit fb5f5d8c6b4651158be306be9b39cfd70ab8b7ce[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Fri Nov 18 10:19:56 2016 +0800
+
+    接口请求加上uid
+
+[33mcommit 90cfc7e7906b04671cb10edfb08cbee089b780bb[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Nov 17 17:23:45 2016 +0800
+
+    登陆注册细节优化
+
+[33mcommit fe43738bfca33b18967c6cc7e56c4796f06b19f6[m
+Merge: f1d1b27 472b57c
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Nov 17 09:57:07 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit f1d1b2777d2dbd5357055299fdba3f91c3c414e5[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Thu Nov 17 09:56:21 2016 +0800
+
+    修改部分界面展示bug
+
+[33mcommit 472b57c45c87298ed190b28a4d8ba17a24b187fa[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Thu Nov 17 09:54:34 2016 +0800
+
+    更改主观题eventbus注册的地方
+
+[33mcommit 5c2b1e9cba33d0a9c2812142e8a6ea4097bf218d[m
+Merge: d3deb7f 36bbcf8
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Nov 16 16:37:04 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit d3deb7fcd299dd34b34ae40da4acc8a2e754a469[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Nov 16 16:36:20 2016 +0800
+
+    判断按钮可点击逻辑修改
+
+[33mcommit 36bbcf845b59225becb5b18dacb942cfe31b689e[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Wed Nov 16 16:35:14 2016 +0800
+
+    剪裁后刷新页面
+
+[33mcommit 9b2c1869a3f45d2a798f06a4d1e0ea9af09c8f52[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Wed Nov 16 14:53:41 2016 +0800
+
+    增加Eventbus的注册
+
+[33mcommit 04c312e233f5a1f8a3eb220c005eba31a506fbc0[m
+Merge: 6f95b4b 66dc7bf
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Nov 16 14:56:36 2016 +0800
+
+    Merge branch 'master' of git.oschina.net:yanxiu/YXEStudent_Android into Clozz
+
+[33mcommit 6f95b4b1fc703aaf82da96938bcf7c1435475221[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Nov 16 14:55:57 2016 +0800
+
+    提示语
+
+[33mcommit 849ad3c23336895d2c1d01e7504ea3fe1595ad8a[m
+Author: chenweiqi <chenweiqi@yanxiu.com>
+Date:   Wed Nov 16 14:51:49 2016 +0800
+
+    提示语逻辑修改
+
+[33mcommit 66dc7bf125e133a17b2c955b9316e671f8094ea3[m
+Author: yangjj <yangjunjian@yanxiu.com>
+Date:   Wed Nov 16 14:45:54 2016 +0800
+
+    调整剪裁界面的返回更新
+
+[33mcommit 
