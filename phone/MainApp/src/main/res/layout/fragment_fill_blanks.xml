@@ -25,7 +25,7 @@
                 android:id="@+id/ll_answer_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_20"
+                android:layout_margin="@dimen/contentMargin"
                 android:orientation="horizontal">
 
                 <FrameLayout
@@ -42,13 +42,12 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dimen_12">
+                    android:layout_height="wrap_content">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/question_content_bg"></RelativeLayout>
+                        android:background="@drawable/question_content_bg" />
 
                     <com.yanxiu.gphone.student.view.question.fillblanks.FillBlanksFramelayout
                         android:id="@+id/fb_item"

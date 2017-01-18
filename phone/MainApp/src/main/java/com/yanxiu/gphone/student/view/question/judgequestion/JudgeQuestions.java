@@ -66,7 +66,6 @@ public class JudgeQuestions extends LinearLayout implements JudgeQuestionsItem.O
 
     public void initView(){
         this.setOrientation(HORIZONTAL);
-//        this.setBackgroundColor(mContext.getResources().getColor(R.color.color_ffe2e2e2));
     }
 
     @Override
@@ -131,14 +130,6 @@ public class JudgeQuestions extends LinearLayout implements JudgeQuestionsItem.O
         params.weight = NO_1;
         params.width = LayoutParams.MATCH_PARENT;
         params.height = LayoutParams.MATCH_PARENT;
-//        switch (item.getJudgeType()) {
-//            case RIGHT:
-//                params.rightMargin = DensityUtils.px2dip(mContext, 160);
-//                break;
-//            case WRONG:
-//                params.leftMargin = DensityUtils.px2dip(mContext, 160);
-//                break;
-//        }
         item.setLayoutParams(params);
     }
 
@@ -285,23 +276,6 @@ public class JudgeQuestions extends LinearLayout implements JudgeQuestionsItem.O
         }
     }
 
-
-
-
-
-
-//    private void initViewWithAnswer(JUDGE_TYPE type){
-//        String key;
-//        switch (type) {
-//            case RIGHT:
-//                key = String.valueOf(JUDGE_TYPE.RIGHT.key);
-//                break;
-//            case WRONG:
-//                key = String.valueOf(JUDGE_TYPE.WRONG.key);
-//                break;
-//        }
-//
-//    }
 
     @Override public void answerViewClick() {
 

@@ -121,6 +121,9 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
         fill_blanks_button.setOnDrawSucessListener(this);
         fl_content_top = (FrameLayout) rootView.findViewById(R.id.fl_content_top);
         sv_content_top = (ScrollView) rootView.findViewById(R.id.sv_content_top);
+        View top_dotted_line = rootView.findViewById(R.id.top_dotted_line);
+        if(ischild)
+            top_dotted_line.setVisibility(View.GONE);
         if (questionsEntity != null && questionsEntity.getStem() != null) {
             int position_index;
             if (getActivity() instanceof WrongAnswerViewActivity) {

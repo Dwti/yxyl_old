@@ -25,7 +25,9 @@
                 android:id="@+id/ll_answer_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_20"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal">
 
                 <FrameLayout
@@ -42,13 +44,12 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dimen_12">
+                    android:layout_height="wrap_content">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/question_content_bg"></RelativeLayout>
+                        android:background="@drawable/question_content_bg" />
 
                     <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
                         android:id="@+id/yxiu_tv"
@@ -70,12 +71,24 @@
 
             </LinearLayout>
 
+            <View
+                android:id="@+id/mid_line"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dotted_line_height"
+                android:background="@drawable/dotted_line"
+                android:layout_below="@+id/ll_answer_content"
+                android:layout_marginLeft="@dimen/midDottedLineLeftMargin"
+                android:layout_marginTop="@dimen/midDottedLineTopMargin"
+                android:layout_marginBottom="@dimen/midDottedLineBottomMargin"
+                android:layout_marginRight="@dimen/midDottedLineRightMargin"
+                android:layerType="software"
+                />
+
             <com.yanxiu.gphone.student.view.picsel.PicSelView
                 android:id="@+id/picSelView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_below="@+id/ll_answer_content"
+                android:layout_below="@+id/mid_line"
                 android:layout_marginBottom="@dimen/dimen_20"
                 android:background="@color/color_transparent"
                 android:visibility="visible" />
@@ -83,14 +96,14 @@
             <com.yanxiu.gphone.student.view.YanxiuTypefaceButton
                 android:id="@+id/add_problem_analysis"
                 style="@style/btn_problem_analysis"
-                android:layout_below="@+id/ll_answer_content"
+                android:layout_below="@+id/mid_line"
                 app:type_face="metor_bold.OTF" />
 
             <FrameLayout
                 android:id="@+id/content_problem_analysis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_answer_content" />
+                android:layout_below="@+id/mid_line" />
 
 
         </RelativeLayout>

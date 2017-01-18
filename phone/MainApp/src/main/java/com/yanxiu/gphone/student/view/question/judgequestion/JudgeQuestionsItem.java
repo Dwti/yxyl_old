@@ -50,7 +50,6 @@ public class JudgeQuestionsItem extends AbsChoiceQuestionsItem implements View.O
     public void initView() {
         this.setOnClickListener(this);
         ivChoiceIcon = (ImageView) this.findViewById(R.id.iv_choice_icon_item);
-//        flItemBg = (FrameLayout) this.findViewById(R.id.fl_choice_text_item_bg);
         llParentBg = (LinearLayout) this.findViewById(R.id.ll_parent_bg);
         iv_item_img= (ImageView) this.findViewById(R.id.iv_item_img);
         tvItemTxt = (TextView) this.findViewById(R.id.tv_item_text);
@@ -159,8 +158,6 @@ public class JudgeQuestionsItem extends AbsChoiceQuestionsItem implements View.O
      */
     public void setSelected(){
         setChecked(true);
-//        flItemBg.setBackgroundResource(R.drawable.choice_question_select);
-//        ivChoiceIcon.setImageResource(drawableSelectId);
         switch (judgeType) {
             case RIGHT:
                 llParentBg.setBackgroundResource(R.drawable.selector_judge_correct);
@@ -178,18 +175,8 @@ public class JudgeQuestionsItem extends AbsChoiceQuestionsItem implements View.O
      */
     public void setUnSelected(){
         setChecked(false);
-//        flItemBg.setBackgroundResource(R.drawable.choice_question_unselect);
-//        ivChoiceIcon.setImageResource(drawableNormalId);
         llParentBg.setBackgroundResource(R.drawable.selector_judge_item);
         setShadow(Color.parseColor("#805500"),Color.parseColor("#ffff99"));
-//        switch (judgeType) {
-//            case RIGHT:
-//                llParentBg.setBackgroundResource(R.drawable.judge_question_right_bg_normal);
-//                break;
-//            case WRONG:
-//                llParentBg.setBackgroundResource(R.drawable.judge_question_left_bg_normal);
-//                break;
-//        }
     }
 
 
@@ -266,16 +253,5 @@ public class JudgeQuestionsItem extends AbsChoiceQuestionsItem implements View.O
 
     public void setJudgeType(JudgeQuestions.JUDGE_TYPE judgeType) {
         this.judgeType = judgeType;
-//        RelativeLayout.LayoutParams params;
-//        params = (RelativeLayout.LayoutParams) flItemBg.getLayoutParams();
-//        switch (judgeType) {
-//            case RIGHT:
-//                params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-//                break;
-//            case WRONG:
-//                params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-//                break;
-//        }
-//        flItemBg.setLayoutParams(params);
     }
 }

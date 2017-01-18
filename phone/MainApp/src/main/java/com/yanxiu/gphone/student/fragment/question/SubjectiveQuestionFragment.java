@@ -67,8 +67,9 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_subjective_question, null);
         yXiuAnserTextView = (YXiuAnserTextView) rootView.findViewById(R.id.yxiu_tv);
-
-
+        View top_dotted_line = rootView.findViewById(R.id.top_dotted_line);
+        if(ischild)
+            top_dotted_line.setVisibility(View.GONE);
         FragmentTransaction ft = SubjectiveQuestionFragment.this.getChildFragmentManager().beginTransaction();
         ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
         if (questionsEntity != null && questionsEntity.getStem() != null) {

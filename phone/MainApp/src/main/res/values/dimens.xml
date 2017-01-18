@@ -197,6 +197,16 @@
 
     <dimen name="picker_item_directory_height">80dp</dimen>
     <dimen name="photo_item_margin">5dp</dimen>
+    <dimen name="dotted_line_height">2dp</dimen>
+    <dimen name="midDottedLineLeftMargin">60dp</dimen>
+    <dimen name="midDottedLineTopMargin">20dp</dimen>
+    <dimen name="midDottedLineBottomMargin">20dp</dimen>
+    <dimen name="midDottedLineRightMargin">10dp</dimen>
+    <dimen name="contentLeftMargin">20dp</dimen>
+    <dimen name="contentTopMargin">20dp</dimen>
+    <dimen name="contentRightMargin">20dp</dimen>
+    <dimen name="contentBottomMargin">20dp</dimen>
+    <dimen name="contentMargin">20dp</dimen>
 
     <declare-styleable name="GifView">
         <attr name="gif" format="reference" />

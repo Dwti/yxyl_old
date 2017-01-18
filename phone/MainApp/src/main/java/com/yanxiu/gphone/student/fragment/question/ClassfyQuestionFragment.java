@@ -120,6 +120,9 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
         vgClassfyAnswers = (ClassfyAnswers) rootView.findViewById(R.id.classfy_text_item);
         lgClassfyAnswers = (UnMoveGridView) rootView.findViewById(R.id.classfy_icon_item);
         lgClassfyAnswers.setSelector(new ColorDrawable(Color.TRANSPARENT));
+        View top_dotted_line = rootView.findViewById(R.id.top_dotted_line);
+        if(ischild)
+            top_dotted_line.setVisibility(View.GONE);
         if (answerViewTypyBean != SubjectExercisesItemBean.RESOLUTION && answerViewTypyBean != SubjectExercisesItemBean.WRONG_SET) {
             lgClassfyAnswers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override

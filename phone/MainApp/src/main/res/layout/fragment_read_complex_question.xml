@@ -1,95 +1,105 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <include layout="@layout/question_top_content_layout"
-             android:layout_height="wrap_content"
-             android:layout_width="match_parent"
-             android:id="@+id/rl_top" />
+    <include
+        android:id="@+id/rl_top"
+        layout="@layout/question_top_content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/rl_top"
         android:orientation="vertical">
+
         <com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:id="@+id/rl_top_view"
-                    android:layout_weight="1.5"
-                    android:orientation="vertical">
+            android:id="@+id/rl_top_view"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:orientation="vertical">
 
 
-            <RelativeLayout android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dimen_20"
-                    android:layout_marginRight="@dimen/dimen_10"
-                    android:layout_below="@+id/rl_top"
-                    android:layout_above="@+id/rl_bottom">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/rl_bottom"
+                android:layout_below="@+id/rl_top"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:layout_marginRight="@dimen/dimen_10">
 
-                <FrameLayout android:layout_width="match_parent"
-                             android:layout_height="match_parent"
-                             android:layout_marginTop="@dimen/dimen_10"
-                             android:layout_marginBottom="@dimen/dimen_50"
-                             android:background="@drawable/question_read_content_bg">
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/dimen_50"
+                    android:layout_marginTop="@dimen/contentTopMargin"
+                    android:background="@drawable/question_read_content_bg">
 
-                    <ScrollView android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:id="@+id/sv_content_top">
+                    <ScrollView
+                        android:id="@+id/sv_content_top"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                        <LinearLayout android:layout_width="match_parent"
-                                      android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
                             <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="@dimen/dimen_15"
-                                    android:padding="@dimen/dimen_10"
-                                    android:layout_gravity="center"
-                                    android:textColor="@color/color_black"
-                                    android:id="@+id/yxiu_tv"
-                                    android:layout_below="@+id/rl_anwser_pen"/>
+                                android:id="@+id/yxiu_tv"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/rl_anwser_pen"
+                                android:layout_gravity="center"
+                                android:padding="@dimen/dimen_10"
+                                android:textColor="@color/color_black"
+                                android:textSize="@dimen/dimen_15" />
 
                         </LinearLayout>
                     </ScrollView>
                 </FrameLayout>
+
                 <LinearLayout
-                android:id="@+id/ll_bottom_ctrl"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_30"
-                android:layout_alignParentBottom="true"
-                android:orientation="horizontal">
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dimen_3"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:layout_marginRight="@dimen/dimen_5"
-                    android:background="@drawable/complex_line"/>
-                <ImageView
-                    android:id="@+id/iv_bottom_ctrl"
-                    android:layout_width="@dimen/dimen_53"
-                    android:layout_height="@dimen/dimen_28"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/complex_down"/>
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dimen_3"
-                    android:layout_marginLeft="@dimen/dimen_5"
-                    android:layout_weight="1"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/complex_line"/>
-            </LinearLayout>
+                    android:id="@+id/ll_bottom_ctrl"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_30"
+                    android:layout_alignParentBottom="true"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dimen_3"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="@dimen/dimen_5"
+                        android:layout_weight="1"
+                        android:background="@drawable/complex_line" />
+
+                    <ImageView
+                        android:id="@+id/iv_bottom_ctrl"
+                        android:layout_width="@dimen/dimen_53"
+                        android:layout_height="@dimen/dimen_28"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/complex_down" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dimen_3"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/dimen_5"
+                        android:layout_weight="1"
+                        android:background="@drawable/complex_line" />
+                </LinearLayout>
             </RelativeLayout>
 
         </com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout>
 
         <LinearLayout
-                      android:layout_width="match_parent"
-                      android:layout_height="0dp"
-                      android:id="@+id/ll_bottom_view"
-                      android:layout_weight="2" >
+            android:id="@+id/ll_bottom_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2">
 
             <include layout="@layout/fragment_answer_view" />
 

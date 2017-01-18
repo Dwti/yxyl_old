@@ -4,21 +4,12 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_2"
-        android:background="@drawable/add_pic_line"
-        android:layout_marginBottom="@dimen/dimen_10"
-        android:layerType="software"
-        />
-
     <ImageView
         android:id="@+id/answerViewFlag"
         android:layout_width="@dimen/dimen_28"
         android:layout_height="@dimen/dimen_30"
         android:src="@drawable/icon_question_a"
         android:layout_marginLeft="@dimen/dimen_20"
-        android:layout_marginTop="@dimen/dimen_18"
         />
     <com.yanxiu.gphone.student.view.picsel.NoScrollGridView
         android:layout_toRightOf="@id/answerViewFlag"
@@ -27,7 +18,6 @@
         android:layout_marginLeft="@dimen/dimen_10"
         android:layout_marginStart="@dimen/dimen_10"
         android:layout_height="match_parent"
-        android:paddingTop="@dimen/dimen_10"
         android:paddingBottom="@dimen/dimen_9"
         android:verticalSpacing="@dimen/dimen_10"
         android:numColumns="4"
@@ -36,7 +26,6 @@
     <TextView
         android:layout_toRightOf="@id/answerViewFlag"
         android:layout_marginLeft="@dimen/dimen_12"
-        android:layout_marginTop="@dimen/dimen_10"
         android:layout_marginRight="@dimen/dimen_17"
         android:id="@+id/addAnswerView"
         android:layout_width="match_parent"

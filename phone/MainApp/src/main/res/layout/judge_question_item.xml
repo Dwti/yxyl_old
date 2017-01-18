@@ -2,20 +2,12 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <!--        <FrameLayout android:layout_width="@dimen/dimen_30"
-                         android:layout_height="@dimen/dimen_30"
-                         android:layout_centerVertical="true"
-                         android:visibility="gone"
-                         android:id="@+id/fl_choice_text_item_bg"
-                         android:background="@drawable/choice_question_unselect">
-
-            </FrameLayout>-->
-
     <LinearLayout
         android:id="@+id/ll_parent_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_5"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/selector_judge_item"
         android:orientation="vertical">
 

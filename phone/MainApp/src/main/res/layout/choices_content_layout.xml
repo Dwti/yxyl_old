@@ -14,7 +14,9 @@
             android:id="@+id/ll_answer_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_20"
+            android:layout_marginLeft="@dimen/contentLeftMargin"
+            android:layout_marginTop="@dimen/contentTopMargin"
+            android:layout_marginRight="@dimen/contentRightMargin"
             android:orientation="horizontal">
 
             <ImageView
@@ -31,7 +33,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/question_content_bg"></RelativeLayout>
+                    android:background="@drawable/question_content_bg" />
 
                 <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
                     android:id="@+id/yxiu_tv"
@@ -54,13 +56,12 @@
         <View
             android:id="@+id/view_line_ccc4a3_2"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_1"
+            android:layout_height="@dimen/dotted_line_height"
             android:layout_below="@id/ll_answer_content"
-            android:layout_marginBottom="@dimen/dimen_20"
-            android:layout_marginLeft="@dimen/dimen_60"
-            android:layout_marginRight="@dimen/dimen_10"
-            android:layout_marginTop="@dimen/dimen_20"
-            android:background="@drawable/repeat_common_line"
+            android:layout_marginTop="@dimen/midDottedLineTopMargin"
+            android:layout_marginLeft="@dimen/midDottedLineLeftMargin"
+            android:layout_marginRight="@dimen/midDottedLineRightMargin"
+            android:background="@drawable/dotted_line"
             android:layerType="software" />
 
 
@@ -69,7 +70,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/view_line_ccc4a3_2"
-            android:layout_margin="@dimen/dimen_20"
+            android:layout_marginTop="@dimen/contentTopMargin"
+            android:layout_marginLeft="@dimen/contentLeftMargin"
+            android:layout_marginRight="@dimen/contentRightMargin"
+            android:layout_marginBottom="@dimen/contentBottomMargin"
             android:orientation="horizontal">
 
             <ImageView

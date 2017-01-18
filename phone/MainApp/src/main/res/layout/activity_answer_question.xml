@@ -42,16 +42,6 @@
 
             </LinearLayout>
 
-            <!--<TextView android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:drawableLeft="@drawable/icon_time"
-                      android:visibility="gone"
-                      android:drawablePadding="@dimen/dimen_5"
-                      android:id="@+id/tv_top_title"
-                      android:layout_centerInParent="true"
-                      android:textSize="@dimen/dimen_17"
-                      android:textColor="@color/color_white" />-->
-
             <ImageView android:layout_width="@dimen/dimen_56"
                       android:layout_height="@dimen/dimen_40"
                       android:background="@drawable/selector_question_card"
@@ -116,38 +106,6 @@
                     android:textColor="@drawable/selector_question_report_txt"
                     android:background="@drawable/selector_question_report_btn"
                     android:text="@string/report_error" />
-            <!--
-            <WebView
-                android:id="@+id/webview_test_one"
-                android:layout_width="@dimen/dimen_5"
-                android:layout_height="@dimen/dimen_5">
-
-            </WebView>
-            <WebView
-                android:id="@+id/webview_test_two"
-                android:layout_width="@dimen/dimen_5"
-                android:layout_height="@dimen/dimen_5">
-
-            </WebView>
-            <WebView
-                android:id="@+id/webview_test_three"
-                android:layout_width="@dimen/dimen_5"
-                android:layout_height="@dimen/dimen_5">
-
-            </WebView>
-            <WebView
-                android:id="@+id/webview_test_four"
-                android:layout_width="@dimen/dimen_5"
-                android:layout_height="@dimen/dimen_5">
-
-            </WebView>
-            <WebView
-                android:id="@+id/webview_test_five"
-                android:layout_width="@dimen/dimen_5"
-                android:layout_height="@dimen/dimen_5">
-
-            </WebView>
-            -->
 
             <Button android:layout_width="wrap_content"
                     android:layout_height="@dimen/dimen_30"
@@ -248,7 +206,7 @@
         android:id="@+id/gif_framelayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"></FrameLayout>
+        android:visibility="gone" />
 
 
 </FrameLayout>

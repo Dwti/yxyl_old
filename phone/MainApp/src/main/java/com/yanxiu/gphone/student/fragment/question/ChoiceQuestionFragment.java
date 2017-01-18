@@ -64,6 +64,9 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
             choiceQuestions = (ChoiceQuestions) rootView.findViewById(R.id.cq_item);
             choiceQuestions.flipNextPager(listener);
             ChoiceQuestionFragment context = this;
+            View top_dotted_line = rootView.findViewById(R.id.top_dotted_line);
+            if(ischild)
+                top_dotted_line.setVisibility(View.GONE);
             if (callback != null) {
                 ll_answer_content.setVisibility(View.GONE);
                 view_line_ccc4a3_2.setVisibility(View.GONE);

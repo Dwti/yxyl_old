@@ -135,8 +135,9 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
         LinearLayout ll_bottom_ctrl= (LinearLayout) rootView.findViewById(R.id.ll_bottom_ctrl);
         ll_bottom_ctrl.setOnTouchListener(mOnPushPullTouchListener);
         tvYanxiu = (YXiuAnserTextView) rootView.findViewById(R.id.yxiu_tv);
-
-
+        View top_dotted_line = rootView.findViewById(R.id.top_dotted_line);
+        if(ischild)
+            top_dotted_line.setVisibility(View.GONE);
         vpAnswer = (ViewPager) rootView.findViewById(R.id.answer_viewpager);
         //=============================================
         //反射viewPager里面的mScroller

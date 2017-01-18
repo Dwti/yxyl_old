@@ -72,6 +72,9 @@ public class ConnectFragment extends BaseQuestionFragment implements PageIndex {
         ll_answer = (FrameLayout) rootView.findViewById(R.id.ll_answer);
         YXiuAnserTextView connect_question = (YXiuAnserTextView) rootView.findViewById(R.id.connect_question);
         connect_lineslinearlayout = (ConnectLinesLinearLayout) rootView.findViewById(R.id.connect_lineslinearlayout);
+        View top_dotted_line = rootView.findViewById(R.id.top_dotted_line);
+        if(ischild)
+            top_dotted_line.setVisibility(View.GONE);
         if (questionsEntity != null) {
             connect_question.setTextHtml(questionsEntity.getStem());
             connect_lineslinearlayout.setAnswers(questionsEntity.getAnswer());

@@ -52,6 +52,9 @@ public class JudgeQuestionFragment extends BaseQuestionFragment implements Quest
 
         judgeQuestions = (JudgeQuestions) rootView.findViewById(R.id.jq_item);
         yXiuAnserTextView = (YXiuAnserTextView) rootView.findViewById(R.id.yxiu_tv);
+        View top_dotted_line = rootView.findViewById(R.id.top_dotted_line);
+        if(ischild)
+            top_dotted_line.setVisibility(View.GONE);
         if(questionsEntity != null){
             judgeQuestions.setAnswer(questionsEntity.getAnswer());
             if(questionsEntity.getStem() != null){

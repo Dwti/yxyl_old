@@ -55,12 +55,14 @@
 
 
     <View
+        android:id="@+id/top_dotted_line"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_1"
+        android:layout_height="@dimen/dotted_line_height"
         android:layout_below="@id/iv_answer_top_icon"
         android:layout_marginLeft="@dimen/dimen_20"
         android:layout_marginRight="@dimen/dimen_10"
         android:layout_marginTop="@dimen/dimen_10"
-        android:background="@drawable/repeat_common_line" />
+        android:background="@drawable/dotted_line"
+        android:layerType="software"/>
 
 </RelativeLayout>
