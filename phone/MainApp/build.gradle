@@ -89,38 +89,38 @@ android {
         yanxiu_com {
             manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "yanxiu_com"]
         }
-        shoujizhushou360 {
-            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "shoujizhushou360"]//
-        }
-        baidushoujizhushou {
-            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "baidushoujizhushou"]//
-        }
-        wandoujia {
-            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "wandoujia"]//
-        }
-        xiaomi {
-            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "xiaomi"]//
-        }
-        txyingyongbao {
-            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "txyingyongbao"]//
-        }
-
-        lenovomm {
-            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "lenovomm"]//
-        }
-
-        huaweihuizhi {
-            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "huaweihuizhi"]//
-        }
-        vivo {
-            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "vivo"]//
-        }
-        oppo {
-            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "oppo"]//
-        }
-        others {
-            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "others"]//其他渠道
-        }
+//        shoujizhushou360 {
+//            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "shoujizhushou360"]//
+//        }
+//        baidushoujizhushou {
+//            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "baidushoujizhushou"]//
+//        }
+//        wandoujia {
+//            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "wandoujia"]//
+//        }
+//        xiaomi {
+//            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "xiaomi"]//
+//        }
+//        txyingyongbao {
+//            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "txyingyongbao"]//
+//        }
+//
+//        lenovomm {
+//            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "lenovomm"]//
+//        }
+//
+//        huaweihuizhi {
+//            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "huaweihuizhi"]//
+//        }
+//        vivo {
+//            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "vivo"]//
+//        }
+//        oppo {
+//            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "oppo"]//
+//        }
+//        others {
+//            manifestPlaceholders = [INSTALL_CHANNEL_VALUE: "others"]//其他渠道
+//        }
     }
 
     productFlavors.all { flavor ->
