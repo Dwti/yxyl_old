@@ -78,7 +78,7 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
         } else {
             view = convertView;
         }*/
-        
+
         holder = (ViewHolder) view.getTag();
         if ((position + 1) >= getCount()) {
             holder.wrongDividerLine.setVisibility(View.GONE);

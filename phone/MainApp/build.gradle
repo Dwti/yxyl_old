@@ -19,14 +19,9 @@ android {
         buildConfigField "boolean", "YANXIU_ANALYLAYOUTHIERARCHY", "${yanxiu_analylayouthierarchy}"
         buildConfigField "boolean", "YANXIU_MOKE", "${yanxiu_moke}"
 
-        //参数说明
         manifestPlaceholders = [
-                GETUI_APP_ID    : "FXeG42IpmI9C9KpKbNPbs1", //APP_ID
-                GETUI_APP_KEY   : "Gk4NS64CY07lV5mvEB2QT4",   //APP_KEY
-                GETUI_APP_SECRET: "L3PVLZ2a4Z8v4Bsdzynkx4",   //APPSECRET
                 PACKAGE_NAME    : applicationId   //applicationId
         ]
-        //APP_ID、APP_KEY、APP_SECRET请根据个推开发者后台申请到的应用参数进行相应替换
 
         ndk {
             abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "mips", "mips64", "x86", "x86_64"
@@ -64,6 +59,16 @@ android {
             zipAlignEnabled true
             shrinkResources false
 //            signingConfig signingConfigs.debug
+
+            //参数说明
+            manifestPlaceholders = [
+                    //dev
+                    GETUI_APP_ID    : "Riw2lQ0vEQ9iEv8ADs2Qg5", //APP_ID
+                    GETUI_APP_KEY   : "fpq9FFbGLB8zpLkwCO1oQA",   //APP_KEY
+                    GETUI_APP_SECRET: "PiNzRvizni8i4Enu1HYuh7",   //APPSECRET
+            ]
+            //APP_ID、APP_KEY、APP_SECRET请根据个推开发者后台申请到的应用参数进行相应替换
+
         }
         release {
             buildConfigField "boolean", "LOG_DEBUG", "false"
@@ -73,15 +78,24 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 //            signingConfig signingConfigs.release
 
-            applicationVariants.all { variant ->
-                variant.outputs.each { output ->
-                    def outputFile = output.outputFile
-                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                        def fileName = "yanxiu_student_v${defaultConfig.versionName}_${variant.productFlavors[0].name}.apk"
-                        output.outputFile = new File(outputFile.parent, fileName)
-                    }
-                }
-            }
+            //参数说明
+            manifestPlaceholders = [
+                    //realse
+                GETUI_APP_ID    : "FXeG42IpmI9C9KpKbNPbs1", //APP_ID
+                GETUI_APP_KEY   : "Gk4NS64CY07lV5mvEB2QT4",   //APP_KEY
+                GETUI_APP_SECRET: "L3PVLZ2a4Z8v4Bsdzynkx4",   //APPSECRET
+            ]
+            //APP_ID、APP_KEY、APP_SECRET请根据个推开发者后台申请到的应用参数进行相应替换
+
+//            applicationVariants.all { variant ->
+//                variant.outputs.each { output ->
+//                    def outputFile = output.outputFile
+//                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                        def fileName = "yanxiu_student_v${defaultConfig.versionName}_${variant.productFlavors[0].name}_realse.apk"
+//                        output.outputFile = new File(outputFile.parent, fileName)
+//                    }
+//                }
+//            }
         }
     }
 
