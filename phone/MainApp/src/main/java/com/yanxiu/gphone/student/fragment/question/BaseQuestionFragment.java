@@ -25,6 +25,8 @@ import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 
+import java.util.List;
+
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.*;
 
 /**
@@ -55,7 +57,7 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
      */
     protected boolean is_reduction = false;
     protected int childPagerIndex;
-    protected int selectPagerIndex=-1;
+    protected int selectPagerIndex = -1;
     public InputMethodManager imm;
     private int number;
     private String parent_template;
@@ -64,18 +66,19 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
     private int pageNumber;
     private int wrongId;
     private int wrongCount;
-private Object message;
+    private Object message;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        Log.d("当前", this.getClass().getName());
-        if (questionsEntity==null&&getArguments() == null&&savedInstanceState!=null&&savedInstanceState.getSerializable("questionsEntity")!=null){
-            this.questionsEntity= (QuestionEntity) savedInstanceState.getSerializable("questionsEntity");
-            this.answerViewTypyBean=savedInstanceState.getInt("answerViewTypyBean",0);
-            this.pageIndex=savedInstanceState.getInt("pageIndex",0);
-            this.wrongId=savedInstanceState.getInt("wrongId",0);
-            this.wrongCount=savedInstanceState.getInt("wrongCount",0);
-        }else {
+        if (questionsEntity == null && getArguments() == null && savedInstanceState != null && savedInstanceState.getSerializable("questionsEntity") != null) {
+            this.questionsEntity = (QuestionEntity) savedInstanceState.getSerializable("questionsEntity");
+            this.answerViewTypyBean = savedInstanceState.getInt("answerViewTypyBean", 0);
+            this.pageIndex = savedInstanceState.getInt("pageIndex", 0);
+            this.wrongId = savedInstanceState.getInt("wrongId", 0);
+            this.wrongCount = savedInstanceState.getInt("wrongCount", 0);
+        } else {
             this.questionsEntity = (getArguments() != null) ? (QuestionEntity) getArguments().getSerializable("questions") : null;
             this.answerViewTypyBean = (getArguments() != null) ? getArguments().getInt("answerViewTypyBean") : null;
             this.pageIndex = (getArguments() != null) ? getArguments().getInt("pageIndex") : 0;
@@ -87,19 +90,19 @@ private Object message;
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable("questionsEntity",questionsEntity);
-        outState.putInt("answerViewTypyBean",answerViewTypyBean);
-        outState.putInt("pageIndex",pageIndex);
-        outState.putInt("wrongId",wrongId);
-        outState.putInt("wrongCount",wrongCount);
+        outState.putSerializable("questionsEntity", questionsEntity);
+        outState.putInt("answerViewTypyBean", answerViewTypyBean);
+        outState.putInt("pageIndex", pageIndex);
+        outState.putInt("wrongId", wrongId);
+        outState.putInt("wrongCount", wrongCount);
         super.onSaveInstanceState(outState);
     }
 
-    public void setTagMessage(Object message){
-       this.message=message;
+    public void setTagMessage(Object message) {
+        this.message = message;
     }
 
-    public Object getTagMessage(){
+    public Object getTagMessage() {
         return message;
     }
 
@@ -169,25 +172,25 @@ private Object message;
                     tvQuestionTitle.setText(questionTitle);
                 }
             }*/
-            if (answerViewTypyBean==SubjectExercisesItemBean.WRONG_SET){
+            if (answerViewTypyBean == SubjectExercisesItemBean.WRONG_SET) {
                 setWrongQuestionTitle(typeId);
-                if (!IsReady){
-                    setWrongQuestionTitle(wrongId+"",wrongCount+"");
+                if (!IsReady) {
+                    setWrongQuestionTitle(wrongId + "", wrongCount + "");
                 }
-            }else {
+            } else {
                 setQuestionTitle(typeId);
             }
         }
 
     }
 
-    protected void setCurrent(ViewPager pager){
+    protected void setCurrent(ViewPager pager) {
         try {
-            boolean isShowing=((BaseAnswerViewActivity)getActivity()).getCurrent(this.hashCode());
-            if (!isShowing){
+            boolean isShowing = ((BaseAnswerViewActivity) getActivity()).getCurrent(this.hashCode());
+            if (!isShowing) {
                 pager.setCurrentItem(0);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.toString();
         }
     }
@@ -199,7 +202,7 @@ private Object message;
                 tvQuestionTitle.setVisibility(View.VISIBLE);
                 tvQuestionTitleRight.setText("" + number);
             } else {
-                tvQuestionTitleLeft.setText("" + (questionsEntity.getChildPageNumber()+ pageIndex));
+                tvQuestionTitleLeft.setText("" + (questionsEntity.getChildPageNumber() + pageIndex));
                 tvQuestionTitle.setVisibility(View.VISIBLE);
                 tvQuestionTitleRight.setText("" + totalCount);
             }
@@ -211,7 +214,7 @@ private Object message;
             } else if (questionsEntity.getTemplate().equals(YanXiuConstant.SINGLE_CHOICES) || questionsEntity.getTemplate().equals(YanXiuConstant.MULTI_CHOICES)
                     || questionsEntity.getTemplate().equals(YanXiuConstant.FILL_BLANK) || questionsEntity.getTemplate().equals(YanXiuConstant.ANSWER_QUESTION)
                     || questionsEntity.getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION) || questionsEntity.getTemplate().equals(YanXiuConstant.JUDGE_QUESTION)
-                    || questionsEntity.getTemplate().equals(YanXiuConstant.CONNECT_QUESTION)){
+                    || questionsEntity.getTemplate().equals(YanXiuConstant.CONNECT_QUESTION)) {
                 tvQuestionTitleLeft.setText("" + pageIndex);
                 tvQuestionTitle.setVisibility(View.VISIBLE);
                 tvQuestionTitleRight.setText("" + count);
@@ -219,16 +222,16 @@ private Object message;
         }
     }
 
-    private boolean IsFirst=true;
+    private boolean IsFirst = true;
 
     private void setWrongQuestionTitle(int typeId) {
-        if (!ischild){
+        if (!ischild) {
             if (IsFirst) {
                 tvQuestionTitleLeft.setText("" + 1);
                 tvQuestionTitle.setVisibility(View.VISIBLE);
                 tvQuestionTitleRight.setText("" + wrongCount);
                 IsFirst = false;
-            }else {
+            } else {
                 tvQuestionTitleLeft.setText("" + wrongId);
                 tvQuestionTitle.setVisibility(View.VISIBLE);
                 tvQuestionTitleRight.setText("" + wrongCount);
@@ -237,37 +240,40 @@ private Object message;
         }
     }
 
-    private boolean IsReady=true;
+    private boolean IsReady = true;
 
-    public void setWrongQuestionTitle(String wrongId,String wrongCount){
-        if (!ischild){
-            this.wrongId=Integer.parseInt(wrongId);
-            this.wrongCount=Integer.parseInt(wrongCount);
-            if (tvQuestionTitle!=null&&tvQuestionTitleLeft!=null&&tvQuestionTitleRight!=null) {
+    public void setWrongQuestionTitle(String wrongId, String wrongCount) {
+        if (!ischild) {
+            this.wrongId = Integer.parseInt(wrongId);
+            this.wrongCount = Integer.parseInt(wrongCount);
+            if (tvQuestionTitle != null && tvQuestionTitleLeft != null && tvQuestionTitleRight != null) {
                 tvQuestionTitleLeft.setText("" + wrongId);
                 tvQuestionTitle.setVisibility(View.VISIBLE);
                 tvQuestionTitleRight.setText("" + wrongCount);
-                IsReady=true;
-            }else {
-                IsReady=false;
+                IsReady = true;
+            } else {
+                IsReady = false;
             }
         }
     }
 
     public void setChildPagerIndex(int childPagerIndex) {
         this.childPagerIndex = childPagerIndex;
-        this.selectPagerIndex=childPagerIndex;
+        this.selectPagerIndex = childPagerIndex;
     }
 
     public void setRefresh() {
         String ss = "";
         ss = "";
     }
+
     int count;
-    public void setTotalCount(int count){
-        this.count=count;
+
+    public void setTotalCount(int count) {
+        this.count = count;
     }
-    public int getTotalCount(){
+
+    public int getTotalCount() {
         return count;
     }
 
@@ -279,16 +285,16 @@ private Object message;
         return 1;
     }
 
-    public void setIsChild(boolean ischild,int number, String parent_template, int parent_type, int totalCount) {
+    public void setIsChild(boolean ischild, int number, String parent_template, int parent_type, int totalCount) {
         this.ischild = ischild;
-        this.number=number;
+        this.number = number;
         this.parent_template = parent_template;
         this.parent_type = parent_type;
         this.totalCount = totalCount;
     }
 
 
-    public void saveAnwser(){
+    public void saveAnwser() {
 
     }
 
@@ -331,10 +337,10 @@ private Object message;
     public void hideSoftInput() {
 //        answerViewTypyBean == SubjectExercisesItemBean.ANSWER_QUESTION
         if (imm != null && getActivity() instanceof AnswerViewActivity) {
-            ((AnswerViewActivity)getActivity()).getTvToptext().setFocusable(true);
-            ((AnswerViewActivity)getActivity()).getTvToptext().setFocusableInTouchMode(true);
-            imm.hideSoftInputFromWindow(((AnswerViewActivity)getActivity()).getTvToptext().getWindowToken(), 0);
-            ((AnswerViewActivity)getActivity()).getTvToptext().requestFocus();
+            ((AnswerViewActivity) getActivity()).getTvToptext().setFocusable(true);
+            ((AnswerViewActivity) getActivity()).getTvToptext().setFocusableInTouchMode(true);
+            imm.hideSoftInputFromWindow(((AnswerViewActivity) getActivity()).getTvToptext().getWindowToken(), 0);
+            ((AnswerViewActivity) getActivity()).getTvToptext().requestFocus();
         }
     }
 

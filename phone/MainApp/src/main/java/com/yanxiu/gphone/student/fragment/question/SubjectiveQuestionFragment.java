@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,8 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     private Fragment resolutionFragment;
     private PicSelView mPicSelView;
     private Activity mActivity;
+
+    private OnUserVisibleHintListener onUserVisibleHintListener;
 
     private boolean isFirstSub;//是否是首个主观题Frgment用于初始化全局主观题Id
 
@@ -133,6 +136,9 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         } else {
             IsVisible = false;
         }
+
+        if(onUserVisibleHintListener != null)
+            onUserVisibleHintListener.onUserVisibleHint(isVisibleToUser);
     }
 
     /**
@@ -181,6 +187,8 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
 
         ft.replace(R.id.content_problem_analysis, resolutionFragment).commitAllowingStateLoss();
+
+        onUserVisibleHintListener = (SubjectiveProblemAnalysisFragment) resolutionFragment;
     }
 
     @Override
@@ -327,5 +335,15 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         if (url.startsWith("http")) {
             questionsEntity.getAnswerBean().getSubjectivImageUri().remove(url);
         }
+    }
+
+    @Override
+    public void saveAnwser() {
+        if(onUserVisibleHintListener != null)
+            onUserVisibleHintListener.onUserVisibleHint(false);
+    }
+
+    public interface OnUserVisibleHintListener{
+        void onUserVisibleHint(boolean isVisibleToUser);
     }
 }

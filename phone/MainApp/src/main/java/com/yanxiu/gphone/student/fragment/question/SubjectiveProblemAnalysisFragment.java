@@ -3,7 +3,6 @@ package com.yanxiu.gphone.student.fragment.question;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -31,6 +31,7 @@ import com.yanxiu.gphone.student.inter.CorpListener;
 import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
 import com.yanxiu.gphone.student.utils.CorpUtils;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
+import com.yanxiu.gphone.student.view.SimpleVoicePlayer;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 import com.yanxiu.gphone.student.view.question.subjective.SubjectiveHeartLayout;
 import com.yanxiu.gphone.student.view.question.subjective.SubjectiveStarLayout;
@@ -40,13 +41,12 @@ import java.util.List;
 import java.util.Map;
 
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_COMPUTE;
-import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SOLVE_COMPLEX;
 
 /**
  * Created by lidm on 2015/9/25.
  * 主观题的题目分析界面
  */
-public class SubjectiveProblemAnalysisFragment extends Fragment implements View.OnClickListener {
+public class SubjectiveProblemAnalysisFragment extends Fragment implements View.OnClickListener,SubjectiveQuestionFragment.OnUserVisibleHintListener {
 
     private YXiuAnserTextView tvKnowledgePoint;
     private YXiuAnserTextView tvReportParseText;
@@ -81,6 +81,8 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
     private String qid;
 
     private GridView subjectiveGrid;
+    private ListView lv_voice_comment;
+    private SimpleVoicePlayer simpleVoicePlayer;
     private SubjectiveImageAdapter adapter;
     private List<String> photosList;
     private CorpListener listener;
@@ -134,6 +136,8 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
         correctResultContent = (RelativeLayout) rootView.findViewById(R.id.correcting_result_content);
 
         subjectiveGrid = (GridView) rootView.findViewById(R.id.subjective_questions_grid);
+        lv_voice_comment = (ListView) rootView.findViewById(R.id.lv_voice_comment);
+        simpleVoicePlayer = (SimpleVoicePlayer) rootView.findViewById(R.id.simple_voice_player);
         adapter = new SubjectiveImageAdapter(this.getActivity());
         subjectiveGrid.setAdapter(adapter);
 
@@ -169,6 +173,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
 
     private void initData() {
 
+        simpleVoicePlayer.setDataSource("http://scc.jsyxw.cn/audio1/2016/1028/2dc11fce06cce1a3db7553715b15d742465585.mp3");
         if (questionsEntity != null) {
             //不可补做的题 隐藏批改结果
             if (getActivity().getClass().getSimpleName().equals(ResolutionAnswerViewActivity.class.getSimpleName()) && ((ResolutionAnswerViewActivity) getActivity()).isNotFinished) {
@@ -264,11 +269,24 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
         return value;
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        simpleVoicePlayer.stopAndRelease();
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        simpleVoicePlayer.stopAndRelease();
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -288,4 +306,10 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
     }
 
 
+    @Override
+    public void onUserVisibleHint(boolean isVisibleToUser) {
+        if(!isVisibleToUser){
+            simpleVoicePlayer.stopAndRelease();
+        }
+    }
 }

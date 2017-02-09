@@ -96,7 +96,7 @@ public class ScreenSwitchUtils {
      * 停止监听
      */
     public void stop() {
-//        Log.d(TAG, stop orientation listener.);
+//        Log.d(TAG, stopAndRelease orientation listener.);
         sm.unregisterListener(listener);
         sm1.unregisterListener(listener1);
     }
