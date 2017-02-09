@@ -332,7 +332,7 @@ public class MainActivity extends YanxiuBaseActivity implements View.OnClickList
         if(mRequestGroupHwDotNumTask != null){
             mRequestGroupHwDotNumTask.cancel();
         }
-        mRequestGroupHwDotNumTask = null;
+          mRequestGroupHwDotNumTask = null;
     }
     @Override
     protected void onDestroy() {
