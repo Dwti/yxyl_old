@@ -23,7 +23,9 @@ import com.yanxiu.gphone.student.activity.BaseAnswerViewActivity;
 import com.yanxiu.gphone.student.activity.PhotoViewActivity;
 import com.yanxiu.gphone.student.activity.ResolutionAnswerViewActivity;
 import com.yanxiu.gphone.student.adapter.SubjectiveImageAdapter;
+import com.yanxiu.gphone.student.adapter.AudioCommentAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
+import com.yanxiu.gphone.student.bean.AudioCommentBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.feedBack.AbstractFeedBack;
@@ -82,10 +84,12 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
 
     private GridView subjectiveGrid;
     private ListView lv_voice_comment;
-    private SimpleVoicePlayer simpleVoicePlayer;
+    private SimpleVoicePlayer currentVoicePlayer;
+    private AudioCommentAdapter audioCommentAdapter;
     private SubjectiveImageAdapter adapter;
     private List<String> photosList;
     private CorpListener listener;
+    private List<AudioCommentBean> audioComments = new ArrayList<>();
 
     //add
     private ImageView ivIcon;
@@ -137,7 +141,6 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
 
         subjectiveGrid = (GridView) rootView.findViewById(R.id.subjective_questions_grid);
         lv_voice_comment = (ListView) rootView.findViewById(R.id.lv_voice_comment);
-        simpleVoicePlayer = (SimpleVoicePlayer) rootView.findViewById(R.id.simple_voice_player);
         adapter = new SubjectiveImageAdapter(this.getActivity());
         subjectiveGrid.setAdapter(adapter);
 
@@ -172,8 +175,68 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
 
 
     private void initData() {
+        for(int i =0;i<10;i++){
+            AudioCommentBean bean = new AudioCommentBean();
+//            bean.setUrl("http://scc.jsyxw.cn/audio1/2016/1028/2dc11fce06cce1a3db7553715b15d742465585.mp3");
+            bean.setUrl("http://scc.jsyxw.cn/audio/2017/0204/file_58959fb430fce.mp3");
+            bean.setLength((i+1) * 10);
+            audioComments.add(bean);
+        }
+        audioCommentAdapter = new AudioCommentAdapter(getActivity(),audioComments);
+        lv_voice_comment.setAdapter(audioCommentAdapter);
 
-        simpleVoicePlayer.setDataSource("http://scc.jsyxw.cn/audio1/2016/1028/2dc11fce06cce1a3db7553715b15d742465585.mp3");
+        lv_voice_comment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                SimpleVoicePlayer simpleVoicePlayer = (SimpleVoicePlayer) view.findViewById(R.id.simple_voice_player);
+                if(simpleVoicePlayer.isPlaying)
+                    simpleVoicePlayer.stopAndRelease();
+                else simpleVoicePlayer.start();
+                if(currentVoicePlayer == simpleVoicePlayer)
+                    return;
+                if(currentVoicePlayer != null && currentVoicePlayer.isPlaying) {
+                    currentVoicePlayer.stopAndRelease();
+                }
+                currentVoicePlayer = simpleVoicePlayer;
+                if(position >= lv_voice_comment.getCount() -1)
+                    return;
+                for(int i = position;i < lv_voice_comment.getCount() -1; i++){
+                    View itemView = lv_voice_comment.getChildAt(i - lv_voice_comment.getFirstVisiblePosition());
+                    View nextItemView = lv_voice_comment.getChildAt(i+1 - lv_voice_comment.getFirstVisiblePosition());
+                    SimpleVoicePlayer voicePlayer = (SimpleVoicePlayer) itemView.findViewById(R.id.simple_voice_player);
+                    final SimpleVoicePlayer nextVociePlayer = (SimpleVoicePlayer) nextItemView.findViewById(R.id.simple_voice_player);
+                    voicePlayer.setOnPalyCompleteListener(new SimpleVoicePlayer.OnPalyCompleteListener() {
+                        @Override
+                        public void onComplete(SimpleVoicePlayer simpleVoicePlayer) {
+                            currentVoicePlayer = null;
+                            nextVociePlayer.start();
+                            currentVoicePlayer = nextVociePlayer;
+                        }
+                    });
+                }
+
+
+//                simpleVoicePlayer.setOnPalyCompleteListener(new SimpleVoicePlayer.OnPalyCompleteListener() {
+//                    @Override
+//                    public void onComplete(SimpleVoicePlayer simpleVoicePlayer) {
+//                        currentVoicePlayer =null;
+//                        if(position >= lv_voice_comment.getCount() -1)
+//                            return;
+//                        View nextItemView = lv_voice_comment.getChildAt(position+1 - lv_voice_comment.getFirstVisiblePosition());
+//                        SimpleVoicePlayer nextVociePlayer = (SimpleVoicePlayer) nextItemView.findViewById(R.id.simple_voice_player);
+//                        nextVociePlayer.start();
+//                        currentVoicePlayer = nextVociePlayer;
+//                        nextVociePlayer.setOnPalyCompleteListener(new SimpleVoicePlayer.OnPalyCompleteListener() {
+//                            @Override
+//                            public void onComplete(SimpleVoicePlayer simpleVoicePlayer) {
+//
+//                            }
+//                        });
+//                    }
+//                });
+            }
+        });
+
         if (questionsEntity != null) {
             //不可补做的题 隐藏批改结果
             if (getActivity().getClass().getSimpleName().equals(ResolutionAnswerViewActivity.class.getSimpleName()) && ((ResolutionAnswerViewActivity) getActivity()).isNotFinished) {
@@ -277,14 +340,16 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
     @Override
     public void onStop() {
         super.onStop();
-        simpleVoicePlayer.stopAndRelease();
+        if(currentVoicePlayer != null)
+        currentVoicePlayer.stopAndRelease();
 
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        simpleVoicePlayer.stopAndRelease();
+        if(currentVoicePlayer != null)
+        currentVoicePlayer.stopAndRelease();
     }
 
 
@@ -308,8 +373,8 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
 
     @Override
     public void onUserVisibleHint(boolean isVisibleToUser) {
-        if(!isVisibleToUser){
-            simpleVoicePlayer.stopAndRelease();
+        if(!isVisibleToUser && currentVoicePlayer != null){
+            currentVoicePlayer.stopAndRelease();
         }
     }
 }

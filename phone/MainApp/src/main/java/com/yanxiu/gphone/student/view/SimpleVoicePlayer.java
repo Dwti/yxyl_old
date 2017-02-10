@@ -8,8 +8,10 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.common.core.utils.NetWorkTypeUtils;
@@ -17,6 +19,8 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.YanxiuApplication;
 import com.yanxiu.gphone.student.utils.ToastMaster;
 import com.yanxiu.gphone.student.utils.Util;
+
+import java.io.IOException;
 
 /**
  * Created by sp on 17-2-8.
@@ -28,8 +32,10 @@ public class SimpleVoicePlayer extends FrameLayout {
     TextView tv_duration;
     MediaPlayer mediaPlayer;
     AnimationDrawable drawable;
-    boolean isPlaying;
+    public boolean isPlaying;
     String voiceUrl;
+
+    OnPalyCompleteListener onPalyCompleteListener;
 
     public SimpleVoicePlayer(Context context) {
         super(context);
@@ -55,21 +61,27 @@ public class SimpleVoicePlayer extends FrameLayout {
         view_voice_icon.setBackgroundResource(R.drawable.voice_play_animation);
         drawable = (AnimationDrawable) view_voice_icon.getBackground();
 
-        rl_voice.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isPlaying) {
-                    stopAndRelease();
-                } else {
-                    start();
-                }
-            }
-        });
+//        rl_voice.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (isPlaying) {
+//                    stopAndRelease();
+//                } else {
+//                    start();
+//                }
+//            }
+//        });
 
     }
 
     public void setDataSource(String url) {
         voiceUrl = url;
+    }
+
+    public void setDuration(int millionSeconds){
+        if(millionSeconds >= 0)
+            tv_duration.setText(millionSeconds + "''");
+        else tv_duration.setText("0''");
     }
 
     public void start() {
@@ -94,7 +106,16 @@ public class SimpleVoicePlayer extends FrameLayout {
     private void play() {
         Uri uri = Uri.parse(voiceUrl);
         if (mediaPlayer == null) {
-            mediaPlayer = MediaPlayer.create(getContext(), uri);
+//            mediaPlayer = MediaPlayer.create(getContext(), uri);
+            mediaPlayer = new MediaPlayer();
+            try {
+                mediaPlayer.setDataSource(voiceUrl);
+            } catch (IOException e) {
+                e.printStackTrace();
+                ToastMaster.showShortToast(getContext(), "初始化出错！");
+                return;
+            }
+            mediaPlayer.prepareAsync();
         }
         mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
@@ -116,6 +137,8 @@ public class SimpleVoicePlayer extends FrameLayout {
                 mediaPlayer = null;
                 view_voice_icon.setVisibility(GONE);
                 iv_voice.setVisibility(VISIBLE);
+                if(onPalyCompleteListener != null)
+                    onPalyCompleteListener.onComplete(SimpleVoicePlayer.this);
             }
         });
 
@@ -151,5 +174,13 @@ public class SimpleVoicePlayer extends FrameLayout {
             view_voice_icon.setVisibility(GONE);
             iv_voice.setVisibility(VISIBLE);
         }
+    }
+
+    public void setOnPalyCompleteListener(OnPalyCompleteListener onPalyCompleteListener) {
+        this.onPalyCompleteListener = onPalyCompleteListener;
+    }
+
+    public interface OnPalyCompleteListener{
+        void onComplete(SimpleVoicePlayer simpleVoicePlayer);
     }
 }

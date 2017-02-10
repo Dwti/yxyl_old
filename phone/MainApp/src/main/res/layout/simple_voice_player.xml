@@ -8,10 +8,10 @@
         android:id="@+id/rl_voice"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:paddingLeft="10dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:layout_weight="1"
         android:background="@drawable/rectagle_board">
 
         <ImageView
@@ -36,5 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:textColor="#ccc4a3"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:text="11''"/>
 </LinearLayout>

@@ -65,6 +65,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/ll_voice_comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -88,14 +89,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="@android:color/transparent"
-            android:dividerHeight="10dp"
-            android:visibility="gone"/>
+            android:listSelector="@android:color/transparent"
+            android:layout_marginTop="10dp"
+            android:dividerHeight="10dp"/>
 
         <com.yanxiu.gphone.student.view.SimpleVoicePlayer
             android:id="@+id/simple_voice_player"
             android:layout_width="100dp"
             android:layout_height="35dp"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:visibility="gone"/>
 
 
     </LinearLayout>
