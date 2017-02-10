@@ -101,4 +101,8 @@
         <attr name="rectRoundW" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="MyMaxHeightLinearLayout">
+        <attr name="maxHeight" format="dimension"></attr>
+    </declare-styleable>
+
 </resources>

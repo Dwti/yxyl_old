@@ -6,7 +6,8 @@
     <LinearLayout
         android:id="@+id/ll_answer_exam_wrong"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_130"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dimen_15"
         android:background="@drawable/my_list_bg_selector"
         android:orientation="vertical">
 
@@ -40,19 +41,25 @@
                 android:src="@drawable/answer_exam_delete" />
         </RelativeLayout>
 
-        <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
-            android:id="@+id/answer_exam_content_text"
+        <com.yanxiu.gphone.student.view.MyMaxHeightLinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dimen_0"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginBottom="@dimen/dimen_15"
             android:layout_marginLeft="@dimen/dimen_12"
             android:layout_marginRight="@dimen/dimen_10"
-            android:layout_marginTop="@dimen/dimen_5"
             android:maxHeight="@dimen/dimen_130"
-            android:padding="@dimen/dimen_5"
-            android:textColor="@color/color_666252" />
+            android:padding="@dimen/dimen_5">
+
+            <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+                android:id="@+id/answer_exam_content_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxHeight="@dimen/dimen_130"
+                android:textColor="@color/color_666252" />
+
+        </com.yanxiu.gphone.student.view.MyMaxHeightLinearLayout>
+
         <!--
         </cn.carbs.android.maxheightview.library.MaxHeightView>
         -->

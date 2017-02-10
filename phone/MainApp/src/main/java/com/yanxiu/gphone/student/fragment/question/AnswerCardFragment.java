@@ -378,7 +378,9 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                     @Override
                     public void run() {
                         subjectiveQIndex = 0;
-                        ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideDialog();
+                        if (AnswerCardFragment.this.getActivity()!=null) {
+                            ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideDialog();
+                        }
 //                        loadingLayout.setViewGone();
                         if (bean != null && ((UploadImageBean) bean).getStatus() != null && ((UploadImageBean) bean).getStatus().getDesc() != null) {
                             //Util.showToast(((UploadImageBean) bean).getStatus().getDesc());
