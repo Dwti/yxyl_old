@@ -2,65 +2,74 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <LinearLayout
         android:id="@+id/ll_answer_exam_wrong"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_130"
-        android:orientation="vertical"
-        android:background="@drawable/my_list_bg_selector">
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dimen_15"
+        android:background="@drawable/my_list_bg_selector"
+        android:orientation="vertical">
+
         <RelativeLayout
-        android:id="@+id/rl_answer_exam_wrong"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <!--
-        <cn.carbs.android.maxheightview.library.MaxHeightView
+            android:id="@+id/rl_answer_exam_wrong"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:mhv_HeightRatio="0.3">
-            -->
-        <ImageView
-            android:id="@+id/answer_exam_type_text"
-            android:layout_width="@dimen/dimen_60"
-            android:layout_height="wrap_content"
+            android:layout_height="wrap_content">
+            <!--
+            <cn.carbs.android.maxheightview.library.MaxHeightView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:mhv_HeightRatio="0.3">
+                -->
+            <ImageView
+                android:id="@+id/answer_exam_type_text"
+                android:layout_width="@dimen/dimen_60"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/dimen_12"
+                android:layout_marginTop="@dimen/dimen_10" />
+
+            <ImageView
+                android:id="@+id/iv_answer_exam_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:src="@drawable/answer_exam_delete" />
+        </RelativeLayout>
+
+        <com.yanxiu.gphone.student.view.MyMaxHeightLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_alignParentLeft="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="@dimen/dimen_12"
-            android:layout_marginTop="@dimen/dimen_10" />
-
-        <ImageView
-            android:id="@+id/iv_answer_exam_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginRight="@dimen/dimen_10"
-            android:layout_marginTop="@dimen/dimen_10"
-            android:src="@drawable/answer_exam_delete" />
-    </RelativeLayout>
-
-        <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
-            android:id="@+id/answer_exam_content_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
             android:layout_marginLeft="@dimen/dimen_12"
             android:layout_marginRight="@dimen/dimen_10"
             android:layout_marginTop="@dimen/dimen_5"
-            android:layout_marginBottom="@dimen/dimen_15"
-            android:padding="@dimen/dimen_5"
-            android:maxHeight="@dimen/dimen_130"
-            android:textColor="@color/color_666252" />
+            app:maxHeight="@dimen/dimen_130">
+
+            <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+                android:id="@+id/answer_exam_content_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxHeight="@dimen/dimen_130"
+                android:textColor="@color/color_666252" />
+
+        </com.yanxiu.gphone.student.view.MyMaxHeightLinearLayout>
+
         <!--
         </cn.carbs.android.maxheightview.library.MaxHeightView>
         -->
         <!--android:textSize="@dimen/dimen_16"-->
         <!--android:layout_gravity="center"-->
-       <!-- <View
-            android:id="@+id/view"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_5"
-            android:layout_alignParentBottom="true"/>-->
+        <!-- <View
+             android:id="@+id/view"
+             android:layout_width="match_parent"
+             android:layout_height="@dimen/dimen_5"
+             android:layout_alignParentBottom="true"/>-->
 
     </LinearLayout>
 
