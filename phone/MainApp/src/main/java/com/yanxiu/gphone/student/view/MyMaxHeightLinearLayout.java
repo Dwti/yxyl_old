@@ -69,9 +69,17 @@ public class MyMaxHeightLinearLayout extends LinearLayout {
             int height=child_view.getMeasuredHeight()<=params.height?params.height:child_view.getMeasuredHeight();
             should_height+=height;
         }
+
+        int padding_top=this.getPaddingTop();
+        int padding_bottom=this.getPaddingBottom();
+
+        should_height+=padding_top;
+        should_height+=padding_bottom;
+
         if (maxheight!=-1) {
             height_size=should_height<=maxheight?should_height:maxheight;
         }
+
         heightMeasureSpec= MeasureSpec.makeMeasureSpec(height_size,height_mode);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }

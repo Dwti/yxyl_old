@@ -48,7 +48,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dimen_12"
             android:layout_marginRight="@dimen/dimen_10"
-            android:maxHeight="@dimen/dimen_130"
+            app:maxHeight="@dimen/dimen_130"
             android:padding="@dimen/dimen_5">
 
             <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
