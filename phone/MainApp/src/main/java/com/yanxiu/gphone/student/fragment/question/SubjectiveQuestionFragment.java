@@ -76,7 +76,17 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
         FragmentTransaction ft = SubjectiveQuestionFragment.this.getChildFragmentManager().beginTransaction();
         ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
         if (questionsEntity != null && questionsEntity.getStem() != null) {
-            yXiuAnserTextView.setTextHtml(questionsEntity.getStem().replaceAll("\\(_\\)", "____"));
+            String stem = questionsEntity.getStem();
+            int i = 0;
+            while (stem.contains("(_)")){
+                i++;
+                stem = stem.replaceFirst("\\(_\\)", "("+i+")"+"____");
+            }
+            //如果只有一个空的话，就不显示序号
+            if(i==1)
+                stem = stem.replace("\\(_\\)", "____");
+            yXiuAnserTextView.setTextHtml(stem);
+//            yXiuAnserTextView.setTextHtml(questionsEntity.getStem().replaceAll("\\(_\\)", "____"));
         }
         IsCreat = true;
         setPicSelViewId();
