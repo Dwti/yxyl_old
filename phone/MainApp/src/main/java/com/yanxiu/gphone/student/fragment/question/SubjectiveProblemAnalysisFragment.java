@@ -53,6 +53,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
     private YXiuAnserTextView tvKnowledgePoint;
     private YXiuAnserTextView tvReportParseText;
     private YXiuAnserTextView tvCorrectionResultText;
+    private TextView tv_result;
 //    private YXiuAnserTextView tvMyAnswer;
 //    private ReadingQuestionsFragment rlAnswerPen;
 
@@ -92,7 +93,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
     private List<AudioCommentBean> audioComments = new ArrayList<>();
 
     //add
-    private ImageView ivIcon;
+    private ImageView ivIcon,iv_result;
     private FrameLayout flCorrectionContent;
     /**
      * 批改结果模块
@@ -121,7 +122,8 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
         rlSubjectNoanswer = (RelativeLayout) rootView.findViewById(R.id.rl_subject_noanswer);
 
 //        tvMyAnswer = (YXiuAnserTextView) rootView.findViewById(R.id.my_anwsers_text);
-
+        iv_result = (ImageView) rootView.findViewById(R.id.iv_result);
+        tv_result = (TextView) rootView.findViewById(R.id.tv_result);
         tvReportQuestionError = (TextView) rootView.findViewById(R.id.tv_report_question_error);
 
         tvDifficulltyText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_difficullty_text);
@@ -250,7 +252,20 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
             });
 
             if (questionsEntity.getPad() != null && questionsEntity.getPad().getTeachercheck() != null && questionsEntity.getPad().getStatus() == AnswerBean.ANSER_READED) {
-                subjectiveStarLayout.selectStarCount(questionsEntity.getPad().getTeachercheck().getScore());
+                //如果是主观类型的填空题，只显示正确、错误或未批改，不显示得分
+                if(questionsEntity.getType_id()==YanXiuConstant.QUESTION_TYP.QUESTION_FILL_BLANKS.type){
+                    iv_result.setImageResource(R.drawable.current_state_title_bg);
+                    subjectiveStarLayout.setVisibility(View.GONE);
+                    tv_result.setVisibility(View.VISIBLE);
+                    if(questionsEntity.getPad().getTeachercheck().getScore() ==5){
+                        tv_result.setText(this.getActivity().getResources().getString(R.string.correct));
+                    }else {
+                        tv_result.setText(this.getActivity().getResources().getString(R.string.wrong));
+                    }
+                }else {
+                    subjectiveStarLayout.selectStarCount(questionsEntity.getPad().getTeachercheck().getScore());
+                }
+
                 if (!TextUtils.isEmpty(questionsEntity.getPad().getTeachercheck().getQcomment())) {
                     tvCorrectionResultText.setTextHtml(questionsEntity.getPad().getTeachercheck().getQcomment());
                 } else {

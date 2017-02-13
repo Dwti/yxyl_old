@@ -80,8 +80,8 @@
             android:background="@drawable/repeat_common_line" />
 
         <ImageView
-            android:layout_width="53dp"
-            android:layout_height="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/laoshipiyu" />
 
         <com.yanxiu.gphone.student.view.UnMoveListView
@@ -117,8 +117,9 @@
                 android:background="@drawable/repeat_common_line" />
 
             <ImageView
-                android:layout_width="@dimen/dimen_32"
-                android:layout_height="@dimen/dimen_18"
+                android:id="@+id/iv_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/correcting_result_line"
                 android:layout_marginLeft="@dimen/dimen_20"
                 android:src="@drawable/correcting_result_bg" />
@@ -131,27 +132,42 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dimen_20">
 
-            <com.yanxiu.gphone.student.view.question.subjective.SubjectiveHeartLayout
-                android:id="@+id/view_correction_result"
+            <FrameLayout
+                android:id="@+id/fl_result"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dimen_20"
-                android:layout_marginTop="@dimen/dimen_20"
-                app:maxNumStar="5" />
+                android:layout_height="wrap_content">
+
+                <com.yanxiu.gphone.student.view.question.subjective.SubjectiveHeartLayout
+                    android:id="@+id/view_correction_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_20"
+                    android:layout_marginTop="@dimen/dimen_20"
+                    app:maxNumStar="5" />
+
+                <TextView
+                    android:id="@+id/tv_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="3dp"
+                    android:textColor="@color/color_ff323232"
+                    android:textSize="@dimen/dimen_15"
+                    android:visibility="gone"/>
+            </FrameLayout>
 
             <ImageView
                 android:id="@+id/icon_correction_result"
                 android:layout_width="@dimen/dimen_33"
                 android:layout_height="@dimen/dimen_33"
-                android:layout_below="@id/view_correction_result"
+                android:layout_below="@id/fl_result"
                 android:layout_marginTop="@dimen/dimen_8"
                 android:src="@drawable/icon_correction_result" />
 
             <FrameLayout
                 android:id="@+id/fl_correction_result_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimen_12">
+                android:layout_height="wrap_content">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -166,9 +182,9 @@
                     android:layout_below="@+id/view_line_ccc4a3"
                     android:layout_gravity="center"
                     android:layout_marginBottom="@dimen/dimen_12"
-                    android:layout_marginLeft="@dimen/dimen_20"
                     android:layout_marginRight="@dimen/dimen_12"
-                    android:layout_marginTop="@dimen/dimen_12"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="3dp"
                     android:textColor="@color/color_ff323232"
                     android:textSize="@dimen/dimen_15" />
 
