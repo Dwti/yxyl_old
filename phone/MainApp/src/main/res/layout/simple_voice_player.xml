@@ -25,8 +25,7 @@
             android:id="@+id/iv_voice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@drawable/voice3"/>
+            android:layout_centerVertical="true"/>
 
     </RelativeLayout>
 

@@ -3,6 +3,8 @@ package com.yanxiu.gphone.student.bean;
 
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2015/7/31.
  */
@@ -22,6 +24,8 @@ public class PadBean implements YanxiuBaseBean {
     private int id = -1;
     private int ptid;
     private int status;
+
+    private List<AudioCommentBean> jsonAudioComment;
     /**
      * teachercheck : {"score":4,"qcomment":"good","checktime":1442633365526,"padid":12456,"pid":2345678,"id":234,"tid":34567789}
      */
@@ -83,6 +87,13 @@ public class PadBean implements YanxiuBaseBean {
         return teachercheck;
     }
 
+    public List<AudioCommentBean> getJsonAudioComment() {
+        return jsonAudioComment;
+    }
+
+    public void setJsonAudioComment(List<AudioCommentBean> jsonAudioComment) {
+        this.jsonAudioComment = jsonAudioComment;
+    }
 
     public class TeachercheckEntity implements YanxiuBaseBean {
         /**

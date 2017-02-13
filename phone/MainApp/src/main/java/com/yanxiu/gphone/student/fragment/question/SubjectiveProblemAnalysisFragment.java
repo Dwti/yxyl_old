@@ -33,7 +33,7 @@ import com.yanxiu.gphone.student.inter.CorpListener;
 import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
 import com.yanxiu.gphone.student.utils.CorpUtils;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
-import com.yanxiu.gphone.student.view.SimpleVoicePlayer;
+import com.yanxiu.gphone.student.view.AudioCommentPlayer;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 import com.yanxiu.gphone.student.view.question.subjective.SubjectiveHeartLayout;
 import com.yanxiu.gphone.student.view.question.subjective.SubjectiveStarLayout;
@@ -72,7 +72,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
     private LinearLayout llParseKnowledge;
     private LinearLayout llReportParse;
     private LinearLayout llDifficullty;
-    private LinearLayout llAnswer;
+    private LinearLayout llAnswer,ll_voice_comment;
 
     private TextView tvReportQuestionError;
 
@@ -84,7 +84,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
 
     private GridView subjectiveGrid;
     private ListView lv_voice_comment;
-    private SimpleVoicePlayer currentVoicePlayer;
+    private AudioCommentPlayer currentVoicePlayer;
     private AudioCommentAdapter audioCommentAdapter;
     private SubjectiveImageAdapter adapter;
     private List<String> photosList;
@@ -140,6 +140,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
         correctResultContent = (RelativeLayout) rootView.findViewById(R.id.correcting_result_content);
 
         subjectiveGrid = (GridView) rootView.findViewById(R.id.subjective_questions_grid);
+        ll_voice_comment = (LinearLayout) rootView.findViewById(R.id.ll_voice_comment);
         lv_voice_comment = (ListView) rootView.findViewById(R.id.lv_voice_comment);
         adapter = new SubjectiveImageAdapter(this.getActivity());
         subjectiveGrid.setAdapter(adapter);
@@ -175,67 +176,51 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
 
 
     private void initData() {
-        for(int i =0;i<10;i++){
-            AudioCommentBean bean = new AudioCommentBean();
-//            bean.setUrl("http://scc.jsyxw.cn/audio1/2016/1028/2dc11fce06cce1a3db7553715b15d742465585.mp3");
-            bean.setUrl("http://scc.jsyxw.cn/audio/2017/0204/file_58959fb430fce.mp3");
-            bean.setLength((i+1) * 10);
-            audioComments.add(bean);
+        if(questionsEntity != null && questionsEntity.getPad() !=null && questionsEntity.getPad().getJsonAudioComment() !=null && questionsEntity.getPad().getJsonAudioComment().size() >0){
+            audioComments = questionsEntity.getPad().getJsonAudioComment();
+            audioCommentAdapter = new AudioCommentAdapter(getActivity(),audioComments);
+            lv_voice_comment.setAdapter(audioCommentAdapter);
+
+            lv_voice_comment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                    AudioCommentPlayer audioCommentPlayer = (AudioCommentPlayer) view.findViewById(R.id.simple_voice_player);
+                    if(audioCommentPlayer.isPlaying)
+                        audioCommentPlayer.stopAndRelease();
+                    else audioCommentPlayer.start();
+                    if(currentVoicePlayer == audioCommentPlayer)
+                        return;
+                    if(currentVoicePlayer != null && currentVoicePlayer.isPlaying) {
+                        currentVoicePlayer.stopAndRelease();
+                    }
+                    currentVoicePlayer = audioCommentPlayer;
+                    if(position >= lv_voice_comment.getCount() -1)
+                        return;
+                    for(int i = position;i < lv_voice_comment.getCount() -1; i++){
+                        View itemView = lv_voice_comment.getChildAt(i - lv_voice_comment.getFirstVisiblePosition());
+                        View nextItemView = lv_voice_comment.getChildAt(i+1 - lv_voice_comment.getFirstVisiblePosition());
+                        AudioCommentPlayer voicePlayer = (AudioCommentPlayer) itemView.findViewById(R.id.simple_voice_player);
+                        final AudioCommentPlayer nextVociePlayer = (AudioCommentPlayer) nextItemView.findViewById(R.id.simple_voice_player);
+                        voicePlayer.setOnPalyCompleteListener(new AudioCommentPlayer.OnPalyCompleteListener() {
+                            @Override
+                            public void onComplete(AudioCommentPlayer audioCommentPlayer) {
+                                currentVoicePlayer = null;
+                                nextVociePlayer.start();
+                                currentVoicePlayer = nextVociePlayer;
+                            }
+                        });
+                    }
+                }
+            });
+        }else {
+            ll_voice_comment.setVisibility(View.GONE);
         }
-        audioCommentAdapter = new AudioCommentAdapter(getActivity(),audioComments);
-        lv_voice_comment.setAdapter(audioCommentAdapter);
-
-        lv_voice_comment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                SimpleVoicePlayer simpleVoicePlayer = (SimpleVoicePlayer) view.findViewById(R.id.simple_voice_player);
-                if(simpleVoicePlayer.isPlaying)
-                    simpleVoicePlayer.stopAndRelease();
-                else simpleVoicePlayer.start();
-                if(currentVoicePlayer == simpleVoicePlayer)
-                    return;
-                if(currentVoicePlayer != null && currentVoicePlayer.isPlaying) {
-                    currentVoicePlayer.stopAndRelease();
-                }
-                currentVoicePlayer = simpleVoicePlayer;
-                if(position >= lv_voice_comment.getCount() -1)
-                    return;
-                for(int i = position;i < lv_voice_comment.getCount() -1; i++){
-                    View itemView = lv_voice_comment.getChildAt(i - lv_voice_comment.getFirstVisiblePosition());
-                    View nextItemView = lv_voice_comment.getChildAt(i+1 - lv_voice_comment.getFirstVisiblePosition());
-                    SimpleVoicePlayer voicePlayer = (SimpleVoicePlayer) itemView.findViewById(R.id.simple_voice_player);
-                    final SimpleVoicePlayer nextVociePlayer = (SimpleVoicePlayer) nextItemView.findViewById(R.id.simple_voice_player);
-                    voicePlayer.setOnPalyCompleteListener(new SimpleVoicePlayer.OnPalyCompleteListener() {
-                        @Override
-                        public void onComplete(SimpleVoicePlayer simpleVoicePlayer) {
-                            currentVoicePlayer = null;
-                            nextVociePlayer.start();
-                            currentVoicePlayer = nextVociePlayer;
-                        }
-                    });
-                }
-
-
-//                simpleVoicePlayer.setOnPalyCompleteListener(new SimpleVoicePlayer.OnPalyCompleteListener() {
-//                    @Override
-//                    public void onComplete(SimpleVoicePlayer simpleVoicePlayer) {
-//                        currentVoicePlayer =null;
-//                        if(position >= lv_voice_comment.getCount() -1)
-//                            return;
-//                        View nextItemView = lv_voice_comment.getChildAt(position+1 - lv_voice_comment.getFirstVisiblePosition());
-//                        SimpleVoicePlayer nextVociePlayer = (SimpleVoicePlayer) nextItemView.findViewById(R.id.simple_voice_player);
-//                        nextVociePlayer.start();
-//                        currentVoicePlayer = nextVociePlayer;
-//                        nextVociePlayer.setOnPalyCompleteListener(new SimpleVoicePlayer.OnPalyCompleteListener() {
-//                            @Override
-//                            public void onComplete(SimpleVoicePlayer simpleVoicePlayer) {
-//
-//                            }
-//                        });
-//                    }
-//                });
-            }
-        });
+//        for(int i =0;i<10;i++){
+//            AudioCommentBean bean = new AudioCommentBean();
+//            bean.setUrl("http://scc.jsyxw.cn/audio/2017/0204/file_58959fb430fce.mp3");
+//            bean.setLength((i+1) * 10);
+//            audioComments.add(bean);
+//        }
 
         if (questionsEntity != null) {
             //不可补做的题 隐藏批改结果
@@ -244,11 +229,6 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
             } else {
                 mLlReportParse.setVisibility(View.VISIBLE);
             }
-//            if (questionsEntity.getAnswerBean().getRealStatus() == AnswerBean.ANSER_READED ) {
-//                mLlReportParse.setVisibility(View.VISIBLE);
-//            } else {
-//                mLlReportParse.setVisibility(View.GONE);
-//            }
             photosList = questionsEntity.getAnswerBean().getSubjectivImageUri();
             adapter.addMoreData(photosList);
 

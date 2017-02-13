@@ -4,14 +4,13 @@ import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.common.core.utils.NetWorkTypeUtils;
@@ -21,33 +20,36 @@ import com.yanxiu.gphone.student.utils.ToastMaster;
 import com.yanxiu.gphone.student.utils.Util;
 
 import java.io.IOException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by sp on 17-2-8.
  */
 
-public class SimpleVoicePlayer extends FrameLayout {
-    View view_voice_icon, rl_voice;
+public class AudioCommentPlayer extends FrameLayout {
+    View rl_voice;
     ImageView iv_voice;
     TextView tv_duration;
     MediaPlayer mediaPlayer;
-    AnimationDrawable drawable;
     public boolean isPlaying;
     String voiceUrl;
+    int indexToPlay = 0;
 
     OnPalyCompleteListener onPalyCompleteListener;
 
-    public SimpleVoicePlayer(Context context) {
+    public AudioCommentPlayer(Context context) {
         super(context);
         initView(context);
     }
 
-    public SimpleVoicePlayer(Context context, AttributeSet attrs) {
+    public AudioCommentPlayer(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView(context);
     }
 
-    public SimpleVoicePlayer(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AudioCommentPlayer(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView(context);
     }
@@ -57,23 +59,44 @@ public class SimpleVoicePlayer extends FrameLayout {
         rl_voice = view.findViewById(R.id.rl_voice);
         iv_voice = (ImageView) view.findViewById(R.id.iv_voice);
         tv_duration = (TextView) view.findViewById(R.id.tv_duration);
-        view_voice_icon = view.findViewById(R.id.view_voice_icon);
-        view_voice_icon.setBackgroundResource(R.drawable.voice_play_animation);
-        drawable = (AnimationDrawable) view_voice_icon.getBackground();
-
-//        rl_voice.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (isPlaying) {
-//                    stopAndRelease();
-//                } else {
-//                    start();
-//                }
-//            }
-//        });
-
+        iv_voice.setImageResource(R.drawable.voice3);
     }
 
+    Handler mHandler = new Handler();
+
+    Runnable task = new Runnable() {
+        @Override
+        public void run() {
+            switch (indexToPlay){
+                case 0:
+                    iv_voice.setImageResource(R.drawable.voice1);
+                    indexToPlay = 1;
+                    break;
+                case 1:
+                    iv_voice.setImageResource(R.drawable.voice2);
+                    indexToPlay = 2;
+                    break;
+                case 2:
+                    iv_voice.setImageResource(R.drawable.voice3);
+                    indexToPlay = 0;
+                    break;
+                default:
+                    break;
+            }
+            mHandler.postDelayed(task,500);
+        }
+    };
+
+
+    private void startAnimation(){
+        indexToPlay = 0;
+        mHandler.post(task);
+    }
+
+    private void stopAnimation(){
+        mHandler.removeCallbacks(task);
+        iv_voice.setImageResource(R.drawable.voice3);
+    }
     public void setDataSource(String url) {
         voiceUrl = url;
     }
@@ -106,7 +129,6 @@ public class SimpleVoicePlayer extends FrameLayout {
     private void play() {
         Uri uri = Uri.parse(voiceUrl);
         if (mediaPlayer == null) {
-//            mediaPlayer = MediaPlayer.create(getContext(), uri);
             mediaPlayer = new MediaPlayer();
             try {
                 mediaPlayer.setDataSource(voiceUrl);
@@ -122,23 +144,18 @@ public class SimpleVoicePlayer extends FrameLayout {
             public void onPrepared(MediaPlayer mp) {
                 mediaPlayer.start();
                 isPlaying = true;
-                drawable.start();
-                view_voice_icon.setVisibility(VISIBLE);
-                iv_voice.setVisibility(GONE);
+                startAnimation();
             }
         });
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                if (drawable.isRunning())
-                    drawable.stop();
                 isPlaying = false;
                 mediaPlayer.release();
                 mediaPlayer = null;
-                view_voice_icon.setVisibility(GONE);
-                iv_voice.setVisibility(VISIBLE);
+                stopAnimation();
                 if(onPalyCompleteListener != null)
-                    onPalyCompleteListener.onComplete(SimpleVoicePlayer.this);
+                    onPalyCompleteListener.onComplete(AudioCommentPlayer.this);
             }
         });
 
@@ -146,8 +163,7 @@ public class SimpleVoicePlayer extends FrameLayout {
             @Override
             public boolean onError(MediaPlayer mp, int what, int extra) {
                 ToastMaster.showShortToast(getContext(), "播放出错！");
-                if (drawable.isRunning())
-                    drawable.stop();
+                stopAnimation();
                 isPlaying = false;
                 return false;
             }
@@ -158,9 +174,7 @@ public class SimpleVoicePlayer extends FrameLayout {
         if (mediaPlayer != null && mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
             isPlaying = false;
-            drawable.stop();
-            view_voice_icon.setVisibility(GONE);
-            iv_voice.setVisibility(VISIBLE);
+            stopAnimation();
         }
     }
 
@@ -170,9 +184,7 @@ public class SimpleVoicePlayer extends FrameLayout {
             mediaPlayer.release();
             mediaPlayer = null;
             isPlaying = false;
-            drawable.stop();
-            view_voice_icon.setVisibility(GONE);
-            iv_voice.setVisibility(VISIBLE);
+            stopAnimation();
         }
     }
 
@@ -181,6 +193,6 @@ public class SimpleVoicePlayer extends FrameLayout {
     }
 
     public interface OnPalyCompleteListener{
-        void onComplete(SimpleVoicePlayer simpleVoicePlayer);
+        void onComplete(AudioCommentPlayer audioCommentPlayer);
     }
 }

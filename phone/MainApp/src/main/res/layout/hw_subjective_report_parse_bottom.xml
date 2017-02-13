@@ -93,14 +93,6 @@
             android:layout_marginTop="10dp"
             android:dividerHeight="10dp"/>
 
-        <com.yanxiu.gphone.student.view.SimpleVoicePlayer
-            android:id="@+id/simple_voice_player"
-            android:layout_width="100dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="20dp"
-            android:visibility="gone"/>
-
-
     </LinearLayout>
 
     <LinearLayout

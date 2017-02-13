@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.AudioCommentBean;
 import com.yanxiu.gphone.student.utils.Util;
-import com.yanxiu.gphone.student.view.SimpleVoicePlayer;
+import com.yanxiu.gphone.student.view.AudioCommentPlayer;
 
 import java.util.List;
 
@@ -50,9 +50,9 @@ public class AudioCommentAdapter extends BaseAdapter {
         if(convertView == null){
             convertView = inflater.inflate(R.layout.audio_comment_item,parent,false);
         }
-        SimpleVoicePlayer simpleVoicePlayer = (SimpleVoicePlayer) convertView.findViewById(R.id.simple_voice_player);
-        simpleVoicePlayer.setDataSource(datas.get(position).getUrl());
-        simpleVoicePlayer.setDuration(datas.get(position).getLength());
+        AudioCommentPlayer audioCommentPlayer = (AudioCommentPlayer) convertView.findViewById(R.id.simple_voice_player);
+        audioCommentPlayer.setDataSource(datas.get(position).getUrl());
+        audioCommentPlayer.setDuration(datas.get(position).getLength());
         int width = datas.get(position).getLength() / DIVISOR * BASE_LENGTH;
         if(width < BASE_LENGTH)
             width = BASE_LENGTH;
