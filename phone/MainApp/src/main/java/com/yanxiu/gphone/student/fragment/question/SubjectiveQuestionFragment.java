@@ -84,7 +84,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
             }
             //如果只有一个空的话，就不显示序号
             if(i==1)
-                stem = stem.replace("\\(_\\)", "____");
+                stem = stem.replace("(1)____", "____");
             yXiuAnserTextView.setTextHtml(stem);
 //            yXiuAnserTextView.setTextHtml(questionsEntity.getStem().replaceAll("\\(_\\)", "____"));
         }
