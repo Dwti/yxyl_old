@@ -210,16 +210,6 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
         super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
         if (isVisibleToUser) {
-//            if (vpAnswer != null) {
-//                if (!is_reduction) {
-//                    vpAnswer.setCurrentItem(YanXiuConstant.index_position);
-//                    YanXiuConstant.index_position=0;
-//                } else {
-//                    if (adapter!=null) {
-////                        vpAnswer.setCurrentItem(adapter.getCount() - 1);
-//                    }
-//                }
-//            }
             if (!ischild) {
                 if (adapter != null) {
                     try {
@@ -228,26 +218,6 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                 }
             }
         } else {
-//            if (vpAnswer!=null&&adapter!=null){
-//                if (CorpUtils.getInstence().getCorpListener()!=null){
-//                    BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
-//                    if (fragment instanceof SubjectiveQuestionFragment){
-//                        if (((CorpListener)fragment).hashCode()!=CorpUtils.getInstence().getCorpListener().hashCode()){
-//                            vpAnswer.setCurrentItem(0);
-//                        }
-//                    }
-//                }else {
-//                    vpAnswer.setCurrentItem(0);
-//                }
-//            }
-
-//            try {
-//                ArrayList<Fragment> list= adapter.getmFragments();
-//                for (int i=0;i<list.size();i++){
-//                    BaseQuestionFragment fragment= (BaseQuestionFragment) list.get(i);
-//                    fragment.saveAnwser();
-//                }
-//            }catch (Exception e){}
             super.saveAnwser();
             answerViewClick();
             isNeedUpdate = false;
@@ -451,29 +421,6 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     @Override
     public void onResume() {
         super.onResume();
-//        if (questionsEntity != null) {
-//            vpAnswer.setCurrentItem(childPagerIndex);
-//        }
-
-//        if (vpAnswer != null) {
-//            if (!is_reduction&&adapter!=null) {
-//                try {
-//                    BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
-//                    if (CorpUtils.getInstence().getCorpListener()!=null){
-//                        if (fragment instanceof SubjectiveQuestionFragment){
-//                            if (((CorpListener)fragment).hashCode()==CorpUtils.getInstence().getCorpListener().hashCode()){
-//                                vpAnswer.setCurrentItem(YanXiuConstant.index_position);
-//                                YanXiuConstant.index_position=0;
-//                            }
-//                        }
-//                    }else {
-////                        vpAnswer.setCurrentItem(0);
-//                    }
-//                }catch (Exception e){}
-//            } else {
-////                vpAnswer.setCurrentItem(adapter.getCount() - 1);
-//            }
-//        }
         if (!ischild && isVisibleToUser) {
             if (adapter != null) {
                 try {
@@ -488,13 +435,6 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     @Override
     public void setRefresh() {
         super.setRefresh();
-//        if (vpAnswer != null) {
-//            if (!is_reduction) {
-//                vpAnswer.setCurrentItem(childPagerIndex);
-//            } else {
-//                vpAnswer.setCurrentItem(adapter.getCount() - 1);
-//            }
-//        }
     }
 
     @Override
