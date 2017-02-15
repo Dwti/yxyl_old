@@ -1,7 +1,11 @@
 package com.yanxiu.gphone.student.fragment.question;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.telephony.PhoneStateListener;
+import android.telephony.ServiceState;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,7 +52,7 @@ import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTI
  * Created by lidm on 2015/9/25.
  * 主观题的题目分析界面
  */
-public class SubjectiveProblemAnalysisFragment extends Fragment implements View.OnClickListener,SubjectiveQuestionFragment.OnUserVisibleHintListener {
+public class SubjectiveProblemAnalysisFragment extends Fragment implements View.OnClickListener, SubjectiveQuestionFragment.OnUserVisibleHintListener {
 
     private YXiuAnserTextView tvKnowledgePoint;
     private YXiuAnserTextView tvReportParseText;
@@ -73,7 +77,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
     private LinearLayout llParseKnowledge;
     private LinearLayout llReportParse;
     private LinearLayout llDifficullty;
-    private LinearLayout llAnswer,ll_voice_comment;
+    private LinearLayout llAnswer, ll_voice_comment;
 
     private TextView tvReportQuestionError;
 
@@ -91,9 +95,10 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
     private List<String> photosList;
     private CorpListener listener;
     private List<AudioCommentBean> audioComments = new ArrayList<>();
+    private TelephonyManager telephonyManager;
 
     //add
-    private ImageView ivIcon,iv_result;
+    private ImageView ivIcon, iv_result;
     private FrameLayout flCorrectionContent;
     /**
      * 批改结果模块
@@ -109,6 +114,8 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = LayoutInflater.from(getActivity()).inflate(R.layout.hw_subjective_report_parse_bottom, null);
+        telephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+        telephonyManager.listen(new PhoneCallListener(), PhoneStateListener.LISTEN_CALL_STATE);
         initView();
         initData();
         return rootView;
@@ -178,29 +185,29 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
 
 
     private void initData() {
-        if(questionsEntity != null && questionsEntity.getPad() !=null && questionsEntity.getPad().getJsonAudioComment() !=null && questionsEntity.getPad().getJsonAudioComment().size() >0){
+        if (questionsEntity != null && questionsEntity.getPad() != null && questionsEntity.getPad().getJsonAudioComment() != null && questionsEntity.getPad().getJsonAudioComment().size() > 0) {
             audioComments = questionsEntity.getPad().getJsonAudioComment();
-            audioCommentAdapter = new AudioCommentAdapter(getActivity(),audioComments);
+            audioCommentAdapter = new AudioCommentAdapter(getActivity(), audioComments);
             lv_voice_comment.setAdapter(audioCommentAdapter);
 
             lv_voice_comment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                     AudioCommentPlayer audioCommentPlayer = (AudioCommentPlayer) view.findViewById(R.id.simple_voice_player);
-                    if(audioCommentPlayer.isPlaying)
+                    if (audioCommentPlayer.isPlaying)
                         audioCommentPlayer.stopAndRelease();
                     else audioCommentPlayer.start();
-                    if(currentVoicePlayer == audioCommentPlayer)
+                    if (currentVoicePlayer == audioCommentPlayer)
                         return;
-                    if(currentVoicePlayer != null && currentVoicePlayer.isPlaying) {
+                    if (currentVoicePlayer != null && currentVoicePlayer.isPlaying) {
                         currentVoicePlayer.stopAndRelease();
                     }
                     currentVoicePlayer = audioCommentPlayer;
-                    if(position >= lv_voice_comment.getCount() -1)
+                    if (position >= lv_voice_comment.getCount() - 1)
                         return;
-                    for(int i = position;i < lv_voice_comment.getCount() -1; i++){
+                    for (int i = position; i < lv_voice_comment.getCount() - 1; i++) {
                         View itemView = lv_voice_comment.getChildAt(i - lv_voice_comment.getFirstVisiblePosition());
-                        View nextItemView = lv_voice_comment.getChildAt(i+1 - lv_voice_comment.getFirstVisiblePosition());
+                        View nextItemView = lv_voice_comment.getChildAt(i + 1 - lv_voice_comment.getFirstVisiblePosition());
                         AudioCommentPlayer voicePlayer = (AudioCommentPlayer) itemView.findViewById(R.id.simple_voice_player);
                         final AudioCommentPlayer nextVociePlayer = (AudioCommentPlayer) nextItemView.findViewById(R.id.simple_voice_player);
                         voicePlayer.setOnPalyCompleteListener(new AudioCommentPlayer.OnPalyCompleteListener() {
@@ -214,7 +221,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
                     }
                 }
             });
-        }else {
+        } else {
             ll_voice_comment.setVisibility(View.GONE);
         }
 //        for(int i =0;i<10;i++){
@@ -253,16 +260,16 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
 
             if (questionsEntity.getPad() != null && questionsEntity.getPad().getTeachercheck() != null && questionsEntity.getPad().getStatus() == AnswerBean.ANSER_READED) {
                 //如果是主观类型的填空题，只显示正确、错误或未批改，不显示得分
-                if(questionsEntity.getType_id()==YanXiuConstant.QUESTION_TYP.QUESTION_FILL_BLANKS.type){
+                if (questionsEntity.getType_id() == YanXiuConstant.QUESTION_TYP.QUESTION_FILL_BLANKS.type) {
                     iv_result.setImageResource(R.drawable.current_state_title_bg);
                     subjectiveStarLayout.setVisibility(View.GONE);
                     tv_result.setVisibility(View.VISIBLE);
-                    if(questionsEntity.getPad().getTeachercheck().getScore() ==5){
+                    if (questionsEntity.getPad().getTeachercheck().getScore() == 5) {
                         tv_result.setText(this.getActivity().getResources().getString(R.string.correct));
-                    }else {
+                    } else {
                         tv_result.setText(this.getActivity().getResources().getString(R.string.wrong));
                     }
-                }else {
+                } else {
                     subjectiveStarLayout.selectStarCount(questionsEntity.getPad().getTeachercheck().getScore());
                 }
 
@@ -335,16 +342,16 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
     @Override
     public void onStop() {
         super.onStop();
-        if(currentVoicePlayer != null)
-        currentVoicePlayer.stopAndRelease();
+        if (currentVoicePlayer != null)
+            currentVoicePlayer.stopAndRelease();
 
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(currentVoicePlayer != null)
-        currentVoicePlayer.stopAndRelease();
+        if (currentVoicePlayer != null)
+            currentVoicePlayer.stopAndRelease();
     }
 
 
@@ -368,8 +375,17 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
 
     @Override
     public void onUserVisibleHint(boolean isVisibleToUser) {
-        if(!isVisibleToUser && currentVoicePlayer != null){
+        if (!isVisibleToUser && currentVoicePlayer != null) {
             currentVoicePlayer.stopAndRelease();
+        }
+    }
+
+    private class PhoneCallListener extends PhoneStateListener {
+        @Override
+        public void onCallStateChanged(int state, String incomingNumber) {
+            if (state == TelephonyManager.CALL_STATE_RINGING && currentVoicePlayer != null) {
+                currentVoicePlayer.stopAndRelease();
+            }
         }
     }
 }
