@@ -61,6 +61,11 @@
     <string name="edit_area">地区</string>
     <string name="edit_school">学校</string>
     <string name="edit_stage">学段</string>
+
+
+    <string name="edit_schools">学校：</string>
+    <string name="edit_stages">学段：</string>
+
     <string name="edit_next">下一步</string>
     <string name="edit_name_hint">你的名字</string>
     <string name="edit_nickname_hint">设置你的昵称</string>
