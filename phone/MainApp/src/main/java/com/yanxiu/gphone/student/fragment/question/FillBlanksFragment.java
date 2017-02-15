@@ -3,7 +3,6 @@ package com.yanxiu.gphone.student.fragment.question;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.utils.FragmentManagerFactory;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.fillblanks.FillBlanksFramelayout;
 
@@ -163,6 +163,10 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
                     }
                 });
                 break;
+            case SubjectExercisesItemBean.MISTAKEREDO:
+                FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
+                break;
+
         }
     }
 

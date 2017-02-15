@@ -14,6 +14,7 @@ public class SubjectExercisesItemBean implements YanxiuBaseBean {
     public static final int RESOLUTION = 1;
     public static final int WRONG_SET = 2;
     public static final int IS_CLICK = 3;
+    public static final int MISTAKEREDO = 4;
 
     private DataStatusEntityBean status;
     private int totalNum;

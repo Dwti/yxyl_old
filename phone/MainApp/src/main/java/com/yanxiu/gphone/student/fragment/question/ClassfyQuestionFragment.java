@@ -1,6 +1,5 @@
 package com.yanxiu.gphone.student.fragment.question;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -8,26 +7,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.common.core.utils.BasePopupWindow;
 import com.common.core.utils.LogInfo;
 import com.common.core.utils.StringUtils;
 import com.common.core.view.AllGridView;
-import com.common.core.view.LineGridView;
 import com.common.core.view.UnMoveGridView;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.ClassfyAnswerAdapter;
@@ -35,8 +24,7 @@ import com.yanxiu.gphone.student.adapter.ClassfyQuestionAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ClassfyBean;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
-import com.yanxiu.gphone.student.preference.PreferencesManager;
-import com.yanxiu.gphone.student.utils.Util;
+import com.yanxiu.gphone.student.utils.FragmentManagerFactory;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
@@ -44,7 +32,6 @@ import com.yanxiu.gphone.student.view.question.classfy.ClassfyAnswers;
 import com.yanxiu.gphone.student.view.question.classfy.ClassfyDelPopupWindow;
 import com.yanxiu.gphone.student.view.question.classfy.ClassfyPopupWindow;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -282,6 +269,10 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                     }
                 });
                 break;
+            case SubjectExercisesItemBean.MISTAKEREDO:
+                FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
+                break;
+
         }
     }
 

@@ -5,16 +5,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.common.core.utils.StringUtils;
 import com.yanxiu.gphone.student.R;
@@ -22,6 +17,7 @@ import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.inter.AnswerCallback;
+import com.yanxiu.gphone.student.utils.FragmentManagerFactory;
 import com.yanxiu.gphone.student.utils.QuestionUtils;
 import com.yanxiu.gphone.student.view.FillBlankAnswerView;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
@@ -139,6 +135,10 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
                         addAnalysisFragment();
                     }
                 });
+                break;
+            case SubjectExercisesItemBean.MISTAKEREDO:
+                isWrongSetOrAnalysis = true;
+                FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
                 break;
             default:
                 isWrongSetOrAnalysis = false;

@@ -96,7 +96,6 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
     protected QuestionsListener listener;
     protected int nextPager_onclick = 0;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -182,7 +181,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
         loadingLayout = (StudentLoadingLayout) findViewById(R.id.loading_layout);
         ivFavCard = (ImageView) findViewById(R.id.iv_fav_card);
         vpAnswer = (MyViewPager) findViewById(R.id.answer_viewpager);
-        vpAnswer.setOffscreenPageLimit(4);
+//        vpAnswer.setOffscreenPageLimit(4);
         tvPagerIndex = (TextView) findViewById(R.id.tv_pager_index);
         tvPagerCount = (TextView) this.findViewById(R.id.tv_pager_count);
 

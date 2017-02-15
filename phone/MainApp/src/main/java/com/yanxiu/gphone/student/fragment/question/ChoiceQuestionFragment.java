@@ -1,16 +1,13 @@
 package com.yanxiu.gphone.student.fragment.question;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.common.core.utils.LogInfo;
 import com.common.core.utils.StringUtils;
@@ -18,6 +15,7 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.inter.AnswerCallback;
+import com.yanxiu.gphone.student.utils.FragmentManagerFactory;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 import com.yanxiu.gphone.student.view.question.choicequestion.ChoiceQuestions;
@@ -148,6 +146,9 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
                         addAnalysisFragment();
                     }
                 });
+                break;
+            case SubjectExercisesItemBean.MISTAKEREDO:
+                FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
                 break;
         }
     }

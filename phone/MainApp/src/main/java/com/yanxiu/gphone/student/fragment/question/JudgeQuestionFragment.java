@@ -11,6 +11,7 @@ import android.widget.Button;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.utils.FragmentManagerFactory;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 import com.yanxiu.gphone.student.view.question.judgequestion.JudgeQuestions;
@@ -101,6 +102,10 @@ public class JudgeQuestionFragment extends BaseQuestionFragment implements Quest
                     }
                 });
                 break;
+            case SubjectExercisesItemBean.MISTAKEREDO:
+                FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
+                break;
+
         }
     }
 

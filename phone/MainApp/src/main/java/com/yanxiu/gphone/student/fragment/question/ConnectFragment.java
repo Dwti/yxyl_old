@@ -10,19 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
-import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.utils.FragmentManagerFactory;
 import com.yanxiu.gphone.student.view.ConnectLinesLinearLayout;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
-
-import org.json.JSONArray;
-
-import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2016/9/7.
@@ -122,6 +117,10 @@ public class ConnectFragment extends BaseQuestionFragment implements PageIndex {
                     }
                 });
                 break;
+            case SubjectExercisesItemBean.MISTAKEREDO:
+                FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
+                break;
+
         }
     }
 

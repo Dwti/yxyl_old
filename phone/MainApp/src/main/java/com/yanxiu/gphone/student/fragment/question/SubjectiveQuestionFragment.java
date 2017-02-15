@@ -26,6 +26,7 @@ import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.inter.CorpListener;
 import com.yanxiu.gphone.student.utils.CorpUtils;
+import com.yanxiu.gphone.student.utils.FragmentManagerFactory;
 import com.yanxiu.gphone.student.utils.MediaUtils;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.picsel.PicSelView;
@@ -160,10 +161,13 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
                 addBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        addBtn.setVisibility(View.GONE);
+                        addBtn.setVisibility(View.GONE); 
                         addAnalysisFragment();
                     }
                 });
+                break;
+            case SubjectExercisesItemBean.MISTAKEREDO:
+                FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
                 break;
             default:
                 break;

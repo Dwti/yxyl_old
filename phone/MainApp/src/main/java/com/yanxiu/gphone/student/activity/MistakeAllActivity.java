@@ -120,8 +120,9 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                         subjectExercisesItemBeanIntent.getData().get(0).setName("");
                     }
                     if (list != null && list.size() > 0 && position>0 && position-1 < list.size()) {
-                        WrongAnswerViewActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, subjectId, pageIndex, list.get(position-1).getQuestions().getChildPageIndex(), YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position-1);
+//                        WrongAnswerViewActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, subjectId, pageIndex, list.get(position-1).getQuestions().getChildPageIndex(), YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position-1);
                         //ResolutionAnswerViewActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, YanXiuConstant.INTELLI_REPORT);
+                        MistakeRedoActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, subjectId, pageIndex, list.get(position-1).getQuestions().getChildPageIndex(), YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position-1);
                     } else {
                         WrongAnswerViewActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, subjectId, pageIndex, 0, YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position);
                     }
