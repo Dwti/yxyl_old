@@ -127,23 +127,21 @@ public class AudioCommentPlayer extends FrameLayout {
     }
 
     private void play() {
-        Uri uri = Uri.parse(voiceUrl);
-        if (mediaPlayer == null) {
-            mediaPlayer = new MediaPlayer();
-            try {
-                mediaPlayer.setDataSource(voiceUrl);
-            } catch (IOException e) {
-                e.printStackTrace();
-                ToastMaster.showShortToast(getContext(), "初始化出错！");
-                return;
-            }
-            mediaPlayer.prepareAsync();
+        isPlaying = true;
+        mediaPlayer = new MediaPlayer();
+        try {
+            mediaPlayer.setDataSource(voiceUrl);
+        } catch (IOException e) {
+            e.printStackTrace();
+            ToastMaster.showShortToast(getContext(), "初始化出错！");
+            isPlaying = false;
+            return;
         }
+        mediaPlayer.prepareAsync();
         mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
                 mediaPlayer.start();
-                isPlaying = true;
                 startAnimation();
             }
         });
@@ -168,14 +166,6 @@ public class AudioCommentPlayer extends FrameLayout {
                 return false;
             }
         });
-    }
-
-    public void pause() {
-        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-            mediaPlayer.pause();
-            isPlaying = false;
-            stopAnimation();
-        }
     }
 
     public void stopAndRelease() {
