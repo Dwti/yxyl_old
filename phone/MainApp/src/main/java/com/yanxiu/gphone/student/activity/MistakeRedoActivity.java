@@ -1,4 +1,4 @@
-﻿package com.yanxiu.gphone.student.activity;
+package com.yanxiu.gphone.student.activity;
 
 import android.app.Activity;
 import android.content.Intent;
