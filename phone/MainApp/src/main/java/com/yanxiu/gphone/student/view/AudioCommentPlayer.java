@@ -83,7 +83,7 @@ public class AudioCommentPlayer extends FrameLayout {
                 default:
                     break;
             }
-            mHandler.postDelayed(task,500);
+            mHandler.postDelayed(task,400);
         }
     };
 
