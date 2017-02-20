@@ -5,21 +5,13 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_1"
-        android:layout_marginBottom="@dimen/dimen_20"
-        android:layout_marginLeft="@dimen/dimen_60"
-        android:layout_marginRight="@dimen/dimen_10"
-        android:layout_marginTop="@dimen/dimen_20"
-        android:background="@drawable/repeat_common_line" />
-
-
     <RelativeLayout
         android:id="@+id/ll_answer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/dimen_20"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -63,37 +55,6 @@
         </RelativeLayout>
 
     </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_voice_comment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginLeft="@dimen/dimen_20"
-        android:layout_marginRight="@dimen/dimen_10">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_1"
-            android:layout_marginBottom="@dimen/dimen_10"
-            android:layout_marginTop="@dimen/dimen_10"
-            android:background="@drawable/repeat_common_line" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/laoshipiyu" />
-
-        <com.yanxiu.gphone.student.view.UnMoveListView
-            android:id="@+id/lv_voice_comment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="@android:color/transparent"
-            android:listSelector="@android:color/transparent"
-            android:layout_marginTop="10dp"
-            android:dividerHeight="10dp"/>
-
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/hw_report_parse_statistics_layout"
@@ -191,8 +152,39 @@
             </FrameLayout>
 
         </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_voice_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_10">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1"
+            android:layout_marginBottom="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:background="@drawable/repeat_common_line" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/laoshipiyu" />
+
+        <com.yanxiu.gphone.student.view.UnMoveListView
+            android:id="@+id/lv_voice_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/transparent"
+            android:listSelector="@android:color/transparent"
+            android:layout_marginTop="10dp"
+            android:dividerHeight="10dp"/>
 
     </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/hw_report_difficullty_layout"
