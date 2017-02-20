@@ -41,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/top_space_view"
+        android:layout_above="@+id/linear_number"
         android:layout_marginLeft="@dimen/dimen_30"
         android:layout_marginRight="@dimen/dimen_30"
         android:cacheColorHint="@null"
@@ -48,4 +49,24 @@
         android:dividerHeight="0dp"
         android:listSelector="@android:color/transparent"
         android:scrollbars="none" />
+
+    <RelativeLayout
+        android:id="@+id/linear_number"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_50"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/mistake_number"
+            android:textSize="@dimen/dimen_24"
+            android:background="#ff0000"
+            android:layout_gravity="center_horizontal"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:text="错题数量（50）"/>
+    </RelativeLayout>
+
 </RelativeLayout>

@@ -465,7 +465,7 @@
     <string name="submit_group_picture">提交作业图片中</string>
 
     <string name="activity_not_found">没找到文件管理器</string>
-
+    <string name="mistakeredo_card">答题卡</string>
 
     <item name="TAG_NUMBERPAGER" type="id" />
     <item name="TAG_PAGER" type="id" />

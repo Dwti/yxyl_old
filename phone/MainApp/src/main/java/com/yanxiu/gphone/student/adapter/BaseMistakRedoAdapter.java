@@ -31,14 +31,15 @@ abstract class BaseMistakRedoAdapter<T> extends FragmentStatePagerAdapter {
         super(fm);
     }
 
-    BaseMistakRedoAdapter(FragmentManager fm, List<T> datas){
+    BaseMistakRedoAdapter(FragmentManager fm, List<T> datas) {
         super(fm);
-        if (datas!=null) {
+        if (datas != null) {
             this.mDatas.addAll(datas);
         }
     }
 
     public void setData(List<T> datas) {
+        this.mDatas.clear();
         this.mDatas.addAll(datas);
     }
 
@@ -67,7 +68,7 @@ abstract class BaseMistakRedoAdapter<T> extends FragmentStatePagerAdapter {
             WeakReference<BaseQuestionFragment> weak = map.get(key);
             if (weak != null) {
                 fragment = weak.get();
-                if (fragment!=null) {
+                if (fragment != null) {
                     Object o = fragment.getTagMessage();
                     if (o != null) {
                         holder = (ViewHolder) o;
@@ -109,7 +110,11 @@ abstract class BaseMistakRedoAdapter<T> extends FragmentStatePagerAdapter {
         ViewHolder holder = (ViewHolder) ((BaseQuestionFragment) object).getTagMessage();
         if (holder != null && holder.position < mDatas.size()) {
             T t = mDatas.get(holder.position);
-            if (t.hashCode() == holder.t.hashCode()) {
+            if (t != null && holder.t != null && t.hashCode() == holder.t.hashCode()) {
+                return POSITION_UNCHANGED;
+            } else if ((t != null && holder.t == null) || (t == null && holder.t != null)) {
+                return POSITION_NONE;
+            } else {
                 return POSITION_UNCHANGED;
             }
         }
@@ -120,7 +125,11 @@ abstract class BaseMistakRedoAdapter<T> extends FragmentStatePagerAdapter {
 
     private long getItemId(int position) {
         T t = this.mDatas.get(position);
-        return t.hashCode();
+        if (t != null) {
+            return t.hashCode();
+        } else {
+            return position;
+        }
     }
 
     private static String makeItemName(long id) {

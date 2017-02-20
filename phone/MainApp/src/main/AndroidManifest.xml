@@ -281,6 +281,8 @@
             android:launchMode="singleTop"/>
         <activity android:name=".activity.MistakeRedoActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MistakeRedoCardActivity"
+            android:screenOrientation="portrait"/>
         <!-- 【必须】 (2.30及以上版新增)展示通知的activity -->
         <!-- 【必须】 exported设置为true -->
         <!--

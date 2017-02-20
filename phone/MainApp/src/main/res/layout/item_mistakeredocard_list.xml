@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/dimen_15"
+    android:paddingRight="@dimen/dimen_15"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_35"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_1dp"
+            android:layout_weight="1"
+            android:background="#ff0000" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_marginRight="@dimen/dimen_10"
+            android:textSize="@dimen/dimen_24"
+            android:text="2016.9" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_1dp"
+            android:layout_weight="1"
+            android:background="#ff0000" />
+    </LinearLayout>
+
+    <com.yanxiu.gphone.student.view.picsel.NoScrollGridView
+        android:id="@+id/grid_mistake_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="@color/color_white"
+        android:listSelector="@android:color/transparent"
+        android:paddingBottom="@dimen/dimen_7"
+        android:paddingTop="@dimen/dimen_5"
+        android:verticalSpacing="@dimen/dimen_20"
+        android:horizontalSpacing="@dimen/dimen_5"
+        android:numColumns="5"
+        android:stretchMode="columnWidth" />
+</LinearLayout>

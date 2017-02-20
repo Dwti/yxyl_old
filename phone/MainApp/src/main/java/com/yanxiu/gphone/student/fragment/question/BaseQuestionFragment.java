@@ -169,7 +169,7 @@ private Object message;
                     tvQuestionTitle.setText(questionTitle);
                 }
             }*/
-            if (answerViewTypyBean==SubjectExercisesItemBean.WRONG_SET){
+            if (answerViewTypyBean==SubjectExercisesItemBean.WRONG_SET||answerViewTypyBean==SubjectExercisesItemBean.MISTAKEREDO){
                 setWrongQuestionTitle(typeId);
                 if (!IsReady){
                     setWrongQuestionTitle(wrongId+"",wrongCount+"");
@@ -219,7 +219,7 @@ private Object message;
         }
     }
 
-    private boolean IsFirst=true;
+    private static boolean IsFirst=true;
 
     private void setWrongQuestionTitle(int typeId) {
         if (!ischild){

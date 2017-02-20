@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.common.core.utils.NetWorkTypeUtils;
@@ -120,9 +121,9 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                         subjectExercisesItemBeanIntent.getData().get(0).setName("");
                     }
                     if (list != null && list.size() > 0 && position>0 && position-1 < list.size()) {
-//                        WrongAnswerViewActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, subjectId, pageIndex, list.get(position-1).getQuestions().getChildPageIndex(), YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position-1);
+                        WrongAnswerViewActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, subjectId, pageIndex, list.get(position-1).getQuestions().getChildPageIndex(), YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position-1);
                         //ResolutionAnswerViewActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, YanXiuConstant.INTELLI_REPORT);
-                        MistakeRedoActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, subjectId, pageIndex, list.get(position-1).getQuestions().getChildPageIndex(), YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position-1);
+//                        MistakeRedoActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, subjectId, pageIndex, list.get(position-1).getQuestions().getChildPageIndex(), YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position-1);
                     } else {
                         WrongAnswerViewActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, subjectId, pageIndex, 0, YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position);
                     }
@@ -135,6 +136,19 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                 cancelTaskAndFinish();
             }
         });
+
+        RelativeLayout linear_number= (RelativeLayout) findViewById(R.id.linear_number);
+        linear_number.setVisibility(View.VISIBLE);
+        TextView mistake_number= (TextView) findViewById(R.id.mistake_number);
+        mistake_number.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MistakeAllActivity.this,MistakeRedoActivity.class);
+                intent.putExtra("wrongCount", 50+"");
+                startActivity(intent);
+            }
+        });
+
     }
 
     private XListView.IXListViewListener ixListViewListener = new XListView.IXListViewListener(){
