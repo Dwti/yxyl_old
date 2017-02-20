@@ -47,7 +47,6 @@ public class CameraPreview extends FrameLayout implements SurfaceHolder.Callback
 
         mHolder = mSurfaceView.getHolder();
         mHolder.addCallback(this);
-//        mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
     }
 
     @Override
@@ -84,7 +83,6 @@ public class CameraPreview extends FrameLayout implements SurfaceHolder.Callback
         if (mCamera == camera) {
             return;
         }
-//        stopPreviewAndFreeCamera();
         mCamera = camera;
         if (mCamera != null) {
             List<Camera.Size> supportPreviewSizes = mCamera.getParameters().getSupportedPreviewSizes();
@@ -115,7 +113,6 @@ public class CameraPreview extends FrameLayout implements SurfaceHolder.Callback
         }
         parameters.setPictureSize(mPictureSize.width, mPictureSize.height);
         camera.setDisplayOrientation(90);
-//        requestLayout();
         camera.setParameters(parameters);
     }
 
@@ -136,13 +133,5 @@ public class CameraPreview extends FrameLayout implements SurfaceHolder.Callback
                 break;
         }
         return super.onTouchEvent(event);
-    }
-
-    private void stopPreviewAndFreeCamera() {
-        if (mCamera != null) {
-            mCamera.stopPreview();
-            mCamera.release();
-            mCamera = null;
-        }
     }
 }

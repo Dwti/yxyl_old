@@ -1,9 +1,12 @@
 package com.yanxiu.gphone.student.fragment.question;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.telephony.PhoneStateListener;
+import android.telephony.ServiceState;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,7 +27,9 @@ import com.yanxiu.gphone.student.activity.BaseAnswerViewActivity;
 import com.yanxiu.gphone.student.activity.PhotoViewActivity;
 import com.yanxiu.gphone.student.activity.ResolutionAnswerViewActivity;
 import com.yanxiu.gphone.student.adapter.SubjectiveImageAdapter;
+import com.yanxiu.gphone.student.adapter.AudioCommentAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
+import com.yanxiu.gphone.student.bean.AudioCommentBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.feedBack.AbstractFeedBack;
@@ -31,6 +37,7 @@ import com.yanxiu.gphone.student.inter.CorpListener;
 import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
 import com.yanxiu.gphone.student.utils.CorpUtils;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
+import com.yanxiu.gphone.student.view.AudioCommentPlayer;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 import com.yanxiu.gphone.student.view.question.subjective.SubjectiveHeartLayout;
 import com.yanxiu.gphone.student.view.question.subjective.SubjectiveStarLayout;
@@ -40,17 +47,17 @@ import java.util.List;
 import java.util.Map;
 
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_COMPUTE;
-import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SOLVE_COMPLEX;
 
 /**
  * Created by lidm on 2015/9/25.
  * 主观题的题目分析界面
  */
-public class SubjectiveProblemAnalysisFragment extends Fragment implements View.OnClickListener {
+public class SubjectiveProblemAnalysisFragment extends Fragment implements View.OnClickListener, SubjectiveQuestionFragment.OnUserVisibleHintListener {
 
     private YXiuAnserTextView tvKnowledgePoint;
     private YXiuAnserTextView tvReportParseText;
     private YXiuAnserTextView tvCorrectionResultText;
+    private TextView tv_result;
 //    private YXiuAnserTextView tvMyAnswer;
 //    private ReadingQuestionsFragment rlAnswerPen;
 
@@ -70,7 +77,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
     private LinearLayout llParseKnowledge;
     private LinearLayout llReportParse;
     private LinearLayout llDifficullty;
-    private LinearLayout llAnswer;
+    private LinearLayout llAnswer, ll_voice_comment;
 
     private TextView tvReportQuestionError;
 
@@ -81,12 +88,17 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
     private String qid;
 
     private GridView subjectiveGrid;
+    private ListView lv_voice_comment;
+    private AudioCommentPlayer currentVoicePlayer;
+    private AudioCommentAdapter audioCommentAdapter;
     private SubjectiveImageAdapter adapter;
     private List<String> photosList;
     private CorpListener listener;
+    private List<AudioCommentBean> audioComments = new ArrayList<>();
+    private TelephonyManager telephonyManager;
 
     //add
-    private ImageView ivIcon;
+    private ImageView ivIcon, iv_result;
     private FrameLayout flCorrectionContent;
     /**
      * 批改结果模块
@@ -102,6 +114,8 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = LayoutInflater.from(getActivity()).inflate(R.layout.hw_subjective_report_parse_bottom, null);
+        telephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+        telephonyManager.listen(new PhoneCallListener(), PhoneStateListener.LISTEN_CALL_STATE);
         initView();
         initData();
         return rootView;
@@ -115,7 +129,8 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
         rlSubjectNoanswer = (RelativeLayout) rootView.findViewById(R.id.rl_subject_noanswer);
 
 //        tvMyAnswer = (YXiuAnserTextView) rootView.findViewById(R.id.my_anwsers_text);
-
+        iv_result = (ImageView) rootView.findViewById(R.id.iv_result);
+        tv_result = (TextView) rootView.findViewById(R.id.tv_result);
         tvReportQuestionError = (TextView) rootView.findViewById(R.id.tv_report_question_error);
 
         tvDifficulltyText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_difficullty_text);
@@ -134,6 +149,8 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
         correctResultContent = (RelativeLayout) rootView.findViewById(R.id.correcting_result_content);
 
         subjectiveGrid = (GridView) rootView.findViewById(R.id.subjective_questions_grid);
+        ll_voice_comment = (LinearLayout) rootView.findViewById(R.id.ll_voice_comment);
+        lv_voice_comment = (ListView) rootView.findViewById(R.id.lv_voice_comment);
         adapter = new SubjectiveImageAdapter(this.getActivity());
         subjectiveGrid.setAdapter(adapter);
 
@@ -168,6 +185,51 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
 
 
     private void initData() {
+        if (questionsEntity != null && questionsEntity.getPad() != null && questionsEntity.getPad().getJsonAudioComment() != null && questionsEntity.getPad().getJsonAudioComment().size() > 0) {
+            audioComments = questionsEntity.getPad().getJsonAudioComment();
+            audioCommentAdapter = new AudioCommentAdapter(getActivity(), audioComments);
+            lv_voice_comment.setAdapter(audioCommentAdapter);
+
+            lv_voice_comment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                    AudioCommentPlayer audioCommentPlayer = (AudioCommentPlayer) view.findViewById(R.id.simple_voice_player);
+                    if (audioCommentPlayer.isPlaying)
+                        audioCommentPlayer.stopAndRelease();
+                    else audioCommentPlayer.start();
+                    if (currentVoicePlayer == audioCommentPlayer)
+                        return;
+                    if (currentVoicePlayer != null && currentVoicePlayer.isPlaying) {
+                        currentVoicePlayer.stopAndRelease();
+                    }
+                    currentVoicePlayer = audioCommentPlayer;
+                    if (position >= lv_voice_comment.getCount() - 1)
+                        return;
+                    for (int i = position; i < lv_voice_comment.getCount() - 1; i++) {
+                        View itemView = lv_voice_comment.getChildAt(i - lv_voice_comment.getFirstVisiblePosition());
+                        View nextItemView = lv_voice_comment.getChildAt(i + 1 - lv_voice_comment.getFirstVisiblePosition());
+                        AudioCommentPlayer voicePlayer = (AudioCommentPlayer) itemView.findViewById(R.id.simple_voice_player);
+                        final AudioCommentPlayer nextVociePlayer = (AudioCommentPlayer) nextItemView.findViewById(R.id.simple_voice_player);
+                        voicePlayer.setOnPalyCompleteListener(new AudioCommentPlayer.OnPalyCompleteListener() {
+                            @Override
+                            public void onComplete(AudioCommentPlayer audioCommentPlayer) {
+                                currentVoicePlayer = null;
+                                nextVociePlayer.start();
+                                currentVoicePlayer = nextVociePlayer;
+                            }
+                        });
+                    }
+                }
+            });
+        } else {
+            ll_voice_comment.setVisibility(View.GONE);
+        }
+//        for(int i =0;i<10;i++){
+//            AudioCommentBean bean = new AudioCommentBean();
+//            bean.setUrl("http://scc.jsyxw.cn/audio/2017/0204/file_58959fb430fce.mp3");
+//            bean.setLength((i+1) * 10);
+//            audioComments.add(bean);
+//        }
 
         if (questionsEntity != null) {
             //不可补做的题 隐藏批改结果
@@ -176,11 +238,6 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
             } else {
                 mLlReportParse.setVisibility(View.VISIBLE);
             }
-//            if (questionsEntity.getAnswerBean().getRealStatus() == AnswerBean.ANSER_READED ) {
-//                mLlReportParse.setVisibility(View.VISIBLE);
-//            } else {
-//                mLlReportParse.setVisibility(View.GONE);
-//            }
             photosList = questionsEntity.getAnswerBean().getSubjectivImageUri();
             adapter.addMoreData(photosList);
 
@@ -202,7 +259,20 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
             });
 
             if (questionsEntity.getPad() != null && questionsEntity.getPad().getTeachercheck() != null && questionsEntity.getPad().getStatus() == AnswerBean.ANSER_READED) {
-                subjectiveStarLayout.selectStarCount(questionsEntity.getPad().getTeachercheck().getScore());
+                //如果是主观类型的填空题，只显示正确、错误或未批改，不显示得分
+                if (questionsEntity.getType_id() == YanXiuConstant.QUESTION_TYP.QUESTION_FILL_BLANKS.type) {
+                    iv_result.setImageResource(R.drawable.current_state_title_bg);
+                    subjectiveStarLayout.setVisibility(View.GONE);
+                    tv_result.setVisibility(View.VISIBLE);
+                    if (questionsEntity.getPad().getTeachercheck().getScore() == 5) {
+                        tv_result.setText(this.getActivity().getResources().getString(R.string.correct));
+                    } else {
+                        tv_result.setText(this.getActivity().getResources().getString(R.string.wrong));
+                    }
+                } else {
+                    subjectiveStarLayout.selectStarCount(questionsEntity.getPad().getTeachercheck().getScore());
+                }
+
                 if (!TextUtils.isEmpty(questionsEntity.getPad().getTeachercheck().getQcomment())) {
                     tvCorrectionResultText.setTextHtml(questionsEntity.getPad().getTeachercheck().getQcomment());
                 } else {
@@ -264,11 +334,26 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
         return value;
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (currentVoicePlayer != null)
+            currentVoicePlayer.stopAndRelease();
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (currentVoicePlayer != null)
+            currentVoicePlayer.stopAndRelease();
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -288,4 +373,19 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
     }
 
 
+    @Override
+    public void onUserVisibleHint(boolean isVisibleToUser) {
+        if (!isVisibleToUser && currentVoicePlayer != null) {
+            currentVoicePlayer.stopAndRelease();
+        }
+    }
+
+    private class PhoneCallListener extends PhoneStateListener {
+        @Override
+        public void onCallStateChanged(int state, String incomingNumber) {
+            if (state == TelephonyManager.CALL_STATE_RINGING && currentVoicePlayer != null) {
+                currentVoicePlayer.stopAndRelease();
+            }
+        }
+    }
 }

@@ -168,11 +168,6 @@ public class CameraActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.tv_photos:
                 if (CommonCoreUtil.sdCardMounted()) {
-//                    try {
-//                        initImageData();
-//                    } catch (ParseException e) {
-//                        e.printStackTrace();
-//                    }
                     Intent intent = new Intent(this, PhotoSelectActivity.class);
                     startActivityForResult(intent,IMAGE_SELECT);
                 }
@@ -180,16 +175,6 @@ public class CameraActivity extends Activity implements View.OnClickListener {
             default:
                 break;
         }
-    }
-
-    private void initImageData() throws ParseException {
-        AlbumHelper helper = AlbumHelper.getHelper();
-        helper.init(getApplicationContext());
-        if (ShareBitmapUtils.getInstance().getDataList().size() > 0) {
-            ShareBitmapUtils.getInstance().getDataList().clear();
-        }
-        helper.resetParmas();
-        ShareBitmapUtils.getInstance().setDataList(helper.getImagesBucketList(false));
     }
 
     private Bitmap decodeBitmap(byte[] data, int width, int height) {

@@ -423,7 +423,7 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
 
     public void onEventMainThread(School mSchool) {
         if (mSchool != null && mSchool.getType().equals("school")) {
-            schoolView.setText("学校："+mSchool.getName().toString());
+            schoolView.setText(mSchool.getName().toString());
             schoolView.setTag(mSchool.getId());
             if (!StringUtils.isEmpty(schoolView.getText().toString())){
                 IsSchoolReady=true;
@@ -463,11 +463,11 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
                     stageId = data.getIntExtra("type", MyStageSelectActivity.STAGE_TYPE_JUIN);
                     stageView.setTag(stageId);
                     if (stageId == MyStageSelectActivity.STAGE_TYPE_PRIM) {
-                        stageView.setText("学段："+getResources().getString(R.string.primary_txt));
+                        stageView.setText(getResources().getString(R.string.primary_txt));
                     } else if (stageId == MyStageSelectActivity.STAGE_TYPE_JUIN) {
-                        stageView.setText("学段："+getResources().getString(R.string.juinor_txt));
+                        stageView.setText(getResources().getString(R.string.juinor_txt));
                     } else if (stageId == MyStageSelectActivity.STAGE_TYPE_HIGH) {
-                        stageView.setText("学段："+getResources().getString(R.string.high_txt));
+                        stageView.setText(getResources().getString(R.string.high_txt));
                     }
                     if (!StringUtils.isEmpty(stageView.getText().toString())){
                         IsStageReady=true;
