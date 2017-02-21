@@ -97,32 +97,39 @@ public class NetWorkTypeUtils {
 		return netWorkType;
 	}
 
-	public static int getNetType() {
-		ConnectivityManager connectivityManager = (ConnectivityManager) ContextProvider.getApplicationContext()
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-
-		if (networkInfo != null && networkInfo.isAvailable()) {
-			if (ConnectivityManager.TYPE_WIFI == networkInfo.getType()) {
-				return NETTYPE_WIFI;
-			} else {
-				TelephonyManager telephonyManager = (TelephonyManager)ContextProvider.getApplicationContext()
-						.getSystemService(Context.TELEPHONY_SERVICE);
-
-				switch (telephonyManager.getNetworkType()) {
-				case TelephonyManager.NETWORK_TYPE_GPRS:
-				case TelephonyManager.NETWORK_TYPE_CDMA:
-				case TelephonyManager.NETWORK_TYPE_EDGE:
-					return NETTYPE_2G;
-				case TelephonyManager.NETWORK_TYPE_LTE:   //4G
-					return NETTYPE_4G;
-				default:
-					return NETTYPE_3G;
-				}
-			}
-		} else {
-			return NETTYPE_NO;
-		}
+	public static String getNetType() {
+        String netWorkType = "5";
+        NetworkInfo netWorkInfo = getAvailableNetWorkInfo();
+        if (netWorkInfo != null) {
+            if (netWorkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+                netWorkType = "0";
+            } else if (netWorkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
+                switch (netWorkInfo.getSubtype()){
+                    case TelephonyManager.NETWORK_TYPE_GPRS:
+                    case TelephonyManager.NETWORK_TYPE_EDGE:
+                    case TelephonyManager.NETWORK_TYPE_CDMA:
+                        netWorkType = "4";
+                        break;
+                    case TelephonyManager.NETWORK_TYPE_EVDO_0:
+                    case TelephonyManager.NETWORK_TYPE_EVDO_A:
+                    case TelephonyManager.NETWORK_TYPE_EVDO_B:
+                    case TelephonyManager.NETWORK_TYPE_HSDPA:
+                    case TelephonyManager.NETWORK_TYPE_HSPA:
+                    case TelephonyManager.NETWORK_TYPE_HSPAP:
+                    case TelephonyManager.NETWORK_TYPE_HSUPA:
+                    case TelephonyManager.NETWORK_TYPE_UMTS:
+                        netWorkType = "3";
+                        break;
+                    case TelephonyManager.NETWORK_TYPE_LTE:
+                        netWorkType = "2";
+                        break;
+                    default:
+                        netWorkType = "5";
+                        break;
+                }
+            }
+        }
+        return netWorkType;
 	}
 
    

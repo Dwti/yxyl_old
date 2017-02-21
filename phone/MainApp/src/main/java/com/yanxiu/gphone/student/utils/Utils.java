@@ -32,10 +32,8 @@ import java.util.List;
  */
 public class Utils {
 
-    public static DisplayMetrics getScreenWH(Context context) {
-        DisplayMetrics dMetrics = new DisplayMetrics();
-        dMetrics = context.getResources().getDisplayMetrics();
-        return dMetrics;
+    public static DisplayMetrics getDisplayMetrics() {
+        return YanxiuApplication.getContext().getResources().getDisplayMetrics();
     }
 
     /**
@@ -262,5 +260,4 @@ public class Utils {
     public static int getScreenHeight() {
         return YanxiuApplication.getContext().getResources().getDisplayMetrics().heightPixels;
     }
-
 }

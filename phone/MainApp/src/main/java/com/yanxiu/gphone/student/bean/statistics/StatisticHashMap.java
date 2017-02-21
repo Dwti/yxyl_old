@@ -1,5 +1,7 @@
 package com.yanxiu.gphone.student.bean.statistics;
 
+import android.os.Build;
+
 import com.common.core.utils.NetWorkTypeUtils;
 import com.common.login.LoginModel;
 import com.yanxiu.gphone.student.utils.Util;
