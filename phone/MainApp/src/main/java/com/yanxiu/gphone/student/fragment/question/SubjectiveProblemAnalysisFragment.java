@@ -280,6 +280,9 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
                     flCorrectionContent.setVisibility(View.GONE);
                 }
             } else {
+                if (questionsEntity.getType_id() == YanXiuConstant.QUESTION_TYP.QUESTION_FILL_BLANKS.type){
+                    iv_result.setImageResource(R.drawable.current_state_title_bg);
+                }
                 subjectiveStarLayout.setVisibility(View.GONE);
                 ivIcon.setVisibility(View.GONE);
                 flCorrectionContent.setBackgroundColor(this.getActivity().getResources().getColor(android.R.color.transparent));
