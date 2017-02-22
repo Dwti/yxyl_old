@@ -11,6 +11,7 @@ import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.inter.AnswerCallback;
+import com.yanxiu.gphone.student.inter.SetAnswerCallBack;
 import com.yanxiu.gphone.student.utils.QuestionUtils;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 
@@ -49,6 +50,8 @@ public class ChoiceQuestions extends LinearLayout implements ChoiceQuestionsItem
     private List<String> mixList;
     private List<String> halfList;
     private List<String> wrongList;
+
+    private SetAnswerCallBack answerCallBack;
 
     public void setIsWrongSet(boolean isWrongSet) {
         this.isWrongSet = isWrongSet;
@@ -97,6 +100,10 @@ public class ChoiceQuestions extends LinearLayout implements ChoiceQuestionsItem
         this.isClick = isClick;
     }
 
+    public void setCallback(SetAnswerCallBack answerCallBack){
+        this.answerCallBack=answerCallBack;
+    }
+
     /**
      * 设置数据源
      */
@@ -107,6 +114,7 @@ public class ChoiceQuestions extends LinearLayout implements ChoiceQuestionsItem
             for(int i = 0; i < cotentCount; i++){
                 final ChoiceQuestionsItem item = new ChoiceQuestionsItem(mContext);
                 item.setChoicesItemClickListener(this);
+                item.setCallback(answerCallBack);
                 item.setItemId(i);
                 item.setOnItemClick(isClick());
                 item.setItemContentText(entity.getContent().getChoices().get(i));
@@ -127,6 +135,14 @@ public class ChoiceQuestions extends LinearLayout implements ChoiceQuestionsItem
         }
     }
 
+    public void setFoucesClear(){
+        int count=this.getChildCount();
+        for (int i=0;i<count;i++){
+            if (this.getChildAt(i) instanceof ChoiceQuestionsItem){
+                ((ChoiceQuestionsItem)this.getChildAt(i)).setOnItemClick(isClick());
+            }
+        }
+    }
 
     /**
      * test log list

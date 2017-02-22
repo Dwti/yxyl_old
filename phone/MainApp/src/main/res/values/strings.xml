@@ -487,4 +487,9 @@
     <string name="all_picture">所有图片</string>
     <string name="picker_image_count">%1$d张</string>
      
+    <string name="submit_right">恭喜你，答对了！</string>
+    <string name="submit_fail">很遗憾，答错了！</string>
+    <string name="delete_question">删除本题</string>
+    <string name="delete_question_end">本题已删除</string>
+
 </resources>

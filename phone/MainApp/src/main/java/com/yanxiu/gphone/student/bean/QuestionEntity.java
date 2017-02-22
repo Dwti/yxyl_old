@@ -61,6 +61,35 @@ public class QuestionEntity implements YanxiuBaseBean {
 
     private ExtendEntity extend;
 
+    public static final String TYPE_SUBMIT="0";
+    public static final String TYPE_SUBMIT_END="1";
+    public static final String TYPE_DELETE_END="2";
+
+    /**0、未提交1、已提交2、已删除*/
+    private String Type="0";
+
+    public static final int ANSWER_RIGHT=1;
+    public static final int ANSWER_FAIL=2;
+
+    /**0默认1正确2错误*/
+    private int AnswerIsRight=0;
+
+    public int getAnswerIsRight() {
+        return AnswerIsRight;
+    }
+
+    public void setAnswerIsRight(int answerIsRight) {
+        AnswerIsRight = answerIsRight;
+    }
+
+    public String getType() {
+        return Type;
+    }
+
+    public void setType(String type) {
+        Type = type;
+    }
+
     public PadBean getPad() {
         return pad;
     }

@@ -8,6 +8,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import com.yanxiu.gphone.student.R;
 import com.common.core.utils.CommonCoreUtil;
+import com.yanxiu.gphone.student.inter.SetAnswerCallBack;
 import com.yanxiu.gphone.student.view.YanxiuTypefaceTextView;
 import com.yanxiu.gphone.student.view.question.AbsChoiceQuestionsItem;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
@@ -33,6 +34,8 @@ public class ChoiceQuestionsItem extends AbsChoiceQuestionsItem implements View.
 
     private OnChoicesItemClickListener choicesItemClickListener;
 
+    private SetAnswerCallBack answerCallBack;
+
     public ChoiceQuestionsItem(Context context) {
         super(context);
     }
@@ -43,6 +46,10 @@ public class ChoiceQuestionsItem extends AbsChoiceQuestionsItem implements View.
 
     public ChoiceQuestionsItem(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+    }
+
+    public void setCallback(SetAnswerCallBack answerCallBack){
+        this.answerCallBack=answerCallBack;
     }
 
     @Override
@@ -135,6 +142,9 @@ public class ChoiceQuestionsItem extends AbsChoiceQuestionsItem implements View.
             refreshDrawableState();
             if(choicesItemClickListener != null){
                 choicesItemClickListener.choicesItemClickListener(this);
+            }
+            if (answerCallBack!=null){
+                answerCallBack.callback();
             }
         }
     }

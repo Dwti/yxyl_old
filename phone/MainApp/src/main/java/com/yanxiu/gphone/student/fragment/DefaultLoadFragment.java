@@ -24,4 +24,15 @@ public class DefaultLoadFragment extends BaseQuestionFragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        String ss=wrongId+"";
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        String ss=wrongId+"";
+    }
 }

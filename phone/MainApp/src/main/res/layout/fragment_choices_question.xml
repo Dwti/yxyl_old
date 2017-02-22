@@ -1,16 +1,34 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <include layout="@layout/question_top_content_layout"
-             android:layout_height="wrap_content"
-             android:layout_width="match_parent"
-             android:id="@+id/rl_top" />
+    <include
+        android:id="@+id/rl_top"
+        layout="@layout/question_top_content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-    <include layout="@layout/choices_content_layout"
-             android:layout_height="match_parent"
-             android:layout_width="match_parent"
-             android:layout_below="@id/rl_top" />
+    <include
+        layout="@layout/choices_content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/fra_sub_or_del"
+        android:layout_below="@id/rl_top" />
 
+    <FrameLayout
+        android:id="@+id/fra_sub_or_del"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dimen_15"
+        android:layout_marginTop="@dimen/dimen_15"
+        android:layout_marginLeft="@dimen/dimen_50"
+        android:layout_marginRight="@dimen/dimen_50"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_58"></FrameLayout>
+
+    <!--<fragment
+        android:id="@+id/fra_sub_or_del"
+        android:name="com.yanxiu.gphone.student.fragment.question.SubmitOrDeleteFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+-->
 </RelativeLayout>
-

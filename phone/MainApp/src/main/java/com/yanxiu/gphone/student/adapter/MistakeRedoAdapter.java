@@ -49,6 +49,19 @@ public class MistakeRedoAdapter extends BaseMistakRedoAdapter<PaperTestEntity> i
     boolean isFirstSub = false;
     private int answerViewTypyBean;
     private String subject_id;
+    private OnShouldDownLoadListener loadListener;
+    private int position;
+    private int LARGEPAGECOUNT=6;
+    int page_start=-1;
+    int page_end=-1;
+
+    public interface OnShouldDownLoadListener{
+        void onLoadListener(int position,int page_start,int page_end);
+    }
+
+    public void setLoadListener(OnShouldDownLoadListener listener){
+        this.loadListener=listener;
+    }
 
     public MistakeRedoAdapter(FragmentManager fm) {
         super(fm);
@@ -66,13 +79,37 @@ public class MistakeRedoAdapter extends BaseMistakRedoAdapter<PaperTestEntity> i
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
         super.setPrimaryItem(container, position, object);
+        if (this.position!=position) {
+            if (object instanceof DefaultLoadFragment){
+                if (position<this.page_start||position>=this.page_end) {
+                    List<PaperTestEntity> datas = getDatas();
+                    int count = 0;
+                    boolean flag = true;
+                    int dataSize=datas.size();
+                    while (count < LARGEPAGECOUNT && flag) {
+                        int num=position + count;
+                        if (num<dataSize&&datas.get(num) == null) {
+                            count++;
+                        } else {
+                            flag = false;
+                        }
+                    }
+                    this.page_start=position;
+                    this.page_end=position + count;
+                    if (loadListener != null) {
+                        loadListener.onLoadListener(position, position, position + count);
+                    }
+                }
+            }
+            this.position = position;
+        }
     }
 
     public void setViewPager(MyViewPager vpAnswer) {
         this.vpAnswer = vpAnswer;
     }
 
-    public void setDataSourcesFirst(SubjectExercisesItemBean dataSources,int number,int old_page,int now_page){
+    public void setDataSourcesFirst(SubjectExercisesItemBean dataSources,int number,int page_start,int page_end){
         this.dataSources = dataSources;
         this.name = dataSources.getData().get(0).getName();
         this.wrongCount=number;
@@ -81,15 +118,15 @@ public class MistakeRedoAdapter extends BaseMistakRedoAdapter<PaperTestEntity> i
         subject_id = dataSources.getData().get(0).getSubjectid();
         ArrayList<PaperTestEntity> list=getList(number);
         this.setData(list);
-//        addDataSources(dataSources,old_page,now_page);
+        addDataSources(dataSources,page_start,page_end);
     }
 
-    public void addDataSources(SubjectExercisesItemBean dataSources,int old_page,int now_page) {
+    public void addDataSources(SubjectExercisesItemBean dataSources,int page_start,int page_end) {
         ArrayList<PaperTestEntity> list= (ArrayList<PaperTestEntity>) getDatas();
         List<PaperTestEntity> data=dataSources.getData().get(0).getPaperTest();
         int k=0;
-        for (int i=old_page;i<now_page;i++){
-            list.add(old_page,data.get(k));
+        for (int i=page_start;i<page_end;i++){
+            list.set(i,data.get(k));
             k++;
         }
     }

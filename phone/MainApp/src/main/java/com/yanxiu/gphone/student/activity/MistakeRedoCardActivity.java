@@ -1,5 +1,6 @@
 package com.yanxiu.gphone.student.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -61,7 +62,7 @@ public class MistakeRedoCardActivity extends YanxiuBaseActivity implements View.
 
     private List<String> getList(){
         List<String> list=new ArrayList<>();
-        for (int i=0;i<15;i++){
+        for (int i=0;i<1;i++){
             list.add(i+"");
         }
         return list;
@@ -80,5 +81,9 @@ public class MistakeRedoCardActivity extends YanxiuBaseActivity implements View.
     @Override
     public void onClick(int position, int position_child, String s) {
         Toast.makeText(this,position+""+position_child+""+s,Toast.LENGTH_SHORT).show();
+        Intent intent=new Intent();
+        intent.putExtra("index",position_child);
+        setResult(RESULT_OK,intent);
+        finish();
     }
 }

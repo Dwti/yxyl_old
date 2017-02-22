@@ -61,8 +61,8 @@ public class MistakeRedoCardAdapter extends RecyclerView.Adapter<MistakeRedoCard
 
     private List<String> getList(int num){
         List<String> list=new ArrayList<>();
-        for (int i=0;i<num+3;i++){
-            list.add(i+"");
+        for (int i=0;i<50;i++){
+            list.add(i+1+"");
         }
         return list;
     }
@@ -86,6 +86,7 @@ public class MistakeRedoCardAdapter extends RecyclerView.Adapter<MistakeRedoCard
             grid_mistake_card= (NoScrollGridView) itemView.findViewById(R.id.grid_mistake_card);
             adapter=new MistakeRedoCardGridAdapter(mContext);
 //            grid_mistake_card.setAdapter(adapter);
+            grid_mistake_card.setFocusable(false);
             grid_mistake_card.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

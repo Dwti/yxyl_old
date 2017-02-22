@@ -64,7 +64,7 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
     private int parent_type;
     private int totalCount;
     private int pageNumber;
-    private int wrongId;
+    public int wrongId;
     private int wrongCount;
     private Object message;
 
