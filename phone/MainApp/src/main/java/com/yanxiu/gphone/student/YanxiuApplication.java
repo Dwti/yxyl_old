@@ -2,6 +2,7 @@ package com.yanxiu.gphone.student;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.os.Build;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
@@ -12,6 +13,7 @@ import com.common.core.CommonCoreApplication;
 import com.common.core.manage.CommonActivityManager;
 import com.common.core.utils.ContextProvider;
 import com.common.core.utils.LogInfo;
+import com.common.core.utils.NetWorkTypeUtils;
 import com.common.login.LoginModel;
 import com.igexin.sdk.PushManager;
 import com.nostra13.universalimageloader.cache.disc.impl.ext.LruDiskCache;
@@ -32,6 +34,7 @@ import com.yanxiu.gphone.student.bean.statistics.StatisticHashMap;
 import com.yanxiu.gphone.student.bean.statistics.UploadInstantPointDataBean;
 import com.yanxiu.gphone.student.httpApi.YanxiuHttpApi;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
+import com.yanxiu.gphone.student.preference.PreferencesManager;
 import com.yanxiu.gphone.student.utils.Configuration;
 import com.yanxiu.gphone.student.utils.CrashHandler;
 import com.yanxiu.gphone.student.utils.Util;
@@ -88,8 +91,10 @@ public class YanxiuApplication extends CommonCoreApplication {
         LogInfo.log("haitian", "DevoceId=" + YanXiuConstant.DEVICEID);
         initParentConstant();
         initUpgradeConstant();
+        if(PreferencesManager.getInstance().getFristApp()){
+            uploadInitInfo();
+        }
         startStatistics();
-
         getUrlJson();
 
 
@@ -98,7 +103,7 @@ public class YanxiuApplication extends CommonCoreApplication {
     //启动打点
     private void startStatistics() {
         StatisticHashMap statisticHashMap = new StatisticHashMap();
-        statisticHashMap.put(YanXiuConstant.eventID, "20:event_2");//2:启动APP
+        statisticHashMap.put(YanXiuConstant.eventID, "20:event_7");//2:启动APP
         ArrayList<StatisticHashMap> arrayList = new ArrayList<StatisticHashMap>();
         arrayList.add(statisticHashMap);
         HashMap<String, String> staratAppHashMap = new HashMap<>();
@@ -106,6 +111,31 @@ public class YanxiuApplication extends CommonCoreApplication {
         DataStatisticsUploadManager.getInstance().NormalUpLoadData(this, staratAppHashMap);
     }
 
+    private void uploadInitInfo(){
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put(YanXiuConstant.uid, String.valueOf(LoginModel.getUid()));
+        hashMap.put(YanXiuConstant.appkey, "20001");
+        hashMap.put(YanXiuConstant.timestamp, String.valueOf(System.currentTimeMillis()));
+        hashMap.put(YanXiuConstant.source, String.valueOf(0));// 来源：source（0，移动端，1，页面）
+        hashMap.put(YanXiuConstant.clientType, String.valueOf(1));// 客户端类型：client（0，iOS，1，android）
+        hashMap.put(YanXiuConstant.ip, "");
+        hashMap.put(YanXiuConstant.url, "www.yanxiu.com");
+        hashMap.put(YanXiuConstant.resID, "");
+        hashMap.put(YanXiuConstant.eventID, "20:event_10");//   首次启动APP
+        hashMap.put(YanXiuConstant.mobileModel, Build.MODEL);   //手机型号
+        hashMap.put(YanXiuConstant.brand,Build.MANUFACTURER);         //手机品牌
+        hashMap.put(YanXiuConstant.system,Build.VERSION.RELEASE);        //手机系统
+        hashMap.put(YanXiuConstant.resolution,YanXiuConstant.displayMetrics.heightPixels + " * " +YanXiuConstant.displayMetrics.widthPixels);    //屏幕分辨率
+        hashMap.put(YanXiuConstant.netModel, NetWorkTypeUtils.getNetType());      //连网类型
+
+        ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();
+        arrayList.add(hashMap);
+
+        HashMap<String,String> hashMap1 = new HashMap<>();
+        hashMap1.put(YanXiuConstant.content,Util.listToJson(arrayList));
+
+        DataStatisticsUploadManager.getInstance().NormalUpLoadData(this, hashMap1);
+    }
     /**
      * 升级环境配置
      */

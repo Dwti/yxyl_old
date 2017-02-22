@@ -183,6 +183,16 @@ public class YanXiuConstant {
     public static final String source = "source";
     //客户端类型：client（0，iOS，1，android）
     public static final String clientType = "clientType";
+    //手机型号
+    public static final String mobileModel = "mobileModel";
+    //手机品牌
+    public static final String brand = "brand";
+    //操作系统
+    public static final String system = "system";
+    //屏幕分辨率
+    public static final String resolution = "resolution";
+    //网络类型 0：WIFI；2：4G；3：3G；4：2G，5:其它。
+    public static final String netModel = "netModel";
 
     public static final String ip = "ip";
 
