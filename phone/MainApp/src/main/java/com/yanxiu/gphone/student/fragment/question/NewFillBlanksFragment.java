@@ -200,7 +200,7 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
                 }
                 if (isFinish) {
                     questionsEntity.getAnswerBean().setIsFinish(true);
-                    if (QuestionUtils.compare(listAnswer, questionsEntity.getAnswer())){
+                    if (QuestionUtils.compareListByOrder(listAnswer, questionsEntity.getAnswer())){
                         questionsEntity.getAnswerBean().setIsRight(true);
                         questionsEntity.getAnswerBean().setStatus(AnswerBean.ANSER_RIGHT);
                     }else {

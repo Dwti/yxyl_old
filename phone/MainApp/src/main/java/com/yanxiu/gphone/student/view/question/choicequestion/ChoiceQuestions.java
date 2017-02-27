@@ -468,20 +468,7 @@ public class ChoiceQuestions extends LinearLayout implements ChoiceQuestionsItem
                 bean.setIsFinish(true);
                 boolean isRight = true;
                 if(answer != null && !answer.isEmpty()){
-                    isRight = QuestionUtils.compare(bean.getMultiSelect(), answer);
-//                    int answerCount = answer.size();
-//                    int answerMultiCount = bean.getMultiSelect().size();
-//                    if(answerCount != answerMultiCount){
-//                        isRight = false;
-//                    }else{
-//                        for(int j = 0; j < answerCount; j++){
-//                            isRight = isRight || answer.contains(bean.getMultiSelect().get(j));
-//                            if(!isRight){
-//                                isRight = false;
-//                                break;
-//                            }
-//                        }
-//                    }
+                    isRight = QuestionUtils.compareCollection(bean.getMultiSelect(), answer);
                     bean.setIsRight(isRight);
                 }
             }else{
