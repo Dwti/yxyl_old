@@ -5,16 +5,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.common.core.utils.StringUtils;
 import com.yanxiu.gphone.student.R;
@@ -200,7 +195,7 @@ public class NewFillBlanksFragment extends BaseQuestionFragment implements Quest
                 }
                 if (isFinish) {
                     questionsEntity.getAnswerBean().setIsFinish(true);
-                    if (QuestionUtils.compare(listAnswer, questionsEntity.getAnswer())){
+                    if (QuestionUtils.compareListByOrder(listAnswer, questionsEntity.getAnswer())){
                         questionsEntity.getAnswerBean().setIsRight(true);
                         questionsEntity.getAnswerBean().setStatus(AnswerBean.ANSER_RIGHT);
                     }else {
