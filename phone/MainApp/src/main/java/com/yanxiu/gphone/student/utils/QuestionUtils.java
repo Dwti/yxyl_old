@@ -1,5 +1,6 @@
 package com.yanxiu.gphone.student.utils;
 
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
@@ -8,7 +9,6 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
-import com.yanxiu.gphone.student.bean.ReadingAnswer;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.bean.UpdataImgBean;
 
@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -24,10 +25,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_COMPUTE;
-import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_FILL_BLANKS;
-import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_JUDGE;
-import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_MULTI_CHOICES;
-import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SINGLE_CHOICES;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SOLVE_COMPLEX;
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SUBJECTIVE;
 
@@ -449,7 +446,7 @@ public class QuestionUtils {
                                             } else if (YanXiuConstant.FILL_BLANK.equals(childTemplate) || YanXiuConstant.NEW_FILL_BLANK.equals(childTemplate)) {
                                                 answerChildBean.setFillAnswers((ArrayList<String>) answerChildList);
                                             }
-                                            if (compare(answerChildList, rightAnswer)) {
+                                            if (compareListByOrder(answerChildList, rightAnswer)) {
                                                 answerChildBean.setIsRight(true);
                                             } else {
                                                 answerChildBean.setIsRight(false);
@@ -645,30 +642,30 @@ public class QuestionUtils {
         return flag;
     }
 
-//    public static <T extends Comparable<T>> boolean compare(List<T> a, List<T> b) {
-//        if (a == null || b == null) {
-//            return false;
-//        }
-//        if (a.size() != b.size()) {
-//            return false;
-//        }
-//        return a.containsAll(b) && b.containsAll(a);
-//    }
-
-    public static <T extends Comparable<T>> boolean compare(List<T> a, List<T> b) {
+    public static <T extends Comparable<T>> boolean compareListByOrder(List<T> a, List<T> b) {
         if(a.size() != b.size())
             return false;
 
         for (int i = 0; i < a.size(); i++) {
-
-            T aaa = a.get(i);
-            T bbb = b.get(i);
             if (a.get(i).compareTo(b.get(i)) != 0) {
                 return false;
             }
         }
-
         return true;
+    }
+
+    public static  boolean compareCollection(Collection a, Collection b) {
+        if(a == null && b == null)
+            return true;
+        else if(a == null || b == null)
+            return false;
+        else if(a.size() != b.size())
+            return false;
+        else if(a.containsAll(b) && b.containsAll(a))
+            return true;
+        else
+            return false;
+
     }
 
 
