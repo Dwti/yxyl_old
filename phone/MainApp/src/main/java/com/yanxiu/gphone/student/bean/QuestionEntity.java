@@ -68,11 +68,23 @@ public class QuestionEntity implements YanxiuBaseBean {
     /**0、未提交1、已提交2、已删除*/
     private String Type="0";
 
+    public static final int ANSWER_DEFULT=0;
     public static final int ANSWER_RIGHT=1;
     public static final int ANSWER_FAIL=2;
 
     /**0默认1正确2错误*/
     private int AnswerIsRight=0;
+
+    /**true 有答案 false 没有答案*/
+    private boolean isHaveAnser=false;
+
+    public boolean isHaveAnser() {
+        return isHaveAnser;
+    }
+
+    public void setHaveAnser(boolean haveAnser) {
+        isHaveAnser = haveAnser;
+    }
 
     public int getAnswerIsRight() {
         return AnswerIsRight;

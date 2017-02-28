@@ -27,6 +27,7 @@ import com.yanxiu.gphone.student.fragment.question.NewFillBlanksFragment;
 import com.yanxiu.gphone.student.fragment.question.QuestionFragmentFactory;
 import com.yanxiu.gphone.student.fragment.question.SubjectiveQuestionFragment;
 import com.yanxiu.gphone.student.inter.AnswerCallback;
+import com.yanxiu.gphone.student.inter.MistakeRedoCallback;
 import com.yanxiu.gphone.student.utils.QuestionUtils;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
@@ -562,7 +563,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
         this.callback = callback;
     }
 
-    public void addDataSourcesForReadingQuestion(List<PaperTestEntity> list, String parent_template, int parent_type, int totalCount) {
+    public void addDataSourcesForReadingQuestion(List<PaperTestEntity> list, String parent_template, int parent_type, int totalCount, MistakeRedoCallback redoCallback) {
         if (list != null) {
             dataList.addAll(list);
             int count = dataList.size();
@@ -618,6 +619,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
                         mFragments.add(fragment);
                         ((QuestionsListener) fragment).flipNextPager(this);
                         ((QuestionsListener) fragment).setDataSources(list.get(i).getQuestions().getAnswerBean());
+                        ((BaseQuestionFragment)fragment).setMistakeRedoCallback(redoCallback);
                     }
                 }
             }

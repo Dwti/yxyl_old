@@ -22,6 +22,7 @@ import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.fragment.question.BaseQuestionFragment;
 import com.yanxiu.gphone.student.fragment.question.SubjectiveQuestionFragment;
+import com.yanxiu.gphone.student.utils.Content;
 import com.yanxiu.gphone.student.utils.QuestionUtils;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 
@@ -39,8 +40,8 @@ import java.util.TimerTask;
 public class MistakeRedoActivity extends BaseAnswerViewActivity implements MistakeRedoAdapter.OnShouldDownLoadListener {
 
     private static final int TO_CARD = 0X00;
-    public static final int RIGHT=R.string.submit_right;
-    public static final int FAIL=R.string.submit_fail;
+    public static final int RIGHT = R.string.submit_right;
+    public static final int FAIL = R.string.submit_fail;
 
     private MistakeRedoAdapter mistakeRedoAdapter;
     private int pageIndex = 0;
@@ -61,7 +62,7 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
 
     private MyThread thread;
     private MyHandle handle;
-    private Timer timer=new Timer();
+    private Timer timer = new Timer();
     private RelativeLayout rel_popup;
     private TextView TextViewInfo;
 
@@ -105,8 +106,8 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
     @Override
     protected void initView() {
         super.initView();
-        rel_popup= (RelativeLayout) findViewById(R.id.rel_popup);
-        TextViewInfo= (TextView) findViewById(R.id.TextViewInfo);
+        rel_popup = (RelativeLayout) findViewById(R.id.rel_popup);
+        TextViewInfo = (TextView) findViewById(R.id.TextViewInfo);
     }
 
     @Override
@@ -143,7 +144,7 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
                 QuestionUtils.addChildQuestionToParent(dataList);     //对题目的pageIndex childPageIndex,positionForCard,childPositionForCard进行赋值
 
                 mistakeRedoAdapter = new MistakeRedoAdapter(getSupportFragmentManager());
-                handle=new MyHandle(mistakeRedoAdapter);
+                handle = new MyHandle(mistakeRedoAdapter);
                 mistakeRedoAdapter.setDataSourcesFirst(dataSources, wrongCounts, 0, dataSources.getData().get(0).getPaperTest().size());
                 vpAnswer.setAdapter(mistakeRedoAdapter);
                 mistakeRedoAdapter.setViewPager(vpAnswer);
@@ -183,8 +184,8 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
             if (resultCode == RESULT_OK) {
                 if (requestCode == TO_CARD) {
                     //答题卡返回
-                    int index=data.getIntExtra("index",-1);
-                    if (index!=-1){
+                    int index = data.getIntExtra("index", -1);
+                    if (index != -1) {
                         vpAnswer.setCurrentItem(index);
                     }
                 } else {
@@ -215,11 +216,17 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (thread!=null){
+        if (thread != null) {
             thread.setClear();
-            thread=null;
+            thread = null;
         }
     }
 
@@ -250,7 +257,7 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
             if (weak != null && weak.get() != null) {
                 MyHandle handle = weak.get();
                 Message msg = Message.obtain();
-                msg.what=0;
+                msg.what = 0;
                 msg.obj = dataSources;
                 handle.sendMessage(msg);
             }
@@ -276,14 +283,14 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
             this.page_end = page_end;
         }
 
-        public void setPopupWindow(RelativeLayout window){
-            weak_pop=new WeakReference<>(window);
+        public void setPopupWindow(RelativeLayout window) {
+            weak_pop = new WeakReference<>(window);
         }
 
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 0:
                     SubjectExercisesItemBean dataSources = (SubjectExercisesItemBean) msg.obj;
                     if (weak != null && weak.get() != null) {
@@ -293,11 +300,11 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
                     }
                     break;
                 case 1:
-                    if (weak_pop!=null&&weak_pop.get()!=null){
-                        RelativeLayout window=weak_pop.get();
+                    if (weak_pop != null && weak_pop.get() != null) {
+                        RelativeLayout window = weak_pop.get();
                         window.setVisibility(View.GONE);
                         weak_pop.clear();
-                        weak_pop=null;
+                        weak_pop = null;
                     }
                     break;
             }
@@ -319,37 +326,36 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
         super.onPageSelected(position);
     }
 
-    public void showPopup(int message){
+    public void showPopup(int message) {
         TextViewInfo.setText(message);
         rel_popup.setVisibility(View.VISIBLE);
-        MyTimerTask task=new MyTimerTask(handle,rel_popup);
-        timer.schedule(task,1000);
+        MyTimerTask task = new MyTimerTask(handle, rel_popup);
+        timer.schedule(task, 1000);
     }
 
-    private class MyTimerTask extends TimerTask{
+    private class MyTimerTask extends TimerTask {
 
         private WeakReference<MyHandle> weak_hand;
         private WeakReference<RelativeLayout> weak_pop;
 
-        public MyTimerTask(MyHandle handle,RelativeLayout window){
-            weak_hand=new WeakReference<>(handle);
-            weak_pop=new WeakReference<>(window);
+        public MyTimerTask(MyHandle handle, RelativeLayout window) {
+            weak_hand = new WeakReference<>(handle);
+            weak_pop = new WeakReference<>(window);
         }
 
         @Override
         public void run() {
-            if (weak_hand==null||weak_hand.get()==null||weak_pop==null||weak_pop.get()==null){
+            if (weak_hand == null || weak_hand.get() == null || weak_pop == null || weak_pop.get()==null) {
                 return;
             }
-            MyHandle handle=weak_hand.get();
-            RelativeLayout window=weak_pop.get();
-            Message msg=Message.obtain();
-            msg.what=1;
+            MyHandle handle = weak_hand.get();
+            RelativeLayout window = weak_pop.get();
+            Message msg = Message.obtain();
+            msg.what = 1;
             handle.setPopupWindow(window);
             handle.sendMessage(msg);
         }
     }
 
-    String ss = "{\"data\":[{\"id\":0,\"name\":\"错题-()\",\"paperTest\":[{\"id\":1627920,\"isfavorite\":0,\"parentid\":0,\"pid\":228817,\"qid\":2755576,\"qtype\":0,\"questions\":{\"analysis\":\"\",\"answer\":[\"2\"],\"content\":{\"choices\":[\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980491998843.png\\\" title=\\\"1479980491998843.png\\\" alt=\\\"blob.png\\\"/></p>\",\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980507713949.png\\\" title=\\\"1479980507713949.png\\\" alt=\\\"blob.png\\\"/></p>\",\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980525190480.png\\\" title=\\\"1479980525190480.png\\\" alt=\\\"blob.png\\\"/></p>\",\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980538163273.png\\\" title=\\\"1479980538163273.png\\\" alt=\\\"blob.png\\\"/></p>\"]},\"difficulty\":\"1\",\"extend\":{\"data\":{\"answerCompare\":\"正确答案是 <span style = \\\"text-decoration:underline;color:#00CCCC;font-weight:bold;\\\">C</span>, 本题未完成\",\"globalStatis\":\"累计作答 <span style = \\\"text-decoration:underline;color:#666252;font-weight:bold\\\">3</span> 次, 错误 <span style = \\\"text-decoration:underline;color:#666252;font-weight:bold\\\">3</span> 次, 平均用时 <span style = \\\"text-decoration:underline;color:#666252;font-weight:bold\\\">0</span> 秒\"},\"id\":0,\"ptid\":1627920},\"id\":\"2755576\",\"memo\":\"\",\"pad\":{\"answer\":\"[]\",\"costtime\":0,\"id\":1829628,\"jsonAnswer\":[],\"ptid\":1627920,\"status\":3,\"uid\":8133},\"point\":[{\"id\":\"5268\",\"name\":\"三角形角分线、中线和高线\"}],\"stem\":\"下列四个图形中，<em>BE</em>不是△<em>ABC</em>的高线的图是（ &nbsp; &nbsp;）.\",\"template\":\"choice\",\"type_id\":\"1\"},\"sectionid\":205387,\"typeid\":1,\"wqid\":598903},{\"id\":1627920,\"isfavorite\":0,\"parentid\":0,\"pid\":228817,\"qid\":2755576,\"qtype\":0,\"questions\":{\"analysis\":\"\",\"answer\":[\"2\"],\"content\":{\"choices\":[\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980491998843.png\\\" title=\\\"1479980491998843.png\\\" alt=\\\"blob.png\\\"/></p>\",\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980507713949.png\\\" title=\\\"1479980507713949.png\\\" alt=\\\"blob.png\\\"/></p>\",\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980525190480.png\\\" title=\\\"1479980525190480.png\\\" alt=\\\"blob.png\\\"/></p>\",\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980538163273.png\\\" title=\\\"1479980538163273.png\\\" alt=\\\"blob.png\\\"/></p>\"]},\"difficulty\":\"1\",\"extend\":{\"data\":{\"answerCompare\":\"正确答案是 <span style = \\\"text-decoration:underline;color:#00CCCC;font-weight:bold;\\\">C</span>, 本题未完成\",\"globalStatis\":\"累计作答 <span style = \\\"text-decoration:underline;color:#666252;font-weight:bold\\\">3</span> 次, 错误 <span style = \\\"text-decoration:underline;color:#666252;font-weight:bold\\\">3</span> 次, 平均用时 <span style = \\\"text-decoration:underline;color:#666252;font-weight:bold\\\">0</span> 秒\"},\"id\":0,\"ptid\":1627920},\"id\":\"2755576\",\"memo\":\"\",\"pad\":{\"answer\":\"[]\",\"costtime\":0,\"id\":1829628,\"jsonAnswer\":[],\"ptid\":1627920,\"status\":3,\"uid\":8133},\"point\":[{\"id\":\"5268\",\"name\":\"三角形角分线、中线和高线\"}],\"stem\":\"下列四个图形中，<em>BE</em>不是△<em>ABC</em>的高线的图是（ &nbsp; &nbsp;）.\",\"template\":\"choice\",\"type_id\":\"1\"},\"sectionid\":205387,\"typeid\":1,\"wqid\":598903},{\"id\":1627920,\"isfavorite\":0,\"parentid\":0,\"pid\":228817,\"qid\":2755576,\"qtype\":0,\"questions\":{\"analysis\":\"\",\"answer\":[\"2\"],\"content\":{\"choices\":[\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980491998843.png\\\" title=\\\"1479980491998843.png\\\" alt=\\\"blob.png\\\"/></p>\",\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980507713949.png\\\" title=\\\"1479980507713949.png\\\" alt=\\\"blob.png\\\"/></p>\",\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980525190480.png\\\" title=\\\"1479980525190480.png\\\" alt=\\\"blob.png\\\"/></p>\",\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980538163273.png\\\" title=\\\"1479980538163273.png\\\" alt=\\\"blob.png\\\"/></p>\"]},\"difficulty\":\"1\",\"extend\":{\"data\":{\"answerCompare\":\"正确答案是 <span style = \\\"text-decoration:underline;color:#00CCCC;font-weight:bold;\\\">C</span>, 本题未完成\",\"globalStatis\":\"累计作答 <span style = \\\"text-decoration:underline;color:#666252;font-weight:bold\\\">3</span> 次, 错误 <span style = \\\"text-decoration:underline;color:#666252;font-weight:bold\\\">3</span> 次, 平均用时 <span style = \\\"text-decoration:underline;color:#666252;font-weight:bold\\\">0</span> 秒\"},\"id\":0,\"ptid\":1627920},\"id\":\"2755576\",\"memo\":\"\",\"pad\":{\"answer\":\"[]\",\"costtime\":0,\"id\":1829628,\"jsonAnswer\":[],\"ptid\":1627920,\"status\":3,\"uid\":8133},\"point\":[{\"id\":\"5268\",\"name\":\"三角形角分线、中线和高线\"}],\"stem\":\"下列四个图形中，<em>BE</em>不是△<em>ABC</em>的高线的图是（ &nbsp; &nbsp;）.\",\"template\":\"choice\",\"type_id\":\"1\"},\"sectionid\":205387,\"typeid\":1,\"wqid\":598903},{\"id\":1627920,\"isfavorite\":0,\"parentid\":0,\"pid\":228817,\"qid\":2755576,\"qtype\":0,\"questions\":{\"analysis\":\"\",\"answer\":[\"2\"],\"content\":{\"choices\":[\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980491998843.png\\\" title=\\\"1479980491998843.png\\\" alt=\\\"blob.png\\\"/></p>\",\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980507713949.png\\\" title=\\\"1479980507713949.png\\\" alt=\\\"blob.png\\\"/></p>\",\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980525190480.png\\\" title=\\\"1479980525190480.png\\\" alt=\\\"blob.png\\\"/></p>\",\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980538163273.png\\\" title=\\\"1479980538163273.png\\\" alt=\\\"blob.png\\\"/></p>\"]},\"difficulty\":\"1\",\"extend\":{\"data\":{\"answerCompare\":\"正确答案是 <span style = \\\"text-decoration:underline;color:#00CCCC;font-weight:bold;\\\">C</span>, 本题未完成\",\"globalStatis\":\"累计作答 <span style = \\\"text-decoration:underline;color:#666252;font-weight:bold\\\">3</span> 次, 错误 <span style = \\\"text-decoration:underline;color:#666252;font-weight:bold\\\">3</span> 次, 平均用时 <span style = \\\"text-decoration:underline;color:#666252;font-weight:bold\\\">0</span> 秒\"},\"id\":0,\"ptid\":1627920},\"id\":\"2755576\",\"memo\":\"\",\"pad\":{\"answer\":\"[]\",\"costtime\":0,\"id\":1829628,\"jsonAnswer\":[],\"ptid\":1627920,\"status\":3,\"uid\":8133},\"point\":[{\"id\":\"5268\",\"name\":\"三角形角分线、中线和高线\"}],\"stem\":\"下列四个图形中，<em>BE</em>不是△<em>ABC</em>的高线的图是（ &nbsp; &nbsp;）.\",\"template\":\"choice\",\"type_id\":\"1\"},\"sectionid\":205387,\"typeid\":1,\"wqid\":598903},{\"id\":1627920,\"isfavorite\":0,\"parentid\":0,\"pid\":228817,\"qid\":2755576,\"qtype\":0,\"questions\":{\"analysis\":\"\",\"answer\":[\"2\"],\"content\":{\"choices\":[\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980491998843.png\\\" title=\\\"1479980491998843.png\\\" alt=\\\"blob.png\\\"/></p>\",\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980507713949.png\\\" title=\\\"1479980507713949.png\\\" alt=\\\"blob.png\\\"/></p>\",\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980525190480.png\\\" title=\\\"1479980525190480.png\\\" alt=\\\"blob.png\\\"/></p>\",\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980538163273.png\\\" title=\\\"1479980538163273.png\\\" alt=\\\"blob.png\\\"/></p>\"]},\"difficulty\":\"1\",\"extend\":{\"data\":{\"answerCompare\":\"正确答案是 <span style = \\\"text-decoration:underline;color:#00CCCC;font-weight:bold;\\\">C</span>, 本题未完成\",\"globalStatis\":\"累计作答 <span style = \\\"text-decoration:underline;color:#666252;font-weight:bold\\\">3</span> 次, 错误 <span style = \\\"text-decoration:underline;color:#666252;font-weight:bold\\\">3</span> 次, 平均用时 <span style = \\\"text-decoration:underline;color:#666252;font-weight:bold\\\">0</span> 秒\"},\"id\":0,\"ptid\":1627920},\"id\":\"2755576\",\"memo\":\"\",\"pad\":{\"answer\":\"[]\",\"costtime\":0,\"id\":1829628,\"jsonAnswer\":[],\"ptid\":1627920,\"status\":3,\"uid\":8133},\"point\":[{\"id\":\"5268\",\"name\":\"三角形角分线、中线和高线\"}],\"stem\":\"下列四个图形中，<em>BE</em>不是△<em>ABC</em>的高线的图是（ &nbsp; &nbsp;）.\",\"template\":\"choice\",\"type_id\":\"1\"},\"sectionid\":205387,\"typeid\":1,\"wqid\":598903},{\"id\":1627920,\"isfavorite\":0,\"parentid\":0,\"pid\":228817,\"qid\":2755576,\"qtype\":0,\"questions\":{\"analysis\":\"\",\"answer\":[\"2\"],\"content\":{\"choices\":[\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980491998843.png\\\" title=\\\"1479980491998843.png\\\" alt=\\\"blob.png\\\"/></p>\",\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980507713949.png\\\" title=\\\"1479980507713949.png\\\" alt=\\\"blob.png\\\"/></p>\",\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980525190480.png\\\" title=\\\"1479980525190480.png\\\" alt=\\\"blob.png\\\"/></p>\",\"<p><img src=\\\"http://scc.jsyxw.cn/image/20161124/1479980538163273.png\\\" title=\\\"1479980538163273.png\\\" alt=\\\"blob.png\\\"/></p>\"]},\"difficulty\":\"1\",\"extend\":{\"data\":{\"answerCompare\":\"正确答案是 <span style = \\\"text-decoration:underline;color:#00CCCC;font-weight:bold;\\\">C</span>, 本题未完成\",\"globalStatis\":\"累计作答 <span style = \\\"text-decoration:underline;color:#666252;font-weight:bold\\\">3</span> 次, 错误 <span style = \\\"text-decoration:underline;color:#666252;font-weight:bold\\\">3</span> 次, 平均用时 <span style = \\\"text-decoration:underline;color:#666252;font-weight:bold\\\">0</span> 秒\"},\"id\":0,\"ptid\":1627920},\"id\":\"2755576\",\"memo\":\"\",\"pad\":{\"answer\":\"[]\",\"costtime\":0,\"id\":1829628,\"jsonAnswer\":[],\"ptid\":1627920,\"status\":3,\"uid\":8133},\"point\":[{\"id\":\"5268\",\"name\":\"三角形角分线、中线和高线\"}],\"stem\":\"下列四个图形中，<em>BE</em>不是△<em>ABC</em>的高线的图是（ &nbsp; &nbsp;）.\",\"template\":\"choice\",\"type_id\":\"1\"},\"sectionid\":205387,\"typeid\":1,\"wqid\":598903}]}],\"page\":{\"nextPage\":0,\"pageSize\":10,\"totalCou\":1,\"totalPage\":1},\"status\":{\"code\":0,\"desc\":\"sucess get wrong answer can be list!\"}}";
-
+    String ss = Content.cc;
 }

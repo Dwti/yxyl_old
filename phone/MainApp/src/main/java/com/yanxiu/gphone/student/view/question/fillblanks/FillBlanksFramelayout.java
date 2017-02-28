@@ -10,6 +10,7 @@ import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
 import android.text.Layout;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Display;
 import android.view.Gravity;
@@ -30,7 +31,9 @@ import com.yanxiu.gphone.student.HtmlParser.FillBlankImageGetterTrick;
 import com.yanxiu.gphone.student.HtmlParser.MyHtml;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.AnswerBean;
+import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.inter.SetAnswerCallBack;
 import com.yanxiu.gphone.student.view.MyEdittext;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
@@ -62,7 +65,9 @@ public class FillBlanksFramelayout extends FrameLayout implements
     private int answerViewTypyBean;
     private int textSize = 0;
     private Spanned txt;
-    private MyEdittext trickBottomEtView;
+    private EditText trickBottomEtView;
+    private SetAnswerCallBack callBack;
+    private QuestionEntity questionsEntity;
 
     public FillBlanksFramelayout(Context context) {
         super(context);
@@ -81,6 +86,10 @@ public class FillBlanksFramelayout extends FrameLayout implements
         super(context, attrs, defStyleAttr);
         mCtx = context;
         initView();
+    }
+
+    public void setQuestionEntity(QuestionEntity questionsEntity){
+        this.questionsEntity=questionsEntity;
     }
 
     /**
@@ -188,7 +197,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
         if (rlMark != null && bean != null && bean.getFillAnswers().size() > 0) {
             if (bean.getFillAnswers().size() == actualEditTextCount) {
                 for (int i = 0; i < actualEditTextCount; i++) {
-                    ((EditText) rlMark.getChildAt(i)).setText(bean.getFillAnswers().get(i));
+                    ((MyEdittext) rlMark.getChildAt(i)).setTextData(bean.getFillAnswers().get(i));
                 }
             }
         }
@@ -197,6 +206,23 @@ public class FillBlanksFramelayout extends FrameLayout implements
     @Override
     public void answerViewClick() {
 
+    }
+
+    public boolean getTheAnswerIsReady(){
+        int count=rlMark.getChildCount()-1;
+        for (int i=0;i<count;i++){
+            if (rlMark.getChildAt(i) instanceof MyEdittext){
+                String text=((MyEdittext) rlMark.getChildAt(i)).getText().toString();
+                if (TextUtils.isEmpty(text)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public void setMistakeCallBack(SetAnswerCallBack callBack){
+        this.callBack=callBack;
     }
 
     /**
@@ -399,6 +425,16 @@ public class FillBlanksFramelayout extends FrameLayout implements
         return matcher.find();
     }
 
+    public void setClearFoces(){
+        int count=rlMark.getChildCount();
+        for (int i=0;i<count;i++){
+            if (rlMark.getChildAt(i) instanceof MyEdittext){
+                rlMark.getChildAt(i).setEnabled(false);
+                rlMark.getChildAt(i).setFocusable(false);
+            }
+        }
+    }
+
     // 把需要扣掉的部分换成 EditText
     // 这个方法目前有点问题，用padding和用margin时居然不一致，不懂为什么，暂时只能2套方案取相对合适的
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -431,6 +467,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
         et.setTag(start);
         et.setPadding(10, 0, 10, 0);
         et.setSingleLine();
+        et.setMistakeCallBack(callBack);
 //        et.setTextColor(mCtx.getResources().getColor(R.color.color_333333));
         et.setTextSize(textSize);
 //        et.setBackground(mCtx.getResources().getDrawable(R.drawable.fill_blank_bg));
@@ -438,7 +475,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
 //        et.setGravity(Gravity.CENTER);
         et.setFocusable(false);
         setEditTextCusrorDrawable(et);
-        if (answerViewTypyBean == SubjectExercisesItemBean.RESOLUTION || answerViewTypyBean == SubjectExercisesItemBean.WRONG_SET) {
+        if (answerViewTypyBean == SubjectExercisesItemBean.RESOLUTION || answerViewTypyBean == SubjectExercisesItemBean.WRONG_SET||(answerViewTypyBean==SubjectExercisesItemBean.MISTAKEREDO&&!"0".equals(questionsEntity.getType()))) {
             et.setEnabled(false);
             et.setFocusable(false);
         }
@@ -448,7 +485,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
         if (trickBottomEtView != null) {
             rlMark.removeView(trickBottomEtView);
         }
-        final MyEdittext et2 = new MyEdittext(mCtx);
+        final EditText et2 = new EditText(mCtx);
         et2.setVisibility(View.INVISIBLE);
         int lastLine = layout.getLineForOffset(last);
         bottom = layout.getLineBottom(lastLine);

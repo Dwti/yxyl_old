@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.ExtendEntity;
@@ -27,6 +28,7 @@ public class MistakeRedoFragment extends Fragment {
     private YXiuAnserTextView tvReportParseStatueText;
     private SubjectiveStarLayout difficultyStart;
     private YXiuAnserTextView tvReportParseText;
+    private LinearLayout hw_report_parse_layout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,13 +58,15 @@ public class MistakeRedoFragment extends Fragment {
                     break;
                 default:
                     tvReportParseStatueText.setTextHtml(dataEntity.getAnswerCompare());
-
+                    break;
             }
         }
         difficultyStart.selectStarCount(questionsEntity.getDifficulty());
-
         if (!TextUtils.isEmpty(questionsEntity.getAnalysis())) {
+            hw_report_parse_layout.setVisibility(View.VISIBLE);
             tvReportParseText.setTextHtml(questionsEntity.getAnalysis());
+        }else {
+            hw_report_parse_layout.setVisibility(View.GONE);
         }
     }
 
@@ -70,6 +74,6 @@ public class MistakeRedoFragment extends Fragment {
         tvReportParseStatueText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_parse_statue_text);
         difficultyStart = (SubjectiveStarLayout) rootView.findViewById(R.id.view_sub_difficulty_star);
         tvReportParseText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_parse_text);
-
+        hw_report_parse_layout= (LinearLayout) rootView.findViewById(R.id.hw_report_parse_layout);
     }
 }

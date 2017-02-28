@@ -16,6 +16,7 @@ import com.yanxiu.gphone.student.adapter.AnswerAdapter;
 import com.yanxiu.gphone.student.bean.ChildIndexEvent;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
+import com.yanxiu.gphone.student.inter.MistakeRedoCallback;
 
 import de.greenrobot.event.EventBus;
 
@@ -25,7 +26,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2015/7/7.
  */
-public class AnswerViewFragment extends Fragment implements View.OnClickListener, ViewPager.OnPageChangeListener{
+public class AnswerViewFragment extends Fragment implements View.OnClickListener, ViewPager.OnPageChangeListener,MistakeRedoCallback{
 
     private View rootView;
 
@@ -98,7 +99,7 @@ public class AnswerViewFragment extends Fragment implements View.OnClickListener
         vpAnswer.setOnPageChangeListener(this);
         childAnswerAdapter = new AnswerAdapter(this.getChildFragmentManager());
         childAnswerAdapter.setAnswerViewTypyBean(answerViewTypyBean);
-        childAnswerAdapter.addDataSourcesForReadingQuestion(children, questionsEntity.getTemplate(), questionsEntity.getType_id(), getTotalCount());
+        childAnswerAdapter.addDataSourcesForReadingQuestion(children, questionsEntity.getTemplate(), questionsEntity.getType_id(), getTotalCount(),this);
         int count = childAnswerAdapter.getCount();
         if(this.getParentFragment() != null && this.getParentFragment() instanceof  ReadingQuestionsFragment){
             ((ReadingQuestionsFragment)this.getParentFragment()).onPageCount(count);
@@ -144,6 +145,11 @@ public class AnswerViewFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onPageScrollStateChanged(int state) {
+
+    }
+
+    @Override
+    public void redoCallback() {
 
     }
 

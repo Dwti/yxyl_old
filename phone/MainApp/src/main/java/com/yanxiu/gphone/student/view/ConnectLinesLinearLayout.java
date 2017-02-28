@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.AnswerBean;
+import com.yanxiu.gphone.student.inter.SetAnswerCallBack;
 
 import org.json.JSONObject;
 
@@ -34,6 +35,7 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
     private boolean isResolution;
     private boolean isClick = true;
     private boolean isWrongSet;
+    private SetAnswerCallBack callBack;
 
     public ConnectLinesLinearLayout(Context context) {
         this(context, null);
@@ -53,6 +55,10 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
         LayoutInflater.from(context).inflate(R.layout.connect_lineslinear, this);
         linear = (LinearLayout) this.findViewById(R.id.linear);
         mylines = (Connectlines) this.findViewById(R.id.mylines);
+    }
+
+    public void setCallBack(SetAnswerCallBack callBack) {
+        this.callBack = callBack;
     }
 
     /**
@@ -76,6 +82,12 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
     public void setIsClick(boolean isClick) {
         this.isClick = isClick;
         mylines.setIsClick(isClick);
+    }
+
+    public void setclearFocuse() {
+        this.isClick = false;
+        mylines.setIsClick(isClick);
+        mylines.invalidate();
     }
 
     public void setIsWrongSet(boolean isWrongSet) {
@@ -252,6 +264,9 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
             cleanOnclick(bean);
             checkattachment();
             setColorAndMyLines();
+            if (callBack != null) {
+                callBack.callback();
+            }
         }
     }
 

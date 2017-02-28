@@ -4,7 +4,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import com.common.core.utils.BasePopupWindow;
 import com.common.core.utils.LogInfo;
@@ -19,11 +22,14 @@ import com.common.core.utils.StringUtils;
 import com.common.core.view.AllGridView;
 import com.common.core.view.UnMoveGridView;
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.activity.MistakeRedoActivity;
 import com.yanxiu.gphone.student.adapter.ClassfyAnswerAdapter;
 import com.yanxiu.gphone.student.adapter.ClassfyQuestionAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ClassfyBean;
+import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.inter.SetAnswerCallBack;
 import com.yanxiu.gphone.student.utils.FragmentManagerFactory;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
@@ -87,9 +93,9 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (rootView == null) {
+//        if (rootView == null) {
             rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_classfy_question, null);
-        }
+//        }
         initView();
         initData();
 
@@ -111,28 +117,53 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
         if(ischild)
             top_dotted_line.setVisibility(View.GONE);
         if (answerViewTypyBean != SubjectExercisesItemBean.RESOLUTION && answerViewTypyBean != SubjectExercisesItemBean.WRONG_SET) {
-            lgClassfyAnswers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            if (answerViewTypyBean==SubjectExercisesItemBean.MISTAKEREDO){
+                if ("0".equals(questionsEntity.getType())){
+                    lgClassfyAnswers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                    if (mRemoveBean == classfyItem.get(i)) {
-                        classfyAnswerAdapter.setSeclection(-1);
-                        mRemoveBean = null;
-                        choiceTmpString = "";
-                    } else {
-                        classfyAnswerAdapter.setSeclection(i);
-                        mRemoveBean = classfyItem.get(i);
-                        choiceTmpString = String.valueOf(classfyItem.get(i).getId());
-                    }
-                    classfyAnswerAdapter.notifyDataSetChanged();
+                            if (mRemoveBean == classfyItem.get(i)) {
+                                classfyAnswerAdapter.setSeclection(-1);
+                                mRemoveBean = null;
+                                choiceTmpString = "";
+                            } else {
+                                classfyAnswerAdapter.setSeclection(i);
+                                mRemoveBean = classfyItem.get(i);
+                                choiceTmpString = String.valueOf(classfyItem.get(i).getId());
+                            }
+                            classfyAnswerAdapter.notifyDataSetChanged();
+                        }
+                    });
                 }
-            });
+            }else {
+                lgClassfyAnswers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                        if (mRemoveBean == classfyItem.get(i)) {
+                            classfyAnswerAdapter.setSeclection(-1);
+                            mRemoveBean = null;
+                            choiceTmpString = "";
+                        } else {
+                            classfyAnswerAdapter.setSeclection(i);
+                            mRemoveBean = classfyItem.get(i);
+                            choiceTmpString = String.valueOf(classfyItem.get(i).getId());
+                        }
+                        classfyAnswerAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+
         }
         classfyAnswerAdapter = new ClassfyAnswerAdapter(getActivity());
         lgClassfyAnswers.setAdapter(classfyAnswerAdapter);
         classfyPopupWindow = new ClassfyPopupWindow(getActivity());
         classfyPopupWindow.setOnDissmissListener(ClassfyQuestionFragment.this);
         classfyDelPopupWindow = new ClassfyDelPopupWindow(getActivity());
+        if (answerViewTypyBean==SubjectExercisesItemBean.MISTAKEREDO) {
+            classfyDelPopupWindow.setCallBack(callBack);
+        }
         classfyDelPopupWindow.setOnDissmissListener(ClassfyQuestionFragment.this);
     }
 
@@ -177,7 +208,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                             }
                             if (questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).size() > 0) {
                                 backgroundAlpha(0.5f);
-                                if (answerViewTypyBean == SubjectExercisesItemBean.RESOLUTION || answerViewTypyBean == SubjectExercisesItemBean.WRONG_SET) {
+                                if (answerViewTypyBean == SubjectExercisesItemBean.RESOLUTION || answerViewTypyBean == SubjectExercisesItemBean.WRONG_SET||(answerViewTypyBean==SubjectExercisesItemBean.MISTAKEREDO&&!"0".equals(questionsEntity.getType()))) {
                                     classfyPopupWindow.init(questionsEntity, string, questionsEntity.getAnswerBean().getConnect_classfy_answer().get(i).size(), i);
                                     classfyPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
                                 } else {
@@ -200,6 +231,10 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                                 classfyQuestionAdapter.setData(questionsEntity);
                                 vgClassfyAnswers.removeView(mRemoveView);
                                 choiceTmpString = null;
+                            }
+
+                            if (callBack!=null){
+                                callBack.callback();
                             }
                         }
                     }
@@ -270,9 +305,176 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                 });
                 break;
             case SubjectExercisesItemBean.MISTAKEREDO:
-                FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
+                if (ischild){
+                    if (QuestionEntity.TYPE_SUBMIT_END.equals(questionsEntity.getType())||QuestionEntity.TYPE_DELETE_END.equals(questionsEntity.getType())){
+                        questionsEntity.setType(QuestionEntity.TYPE_SUBMIT_END);
+                        setIsResolution(true);
+                        setIsClick(false);
+                        vgClassfyAnswers.clearFocuse();
+                        lgClassfyAnswers.setOnItemClickListener(null);
+                        FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
+                    }
+                    return;
+                }
+                FrameLayout layout= (FrameLayout) rootView.findViewById(R.id.fra_sub_or_del);
+                layout.setVisibility(View.VISIBLE);
+                final SubmitOrDeleteFragment fragment = new SubmitOrDeleteFragment();
+                initSubOrDel(fragment);
+                fragment.setEntity(questionsEntity);
+                fragment.setListener(new SubmitOrDeleteFragment.OnButtonClickListener() {
+                    @Override
+                    public void onClick(String type) {
+                        switch (type) {
+                            case SubmitOrDeleteFragment.TYPE_SUBMIT:
+                                questionsEntity.setType(QuestionEntity.TYPE_SUBMIT_END);
+                                setIsResolution(true);
+                                setIsClick(false);
+                                vgClassfyAnswers.clearFocuse();
+                                lgClassfyAnswers.setOnItemClickListener(null);
+                                checkTheAnswer();
+                                fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_SUBMIT);
+                                FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
+                                break;
+                            case SubmitOrDeleteFragment.TYPE_DELETE:
+                                questionsEntity.setType(QuestionEntity.TYPE_DELETE_END);
+                                fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_DELETE);
+                                break;
+                        }
+                    }
+                });
+                FragmentManager manager = getChildFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.add(R.id.fra_sub_or_del, fragment,"sub_or_del");
+                transaction.show(fragment);
+                transaction.commit();
                 break;
+        }
+    }
 
+    @Override
+    public void setMistakeSubmit() {
+        super.setMistakeSubmit();
+        questionsEntity.setType(QuestionEntity.TYPE_SUBMIT_END);
+        setIsResolution(true);
+        setIsClick(false);
+        vgClassfyAnswers.clearFocuse();
+        lgClassfyAnswers.setOnItemClickListener(null);
+        questionsEntity.setType(QuestionEntity.TYPE_SUBMIT_END);
+        FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
+    }
+
+    @Override
+    public void setMistakeDelete() {
+        super.setMistakeDelete();
+        questionsEntity.setType(QuestionEntity.TYPE_DELETE_END);
+    }
+
+    private SetAnswerCallBack callBack=new SetAnswerCallBack() {
+        @Override
+        public void callback() {
+            if (ischild){
+                boolean f1=getIsHavaAnswer();
+                boolean f2=getTheAnswerIsRight();
+                if (redoCallback!=null){
+                    redoCallback.redoCallback();
+                }
+                return;
+            }
+            Fragment fragment=getChildFragmentManager().findFragmentByTag("sub_or_del");
+            if (fragment==null){
+                return;
+            }
+            SubmitOrDeleteFragment submitOrDeleteFragment= (SubmitOrDeleteFragment) fragment;
+            initSubOrDel(submitOrDeleteFragment);
+        }
+    };
+
+    private boolean getIsHavaAnswer(){
+        ArrayList<ArrayList<String>> list=questionsEntity.getAnswerBean().getConnect_classfy_answer();
+        boolean flag = false;
+        if (list!=null) {
+            for (int i = 0; i < list.size(); i++) {
+                ArrayList<String> arrayList = list.get(i);
+                if (arrayList != null && arrayList.size() > 0) {
+                    flag = true;
+                }
+            }
+        }
+        questionsEntity.setHaveAnser(flag);
+        return flag;
+    }
+
+    private void initSubOrDel(SubmitOrDeleteFragment fragment) {
+        if (QuestionEntity.TYPE_SUBMIT.equals(questionsEntity.getType())) {
+            if (getIsHavaAnswer()){
+                fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_HASANSWER);
+            }else {
+                fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_NOANSWER);
+            }
+        }else if (QuestionEntity.TYPE_SUBMIT_END.equals(questionsEntity.getType())){
+            questionsEntity.setType(QuestionEntity.TYPE_SUBMIT_END);
+            setIsResolution(true);
+            setIsClick(false);
+            vgClassfyAnswers.clearFocuse();
+            lgClassfyAnswers.setOnItemClickListener(null);
+            fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_SUBMIT);
+            FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
+        }else if (QuestionEntity.TYPE_DELETE_END.equals(questionsEntity.getType())){
+            questionsEntity.setType(QuestionEntity.TYPE_SUBMIT_END);
+            setIsResolution(true);
+            setIsClick(false);
+            vgClassfyAnswers.clearFocuse();
+            lgClassfyAnswers.setOnItemClickListener(null);
+            fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_DELETE);
+            FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
+        }
+    }
+
+    private boolean getTheAnswerIsRight(){
+        ArrayList<ArrayList<String>> answer_list = questionsEntity.getAnswerBean().getConnect_classfy_answer();
+        if (answer_list!=null) {
+            for (int i = 0; i < answerData.size(); i++) {
+                JSONObject object = null;
+                String string = null;
+                try {
+                    object = new JSONObject(answerData.get(i));
+                    string = object.getString("answer");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String ss[] = string.split(",");
+                if (answerData.size() > answer_list.size() || answer_list.get(i) == null) {
+                    questionsEntity.setAnswerIsRight(QuestionEntity.ANSWER_FAIL);
+                    return false;
+                } else {
+                    if (ss.length != answer_list.get(i).size()) {
+                        questionsEntity.setAnswerIsRight(QuestionEntity.ANSWER_FAIL);
+                        return false;
+                    } else {
+                        for (int j = 0; j < ss.length; j++) {
+                            if (!answer_list.get(i).contains(ss[j])) {
+                                questionsEntity.setAnswerIsRight(QuestionEntity.ANSWER_FAIL);
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            questionsEntity.setAnswerIsRight(QuestionEntity.ANSWER_RIGHT);
+            return true;
+        }else {
+            questionsEntity.setAnswerIsRight(QuestionEntity.ANSWER_DEFULT);
+            return false;
+        }
+    }
+
+    private void checkTheAnswer() {
+        if (getTheAnswerIsRight()){
+            //回答正确
+            ((MistakeRedoActivity)getActivity()).showPopup(MistakeRedoActivity.RIGHT);
+        }else {
+            //回答错误
+            ((MistakeRedoActivity)getActivity()).showPopup(MistakeRedoActivity.FAIL);
         }
     }
 
@@ -413,7 +615,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             createClassItem();
             filterClassItem();
             vgClassfyAnswers.removeAllViews();
-            if (answerViewTypyBean != SubjectExercisesItemBean.RESOLUTION && answerViewTypyBean != SubjectExercisesItemBean.WRONG_SET) {
+            if (answerViewTypyBean != SubjectExercisesItemBean.RESOLUTION && answerViewTypyBean != SubjectExercisesItemBean.WRONG_SET&&"0".equals(questionsEntity.getType())) {
                 vgClassfyAnswers.setData(classfyItem, ClassfyQuestionFragment.this);
             } else {
                 vgClassfyAnswers.setData(classfyItem, null);

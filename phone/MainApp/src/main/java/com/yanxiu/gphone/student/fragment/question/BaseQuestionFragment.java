@@ -22,6 +22,7 @@ import com.yanxiu.gphone.student.activity.BaseAnswerViewActivity;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.inter.MistakeRedoCallback;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 
@@ -32,7 +33,7 @@ import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.*;
 /**
  * Created by Administrator on 2015/12/17.
  */
-public class BaseQuestionFragment extends Fragment implements QuestionsListener {
+public class BaseQuestionFragment extends Fragment implements QuestionsListener ,MistakeRedoCallback{
     protected QuestionEntity questionsEntity;
     protected QuestionsListener listener;
 
@@ -67,6 +68,7 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
     public int wrongId;
     private int wrongCount;
     private Object message;
+    protected MistakeRedoCallback redoCallback;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,9 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
             this.wrongId = (getArguments() != null) ? getArguments().getInt("wrong") : 0;
             this.wrongCount = (getArguments() != null) ? getArguments().getInt("wrongCount") : 0;
         }
+        if (savedInstanceState!=null){
+            ischild=savedInstanceState.getBoolean("isChild");
+        }
         imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
@@ -95,6 +100,7 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
         outState.putInt("pageIndex", pageIndex);
         outState.putInt("wrongId", wrongId);
         outState.putInt("wrongCount", wrongCount);
+        outState.putBoolean("isChild",ischild);
         super.onSaveInstanceState(outState);
     }
 
@@ -105,6 +111,14 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
     public Object getTagMessage() {
         return message;
     }
+
+    public void setMistakeRedoCallback(MistakeRedoCallback redoCallback){
+        this.redoCallback=redoCallback;
+    }
+
+    public void setMistakeSubmit(){};
+
+    public void setMistakeDelete(){};
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -362,6 +376,11 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
 
     @Override
     public void answerViewClick() {
+
+    }
+
+    @Override
+    public void redoCallback() {
 
     }
 }

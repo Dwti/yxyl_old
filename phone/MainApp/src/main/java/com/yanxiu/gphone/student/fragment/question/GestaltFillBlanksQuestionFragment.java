@@ -146,7 +146,7 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
         adapter = new AnswerAdapter(this.getChildFragmentManager());
         adapter.setAnswerCallback(this);
         adapter.setAnswerViewTypyBean(answerViewTypyBean);
-        adapter.addDataSourcesForReadingQuestion(children, questionsEntity.getTemplate(), questionsEntity.getType_id(), getTotalCount());
+        adapter.addDataSourcesForReadingQuestion(children, questionsEntity.getTemplate(), questionsEntity.getType_id(), getTotalCount(),this);
         int count = adapter.getCount();
         onPageCount(count);
         vpAnswer.setAdapter(adapter);

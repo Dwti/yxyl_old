@@ -17,6 +17,7 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.ClassfyAnswerPopupAdapter;
 import com.yanxiu.gphone.student.bean.ClassfyBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
+import com.yanxiu.gphone.student.inter.SetAnswerCallBack;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 
@@ -36,6 +37,7 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
     private UnMoveGridView lgClassfyAnswers;
     private LinearLayout ll_screen;
 
+    private SetAnswerCallBack callBack;
     private List<ClassfyBean> classfyPopItem = new ArrayList<ClassfyBean>();
     private int mViewType;
 
@@ -71,6 +73,9 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
                 classfyAnswerPopupAdapter.setData(classfyPopItem);
                 mNum = mNum - 1;
                 classfyDelPopText.setText(classfyDelPopString+" ("+mNum+")");
+                if (callBack!=null){
+                    callBack.callback();
+                }
                 if (mNum == 0) {
                     ClassfyDelPopupWindow.this.dismiss();
                 }
@@ -90,6 +95,10 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
             classfyPopItem.add(classfyBean);
         }
         this.initView(mContext);
+    }
+
+    public void setCallBack(SetAnswerCallBack callBack){
+        this.callBack=callBack;
     }
 
     @Override
@@ -119,9 +128,13 @@ public class ClassfyDelPopupWindow extends BasePopupWindow  {
                                 mQuestionsEntity.getAnswerBean().getConnect_classfy_answer().get(position).remove(String.valueOf(((ClassfyBean)containerView.getTag()).getId()));
                                 mNum = mNum - 1;
                                 classfyDelPopText.setText(classfyDelPopString+"("+mNum+")");
+                                if (callBack!=null){
+                                    callBack.callback();
+                                }
                                 if (mNum == 0) {
                                     ClassfyDelPopupWindow.this.dismiss();
                                 }
+
                             }
                         });
                         containerView.getLayoutParams();

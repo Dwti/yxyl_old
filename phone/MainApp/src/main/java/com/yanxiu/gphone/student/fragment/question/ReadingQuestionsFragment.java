@@ -3,6 +3,8 @@ package com.yanxiu.gphone.student.fragment.question;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +22,7 @@ import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.AnswerViewActivity;
 import com.yanxiu.gphone.student.activity.BaseAnswerViewActivity;
+import com.yanxiu.gphone.student.activity.MistakeRedoActivity;
 import com.yanxiu.gphone.student.activity.ResolutionAnswerViewActivity;
 import com.yanxiu.gphone.student.activity.WrongAnswerViewActivity;
 import com.yanxiu.gphone.student.adapter.AnswerAdapter;
@@ -29,6 +33,7 @@ import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.inter.CorpListener;
 import com.yanxiu.gphone.student.utils.CorpUtils;
+import com.yanxiu.gphone.student.utils.FragmentManagerFactory;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout;
 import com.yanxiu.gphone.student.view.YanxiuTypefaceTextView;
@@ -95,9 +100,133 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
         initView();
         initAnim();
         initData();
+        selectTypeView();
         return rootView;
     }
 
+    public void selectTypeView(){
+        switch (answerViewTypyBean) {
+            case SubjectExercisesItemBean.RESOLUTION:
+                FrameLayout layout= (FrameLayout) rootView.findViewById(R.id.fra_sub_or_del);
+                layout.setVisibility(View.VISIBLE);
+                FragmentManager manager = getChildFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                Fragment fragment1=manager.findFragmentByTag("sub_or_del");
+                if (fragment1==null) {
+                    final SubmitOrDeleteFragment fragment = new SubmitOrDeleteFragment();
+                    fragment.setEntity(questionsEntity);
+                    initSubOrDel(fragment);
+                    fragment.setListener(new ReadingQuestionsFragment.listener(fragment));
+                    transaction.add(R.id.fra_sub_or_del, fragment,"sub_or_del");
+                    transaction.show(fragment);
+                    transaction.commit();
+                }else {
+                    final SubmitOrDeleteFragment fragment= (SubmitOrDeleteFragment) fragment1;
+                    fragment.setEntity(questionsEntity);
+                    initSubOrDel(fragment);
+                    fragment.setListener(new ReadingQuestionsFragment.listener(fragment));
+                }
+                break;
+        }
+    }
+
+    private class listener implements SubmitOrDeleteFragment.OnButtonClickListener{
+
+        private SubmitOrDeleteFragment fragment;
+
+        public listener(SubmitOrDeleteFragment fragment){
+            this.fragment=fragment;
+        }
+
+        @Override
+        public void onClick(String type) {
+            switch (type) {
+                case SubmitOrDeleteFragment.TYPE_SUBMIT:
+                    questionsEntity.setType(QuestionEntity.TYPE_SUBMIT_END);
+                    checkTheAnswer();
+                    fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_SUBMIT);
+                    setMistakeSubmit();
+                    break;
+                case SubmitOrDeleteFragment.TYPE_DELETE:
+                    questionsEntity.setType(QuestionEntity.TYPE_DELETE_END);
+                    fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_DELETE);
+                    setMistakeDelete();
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void setMistakeDelete() {
+        super.setMistakeDelete();
+        ArrayList<Fragment> list=adapter.getmFragments();
+        if (list==null){
+            return;
+        }
+        for (int i=0;i<list.size();i++){
+            BaseQuestionFragment fragment= (BaseQuestionFragment) list.get(i);
+            fragment.setMistakeDelete();
+        }
+    }
+
+    @Override
+    public void setMistakeSubmit() {
+        super.setMistakeSubmit();
+        ArrayList<Fragment> list=adapter.getmFragments();
+        if (list==null){
+            return;
+        }
+        for (int i=0;i<list.size();i++){
+            BaseQuestionFragment fragment= (BaseQuestionFragment) list.get(i);
+            fragment.setMistakeSubmit();
+        }
+    }
+
+    private void checkTheAnswer(){
+        if (children!=null&&children.size()>0){
+            for (int i=0;i<children.size();i++){
+                QuestionEntity entity=children.get(i).getQuestions();
+                if (entity.getAnswerIsRight()!=1){
+                    ((MistakeRedoActivity)getActivity()).showPopup(MistakeRedoActivity.FAIL);
+                    questionsEntity.setAnswerIsRight(QuestionEntity.ANSWER_FAIL);
+                    return;
+                }
+            }
+        }
+        ((MistakeRedoActivity)getActivity()).showPopup(MistakeRedoActivity.RIGHT);
+        questionsEntity.setAnswerIsRight(QuestionEntity.ANSWER_RIGHT);
+    }
+
+    @Override
+    public void redoCallback() {
+        super.redoCallback();
+        Fragment fragment1=getChildFragmentManager().findFragmentByTag("sub_or_del");
+        if (fragment1!=null) {
+            SubmitOrDeleteFragment fragment = (SubmitOrDeleteFragment) fragment1;
+            initSubOrDel(fragment);
+        }
+    }
+
+    private void initSubOrDel(SubmitOrDeleteFragment fragment) {
+        if (QuestionEntity.TYPE_SUBMIT.equals(questionsEntity.getType())) {
+            if (children!=null&&children.size()>0){
+                for (int i=0;i<children.size();i++){
+                    QuestionEntity entity=children.get(i).getQuestions();
+                    if (!entity.isHaveAnser()){
+                        fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_NOANSWER);
+                        return;
+                    }
+                }
+            }
+            fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_HASANSWER);
+        }else if (QuestionEntity.TYPE_SUBMIT_END.equals(questionsEntity.getType())){
+            fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_SUBMIT);
+            FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
+        }else if (QuestionEntity.TYPE_DELETE_END.equals(questionsEntity.getType())){
+            fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_DELETE);
+            FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
+        }
+    }
 
 //    public int getChildCount(){
 //
@@ -159,7 +288,7 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
         vpAnswer.setOnPageChangeListener(this);
         adapter = new AnswerAdapter(this.getChildFragmentManager());
         adapter.setAnswerViewTypyBean(answerViewTypyBean);
-        adapter.addDataSourcesForReadingQuestion(children, questionsEntity.getTemplate(), questionsEntity.getType_id(), getTotalCount());
+        adapter.addDataSourcesForReadingQuestion(children, questionsEntity.getTemplate(), questionsEntity.getType_id(), getTotalCount(),this);
         int count = adapter.getCount();
         onPageCount(count);
 //        if(this.getParentFragment() != null && this.getParentFragment() instanceof  ReadingQuestionsFragment){

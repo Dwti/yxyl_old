@@ -256,6 +256,15 @@ public class ClassfyAnswers extends ViewGroup {
         }
     }
 
+    public void clearFocuse(){
+        int count=this.getChildCount();
+        for (int i=0;i<count;i++){
+            View view=this.getChildAt(i);
+            if (view instanceof TextView){
+                view.setOnClickListener(null);
+            }
+        }
+    }
 
     public void setViewBackground(int id){
         int number=this.getChildCount();

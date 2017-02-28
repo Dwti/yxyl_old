@@ -68,7 +68,9 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
         View view_line_ccc4a3_2 = rootView.findViewById(R.id.view_line_ccc4a3_2);
         choiceQuestions = (ChoiceQuestions) rootView.findViewById(R.id.cq_item);
         choiceQuestions.flipNextPager(listener);
-        choiceQuestions.setCallback(callBack);
+        if (answerViewTypyBean==SubjectExercisesItemBean.MISTAKEREDO) {
+            choiceQuestions.setCallback(callBack);
+        }
         ChoiceQuestionFragment context = this;
         View top_dotted_line = rootView.findViewById(R.id.top_dotted_line);
         if (ischild)
@@ -157,6 +159,18 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
                 });
                 break;
             case SubjectExercisesItemBean.MISTAKEREDO:
+                if (ischild){
+                    if (QuestionEntity.TYPE_SUBMIT_END.equals(questionsEntity.getType())||QuestionEntity.TYPE_DELETE_END.equals(questionsEntity.getType())){
+                        choiceQuestions.setIsResolution(true);
+                        choiceQuestions.setIsClick(false);
+                        choiceQuestions.setclearFocuse();
+                        choiceQuestions.setDataSources(questionsEntity.getAnswerBean());
+                        FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
+                    }
+                    return;
+                }
+                FrameLayout layout= (FrameLayout) rootView.findViewById(R.id.fra_sub_or_del);
+                layout.setVisibility(View.VISIBLE);
                 final SubmitOrDeleteFragment fragment = new SubmitOrDeleteFragment();
                 initSubOrDel(fragment);
                 fragment.setEntity(questionsEntity);
@@ -168,7 +182,7 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
                                 questionsEntity.setType(QuestionEntity.TYPE_SUBMIT_END);
                                 choiceQuestions.setIsResolution(true);
                                 choiceQuestions.setIsClick(false);
-                                choiceQuestions.setFoucesClear();
+                                choiceQuestions.setclearFocuse();
                                 choiceQuestions.setDataSources(questionsEntity.getAnswerBean());
                                 checkTheAnswer();
                                 fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_SUBMIT);
@@ -183,90 +197,149 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
                 });
                 FragmentManager manager = getChildFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.fra_sub_or_del, fragment,"sub_or_del");
+                transaction.add(R.id.fra_sub_or_del, fragment,"sub_or_del");
+                transaction.show(fragment);
                 transaction.commit();
                 break;
         }
     }
 
+    @Override
+    public void setMistakeSubmit() {
+        super.setMistakeSubmit();
+        choiceQuestions.setIsResolution(true);
+        choiceQuestions.setIsClick(false);
+        choiceQuestions.setclearFocuse();
+        choiceQuestions.setDataSources(questionsEntity.getAnswerBean());
+        questionsEntity.setType(QuestionEntity.TYPE_SUBMIT_END);
+        FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
+    }
+
+    @Override
+    public void setMistakeDelete() {
+        super.setMistakeDelete();
+        questionsEntity.setType(QuestionEntity.TYPE_DELETE_END);
+    }
+
     private SetAnswerCallBack callBack=new SetAnswerCallBack() {
         @Override
         public void callback() {
-            SubmitOrDeleteFragment fragment= (SubmitOrDeleteFragment) getChildFragmentManager().findFragmentByTag("sub_or_del");
-            initSubOrDel(fragment);
+            if (ischild){
+                boolean f1=getIsHavaAnswer();
+                boolean f2=getTheAnswerIsRight();
+                if (redoCallback!=null){
+                    redoCallback.redoCallback();
+                }
+                return;
+            }
+            Fragment fragment=getChildFragmentManager().findFragmentByTag("sub_or_del");
+            if (fragment==null){
+                return;
+            }
+            SubmitOrDeleteFragment submitOrDeleteFragment= (SubmitOrDeleteFragment) fragment;
+            initSubOrDel(submitOrDeleteFragment);
         }
     };
 
+    private boolean getIsHavaAnswer(){
+        boolean flag=false;
+        switch (typeId) {
+            case 1:
+                String answer = questionsEntity.getAnswerBean().getSelectType();
+                if (!TextUtils.isEmpty(answer)) {
+                    flag=true;
+                }
+                break;
+            case 2:
+                List<String> answer_list = questionsEntity.getAnswerBean().getMultiSelect();
+                if (answer_list != null && answer_list.size() > 0) {
+                    flag=true;
+                }
+                break;
+        }
+        questionsEntity.setHaveAnser(flag);
+        return  flag;
+    }
+
     private void initSubOrDel(SubmitOrDeleteFragment fragment) {
         if (QuestionEntity.TYPE_SUBMIT.equals(questionsEntity.getType())) {
-            switch (typeId) {
-                case 1:
-                    String answer = questionsEntity.getAnswerBean().getSelectType();
-                    if (TextUtils.isEmpty(answer)) {
-                        fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_NOANSWER);
-                    } else {
-                        fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_HASANSWER);
-                    }
-                    break;
-                case 2:
-                    List<String> answer_list = questionsEntity.getAnswerBean().getMultiSelect();
-                    if (answer_list != null && answer_list.size() > 0) {
-                        fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_HASANSWER);
-                    } else {
-                        fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_NOANSWER);
-                    }
-                    break;
+            if (getIsHavaAnswer()){
+                fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_HASANSWER);
+            }else {
+                fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_NOANSWER);
             }
         }else if (QuestionEntity.TYPE_SUBMIT_END.equals(questionsEntity.getType())){
-            questionsEntity.setType(QuestionEntity.TYPE_SUBMIT_END);
             choiceQuestions.setIsResolution(true);
             choiceQuestions.setIsClick(false);
-            choiceQuestions.setFoucesClear();
+            choiceQuestions.setclearFocuse();
             choiceQuestions.setDataSources(questionsEntity.getAnswerBean());
             fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_SUBMIT);
             FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
         }else if (QuestionEntity.TYPE_DELETE_END.equals(questionsEntity.getType())){
-            questionsEntity.setType(QuestionEntity.TYPE_SUBMIT_END);
             choiceQuestions.setIsResolution(true);
             choiceQuestions.setIsClick(false);
-            choiceQuestions.setFoucesClear();
+            choiceQuestions.setclearFocuse();
             choiceQuestions.setDataSources(questionsEntity.getAnswerBean());
             fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_DELETE);
             FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
         }
     }
 
-    private void checkTheAnswer() {
+    private boolean getTheAnswerIsRight(){
+        boolean flag=false;
         List<String> list = questionsEntity.getAnswer();
         switch (typeId) {
             case 1:
                 String answer = questionsEntity.getAnswerBean().getSelectType();
-                if (list.get(0).equals(answer)) {
-                    //回答正确
-                    ((MistakeRedoActivity)getActivity()).showPopup(MistakeRedoActivity.RIGHT);
-                    questionsEntity.setAnswerIsRight(QuestionEntity.ANSWER_RIGHT);
-                } else {
-                    //回答错误
-                    ((MistakeRedoActivity)getActivity()).showPopup(MistakeRedoActivity.FAIL);
-                    questionsEntity.setAnswerIsRight(QuestionEntity.ANSWER_FAIL);
+                if (answer!=null) {
+                    if (list.get(0).equals(answer)) {
+                        //回答正确
+                        flag = true;
+                        questionsEntity.setAnswerIsRight(QuestionEntity.ANSWER_RIGHT);
+                    } else {
+                        //回答错误
+                        flag = false;
+                        questionsEntity.setAnswerIsRight(QuestionEntity.ANSWER_FAIL);
+                    }
+                }else {
+                    questionsEntity.setAnswerIsRight(QuestionEntity.ANSWER_DEFULT);
                 }
                 break;
             case 2:
                 List<String> answer_list = questionsEntity.getAnswerBean().getMultiSelect();
-                if (answer_list != null && answer_list.size() == list.size()) {
-                    for (int i = 0; i < list.size(); i++) {
-                        if (list.containsAll(answer_list)) {
-                            //回答正确
-                            ((MistakeRedoActivity)getActivity()).showPopup(MistakeRedoActivity.RIGHT);
-                            questionsEntity.setAnswerIsRight(QuestionEntity.ANSWER_RIGHT);
-                        } else {
-                            //回答错误
-                            ((MistakeRedoActivity)getActivity()).showPopup(MistakeRedoActivity.FAIL);
-                            questionsEntity.setAnswerIsRight(QuestionEntity.ANSWER_FAIL);
+                if (answer_list != null && answer_list.size()>0) {
+                    if (answer_list.size() == list.size()){
+                        for (int i = 0; i < list.size(); i++) {
+                            if (list.containsAll(answer_list)) {
+                                //回答正确
+                                flag = true;
+                                questionsEntity.setAnswerIsRight(QuestionEntity.ANSWER_RIGHT);
+                            } else {
+                                //回答错误
+                                flag = false;
+                                questionsEntity.setAnswerIsRight(QuestionEntity.ANSWER_FAIL);
+                            }
                         }
+                    }else{
+                        //回答错误
+                        flag = false;
+                        questionsEntity.setAnswerIsRight(QuestionEntity.ANSWER_FAIL);
                     }
+                }else {
+                    //未回答
+                    flag=false;
+                    questionsEntity.setAnswerIsRight(QuestionEntity.ANSWER_DEFULT);
                 }
                 break;
+        }
+        return flag;
+    };
+
+    private void checkTheAnswer() {
+        if (getTheAnswerIsRight()){
+            ((MistakeRedoActivity)getActivity()).showPopup(MistakeRedoActivity.RIGHT);
+        } else {
+            ((MistakeRedoActivity)getActivity()).showPopup(MistakeRedoActivity.FAIL);
         }
     }
 

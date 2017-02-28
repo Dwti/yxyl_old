@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.inter.SetAnswerCallBack;
 
 /**
  * Created by JS-00 on 2016/11/22.
@@ -21,6 +22,7 @@ public class MyEdittext extends EditText {
 
     private Context mContext;
     private boolean focused;
+    private SetAnswerCallBack callBack;
 
     public MyEdittext(Context context) {
         super(context);
@@ -37,33 +39,48 @@ public class MyEdittext extends EditText {
         init(context);
     }
 
+    public void setMistakeCallBack(SetAnswerCallBack callBack){
+        this.callBack=callBack;
+    }
+
+    public void setTextData(String text){
+        this.removeTextChangedListener(watcher);
+        this.setText(text);
+        this.addTextChangedListener(watcher);
+    }
+
+    TextWatcher watcher=new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (MyEdittext.this.getText().length()>0){
+                MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_empty_bg));
+            }else {
+                if (focused){
+                    MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_empty_bg));
+                }else {
+                    MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_full_bg));
+                }
+            }
+            if (callBack!=null){
+                callBack.callback();
+            }
+        }
+    };
+
     private void init(Context context) {
         this.mContext = context;
         this.setTextColor(Color.BLACK);
-        this.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (MyEdittext.this.getText().length()>0){
-                    MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_empty_bg));
-                }else {
-                    if (focused){
-                        MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_empty_bg));
-                    }else {
-                        MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_full_bg));
-                    }
-                }
-            }
-        });
+        this.addTextChangedListener(watcher);
     }
 
     @Override

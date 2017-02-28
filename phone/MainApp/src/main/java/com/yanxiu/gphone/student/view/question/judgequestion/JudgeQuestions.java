@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.AnswerBean;
+import com.yanxiu.gphone.student.inter.SetAnswerCallBack;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class JudgeQuestions extends LinearLayout implements JudgeQuestionsItem.O
 
     private Context mContext;
 
+    private SetAnswerCallBack callBack;
     private QuestionsListener listener;
     private AnswerBean bean;
 
@@ -73,6 +75,11 @@ public class JudgeQuestions extends LinearLayout implements JudgeQuestionsItem.O
         super.onFinishInflate();
     }
 
+
+    public void setCallBack(SetAnswerCallBack callBack){
+        this.callBack=callBack;
+    }
+
     /**
      * 设置数据源
      */
@@ -98,11 +105,21 @@ public class JudgeQuestions extends LinearLayout implements JudgeQuestionsItem.O
 //                item.setOnItemClick(isClick());
                 item.setSelectType(String.valueOf(JUDGE_TYPE.RIGHT.key));
             }
+            item.setCallBack(callBack);
             item.setClickable(isClick());
             item.setUnSelected();
             this.addView(item);
             setChildLayoutParams(item);
             setLayoutParams(item);
+        }
+    }
+
+    public void setFoucesClear(){
+        int count=this.getChildCount();
+        for (int i=0;i<count;i++){
+            if (this.getChildAt(i) instanceof JudgeQuestionsItem) {
+                this.getChildAt(i).setClickable(isClick());
+            }
         }
     }
 

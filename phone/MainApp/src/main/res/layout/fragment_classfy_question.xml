@@ -9,8 +9,20 @@
 
     <include layout="@layout/classfy_content_layout"
              android:layout_height="match_parent"
+        android:layout_above="@+id/fra_sub_or_del"
              android:layout_width="match_parent"
              android:layout_below="@id/rl_top" />
+
+    <FrameLayout
+        android:id="@+id/fra_sub_or_del"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dimen_15"
+        android:layout_marginTop="@dimen/dimen_15"
+        android:layout_marginLeft="@dimen/dimen_50"
+        android:visibility="gone"
+        android:layout_marginRight="@dimen/dimen_50"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_58"></FrameLayout>
 
 </RelativeLayout>
 

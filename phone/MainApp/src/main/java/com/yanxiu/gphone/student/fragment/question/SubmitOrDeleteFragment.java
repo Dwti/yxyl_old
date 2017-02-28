@@ -79,6 +79,20 @@ public class SubmitOrDeleteFragment extends Fragment {
         this.entity = entity;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState!=null){
+            questionType=savedInstanceState.getString("questionType","");
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable("questionType", questionType);
+        super.onSaveInstanceState(outState);
+    }
+
     private void initQuestionType(){
         switch (questionType){
             case QUESTION_NOT_SUBMIT_NOANSWER:

@@ -43,17 +43,17 @@ public class MistakeRedoAdapter extends BaseMistakRedoAdapter<PaperTestEntity> i
     private SubjectExercisesItemBean dataSources;
     private MyViewPager vpAnswer;
     private String name = "";
-    int parentIndex = -1;
-    int pageIndex = 1;
-    int wrongCount=0;
-    boolean isFirstSub = false;
+    private int parentIndex = -1;
+    private int pageIndex = 1;
+    private int wrongCount=0;
+    private boolean isFirstSub = false;
     private int answerViewTypyBean;
     private String subject_id;
     private OnShouldDownLoadListener loadListener;
     private int position;
-    private int LARGEPAGECOUNT=6;
-    int page_start=-1;
-    int page_end=-1;
+    private int LARGEPAGECOUNT=5;
+    private int page_start=-1;
+    private int page_end=-1;
 
     public interface OnShouldDownLoadListener{
         void onLoadListener(int position,int page_start,int page_end);
@@ -79,7 +79,7 @@ public class MistakeRedoAdapter extends BaseMistakRedoAdapter<PaperTestEntity> i
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
         super.setPrimaryItem(container, position, object);
-        if (this.position!=position) {
+        if (this.position!=position&&false) {
             if (object instanceof DefaultLoadFragment){
                 if (position<this.page_start||position>=this.page_end) {
                     List<PaperTestEntity> datas = getDatas();

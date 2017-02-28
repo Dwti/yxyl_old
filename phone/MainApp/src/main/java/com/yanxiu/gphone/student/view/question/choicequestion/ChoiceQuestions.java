@@ -135,7 +135,7 @@ public class ChoiceQuestions extends LinearLayout implements ChoiceQuestionsItem
         }
     }
 
-    public void setFoucesClear(){
+    public void setclearFocuse(){
         int count=this.getChildCount();
         for (int i=0;i<count;i++){
             if (this.getChildAt(i) instanceof ChoiceQuestionsItem){

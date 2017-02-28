@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.inter.SetAnswerCallBack;
 import com.yanxiu.gphone.student.view.question.AbsChoiceQuestionsItem;
 
 /**
@@ -29,6 +30,7 @@ public class JudgeQuestionsItem extends AbsChoiceQuestionsItem implements View.O
 
     private int drawableNormalId = -1;
 
+    private SetAnswerCallBack callBack;
     private JudgeQuestions.JUDGE_TYPE judgeType;
 
     private OnChoicesItemClickListener choicesItemClickListener;
@@ -179,6 +181,10 @@ public class JudgeQuestionsItem extends AbsChoiceQuestionsItem implements View.O
         setShadow(Color.parseColor("#805500"),Color.parseColor("#ffff99"));
     }
 
+    public void setCallBack(SetAnswerCallBack callBack){
+        this.callBack=callBack;
+    }
+
 
     /**
      * 选择题每个item的点击事件
@@ -195,6 +201,9 @@ public class JudgeQuestionsItem extends AbsChoiceQuestionsItem implements View.O
             }
             if(choicesItemClickListener != null){
                 choicesItemClickListener.choicesItemClickListener(this);
+            }
+            if (callBack!=null){
+                callBack.callback();
             }
         }
     }
