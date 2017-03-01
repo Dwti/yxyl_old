@@ -1,4 +1,4 @@
-package com.yanxiu.gphone.student.activity;
+﻿package com.yanxiu.gphone.student.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -31,6 +31,7 @@ import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.MistakeRedoDialog;
 
 import java.lang.ref.WeakReference;
+
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
