@@ -1,0 +1,111 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fl_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/wood_bg"
+        android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_44">
+
+        <ImageView
+            android:id="@+id/iv_top_back"
+            android:layout_width="@dimen/dimen_28"
+            android:layout_height="@dimen/dimen_28"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_marginRight="@dimen/dimen_10"
+            android:src="@drawable/login_back" />
+
+
+        <LinearLayout
+            android:layout_width="@dimen/dimen_146"
+            android:layout_height="@dimen/dimen_40"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/question_timer_bg">
+
+            <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
+                android:id="@+id/tv_top_title"
+                style="@style/shadow_answer_view_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dimen_52"
+                android:gravity="center"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/dimen_20"
+                android:text="@string/note"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_answer_card"
+            android:layout_width="@dimen/dimen_56"
+            android:layout_height="@dimen/dimen_40"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dimen_25"
+            android:background="@drawable/selector_question_card"
+            android:scaleType="centerInside"/>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/question_book_bg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp">
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:text="sdfsfsdfsdfsdfdsfdsfslkjdflksjlkfdjslkdjflksdjflksjfdlkdsjflksjdlkfjdslkfjsdlkf"
+                android:gravity="start"
+                android:padding="10dp"
+                android:maxLength="500"
+                android:background="@drawable/shape_rect"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@drawable/dotted_line"
+                android:layout_marginTop="15dp"
+                android:layerType="software"/>
+
+
+            <com.yanxiu.gphone.student.view.PhotoView
+                android:id="@+id/photoView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="删除"/>
+        </LinearLayout>
+
+    </FrameLayout>
+    </LinearLayout>
+
+</FrameLayout>
+
+
+

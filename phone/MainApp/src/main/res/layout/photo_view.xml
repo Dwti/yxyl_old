@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.yanxiu.gphone.student.view.picsel.NoScrollGridView
+        android:id="@+id/gridView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginStart="@dimen/dimen_10"
+        android:numColumns="4"
+        android:paddingBottom="@dimen/dimen_9"
+        android:verticalSpacing="@dimen/dimen_10"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_add"
+        style="@style/shadow_color_ffff99"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_51"
+        android:layout_marginLeft="@dimen/dimen_12"
+        android:layout_marginRight="@dimen/dimen_17"
+        android:background="@drawable/selector_judge_item"
+        android:gravity="center"
+        android:text="@string/subjective_add_text"
+        android:textColor="@color/color_805500"
+        android:textSize="@dimen/dimen_17"
+        android:textStyle="bold" />
+
+</merge>

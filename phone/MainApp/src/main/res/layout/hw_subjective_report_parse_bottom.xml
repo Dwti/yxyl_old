@@ -5,6 +5,14 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/tv_edit_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:padding="20dp"
+        android:text="编辑笔记"/>
+
     <RelativeLayout
         android:id="@+id/ll_answer"
         android:layout_width="match_parent"
@@ -418,7 +426,6 @@
         android:layout_marginRight="@dimen/dimen_10"
         android:layout_marginTop="@dimen/dimen_10"
         android:background="@drawable/repeat_common_line" />
-
 
     <FrameLayout
         android:layout_width="match_parent"

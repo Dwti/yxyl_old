@@ -491,6 +491,7 @@
     <string name="submit_fail">很遗憾，答错了！</string>
     <string name="delete_question">删除本题</string>
     <string name="delete_question_end">本题已删除</string>
+    <string name="note">笔记</string>
 
     <string name="mistake_popup_title">重做练习报告</string>
     <string name="mistake_question_tatle">共作答:</string>

@@ -253,6 +253,11 @@
             android:configChanges="keyboardHidden|orientation"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.NoteEditActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
 
         <activity
             android:name=".activity.RegisterJoinGroupActivity"
@@ -281,6 +286,12 @@
         <activity android:name=".activity.PhotoSelectActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"/>
+
+        <activity android:name=".activity.ImagePreviewActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
         <activity android:name=".activity.MistakeRedoActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.MistakeRedoCardActivity"

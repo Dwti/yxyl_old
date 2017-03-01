@@ -268,7 +268,7 @@ public class PicSelView extends RelativeLayout {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            ViewHolder holder = null;
+            ViewHolder holder;
             if (convertView == null) {
                 convertView = inflater.inflate(R.layout.no_scroll_grid_item,
                         parent, false);
@@ -292,13 +292,6 @@ public class PicSelView extends RelativeLayout {
             } else {
                 holder.decorateImage.setBackgroundResource(R.drawable.upload_pic);
                 String absolutePath = currentDrrList.get(position);
-//                if (!absolutePath.startsWith("http")) {
-//                    UniversalImageLoadTool.disPlay("file://" + absolutePath,
-//                            new RotateImageViewAware(holder.image, absolutePath), R.drawable.image_default);
-//                } else {
-//                    UniversalImageLoadTool.disPlay(absolutePath,
-//                            new RotateImageViewAware(holder.image, absolutePath), R.drawable.image_default);
-//                }
                 Glide.with(context)
                         .load(absolutePath).asBitmap()
                         .placeholder(R.drawable.image_default)
