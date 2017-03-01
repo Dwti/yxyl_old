@@ -29,7 +29,6 @@ import com.yanxiu.gphone.student.utils.Content;
 import com.yanxiu.gphone.student.utils.QuestionUtils;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.MistakeRedoDialog;
-
 import java.lang.ref.WeakReference;
 
 import java.util.List;
