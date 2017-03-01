@@ -151,12 +151,52 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
-        <TextView
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="笔记"/>
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_note"/>
+
+            <ImageView
+                android:id="@+id/iv_edit_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_note_edit"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="15dp"
+            android:padding="5dp"
+            android:background="@drawable/rectagle_board">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="29838479328749283749kjdlfjslkdjflkdsjflkdsjflkdsjflkdsjflksdjflkdsf"/>
+
+            <com.yanxiu.gphone.student.view.picsel.NoScrollGridView
+                android:id="@+id/grid_note_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numColumns="4"
+                android:paddingBottom="10dp"
+                android:verticalSpacing="10dp"
+                android:layout_marginTop="10dp"/>
+
+        </LinearLayout>
+
+
     </LinearLayout>
 
 </LinearLayout>

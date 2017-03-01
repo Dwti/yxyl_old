@@ -5,14 +5,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_edit_note"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:padding="20dp"
-        android:text="编辑笔记"/>
-
     <RelativeLayout
         android:id="@+id/ll_answer"
         android:layout_width="match_parent"
@@ -315,27 +307,7 @@
                 android:src="@drawable/problem_analysis_title_bg" />
 
         </RelativeLayout>
-        <!--
-        <FrameLayout android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:layout_marginTop="@dimen/dimen_10"
-                     android:layout_marginBottom="@dimen/dimen_10"
-                     android:layout_marginRight="@dimen/dimen_10"
-                     android:layout_marginLeft="@dimen/dimen_20"
-                     android:background="@drawable/question_content_bg">
 
-            <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/hw_report_parse_text"
-                    android:layout_marginTop="@dimen/dimen_5"
-                    android:layout_marginBottom="@dimen/dimen_5"
-                    android:paddingLeft="@dimen/dimen_10"
-                    android:textSize="@dimen/dimen_15"
-                    android:textColor="@color/color_ff323232" />
-
-        </FrameLayout>
-        -->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -416,6 +388,65 @@
             android:textColor="@color/color_ff999999"
             android:textSize="@dimen/dimen_11"
             android:visibility="gone" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:background="@drawable/repeat_common_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_note"/>
+
+            <ImageView
+                android:id="@+id/iv_edit_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_note_edit"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="15dp"
+            android:padding="5dp"
+            android:background="@drawable/rectagle_board">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="29838479328749283749kjdlfjslkdjflkdsjflkdsjflkdsjflkdsjflksdjflkdsf"/>
+
+            <com.yanxiu.gphone.student.view.picsel.NoScrollGridView
+                android:id="@+id/grid_note_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numColumns="4"
+                android:paddingBottom="10dp"
+                android:verticalSpacing="10dp"
+                android:layout_marginTop="10dp"/>
+
+        </LinearLayout>
+
+
     </LinearLayout>
 
     <View

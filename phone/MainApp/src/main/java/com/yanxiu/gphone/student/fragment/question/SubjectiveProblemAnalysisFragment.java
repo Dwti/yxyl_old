@@ -59,7 +59,8 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
     private YXiuAnserTextView tvKnowledgePoint;
     private YXiuAnserTextView tvReportParseText;
     private YXiuAnserTextView tvCorrectionResultText;
-    private TextView tv_result,tv_edit_note;
+    private TextView tv_result;
+    private ImageView iv_edit_note;
 //    private YXiuAnserTextView tvMyAnswer;
 //    private ReadingQuestionsFragment rlAnswerPen;
 
@@ -149,7 +150,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
         llParseKnowledge = (LinearLayout) rootView.findViewById(R.id.hw_report_parse_knowledge_layout);
 
         correctResultContent = (RelativeLayout) rootView.findViewById(R.id.correcting_result_content);
-        tv_edit_note = (TextView) rootView.findViewById(R.id.tv_edit_note);
+        iv_edit_note = (ImageView) rootView.findViewById(R.id.iv_edit_note);
         subjectiveGrid = (GridView) rootView.findViewById(R.id.subjective_questions_grid);
         ll_voice_comment = (LinearLayout) rootView.findViewById(R.id.ll_voice_comment);
         lv_voice_comment = (ListView) rootView.findViewById(R.id.lv_voice_comment);
@@ -164,7 +165,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
         flCorrectionContent = (FrameLayout) rootView.findViewById(R.id.fl_correction_result_content);
         mLlReportParse = (LinearLayout) rootView.findViewById(R.id.hw_report_parse_statistics_layout);
 
-        tv_edit_note.setOnClickListener(new View.OnClickListener() {
+        iv_edit_note.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), NoteEditActivity.class);

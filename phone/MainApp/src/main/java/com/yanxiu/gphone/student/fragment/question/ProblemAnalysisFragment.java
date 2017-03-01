@@ -1,5 +1,6 @@
 package com.yanxiu.gphone.student.fragment.question;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.SyncStateContract;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +20,7 @@ import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.AnswerViewActivity;
 import com.yanxiu.gphone.student.activity.BaseAnswerViewActivity;
+import com.yanxiu.gphone.student.activity.NoteEditActivity;
 import com.yanxiu.gphone.student.activity.ResolutionAnswerViewActivity;
 import com.yanxiu.gphone.student.bean.ExercisesDataEntity;
 import com.yanxiu.gphone.student.bean.ExtendEntity;
@@ -81,7 +84,8 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
     private TextView tvReportQuestionError;
 
     private FlowLayout flowLayout;
-//    protected StudentLoadingLayout loadingLayout;
+    //    protected StudentLoadingLayout loadingLayout;
+    private ImageView iv_edit_note;
 
     private String qid;
     private SubjectExercisesItemBean subjectExercisesItemBean;
@@ -114,7 +118,7 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
         tvReportParseStatisticsText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_parse_statistics_text);
         tvDifficulltyText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_difficullty_text);
         tvAnswerText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_answer_text);
-
+        iv_edit_note = (ImageView) rootView.findViewById(R.id.iv_edit_note);
         tvReportQuestionError = (TextView) rootView.findViewById(R.id.tv_report_question_error);
 
         difficultyStart = (SubjectiveStarLayout) rootView.findViewById(R.id.view_sub_difficulty_star);
@@ -130,6 +134,13 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
 
 
         tvReportQuestionError.setOnClickListener(this);
+        iv_edit_note.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), NoteEditActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -184,20 +195,20 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                 for (String str : questionsEntity.getAnswer()) {
                     answerString.append(str).append(" ");
                 }
-                if (questionsEntity.getTemplate().equals(YanXiuConstant.CONNECT_QUESTION)){
-                    answerString=new StringBuffer();
-                    List<String> list= questionsEntity.getAnswer();
-                    for (String str:list){
+                if (questionsEntity.getTemplate().equals(YanXiuConstant.CONNECT_QUESTION)) {
+                    answerString = new StringBuffer();
+                    List<String> list = questionsEntity.getAnswer();
+                    for (String str : list) {
                         try {
-                            JSONObject object=new JSONObject(str);
-                            String ss=object.optString("answer");
-                            String[] answer=ss.split(",");
-                            if (Integer.parseInt(answer[0])<list.size()){
-                                answerString.append("左"+(Integer.parseInt(answer[0])+1));
+                            JSONObject object = new JSONObject(str);
+                            String ss = object.optString("answer");
+                            String[] answer = ss.split(",");
+                            if (Integer.parseInt(answer[0]) < list.size()) {
+                                answerString.append("左" + (Integer.parseInt(answer[0]) + 1));
                             }
                             answerString.append("连");
-                            if (Integer.parseInt(answer[1])>=list.size()){
-                                answerString.append("右"+(Integer.parseInt(answer[1])-list.size()+1));
+                            if (Integer.parseInt(answer[1]) >= list.size()) {
+                                answerString.append("右" + (Integer.parseInt(answer[1]) - list.size() + 1));
                             }
                             answerString.append(" ");
                         } catch (JSONException e) {
@@ -214,11 +225,11 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                             tvAnswerText.setClasfyFlag(false);
                             JSONObject object = new JSONObject(str);
                             String ss = object.optString("answer");
-                            String name = object.optString("name")+":";
+                            String name = object.optString("name") + ":";
                             answerString.append(name);
                             String[] answer = ss.split(",");
                             for (String s : answer) {
-                                answerString.append(list.get(Integer.parseInt(s))+" ");
+                                answerString.append(list.get(Integer.parseInt(s)) + " ");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -17,12 +17,12 @@
 
         <ImageView
             android:id="@+id/iv_top_back"
-            android:layout_width="@dimen/dimen_28"
-            android:layout_height="@dimen/dimen_28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dimen_10"
             android:layout_marginRight="@dimen/dimen_10"
-            android:src="@drawable/login_back" />
+            android:src="@drawable/icon_x" />
 
 
         <LinearLayout
@@ -47,13 +47,12 @@
 
         <ImageView
             android:id="@+id/iv_answer_card"
-            android:layout_width="@dimen/dimen_56"
-            android:layout_height="@dimen/dimen_40"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dimen_25"
-            android:background="@drawable/selector_question_card"
-            android:scaleType="centerInside"/>
+            android:background="@drawable/icon_save"/>
     </RelativeLayout>
 
     <FrameLayout
@@ -73,7 +72,6 @@
                 android:id="@+id/editText"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:text="sdfsfsdfsdfsdfdsfdsfslkjdflksjlkfdjslkdjflksdjflksjfdlkdsjflksjdlkfjdslkfjsdlkf"
                 android:gravity="start"
                 android:padding="10dp"
                 android:maxLength="500"
@@ -93,13 +91,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"/>
-
-            <Button
-                android:id="@+id/btn_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:text="删除"/>
         </LinearLayout>
 
     </FrameLayout>
