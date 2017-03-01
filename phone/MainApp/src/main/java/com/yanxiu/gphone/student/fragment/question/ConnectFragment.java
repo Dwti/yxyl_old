@@ -217,7 +217,7 @@ public class ConnectFragment extends BaseQuestionFragment implements PageIndex {
         boolean flag=false;
         connect_lineslinearlayout.saveAnswers();
         ArrayList<ArrayList<String>> list=questionsEntity.getAnswerBean().getConnect_classfy_answer();
-        if (list!=null&&list.size()>0) {
+        if (list!=null&&list.size()>0&&list.size()==questionsEntity.getAnswer().size()) {
             flag=true;
         }
         questionsEntity.setHaveAnser(flag);

@@ -492,4 +492,14 @@
     <string name="delete_question">删除本题</string>
     <string name="delete_question_end">本题已删除</string>
 
+    <string name="mistake_popup_title">重做练习报告</string>
+    <string name="mistake_question_tatle">共作答:</string>
+    <string name="mistake_question_right">答对:</string>
+    <string name="mistake_question_fail">答错:</string>
+    <string name="mistake_question">题</string>
+    <string name="mistake_question_again">继续作答</string>
+    <string name="mistake_question_loginout">退出</string>
+
+    <string name="mistake_redo_math">数学</string>
+    <string name="mistake_redo_english">英语</string>
 </resources>

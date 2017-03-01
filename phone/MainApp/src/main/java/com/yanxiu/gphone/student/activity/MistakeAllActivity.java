@@ -35,6 +35,7 @@ import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.ChapterTabTitleLayout;
 import com.yanxiu.gphone.student.view.PublicLoadLayout;
+import com.yanxiu.gphone.student.view.YanxiuTypefaceButton;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -138,17 +139,20 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
         });
 
         RelativeLayout linear_number= (RelativeLayout) findViewById(R.id.linear_number);
-        linear_number.setVisibility(View.VISIBLE);
-        TextView mistake_number= (TextView) findViewById(R.id.mistake_number);
-        mistake_number.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MistakeAllActivity.this,MistakeRedoActivity.class);
-                intent.putExtra("wrongCount", 50+"");
-                startActivity(intent);
-            }
-        });
-
+        if (title.equals(getResources().getString(R.string.mistake_redo_math))||title.equals(getResources().getString(R.string.mistake_redo_english))){
+            linear_number.setVisibility(View.VISIBLE);
+            YanxiuTypefaceButton mistake_number= (YanxiuTypefaceButton) findViewById(R.id.mistake_number);
+            mistake_number.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(MistakeAllActivity.this,MistakeRedoActivity.class);
+                    intent.putExtra("wrongCount", 50+"");
+                    startActivity(intent);
+                }
+            });
+        }else {
+            linear_number.setVisibility(View.GONE);
+        }
     }
 
     private XListView.IXListViewListener ixListViewListener = new XListView.IXListViewListener(){

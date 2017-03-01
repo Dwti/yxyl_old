@@ -164,8 +164,12 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
             return;
         }
         for (int i=0;i<list.size();i++){
+            QuestionEntity entity=children.get(i).getQuestions();
             BaseQuestionFragment fragment= (BaseQuestionFragment) list.get(i);
-            fragment.setMistakeDelete();
+            try {
+                entity.setType(QuestionEntity.TYPE_DELETE_END);
+                fragment.setMistakeDelete();
+            }catch (Exception e){}
         }
     }
 
@@ -177,8 +181,12 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
             return;
         }
         for (int i=0;i<list.size();i++){
+            QuestionEntity entity=children.get(i).getQuestions();
             BaseQuestionFragment fragment= (BaseQuestionFragment) list.get(i);
-            fragment.setMistakeSubmit();
+            try {
+                entity.setType(QuestionEntity.TYPE_SUBMIT_END);
+                fragment.setMistakeSubmit();
+            }catch (Exception e){}
         }
     }
 
@@ -213,11 +221,13 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
                 for (int i=0;i<children.size();i++){
                     QuestionEntity entity=children.get(i).getQuestions();
                     if (!entity.isHaveAnser()){
+                        questionsEntity.setHaveAnser(false);
                         fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_NOANSWER);
                         return;
                     }
                 }
             }
+            questionsEntity.setHaveAnser(true);
             fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_HASANSWER);
         }else if (QuestionEntity.TYPE_SUBMIT_END.equals(questionsEntity.getType())){
             fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_SUBMIT);

@@ -392,10 +392,19 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     private boolean getIsHavaAnswer(){
         ArrayList<ArrayList<String>> list=questionsEntity.getAnswerBean().getConnect_classfy_answer();
         boolean flag = false;
-        if (list!=null) {
+        if (list!=null&&list.size()==answerData.size()) {
             for (int i = 0; i < list.size(); i++) {
+                JSONObject object = null;
+                String string = null;
+                try {
+                    object = new JSONObject(answerData.get(i));
+                    string = object.getString("answer");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String ss[] = string.split(",");
                 ArrayList<String> arrayList = list.get(i);
-                if (arrayList != null && arrayList.size() > 0) {
+                if (arrayList != null && arrayList.size() > 0&&arrayList.size()==ss.length) {
                     flag = true;
                 }
             }

@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/yanxiu_group_bg">
 
     <include
@@ -54,9 +55,27 @@
         android:id="@+id/linear_number"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_50"
+        android:layout_marginLeft="@dimen/dimen_50"
+        android:layout_marginRight="@dimen/dimen_50"
         android:layout_alignParentBottom="true"
         android:visibility="gone"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_10"
         android:orientation="vertical">
+
+        <com.yanxiu.gphone.student.view.YanxiuTypefaceButton
+            android:id="@+id/mistake_number"
+            style="@style/btn_problem_analysis"
+            android:layout_marginLeft="@dimen/dimen_0"
+            android:layout_marginRight="@dimen/dimen_0"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_height="@dimen/dimen_50"
+            android:visibility="visible"
+            android:textSize="@dimen/dimen_18"
+            app:type_face="metor_bold.OTF"
+            android:text="错题数量（50）"/>
+<!--
         <TextView
             android:id="@+id/mistake_number"
             android:textSize="@dimen/dimen_24"
@@ -66,7 +85,7 @@
             android:layout_width="wrap_content"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="错题数量（50）"/>
+            android:text="错题数量（50）"/>-->
     </RelativeLayout>
 
 </RelativeLayout>

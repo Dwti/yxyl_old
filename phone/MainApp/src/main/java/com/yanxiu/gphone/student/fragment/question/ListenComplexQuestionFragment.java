@@ -249,11 +249,13 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
                 for (int i=0;i<children.size();i++){
                     QuestionEntity entity=children.get(i).getQuestions();
                     if (!entity.isHaveAnser()){
+                        questionsEntity.setHaveAnser(false);
                         fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_NOANSWER);
                         return;
                     }
                 }
             }
+            questionsEntity.setHaveAnser(true);
             fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_HASANSWER);
         }else if (QuestionEntity.TYPE_SUBMIT_END.equals(questionsEntity.getType())){
             fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_SUBMIT);

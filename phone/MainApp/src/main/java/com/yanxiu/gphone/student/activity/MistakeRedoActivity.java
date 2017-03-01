@@ -7,7 +7,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,12 +21,14 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.MistakeRedoAdapter;
 import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
+import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.fragment.question.BaseQuestionFragment;
 import com.yanxiu.gphone.student.fragment.question.SubjectiveQuestionFragment;
 import com.yanxiu.gphone.student.utils.Content;
 import com.yanxiu.gphone.student.utils.QuestionUtils;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
+import com.yanxiu.gphone.student.view.MistakeRedoDialog;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -65,6 +69,8 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
     private Timer timer = new Timer();
     private RelativeLayout rel_popup;
     private TextView TextViewInfo;
+    private MistakeRedoDialog dialog;
+    private ImageView iv_top_back;
 
     public static void launch(Activity context, SubjectExercisesItemBean bean, String subjectId, int pagerIndex, int childIndex, int comeFrom, String wrongCount, int position) {
         Intent intent = new Intent(context, MistakeRedoActivity.class);
@@ -108,6 +114,8 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
         super.initView();
         rel_popup = (RelativeLayout) findViewById(R.id.rel_popup);
         TextViewInfo = (TextView) findViewById(R.id.TextViewInfo);
+        iv_top_back= (ImageView) findViewById(R.id.iv_top_back);
+        iv_top_back.setOnClickListener(this);
     }
 
     @Override
@@ -117,6 +125,16 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
             case R.id.iv_answer_card:
                 Intent intent = new Intent(this, MistakeRedoCardActivity.class);
                 startActivityForResult(intent, TO_CARD);
+                break;
+            case R.id.iv_top_back:
+                if (dialog==null){
+                    initPopup();
+                }else {
+                    dialog.setStageDialogCallBack(back);
+                    List<PaperTestEntity> list=dataSources.getData().get(0).getPaperTest();
+                    dialog.setQuestionNumber(getTatleNumber(list),getRightNumber(list),getFailNumber(list));
+                    dialog.show();
+                }
                 break;
         }
     }
@@ -169,7 +187,7 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
         tvToptext.setText(this.getResources().getString(R.string.questiong_resolution));
         tvToptext.setCompoundDrawables(null, null, null, null);
 //            tvAnswerCard.setVisibility(View.GONE);
-        ivAnswerCard.setBackgroundResource(R.drawable.selector_question_card);
+        ivAnswerCard.setBackgroundResource(R.drawable.selector_mistake_question_card);
 
     }
 
@@ -216,9 +234,75 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
     }
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_BACK){
+
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        
+//        super.onBackPressed();
+        if (dialog==null){
+            initPopup();
+        }else {
+            dialog.show();
+            dialog.setStageDialogCallBack(back);
+            List<PaperTestEntity> list=dataSources.getData().get(0).getPaperTest();
+            dialog.setQuestionNumber(getTatleNumber(list),getRightNumber(list),getFailNumber(list));
+        }
+    }
+
+    private MistakeRedoDialog.StageDialogCallBack back=new MistakeRedoDialog.StageDialogCallBack() {
+        @Override
+        public void stage() {
+
+        }
+
+        @Override
+        public void cancel() {
+            dialog.dismiss();
+            dialog=null;
+            MistakeRedoActivity.this.finish();
+        }
+    };
+
+    private void initPopup(){
+        dialog=new MistakeRedoDialog(this, back);
+        dialog.show();
+        List<PaperTestEntity> list=dataSources.getData().get(0).getPaperTest();
+        dialog.setQuestionNumber(getTatleNumber(list),getRightNumber(list),getFailNumber(list));
+    }
+
+    private String getTatleNumber(List<PaperTestEntity> list){
+        int t=0;
+        for (PaperTestEntity entity:list){
+             if (entity.getQuestions().isHaveAnser()){
+                t++;
+            }
+        }
+        return t+"";
+    }
+
+    private String getRightNumber(List<PaperTestEntity> list){
+        int r=0;
+        for (PaperTestEntity entity:list){
+            if (entity.getQuestions().getAnswerIsRight()== QuestionEntity.ANSWER_RIGHT){
+                r++;
+            }
+        }
+        return r+"";
+    }
+
+    private String getFailNumber(List<PaperTestEntity> list){
+        int f=0;
+        for (PaperTestEntity entity:list){
+            if (entity.getQuestions().getAnswerIsRight()==QuestionEntity.ANSWER_FAIL){
+                f++;
+            }
+        }
+        return f+"";
     }
 
     @Override
@@ -227,6 +311,12 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
         if (thread != null) {
             thread.setClear();
             thread = null;
+        }
+        if (dialog!=null){
+            if (dialog.isShowing()){
+                dialog.dismiss();
+            }
+            dialog=null;
         }
     }
 
@@ -357,5 +447,5 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
         }
     }
 
-    String ss = Content.cc;
+    String ss = Content.bb;
 }

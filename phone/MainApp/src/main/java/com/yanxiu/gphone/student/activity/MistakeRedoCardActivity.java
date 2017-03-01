@@ -80,7 +80,7 @@ public class MistakeRedoCardActivity extends YanxiuBaseActivity implements View.
 
     @Override
     public void onClick(int position, int position_child, String s) {
-        Toast.makeText(this,position+""+position_child+""+s,Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this,position+""+position_child+""+s,Toast.LENGTH_SHORT).show();
         Intent intent=new Intent();
         intent.putExtra("index",position_child);
         setResult(RESULT_OK,intent);

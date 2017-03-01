@@ -210,6 +210,9 @@ public class FillBlanksFramelayout extends FrameLayout implements
 
     public boolean getTheAnswerIsReady(){
         int count=rlMark.getChildCount()-1;
+        if (count<1){
+            return false;
+        }
         for (int i=0;i<count;i++){
             if (rlMark.getChildAt(i) instanceof MyEdittext){
                 String text=((MyEdittext) rlMark.getChildAt(i)).getText().toString();

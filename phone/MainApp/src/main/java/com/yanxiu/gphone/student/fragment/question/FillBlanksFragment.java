@@ -262,9 +262,9 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
     private void initSubOrDel(SubmitOrDeleteFragment fragment) {
         if (QuestionEntity.TYPE_SUBMIT.equals(questionsEntity.getType())) {
             if (getIsHavaAnswer()) {
-                fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_NOANSWER);
-            } else {
                 fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_HASANSWER);
+            } else {
+                fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_NOANSWER);
             }
         } else if (QuestionEntity.TYPE_SUBMIT_END.equals(questionsEntity.getType())) {
             questionsEntity.setType(QuestionEntity.TYPE_SUBMIT_END);

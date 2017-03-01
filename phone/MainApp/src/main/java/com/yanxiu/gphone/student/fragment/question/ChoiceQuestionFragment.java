@@ -252,7 +252,7 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
                 break;
             case 2:
                 List<String> answer_list = questionsEntity.getAnswerBean().getMultiSelect();
-                if (answer_list != null && answer_list.size() > 0) {
+                if (answer_list != null && answer_list.size() > 1) {
                     flag=true;
                 }
                 break;
