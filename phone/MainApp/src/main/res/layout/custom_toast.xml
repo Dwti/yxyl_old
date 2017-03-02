@@ -4,16 +4,18 @@
     android:layout_height="wrap_content"
     android:layout_centerInParent="true"
     android:layout_gravity="center"
-    android:focusable="false"
-    android:background="@drawable/my_list_bg_selector">
+    android:gravity="center"
+    android:id="@+id/relative_layout"
+    android:background="@drawable/my_list_bg_sel"
+    android:focusable="false">
+
     <TextView
         android:id="@+id/TextViewInfo"
-        android:layout_width="305dp"
-        android:layout_height="143dp"
-        android:textColor="@color/color_805500"
-        android:textSize="17sp"
-        android:gravity="center"
         style="@style/shadow_text_style"
+        android:layout_width="305dp"
+        android:layout_height="@dimen/dimen_143"
+        android:gravity="center"
         android:shadowColor="@color/color_ffff99"
-    />
-    </RelativeLayout>
+        android:textColor="@color/color_805500"
+        android:textSize="17sp" />
+</RelativeLayout>

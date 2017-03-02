@@ -502,4 +502,6 @@
 
     <string name="mistake_redo_math">数学</string>
     <string name="mistake_redo_english">英语</string>
+
+    <string name="group_refrese">刷新</string>
 </resources>
