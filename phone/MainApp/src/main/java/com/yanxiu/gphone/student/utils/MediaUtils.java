@@ -29,8 +29,6 @@ public class MediaUtils {
 
     public final static int OPEN_SYSTEM_PIC_BUILD_CAMERA=0x209;
 
-
-
     //打开自定义相册的requestCode
     public final static int OPEN_DEFINE_PIC_BUILD=0x202;
     //打开系统相机requestCode
@@ -89,108 +87,9 @@ public class MediaUtils {
     }
 
     public static File currentFile;
-    public static String saveCroppedImage(Bitmap bmp){
-        if(bmp == null)
-            return null;
-        File croppedImageFile;
-        File mediaStorageDir = null;
-        String filePath;
-        FileOutputStream fos = null;
-        try{
-            mediaStorageDir = new File(Environment
-                    .getExternalStoragePublicDirectory(
-                            Environment.DIRECTORY_PICTURES),TEMP_UPLOAD_PIC_DIR);
-        }catch (Exception e){
-            mediaStorageDir = new File(YanXiuConstant.SDCARD_ROOT_PATH, TEMP_UPLOAD_PIC_DIR);
-            e.printStackTrace();
-        }
-        try {
-            if (!mediaStorageDir.exists()) {
-                if (!mediaStorageDir.mkdirs()) {
-                    return null;
-                }
-            }
-            filePath = mediaStorageDir.getPath() + File.separator
-                    + System.currentTimeMillis()+"_cropped.png";
-            croppedImageFile = new File(filePath);
-            croppedImageFile.createNewFile();
-            fos = new FileOutputStream(croppedImageFile);
-            bmp.compress(Bitmap.CompressFormat.PNG,100,fos);
-            fos.close();
-            fos.flush();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        return filePath;
-    }
-    public static Uri createCroppedImageUri(){
-        File croppedImageFile;
-        File mediaStorageDir = null;
-        String filePath;
-        FileOutputStream fos = null;
-        try{
-            mediaStorageDir = new File(Environment
-                    .getExternalStoragePublicDirectory(
-                            Environment.DIRECTORY_PICTURES),TEMP_UPLOAD_PIC_DIR);
-        }catch (Exception e){
-            mediaStorageDir = new File(YanXiuConstant.SDCARD_ROOT_PATH, TEMP_UPLOAD_PIC_DIR);
-            e.printStackTrace();
-        }
-        try {
-            if (!mediaStorageDir.exists()) {
-                if (!mediaStorageDir.mkdirs()) {
-                    return null;
-                }
-            }
-            filePath = mediaStorageDir.getPath() + File.separator
-                    + System.currentTimeMillis()+"_cropped.png";
-            croppedImageFile = new File(filePath);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        return Uri.fromFile(croppedImageFile);
-    }
+
 
     public static String fileUrl="";
-    public static File getCameraOutputMediaFile(boolean isNewFile) {
-        File mediaStorageDir = null;
-        File yygypath = null;
-        try {
-//            mediaStorageDir = new File(Environment
-//                    .getExternalStorageDirectory().getAbsolutePath()+"/"+TEMP_UPLOAD_PIC_DIR);
-
-            yygypath = YanxiuApplication.getInstance().getFilesDir();//this.getCacheDir();
-
-        } catch (Exception e) {
-            //mediaStorageDir = new File(YanXiuConstant.SDCARD_ROOT_PATH, TEMP_UPLOAD_PIC_DIR);
-            e.printStackTrace();
-        } finally {
-            /*if (!mediaStorageDir.exists()) {
-                if (!mediaStorageDir.mkdirs()) {
-                    return null;
-                }
-            }*/
-            if(isNewFile){
-                if(currentFile!=null){
-                    currentFile=null;
-                }
-//                File mediaFile;
-//                mediaFile = new File(mediaStorageDir.getPath() + File.separator
-//                        + System.currentTimeMillis()+".png");
-                File file = new File(yygypath, System.currentTimeMillis()+".png");
-                currentFile=file;
-                fileUrl=file.getPath();
-                try {
-                    currentFile.createNewFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            return currentFile;
-        }
-    }
 
     public static File getOutputMediaFile(boolean isNewFile) {
         File mediaStorageDir = null;

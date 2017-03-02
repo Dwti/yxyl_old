@@ -175,7 +175,7 @@ public class PhotoView extends FrameLayout {
         }
     }
 
-    public List<String> getPhotos() {
+    public ArrayList<String> getPhotos() {
         return mData;
     }
 

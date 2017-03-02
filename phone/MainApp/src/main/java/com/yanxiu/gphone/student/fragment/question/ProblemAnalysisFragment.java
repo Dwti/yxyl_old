@@ -8,6 +8,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,8 +22,10 @@ import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.AnswerViewActivity;
 import com.yanxiu.gphone.student.activity.BaseAnswerViewActivity;
+import com.yanxiu.gphone.student.activity.ImagePreviewActivity;
 import com.yanxiu.gphone.student.activity.NoteEditActivity;
 import com.yanxiu.gphone.student.activity.ResolutionAnswerViewActivity;
+import com.yanxiu.gphone.student.adapter.NoteImageGridAdapter;
 import com.yanxiu.gphone.student.bean.ExercisesDataEntity;
 import com.yanxiu.gphone.student.bean.ExtendEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
@@ -72,7 +76,7 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
     private YXiuAnserTextView tvReportParseStatueText;
     private YXiuAnserTextView tvReportParseStatisticsText;
 
-    private View rootView;
+    private View rootView,ll_note_content;
     private QuestionEntity questionsEntity;
 
     private YXiuAnserTextView tvDifficulltyText;
@@ -81,8 +85,10 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
 
     private SubjectiveStarLayout difficultyStart;
 
-    private TextView tvReportQuestionError;
+    private TextView tvReportQuestionError,tv_note;
 
+    private GridView grid_note_image;
+    private NoteImageGridAdapter noteAdapter;
     private FlowLayout flowLayout;
     //    protected StudentLoadingLayout loadingLayout;
     private ImageView iv_edit_note;
@@ -108,7 +114,24 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
         rootView = inflater.inflate(R.layout.hw_report_parse_bottom, null);
         initView();
         initData();
+        initListener();
         return rootView;
+    }
+
+    private void initListener() {
+        iv_edit_note.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NoteEditActivity.lanuch(ProblemAnalysisFragment.this,tv_note.getText().toString(),noteAdapter.getData());
+            }
+        });
+
+        grid_note_image.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ImagePreviewActivity.lanuch(ProblemAnalysisFragment.this,noteAdapter.getData(),position,false);
+            }
+        });
     }
 
     private void initView() {
@@ -120,10 +143,15 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
         tvAnswerText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_answer_text);
         iv_edit_note = (ImageView) rootView.findViewById(R.id.iv_edit_note);
         tvReportQuestionError = (TextView) rootView.findViewById(R.id.tv_report_question_error);
-
+        ll_note_content = rootView.findViewById(R.id.ll_note_content);
+        tv_note = (TextView) rootView.findViewById(R.id.tv_note);
         difficultyStart = (SubjectiveStarLayout) rootView.findViewById(R.id.view_sub_difficulty_star);
         llDifficullty = (LinearLayout) rootView.findViewById(R.id.hw_report_difficullty_layout);
         llAnswer = (LinearLayout) rootView.findViewById(R.id.hw_report_answer_layout);
+
+        grid_note_image = (GridView) rootView.findViewById(R.id.grid_note_image);
+        noteAdapter = new NoteImageGridAdapter(getActivity());
+        grid_note_image.setAdapter(noteAdapter);
 
         llReportParseStatue = (LinearLayout) rootView.findViewById(R.id.hw_report_parse_statue_layout);
         llReportParseStatistics = (LinearLayout) rootView.findViewById(R.id.hw_report_parse_statistics_layout);
@@ -305,7 +333,15 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
 //            }
         }
 
+        setNoteContentVisible(tv_note.getText().toString(),noteAdapter.getData());
+    }
 
+    private void setNoteContentVisible(String note,List<String> imagePath){
+        if(TextUtils.isEmpty(note) && (imagePath == null || imagePath.size() ==0)){
+            ll_note_content.setVisibility(View.GONE);
+        }else {
+            ll_note_content.setVisibility(View.VISIBLE);
+        }
     }
 
     private String getTypeKey(String key) {
@@ -413,6 +449,22 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
         if (tvReportQuestionError == v) {
             ActivityJumpUtils.jumpToFeedBackActivity(this.getActivity(), qid, AbstractFeedBack.ERROR_FEED_BACK);
             (this.getActivity()).overridePendingTransition(R.anim.fade, R.anim.hold);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case NoteEditActivity.REQUEST_NOTE_EDIT:
+                if(resultCode == getActivity().RESULT_OK){
+                    tv_note.setText(data.getStringExtra(NoteEditActivity.NOTE_CONTENT));
+                    noteAdapter.setData(data.getStringArrayListExtra(NoteEditActivity.PHOTO_PATH));
+                    setNoteContentVisible(tv_note.getText().toString(),noteAdapter.getData());
+                }
+                break;
+            default:
+                break;
         }
     }
 }

@@ -25,9 +25,11 @@ import com.common.core.utils.LogInfo;
 import com.common.core.view.flowview.FlowLayout;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.BaseAnswerViewActivity;
+import com.yanxiu.gphone.student.activity.ImagePreviewActivity;
 import com.yanxiu.gphone.student.activity.NoteEditActivity;
 import com.yanxiu.gphone.student.activity.PhotoViewActivity;
 import com.yanxiu.gphone.student.activity.ResolutionAnswerViewActivity;
+import com.yanxiu.gphone.student.adapter.NoteImageGridAdapter;
 import com.yanxiu.gphone.student.adapter.SubjectiveImageAdapter;
 import com.yanxiu.gphone.student.adapter.AudioCommentAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
@@ -59,7 +61,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
     private YXiuAnserTextView tvKnowledgePoint;
     private YXiuAnserTextView tvReportParseText;
     private YXiuAnserTextView tvCorrectionResultText;
-    private TextView tv_result;
+    private TextView tv_result,tv_note;
     private ImageView iv_edit_note;
 //    private YXiuAnserTextView tvMyAnswer;
 //    private ReadingQuestionsFragment rlAnswerPen;
@@ -72,7 +74,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
 
     private SubjectiveStarLayout difficultyStart;
 
-    private View rootView;
+    private View rootView,ll_note_content;
     private QuestionEntity questionsEntity;
 
     private FlowLayout flowLayout;
@@ -90,11 +92,12 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
 
     private String qid;
 
-    private GridView subjectiveGrid;
+    private GridView subjectiveGrid,grid_note_image;
     private ListView lv_voice_comment;
     private AudioCommentPlayer currentVoicePlayer;
     private AudioCommentAdapter audioCommentAdapter;
     private SubjectiveImageAdapter adapter;
+    private NoteImageGridAdapter noteAdapter ;
     private List<String> photosList;
     private CorpListener listener;
     private List<AudioCommentBean> audioComments = new ArrayList<>();
@@ -121,7 +124,24 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
         telephonyManager.listen(new PhoneCallListener(), PhoneStateListener.LISTEN_CALL_STATE);
         initView();
         initData();
+        initListener();
         return rootView;
+    }
+
+    private void initListener() {
+        iv_edit_note.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NoteEditActivity.lanuch(SubjectiveProblemAnalysisFragment.this,tv_note.getText().toString(),noteAdapter.getData());
+            }
+        });
+
+        grid_note_image.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ImagePreviewActivity.lanuch(SubjectiveProblemAnalysisFragment.this,noteAdapter.getData(),position,false);
+            }
+        });
     }
 
     private void initView() {
@@ -135,7 +155,8 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
         iv_result = (ImageView) rootView.findViewById(R.id.iv_result);
         tv_result = (TextView) rootView.findViewById(R.id.tv_result);
         tvReportQuestionError = (TextView) rootView.findViewById(R.id.tv_report_question_error);
-
+        ll_note_content= rootView.findViewById(R.id.ll_note_content);
+        tv_note = (TextView) rootView.findViewById(R.id.tv_note);
         tvDifficulltyText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_difficullty_text);
         tvAnswerText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_answer_text);
 
@@ -157,22 +178,16 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
         adapter = new SubjectiveImageAdapter(this.getActivity());
         subjectiveGrid.setAdapter(adapter);
 
-        flowLayout = (FlowLayout) rootView.findViewById(R.id.knowledge_flow_layout);
+        grid_note_image = (GridView) rootView.findViewById(R.id.grid_note_image);
+        noteAdapter = new NoteImageGridAdapter(getActivity());
+        grid_note_image.setAdapter(noteAdapter);
 
+        flowLayout = (FlowLayout) rootView.findViewById(R.id.knowledge_flow_layout);
         tvReportQuestionError.setOnClickListener(this);
 
         ivIcon = (ImageView) rootView.findViewById(R.id.icon_correction_result);
         flCorrectionContent = (FrameLayout) rootView.findViewById(R.id.fl_correction_result_content);
         mLlReportParse = (LinearLayout) rootView.findViewById(R.id.hw_report_parse_statistics_layout);
-
-        iv_edit_note.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NoteEditActivity.class);
-                startActivity(intent);
-            }
-        });
-
 
     }
 
@@ -235,12 +250,6 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
         } else {
             ll_voice_comment.setVisibility(View.GONE);
         }
-//        for(int i =0;i<10;i++){
-//            AudioCommentBean bean = new AudioCommentBean();
-//            bean.setUrl("http://scc.jsyxw.cn/audio/2017/0204/file_58959fb430fce.mp3");
-//            bean.setLength((i+1) * 10);
-//            audioComments.add(bean);
-//        }
 
         if (questionsEntity != null) {
             //不可补做的题 隐藏批改结果
@@ -336,6 +345,16 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
 
 
         }
+
+        setNoteContentVisible(tv_note.getText().toString(),noteAdapter.getData());
+    }
+
+    private void setNoteContentVisible(String note,List<String> imagePath){
+        if(TextUtils.isEmpty(note) && (imagePath == null || imagePath.size() ==0)){
+            ll_note_content.setVisibility(View.GONE);
+        }else {
+            ll_note_content.setVisibility(View.VISIBLE);
+        }
     }
 
     private String getTypeKey(String key) {
@@ -386,6 +405,21 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case NoteEditActivity.REQUEST_NOTE_EDIT:
+                if(resultCode == getActivity().RESULT_OK){
+                    tv_note.setText(data.getStringExtra(NoteEditActivity.NOTE_CONTENT));
+                    noteAdapter.setData(data.getStringArrayListExtra(NoteEditActivity.PHOTO_PATH));
+                    setNoteContentVisible(tv_note.getText().toString(),noteAdapter.getData());
+                }
+                break;
+            default:
+                break;
+        }
+    }
 
     @Override
     public void onUserVisibleHint(boolean isVisibleToUser) {

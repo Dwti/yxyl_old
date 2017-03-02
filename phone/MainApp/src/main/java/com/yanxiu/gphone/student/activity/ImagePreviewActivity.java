@@ -3,6 +3,7 @@ package com.yanxiu.gphone.student.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.text.Spanned;
@@ -46,6 +47,13 @@ public class ImagePreviewActivity extends Activity implements View.OnClickListen
         activity.startActivityForResult(intent,IMAGE_PREVIEW);
     }
 
+    public static void lanuch(Fragment fragment, ArrayList<String> paths, int currentItem, boolean canDelete) {
+        Intent intent = new Intent(fragment.getActivity(),ImagePreviewActivity.class);
+        intent.putStringArrayListExtra(PATH_LIST,paths);
+        intent.putExtra(CURRENT_ITEM,currentItem);
+        intent.putExtra(CAN_BE_DELETED,canDelete);
+        fragment.startActivityForResult(intent,IMAGE_PREVIEW);
+    }
     public static void lanuch(Activity activity,ArrayList<String> paths, int currentItem) {
         Intent intent = new Intent(activity,ImagePreviewActivity.class);
         intent.putStringArrayListExtra(PATH_LIST,paths);

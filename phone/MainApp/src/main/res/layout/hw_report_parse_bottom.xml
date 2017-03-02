@@ -473,17 +473,23 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/ll_note_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="15dp"
-            android:padding="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
             android:background="@drawable/rectagle_board">
 
             <TextView
+                android:id="@+id/tv_note"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="29838479328749283749kjdlfjslkdjflkdsjflkdsjflkdsjflkdsjflksdjflkdsf"/>
+                android:textSize="@dimen/note_text_size"
+                android:textColor="@color/color_black"/>
 
             <com.yanxiu.gphone.student.view.picsel.NoScrollGridView
                 android:id="@+id/grid_note_image"
