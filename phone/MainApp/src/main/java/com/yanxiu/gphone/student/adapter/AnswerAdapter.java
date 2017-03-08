@@ -15,6 +15,7 @@ import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.bean.SubjectiveQuestEventBean;
+import com.yanxiu.gphone.student.fragment.FillFragment;
 import com.yanxiu.gphone.student.fragment.question.BaseComplexFragment;
 import com.yanxiu.gphone.student.fragment.question.BaseQuestionFragment;
 import com.yanxiu.gphone.student.fragment.question.ChoiceQuestionFragment;
@@ -594,12 +595,7 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
                         ((JudgeQuestionFragment) fragment).setIsChild(true, list.size(), parent_template, parent_type, totalCount);
                     } else if (template.equals(YanXiuConstant.FILL_BLANK)) {
                         fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_FILL_BLANKS, list.get(i).getQuestions(), answerViewTypyBean, list.get(i).getQuestions().getChildPageIndex(), 0, wrongCount);
-                        /*if (template.equals(YanXiuConstant.MULTI_QUESTION) && (typeId == QUESTION_SOLVE_COMPLEX.type || typeId == QUESTION_COMPUTE.type)) {
-                            ((NewFillBlanksFragment) fragment).setIsChild(true,list.size(), parent_template, parent_type, totalCount);
-                        } else {
-                            ((FillBlanksFragment) fragment).setIsChild(true,list.size(), parent_template, parent_type, totalCount);
-                        }*/
-                        ((FillBlanksFragment) fragment).setIsChild(true, list.size(), parent_template, parent_type, totalCount);
+                        ((FillFragment) fragment).setIsChild(true, list.size(), parent_template, parent_type, totalCount);
                     } else if (template.equals(YanXiuConstant.ANSWER_QUESTION)) {
                         fragment = QuestionFragmentFactory.getInstance().createQuestionFragment(QUESTION_SUBJECTIVE, list.get(i).getQuestions(), answerViewTypyBean, list.get(i).getQuestions().getChildPageIndex(), 0, wrongCount);
                         ((SubjectiveQuestionFragment) fragment).setIsChild(true, list.size(), parent_template, parent_type, totalCount);
