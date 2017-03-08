@@ -20,7 +20,9 @@ import com.yanxiu.basecore.task.base.threadpool.YanxiuSimpleAsyncTask;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.WrongAllListAdapter;
 import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
+import com.yanxiu.gphone.student.bean.DataStatusEntityBean;
 import com.yanxiu.gphone.student.bean.ExercisesDataEntity;
+import com.yanxiu.gphone.student.bean.MistakeRedoNumberBean;
 import com.yanxiu.gphone.student.bean.PageBean;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.PublicErrorQuestionCollectionBean;
@@ -68,6 +70,8 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
     private RequestWrongAllQuestionTask mRequestWrongAllQuestionTask;
     private SubjectExercisesItemBean mSubjectExercisesItemBean;
     private SubjectExercisesItemBean subjectExercisesItemBeanIntent = new SubjectExercisesItemBean();;
+    private MistakeRedoNumberBean numberBean;
+    private YanxiuTypefaceButton mistake_number;
 
     public static void launch (Activity activity, String title, String subjectId, String wrongNum) {
         Intent intent = new Intent(activity, MistakeAllActivity.class);
@@ -95,6 +99,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
         EventBus.getDefault().register(this);
         findView();
         requestMistakeAllList(false, true, false);
+        requestMistakeNumber();
     }
 
     private void findView() {
@@ -139,14 +144,14 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
         });
 
         RelativeLayout linear_number= (RelativeLayout) findViewById(R.id.linear_number);
+        mistake_number= (YanxiuTypefaceButton) findViewById(R.id.mistake_number);
         if (title.equals(getResources().getString(R.string.mistake_redo_math))||title.equals(getResources().getString(R.string.mistake_redo_english))){
             linear_number.setVisibility(View.VISIBLE);
-            YanxiuTypefaceButton mistake_number= (YanxiuTypefaceButton) findViewById(R.id.mistake_number);
             mistake_number.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent=new Intent(MistakeAllActivity.this,MistakeRedoActivity.class);
-                    intent.putExtra("wrongCount", 50+"");
+                    intent.putExtra("wrongCount", numberBean.getProperty().getQuestionNum()+"");
                     startActivity(intent);
                 }
             });
@@ -176,6 +181,21 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
             }
         }
     };
+
+    private void requestMistakeNumber(){
+        numberBean=new MistakeRedoNumberBean();
+        DataStatusEntityBean bean=new DataStatusEntityBean();
+        bean.setCode(0);
+        bean.setDesc("操作成功");
+        MistakeRedoNumberBean.ProPerty perty= numberBean.new ProPerty();
+        perty.setQuestionNum(60);
+        numberBean.setStatus(bean);
+        numberBean.setProperty(perty);
+
+
+        String s=getResources().getString(R.string.mistake_redo_number,numberBean.getProperty().getQuestionNum()+"");
+        mistake_number.setText(s);
+    }
 
     private void requestMistakeAllList(final boolean isRefresh,final boolean showLoading,
                                final boolean isLoaderMore){

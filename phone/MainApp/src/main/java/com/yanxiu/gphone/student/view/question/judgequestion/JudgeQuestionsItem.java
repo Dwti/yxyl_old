@@ -166,8 +166,11 @@ public class JudgeQuestionsItem extends AbsChoiceQuestionsItem implements View.O
                 setShadow(Color.parseColor("#006666"),Color.parseColor("#33ffff"));
                 break;
             case WRONG:
-                llParentBg.setBackgroundResource(R.drawable.selector_judge_wrong);
-                setShadow(Color.parseColor("#80334d"),Color.parseColor("#ffe5ee"));
+                /**2017.03.07 14:58 按产品wiki文档修改*/
+                llParentBg.setBackgroundResource(R.drawable.selector_judge_correct);
+                setShadow(Color.parseColor("#006666"),Color.parseColor("#33ffff"));
+//                llParentBg.setBackgroundResource(R.drawable.selector_judge_wrong);
+//                setShadow(Color.parseColor("#80334d"),Color.parseColor("#ffe5ee"));
                 break;
         }
     }

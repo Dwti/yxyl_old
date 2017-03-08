@@ -163,7 +163,7 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
 
                 mistakeRedoAdapter = new MistakeRedoAdapter(getSupportFragmentManager());
                 handle = new MyHandle(mistakeRedoAdapter);
-                mistakeRedoAdapter.setDataSourcesFirst(dataSources, wrongCounts, 0, dataSources.getData().get(0).getPaperTest().size());
+                mistakeRedoAdapter.setDataSourcesFirst(dataSources, wrongCounts);
                 vpAnswer.setAdapter(mistakeRedoAdapter);
                 mistakeRedoAdapter.setViewPager(vpAnswer);
                 mistakeRedoAdapter.setLoadListener(this);
@@ -222,23 +222,15 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
     }
 
     @Override
-    public void onLoadListener(int position, int page_start, int page_end) {
+    public void onLoadListener(int page) {
         if (thread != null) {
             thread.setClear();
             thread = null;
         }
-        handle.setPage_end(page_end);
-        handle.setPage_start(page_start);
+        handle.setPage(page);
+//        handle.setPage_start(page_start);
         thread = new MyThread(handle);
         thread.start();
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode==KeyEvent.KEYCODE_BACK){
-
-        }
-        return super.onKeyDown(keyCode, event);
     }
 
     @Override
@@ -358,20 +350,20 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
 
         private WeakReference<MistakeRedoAdapter> weak;
         private WeakReference<RelativeLayout> weak_pop;
-        private int page_start;
-        private int page_end;
+        private int page;
+//        private int page_end;
 
         MyHandle(MistakeRedoAdapter mistakeRedoAdapter) {
             weak = new WeakReference<>(mistakeRedoAdapter);
         }
 
-        public void setPage_start(int page_start) {
-            this.page_start = page_start;
+        public void setPage(int page) {
+            this.page = page;
         }
 
-        public void setPage_end(int page_end) {
-            this.page_end = page_end;
-        }
+//        public void setPage_end(int page_end) {
+//            this.page_end = page_end;
+//        }
 
         public void setPopupWindow(RelativeLayout window) {
             weak_pop = new WeakReference<>(window);
@@ -385,7 +377,7 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
                     SubjectExercisesItemBean dataSources = (SubjectExercisesItemBean) msg.obj;
                     if (weak != null && weak.get() != null) {
                         MistakeRedoAdapter adapter = weak.get();
-                        adapter.addDataSources(dataSources, page_start, page_end);
+                        adapter.addDataSources(dataSources, page);
                         adapter.notifyDataSetChanged();
                     }
                     break;
@@ -447,5 +439,5 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
         }
     }
 
-    String ss = Content.bb;
+    String ss = Content.cc;
 }

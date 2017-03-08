@@ -51,12 +51,12 @@ public class MistakeRedoAdapter extends BaseMistakRedoAdapter<PaperTestEntity> i
     private String subject_id;
     private OnShouldDownLoadListener loadListener;
     private int position;
-    private int LARGEPAGECOUNT=5;
+    private int LARGEPAGECOUNT=10;
     private int page_start=-1;
     private int page_end=-1;
 
     public interface OnShouldDownLoadListener{
-        void onLoadListener(int position,int page_start,int page_end);
+        void onLoadListener(int page);
     }
 
     public void setLoadListener(OnShouldDownLoadListener listener){
@@ -82,22 +82,26 @@ public class MistakeRedoAdapter extends BaseMistakRedoAdapter<PaperTestEntity> i
         if (this.position!=position&&false) {
             if (object instanceof DefaultLoadFragment){
                 if (position<this.page_start||position>=this.page_end) {
-                    List<PaperTestEntity> datas = getDatas();
-                    int count = 0;
-                    boolean flag = true;
-                    int dataSize=datas.size();
-                    while (count < LARGEPAGECOUNT && flag) {
-                        int num=position + count;
-                        if (num<dataSize&&datas.get(num) == null) {
-                            count++;
-                        } else {
-                            flag = false;
-                        }
-                    }
-                    this.page_start=position;
-                    this.page_end=position + count;
+
+                    int page=position/10;
+                    this.page_start=page;
+                    this.page_end=page*10+9;
+//                    List<PaperTestEntity> datas = getDatas();
+//                    int count = 0;
+//                    boolean flag = true;
+//                    int dataSize=datas.size();
+//                    while (count < LARGEPAGECOUNT && flag) {
+//                        int num=position + count;
+//                        if (num<dataSize&&datas.get(num) == null) {
+//                            count++;
+//                        } else {
+//                            flag = false;
+//                        }
+//                    }
+//                    this.page_start=position;
+//                    this.page_end=position + count;
                     if (loadListener != null) {
-                        loadListener.onLoadListener(position, position, position + count);
+                        loadListener.onLoadListener(page+1);
                     }
                 }
             }
@@ -109,7 +113,7 @@ public class MistakeRedoAdapter extends BaseMistakRedoAdapter<PaperTestEntity> i
         this.vpAnswer = vpAnswer;
     }
 
-    public void setDataSourcesFirst(SubjectExercisesItemBean dataSources,int number,int page_start,int page_end){
+    public void setDataSourcesFirst(SubjectExercisesItemBean dataSources,int number){
         this.dataSources = dataSources;
         this.name = dataSources.getData().get(0).getName();
         this.wrongCount=number;
@@ -118,15 +122,24 @@ public class MistakeRedoAdapter extends BaseMistakRedoAdapter<PaperTestEntity> i
         subject_id = dataSources.getData().get(0).getSubjectid();
         ArrayList<PaperTestEntity> list=getList(number);
         this.setData(list);
-        addDataSources(dataSources,page_start,page_end);
+        addDataSources(dataSources,1);
     }
 
-    public void addDataSources(SubjectExercisesItemBean dataSources,int page_start,int page_end) {
+    public void addDataSources(SubjectExercisesItemBean dataSources,int page) {
         ArrayList<PaperTestEntity> list= (ArrayList<PaperTestEntity>) getDatas();
         List<PaperTestEntity> data=dataSources.getData().get(0).getPaperTest();
         int k=0;
-        for (int i=page_start;i<page_end;i++){
-            list.set(i,data.get(k));
+        int start=10*(page-1);
+        int data_count=data.size();
+        int number=LARGEPAGECOUNT;
+        if (data_count<LARGEPAGECOUNT){
+            number=data_count;
+        }
+        int end=start+number;
+        for (int i=start;i<end;i++){
+            if (list.get(i)==null) {
+                list.set(i, data.get(k));
+            }
             k++;
         }
     }
