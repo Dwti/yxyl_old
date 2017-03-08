@@ -54,7 +54,6 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        if (rootView == null) {
         rootView = LayoutInflater.from(getActivity()).inflate(
                 R.layout.fragment_fill_blanks, null);
         fillBlanksFramelayout = (FillBlanksFramelayout) rootView.findViewById(R.id.fb_item);
@@ -73,7 +72,6 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
         FragmentTransaction ft = FillFragment.this.getChildFragmentManager().beginTransaction();
         ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
         selectTypeView();
-//        }
         return rootView;
     }
 

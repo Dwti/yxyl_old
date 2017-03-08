@@ -1,10 +1,12 @@
 package com.yanxiu.gphone.student.view.spanreplaceabletextview;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.Html;
 import android.text.Layout;
 import android.text.Spanned;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -12,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.utils.Util;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -52,6 +55,9 @@ public abstract class SpanReplaceableTextView<T extends View> extends FrameLayou
         linkedHashMap = new LinkedHashMap<>();
         View view = LayoutInflater.from(context).inflate(R.layout.replaceable_text_view,this,true);
         mTextView = (MyTextView) view.findViewById(R.id.textView);
+        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+        mTextView.setTextColor(Color.BLACK);
+//        mTextView.setLineSpacing(Util.px2dip(50), 1);
         mRelativeLayout = (RelativeLayout) view.findViewById(R.id.relativeLayout);
         mTextView.setOnDrawFinishedListener(new TextViewOnDrawFinishedListener());
     }

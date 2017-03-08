@@ -18,7 +18,7 @@ public class FillBlankEmptySpan extends EmptySpan {
 
     @Override
     protected int height() {
-        return Util.dipToPx(40);
+        return Util.dipToPx(20);
     }
 
     @Override
