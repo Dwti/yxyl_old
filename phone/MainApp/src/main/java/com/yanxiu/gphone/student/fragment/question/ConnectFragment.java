@@ -26,7 +26,6 @@ import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Administrator on 2016/9/7.
@@ -220,7 +219,7 @@ public class ConnectFragment extends BaseQuestionFragment implements PageIndex {
         if (list!=null&&list.size()>0&&list.size()==questionsEntity.getAnswer().size()) {
             flag=true;
         }
-        questionsEntity.setHaveAnser(flag);
+        questionsEntity.setIsAllBlanksFilled(flag);
         return  flag;
     }
 

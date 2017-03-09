@@ -204,7 +204,7 @@ public class JudgeQuestionFragment extends BaseQuestionFragment implements Quest
         if (!TextUtils.isEmpty(answer)) {
             flag=true;
         }
-        questionsEntity.setHaveAnser(flag);
+        questionsEntity.setIsAllBlanksFilled(flag);
         return  flag;
     }
 

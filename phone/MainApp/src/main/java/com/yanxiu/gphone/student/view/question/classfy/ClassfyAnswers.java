@@ -88,7 +88,7 @@ public class ClassfyAnswers extends ViewGroup {
             lineWidth += childWidth + lp.leftMargin + lp.rightMargin;
             lineHeight = childHeight + lp.topMargin
                     + lp.bottomMargin;
-            //lineHeight = Math.max(lineHeight, childHeight + lp.topMargin
+            //standardLineHeight = Math.max(standardLineHeight, childHeight + lp.topMargin
                     //+ lp.bottomMargin);
             lineViews.add(child);
         }

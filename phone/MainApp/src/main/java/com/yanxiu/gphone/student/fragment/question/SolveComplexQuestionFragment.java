@@ -26,11 +26,8 @@ import com.yanxiu.gphone.student.bean.ChildIndexEvent;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
-import com.yanxiu.gphone.student.inter.CorpListener;
 import com.yanxiu.gphone.student.inter.OnPushPullTouchListener;
-import com.yanxiu.gphone.student.utils.CorpUtils;
 import com.yanxiu.gphone.student.utils.FragmentManagerFactory;
-import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
@@ -208,13 +205,13 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
                 for (int i=0;i<children.size();i++){
                     QuestionEntity entity=children.get(i).getQuestions();
                     if (!entity.isHaveAnser()){
-                        questionsEntity.setHaveAnser(false);
+                        questionsEntity.setIsAllBlanksFilled(false);
                         fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_NOANSWER);
                         return;
                     }
                 }
             }
-            questionsEntity.setHaveAnser(true);
+            questionsEntity.setIsAllBlanksFilled(true);
             fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_HASANSWER);
         }else if (QuestionEntity.TYPE_SUBMIT_END.equals(questionsEntity.getType())){
             fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_SUBMIT);

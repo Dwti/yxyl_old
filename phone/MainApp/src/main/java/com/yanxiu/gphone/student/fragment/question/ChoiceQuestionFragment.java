@@ -257,7 +257,7 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
                 }
                 break;
         }
-        questionsEntity.setHaveAnser(flag);
+        questionsEntity.setIsAllBlanksFilled(flag);
         return  flag;
     }
 

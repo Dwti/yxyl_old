@@ -2,23 +2,14 @@ package com.yanxiu.gphone.student.view;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.DrawableRes;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.inter.SetAnswerCallBack;
-
-import java.lang.reflect.Field;
 
 /**
  * Created by JS-00 on 2016/11/22.
@@ -50,24 +41,24 @@ public class MyEdittext extends AppCompatEditText {
     }
 
     public void setTextData(String text){
-        this.removeTextChangedListener(watcher);
+//        this.removeTextChangedListener(watcher);
         this.setText(text);
-        this.addTextChangedListener(watcher);
+//        this.addTextChangedListener(watcher);
     }
 
-    TextWatcher watcher=new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
+//    TextWatcher watcher=new TextWatcher() {
+//        @Override
+//        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//        }
+//
+//        @Override
+//        public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//        }
+//
+//        @Override
+//        public void afterTextChanged(Editable s) {
 //            if (MyEdittext.this.getText().length()>0){
 //                MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_empty_bg));
 //            }else {
@@ -83,17 +74,17 @@ public class MyEdittext extends AppCompatEditText {
 //            }else {
 //                MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_full_bg));
 //            }
-            if (callBack!=null){
-                callBack.callback();
-            }
-        }
-    };
+//            if (callBack!=null){
+//                callBack.callback();
+//            }
+//        }
+//    };
 
     private void init(Context context) {
         this.mContext = context;
         setTextColor(Color.BLACK);
         setBackground(mContext.getResources().getDrawable(R.drawable.fill_full_bg));
-        addTextChangedListener(watcher);
+//        addTextChangedListener(watcher);
     }
 
     @Override

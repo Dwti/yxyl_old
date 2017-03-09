@@ -12,7 +12,8 @@ import android.text.style.DynamicDrawableSpan;
  */
 
 public abstract class EmptySpan extends DynamicDrawableSpan {
-    public int lineHeight;
+    public int standardLineHeight;
+    public int textWidth;
 
     @Override
     public Drawable getDrawable() {
@@ -46,13 +47,13 @@ public abstract class EmptySpan extends DynamicDrawableSpan {
     @Override
     public int getSize(Paint paint, CharSequence text, int start, int end, Paint.FontMetricsInt fm) {
         if (fm != null) {
-            if (height() > lineHeight) {
+            if (height() > standardLineHeight) {
                 int orgDescent = fm.descent;
                 int extraSpace = height() - (fm.descent - fm.ascent);
                 fm.descent = extraSpace / 2 + orgDescent;
-                fm.bottom = fm.descent;
+                fm.bottom = fm.bottom + extraSpace / 2;
                 fm.ascent = -height() + fm.descent;
-                fm.top = fm.ascent;
+                fm.top = fm.top - extraSpace / 2;
             }
         }
         return width();
@@ -61,5 +62,4 @@ public abstract class EmptySpan extends DynamicDrawableSpan {
     protected abstract int width();
     protected abstract int height();
     protected abstract int color();
-
 }

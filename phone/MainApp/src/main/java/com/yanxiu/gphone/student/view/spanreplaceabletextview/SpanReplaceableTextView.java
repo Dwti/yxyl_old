@@ -32,7 +32,7 @@ public abstract class SpanReplaceableTextView<T extends View> extends FrameLayou
     protected RelativeLayout mRelativeLayout;
     protected Context mContext;
     protected Spanned spanned;
-    protected EmptySpan[] tagSpans;
+    protected EmptySpan[] emptySpans;
     private LinkedHashMap<EmptySpan,T> linkedHashMap;
     protected boolean isReplaceCompleted = false;
     public SpanReplaceableTextView(Context context) {
@@ -63,20 +63,33 @@ public abstract class SpanReplaceableTextView<T extends View> extends FrameLayou
     }
 
     public void setText(String text){
+       setText(text,null);
+    }
+
+    public void setText(String text,List<String> textToFill){
         spanned = Html.fromHtml(text,getImageGetter(), getTagHandler());
-        tagSpans = spanned.getSpans(0,spanned.length(),getTagHandler().getSpanType());
-        for(EmptySpan span: tagSpans){
-            span.lineHeight = mTextView.getLineHeight();
-        }
+        initSpanWidthAndHeight(spanned,textToFill);
+        mTextView.setLineSpacing(Util.convertDpToPx(getContext(),2),1);
         mTextView.setText(spanned, TextView.BufferType.SPANNABLE);
     }
 
+    protected void initSpanWidthAndHeight(Spanned span,List<String> textToFill){
+        emptySpans = span.getSpans(0,spanned.length(),getTagHandler().getSpanType());
+        int minSpanWidth = getMinSpanWidth();
+        for(int i = 0; i < emptySpans.length; i++){
+            emptySpans[i].standardLineHeight = mTextView.getLineHeight();
+            if(textToFill != null && textToFill.get(i) != null){
+                int textWidth = (int) Util.computeStringWidth(textToFill.get(i),mTextView.getPaint());
+                emptySpans[i].textWidth = Math.max(textWidth,minSpanWidth);
+            }
+        }
+    }
     protected void replaceSpanWithView() {
         if(spanned == null){
             isReplaceCompleted = true;
             return;
         }
-        for (EmptySpan s : tagSpans) {
+        for (EmptySpan s : emptySpans) {
 
             int start = spanned.getSpanStart(s);
             Layout layout = mTextView.getLayout();
@@ -121,6 +134,9 @@ public abstract class SpanReplaceableTextView<T extends View> extends FrameLayou
             mRelativeLayout.removeAllViews();
             linkedHashMap.clear();
         }
+    }
+    protected int getMinSpanWidth(){
+        return Util.convertDpToPx(getContext(),50);
     }
     protected Html.ImageGetter getImageGetter(){
         return new HtmlImageGetter(mContext, mTextView);

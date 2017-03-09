@@ -85,7 +85,7 @@ public class QuestionEntity implements YanxiuBaseBean {
         return isHaveAnser;
     }
 
-    public void setHaveAnser(boolean haveAnser) {
+    public void setIsAllBlanksFilled(boolean haveAnser) {
         isHaveAnser = haveAnser;
     }
 

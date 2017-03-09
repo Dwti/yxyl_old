@@ -29,14 +29,14 @@ import com.yanxiu.gphone.student.utils.QuestionUtils;
 import com.yanxiu.gphone.student.view.spanreplaceabletextview.FillBlankTextView;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.fillblanks.FillBlanksFramelayout;
-import com.yanxiu.gphone.student.view.spanreplaceabletextview.SpanReplaceableTextView;
+import com.yanxiu.gphone.student.view.spanreplaceabletextview.FilledContentChangeListener;
 
 import java.util.List;
 
 /**
  * Created by Administrator on 2015/7/7.
  */
-public class FillFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex {
+public class FillFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex,FilledContentChangeListener {
 
     private FillBlanksFramelayout fillBlanksFramelayout;
     private FillBlankTextView mTextView;
@@ -59,13 +59,13 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
         fillBlanksFramelayout = (FillBlanksFramelayout) rootView.findViewById(R.id.fb_item);
         mTextView = (FillBlankTextView) rootView.findViewById(R.id.fill_blank_text_view);
         if (answerViewTypyBean == SubjectExercisesItemBean.MISTAKEREDO) {
-            fillBlanksFramelayout.setMistakeCallBack(callBack);
+            mTextView.setFilledContentChangeListener(this);
         }
         View top_dotted_line = rootView.findViewById(R.id.top_dotted_line);
         if (ischild)
             top_dotted_line.setVisibility(View.GONE);
         if (questionsEntity != null && questionsEntity.getStem() != null) {
-            mTextView.setText(initStem(questionsEntity.getStem()));
+            mTextView.setText(initStem(questionsEntity.getStem()),questionsEntity.getAnswer());
             mTextView.setFilledContent(questionsEntity.getAnswerBean().getFillAnswers());
         }
 
@@ -245,37 +245,24 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
     private SetAnswerCallBack callBack = new SetAnswerCallBack() {
         @Override
         public void callback() {
-            if (ischild) {
-                if (redoCallback != null) {
-                    redoCallback.redoCallback();
-                }
-                return;
-            }
-            Fragment fragment = getChildFragmentManager().findFragmentByTag("sub_or_del");
-            if (fragment == null) {
-                return;
-            }
-            SubmitOrDeleteFragment submitOrDeleteFragment = (SubmitOrDeleteFragment) fragment;
-            initSubOrDel(submitOrDeleteFragment);
+
         }
     };
 
-    private boolean isAllBlanksFilled() {
+    private boolean isAllBlanksFilled(List<String> filledContents) {
         boolean flag = true;
-        List<String> filledContents = mTextView.getFilledContent();
         for(String str : filledContents){
             if(TextUtils.isEmpty(str)){
                 flag = false;
                 break;
             }
         }
-        questionsEntity.setHaveAnser(flag);
         return flag;
     }
 
     private void initSubOrDel(SubmitOrDeleteFragment fragment) {
         if (QuestionEntity.TYPE_SUBMIT.equals(questionsEntity.getType())) {
-            if (isAllBlanksFilled()) {
+            if (isAllBlanksFilled(mTextView.getFilledContent())) {
                 fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_HASANSWER);
             } else {
                 fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_NOANSWER);
@@ -327,5 +314,23 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
     public void onDestroy() {
         super.onDestroy();
         System.gc();
+    }
+
+    @Override
+    public void filledContentChanged(List<String> filledContent) {
+        if (ischild){
+            questionsEntity.setIsAllBlanksFilled(isAllBlanksFilled(filledContent));
+            getTheAnswerIsRight();
+            if (redoCallback!=null){
+                redoCallback.redoCallback();
+            }
+            return;
+        }
+        Fragment fragment=getChildFragmentManager().findFragmentByTag("sub_or_del");
+        if (fragment==null){
+            return;
+        }
+        SubmitOrDeleteFragment submitOrDeleteFragment= (SubmitOrDeleteFragment) fragment;
+        initSubOrDel(submitOrDeleteFragment);
     }
 }

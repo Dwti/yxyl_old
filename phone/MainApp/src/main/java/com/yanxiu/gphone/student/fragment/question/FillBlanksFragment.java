@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +20,6 @@ import com.yanxiu.gphone.student.inter.SetAnswerCallBack;
 import com.yanxiu.gphone.student.utils.FragmentManagerFactory;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.fillblanks.FillBlanksFramelayout;
-
-import java.util.List;
 
 /**
  * Created by Administrator on 2015/7/7.
@@ -255,7 +252,7 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
 
     private boolean getIsHavaAnswer(){
         boolean flag=fillBlanksFramelayout.getTheAnswerIsReady();
-        questionsEntity.setHaveAnser(flag);
+        questionsEntity.setIsAllBlanksFilled(flag);
         return  flag;
     }
 
@@ -316,17 +313,6 @@ public class FillBlanksFragment extends BaseQuestionFragment implements Question
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        rootView = null;
-//        fillBlanksFramelayout = null;
-//        bean = null;
-//        resolutionFragment = null;
-//        addBtn = null;
-//        rootView = null;
-//        fillBlanksFramelayout = null;
-//        bean = null;
-//        resolutionFragment = null;
-//        addBtn = null;
-
         System.gc();
     }
 }

@@ -2,20 +2,16 @@ package com.yanxiu.gphone.student.view.spanreplaceabletextview;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.DrawableRes;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.yanxiu.gphone.student.R;
-import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.view.MyEdittext;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +19,10 @@ import java.util.List;
  * Created by sp on 17-2-24.
  */
 
-public class FillBlankTextView extends SpanReplaceableTextView<EditText> {
+public class FillBlankTextView extends SpanReplaceableTextView<EditText> implements TextWatcher{
+
+    private FilledContentChangeListener filledContentChangeListener;
+
     public FillBlankTextView(Context context) {
         super(context);
     }
@@ -42,8 +41,9 @@ public class FillBlankTextView extends SpanReplaceableTextView<EditText> {
         editText.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
         editText.setTextColor(Color.BLACK);
         editText.setSingleLine();
-        editText.setPadding(10,5,15,5);
-//        setEditTextCusrorDrawable(editText);
+        editText.setPadding(10,0,10,0);
+        editText.setGravity(Gravity.CENTER);
+        editText.addTextChangedListener(this);
         return editText;
     }
 
@@ -88,34 +88,47 @@ public class FillBlankTextView extends SpanReplaceableTextView<EditText> {
         return list;
     }
 
-    public void setEditable(boolean editable) {
-        List<EditText> editTexts = getReplacement();
+    public void setEditable(final boolean editable) {
+        if(isReplaceCompleted){
+            setEditTextEditable(getReplacement(),editable);
+        }else {
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    setEditable(editable);
+                }
+            });
+        }
+
+    }
+
+    private void setEditTextEditable(List<EditText> editTexts,boolean editable){
         for (EditText editText : editTexts) {
             editText.setEnabled(editable);
         }
     }
+    public FilledContentChangeListener getFilledContentChangeListener() {
+        return filledContentChangeListener;
+    }
 
-    private void setEditTextCusrorDrawable(EditText editText) {
-        try {
-            // https://github.com/android/platform_frameworks_base/blob/kitkat-release/core/java/android/widget/TextView.java#L562-564
-            Field fCursorDrawableRes = TextView.class.getDeclaredField(
-                    "mCursorDrawableRes");
-            fCursorDrawableRes.setAccessible(true);
-            @DrawableRes int mCursorDrawableRes = fCursorDrawableRes.getInt(editText);
-            Field fEditor = TextView.class.getDeclaredField("mEditor");
-            fEditor.setAccessible(true);
-            Object editor = fEditor.get(editText);
-            Class<?> clazz = editor.getClass();
-            Field fCursorDrawable = clazz.getDeclaredField("mCursorDrawable");
-            fCursorDrawable.setAccessible(true);
-            Drawable[] drawables = new Drawable[2];
-            drawables[0] = editText.getContext().getResources().getDrawable(mCursorDrawableRes);
-            drawables[1] = editText.getContext().getResources().getDrawable(mCursorDrawableRes);
-            int color = getResources().getColor(R.color.color_black);
-            drawables[0].setColorFilter(color, PorterDuff.Mode.SRC_OVER);
-            drawables[1].setColorFilter(color, PorterDuff.Mode.SRC_OVER);
-            fCursorDrawable.set(editor, drawables);
-        } catch (Exception ignored) {
+    public void setFilledContentChangeListener(FilledContentChangeListener filledContentChangeListener) {
+        this.filledContentChangeListener = filledContentChangeListener;
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        if(filledContentChangeListener != null){
+            filledContentChangeListener.filledContentChanged(getFilledContent());
         }
     }
 }
