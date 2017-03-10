@@ -103,8 +103,10 @@ public class FillBlankTextView extends SpanReplaceableTextView<EditText> impleme
     }
 
     private void setEditTextEditable(List<EditText> editTexts,boolean editable){
-        for (EditText editText : editTexts) {
-            editText.setEnabled(editable);
+        for (EditText et : editTexts) {
+            et.setEnabled(editable);
+            et.setFocusable(editable);
+            et.setFocusableInTouchMode(editable);
         }
     }
     public FilledContentChangeListener getFilledContentChangeListener() {
