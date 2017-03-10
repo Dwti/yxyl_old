@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 
@@ -18,8 +19,8 @@ import com.yanxiu.gphone.student.inter.SetAnswerCallBack;
 public class MyEdittext extends AppCompatEditText {
 
     private Context mContext;
-    private boolean focused;
     private SetAnswerCallBack callBack;
+    private boolean isStateHollow = false;   //两种背景  一个是实心的，一个是空心的
 
     public MyEdittext(Context context) {
         super(context);
@@ -36,99 +37,71 @@ public class MyEdittext extends AppCompatEditText {
         init(context);
     }
 
-    public void setMistakeCallBack(SetAnswerCallBack callBack){
-        this.callBack=callBack;
+    public void setMistakeCallBack(SetAnswerCallBack callBack) {
+        this.callBack = callBack;
     }
 
-    public void setTextData(String text){
-//        this.removeTextChangedListener(watcher);
+    public void setTextData(String text) {
         this.setText(text);
-//        this.addTextChangedListener(watcher);
     }
 
-//    TextWatcher watcher=new TextWatcher() {
-//        @Override
-//        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//        }
-//
-//        @Override
-//        public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//        }
-//
-//        @Override
-//        public void afterTextChanged(Editable s) {
-//            if (MyEdittext.this.getText().length()>0){
-//                MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_empty_bg));
-//            }else {
-//                if (focused){
-//                    MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_empty_bg));
-//                }else {
-//                    MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_full_bg));
-//                }
-//            }
+    TextWatcher watcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-//            if (focused){
-//                MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_empty_bg));
-//            }else {
-//                MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_full_bg));
-//            }
-//            if (callBack!=null){
-//                callBack.callback();
-//            }
-//        }
-//    };
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (s.toString().length() > 0) {
+                if (!isStateHollow)
+                    setStateHollow();
+            } else {
+                if (!hasFocus() && isStateHollow)
+                    setStateFull();
+            }
+        }
+    };
 
     private void init(Context context) {
         this.mContext = context;
         setTextColor(Color.BLACK);
-        setBackground(mContext.getResources().getDrawable(R.drawable.fill_full_bg));
-//        addTextChangedListener(watcher);
+        setStateFull();
+        addTextChangedListener(watcher);
     }
 
     @Override
     protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
         super.onFocusChanged(focused, direction, previouslyFocusedRect);
-//        this.focused = focused;
-//        if (focused) {
-//            this.setSelection(this.getText().toString().length());
-//            MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_empty_bg));
-//        } else {
-//            this.setText(this.getText().toString());
-//            if (MyEdittext.this.getText().length()>0){
-//                MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_empty_bg));
-//            }else {
-//                MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_full_bg));
-//            }
-//        }
-
-        if (focused){
-            MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_empty_bg));
-        }else {
-            MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_full_bg));
+        int len = MyEdittext.this.getText().length();
+        if (focused) {
+            if (!isStateHollow)
+                setStateHollow();
+        } else {
+            if (TextUtils.isEmpty(MyEdittext.this.getText().toString()) && isStateHollow)
+                setStateFull();
+            MyEdittext.this.setSelection(0);
         }
     }
 
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        if (!isEnabled()) {
-//            return super.onTouchEvent(event);
-//        }
-//
-//        if (!focused) {
-//            if (event.getAction() == MotionEvent.ACTION_UP) {
-//                MyEdittext.this.setFocusable(true);
-//                MyEdittext.this.setFocusableInTouchMode(true);
-//                MyEdittext.this.requestFocus();
-//                InputMethodManager imm = (InputMethodManager) MyEdittext.this.getContext()
-//                        .getSystemService(Context.INPUT_METHOD_SERVICE);
-//                imm.showSoftInput(MyEdittext.this, 0);
-//                MyEdittext.this.setSelection(MyEdittext.this.getText().toString().length());
-//            }
-//            return true;
-//        } else {
-//            return super.onTouchEvent(event);
-//        }
-//    }
+    /**
+     * 设置背景为实心
+     */
+    private void setStateFull() {
+        MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_full_bg));
+        isStateHollow = false;
+    }
+
+    /**
+     * 设置背景为空心带边框的
+     */
+    private void setStateHollow() {
+        MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_empty_bg));
+        isStateHollow = true;
+    }
 }
