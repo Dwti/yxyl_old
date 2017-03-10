@@ -42,13 +42,13 @@ public class HtmlImageGetter implements Html.ImageGetter {
                     @Override
                     public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
                         UrlDrawable drawable = mMap.get(source);
-                        float factor = resource.getIntrinsicHeight() / 200; // 最宽 200
+//                        float factor = resource.getIntrinsicHeight() / 200; // 最宽 200
                         float width = resource.getIntrinsicWidth();
                         float height = resource.getIntrinsicHeight();
-                        if (factor > 1) {
-                            width /= factor;
-                            height /= factor;
-                        }
+//                        if (factor > 1) {
+//                            width /= factor;
+//                            height /= factor;
+//                        }
 
                         drawable.setBounds(0, 0, Math.round(width), Math.round(height));
                         drawable.drawable = resource;

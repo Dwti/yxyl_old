@@ -1149,6 +1149,20 @@ public class CommonCoreUtil {
         }
     }
 
+    public static void hideSoftInput(View viewToClearFocus,View viewToRequestFocus){
+        if(viewToClearFocus==null){
+            return;
+        }
+        InputMethodManager imm = ( InputMethodManager ) viewToClearFocus.getContext( ).getSystemService(
+                Context.INPUT_METHOD_SERVICE );
+        if ( imm.isActive() ) {
+            imm.hideSoftInputFromWindow( viewToClearFocus.getApplicationWindowToken( ) , 0 );
+        }
+        viewToRequestFocus.setFocusable(true);
+        viewToRequestFocus.setFocusableInTouchMode(true);
+        viewToRequestFocus.requestFocus();
+    }
+
 
 
     public static <T extends Comparable<T>> boolean compare(List<T> a, List<T> b) {

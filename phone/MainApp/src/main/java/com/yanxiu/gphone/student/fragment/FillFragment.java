@@ -31,6 +31,7 @@ import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.fillblanks.FillBlanksFramelayout;
 import com.yanxiu.gphone.student.view.spanreplaceabletextview.FilledContentChangeListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,11 +39,9 @@ import java.util.List;
  */
 public class FillFragment extends BaseQuestionFragment implements QuestionsListener, PageIndex,FilledContentChangeListener {
 
-    private FillBlanksFramelayout fillBlanksFramelayout;
     private FillBlankTextView mTextView;
     private AnswerBean bean;
 
-    //    private FragmentTransaction ft;
     private Fragment resolutionFragment;
     private Button addBtn;
     private boolean isVisibleToUser = false;
@@ -56,7 +55,6 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = LayoutInflater.from(getActivity()).inflate(
                 R.layout.fragment_fill_blanks, null);
-        fillBlanksFramelayout = (FillBlanksFramelayout) rootView.findViewById(R.id.fb_item);
         mTextView = (FillBlankTextView) rootView.findViewById(R.id.fill_blank_text_view);
         if (answerViewTypyBean == SubjectExercisesItemBean.MISTAKEREDO) {
             mTextView.setFilledContentChangeListener(this);
@@ -65,8 +63,11 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
         if (ischild)
             top_dotted_line.setVisibility(View.GONE);
         if (questionsEntity != null && questionsEntity.getStem() != null) {
+            List<String> list = new ArrayList<>();
+            list.addAll(questionsEntity.getAnswerBean().getFillAnswers());
             mTextView.setText(initStem(questionsEntity.getStem()),questionsEntity.getAnswer());
-            mTextView.setFilledContent(questionsEntity.getAnswerBean().getFillAnswers());
+//            mTextView.setFilledContent(questionsEntity.getAnswerBean().getFillAnswers());
+            mTextView.setFilledContent(list);
         }
 
         FragmentTransaction ft = FillFragment.this.getChildFragmentManager().beginTransaction();
@@ -127,7 +128,7 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
     @Override
     public void onPause() {
         super.onPause();
-        CommonCoreUtil.hideSoftInput(mTextView);
+        CommonCoreUtil.hideSoftInput(mTextView,rootView);
     }
 
     @Override
@@ -135,7 +136,7 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
         super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
         if (!isVisibleToUser) {
-            CommonCoreUtil.hideSoftInput(mTextView);
+            CommonCoreUtil.hideSoftInput(mTextView,rootView);
             saveAndJudgeAnswers();
         }
         if (isVisibleToUser && !ischild) {
@@ -168,7 +169,7 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
 
     @Override
     public void answerViewClick() {
-        CommonCoreUtil.hideSoftInput(mTextView);
+        CommonCoreUtil.hideSoftInput(mTextView,rootView);
         saveAndJudgeAnswers();
     }
 
@@ -241,13 +242,6 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
         super.setMistakeDelete();
         questionsEntity.setType(QuestionEntity.TYPE_DELETE_END);
     }
-
-    private SetAnswerCallBack callBack = new SetAnswerCallBack() {
-        @Override
-        public void callback() {
-
-        }
-    };
 
     private boolean isAllBlanksFilled(List<String> filledContents) {
         boolean flag = true;
