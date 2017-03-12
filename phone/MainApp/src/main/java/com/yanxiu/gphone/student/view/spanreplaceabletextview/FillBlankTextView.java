@@ -3,7 +3,6 @@ package com.yanxiu.gphone.student.view.spanreplaceabletextview;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -36,7 +35,7 @@ public class FillBlankTextView extends SpanReplaceableTextView<EditText> impleme
     }
 
     @Override
-    protected EditText getReplaceView() {
+    protected EditText getView() {
         EditText editText = new MyEdittext(getContext());
         editText.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
         editText.setTextColor(Color.BLACK);
@@ -67,7 +66,7 @@ public class FillBlankTextView extends SpanReplaceableTextView<EditText> impleme
     }
 
     public void setFilledContent(final List<String> data) {
-        if (isReplaceCompleted)
+        if (mIsReplaceCompleted)
             initFilledContent(data);
         else {
             post(new Runnable() {
@@ -89,7 +88,7 @@ public class FillBlankTextView extends SpanReplaceableTextView<EditText> impleme
     }
 
     public void setEditable(final boolean editable) {
-        if(isReplaceCompleted){
+        if(mIsReplaceCompleted){
             setEditTextEditable(getReplacement(),editable);
         }else {
             post(new Runnable() {
