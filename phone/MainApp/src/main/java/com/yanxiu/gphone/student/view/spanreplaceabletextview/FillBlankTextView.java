@@ -22,6 +22,8 @@ public class FillBlankTextView extends SpanReplaceableTextView<EditText> impleme
 
     private FilledContentChangeListener filledContentChangeListener;
 
+    private List<String> mData = new ArrayList<>();
+
     public FillBlankTextView(Context context) {
         super(context);
     }
@@ -66,6 +68,8 @@ public class FillBlankTextView extends SpanReplaceableTextView<EditText> impleme
     }
 
     public void setFilledContent(final List<String> data) {
+        if(data != null)
+            mData = data;
         if (mIsReplaceCompleted)
             initFilledContent(data);
         else {
@@ -79,6 +83,8 @@ public class FillBlankTextView extends SpanReplaceableTextView<EditText> impleme
     }
 
     public List<String> getFilledContent() {
+        if(!mIsReplaceCompleted)
+            return mData;
         List<String> list = new ArrayList<>();
         List<EditText> editTexts = getReplacement();
         for (EditText et : editTexts) {

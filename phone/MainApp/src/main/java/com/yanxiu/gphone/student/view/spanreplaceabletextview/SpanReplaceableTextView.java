@@ -118,22 +118,6 @@ public abstract class SpanReplaceableTextView<T extends View> extends FrameLayou
     }
 
     public List<T> getReplacement(){
-//        List<T> list = new ArrayList<>();
-//        Set<Map.Entry<EmptySpan,T>> entries =  mLinkedHashMap.entrySet();
-//        Iterator<Map.Entry<EmptySpan,T>> iterator = entries.iterator();
-//        while (iterator.hasNext()){
-//            Map.Entry<EmptySpan,T> entry = iterator.next();
-//            list.add(entry.getValue());
-//        }
-//        return list;
-        List<T> list ;
-        while (!mIsReplaceCompleted){
-        }
-        list = getReplacementViews();
-        return list;
-    }
-
-    private List<T> getReplacementViews(){
         List<T> list = new ArrayList<>();
         Set<Map.Entry<EmptySpan,T>> entries =  mLinkedHashMap.entrySet();
         Iterator<Map.Entry<EmptySpan,T>> iterator = entries.iterator();
@@ -143,6 +127,11 @@ public abstract class SpanReplaceableTextView<T extends View> extends FrameLayou
         }
         return list;
     }
+
+    public boolean isReplaceCompleted() {
+        return mIsReplaceCompleted;
+    }
+
     public void removeAllReplacementView(){
         if(mRelativeLayout.getChildCount()>0){
             mRelativeLayout.removeAllViews();
