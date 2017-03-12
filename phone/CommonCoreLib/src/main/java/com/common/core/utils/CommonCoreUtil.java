@@ -12,7 +12,9 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.NetworkInfo;
@@ -21,6 +23,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Environment;
+import android.support.annotation.DrawableRes;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -28,6 +31,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.common.core.CoreConfiguration;
@@ -57,14 +61,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-
-
 public class CommonCoreUtil {
 
     private static final String TAG = CommonCoreUtil.class.getSimpleName();
     public static long lastClickTime = 0;
 
     public static long currentClickTime = 0;
+
     public static boolean checkClickEvent() {
         return checkClickEvent(500);
     }
@@ -77,15 +80,16 @@ public class CommonCoreUtil {
         currentClickTime = System.currentTimeMillis();
         if (currentClickTime - lastClickTime > interval) {
             lastClickTime = currentClickTime;
-            LogInfo.log(TAG,"lastClickTime: "+lastClickTime);
+            LogInfo.log(TAG, "lastClickTime: " + lastClickTime);
             return true;
         } else {
             lastClickTime = currentClickTime;
-            LogInfo.log(TAG,"lastClickTime: "+lastClickTime);
+            LogInfo.log(TAG, "lastClickTime: " + lastClickTime);
             return false;
         }
     }
 //    private final static Map<String, String> relation = getDataRelationMap(YanxiuApplication.getInstance(), R.array.intelli_exe_arrays);
+
     /**
      * appdeviceid:deviceid+macaddress
      *
@@ -99,7 +103,7 @@ public class CommonCoreUtil {
                 Context.TELEPHONY_SERVICE);
         String deviceId = telephonyManager.getDeviceId();
 
-        WifiManager wifiManager = (WifiManager)ContextProvider.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        WifiManager wifiManager = (WifiManager) ContextProvider.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
 
         if (wifiInfo != null) {
@@ -165,12 +169,14 @@ public class CommonCoreUtil {
         }
         return 0;
     }
+
     public static int getSDK() {
         return Build.VERSION.SDK_INT;
     }
-    private static int width=0;
 
-    public static int getWidth(){
+    private static int width = 0;
+
+    public static int getWidth() {
         return width;
     }
 
@@ -179,14 +185,14 @@ public class CommonCoreUtil {
         try {
             Point point = new Point();
             aa.getWindowManager().getDefaultDisplay().getRealSize(point);
-            if (point.x<=480){
-                width=180;
-            }else if (point.x>480&&point.x<=640){
-                width=250;
-            }else {
-                width=-1;
+            if (point.x <= 480) {
+                width = 180;
+            } else if (point.x > 480 && point.x <= 640) {
+                width = 250;
+            } else {
+                width = -1;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
         }
     }
 
@@ -329,6 +335,7 @@ public class CommonCoreUtil {
             formatter.close();
         }
     }
+
     // 格式：年－月－日 小时：分钟：秒
     public static final String FORMAT_ONE = "yyyy-MM-dd";
 
@@ -349,6 +356,7 @@ public class CommonCoreUtil {
         }
         return d;
     }
+
     public static String getTimeLongYMD(String date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");// ���ø�ʽ
         Date mDate = null;
@@ -397,40 +405,43 @@ public class CommonCoreUtil {
         String dateString = formatter.format(currentTime);
         return dateString;
     }
+
     public static Date getDateByString(String time) {
         Date date = null;
-        if(time == null) return date;
+        if (time == null) return date;
         String date_format = "yyyy-MM-dd HH:mm:ss";
         SimpleDateFormat format = new SimpleDateFormat(date_format);
-        try{
+        try {
             date = format.parse(time);
-        } catch(ParseException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         return date;
     }
 
-    public static String getDateByFormatString(String mDate_format){
-        String dateString=null;
+    public static String getDateByFormatString(String mDate_format) {
+        String dateString = null;
         Date currentTime = new Date();
         SimpleDateFormat format = new SimpleDateFormat(mDate_format);
         dateString = format.format(currentTime);
         return dateString;
     }
 
-    /** * 获取指定日期是星期几
+    /**
+     * 获取指定日期是星期几
      * 参数为null时表示获取当前日期是星期几
+     *
      * @param date
      * @return
      */
     public static String getWeekOfDate(Date date) {
         String[] weekOfDays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
         Calendar calendar = Calendar.getInstance();
-        if(date != null){
+        if (date != null) {
             calendar.setTime(date);
         }
         int w = calendar.get(Calendar.DAY_OF_WEEK) - 1;
-        if (w < 0){
+        if (w < 0) {
             w = 0;
         }
         return weekOfDays[w];
@@ -440,23 +451,24 @@ public class CommonCoreUtil {
         String shortstring = null;
         long now = Calendar.getInstance().getTimeInMillis();
         Date date = getDateByString(time);
-        if(date == null) return shortstring;
-        long deltime = (now - date.getTime())/1000;
-        if(deltime > 365*24*60*60) {
-            shortstring = (int)(deltime/(365*24*60*60)) + "年前";
-        } else if(deltime > 24*60*60) {
-            shortstring = (int)(deltime/(24*60*60)) + "天前";
-        } else if(deltime > 60*60) {
-            shortstring = (int)(deltime/(60*60)) + "小时前";
-        } else if(deltime > 60) {
-            shortstring = (int)(deltime/(60)) + "分前";
-        } else if(deltime > 1) {
+        if (date == null) return shortstring;
+        long deltime = (now - date.getTime()) / 1000;
+        if (deltime > 365 * 24 * 60 * 60) {
+            shortstring = (int) (deltime / (365 * 24 * 60 * 60)) + "年前";
+        } else if (deltime > 24 * 60 * 60) {
+            shortstring = (int) (deltime / (24 * 60 * 60)) + "天前";
+        } else if (deltime > 60 * 60) {
+            shortstring = (int) (deltime / (60 * 60)) + "小时前";
+        } else if (deltime > 60) {
+            shortstring = (int) (deltime / (60)) + "分前";
+        } else if (deltime > 1) {
             shortstring = deltime + "秒前";
-        } else{
+        } else {
             shortstring = "1秒前";
         }
         return shortstring;
     }
+
     /**
      * 判断网络是否可用
      */
@@ -559,7 +571,8 @@ public class CommonCoreUtil {
 
     /**
      * 得到屏幕宽度
-     */    public static int getScreenWidth() {
+     */
+    public static int getScreenWidth() {
         return ((WindowManager) ContextProvider.getApplicationContext().getSystemService(Context.WINDOW_SERVICE))
                 .getDefaultDisplay().getWidth();
     }
@@ -573,18 +586,18 @@ public class CommonCoreUtil {
     }
 
 
-	   /**  
-	      得到等分的值
+    /**
+     * 得到等分的值
      *
      * @param resParams
      * @param divideParams
      * @return
      */
-    public static int getDividePx(int resParams,int divideParams){
-        if(divideParams==0){
+    public static int getDividePx(int resParams, int divideParams) {
+        if (divideParams == 0) {
             throw new IllegalArgumentException("divideParams cannot be zero");
         }
-        return resParams/divideParams;
+        return resParams / divideParams;
     }
 
 
@@ -595,7 +608,7 @@ public class CommonCoreUtil {
      */
     public static String getIMEI() {
         try {
-            String deviceId = ((TelephonyManager)ContextProvider.getApplicationContext().getSystemService(
+            String deviceId = ((TelephonyManager) ContextProvider.getApplicationContext().getSystemService(
                     Context.TELEPHONY_SERVICE)).getDeviceId();
             if (null == deviceId || deviceId.length() <= 0) {
                 return "";
@@ -607,9 +620,6 @@ public class CommonCoreUtil {
             return "";
         }
     }
-
-
-
 
 
     /**
@@ -720,10 +730,12 @@ public class CommonCoreUtil {
 
         return pxValue;
     }
+
     public static int px2sp(float pxValue) {
         final float fontScale = CommonConstants.displayMetrics.scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
     }
+
     /**
      * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
      */
@@ -765,11 +777,11 @@ public class CommonCoreUtil {
         view.setCompoundDrawables(null, null, null, null);
     }
 
-    public static void setDrawable(Context context,TextView view,int resId){
+    public static void setDrawable(Context context, TextView view, int resId) {
         Drawable drawable = context.getResources().getDrawable(resId);
         drawable.setBounds(0, 0, drawable.getMinimumWidth(),
                 drawable.getMinimumHeight());
-        view.setCompoundDrawables(drawable,null,null,null);
+        view.setCompoundDrawables(drawable, null, null, null);
     }
 
     /**
@@ -839,8 +851,8 @@ public class CommonCoreUtil {
         return flag;
     }
 
-    public static boolean isPasswordRight(String str){
-        if(StringUtils.isEmpty(str)){
+    public static boolean isPasswordRight(String str) {
+        if (StringUtils.isEmpty(str)) {
             return false;
         }
         return !(str.length() < 6 || str.length() > 18);
@@ -948,30 +960,32 @@ public class CommonCoreUtil {
         bitmap = BitmapFactory.decodeFile(uri.getPath(), options);
         return bitmap;
     }
-    public static String fileToType(File file){
+
+    public static String fileToType(File file) {
         String path = file.getAbsolutePath();
         String type = null;
-        if(path.lastIndexOf('.') != -1){
+        if (path.lastIndexOf('.') != -1) {
             type = path.substring(path.lastIndexOf('.'), path.length());
         }
-        if(null == type){
+        if (null == type) {
             return "";
-        }else{
+        } else {
             return type.replace(".", "").toLowerCase();
         }
     }
 
-    public static String fileToType(String fileName){
+    public static String fileToType(String fileName) {
         String type = null;
-        if(fileName.lastIndexOf('.') != -1){
+        if (fileName.lastIndexOf('.') != -1) {
             type = fileName.substring(fileName.lastIndexOf('.'), fileName.length());
         }
-        if(null == type){
+        if (null == type) {
             return "";
-        }else{
+        } else {
             return type.replace(".", "").toLowerCase();
         }
     }
+
     /**
      * 将fileName转换成VideoTitle
      */
@@ -982,6 +996,7 @@ public class CommonCoreUtil {
             return "";
         }
     }
+
     /**
      * 将fileName转换成VideoTitle
      */
@@ -989,9 +1004,9 @@ public class CommonCoreUtil {
         String tmp = null;
         if (null != fileName && !"".equals(fileName)) {
             int index = fileName.lastIndexOf(".");
-            if(index>0){
+            if (index > 0) {
                 tmp = fileName.substring(0, index);
-            }else{
+            } else {
                 tmp = fileName;
             }
         } else {
@@ -1003,30 +1018,30 @@ public class CommonCoreUtil {
 
     /**
      * 从文件路径截取文件名
-     * */
-    public static String getFileName(String pathandname){
+     */
+    public static String getFileName(String pathandname) {
         LogInfo.log("king", "filePath = " + pathandname);
-        int start=pathandname.lastIndexOf("/");
-        int end=pathandname.lastIndexOf(".");
-        if(start!=-1 && end!=-1){
-            return pathandname.substring(start+1,end);
-        }else{
+        int start = pathandname.lastIndexOf("/");
+        int end = pathandname.lastIndexOf(".");
+        if (start != -1 && end != -1) {
+            return pathandname.substring(start + 1, end);
+        } else {
             return null;
         }
     }
 
     /**
      * 获取文件大小
-     * */
+     */
     public static String getFileSize(String filePath) {
-        FileChannel fc= null;
+        FileChannel fc = null;
         try {
-            File f= new File(filePath);
-            if (f.exists() && f.isFile()){
-                FileInputStream fis= new FileInputStream(f);
-                fc= fis.getChannel();
+            File f = new File(filePath);
+            if (f.exists() && f.isFile()) {
+                FileInputStream fis = new FileInputStream(f);
+                fc = fis.getChannel();
                 return decodeBit(fc.size());
-            }else{
+            } else {
                 LogInfo.log("file doesn't exist or is not a file");
             }
         } catch (FileNotFoundException e) {
@@ -1034,10 +1049,10 @@ public class CommonCoreUtil {
         } catch (IOException e) {
             LogInfo.log(e.toString());
         } finally {
-            if (null!=fc){
-                try{
+            if (null != fc) {
+                try {
                     fc.close();
-                }catch(IOException e){
+                } catch (IOException e) {
                     LogInfo.log(e.toString());
                 }
             }
@@ -1047,116 +1062,125 @@ public class CommonCoreUtil {
 
     /**
      * 转换字节
-     * */
-    public static String decodeBit(long size){
+     */
+    public static String decodeBit(long size) {
         long B = size / 8;
-        if(B<1024){
-            return B+"B";
-        }else{
+        if (B < 1024) {
+            return B + "B";
+        } else {
             long KB = B / 1024;
-            if(KB <1024){
-                return KB+"KB";
-            }else{
+            if (KB < 1024) {
+                return KB + "KB";
+            } else {
                 long M = KB / 1024;
-                if(M<1024){
-                    return M+"M";
-                }else {
+                if (M < 1024) {
+                    return M + "M";
+                } else {
                     return "1G";
                 }
             }
         }
     }
 
-    public static String getDateFormat(int time){
-        if(time<10){
-            return "0"+time;
+    public static String getDateFormat(int time) {
+        if (time < 10) {
+            return "0" + time;
         }
-        return time+"";
+        return time + "";
     }
 
-    public static boolean isDateError(int year,int month,int day,int hour,int minute){
-        Calendar calendar= Calendar.getInstance();
-        if(year<calendar.get(Calendar.YEAR)){
+    public static boolean isDateError(int year, int month, int day, int hour, int minute) {
+        Calendar calendar = Calendar.getInstance();
+        if (year < calendar.get(Calendar.YEAR)) {
             return false;
-        }else if(year>calendar.get(Calendar.YEAR)){
+        } else if (year > calendar.get(Calendar.YEAR)) {
             return true;
         }
-        if(month<calendar.get(Calendar.MONTH)){
+        if (month < calendar.get(Calendar.MONTH)) {
             return false;
-        }else if(month>calendar.get(Calendar.MONTH)){
+        } else if (month > calendar.get(Calendar.MONTH)) {
             return true;
         }
-        if(day<calendar.get(Calendar.DAY_OF_MONTH)){
+        if (day < calendar.get(Calendar.DAY_OF_MONTH)) {
             return false;
-        }else if(day>calendar.get(Calendar.DAY_OF_MONTH)){
+        } else if (day > calendar.get(Calendar.DAY_OF_MONTH)) {
             return true;
         }
-        if(hour<calendar.get(Calendar.HOUR_OF_DAY)){
+        if (hour < calendar.get(Calendar.HOUR_OF_DAY)) {
             return false;
-        }else if(hour>calendar.get(Calendar.HOUR_OF_DAY)){
+        } else if (hour > calendar.get(Calendar.HOUR_OF_DAY)) {
             return true;
         }
-        if(minute<=calendar.get(Calendar.MINUTE)){
+        if (minute <= calendar.get(Calendar.MINUTE)) {
             return false;
-        }else if(minute>calendar.get(Calendar.MINUTE)){
+        } else if (minute > calendar.get(Calendar.MINUTE)) {
             return true;
         }
         return true;
     }
 
-    public static String seccondToHour(long second){
-        if(second<=0){
+    public static String seccondToHour(long second) {
+        if (second <= 0) {
             return "过期";
         }
-        if(second > 30000000){  //当值大于30000000时，将近于10年时，判断为无截止日期
+        if (second > 30000000) {  //当值大于30000000时，将近于10年时，判断为无截止日期
             return "无截止日期";
         }
         long hour = second / 3600;
-        int day ;
-        if(hour>24){
-            day = (int)hour / 24;
-            return day+"天"+(hour%24)+"小时";
+        int day;
+        if (hour > 24) {
+            day = (int) hour / 24;
+            return day + "天" + (hour % 24) + "小时";
         }
-        if(hour == 0){
+        if (hour == 0) {
             long minute = second / 60;
-            if(minute == 0){
+            if (minute == 0) {
                 return "过期";
             }
-            return minute +"分钟";
+            return minute + "分钟";
         }
-        return hour+"小时";
+        return hour + "小时";
     }
 
     /**
      * yanxiu ua
+     *
      * @param context
      * @return
      */
-    public static String createUA(Context context){
+    public static String createUA(Context context) {
         String ua = "Mozilla/5.0(Linux;U;Android 2.2.1;en-us;Nexus One Build.FRG83) " + "AppleWebKit/553.1(KHTML,like Gecko) Version/4.0 Mobile Safari/533.1";
         ua += " " + "YanxiuMobileClient_" + getClientVersionCode(context) + "_android";
         return ua;
     }
 
-    public static void hideSoftInput(View view){
-        if(view==null){
+    public static void showSoftInput(View view) {
+        if (view == null)
+            return;
+        InputMethodManager imm = (InputMethodManager) view.getContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(view, 0);
+    }
+
+    public static void hideSoftInput(View view) {
+        if (view == null) {
             return;
         }
-        InputMethodManager imm = ( InputMethodManager ) view.getContext( ).getSystemService(
-                Context.INPUT_METHOD_SERVICE );
-        if ( imm.isActive() ) {
-            imm.hideSoftInputFromWindow( view.getApplicationWindowToken( ) , 0 );
+        InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        if (imm.isActive()) {
+            imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
         }
     }
 
-    public static void hideSoftInput(View viewToClearFocus,View viewToRequestFocus){
-        if(viewToClearFocus==null){
+    public static void hideSoftInput(View viewToClearFocus, View viewToRequestFocus) {
+        if (viewToClearFocus == null) {
             return;
         }
-        InputMethodManager imm = ( InputMethodManager ) viewToClearFocus.getContext( ).getSystemService(
-                Context.INPUT_METHOD_SERVICE );
-        if ( imm.isActive() ) {
-            imm.hideSoftInputFromWindow( viewToClearFocus.getApplicationWindowToken( ) , 0 );
+        InputMethodManager imm = (InputMethodManager) viewToClearFocus.getContext().getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        if (imm.isActive()) {
+            imm.hideSoftInputFromWindow(viewToClearFocus.getApplicationWindowToken(), 0);
         }
         viewToRequestFocus.setFocusable(true);
         viewToRequestFocus.setFocusableInTouchMode(true);
@@ -1164,9 +1188,8 @@ public class CommonCoreUtil {
     }
 
 
-
     public static <T extends Comparable<T>> boolean compare(List<T> a, List<T> b) {
-        if(a.size() != b.size())
+        if (a.size() != b.size())
             return false;
 
         for (int i = 0; i < a.size(); i++) {
@@ -1183,12 +1206,13 @@ public class CommonCoreUtil {
 
     /**
      * 拷贝对象
+     *
      * @param <T>
      * @param <T>
      * @return
      */
-    public static <T,P>T copyBean(P p, Class<T> clazz){
-        if(p == null)
+    public static <T, P> T copyBean(P p, Class<T> clazz) {
+        if (p == null)
             return null;
         T t = null;
         try {
@@ -1198,21 +1222,21 @@ public class CommonCoreUtil {
             e1.printStackTrace();
         }
         Field[] fields = null;
-        try{
+        try {
             fields = p.getClass().getDeclaredFields();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        for(int i = 0; i < fields.length; i++){
+        for (int i = 0; i < fields.length; i++) {
             try {
                 fields[i].setAccessible(true);
                 String fieldName = fields[i].getName();
                 Object fieldValue = fields[i].get(p);
-                try{
+                try {
                     Field filed = clazz.getDeclaredField(fieldName);
                     filed.setAccessible(true);
                     filed.set(t, fieldValue);
-                }catch(Exception e){
+                } catch (Exception e) {
                     // do nothing
                 }
             } catch (Exception e) {
@@ -1237,9 +1261,8 @@ public class CommonCoreUtil {
 
 
     /**
-     *
      * @param context
-     * @param data  为xml中的数组
+     * @param data    为xml中的数组
      * @return
      */
     public static Map<String, String> getDataRelationMap(Context context, int data) {
@@ -1254,7 +1277,7 @@ public class CommonCoreUtil {
 
     }
 
-    public static byte[] getBitmapByte(Bitmap bitmap){
+    public static byte[] getBitmapByte(Bitmap bitmap) {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
         try {
@@ -1287,30 +1310,28 @@ public class CommonCoreUtil {
     }
 
 
-
-
     /**
      * Calling
      */
-     public static void callPhone(Context context,String phoneNum){
-         if(context==null){
-             return;
-         }
-         if(StringUtils.isEmpty(phoneNum)){
-             return;
-         }
+    public static void callPhone(Context context, String phoneNum) {
+        if (context == null) {
+            return;
+        }
+        if (StringUtils.isEmpty(phoneNum)) {
+            return;
+        }
 
-         Intent intent = new Intent(Intent.ACTION_DIAL,Uri.parse("tel:" + phoneNum));
-         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-         context. startActivity(intent);
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNum));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
 
 
-     }
+    }
 
     /**
      * 对View设置不同状态时其文字颜色。
      */
-    public static ColorStateList createColorStateList (int normal, int pressed) {
+    public static ColorStateList createColorStateList(int normal, int pressed) {
         //colors里面存放的事颜色值而不是颜色id,如果是自定义颜色需要使用getResources().getColor(R.color.white)
         int[] colors = new int[]{pressed, pressed, normal, pressed, normal};
         int[][] states = new int[5][];
@@ -1330,11 +1351,12 @@ public class CommonCoreUtil {
 
     /**
      * 获取状态栏高度
+     *
      * @return
      */
     public static int getStatusBarHeight() {
         Resources resources = ContextProvider.getApplicationContext().getResources();
-        int resourceId = resources.getIdentifier("status_bar_height", "dimen","android");
+        int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
         int height = resources.getDimensionPixelSize(resourceId);
         LogInfo.log(TAG, "Status height:" + height);
         return height;
@@ -1342,11 +1364,12 @@ public class CommonCoreUtil {
 
     /**
      * 获取底部虚拟导航键高度
+     *
      * @return
      */
     public static int getNavigationBarHeight() {
         Resources resources = ContextProvider.getApplicationContext().getResources();
-        int resourceId = resources.getIdentifier("navigation_bar_height","dimen", "android");
+        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
         int height = resources.getDimensionPixelSize(resourceId);
         LogInfo.log(TAG, "Navi height:" + height);
         return height;
@@ -1356,13 +1379,12 @@ public class CommonCoreUtil {
      * 设置字体
      */
     public static void setViewTypeface(String typePath, TextView
-            ...view){
+            ... view) {
         Typeface tf = Typeface.createFromAsset(ContextProvider.getApplicationContext().getAssets(),
                 typePath);
-        for(int i=0; i<view.length; i++) {
+        for (int i = 0; i < view.length; i++) {
             view[i].setTypeface(tf);
         }
     }
-
 }
 

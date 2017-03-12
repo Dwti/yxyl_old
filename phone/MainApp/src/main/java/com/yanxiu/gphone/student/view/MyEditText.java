@@ -8,31 +8,34 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 
+import com.common.core.utils.CommonCoreUtil;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.inter.SetAnswerCallBack;
+import com.yanxiu.gphone.student.utils.ViewUtils;
 
 /**
  * Created by JS-00 on 2016/11/22.
  */
 
-public class MyEdittext extends AppCompatEditText {
+public class MyEditText extends AppCompatEditText {
 
     private Context mContext;
     private SetAnswerCallBack callBack;
     private boolean isStateHollow = false;   //两种背景  一个是实心的，一个是空心的
 
-    public MyEdittext(Context context) {
+    public MyEditText(Context context) {
         super(context);
         init(context);
     }
 
-    public MyEdittext(Context context, AttributeSet attrs) {
+    public MyEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public MyEdittext(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MyEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
@@ -70,22 +73,21 @@ public class MyEdittext extends AppCompatEditText {
 
     private void init(Context context) {
         this.mContext = context;
-        setTextColor(Color.BLACK);
         setStateFull();
+        ViewUtils.setEditTextCursorDrawable(this, Color.BLACK);
         addTextChangedListener(watcher);
     }
 
     @Override
     protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
         super.onFocusChanged(focused, direction, previouslyFocusedRect);
-        int len = MyEdittext.this.getText().length();
         if (focused) {
             if (!isStateHollow)
                 setStateHollow();
         } else {
-            if (TextUtils.isEmpty(MyEdittext.this.getText().toString()) && isStateHollow)
+            if (TextUtils.isEmpty(MyEditText.this.getText().toString()) && isStateHollow)
                 setStateFull();
-            MyEdittext.this.setSelection(0);
+            MyEditText.this.setSelection(0);
         }
     }
 
@@ -93,7 +95,7 @@ public class MyEdittext extends AppCompatEditText {
      * 设置背景为实心
      */
     private void setStateFull() {
-        MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_full_bg));
+        MyEditText.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_full_bg));
         isStateHollow = false;
     }
 
@@ -101,7 +103,20 @@ public class MyEdittext extends AppCompatEditText {
      * 设置背景为空心带边框的
      */
     private void setStateHollow() {
-        MyEdittext.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_empty_bg));
+        MyEditText.this.setBackground(mContext.getResources().getDrawable(R.drawable.fill_empty_bg));
         isStateHollow = true;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (isEnabled() && !hasFocus()) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                requestFocus();
+                CommonCoreUtil.showSoftInput(this);
+                setSelection(getText().toString().length());
+            }
+            return true;
+        }
+        return super.onTouchEvent(event);
     }
 }

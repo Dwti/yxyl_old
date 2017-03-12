@@ -7,13 +7,11 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
-import android.support.v4.content.ContextCompat;
 import android.text.Layout;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Display;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -34,7 +32,7 @@ import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.inter.SetAnswerCallBack;
-import com.yanxiu.gphone.student.view.MyEdittext;
+import com.yanxiu.gphone.student.view.MyEditText;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 
@@ -197,7 +195,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
         if (rlMark != null && bean != null && bean.getFillAnswers().size() > 0) {
             if (bean.getFillAnswers().size() == actualEditTextCount) {
                 for (int i = 0; i < actualEditTextCount; i++) {
-                    ((MyEdittext) rlMark.getChildAt(i)).setTextData(bean.getFillAnswers().get(i));
+                    ((MyEditText) rlMark.getChildAt(i)).setTextData(bean.getFillAnswers().get(i));
                 }
             }
         }
@@ -214,8 +212,8 @@ public class FillBlanksFramelayout extends FrameLayout implements
             return false;
         }
         for (int i=0;i<count;i++){
-            if (rlMark.getChildAt(i) instanceof MyEdittext){
-                String text=((MyEdittext) rlMark.getChildAt(i)).getText().toString();
+            if (rlMark.getChildAt(i) instanceof MyEditText){
+                String text=((MyEditText) rlMark.getChildAt(i)).getText().toString();
                 if (TextUtils.isEmpty(text)){
                     return false;
                 }
@@ -339,7 +337,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
                 if (!StringUtils.isEmpty(data)) {
                     Matcher matcher = pattern.matcher(c);
                     while (matcher.find()) {
-                        MyEdittext existEtView = (MyEdittext) rlMark.findViewWithTag(matcher.start());
+                        MyEditText existEtView = (MyEditText) rlMark.findViewWithTag(matcher.start());
                         if (existEtView != null) {
                             changeEditText(matcher.start(), matcher.end(), c.length() - 1, existEtView);
                         } else {
@@ -431,7 +429,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
     public void setClearFoces(){
         int count=rlMark.getChildCount();
         for (int i=0;i<count;i++){
-            if (rlMark.getChildAt(i) instanceof MyEdittext){
+            if (rlMark.getChildAt(i) instanceof MyEditText){
                 rlMark.getChildAt(i).setEnabled(false);
                 rlMark.getChildAt(i).setFocusable(false);
             }
@@ -466,7 +464,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
         params.leftMargin = (int) left;
         params.topMargin = (int) top;
 
-        final MyEdittext et = new MyEdittext(mCtx);
+        final MyEditText et = new MyEditText(mCtx);
         et.setTag(start);
         et.setPadding(10, 0, 10, 0);
         et.setSingleLine();
@@ -503,7 +501,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
 
     // 为了解决闪烁，只能分成两个方法，重构的时候需要思考这边root cause以及解决方案
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    private void changeEditText(int start, int end, int last, MyEdittext et) {
+    private void changeEditText(int start, int end, int last, MyEditText et) {
         Layout layout = tvFillBlank.getLayout();
         if (layout==null){
             return;
@@ -533,7 +531,7 @@ public class FillBlanksFramelayout extends FrameLayout implements
         if (trickBottomEtView != null) {
             rlMark.removeView(trickBottomEtView);
         }
-        final MyEdittext et2 = new MyEdittext(mCtx);
+        final MyEditText et2 = new MyEditText(mCtx);
         et2.setVisibility(View.INVISIBLE);
         int lastLine = layout.getLineForOffset(last);
         bottom = layout.getLineBottom(lastLine);

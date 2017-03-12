@@ -9,7 +9,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.EditText;
 
-import com.yanxiu.gphone.student.view.MyEdittext;
+import com.yanxiu.gphone.student.view.MyEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public class FillBlankTextView extends SpanReplaceableTextView<EditText> impleme
 
     @Override
     protected EditText getView() {
-        EditText editText = new MyEdittext(getContext());
+        EditText editText = new MyEditText(getContext());
         editText.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
         editText.setTextColor(Color.BLACK);
         editText.setSingleLine();
@@ -114,6 +114,7 @@ public class FillBlankTextView extends SpanReplaceableTextView<EditText> impleme
             et.setFocusableInTouchMode(editable);
         }
     }
+
     public FilledContentChangeListener getFilledContentChangeListener() {
         return filledContentChangeListener;
     }
