@@ -126,11 +126,6 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && !ischild) {

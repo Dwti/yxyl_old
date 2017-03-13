@@ -56,7 +56,7 @@ public class YanxiuHttpApi {
 
     public static final boolean isTest = false;   //是否是测试环境
     public static final boolean isDev = false;    //是否是测试环境中的开发环境
-    private static UrlBean mUrlBean = null;
+    public static UrlBean mUrlBean = null;
 
     public static void setBaseURL(UrlBean urlBean) {
         if (mUrlBean == null) {

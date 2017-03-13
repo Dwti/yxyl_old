@@ -285,6 +285,15 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.MistakeRedoCardActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SystemActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.SYSTEM" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="SYSTEM"/>
+            </intent-filter>
+        </activity>
         <!-- 【必须】 (2.30及以上版新增)展示通知的activity -->
         <!-- 【必须】 exported设置为true -->
         <!--

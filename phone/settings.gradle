@@ -1,2 +1,2 @@
-include ':MainApp', ':YanxiuBaseCore', ':CommonCoreLib', ':LoginCommonLibs',
+include ':MainApp', ':YanxiuBaseCore', ':CommonCoreLib', ':LoginCommonLibs', ':SettingProblemsSystem',
         ':ShareCommonLibs'

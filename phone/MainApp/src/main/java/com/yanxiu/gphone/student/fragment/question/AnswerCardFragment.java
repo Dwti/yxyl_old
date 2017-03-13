@@ -262,7 +262,13 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                 break;
             case R.id.btn_question_submit:
                 if (!NetWorkTypeUtils.isNetAvailable()) {
-                    Toast.makeText(getContext(), getContext().getResources().getString(R.string.public_loading_net_null_errtxt), Toast.LENGTH_SHORT).show();
+                    if (getActivity()==null){
+                        return;
+                    }
+                    Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.public_loading_net_null_errtxt), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (getActivity()==null){
                     return;
                 }
                 ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideFragment();
@@ -378,6 +384,9 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                     @Override
                     public void run() {
                         subjectiveQIndex = 0;
+                        if (getActivity()==null){
+                            return;
+                        }
                         if (AnswerCardFragment.this.getActivity()!=null) {
                             ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideDialog();
                         }
@@ -418,6 +427,9 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
 
 
     private void requestSubmmit() {
+        if (getActivity()==null){
+            return;
+        }
         ((AnswerViewActivity) this.getActivity()).showCommonDialog();
         if (requestSubmitQuesitonTask != null && requestSubmitQuesitonTask.isCancelled()) {
             requestSubmitQuesitonTask.cancel();
@@ -445,6 +457,9 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                             Util.showToast(R.string.update_sucess);
                             EventBus.getDefault().post(new ThridExamiEvent(true));
                             EventBus.getDefault().post(new GroupEventHWRefresh());
+                            if (getActivity()==null){
+                                return;
+                            }
                             ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).addFinishFragment(dataSources, YanXiuConstant.END_TIME);
                         } else {
                             jumpReport();
@@ -457,6 +472,9 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
 
                         EventBus.getDefault().post(new ThridExamiEvent(true));
                         EventBus.getDefault().post(new GroupEventHWRefresh());
+                        if (getActivity()==null){
+                            return;
+                        }
                         getActivity().finish();
                     }
 
@@ -503,6 +521,9 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                     //Util.showToast(msg);
                 }
                 submitNetErrorDialog();
+                if (getActivity()==null){
+                    return;
+                }
                 ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideDialog();
             }
         });
@@ -517,6 +538,9 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
     private void submitQuestionStatistic(ArrayList<StatisticHashMap> arrayList) {
         HashMap<String, String> submitQuestionHashMap = new HashMap<>();
         submitQuestionHashMap.put(YanXiuConstant.content, Util.listToJson(arrayList));
+        if (getActivity()==null){
+            return;
+        }
         DataStatisticsUploadManager.getInstance().NormalUpLoadData(getActivity(), submitQuestionHashMap);
     }
 
@@ -528,6 +552,9 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
 
 
     private void requestReport() {
+        if (getActivity()==null){
+            return;
+        }
         ((AnswerViewActivity) this.getActivity()).showCommonDialog();
         if (requestGetQReportTask != null && requestGetQReportTask.isCancelled()) {
             requestGetQReportTask.cancel();
@@ -536,6 +563,9 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
         requestGetQReportTask = new RequestGetQReportTask(YanxiuApplication.getContext(), String.valueOf(dataSources.getData().get(0).getId()), new AsyncCallBack() {
             @Override
             public void update(YanxiuBaseBean result) {
+                if (getActivity()==null){
+                    return;
+                }
                 ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideDialog();
                 SubjectExercisesItemBean bean = (SubjectExercisesItemBean) result;
                 if (bean.getData() != null && bean.getStatus() != null && bean.getStatus().getCode() == 0) {
@@ -563,6 +593,9 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
                     Util.showToast(R.string.server_connection_erro);
                 } else {
                     Util.showToast(msg);
+                }
+                if (getActivity()==null){
+                    return;
                 }
                 ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideDialog();
             }
@@ -625,6 +658,9 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
     private CommonDialog saveNetErrorDialog;
 
     public void saveNetErrorDialog() {
+        if (getActivity()==null){
+            return;
+        }
         saveNetErrorDialog = new CommonDialog(getActivity(), getActivity().getResources().getString(R.string.question_save_network_error),
                 getActivity().getResources().getString(R.string.try_again),
                 getActivity().getResources().getString(R.string.question_cancel),
@@ -650,6 +686,9 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
     private CommonDialog submitNetErrorDialog;
 
     public void submitNetErrorDialog() {
+        if (getActivity()==null){
+            return;
+        }
         submitNetErrorDialog = new CommonDialog(getActivity(), getActivity().getResources().getString(R.string.question_submit_network_error),
                 getActivity().getResources().getString(R.string.try_again),
                 getActivity().getResources().getString(R.string.question_cancel),

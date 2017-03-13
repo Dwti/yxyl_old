@@ -11,6 +11,14 @@
         android:layout_height="@dimen/dimen_50"
         android:background="@color/color_00cccc">
 
+        <TextView
+            android:id="@+id/system_redo"
+            android:layout_width="@dimen/dimen_80"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="@string/system_redo"/>
+
         <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
             android:id="@+id/public_layout_top_tv"
             style="@style/shadow_text_style"
