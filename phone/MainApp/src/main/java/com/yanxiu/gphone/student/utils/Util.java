@@ -45,7 +45,7 @@ import java.util.regex.Pattern;
 public class Util {
     private static String getMacAddress() {
         String macAddress = null;
-        WifiInfo wifiInfo = ((WifiManager) YanxiuApplication.getInstance().getSystemService(Context.WIFI_SERVICE))
+        WifiInfo wifiInfo = ((WifiManager) YanxiuApplication.getInstance().getApplicationContext().getSystemService(Context.WIFI_SERVICE))
                 .getConnectionInfo();
         if (wifiInfo != null) {
             macAddress = wifiInfo.getMacAddress();
