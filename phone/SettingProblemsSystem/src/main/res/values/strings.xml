@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Setting Problems System</string>
+    <string name="system_redo">出题</string>
+    <string name="problem">做题</string>
+    <string name="parsing">解析</string>
+    <string name="wrong_topic">错题</string>
+    <string name="redo">重做</string>
+</resources>
