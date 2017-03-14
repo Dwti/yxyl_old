@@ -92,7 +92,6 @@ public class SimpleAudioPlayer extends FrameLayout {
         }
     }
 
-
     public void setMax(int max) {
         mProgressBar.setMax(max);
     }

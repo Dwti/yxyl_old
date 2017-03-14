@@ -283,8 +283,6 @@
             android:launchMode="singleTop"/>
         <activity android:name=".activity.MistakeRedoActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.MistakeRedoCardActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".activity.SystemActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">

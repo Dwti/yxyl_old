@@ -1,17 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/login_top"
-        layout="@layout/public_top_layout"/>
+    <RelativeLayout
+        android:id="@+id/rl_answer_card_first"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_57"
+        android:background="@color/color_ffe580">
 
-<android.support.v7.widget.RecyclerView
-    android:id="@+id/recy_mistakecard"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/color_fff0b2"/>
+        <ImageView
+            android:id="@+id/pub_top_left"
+            android:layout_width="@dimen/dimen_26"
+            android:layout_height="@dimen/dimen_26"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dimen_15"
+            android:src="@drawable/answer_exam_delete" />
 
+        <TextView
+            android:id="@+id/pub_top_right"
+            style="@style/answer_card_text_style"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/dimen_90"
+            android:textColor="@color/color_996600"
+            android:textStyle="bold"
+            tool:text="语文练习第一章第一节" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_fff0b2">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recy_mistakecard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/dimen_26"
+            android:layout_marginLeft="@dimen/dimen_25"
+            android:layout_marginRight="@dimen/dimen_25"
+            android:layout_marginTop="@dimen/dimen_26" />
+    </LinearLayout>
 </LinearLayout>

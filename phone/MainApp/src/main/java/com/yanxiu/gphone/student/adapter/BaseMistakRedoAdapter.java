@@ -94,7 +94,7 @@ abstract class BaseMistakRedoAdapter<T> extends FragmentPagerAdapter {
         ViewHolder holder = (ViewHolder) ((BaseQuestionFragment) object).getTagMessage();
         if (holder != null && holder.position < mDatas.size()) {
             T t = mDatas.get(holder.position);
-            if (t!=null) {
+            if (t!=null&&holder.t!=null) {
                 if (t.hashCode() == holder.t.hashCode()) {
                     return POSITION_UNCHANGED;
                 }

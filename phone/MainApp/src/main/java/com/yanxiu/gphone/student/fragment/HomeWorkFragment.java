@@ -115,11 +115,11 @@ import com.yanxiu.gphone.student.view.stickhome.StickHomeLayout;
             }
         });
 
-//        if (YanxiuHttpApi.mUrlBean!=null&&!YanxiuHttpApi.mUrlBean.getMode().equals("release")) {
+        if (YanxiuHttpApi.mUrlBean!=null&&!YanxiuHttpApi.mUrlBean.getMode().equals("release")) {
             TextView system_redo = (TextView) rootView.findViewById(R.id.system_redo);
             system_redo.setVisibility(View.VISIBLE);
             system_redo.setOnClickListener(this);
-//        }
+        }
 
     }
 

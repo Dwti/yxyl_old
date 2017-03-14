@@ -30,6 +30,9 @@ import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.bean.YanxiuPageInfoBean;
 import com.yanxiu.gphone.student.bean.statistics.MistakeCountBean;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
+import com.yanxiu.gphone.student.requestTask.MisRedoNumQuestionTask;
+import com.yanxiu.gphone.student.requestTask.RequestDelMistakeTask;
+import com.yanxiu.gphone.student.requestTask.RequestMistakeRedoClassTask;
 import com.yanxiu.gphone.student.requestTask.RequestWrongAllQuestionTask;
 import com.yanxiu.gphone.student.utils.PublicLoadUtils;
 import com.yanxiu.gphone.student.utils.QuestionUtils;
@@ -72,6 +75,9 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
     private SubjectExercisesItemBean subjectExercisesItemBeanIntent = new SubjectExercisesItemBean();;
     private MistakeRedoNumberBean numberBean;
     private YanxiuTypefaceButton mistake_number;
+    private boolean Is_number_ready=false;
+    private boolean Is_number_click=false;
+
 
     public static void launch (Activity activity, String title, String subjectId, String wrongNum) {
         Intent intent = new Intent(activity, MistakeAllActivity.class);
@@ -99,7 +105,6 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
         EventBus.getDefault().register(this);
         findView();
         requestMistakeAllList(false, true, false);
-        requestMistakeNumber();
     }
 
     private void findView() {
@@ -110,7 +115,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
         titleView.setText(title);
         wrongNumView = (TextView)findViewById(R.id.answer_exam_wrong_num_text);
         mMistakeCount = new Integer(wrongNum);
-        wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, 0));
+        wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, 0+""));
         listView = (XListView) findViewById(R.id.mistack_all_list);
         wrongAllListAdapter = new WrongAllListAdapter(this);
         listView.setAdapter(wrongAllListAdapter);
@@ -146,18 +151,46 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
         RelativeLayout linear_number= (RelativeLayout) findViewById(R.id.linear_number);
         mistake_number= (YanxiuTypefaceButton) findViewById(R.id.mistake_number);
         if (title.equals(getResources().getString(R.string.mistake_redo_math))||title.equals(getResources().getString(R.string.mistake_redo_english))){
+            requestMistakeNumber();
             linear_number.setVisibility(View.VISIBLE);
             mistake_number.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(MistakeAllActivity.this,MistakeRedoActivity.class);
-                    intent.putExtra("wrongCount", numberBean.getProperty().getQuestionNum()+"");
-                    startActivity(intent);
+                    if (Is_number_ready) {
+                        MistakeNumClick();
+                    }else {
+                        Is_number_click=true;
+                        requestMistakeNumber();
+                    }
                 }
             });
         }else {
             linear_number.setVisibility(View.GONE);
         }
+    }
+
+    private void MistakeNumClick(){
+        RequestMistakeRedoClassTask redoClassTask=new RequestMistakeRedoClassTask(this, stageId, subjectId, new AsyncCallBack() {
+            @Override
+            public void update(YanxiuBaseBean result) {
+                SubjectExercisesItemBean itemBean= (SubjectExercisesItemBean) result;
+                if (itemBean!=null&&itemBean.getStatus().getCode()==0&&itemBean.getData()!=null&&itemBean.getData().size()>0) {
+                    MistakeRedoActivity.launch(MistakeAllActivity.this,itemBean,numberBean.getProperty().getQuestionNum()+"",stageId,subjectId);
+                }else {
+                    Util.showToast(R.string.data_erro);
+                }
+            }
+
+            @Override
+            public void dataError(int type, String msg) {
+                if (!NetWorkTypeUtils.isNetAvailable()) {
+                    Util.showToast(R.string.server_connection_erro);
+                }else {
+                    Util.showToast(R.string.data_erro);
+                }
+            }
+        });
+        redoClassTask.start();
     }
 
     private XListView.IXListViewListener ixListViewListener = new XListView.IXListViewListener(){
@@ -183,18 +216,38 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
     };
 
     private void requestMistakeNumber(){
-        numberBean=new MistakeRedoNumberBean();
-        DataStatusEntityBean bean=new DataStatusEntityBean();
-        bean.setCode(0);
-        bean.setDesc("操作成功");
-        MistakeRedoNumberBean.ProPerty perty= numberBean.new ProPerty();
-        perty.setQuestionNum(60);
-        numberBean.setStatus(bean);
-        numberBean.setProperty(perty);
+        MisRedoNumQuestionTask numQuestionTask=new MisRedoNumQuestionTask(this, stageId, subjectId, new AsyncCallBack() {
+            @Override
+            public void update(YanxiuBaseBean result) {
+                numberBean= (MistakeRedoNumberBean) result;
+                if (numberBean!=null&&numberBean.getStatus().getCode()==0) {
+                    String s = getResources().getString(R.string.mistake_redo_number, numberBean.getProperty().getQuestionNum() + "");
+                    mistake_number.setText(s);
+                    mistake_number.setClickable(true);
+                    Is_number_ready=true;
+                    if (Is_number_click){
+                        MistakeNumClick();
+                    }
+                }else {
+                    Util.showToast(R.string.data_erro);
+                }
+                Is_number_click=false;
+            }
 
+            @Override
+            public void dataError(int type, String msg) {
+                Is_number_ready=false;
+                Is_number_click=false;
+                mistake_number.setClickable(true);
+                if (!NetWorkTypeUtils.isNetAvailable()) {
+                    Util.showToast(R.string.server_connection_erro);
+                }else {
+                    Util.showToast(R.string.data_erro);
+                }
 
-        String s=getResources().getString(R.string.mistake_redo_number,numberBean.getProperty().getQuestionNum()+"");
-        mistake_number.setText(s);
+            }
+        });
+        numQuestionTask.start();
     }
 
     private void requestMistakeAllList(final boolean isRefresh,final boolean showLoading,
@@ -220,7 +273,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                     listView.stopLoadMore();
 
                     mSubjectExercisesItemBean = (SubjectExercisesItemBean) result;
-                    wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mSubjectExercisesItemBean.getPage().getTotalCou()));
+                    wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mSubjectExercisesItemBean.getPage().getTotalCou()+""));
 
                     QuestionUtils.settingAnswer(mSubjectExercisesItemBean);
                     QuestionUtils.initDataWithAnswer(mSubjectExercisesItemBean);
@@ -375,7 +428,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
 
     public void onEventMainThread(MistakeCountBean event) {
         mMistakeCount = mMistakeCount - 1;
-        wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mMistakeCount));
+        wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mMistakeCount+""));
         pageIndex = 1;
         requestMistakeAllList(true, false, false);
     }
@@ -384,7 +437,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null && data.getIntExtra("wrongNum", 0) != 0) {
-            wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, data.getIntExtra("wrongNum", 0)));
+            wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, data.getIntExtra("wrongNum", 0)+""));
             mMistakeCount = data.getIntExtra("wrongNum", 0);
             pageIndex = 1;
             requestMistakeAllList(true, false, false);
