@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.ImageView;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yanxiu.gphone.student.R;
@@ -105,7 +104,7 @@ public class MistakeRedoFragment extends Fragment {
         iv_edit_note.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NoteEditActivity.lanuch(MistakeRedoFragment.this,tv_note.getText().toString(),noteAdapter.getData());
+                NoteEditActivity.launch(MistakeRedoFragment.this,tv_note.getText().toString(),noteAdapter.getData());
             }
         });
 

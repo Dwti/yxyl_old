@@ -2,7 +2,6 @@ package com.yanxiu.gphone.student.fragment.question;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -24,7 +23,6 @@ import com.yanxiu.gphone.student.activity.AnswerViewActivity;
 import com.yanxiu.gphone.student.activity.BaseAnswerViewActivity;
 import com.yanxiu.gphone.student.activity.ImagePreviewActivity;
 import com.yanxiu.gphone.student.activity.NoteEditActivity;
-import com.yanxiu.gphone.student.activity.ResolutionAnswerViewActivity;
 import com.yanxiu.gphone.student.adapter.NoteImageGridAdapter;
 import com.yanxiu.gphone.student.bean.ExercisesDataEntity;
 import com.yanxiu.gphone.student.bean.ExtendEntity;
@@ -37,7 +35,6 @@ import com.yanxiu.gphone.student.requestTask.RequestKnpointQBlockTask;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
-import com.yanxiu.gphone.student.view.question.classfy.ClassfyQuestions;
 import com.yanxiu.gphone.student.view.question.subjective.SubjectiveStarLayout;
 
 import org.json.JSONException;
@@ -45,9 +42,6 @@ import org.json.JSONObject;
 
 import java.util.List;
 import java.util.Map;
-
-import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_COMPUTE;
-import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_SOLVE_COMPLEX;
 
 /**
  * Created by Administrator on 2015/7/7.
@@ -122,7 +116,7 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
         iv_edit_note.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NoteEditActivity.lanuch(ProblemAnalysisFragment.this,tv_note.getText().toString(),noteAdapter.getData());
+                NoteEditActivity.launch(ProblemAnalysisFragment.this,tv_note.getText().toString(),noteAdapter.getData());
             }
         });
 

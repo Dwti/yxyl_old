@@ -5,6 +5,6 @@ package com.test.yanxiu.network;
  */
 
 public interface HttpCallback<T> {
-    void onSuccess(RequestBase request, T ret);
+    void onSuccess(RequestBase request, T response);
     void onFail(RequestBase request, Error error);
 }

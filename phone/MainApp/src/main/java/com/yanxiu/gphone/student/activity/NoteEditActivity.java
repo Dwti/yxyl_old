@@ -8,8 +8,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.test.yanxiu.network.HttpCallback;
+import com.test.yanxiu.network.RequestBase;
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.bean.NoteBean;
+import com.yanxiu.gphone.student.bean.NoteResponseBean;
 import com.yanxiu.gphone.student.bean.UploadImageBean;
+import com.yanxiu.gphone.student.bean.request.NoteRequest;
 import com.yanxiu.gphone.student.httpApi.YanxiuHttpApi;
 import com.yanxiu.gphone.student.utils.MediaUtils;
 import com.yanxiu.gphone.student.utils.ToastMaster;
@@ -29,13 +34,13 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
     private EditText mEditText;
     private PhotoView photoView;
     private ImageView iv_cancel, iv_save;
-    public static final String PHOTO_PATH = "phtoPath";
+    public static final String PHOTO_PATH = "photoPath";
     public static final String NOTE_CONTENT = "noteContent";
     public static final int REQUEST_NOTE_EDIT = 0x001;
     private ArrayList<String> mPhotoPath;
     private ArrayList<String> mHttpPath = new ArrayList<>();
 
-    public static void lanuch(Fragment fragment, String content, ArrayList<String> imagePaths) {
+    public static void launch(Fragment fragment, String content, ArrayList<String> imagePaths) {
         Intent intent = new Intent(fragment.getActivity(), NoteEditActivity.class);
         intent.putExtra(NOTE_CONTENT, content);
         intent.putStringArrayListExtra(PHOTO_PATH, imagePaths);
@@ -77,8 +82,17 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
         }else saveContentAndImages(mHttpPath,mEditText.getText().toString());
     }
 
-    private void saveContentAndImages(List<String> images,String content){
+    private void saveContentAndImages(ArrayList<String> images,String content){
         //调增加笔记 的接口，然后setResult
+        NoteBean note = new NoteBean();
+        note.setImages(images);
+        note.setText(content);
+
+        NoteRequest request = new NoteRequest();
+        request.setWqid(0);
+        request.setToken("");
+        request.setNote(note);
+        request.startRequest(NoteResponseBean.class,new NoteCallBack());
     }
     private void uploadImages(List<String> photos) {
         LinkedHashMap<String, File> hashMap = new LinkedHashMap<>();
@@ -116,7 +130,6 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.iv_save:
                 saveData();
-//                setResultOK(mHttpPath,mEditText.getText().toString());
                 break;
             default:
                 break;
@@ -147,6 +160,23 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
         @Override
         public void onProgress(int progress) {
 
+        }
+    }
+
+    private class NoteCallBack implements HttpCallback<NoteResponseBean>{
+
+        @Override
+        public void onSuccess(RequestBase request, NoteResponseBean response) {
+            if(response.getStatus().getCode() == 0){
+                NoteRequest noteRequest = (NoteRequest) request;
+                ToastMaster.showShortToast(NoteEditActivity.this, "保存成功");
+                setResultOK(noteRequest.getNote().getImages(),noteRequest.getNote().getText());
+            }
+        }
+
+        @Override
+        public void onFail(RequestBase request, Error error) {
+            ToastMaster.showShortToast(NoteEditActivity.this, "保存失败");
         }
     }
 }

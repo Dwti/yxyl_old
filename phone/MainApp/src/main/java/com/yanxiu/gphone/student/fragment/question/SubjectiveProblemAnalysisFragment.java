@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.telephony.PhoneStateListener;
-import android.telephony.ServiceState;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -132,7 +131,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
         iv_edit_note.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NoteEditActivity.lanuch(SubjectiveProblemAnalysisFragment.this,tv_note.getText().toString(),noteAdapter.getData());
+                NoteEditActivity.launch(SubjectiveProblemAnalysisFragment.this,tv_note.getText().toString(),noteAdapter.getData());
             }
         });
 
