@@ -11,12 +11,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <View
-                android:id="@+id/current_state_title_line"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_1"
                 android:layout_marginBottom="@dimen/dimen_10"
@@ -28,11 +28,10 @@
             <ImageView
                 android:layout_width="@dimen/dimen_60"
                 android:layout_height="@dimen/dimen_18"
-                android:layout_below="@id/current_state_title_line"
                 android:layout_marginLeft="@dimen/dimen_20"
                 android:src="@drawable/current_state_title_bg" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
             android:id="@+id/hw_report_parse_statue_text"
@@ -93,17 +92,17 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/hw_report_parse_layout"
+        android:id="@+id/ll_hw_report_parse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <View
-                android:id="@+id/problem_analysis_title_line"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_1"
                 android:layout_marginBottom="@dimen/dimen_10"
@@ -115,11 +114,10 @@
             <ImageView
                 android:layout_width="@dimen/dimen_60"
                 android:layout_height="@dimen/dimen_18"
-                android:layout_below="@id/problem_analysis_title_line"
                 android:layout_marginLeft="@dimen/dimen_20"
                 android:src="@drawable/problem_analysis_title_bg" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -130,13 +128,12 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/question_read_content_bg"></RelativeLayout>
+                android:background="@drawable/question_read_content_bg" />
 
             <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
                 android:id="@+id/hw_report_parse_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/view_line_ccc4a3"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/dimen_12"
                 android:layout_marginLeft="@dimen/dimen_20"
@@ -149,7 +146,17 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:background="@drawable/repeat_common_line" />
+
     <LinearLayout
+        android:id="@+id/ll_note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"

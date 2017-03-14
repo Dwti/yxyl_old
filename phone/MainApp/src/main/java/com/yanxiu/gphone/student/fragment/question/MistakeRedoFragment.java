@@ -24,6 +24,7 @@ import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 import com.yanxiu.gphone.student.view.question.subjective.SubjectiveStarLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,7 +39,7 @@ public class MistakeRedoFragment extends Fragment {
     private YXiuAnserTextView tvReportParseStatueText;
     private SubjectiveStarLayout difficultyStart;
     private YXiuAnserTextView tvReportParseText;
-    private LinearLayout hw_report_parse_layout;
+    private LinearLayout ll_hw_report_parse;
     private ImageView iv_edit_note;
     private TextView tv_note;
     private GridView grid_note_image;
@@ -79,11 +80,13 @@ public class MistakeRedoFragment extends Fragment {
         }
         difficultyStart.selectStarCount(questionsEntity.getDifficulty());
         if (!TextUtils.isEmpty(questionsEntity.getAnalysis())) {
-            hw_report_parse_layout.setVisibility(View.VISIBLE);
+            ll_hw_report_parse.setVisibility(View.VISIBLE);
             tvReportParseText.setTextHtml(questionsEntity.getAnalysis());
         }else {
-            hw_report_parse_layout.setVisibility(View.GONE);
+            ll_hw_report_parse.setVisibility(View.GONE);
         }
+        noteAdapter.setData(questionsEntity.getJsonNote().getImages());
+        tv_note.setText(questionsEntity.getJsonNote().getText());
         setNoteContentVisible(tv_note.getText().toString(),noteAdapter.getData());
     }
 
@@ -91,7 +94,7 @@ public class MistakeRedoFragment extends Fragment {
         tvReportParseStatueText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_parse_statue_text);
         difficultyStart = (SubjectiveStarLayout) rootView.findViewById(R.id.view_sub_difficulty_star);
         tvReportParseText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_parse_text);
-        hw_report_parse_layout= (LinearLayout) rootView.findViewById(R.id.hw_report_parse_layout);
+        ll_hw_report_parse = (LinearLayout) rootView.findViewById(R.id.ll_hw_report_parse);
         iv_edit_note = (ImageView) rootView.findViewById(R.id.iv_edit_note);
         ll_note_content= rootView.findViewById(R.id.ll_note_content);
         tv_note = (TextView) rootView.findViewById(R.id.tv_note);
@@ -104,7 +107,12 @@ public class MistakeRedoFragment extends Fragment {
         iv_edit_note.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NoteEditActivity.launch(MistakeRedoFragment.this,tv_note.getText().toString(),noteAdapter.getData());
+                Bundle args = new Bundle();
+                args.putString(NoteEditActivity.NOTE_CONTENT,tv_note.getText().toString());
+                args.putStringArrayList(NoteEditActivity.PHOTO_PATH,noteAdapter.getData());
+                args.putString(NoteEditActivity.WQID,questionsEntity.getWqid());
+                args.putString(NoteEditActivity.QID,questionsEntity.getQid());
+                NoteEditActivity.launch(MistakeRedoFragment.this,args);
             }
         });
 
@@ -130,8 +138,12 @@ public class MistakeRedoFragment extends Fragment {
         switch (requestCode){
             case NoteEditActivity.REQUEST_NOTE_EDIT:
                 if(resultCode == getActivity().RESULT_OK){
-                    tv_note.setText(data.getStringExtra(NoteEditActivity.NOTE_CONTENT));
-                    noteAdapter.setData(data.getStringArrayListExtra(NoteEditActivity.PHOTO_PATH));
+                    String text = data.getStringExtra(NoteEditActivity.NOTE_CONTENT);
+                    ArrayList<String> images = data.getStringArrayListExtra(NoteEditActivity.PHOTO_PATH);
+                    tv_note.setText(text);
+                    noteAdapter.setData(images);
+                    questionsEntity.getJsonNote().setText(text);
+                    questionsEntity.getJsonNote().setImages(images);
                     setNoteContentVisible(tv_note.getText().toString(),noteAdapter.getData());
                 }
                 break;

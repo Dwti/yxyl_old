@@ -92,7 +92,7 @@ public abstract class RequestBase {
         try {
             request = generateRequest(uuid);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         call = client.newCall(request);
         call.enqueue(new Callback() {

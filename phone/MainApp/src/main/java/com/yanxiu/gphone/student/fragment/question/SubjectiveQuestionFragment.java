@@ -126,11 +126,6 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && !ischild) {
@@ -193,6 +188,7 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
     private void addAnalysisFragment() {
         Bundle args = new Bundle();
         args.putSerializable("questions", questionsEntity);
+        args.putInt("answerViewType",answerViewTypyBean);
         resolutionFragment = Fragment.instantiate(SubjectiveQuestionFragment.this.getActivity(), SubjectiveProblemAnalysisFragment.class.getName(), args);
         ((SubjectiveProblemAnalysisFragment) resolutionFragment).setIndexposition(this);
         FragmentTransaction ft = SubjectiveQuestionFragment.this.getChildFragmentManager().beginTransaction();

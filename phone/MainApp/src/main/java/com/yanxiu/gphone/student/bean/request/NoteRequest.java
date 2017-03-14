@@ -4,13 +4,15 @@ import com.test.yanxiu.network.RequestBase;
 import com.yanxiu.gphone.student.bean.NoteBean;
 import com.yanxiu.gphone.student.httpApi.YanxiuHttpApi;
 
+import java.io.Serializable;
+
 /**
  * Created by sunpeng on 2017/3/13.
  */
 
-public class NoteRequest extends RequestBase {
+public class NoteRequest extends RequestBase implements Serializable {
     private String token;
-    private int wqid;
+    private String wqid;
     private NoteBean note;
 
     public String getToken() {
@@ -21,11 +23,11 @@ public class NoteRequest extends RequestBase {
         this.token = token;
     }
 
-    public int getWqid() {
+    public String getWqid() {
         return wqid;
     }
 
-    public void setWqid(int wqid) {
+    public void setWqid(String wqid) {
         this.wqid = wqid;
     }
 

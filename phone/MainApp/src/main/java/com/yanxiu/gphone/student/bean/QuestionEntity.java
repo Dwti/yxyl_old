@@ -39,6 +39,8 @@ public class QuestionEntity implements YanxiuBaseBean {
     private int parent_type_id=-1;  //父题的typeid，如果当前题目没有子题的话，parent_type_id等于type_id (此字段主要提供给答题报告按题型分类的时候用)
     private int type_id;
     private String id;
+    private String qid;       //PaperTest的qid
+    private String wqid;     //PaperTest的wqid(如果有子题的话，是父题的wqid)
 
     public QuestionEntity getQuestions() {
         return questions;
@@ -58,6 +60,7 @@ public class QuestionEntity implements YanxiuBaseBean {
     private String titleName;
     private String url;   //听力的url播放地址
     private List<String> photoUri;
+    private NoteBean jsonNote = new NoteBean();
 
     private ExtendEntity extend;
 
@@ -311,6 +314,30 @@ public class QuestionEntity implements YanxiuBaseBean {
 
     public String getReadItemName() {
         return readItemName;
+    }
+
+    public NoteBean getJsonNote() {
+        return jsonNote;
+    }
+
+    public void setJsonNote(NoteBean jsonNote) {
+        this.jsonNote = jsonNote;
+    }
+
+    public String getQid() {
+        return qid;
+    }
+
+    public void setQid(String qid) {
+        this.qid = qid;
+    }
+
+    public String getWqid() {
+        return wqid;
+    }
+
+    public void setWqid(String wqid) {
+        this.wqid = wqid;
     }
 
     public class ContentEntity  implements YanxiuBaseBean {

@@ -351,6 +351,8 @@ public class QuestionUtils {
 
                     PaperTestEntity paperTestEntity = dataList.get(i);
                     QuestionEntity questionEntity = paperTestEntity.getQuestions();
+                    questionEntity.setWqid(paperTestEntity.getWqid());
+                    questionEntity.setQid(String.valueOf(paperTestEntity.getQid()));
                     String template = questionEntity.getTemplate();
                     if (questionEntity.getPad() == null)
                         continue;
@@ -366,6 +368,8 @@ public class QuestionUtils {
                             int childrenCount = paperList.size();
                             for (int j = 0; j < childrenCount; j++) {
                                 QuestionEntity childQuestion = paperList.get(j).getQuestions();
+                                childQuestion.setWqid(paperTestEntity.getWqid());
+                                childQuestion.setQid(String.valueOf(paperList.get(j).getQid()));
                                 if(childQuestion == null || childQuestion.getPad()==null)
                                     continue;
                                 List<String> answerChildList;

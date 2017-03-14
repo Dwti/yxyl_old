@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.common.login.LoginModel;
 import com.test.yanxiu.network.HttpCallback;
 import com.test.yanxiu.network.RequestBase;
 import com.yanxiu.gphone.student.R;
@@ -30,15 +31,20 @@ import java.util.List;
  */
 
 public class NoteEditActivity extends Activity implements View.OnClickListener {
-    private View fl_root;
     private EditText mEditText;
-    private PhotoView photoView;
+    private PhotoView mPhotoView;
     private ImageView iv_cancel, iv_save;
     public static final String PHOTO_PATH = "photoPath";
     public static final String NOTE_CONTENT = "noteContent";
+    public static final String WQID = "wqid";
+    public static final String QID = "qid";
     public static final int REQUEST_NOTE_EDIT = 0x001;
-    private ArrayList<String> mPhotoPath;
+    private String wqid,qid;
+    private ArrayList<String> mPhotoPath = new ArrayList<>();
     private ArrayList<String> mHttpPath = new ArrayList<>();
+    private List<String> localPhotoPath = new ArrayList<>();
+
+    private String mContent;
 
     public static void launch(Fragment fragment, String content, ArrayList<String> imagePaths) {
         Intent intent = new Intent(fragment.getActivity(), NoteEditActivity.class);
@@ -47,31 +53,43 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
         fragment.startActivityForResult(intent, REQUEST_NOTE_EDIT);
     }
 
+    public static void launch(Fragment fragment, Bundle args) {
+        Intent intent = new Intent(fragment.getActivity(), NoteEditActivity.class);
+        intent.putExtra("data",args);
+        fragment.startActivityForResult(intent, REQUEST_NOTE_EDIT);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_edit);
-        fl_root = findViewById(R.id.fl_root);
         iv_cancel = (ImageView) findViewById(R.id.iv_cancel);
         iv_save = (ImageView) findViewById(R.id.iv_save);
         mEditText = (EditText) findViewById(R.id.editText);
-        photoView = (PhotoView) findViewById(R.id.photoView);
-        mPhotoPath = getIntent().getStringArrayListExtra(PHOTO_PATH);
-        String content = getIntent().getStringExtra(NOTE_CONTENT);
+        mPhotoView = (PhotoView) findViewById(R.id.photoView);
+        Bundle args = getIntent().getBundleExtra("data");
+        mPhotoPath = args.getStringArrayList(PHOTO_PATH);
+        mContent = args.getString(NOTE_CONTENT);
+        wqid = args.getString(WQID);
+        qid = args.getString(QID);
 
-        mEditText.setText(content);
-        photoView.setMaxCount(4);
-        photoView.setData(mPhotoPath);
+        mEditText.setText(mContent);
+        mPhotoView.setMaxCount(4);
+        mPhotoView.setData(mPhotoPath);
 
         iv_cancel.setOnClickListener(this);
         iv_save.setOnClickListener(this);
 
     }
 
+    /**
+     * 剥离出来没上传到server的图片，也就是路径是本地的图片
+     */
     private void saveData() {
-        List<String> localPhotoPath = new ArrayList<>();
-        if (photoView.getPhotos() != null && photoView.getPhotos().size() > 0) {
-            for (String path : photoView.getPhotos()) {
+        localPhotoPath.clear();
+        mHttpPath.clear();
+        if (mPhotoView.getPhotos() != null && mPhotoView.getPhotos().size() > 0) {
+            for (String path : mPhotoView.getPhotos()) {
                 if (!path.startsWith("http"))
                     localPhotoPath.add(path);
                 else mHttpPath.add(path);
@@ -87,10 +105,11 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
         NoteBean note = new NoteBean();
         note.setImages(images);
         note.setText(content);
+        note.setQid(qid);
 
         NoteRequest request = new NoteRequest();
-        request.setWqid(0);
-        request.setToken("");
+        request.setWqid(wqid);
+        request.setToken(LoginModel.getToken());
         request.setNote(note);
         request.startRequest(NoteResponseBean.class,new NoteCallBack());
     }
@@ -107,13 +126,13 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
             case ImagePreviewActivity.IMAGE_PREVIEW:
                 if (resultCode == RESULT_OK) {
                     ArrayList<String> paths = data.getStringArrayListExtra(ImagePreviewActivity.PATH_LIST);
-                    photoView.setData(paths);
+                    mPhotoView.setData(paths);
                 }
                 break;
             case MediaUtils.CAPATURE_AND_CROP:
                 if (resultCode == RESULT_OK) {
                     String imagePath = data.getStringExtra(ImageCropActivity.IMAGE_PATH);
-                    photoView.add(imagePath);
+                    mPhotoView.add(imagePath);
                 }
                 CameraActivity.bitmap = null;
                 break;
@@ -154,6 +173,7 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
         @Override
         public void onSuccess(UploadImageBean bean) {
             mHttpPath.addAll(bean.getData());
+            saveContentAndImages(mHttpPath,mEditText.getText().toString());
             ToastMaster.showShortToast(NoteEditActivity.this, "上传成功");
         }
 

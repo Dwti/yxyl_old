@@ -11,15 +11,15 @@ import java.util.List;
  */
 
 public class NoteBean implements YanxiuBaseBean {
-    private int qid;
+    private String qid;
     private String text;
-    private ArrayList<String> images;
+    private ArrayList<String> images = new ArrayList<>();
 
-    public int getQid() {
+    public String getQid() {
         return qid;
     }
 
-    public void setQid(int qid) {
+    public void setQid(String qid) {
         this.qid = qid;
     }
 

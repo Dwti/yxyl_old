@@ -40,6 +40,7 @@ import com.yanxiu.gphone.student.view.question.subjective.SubjectiveStarLayout;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -70,7 +71,7 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
     private YXiuAnserTextView tvReportParseStatueText;
     private YXiuAnserTextView tvReportParseStatisticsText;
 
-    private View rootView,ll_note_content;
+    private View rootView,ll_note,ll_note_content;
     private QuestionEntity questionsEntity;
 
     private YXiuAnserTextView tvDifficulltyText;
@@ -116,7 +117,12 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
         iv_edit_note.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NoteEditActivity.launch(ProblemAnalysisFragment.this,tv_note.getText().toString(),noteAdapter.getData());
+                Bundle args = new Bundle();
+                args.putString(NoteEditActivity.NOTE_CONTENT,tv_note.getText().toString());
+                args.putStringArrayList(NoteEditActivity.PHOTO_PATH,noteAdapter.getData());
+                args.putString(NoteEditActivity.WQID,questionsEntity.getWqid());
+                args.putString(NoteEditActivity.QID,questionsEntity.getQid());
+                NoteEditActivity.launch(ProblemAnalysisFragment.this,args);
             }
         });
 
@@ -138,6 +144,8 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
         iv_edit_note = (ImageView) rootView.findViewById(R.id.iv_edit_note);
         tvReportQuestionError = (TextView) rootView.findViewById(R.id.tv_report_question_error);
         ll_note_content = rootView.findViewById(R.id.ll_note_content);
+        ll_note = rootView.findViewById(R.id.ll_note);
+        ll_note.setVisibility(View.GONE);
         tv_note = (TextView) rootView.findViewById(R.id.tv_note);
         difficultyStart = (SubjectiveStarLayout) rootView.findViewById(R.id.view_sub_difficulty_star);
         llDifficullty = (LinearLayout) rootView.findViewById(R.id.hw_report_difficullty_layout);
@@ -326,14 +334,21 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
 //                llAnswer.setVisibility(View.VISIBLE);
 //            }
         }
-
+        tv_note.setText(questionsEntity.getJsonNote().getText());
+        noteAdapter.setData(questionsEntity.getJsonNote().getImages());
         setNoteContentVisible(tv_note.getText().toString(),noteAdapter.getData());
     }
 
     private void setNoteContentVisible(String note,List<String> imagePath){
+        if(subjectExercisesItemBean.getViewType()==SubjectExercisesItemBean.WRONG_SET||subjectExercisesItemBean.getViewType()==SubjectExercisesItemBean.MISTAKEREDO){
+            ll_note.setVisibility(View.VISIBLE);
+        }else {
+            ll_note.setVisibility(View.GONE);
+            return;
+        }
         if(TextUtils.isEmpty(note) && (imagePath == null || imagePath.size() ==0)){
             ll_note_content.setVisibility(View.GONE);
-        }else {
+        }else{
             ll_note_content.setVisibility(View.VISIBLE);
         }
     }
@@ -452,8 +467,12 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
         switch (requestCode){
             case NoteEditActivity.REQUEST_NOTE_EDIT:
                 if(resultCode == getActivity().RESULT_OK){
-                    tv_note.setText(data.getStringExtra(NoteEditActivity.NOTE_CONTENT));
-                    noteAdapter.setData(data.getStringArrayListExtra(NoteEditActivity.PHOTO_PATH));
+                    String text = data.getStringExtra(NoteEditActivity.NOTE_CONTENT);
+                    ArrayList<String> images = data.getStringArrayListExtra(NoteEditActivity.PHOTO_PATH);
+                    tv_note.setText(text);
+                    noteAdapter.setData(images);
+                    questionsEntity.getJsonNote().setText(text);
+                    questionsEntity.getJsonNote().setImages(images);
                     setNoteContentVisible(tv_note.getText().toString(),noteAdapter.getData());
                 }
                 break;
