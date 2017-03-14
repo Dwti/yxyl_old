@@ -18,8 +18,26 @@ public class PaperTestEntity implements YanxiuBaseBean {
     private int qid;
     private int status;
     private String wqid;
+    private int wqnumber;
+    private int redostatus;
 
     private ExtendEntity extend;
+
+    public int getWqnumber() {
+        return wqnumber;
+    }
+
+    public void setWqnumber(int wqnumber) {
+        this.wqnumber = wqnumber;
+    }
+
+    public int getRedostatus() {
+        return redostatus;
+    }
+
+    public void setRedostatus(int redostatus) {
+        this.redostatus = redostatus;
+    }
 
     public boolean isHomeWorkFinished() {
         return isHomeWorkFinished;

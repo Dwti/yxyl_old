@@ -89,14 +89,6 @@ public class JudgeQuestions extends LinearLayout implements JudgeQuestionsItem.O
             JudgeQuestionsItem item = new JudgeQuestionsItem(mContext);
             item.setChoicesItemClickListener(this);
             if(i == NO_0){
-                item.setDrawableNormalId(R.drawable.judge_wrong);
-                item.setDrawableSelectId(R.drawable.judge_wrong);
-//                item.setSelectedBg(R.drawable.selector_judge_wrong);
-                item.setItemText(mContext.getResources().getString(R.string.wrong));
-                item.setJudgeType(JUDGE_TYPE.WRONG);
-//                item.setOnItemClick(isClick());
-                item.setSelectType(String.valueOf(JUDGE_TYPE.WRONG.key));
-            }else if(i == NO_1){
                 item.setDrawableNormalId(R.drawable.judge_correct);
                 item.setDrawableSelectId(R.drawable.judge_correct);
 //                item.setSelectedBg(R.drawable.selector_judge_correct);
@@ -104,6 +96,14 @@ public class JudgeQuestions extends LinearLayout implements JudgeQuestionsItem.O
                 item.setJudgeType(JUDGE_TYPE.RIGHT);
 //                item.setOnItemClick(isClick());
                 item.setSelectType(String.valueOf(JUDGE_TYPE.RIGHT.key));
+            }else if(i == NO_1){
+                item.setDrawableNormalId(R.drawable.judge_wrong);
+                item.setDrawableSelectId(R.drawable.judge_wrong);
+//                item.setSelectedBg(R.drawable.selector_judge_wrong);
+                item.setItemText(mContext.getResources().getString(R.string.wrong));
+                item.setJudgeType(JUDGE_TYPE.WRONG);
+//                item.setOnItemClick(isClick());
+                item.setSelectType(String.valueOf(JUDGE_TYPE.WRONG.key));
             }
             item.setCallBack(callBack);
             item.setClickable(isClick());

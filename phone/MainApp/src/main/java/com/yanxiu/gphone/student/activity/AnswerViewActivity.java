@@ -19,6 +19,7 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.AnswerAdapter;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.ChildIndexEvent;
+import com.yanxiu.gphone.student.bean.DataStatusEntityBean;
 import com.yanxiu.gphone.student.bean.GroupEventHWRefresh;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
@@ -529,13 +530,23 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         requestSubmitQuesitonTask = new RequestSubmitQuesitonTask(this, dataSources, RequestSubmitQuesitonTask.LIVE_CODE, new AsyncCallBack() {
             @Override
             public void update(YanxiuBaseBean result) {
-                EventBus.getDefault().post(new GroupEventHWRefresh());
-                if (mLoadingDialog.isShowing()) {
-                    mLoadingDialog.dismiss();
+                DataStatusEntityBean bean= (DataStatusEntityBean) result;
+                if (bean!=null&&bean.getCode()==0) {
+                    EventBus.getDefault().post(new GroupEventHWRefresh());
+                    if (mLoadingDialog.isShowing()) {
+                        mLoadingDialog.dismiss();
+                    } else {
+                        mRootView.finish();
+                    }
+                    AnswerViewActivity.this.finish();
                 }else {
-                    mRootView.finish();
+                    if (mLoadingDialog!=null&&mLoadingDialog.isShowing()) {
+                        mLoadingDialog.dismiss();
+                    }else {
+                        mRootView.finish();
+                    }
+                    submitNetErrorDialog();
                 }
-                AnswerViewActivity.this.finish();
             }
             @Override
             public void dataError(int type, String msg) {

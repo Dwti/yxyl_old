@@ -40,6 +40,7 @@ import java.io.InputStream;
 import java.io.InterruptedIOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -56,7 +57,7 @@ public class YanxiuHttpApi {
 
     public static final boolean isTest = false;   //是否是测试环境
     public static final boolean isDev = false;    //是否是测试环境中的开发环境
-    private static UrlBean mUrlBean = null;
+    public static UrlBean mUrlBean = null;
 
     public static void setBaseURL(UrlBean urlBean) {
         if (mUrlBean == null) {
@@ -1409,6 +1410,73 @@ public class YanxiuHttpApi {
         return request(httpParameter);
     }
 
+    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestMisRedoNum(int updataId, String stageId, String subjectId,YanxiuMainParser<T, D> parser){
+        String baseUrl = getStaticHead() +"/q/getReDoWrongQNum.do";
+        Bundle params = new Bundle();
+        params.putString("stageId", stageId + "");
+        params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
+        params.putString("subjectId", subjectId + "");
+
+        YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
+                YanxiuHttpParameter.Type.GET, parser, updataId);
+        return request(httpParameter);
+    }
+
+    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestMistakeRedoFrist(int updataId, String stageId, String subjectId,String pageSize,YanxiuMainParser<T, D> parser){
+        String baseUrl = getStaticHead() +"/q/getReDoWrongQsByFirst.do";
+        Bundle params = new Bundle();
+        params.putString("stageId", stageId + "");
+        params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
+        params.putString("subjectId", subjectId + "");
+        params.putString("pageSize",pageSize+"");
+
+        YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
+                YanxiuHttpParameter.Type.GET, parser, updataId);
+        httpParameter.setIsEncode(true);
+        return request(httpParameter);
+    }
+
+    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestMistakeRedo(int updataId, String stageId, String subjectId,String page,String pageSize,YanxiuMainParser<T, D> parser){
+        String baseUrl = getStaticHead() +"/q/getReDoWrongQs.do";
+        Bundle params = new Bundle();
+        params.putString("stageId", stageId + "");
+        params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
+        params.putString("subjectId", subjectId + "");
+        params.putString("pageSize",pageSize+"");
+        params.putString("page",page);
+
+        YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
+                YanxiuHttpParameter.Type.GET, parser, updataId);
+        httpParameter.setIsEncode(true);
+        return request(httpParameter);
+    }
+
+    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestMisRedoCard(int updataId, String stageId, String subjectId,YanxiuMainParser<T, D> parser){
+        String baseUrl = getStaticHead() +"/q/getReDoCatalog.do";
+        Bundle params = new Bundle();
+        params.putString("stageId", stageId + "");
+        params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
+        params.putString("subjectId", subjectId + "");
+
+        YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
+                YanxiuHttpParameter.Type.GET, parser, updataId);
+        return request(httpParameter);
+    }
+
+    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestMisRedoWork(int updataId, String stageId, String subjectId, String lastWqid, String lastWqnumber, String deleteWqidList, YanxiuMainParser<T, D> parser){
+        String baseUrl = getStaticHead() +"/q/finishReDoWork.do";
+        Bundle params = new Bundle();
+        params.putString("stageId", stageId + "");
+        params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
+        params.putString("subjectId", subjectId + "");
+        params.putString("lastWqid",lastWqid);
+        params.putString("lastWqnumber",lastWqnumber);
+        params.putString("deleteWqidList",deleteWqidList);
+
+        YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
+                YanxiuHttpParameter.Type.POST, parser, updataId);
+        return request(httpParameter);
+    }
 
     //    //    1 提交答题：
 //    //    提交作业： /app/q/submitQ.do?answers=&token=kk&ppId=344

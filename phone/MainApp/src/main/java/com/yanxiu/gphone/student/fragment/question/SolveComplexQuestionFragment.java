@@ -89,7 +89,7 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
 
     public void selectTypeView(){
         switch (answerViewTypyBean) {
-            case SubjectExercisesItemBean.RESOLUTION:
+            case SubjectExercisesItemBean.MISTAKEREDO:
                 FrameLayout layout= (FrameLayout) rootView.findViewById(R.id.fra_sub_or_del);
                 layout.setVisibility(View.VISIBLE);
                 FragmentManager manager = getChildFragmentManager();

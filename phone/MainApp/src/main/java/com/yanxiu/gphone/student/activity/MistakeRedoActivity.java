@@ -5,10 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -16,21 +20,34 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.common.core.utils.LogInfo;
+import com.common.core.utils.NetWorkTypeUtils;
 import com.common.login.LoginModel;
+import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.MistakeRedoAdapter;
 import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
+import com.yanxiu.gphone.student.bean.ExercisesDataEntity;
+import com.yanxiu.gphone.student.bean.MistakeDoWorkBean;
+import com.yanxiu.gphone.student.bean.MistakeRedoCardBean;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.fragment.question.AnswerCardFragment;
 import com.yanxiu.gphone.student.fragment.question.BaseQuestionFragment;
+import com.yanxiu.gphone.student.fragment.question.MistakeRedoCardFragment;
 import com.yanxiu.gphone.student.fragment.question.SubjectiveQuestionFragment;
+import com.yanxiu.gphone.student.inter.AsyncCallBack;
+import com.yanxiu.gphone.student.requestTask.MistakeDoWorkTask;
+import com.yanxiu.gphone.student.requestTask.RequestMisRedoAddClassTask;
+import com.yanxiu.gphone.student.requestTask.RequestMisRedoCardClassTask;
 import com.yanxiu.gphone.student.utils.Content;
 import com.yanxiu.gphone.student.utils.QuestionUtils;
+import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.MistakeRedoDialog;
 import java.lang.ref.WeakReference;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -44,67 +61,52 @@ import java.util.TimerTask;
 public class MistakeRedoActivity extends BaseAnswerViewActivity implements MistakeRedoAdapter.OnShouldDownLoadListener {
 
     private static final int TO_CARD = 0X00;
+    private static final String TAG="ANSWER_CARD";
     public static final int RIGHT = R.string.submit_right;
     public static final int FAIL = R.string.submit_fail;
 
     private MistakeRedoAdapter mistakeRedoAdapter;
-    private int pageIndex = 0;
-    private String stageId;
-    private String subjectId;
-    private String editionId;
-    private String volumeId;
-    private String chapterId;
-    private String sectionId;
-    private String questionId;
-    private int isChapterSection = 0;
-    private String uniteId;
     private int wrongCounts;
-    private boolean isNetData = true;
-
-    private int comeFrom = 0;
     private int position = 0;
 
-    private MyThread thread;
     private MyHandle handle;
     private Timer timer = new Timer();
     private RelativeLayout rel_popup;
     private TextView TextViewInfo;
     private MistakeRedoDialog dialog;
     private ImageView iv_top_back;
+    private String stageId;
+    private String subjectId;
+    private MistakeRedoCardBean mistakeRedoCardBean;
+    private FrameLayout content_answer_card;
 
-    public static void launch(Activity context, SubjectExercisesItemBean bean, String subjectId, int pagerIndex, int childIndex, int comeFrom, String wrongCount, int position) {
+    private String lastWqid="";
+    private String lastWqnumber="";
+    private String deleteWqidList="";
+    private int index=0;
+
+    public static void launch(Activity context, SubjectExercisesItemBean bean,String wrongCount,String stageId,String subjectId) {
         Intent intent = new Intent(context, MistakeRedoActivity.class);
-        intent.putExtra("subjectExercisesItemBean", bean);
-        intent.putExtra("subjectId", subjectId);
-        intent.putExtra("pagerIndex", pagerIndex);
-        intent.putExtra("childIndex", childIndex);
-        intent.putExtra("comeFrom", comeFrom);
-        intent.putExtra("position", position);
-        intent.putExtra("wrongCount", wrongCount);
+        Bundle bundle=new Bundle();
+        bundle.putSerializable("subjectExercisesItemBean", bean);
+        bundle.putString("wrongCount", wrongCount);
+        bundle.putString("stageId",stageId);
+        bundle.putString("subjectId",subjectId);
+        intent.putExtra("bundle",bundle);
         context.startActivityForResult(intent, YanXiuConstant.LAUNCHER_FROM_MISTAKE);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        stageId = LoginModel.getUserinfoEntity().getStageid() + "";
-//        subjectId = getIntent().getStringExtra("subjectId");
-//        editionId = getIntent().getStringExtra("editionId");
-//        volumeId = getIntent().getStringExtra("volumeId");
-//        chapterId = getIntent().getStringExtra("chapterId");
-//        sectionId = getIntent().getStringExtra("sectionId");
-//        uniteId = getIntent().getStringExtra("uniteId");
-//        isChapterSection = getIntent().getIntExtra("isChapterSection", 0);
-//        isNetData = getIntent().getBooleanExtra("isNetData", true);
-//        comeFrom = getIntent().getIntExtra("comeFrom", 0);
-//        position = getIntent().getIntExtra("position", 0);
-        String wrongCount = getIntent().getStringExtra("wrongCount");
         try {
+            Bundle bundle=getIntent().getBundleExtra("bundle");
+            String wrongCount=bundle.getString("wrongCount","0");
             wrongCounts = Integer.parseInt(wrongCount);
-        } catch (Exception e) {
-
-        }
+            stageId=bundle.getString("stageId","");
+            subjectId=bundle.getString("subjectId","");
+            dataSources= (SubjectExercisesItemBean) bundle.getSerializable("subjectExercisesItemBean");
+        } catch (Exception e) {}
         initView();
         initData();
     }
@@ -116,6 +118,8 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
         TextViewInfo = (TextView) findViewById(R.id.TextViewInfo);
         iv_top_back= (ImageView) findViewById(R.id.iv_top_back);
         iv_top_back.setOnClickListener(this);
+        content_answer_card= (FrameLayout) findViewById(R.id.content_answer_card);
+        content_answer_card.setVisibility(View.GONE);
     }
 
     @Override
@@ -123,8 +127,12 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
         super.onClick(v);
         switch (v.getId()) {
             case R.id.iv_answer_card:
-                Intent intent = new Intent(this, MistakeRedoCardActivity.class);
-                startActivityForResult(intent, TO_CARD);
+                if (mistakeRedoCardBean==null) {
+                    requestMisRedoCard();
+                }else {
+                    boolean flag=checkIsHaveAnswer();
+                    addFragment();
+                }
                 break;
             case R.id.iv_top_back:
                 if (dialog==null){
@@ -139,16 +147,85 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
         }
     }
 
+    private void requestMisRedoCard(){
+        RequestMisRedoCardClassTask cardClassTask=new RequestMisRedoCardClassTask(this, stageId, subjectId, new AsyncCallBack() {
+            @Override
+            public void update(YanxiuBaseBean result) {
+                mistakeRedoCardBean= (MistakeRedoCardBean) result;
+                if (mistakeRedoCardBean!=null&&mistakeRedoCardBean.getData()!=null&&mistakeRedoCardBean.getData().size()>0){
+                    boolean flag=checkIsHaveAnswer();
+                    addFragment();
+                }else {
+                    Util.showToast(R.string.data_erro);
+                }
+            }
+
+            @Override
+            public void dataError(int type, String msg) {
+                if (!NetWorkTypeUtils.isNetAvailable()) {
+                    Util.showToast(R.string.server_connection_erro);
+                }else {
+                    Util.showToast(R.string.data_erro);
+                }
+            }
+        });
+        cardClassTask.start();
+    }
+
+    private boolean checkIsHaveAnswer(){
+        List<PaperTestEntity> list=mistakeRedoAdapter.getDatas();
+        int x=0;
+        int y=0;
+        for (int i=0;i<list.size();i++){
+            PaperTestEntity entity=list.get(i);
+            if (entity!=null){
+                MistakeRedoCardBean.Mdata mdata=mistakeRedoCardBean.getData().get(x);
+                if (entity.getQuestions().isHaveAnser()){
+                    mdata.getWqtypes().set(y,MistakeRedoCardBean.TYPE_HASANSWER);
+                }else {
+                    mdata.getWqtypes().set(y,MistakeRedoCardBean.TYPE_NOANSWER);
+                }
+                y++;
+                if (y==mdata.getWqtypes().size()){
+                    x++;
+                    y=0;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void addFragment(){
+        content_answer_card.setVisibility(View.VISIBLE);
+        FragmentManager manager=getSupportFragmentManager();
+        Fragment fragment=manager.findFragmentByTag(TAG);
+        if (fragment==null) {
+            FragmentTransaction ft = manager.beginTransaction();
+            MistakeRedoCardFragment cardFragment = new MistakeRedoCardFragment();
+            Bundle args = new Bundle();
+            args.putSerializable("MistakeRedoCardBean", mistakeRedoCardBean);
+            cardFragment.setArguments(args);
+            ft.add(R.id.content_answer_card, cardFragment, TAG);
+            ft.commit();
+        }else {
+            MistakeRedoCardFragment cardFragment= (MistakeRedoCardFragment) fragment;
+            cardFragment.onRefresh();
+        }
+    }
+
+    public void removeFragment(){
+        content_answer_card.setVisibility(View.GONE);
+    }
+
+    public void setViewPagerCurrent(int item){
+        vpAnswer.setCurrentItem(item-1);
+        content_answer_card.setVisibility(View.GONE);
+    }
+
     @Override
     protected void initData() {
 
-//        if (getIntent() != null) {
-//            if (getIntent().getSerializableExtra("subjectExercisesItemBean") != null) {
-//                dataSources = (SubjectExercisesItemBean) getIntent().getSerializableExtra("subjectExercisesItemBean");
-//            }
-//        }
-
-        dataSources = JSON.parseObject(ss, SubjectExercisesItemBean.class);
+//        dataSources = JSON.parseObject(ss, SubjectExercisesItemBean.class);
 
         if (dataSources == null) {
             return;
@@ -162,12 +239,20 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
                 QuestionUtils.addChildQuestionToParent(dataList);     //对题目的pageIndex childPageIndex,positionForCard,childPositionForCard进行赋值
 
                 mistakeRedoAdapter = new MistakeRedoAdapter(getSupportFragmentManager());
-                handle = new MyHandle(mistakeRedoAdapter);
-                mistakeRedoAdapter.setDataSourcesFirst(dataSources, wrongCounts, 0, dataSources.getData().get(0).getPaperTest().size());
+                handle = new MyHandle();
+                mistakeRedoAdapter.setDataSourcesFirst(dataSources, wrongCounts);
                 vpAnswer.setAdapter(mistakeRedoAdapter);
                 mistakeRedoAdapter.setViewPager(vpAnswer);
                 mistakeRedoAdapter.setLoadListener(this);
                 pageCount = mistakeRedoAdapter.getCount();
+
+                boolean flag=setIndex();
+                vpAnswer.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        vpAnswer.setCurrentItem(index-1);
+                    }
+                });
 
                 ivBack.setOnClickListener(this);
                 ivAnswerCard.setOnClickListener(this);
@@ -179,16 +264,23 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
         }
         setReportError();
 
-        pageIndex = position;
         vpAnswer.setCurrentItem(position);
         tvPagerIndex.setText(String.valueOf(position + 1));
-        //tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(adapter.getTotalCount())));
         tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), (wrongCounts) + ""));
         tvToptext.setText(this.getResources().getString(R.string.questiong_resolution));
         tvToptext.setCompoundDrawables(null, null, null, null);
-//            tvAnswerCard.setVisibility(View.GONE);
         ivAnswerCard.setBackgroundResource(R.drawable.selector_mistake_question_card);
+    }
 
+    private boolean setIndex(){
+        List<PaperTestEntity> list=dataSources.getData().get(0).getPaperTest();
+        for (PaperTestEntity entity:list){
+            if (entity!=null&&entity.getRedostatus()==0){
+                index=entity.getWqnumber();
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -200,57 +292,49 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         try {
             if (resultCode == RESULT_OK) {
-                if (requestCode == TO_CARD) {
-                    //答题卡返回
-                    int index = data.getIntExtra("index", -1);
-                    if (index != -1) {
-                        vpAnswer.setCurrentItem(index);
-                    }
-                } else {
-                    BaseQuestionFragment currentFragment = (BaseQuestionFragment) mistakeRedoAdapter.getItem(currentIndex);
-                    if (dataSources.getData().get(0).getPaperTest().get(currentIndex).getQuestions().getChildren() != null && !dataSources.getData().get(0).getPaperTest().get(currentIndex).getQuestions().getChildren().isEmpty())
-                        if (currentFragment != null && currentFragment.getChildFragment() != null) {
-                            currentFragment = (BaseQuestionFragment) currentFragment.getChildFragment();
-                        }
-                    if (currentFragment != null && currentFragment instanceof SubjectiveQuestionFragment) {
-                        currentFragment.onActivityResult(requestCode, resultCode, data);
-                    }
-                }
+                /**
+                 * 下面逻辑有问题，datasources这个对象不能直接使用，不过错题重做暂时不需要这个功能，留待后用
+                 * */
+//                if (requestCode == TO_CARD) {
+//                    //答题卡返回
+//                    int index = data.getIntExtra("index", -1);
+//                    if (index != -1) {
+//                        vpAnswer.setCurrentItem(index);
+//                    }
+//                } else {
+//                    BaseQuestionFragment currentFragment = (BaseQuestionFragment) mistakeRedoAdapter.getItem(currentIndex);
+//                    if (dataSources.getData().get(0).getPaperTest().get(currentIndex).getQuestions().getChildren() != null && !dataSources.getData().get(0).getPaperTest().get(currentIndex).getQuestions().getChildren().isEmpty())
+//                        if (currentFragment != null && currentFragment.getChildFragment() != null) {
+//                            currentFragment = (BaseQuestionFragment) currentFragment.getChildFragment();
+//                        }
+//                    if (currentFragment != null && currentFragment instanceof SubjectiveQuestionFragment) {
+//                        currentFragment.onActivityResult(requestCode, resultCode, data);
+//                    }
+//                }
             }
         } catch (Exception e) {
         }
     }
 
     @Override
-    public void onLoadListener(int position, int page_start, int page_end) {
-        if (thread != null) {
-            thread.setClear();
-            thread = null;
-        }
-        handle.setPage_end(page_end);
-        handle.setPage_start(page_start);
-        thread = new MyThread(handle);
-        thread.start();
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode==KeyEvent.KEYCODE_BACK){
-
-        }
-        return super.onKeyDown(keyCode, event);
+    public void onLoadListener(int page) {
+        requestMistakeRedo(page);
     }
 
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
-        if (dialog==null){
-            initPopup();
+        if (content_answer_card!=null&&content_answer_card.getVisibility()==View.VISIBLE){
+            content_answer_card.setVisibility(View.GONE);
         }else {
-            dialog.show();
-            dialog.setStageDialogCallBack(back);
-            List<PaperTestEntity> list=dataSources.getData().get(0).getPaperTest();
-            dialog.setQuestionNumber(getTatleNumber(list),getRightNumber(list),getFailNumber(list));
+            if (dialog == null) {
+                initPopup();
+            } else {
+                dialog.show();
+                dialog.setStageDialogCallBack(back);
+                List<PaperTestEntity> list = mistakeRedoAdapter.getDatas();
+                dialog.setQuestionNumber(getTatleNumber(list), getRightNumber(list), getFailNumber(list));
+            }
         }
     }
 
@@ -262,23 +346,59 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
 
         @Override
         public void cancel() {
-            dialog.dismiss();
-            dialog=null;
-            MistakeRedoActivity.this.finish();
+            requestdoWork();
+//            MistakeRedoActivity.this.finish();
         }
     };
+
+    private void requestdoWork(){
+        boolean flag=initdoworkData();
+        MistakeDoWorkTask doWorkTask=new MistakeDoWorkTask(this, stageId, subjectId, lastWqid, lastWqnumber, deleteWqidList, new AsyncCallBack() {
+            @Override
+            public void update(YanxiuBaseBean result) {
+                MistakeDoWorkBean doWorkBean= (MistakeDoWorkBean) result;
+                if (doWorkBean!=null&&doWorkBean.getStatus()!=null&&doWorkBean.getStatus().getCode()==0){
+                    MistakeRedoActivity.this.finish();
+                }
+            }
+
+            @Override
+            public void dataError(int type, String msg) {
+
+            }
+        });
+        doWorkTask.start();
+    }
+
+    private boolean initdoworkData() {
+        List<PaperTestEntity> list=mistakeRedoAdapter.getDatas();
+        for (int i=0;i<list.size();i++){
+            PaperTestEntity entity=list.get(i);
+            if (entity!=null&&entity.getQuestions().isHaveAnser()){
+                lastWqid=entity.getWqid();
+                lastWqnumber=entity.getWqnumber()+"";
+            }
+            if (entity!=null&&entity.getQuestions().getType()==QuestionEntity.TYPE_DELETE_END){
+                deleteWqidList=deleteWqidList+entity.getWqid()+",";
+            }
+            if (deleteWqidList.length()>0) {
+                deleteWqidList.substring(0, deleteWqidList.length() - 1);
+            }
+        }
+        return false;
+    }
 
     private void initPopup(){
         dialog=new MistakeRedoDialog(this, back);
         dialog.show();
-        List<PaperTestEntity> list=dataSources.getData().get(0).getPaperTest();
+        List<PaperTestEntity> list=mistakeRedoAdapter.getDatas();
         dialog.setQuestionNumber(getTatleNumber(list),getRightNumber(list),getFailNumber(list));
     }
 
     private String getTatleNumber(List<PaperTestEntity> list){
         int t=0;
         for (PaperTestEntity entity:list){
-             if (entity.getQuestions().isHaveAnser()){
+             if (entity!=null&&entity.getQuestions().isHaveAnser()){
                 t++;
             }
         }
@@ -288,7 +408,7 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
     private String getRightNumber(List<PaperTestEntity> list){
         int r=0;
         for (PaperTestEntity entity:list){
-            if (entity.getQuestions().getAnswerIsRight()== QuestionEntity.ANSWER_RIGHT){
+            if (entity!=null&&entity.getQuestions().getAnswerIsRight()== QuestionEntity.ANSWER_RIGHT){
                 r++;
             }
         }
@@ -298,7 +418,7 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
     private String getFailNumber(List<PaperTestEntity> list){
         int f=0;
         for (PaperTestEntity entity:list){
-            if (entity.getQuestions().getAnswerIsRight()==QuestionEntity.ANSWER_FAIL){
+            if (entity!=null&&entity.getQuestions().getAnswerIsRight()==QuestionEntity.ANSWER_FAIL){
                 f++;
             }
         }
@@ -308,10 +428,6 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (thread != null) {
-            thread.setClear();
-            thread = null;
-        }
         if (dialog!=null){
             if (dialog.isShowing()){
                 dialog.dismiss();
@@ -320,57 +436,36 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
         }
     }
 
-    private class MyThread extends Thread {
-
-        private WeakReference<MyHandle> weak;
-
-        MyThread(MyHandle handle) {
-            weak = new WeakReference<>(handle);
-        }
-
-        void setClear() {
-            if (weak != null) {
-                weak.clear();
-                weak = null;
+    private void requestMistakeRedo(final int page){
+        RequestMisRedoAddClassTask addClassTask=new RequestMisRedoAddClassTask(this, page+"", stageId, subjectId, new AsyncCallBack() {
+            @Override
+            public void update(YanxiuBaseBean result) {
+                SubjectExercisesItemBean dataSources = (SubjectExercisesItemBean) result;
+                if (dataSources!=null&&dataSources.getStatus().getCode()==0&&dataSources.getData()!=null&&dataSources.getData().size()>0) {
+                    mistakeRedoAdapter.addDataSources(dataSources, page);
+                    mistakeRedoAdapter.notifyDataSetChanged();
+                }else {
+                    Util.showToast(R.string.data_erro);
+                }
             }
-        }
 
-        @Override
-        public void run() {
-            super.run();
-            try {
-                sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            @Override
+            public void dataError(int type, String msg) {
+                if (!NetWorkTypeUtils.isNetAvailable()) {
+                    Util.showToast(R.string.server_connection_erro);
+                }else {
+                    Util.showToast(R.string.data_erro);
+                }
             }
-            SubjectExercisesItemBean dataSources = JSON.parseObject(ss, SubjectExercisesItemBean.class);
-            if (weak != null && weak.get() != null) {
-                MyHandle handle = weak.get();
-                Message msg = Message.obtain();
-                msg.what = 0;
-                msg.obj = dataSources;
-                handle.sendMessage(msg);
-            }
-        }
+        });
+        addClassTask.start();
     }
 
     private static class MyHandle extends Handler {
 
-        private WeakReference<MistakeRedoAdapter> weak;
         private WeakReference<RelativeLayout> weak_pop;
-        private int page_start;
-        private int page_end;
 
-        MyHandle(MistakeRedoAdapter mistakeRedoAdapter) {
-            weak = new WeakReference<>(mistakeRedoAdapter);
-        }
-
-        public void setPage_start(int page_start) {
-            this.page_start = page_start;
-        }
-
-        public void setPage_end(int page_end) {
-            this.page_end = page_end;
+        MyHandle() {
         }
 
         public void setPopupWindow(RelativeLayout window) {
@@ -381,14 +476,14 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
-                case 0:
-                    SubjectExercisesItemBean dataSources = (SubjectExercisesItemBean) msg.obj;
-                    if (weak != null && weak.get() != null) {
-                        MistakeRedoAdapter adapter = weak.get();
-                        adapter.addDataSources(dataSources, page_start, page_end);
-                        adapter.notifyDataSetChanged();
-                    }
-                    break;
+//                case 0:
+//                    SubjectExercisesItemBean dataSources = (SubjectExercisesItemBean) msg.obj;
+//                    if (weak != null && weak.get() != null) {
+//                        MistakeRedoAdapter adapter = weak.get();
+//                        adapter.addDataSources(dataSources, page);
+//                        adapter.notifyDataSetChanged();
+//                    }
+//                    break;
                 case 1:
                     if (weak_pop != null && weak_pop.get() != null) {
                         RelativeLayout window = weak_pop.get();
@@ -446,6 +541,4 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
             handle.sendMessage(msg);
         }
     }
-
-    String ss = Content.bb;
 }

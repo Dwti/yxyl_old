@@ -1,2 +1,3 @@
 include ':MainApp', ':YanxiuBaseCore', ':CommonCoreLib', ':LoginCommonLibs',
-        ':ShareCommonLibs',':network'
+        ':ShareCommonLibs',':SettingProblemsSystem',':network'
+

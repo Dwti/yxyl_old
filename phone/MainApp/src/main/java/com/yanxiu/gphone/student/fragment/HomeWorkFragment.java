@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.common.core.utils.LogInfo;
 import com.common.login.LoginModel;
+import com.example.settingproblemssystem.SettingProbActivity;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.YanxiuApplication;
@@ -20,6 +21,7 @@ import com.yanxiu.gphone.student.adapter.IntelliExeAdapter;
 import com.yanxiu.gphone.student.bean.EditionBean;
 import com.yanxiu.gphone.student.bean.SubjectEditionBean;
 import com.yanxiu.gphone.student.bean.SubjectVersionBean;
+import com.yanxiu.gphone.student.httpApi.YanxiuHttpApi;
 import com.yanxiu.gphone.student.inter.AsyncLocalCallBack;
 import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
 import com.yanxiu.gphone.student.requestTask.RequestSubjectInfoTask;
@@ -112,6 +114,13 @@ import com.yanxiu.gphone.student.view.stickhome.StickHomeLayout;
                 rootView.dataNull(isDataNull);
             }
         });
+
+        if (YanxiuHttpApi.mUrlBean!=null&&!YanxiuHttpApi.mUrlBean.getMode().equals("release")) {
+            TextView system_redo = (TextView) rootView.findViewById(R.id.system_redo);
+            system_redo.setVisibility(View.VISIBLE);
+            system_redo.setOnClickListener(this);
+        }
+
     }
 
     @Override
@@ -200,6 +209,9 @@ import com.yanxiu.gphone.student.view.stickhome.StickHomeLayout;
                 break;
             case R.id.public_layout_history_iv:
                 TeachingMaterialActivity.launchActivity(getActivity(), TeachingMaterialActivity.PRACTICE_HISTORY_ACTIVITY);
+                break;
+            case R.id.system_redo:
+                SettingProbActivity.lunch(getActivity());
                 break;
         }
     }

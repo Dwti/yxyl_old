@@ -149,7 +149,7 @@ public class ConnectFragment extends BaseQuestionFragment implements PageIndex {
                 fragment.setListener(new SubmitOrDeleteFragment.OnButtonClickListener() {
                     @Override
                     public void onClick(String type) {
-                        switch (type) {
+                        switch  (type) {
                             case SubmitOrDeleteFragment.TYPE_SUBMIT:
                                 questionsEntity.setType(QuestionEntity.TYPE_SUBMIT_END);
                                 connect_lineslinearlayout.setIsResolution(true);

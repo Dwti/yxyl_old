@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.webkit.WebView;
@@ -98,6 +99,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         super.onCreate(savedInstanceState);
         mRootView = PublicLoadUtils.createPage(this, R.layout.activity_answer_question);
         loadingLayout = (StudentLoadingLayout) mRootView.findViewById(R.id.loading_layout);

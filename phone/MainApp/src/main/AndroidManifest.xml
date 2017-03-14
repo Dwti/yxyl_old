@@ -343,48 +343,18 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity
-            android:name=".activity.MistakeRedoActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.MistakeRedoCardActivity"
-            android:screenOrientation="portrait" />
-        <service android:name=".service.YanxiuIntentService" />
-        <service
-            android:name=".service.YanxiuService"
-            android:exported="true"
-            android:label="PushService"
-            android:process=":pushservice" />
-        <receiver android:name=".receiver.YanxiuPushUpdateReceiver">
+        <activity android:name=".activity.MistakeRedoActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SystemActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="com.yanxiu.gphone.student.yanxiu_push_update_receiver" />
-            </intent-filter>
-        </receiver>
-        <!-- 配置第三方Receiver -->
-        <!-- 此处com.getui.demo.PushDemoReceiver，需要替换成开发者自己的BroadcastReceiver文件全名 -->
-        <receiver
-            android:name=".receiver.YanxiuPushReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.igexin.sdk.action.${GETUI_APP_ID}" />
-            </intent-filter>
-        </receiver>
-
-        <activity
-            android:name=".wxapi.WXEntryActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
-            android:theme="@android:style/Theme.Translucent">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data android:scheme="wxb6704ac52abcfe4c" />
+                <action android:name="android.intent.action.SYSTEM" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="SYSTEM"/>
             </intent-filter>
         </activity>
-        <!-- <activity android:name=".activity.TestActivity"/> -->
+
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
@@ -402,10 +372,7 @@
             android:name="com.tencent.connect.common.AssistActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <!--
- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
-        -->
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

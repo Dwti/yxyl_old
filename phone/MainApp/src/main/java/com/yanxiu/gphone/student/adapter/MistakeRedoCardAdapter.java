@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.bean.MistakeRedoCardBean;
 import com.yanxiu.gphone.student.view.picsel.NoScrollGridView;
 
 import java.util.ArrayList;
@@ -25,20 +26,21 @@ public class MistakeRedoCardAdapter extends RecyclerView.Adapter<MistakeRedoCard
     private Context mContext;
     private final LayoutInflater inflater;
     private onRecyItemClickListener listener;
-    private List<String> mData=new ArrayList<>();
+    private List<MistakeRedoCardBean.Mdata> mData=new ArrayList<>();
 
     public MistakeRedoCardAdapter(Context context){
         this.mContext=context;
         inflater=LayoutInflater.from(context);
     }
 
-    public void setData(List<String> list){
-        this.mData.addAll(list);
+    public void setData(MistakeRedoCardBean bean){
+        this.mData.clear();
+        this.mData.addAll(bean.getData());
         this.notifyDataSetChanged();
     }
 
     public interface onRecyItemClickListener{
-       void onClick(int position,int position_child,String s);
+       void onClick(int position,int position_child,int index);
     }
 
     public void setListener(onRecyItemClickListener listener){
@@ -53,18 +55,11 @@ public class MistakeRedoCardAdapter extends RecyclerView.Adapter<MistakeRedoCard
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.tv_time.setText("2016.99");
+        MistakeRedoCardBean.Mdata mdata=mData.get(position);
+        holder.tv_time.setText(mdata.getDate());
         holder.position_list=position;
         holder.grid_mistake_card.setAdapter(holder.adapter);
-        holder.adapter.setData(getList(position));
-    }
-
-    private List<String> getList(int num){
-        List<String> list=new ArrayList<>();
-        for (int i=0;i<50;i++){
-            list.add(i+1+"");
-        }
-        return list;
+        holder.adapter.setData(mdata.getWqnumbers(),mdata.getWqtypes());
     }
 
     @Override
@@ -90,9 +85,9 @@ public class MistakeRedoCardAdapter extends RecyclerView.Adapter<MistakeRedoCard
             grid_mistake_card.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String s=adapter.getData().get(position);
+                    int index=adapter.getData().get(position);
                     if (listener!=null) {
-                        listener.onClick(position_list, position, s);
+                        listener.onClick(position_list, position, index);
                     }
                 }
             });

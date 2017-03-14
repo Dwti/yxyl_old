@@ -1,15 +1,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/yanxiu_group_bg">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/yanxiu_group_bg">
 
     <include
         android:id="@+id/main_public_top_group"
         layout="@layout/main_public_top_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content" />
 
     <RelativeLayout
         android:id="@+id/group_unfinish_tip_layout"
@@ -17,8 +16,7 @@
         android:layout_height="@dimen/dimen_40"
         android:layout_below="@id/main_public_top_group"
         android:background="@color/color_008080"
-        android:visibility="gone"
-        >
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/group_unfinish_tip_image"
@@ -27,8 +25,7 @@
             android:layout_height="@dimen/dimen_30"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:scaleType="centerCrop"
-            />
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/group_unfinish_tip_text"
@@ -41,17 +38,17 @@
             android:shadowColor="@color/color_005959"
             android:textColor="@color/color_00cccc"
             android:textSize="@dimen/dimen_16"
-            tools:text="group_top_tip_text"
-            />
+            tools:text="group_top_tip_text" />
     </RelativeLayout>
+
     <View
         android:id="@+id/group_unfinish_tip_bottom"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_2"
         android:layout_below="@id/group_unfinish_tip_layout"
         android:background="@color/color_007373"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
+
     <com.common.core.view.xlistview.XListView
         android:id="@+id/group_list"
         android:layout_width="match_parent"
@@ -63,8 +60,7 @@
         android:divider="@null"
         android:dividerHeight="0dp"
         android:listSelector="@android:color/transparent"
-        android:scrollbars="none"
-        />
+        android:scrollbars="none" />
 
     <View
         android:id="@+id/no_group_top_view"
@@ -72,41 +68,72 @@
         android:layout_height="match_parent"
         android:layout_below="@id/main_public_top_group"
         android:background="@color/color_99000000"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/rl_group"
-        android:clickable="true"
-        android:focusable="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/main_public_top_group"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <include
-        android:id="@+id/no_group"
-        layout="@layout/group_public_layout_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="@dimen/dimen_20"
-        android:layout_marginRight="@dimen/dimen_20"
-        />
+        android:clickable="true"
+        android:focusable="true">
+
+        <include
+            android:id="@+id/no_group"
+            layout="@layout/group_public_layout_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_marginRight="@dimen/dimen_20" />
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/ll_class"
-        android:clickable="true"
-        android:focusable="true"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/main_public_top_group"
-        android:layout_height="match_parent">
-    <include
-        android:id="@+id/no_class"
-        layout="@layout/custom_toast"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        />
+        android:clickable="true"
+        android:focusable="true">
+
+        <RelativeLayout
+            android:id="@+id/no_class"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_145"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:background="@drawable/my_list_bg_sel"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/TextViewInfo"
+                style="@style/shadow_text_style"
+                android:layout_width="305dp"
+                android:layout_height="@dimen/dimen_40"
+                android:gravity="center"
+                android:shadowColor="@color/color_ffff99"
+                android:textColor="@color/color_805500"
+                android:textSize="17sp" />
+
+
+            <TextView
+                android:id="@+id/stage_layout_sure"
+                style="@style/shadow_text_style"
+                android:layout_width="@dimen/dimen_100"
+                android:layout_height="@dimen/dimen_40"
+                android:layout_below="@+id/TextViewInfo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:background="@drawable/register_code_selector"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dimen_10"
+                android:paddingRight="@dimen/dimen_10"
+                android:shadowColor="@color/color_ffff99"
+                android:text="@string/group_refrese"
+                android:textColor="@color/color_805500"
+                android:textSize="@dimen/dimen_15"
+                android:visibility="visible" />
+        </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

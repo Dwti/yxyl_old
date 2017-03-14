@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.bean.MistakeRedoCardBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,19 +23,22 @@ import java.util.List;
 public class MistakeRedoCardGridAdapter extends BaseAdapter {
 
     private final LayoutInflater inflater;
-    private List<String> mData=new ArrayList<>();
+    private List<Integer> mData=new ArrayList<>();
+    private List<Integer> types=new ArrayList<>();
 
     public MistakeRedoCardGridAdapter(Context context){
         inflater=LayoutInflater.from(context);
     }
 
-    public void setData(List<String> list){
+    public void setData(List<Integer> list,List<Integer> types){
         this.mData.clear();
         this.mData.addAll(list);
+        this.types.clear();
+        this.types.addAll(types);
         this.notifyDataSetChanged();
     }
 
-    public List<String> getData(){
+    public List<Integer> getData(){
         return this.mData;
     }
 
@@ -65,10 +69,14 @@ public class MistakeRedoCardGridAdapter extends BaseAdapter {
         }else {
             holder= (ViewHolder) convertView.getTag();
         }
-        String s=mData.get(position);
+        String s=mData.get(position)+"";
         holder.tv_number.setText(s);
-        holder.answer_card_icon.setBackgroundResource(R.drawable.answer_card_done);
-//        holder.answer_card_icon.setBackgroundResource(R.drawable.answer_card_undone);
+        int type=types.get(position);
+        if (type== MistakeRedoCardBean.TYPE_HASANSWER) {
+            holder.answer_card_icon.setBackgroundResource(R.drawable.answer_card_done);
+        }else if (type== MistakeRedoCardBean.TYPE_NOANSWER) {
+            holder.answer_card_icon.setBackgroundResource(R.drawable.answer_card_undone);
+        }
         return convertView;
     }
 

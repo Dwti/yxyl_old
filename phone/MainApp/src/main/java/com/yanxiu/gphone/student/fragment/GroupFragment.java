@@ -124,8 +124,25 @@ public class GroupFragment extends Fragment {
         no_class= (RelativeLayout) rootView.findViewById(R.id.no_class);
         no_class.setVisibility(View.GONE);
         ll_class.setVisibility(View.GONE);
+//        RelativeLayout relative_layout= (RelativeLayout) rootView.findViewById(R.id.relative_layout);
+//        relative_layout.setBackgroundResource(R.drawable.my_list_bg_sel);
         TextView TextViewInfo= (TextView) rootView.findViewById(R.id.TextViewInfo);
         TextViewInfo.setText(R.string.class_no_work);
+        TextView stage_layout_sure= (TextView) rootView.findViewById(R.id.stage_layout_sure);
+        stage_layout_sure.setVisibility(View.VISIBLE);
+        stage_layout_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (NetWorkTypeUtils.isNetAvailable()) {
+                    LogInfo.log("king", "onRefresh");
+                    requestGroupData(true, true);
+                    EventBus.getDefault().post(new GroupHwwaitFinishBean());//刷新重试更新小红点
+                } else {
+                    groupList.stopRefresh();
+                    Util.showUserToast(R.string.net_null, -1, -1);
+                }
+            }
+        });
 
         addGroupView = (ImageView) rootView.findViewById(R.id.main_public_top_group).findViewById(R.id
                 .public_layout_top_iv);
