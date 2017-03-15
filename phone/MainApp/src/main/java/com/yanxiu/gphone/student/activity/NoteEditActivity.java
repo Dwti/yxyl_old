@@ -39,7 +39,7 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
     public static final String WQID = "wqid";
     public static final String QID = "qid";
     public static final int REQUEST_NOTE_EDIT = 0x001;
-    private String wqid,qid;
+    private String wqid, qid;
     private ArrayList<String> mPhotoPath = new ArrayList<>();
     private ArrayList<String> mHttpPath = new ArrayList<>();
     private List<String> localPhotoPath = new ArrayList<>();
@@ -55,7 +55,7 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
 
     public static void launch(Fragment fragment, Bundle args) {
         Intent intent = new Intent(fragment.getActivity(), NoteEditActivity.class);
-        intent.putExtra("data",args);
+        intent.putExtra("data", args);
         fragment.startActivityForResult(intent, REQUEST_NOTE_EDIT);
     }
 
@@ -97,10 +97,10 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
             if (localPhotoPath.size() > 0)
                 uploadImages(localPhotoPath);
             else saveContentAndImages(mHttpPath, mEditText.getText().toString());
-        }else saveContentAndImages(mHttpPath,mEditText.getText().toString());
+        } else saveContentAndImages(mHttpPath, mEditText.getText().toString());
     }
 
-    private void saveContentAndImages(ArrayList<String> images,String content){
+    private void saveContentAndImages(ArrayList<String> images, String content) {
         //调增加笔记 的接口，然后setResult
         NoteBean note = new NoteBean();
         note.setImages(images);
@@ -111,12 +111,13 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
         request.setWqid(wqid);
         request.setToken(LoginModel.getToken());
         request.setNote(note);
-        request.startRequest(NoteResponseBean.class,new NoteCallBack());
+        request.startRequest(NoteResponseBean.class, new NoteCallBack());
     }
+
     private void uploadImages(List<String> photos) {
         LinkedHashMap<String, File> hashMap = new LinkedHashMap<>();
-        for(String path : photos)
-            hashMap.put(String.valueOf(path.hashCode()),new File(path));
+        for (String path : photos)
+            hashMap.put(String.valueOf(path.hashCode()), new File(path));
         YanxiuHttpApi.requestUploadImage(hashMap, new NoteUploadFileListener());
     }
 
@@ -155,7 +156,7 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    private void setResultOK(ArrayList<String> data,String text) {
+    private void setResultOK(ArrayList<String> data, String text) {
         Intent intent = new Intent();
         intent.putExtra(NOTE_CONTENT, text);
         intent.putStringArrayListExtra(PHOTO_PATH, data);
@@ -173,7 +174,7 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
         @Override
         public void onSuccess(UploadImageBean bean) {
             mHttpPath.addAll(bean.getData());
-            saveContentAndImages(mHttpPath,mEditText.getText().toString());
+            saveContentAndImages(mHttpPath, mEditText.getText().toString());
             ToastMaster.showShortToast(NoteEditActivity.this, "上传成功");
         }
 
@@ -183,14 +184,14 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    private class NoteCallBack implements HttpCallback<NoteResponseBean>{
+    private class NoteCallBack implements HttpCallback<NoteResponseBean> {
 
         @Override
         public void onSuccess(RequestBase request, NoteResponseBean response) {
-            if(response.getStatus().getCode() == 0){
+            if (response.getStatus().getCode() == 0) {
                 NoteRequest noteRequest = (NoteRequest) request;
                 ToastMaster.showShortToast(NoteEditActivity.this, "保存成功");
-                setResultOK(noteRequest.getNote().getImages(),noteRequest.getNote().getText());
+                setResultOK(noteRequest.getNote().getImages(), noteRequest.getNote().getText());
             }
         }
 

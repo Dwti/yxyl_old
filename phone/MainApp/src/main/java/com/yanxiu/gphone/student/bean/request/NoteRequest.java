@@ -1,16 +1,14 @@
 package com.yanxiu.gphone.student.bean.request;
 
-import com.test.yanxiu.network.RequestBase;
+import com.yanxiu.gphone.student.httpApi.ExerciseRequestBase;
 import com.yanxiu.gphone.student.bean.NoteBean;
 import com.yanxiu.gphone.student.httpApi.YanxiuHttpApi;
-
-import java.io.Serializable;
 
 /**
  * Created by sunpeng on 2017/3/13.
  */
 
-public class NoteRequest extends RequestBase implements Serializable {
+public class NoteRequest extends ExerciseRequestBase {
     private String token;
     private String wqid;
     private NoteBean note;
