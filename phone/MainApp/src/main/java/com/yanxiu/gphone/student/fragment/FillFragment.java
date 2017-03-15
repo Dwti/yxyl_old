@@ -119,10 +119,10 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
         List<String> answers = questionsEntity.getAnswer();
         boolean isRight = QuestionUtils.compareListByOrder(StringUtils.full2half(filledContent), StringUtils.full2half(answers));
         bean.setIsRight(isRight);
-        bean.setIsFinish(false);
+        bean.setIsFinish(true);
         for (String str : filledContent) {
-            if (!TextUtils.isEmpty(str)) {
-                bean.setIsFinish(true);
+            if (TextUtils.isEmpty(str.trim())) {
+                bean.setIsFinish(false);
                 break;
             }
         }
