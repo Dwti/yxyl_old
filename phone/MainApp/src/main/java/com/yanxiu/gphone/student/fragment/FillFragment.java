@@ -79,7 +79,10 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
     private String initStem(String stem){
         if(stem == null)
             return null;
-        return stem.replaceAll("\\(_\\)", "<Blank>empty</Blank>");
+        String str = stem.replaceAll("\\(_\\)", "<Blank>empty</Blank>");
+        if(str.startsWith("<Blank>"))
+            str = "&zwj;" + str;          //如果<Blank>标签为第一个字符时，taghandler解析的时候会有一个bug，导致第一个解析会跳过，然后会引起后面的图片显示也有问题
+        return str;
     }
     private void addAnalysisFragment() {
         rootView.setClickable(false);
