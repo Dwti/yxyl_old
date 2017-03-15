@@ -393,7 +393,10 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
         ArrayList<ArrayList<String>> list=questionsEntity.getAnswerBean().getConnect_classfy_answer();
         boolean flag = false;
         if (list!=null&&list.size()==answerData.size()) {
+            int answer_count=0;
+            int data_count=0;
             for (int i = 0; i < list.size(); i++) {
+                answer_count+=list.get(i).size();
                 JSONObject object = null;
                 String string = null;
                 try {
@@ -403,10 +406,20 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                     e.printStackTrace();
                 }
                 String ss[] = string.split(",");
-                ArrayList<String> arrayList = list.get(i);
-                if (arrayList != null && arrayList.size() > 0&&arrayList.size()==ss.length) {
-                    flag = true;
-                }
+                data_count+=ss.length;
+//                ArrayList<String> arrayList = list.get(i);
+//                if (arrayList != null && arrayList.size() > 0&&arrayList.size()==ss.length) {
+//                    flag = true;
+//                }else {
+//                    flag=false;
+//                    questionsEntity.setHaveAnser(flag);
+//                    return flag;
+//                }
+            }
+            if (answer_count==data_count){
+                flag = true;
+            }else {
+                flag=false;
             }
         }
         questionsEntity.setHaveAnser(flag);

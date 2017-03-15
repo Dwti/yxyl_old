@@ -25,6 +25,9 @@ import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 import com.yanxiu.gphone.student.view.question.subjective.SubjectiveStarLayout;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,20 +83,108 @@ public class MistakeRedoFragment extends Fragment {
         questionsEntity.setWqid(wqid);
         questionsEntity.setQid(qid);
         if (questionsEntity.getExtend() != null && questionsEntity.getExtend().getData() != null) {
-            ExtendEntity.DataEntity dataEntity = questionsEntity.getExtend().getData();
-            String answer=dataEntity.getAnswerCompare().substring(0,dataEntity.getAnswerCompare().lastIndexOf(","));
-            if (questionsEntity.getAnswerIsRight()==QuestionEntity.ANSWER_RIGHT){
-                answer=answer+getString(R.string.answer_right);
-            }else if (questionsEntity.getAnswerIsRight()==QuestionEntity.ANSWER_FAIL){
-                answer=answer+getString(R.string.answer_fall);
-            }
+            String answer="";
             switch (questionsEntity.getTemplate()) {
-                case YanXiuConstant.CLASSIFY_QUESTION://归类
-                    tvReportParseStatueText.setClasfyFlag(false);
-                    tvReportParseStatueText.setTextHtml(answer.replaceAll("<img", "<imgFy"));
-                    break;
-                default:
+                case YanXiuConstant.SINGLE_CHOICES:
+                    answer="正确答案是:";
+                    if (questionsEntity.getAnswer().get(0).equals("0")){
+                        answer+="A";
+                    }else if (questionsEntity.getAnswer().get(0).equals("1")){
+                        answer+="B";
+                    }else if (questionsEntity.getAnswer().get(0).equals("2")){
+                        answer+="C";
+                    }else if (questionsEntity.getAnswer().get(0).equals("3")){
+                        answer+="D";
+                    }
+                    if (questionsEntity.getAnswerIsRight()==QuestionEntity.ANSWER_RIGHT){
+                        answer+=getString(R.string.answer_right);
+                    }else if (questionsEntity.getAnswerIsRight()==QuestionEntity.ANSWER_FAIL){
+                        answer+=getString(R.string.answer_fall);
+                    }
                     tvReportParseStatueText.setTextHtml(answer);
+                    break;
+                case YanXiuConstant.MULTI_CHOICES:
+                    answer="正确答案是:";
+                    List<String> mulit_list=questionsEntity.getAnswer();
+                    for (String s:mulit_list){
+                        String ss=String.valueOf(numToLetter(String.valueOf(s)));
+                        answer+=ss;
+                    }
+                    if (questionsEntity.getAnswerIsRight()==QuestionEntity.ANSWER_RIGHT){
+                        answer+=getString(R.string.answer_right);
+                    }else if (questionsEntity.getAnswerIsRight()==QuestionEntity.ANSWER_FAIL){
+                        answer+=getString(R.string.answer_fall);
+                    }
+                    tvReportParseStatueText.setTextHtml(answer);
+                    break;
+                case YanXiuConstant.FILL_BLANK:
+                    answer="正确答案是:";
+                    List<String> fill_list=questionsEntity.getAnswer();
+                    for (String s:fill_list){
+                        answer+=s+" ";
+                    }
+                    if (questionsEntity.getAnswerIsRight()==QuestionEntity.ANSWER_RIGHT){
+                        answer+=getString(R.string.answer_right);
+                    }else if (questionsEntity.getAnswerIsRight()==QuestionEntity.ANSWER_FAIL){
+                        answer+=getString(R.string.answer_fall);
+                    }
+                    tvReportParseStatueText.setTextHtml(answer);
+                    break;
+                case YanXiuConstant.JUDGE_QUESTION:
+                    answer="正确答案是:";
+                    if (questionsEntity.getAnswer().get(0).equals("0")){
+                        answer+="错误";
+                    }else if (questionsEntity.getAnswer().get(0).equals("1")){
+                        answer+="正确";
+                    }
+                    if (questionsEntity.getAnswerIsRight()==QuestionEntity.ANSWER_RIGHT){
+                        answer=answer+getString(R.string.answer_right);
+                    }else if (questionsEntity.getAnswerIsRight()==QuestionEntity.ANSWER_FAIL){
+                        answer=answer+getString(R.string.answer_fall);
+                    }
+                    tvReportParseStatueText.setTextHtml(answer);
+                    break;
+                case YanXiuConstant.CONNECT_QUESTION:
+//                {"answer":"0,6","point":"20342"}
+                    answer="正确答案是:";
+                    List<String> connect_list=questionsEntity.getAnswer();
+                    for (String s:connect_list){
+                        try {
+                            JSONObject object=new JSONObject(s);
+                            String an=object.optString("answer","");
+                            answer+=an+" ";
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (questionsEntity.getAnswerIsRight()==QuestionEntity.ANSWER_RIGHT){
+                        answer=answer+getString(R.string.answer_right);
+                    }else if (questionsEntity.getAnswerIsRight()==QuestionEntity.ANSWER_FAIL){
+                        answer=answer+getString(R.string.answer_fall);
+                    }
+                    tvReportParseStatueText.setTextHtml(answer);
+                    break;
+                case YanXiuConstant.CLASSIFY_QUESTION://归类
+//                {"answer":"0,1,2,3","name":"hot","point":"20002"}
+                    tvReportParseStatueText.setClasfyFlag(false);
+                    answer="正确答案是 ";
+                    List<String> class_list=questionsEntity.getAnswer();
+                    for (String s:class_list){
+                        try {
+                            JSONObject object=new JSONObject(s);
+                            String name=object.optString("name","");
+                            String an=object.optString("answer","");
+                            answer+=name+":"+an+" ";
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (questionsEntity.getAnswerIsRight()==QuestionEntity.ANSWER_RIGHT){
+                        answer=answer+getString(R.string.answer_right);
+                    }else if (questionsEntity.getAnswerIsRight()==QuestionEntity.ANSWER_FAIL){
+                        answer=answer+getString(R.string.answer_fall);
+                    }
+                    tvReportParseStatueText.setTextHtml(answer.replaceAll("<img", "<imgFy"));
                     break;
             }
         }
@@ -107,6 +198,16 @@ public class MistakeRedoFragment extends Fragment {
         noteAdapter.setData(questionsEntity.getJsonNote().getImages());
         tv_note.setText(questionsEntity.getJsonNote().getText());
         setNoteContentVisible(tv_note.getText().toString(),noteAdapter.getData());
+    }
+
+    // 将数字转换成字母
+    public char[] numToLetter(String input) {
+        char c[] = input.toCharArray();
+        int i = 0;
+        for (byte b : input.getBytes()) {
+            c[i] = (char) (b + 49 - 26 - 6);
+        }
+        return c;
     }
 
     private void initView(View rootView) {

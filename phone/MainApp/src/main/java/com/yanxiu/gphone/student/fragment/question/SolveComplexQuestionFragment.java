@@ -218,10 +218,10 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
             fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_HASANSWER);
         }else if (QuestionEntity.TYPE_SUBMIT_END.equals(questionsEntity.getType())){
             fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_SUBMIT);
-            FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
+//            FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
         }else if (QuestionEntity.TYPE_DELETE_END.equals(questionsEntity.getType())){
             fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_DELETE);
-            FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
+//            FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
         }
     }
 

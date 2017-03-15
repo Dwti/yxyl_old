@@ -340,7 +340,7 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
     }
 
     private void setNoteContentVisible(String note,List<String> imagePath){
-        if(subjectExercisesItemBean.getViewType()==SubjectExercisesItemBean.WRONG_SET||subjectExercisesItemBean.getViewType()==SubjectExercisesItemBean.MISTAKEREDO){
+        if(subjectExercisesItemBean!=null&&subjectExercisesItemBean.getViewType()==SubjectExercisesItemBean.WRONG_SET||subjectExercisesItemBean.getViewType()==SubjectExercisesItemBean.MISTAKEREDO){
             ll_note.setVisibility(View.VISIBLE);
         }else {
             ll_note.setVisibility(View.GONE);

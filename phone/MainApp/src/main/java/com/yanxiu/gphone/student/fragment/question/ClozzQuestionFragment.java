@@ -220,11 +220,11 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
         }else if (QuestionEntity.TYPE_SUBMIT_END.equals(questionsEntity.getType())){
             fill_blanks_button.setTextColor();
             fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_SUBMIT);
-            FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
+//            FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
         }else if (QuestionEntity.TYPE_DELETE_END.equals(questionsEntity.getType())){
             fill_blanks_button.setTextColor();
             fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_DELETE);
-            FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
+//            FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
         }
     }
 
