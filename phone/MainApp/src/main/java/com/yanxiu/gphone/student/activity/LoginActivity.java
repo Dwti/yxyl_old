@@ -275,7 +275,6 @@ public class LoginActivity extends YanxiuBaseActivity implements
     }
 
     public void onCheckedChanged (View lockView, boolean isChecked) {
-        // TODO Auto-generated method stub
         if (isChecked) {
             //如果选中，显示密码
             lockView.setBackgroundResource(R.drawable.pwd_unlock);

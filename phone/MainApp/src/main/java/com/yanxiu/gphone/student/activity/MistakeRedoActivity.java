@@ -8,6 +8,7 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -84,6 +85,7 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
     private String lastWqnumber="";
     private String deleteWqidList="";
     private int index=0;
+    private RequestMisRedoAddClassTask addClassTask;
 
     public static void launch(Activity context, SubjectExercisesItemBean bean,String wrongCount,String stageId,String subjectId) {
         Intent intent = new Intent(context, MistakeRedoActivity.class);
@@ -148,9 +150,11 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
     }
 
     private void requestMisRedoCard(){
+        mRootView.loading(true);
         RequestMisRedoCardClassTask cardClassTask=new RequestMisRedoCardClassTask(this, stageId, subjectId, new AsyncCallBack() {
             @Override
             public void update(YanxiuBaseBean result) {
+                mRootView.finish();
                 mistakeRedoCardBean= (MistakeRedoCardBean) result;
                 if (mistakeRedoCardBean!=null&&mistakeRedoCardBean.getData()!=null&&mistakeRedoCardBean.getData().size()>0){
                     boolean flag=checkIsHaveAnswer();
@@ -162,6 +166,7 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
 
             @Override
             public void dataError(int type, String msg) {
+                mRootView.finish();
                 if (!NetWorkTypeUtils.isNetAvailable()) {
                     Util.showToast(R.string.server_connection_erro);
                 }else {
@@ -170,6 +175,39 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
             }
         });
         cardClassTask.start();
+    }
+
+    public String getWqid(){
+        int index=vpAnswer.getCurrentItem();
+        PaperTestEntity entity=mistakeRedoAdapter.getDatas().get(index);
+        if (entity!=null){
+            return entity.getWqid();
+        }
+        return "";
+    }
+
+    public String getQid(){
+        int index=vpAnswer.getCurrentItem();
+        PaperTestEntity entity=mistakeRedoAdapter.getDatas().get(index);
+        if (entity!=null){
+            List<PaperTestEntity> list=entity.getQuestions().getChildren();
+            if (list!=null&&list.size()>0){
+                BaseQuestionFragment fragment=mistakeRedoAdapter.getFragmentAtNow();
+                ViewPager pager=fragment.getViewPager();
+                if (pager==null){
+                    return "";
+                }else {
+                    int position=pager.getCurrentItem();
+                    if (position>list.size()-1){
+                        return "";
+                    }
+                    String qid=list.get(position).getQid()+"";
+                    return qid;
+                }
+            }
+            return entity.getQid()+"";
+        }
+        return "";
     }
 
     private boolean checkIsHaveAnswer(){
@@ -318,6 +356,12 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
 
     @Override
     public void onLoadListener(int page) {
+        if (addClassTask!=null){
+            try {
+                addClassTask.cancel();
+                addClassTask=null;
+            }catch (Exception e){}
+        }
         requestMistakeRedo(page);
     }
 
@@ -352,19 +396,28 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
     };
 
     private void requestdoWork(){
+        mRootView.loading(true);
         boolean flag=initdoworkData();
         MistakeDoWorkTask doWorkTask=new MistakeDoWorkTask(this, stageId, subjectId, lastWqid, lastWqnumber, deleteWqidList, new AsyncCallBack() {
             @Override
             public void update(YanxiuBaseBean result) {
+                mRootView.finish();
                 MistakeDoWorkBean doWorkBean= (MistakeDoWorkBean) result;
                 if (doWorkBean!=null&&doWorkBean.getStatus()!=null&&doWorkBean.getStatus().getCode()==0){
                     MistakeRedoActivity.this.finish();
+                }else {
+                    Util.showToast(R.string.data_erro);
                 }
             }
 
             @Override
             public void dataError(int type, String msg) {
-
+                mRootView.finish();
+                if (!NetWorkTypeUtils.isNetAvailable()) {
+                    Util.showToast(R.string.server_connection_erro);
+                }else {
+                    Util.showToast(R.string.data_erro);
+                }
             }
         });
         doWorkTask.start();
@@ -437,9 +490,11 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
     }
 
     private void requestMistakeRedo(final int page){
-        RequestMisRedoAddClassTask addClassTask=new RequestMisRedoAddClassTask(this, page+"", stageId, subjectId, new AsyncCallBack() {
+//        mRootView.loading(true);
+        addClassTask=new RequestMisRedoAddClassTask(this, page+"", stageId, subjectId, new AsyncCallBack() {
             @Override
             public void update(YanxiuBaseBean result) {
+//                mRootView.loading(false);
                 SubjectExercisesItemBean dataSources = (SubjectExercisesItemBean) result;
                 if (dataSources!=null&&dataSources.getStatus().getCode()==0&&dataSources.getData()!=null&&dataSources.getData().size()>0) {
                     mistakeRedoAdapter.addDataSources(dataSources, page);
@@ -451,6 +506,7 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
 
             @Override
             public void dataError(int type, String msg) {
+//                mRootView.loading(false);
                 if (!NetWorkTypeUtils.isNetAvailable()) {
                     Util.showToast(R.string.server_connection_erro);
                 }else {

@@ -120,6 +120,11 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     }
 
     @Override
+    public ViewPager getViewPager() {
+        return vpAnswer;
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (rootView == null) {
             rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_listen_complex_question, null);

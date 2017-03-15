@@ -120,7 +120,6 @@ public class UilImageGetter implements Html.ImageGetter {
         @Override
         public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
 
-            //TODO:
             //do something
             super.onLoadingFailed(imageUri,view,failReason);
         }
@@ -138,7 +137,6 @@ public class UilImageGetter implements Html.ImageGetter {
         public void onLoadingCancelled(String imageUri, View view) {
 
             super.onLoadingCancelled(imageUri, view);
-            //TODO:
                 //do something
         }
     }

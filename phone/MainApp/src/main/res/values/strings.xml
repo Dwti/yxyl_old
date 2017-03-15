@@ -508,4 +508,7 @@
     <string name="group_refrese">刷新</string>
     <string name="mistake_redo_number">错题数量(%1$s)</string>
 
+    <string name="loading_more">加载中...</string>
+    <string name="answer_right">，回答正确</string>
+    <string name="answer_fall">，回答错误</string>
 </resources>

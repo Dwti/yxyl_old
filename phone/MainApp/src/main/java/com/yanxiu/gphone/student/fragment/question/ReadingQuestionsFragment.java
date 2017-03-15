@@ -104,6 +104,11 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
         return rootView;
     }
 
+    @Override
+    public ViewPager getViewPager() {
+        return vpAnswer;
+    }
+
     public void selectTypeView(){
         switch (answerViewTypyBean) {
             case SubjectExercisesItemBean.MISTAKEREDO:

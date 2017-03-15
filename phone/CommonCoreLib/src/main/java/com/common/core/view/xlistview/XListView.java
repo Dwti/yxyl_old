@@ -211,7 +211,6 @@ public class XListView extends ListView implements OnScrollListener {
 
                 @Override
                 public void onChanged() {
-                    // TODO Auto-generated method stub
                     super.onChanged();
                     isEmpty();
                 }
@@ -285,11 +284,9 @@ public class XListView extends ListView implements OnScrollListener {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    // TODO Auto-generated method stub
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                     post(new Runnable() {
@@ -499,18 +496,15 @@ public class XListView extends ListView implements OnScrollListener {
 
                 @Override
                 public void run() {
-                    // TODO Auto-generated method stub
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                     post(new Runnable() {
 
                         @Override
                         public void run() {
-                            // TODO Auto-generated method stub
                             mLastY = -1; // reset
                             if (getFirstVisiblePosition() == 0
                                     && (mHeaderView.getVisiableHeight() > 0)) {
@@ -571,11 +565,11 @@ public class XListView extends ListView implements OnScrollListener {
              * mFooterView.getBottomMargin() > PULL_LOAD_MORE_DELTA) {
              * startLoadMore(); } resetFooterHeight(); }else{ L.i("XListView",
              * "default"); resetHeaderHeight(); // new Thread(new Runnable() {
-             * // // @Override // public void run() { // // TODO Auto-generated
+             * // // @Override // public void run() { //
              * method stub // try { // Thread.sleep(100); // } catch
-             * (InterruptedException e) { // // TODO Auto-generated catch block
+             * (InterruptedException e) { //
              * // e.printStackTrace(); // } // post(new Runnable() { // //
-             * @Override // public void run() { // // TODO Auto-generated method
+             * @Override // public void run() { //
              * stub //// onTouchEvent(ev); // resetHeaderHeight(); // } // });
              * // } // }).start();
              * 

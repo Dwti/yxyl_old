@@ -187,7 +187,6 @@ public class YXiuAnserTextView extends HtmlTextView {
         }
 
         public void handleTag(boolean opening, String tag, Editable output, XMLReader xmlReader) {
-            // TODO Auto-generated method stub
             if (tag.toLowerCase().equals("mxgsa")) {
                 if (opening) {
                     sIndex=output.length();
@@ -200,7 +199,6 @@ public class YXiuAnserTextView extends HtmlTextView {
         private class MxgsaSpan extends ClickableSpan implements OnClickListener{
             @Override
             public void onClick(View widget) {
-                // TODO Auto-generated method stub
                 //具体代码，可以是跳转页面，可以是弹出对话框，下面是跳转页面
             }
         }

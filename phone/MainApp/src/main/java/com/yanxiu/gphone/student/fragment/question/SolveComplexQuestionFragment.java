@@ -78,6 +78,11 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
     }
 
     @Override
+    public ViewPager getViewPager() {
+        return vpAnswer;
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_solve_complex_question,null);
         initView();

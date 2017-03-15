@@ -44,7 +44,6 @@ public class YanxiuBaseActivity extends YanxiuCommonBaseActivity {
     }
     @Override
     protected void onStop() {
-        // TODO Auto-generated method stub
         super.onStop();
         if (!isAppOnForeground()) {
             //app 进入后台

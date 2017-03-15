@@ -198,14 +198,12 @@ public class WebViewActivity extends YanxiuBaseActivity implements OnClickListen
 
 	@Override
 	protected void onPause() {
-		// TODO Auto-generated method stub
 		super.onPause();
 		callHiddenWebViewMethod("onPause");
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		callHiddenWebViewMethod("onResume");
 	}

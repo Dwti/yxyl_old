@@ -316,7 +316,6 @@ public class SubjectSectionActivity extends YanxiuBaseActivity implements View.O
     private void requestSortData() {
         rootView.loading(true);
 
-        //TODO 暂时不读缓存
         List<SubjectEditionBean.DataEntity.ChildrenEntity> mSortBeans = null;
 //                PublicVolumeBean.findDataSortList(stageId + "", subjectId + "", editionId);
         if (mSortBeans != null) {

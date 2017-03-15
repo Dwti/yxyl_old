@@ -46,7 +46,6 @@ public class YanxiuIntentService extends GTIntentService {
         {
             String data = new String(payload);
             Log.d("GetuiSdkDemo", "Got Payload:" + data);
-            // TODO:接收处理透传（payload）数据
             onTextMessage(context, data);
         }
     }
@@ -62,7 +61,6 @@ public class YanxiuIntentService extends GTIntentService {
     }
 
     public void onTextMessage(Context context, String content) {
-        // TODO Auto-generated method stub
         if(LoginModel.getLoginBean() == null || YanxiuApplication.getInstance().isForceUpdate()){
             LogInfo.log("haitian", "-----------isForceUpdate------LoginBeanIsNull-----------" );
             return;

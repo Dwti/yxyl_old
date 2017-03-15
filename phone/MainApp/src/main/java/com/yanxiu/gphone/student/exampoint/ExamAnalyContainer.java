@@ -175,7 +175,6 @@ public class ExamAnalyContainer extends LinearLayout implements Observer {
             }
             charList.add(entity);
         }
-// TODO  this  is  the test data
 //        ChartBarEntity entity1=new ChartBarEntity();
 //        entity1.setTitle("我");
 //        entity1.setDataElement(new DataElement(10.0f, BarChartPanel.platterTable[0]));

@@ -305,7 +305,6 @@ public class FavouriteViewActivity extends BaseAnswerViewActivity {
                     ivFavCard.setBackgroundResource(R.drawable.selector_answer_collection);
 //                    mRootView.loading(true);
 //                    RequestSubmitFavouriteTask.requestTask(this,stageId,
-//                            //TODO
 //                            subjectId, editionId, volumeId, chapterId, sectionId, questionId, uniteId ,(isChapterSection == 1 ? 2 :
 //                                    isChapterSection) , new
 //                            AsyncCallBack() {

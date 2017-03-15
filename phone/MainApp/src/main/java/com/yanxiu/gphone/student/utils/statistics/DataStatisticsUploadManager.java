@@ -130,7 +130,6 @@ public class DataStatisticsUploadManager {
                         LogInfo.log("frc", "file upload success ");
                     } else {
                         //LogInfo.log("frc", "file upload error :::" + uploadInstantPointDataBean.getDesc());
-                        //TODO 将数据保存到数据库 具体数据看server
                         addDataToSQL(params);
                         handler.sendEmptyMessage(GO_ON_TO_UPLOAD_LIST_DATA);
 
@@ -141,7 +140,6 @@ public class DataStatisticsUploadManager {
             @Override
             public void dataError(int type, String msg) {
                 LogInfo.log("frc", "dataError:  " + msg);
-                //TODO  将数据保存到数据库
                 addDataToSQL(params);
                 handler.sendEmptyMessage(GO_ON_TO_UPLOAD_LIST_DATA);
             }
@@ -159,7 +157,6 @@ public class DataStatisticsUploadManager {
         MakeDataTOFileUtil makeDataTOFileUtil = new MakeDataTOFileUtil();
         List<File> fileList = makeDataTOFileUtil.getAllPointFile();
         Map<String, File> hashMap = new HashMap<>();
-        //TODO 数据具体怎么封装看接口
         //hashMap.put("allPointFile", fileList.get(fileList.size() - 1));
         for (int i = 0; i < fileList.size(); i++) {
             hashMap.put("allPointFile" + i, fileList.get(i));

@@ -207,7 +207,7 @@ public class PublicLoadLayout extends FrameLayout implements View.OnClickListene
                 getResources().getColor(R.color.color_white));
         content.setVisibility(isShowContent ? VISIBLE : GONE);
     }
-    //TODO 此方法容易引起误解  数据加载失败  提示 网络失败？
+    // 此方法容易引起误解  数据加载失败  提示 网络失败？
     public void dataError(boolean isShowContent) {
         loading.setVisibility(GONE);
     //    halfBlackTopView.setVisibility(VISIBLE);

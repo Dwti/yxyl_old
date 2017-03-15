@@ -140,6 +140,11 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
     }
 
     @Override
+    public ViewPager getViewPager() {
+        return vpAnswer;
+    }
+
+    @Override
     public void setMistakeDelete() {
         super.setMistakeDelete();
         ArrayList<Fragment> list=adapter.getmFragments();

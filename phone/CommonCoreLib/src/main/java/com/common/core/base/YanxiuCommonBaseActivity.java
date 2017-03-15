@@ -41,7 +41,6 @@ public class YanxiuCommonBaseActivity extends FragmentActivity {
 
     @Override
     protected void onStop() {
-        // TODO Auto-generated method stub
         super.onStop();
     }
 

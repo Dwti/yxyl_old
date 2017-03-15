@@ -97,7 +97,7 @@ public class PicSelView extends RelativeLayout {
                 }else{
                     controllShowGridAndHideAddAnswView(true);
                 }
-                //TODO 临时解决  如果只执行Notify会导致子View宽高无法确认而收缩
+                // 临时解决  如果只执行Notify会导致子View宽高无法确认而收缩
                 noScrollGridView.setAdapter(gridAdapter);
             }
 

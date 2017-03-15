@@ -260,7 +260,6 @@ public class YanxiuApplication extends CommonCoreApplication {
                         LogInfo.log("frc", "file upload success ");
                     } else {
                         //LogInfo.log("frc", "file upload error :::" + uploadInstantPointDataBean.getDesc());
-                        //TODO 将数据保存到数据库 具体数据看server
                         addDataToSQL(params);
                     }
                     CommonActivityManager.destory();
@@ -271,7 +270,6 @@ public class YanxiuApplication extends CommonCoreApplication {
             @Override
             public void dataError(int type, String msg) {
                 LogInfo.log("frc", "dataError:  " + msg);
-                //TODO  将数据保存到数据库
                 addDataToSQL(params);
                 CommonActivityManager.destory();
                 android.os.Process.killProcess(android.os.Process.myPid());

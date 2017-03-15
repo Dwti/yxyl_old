@@ -192,7 +192,6 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
         webview_test_one.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                // TODO Auto-generated method stub
                 //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
                 view.loadUrl(url);
                 return false;
@@ -206,7 +205,6 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
         webview_test_two.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                // TODO Auto-generated method stub
                 //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
                 view.loadUrl(url);
                 return false;
@@ -216,7 +214,6 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
         webview_test_three.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                // TODO Auto-generated method stub
                 //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
                 view.loadUrl(url);
                 return false;
@@ -226,7 +223,6 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
         webview_test_four.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                // TODO Auto-generated method stub
                 //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
                 view.loadUrl(url);
                 return false;
@@ -236,7 +232,6 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
         webview_test_five.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                // TODO Auto-generated method stub
                 //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
                 view.loadUrl(url);
                 return false;
@@ -492,8 +487,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
      */
     public Action getIndexApiAction() {
         Thing object = new Thing.Builder()
-                .setName("BaseAnswerView Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
+                .setName("BaseAnswerView Page")
                 .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
                 .build();
         return new Action.Builder(Action.TYPE_VIEW)

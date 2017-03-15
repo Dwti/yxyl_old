@@ -2556,7 +2556,6 @@ public class YanxiuHttpApi {
                 while ((ch = in.read()) != -1) {
                     sb2.append((char) ch);
                 }
-                //TODO 上传成功后 删除该文件
                 for (Map.Entry<String, File> file : files.entrySet()) {
                     file.getValue().delete();
                 }

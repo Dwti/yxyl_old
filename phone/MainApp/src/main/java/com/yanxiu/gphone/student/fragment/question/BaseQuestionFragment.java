@@ -116,6 +116,10 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
         this.redoCallback=redoCallback;
     }
 
+    public ViewPager getViewPager(){
+        return null;
+    };
+
     public void setMistakeSubmit(){};
 
     public void setMistakeDelete(){};

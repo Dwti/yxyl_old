@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.ImagePreviewActivity;
+import com.yanxiu.gphone.student.activity.MistakeRedoActivity;
 import com.yanxiu.gphone.student.activity.NoteEditActivity;
 import com.yanxiu.gphone.student.adapter.NoteImageGridAdapter;
 import com.yanxiu.gphone.student.bean.ExtendEntity;
@@ -66,15 +67,33 @@ public class MistakeRedoFragment extends Fragment {
         if (questionsEntity==null){
             return;
         }
+        String wqid="";
+        String qid="";
+        try {
+            wqid=((MistakeRedoActivity)getActivity()).getWqid();
+            qid=((MistakeRedoActivity)getActivity()).getQid();
+        }catch (Exception e){
+            wqid="";
+            qid="";
+        }
+
+        questionsEntity.setWqid(wqid);
+        questionsEntity.setQid(qid);
         if (questionsEntity.getExtend() != null && questionsEntity.getExtend().getData() != null) {
             ExtendEntity.DataEntity dataEntity = questionsEntity.getExtend().getData();
+            String answer=dataEntity.getAnswerCompare().substring(0,dataEntity.getAnswerCompare().lastIndexOf(","));
+            if (questionsEntity.getAnswerIsRight()==QuestionEntity.ANSWER_RIGHT){
+                answer=answer+getString(R.string.answer_right);
+            }else if (questionsEntity.getAnswerIsRight()==QuestionEntity.ANSWER_FAIL){
+                answer=answer+getString(R.string.answer_fall);
+            }
             switch (questionsEntity.getTemplate()) {
                 case YanXiuConstant.CLASSIFY_QUESTION://归类
                     tvReportParseStatueText.setClasfyFlag(false);
-                    tvReportParseStatueText.setTextHtml(dataEntity.getAnswerCompare().replaceAll("<img", "<imgFy"));
+                    tvReportParseStatueText.setTextHtml(answer.replaceAll("<img", "<imgFy"));
                     break;
                 default:
-                    tvReportParseStatueText.setTextHtml(dataEntity.getAnswerCompare());
+                    tvReportParseStatueText.setTextHtml(answer);
                     break;
             }
         }

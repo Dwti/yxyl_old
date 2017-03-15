@@ -34,6 +34,7 @@ import com.yanxiu.gphone.student.requestTask.MisRedoNumQuestionTask;
 import com.yanxiu.gphone.student.requestTask.RequestDelMistakeTask;
 import com.yanxiu.gphone.student.requestTask.RequestMistakeRedoClassTask;
 import com.yanxiu.gphone.student.requestTask.RequestWrongAllQuestionTask;
+import com.yanxiu.gphone.student.utils.LoadingDialogUtils;
 import com.yanxiu.gphone.student.utils.PublicLoadUtils;
 import com.yanxiu.gphone.student.utils.QuestionUtils;
 import com.yanxiu.gphone.student.utils.Util;
@@ -156,6 +157,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
             mistake_number.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    rootView.loading(true);
                     if (Is_number_ready) {
                         MistakeNumClick();
                     }else {
@@ -173,6 +175,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
         RequestMistakeRedoClassTask redoClassTask=new RequestMistakeRedoClassTask(this, stageId, subjectId, new AsyncCallBack() {
             @Override
             public void update(YanxiuBaseBean result) {
+                rootView.finish();
                 SubjectExercisesItemBean itemBean= (SubjectExercisesItemBean) result;
                 if (itemBean!=null&&itemBean.getStatus().getCode()==0&&itemBean.getData()!=null&&itemBean.getData().size()>0) {
                     MistakeRedoActivity.launch(MistakeAllActivity.this,itemBean,numberBean.getProperty().getQuestionNum()+"",stageId,subjectId);
@@ -183,6 +186,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
 
             @Override
             public void dataError(int type, String msg) {
+                rootView.finish();
                 if (!NetWorkTypeUtils.isNetAvailable()) {
                     Util.showToast(R.string.server_connection_erro);
                 }else {
@@ -216,9 +220,11 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
     };
 
     private void requestMistakeNumber(){
+//        rootView.loading(true);
         MisRedoNumQuestionTask numQuestionTask=new MisRedoNumQuestionTask(this, stageId, subjectId, new AsyncCallBack() {
             @Override
             public void update(YanxiuBaseBean result) {
+//                rootView.loading(false);
                 numberBean= (MistakeRedoNumberBean) result;
                 if (numberBean!=null&&numberBean.getStatus().getCode()==0) {
                     String s = getResources().getString(R.string.mistake_redo_number, numberBean.getProperty().getQuestionNum() + "");
@@ -229,6 +235,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                         MistakeNumClick();
                     }
                 }else {
+                    rootView.finish();
                     Util.showToast(R.string.data_erro);
                 }
                 Is_number_click=false;
@@ -236,6 +243,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
 
             @Override
             public void dataError(int type, String msg) {
+                rootView.finish();
                 Is_number_ready=false;
                 Is_number_click=false;
                 mistake_number.setClickable(true);

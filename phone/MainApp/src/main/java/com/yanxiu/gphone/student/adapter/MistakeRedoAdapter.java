@@ -10,6 +10,7 @@ import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.fragment.DefaultLoadFragment;
+import com.yanxiu.gphone.student.fragment.question.BaseQuestionFragment;
 import com.yanxiu.gphone.student.fragment.question.QuestionFragmentFactory;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.MyViewPager;
@@ -55,6 +56,8 @@ public class MistakeRedoAdapter extends BaseMistakRedoAdapter<PaperTestEntity> i
     private int page_start=-1;
     private int page_end=-1;
 
+    private BaseQuestionFragment fragment;
+
     public interface OnShouldDownLoadListener{
         void onLoadListener(int page);
     }
@@ -76,10 +79,15 @@ public class MistakeRedoAdapter extends BaseMistakRedoAdapter<PaperTestEntity> i
         return getFragment(paperTestEntity, position);
     }
 
+    public BaseQuestionFragment getFragmentAtNow(){
+        return fragment;
+    }
+
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
         super.setPrimaryItem(container, position, object);
         if (this.position!=position) {
+            fragment= (BaseQuestionFragment) object;
             if (object instanceof DefaultLoadFragment){
                 if (position<this.page_start||position>=this.page_end) {
 

@@ -24,7 +24,6 @@ public class YanxiuPushUpdateReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        // TODO Auto-generated method stub
 //        isAppOnForeground(MainActivity.getInstance() != null ?
 //                MainActivity.getInstance() :
 //                context);
