@@ -8,6 +8,7 @@ import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -25,7 +26,7 @@ import okhttp3.Response;
  */
 
 public abstract class RequestBase {
-    private static final Gson gson = new GsonBuilder().create();
+    protected static final Gson gson = new GsonBuilder().create();
 
     public static Gson getGson() {
         return gson;
@@ -56,7 +57,7 @@ public abstract class RequestBase {
 
     protected abstract String urlPath();
 
-    private String fullUrl() throws NullPointerException, IllegalAccessException, IllegalArgumentException {
+    protected String fullUrl() throws NullPointerException, IllegalAccessException, IllegalArgumentException {
         String server = urlServer();
         String path = urlPath();
 
@@ -165,6 +166,9 @@ public abstract class RequestBase {
         Object o = gson.fromJson(json, this.getClass());
         Field[] fields = o.getClass().getFields();
         for (Field f : fields) {
+            if (Modifier.isStatic(f.getModifiers()) && Modifier.isFinal(f.getModifiers())) {
+                continue;
+            }
             if (f.isAnnotationPresent(RequestParamType.class)) {
                 RequestParamType annotation =  f.getAnnotation(RequestParamType.class);
                 RequestParamType.Type type = annotation.value();
@@ -213,7 +217,7 @@ public abstract class RequestBase {
         return params;
     }
 
-    private String omitSlash(String org) {
+    protected String omitSlash(String org) {
         if (org == null) {
             return null;
         }
@@ -236,7 +240,7 @@ public abstract class RequestBase {
         handler.post(task);
     }
 
-    private Request generateRequest(UUID uuid) throws NullPointerException, IllegalAccessException, IllegalArgumentException {
+    protected Request generateRequest(UUID uuid) throws NullPointerException, IllegalAccessException, IllegalArgumentException {
         Request.Builder builder = new Request.Builder()
                 .tag(uuid)
                 .url(fullUrl());
