@@ -6,11 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,14 +28,10 @@ import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.inter.AnswerCallback;
 import com.yanxiu.gphone.student.inter.OnPushPullTouchListener;
-import com.yanxiu.gphone.student.inter.SetAnswerCallBack;
 import com.yanxiu.gphone.student.utils.FragmentManagerFactory;
 import com.yanxiu.gphone.student.view.ClozzTextview;
 import com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
-import com.yanxiu.gphone.student.view.question.fillblanks.FillBlanksButtonFramelayout;
-
-import org.json.JSONArray;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -209,13 +203,13 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
                 for (int i=0;i<children.size();i++){
                     QuestionEntity entity=children.get(i).getQuestions();
                     if (!entity.isHaveAnser()){
-                        questionsEntity.setHaveAnser(false);
+                        questionsEntity.setIsAllBlanksFilled(false);
                         fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_NOANSWER);
                         return;
                     }
                 }
             }
-            questionsEntity.setHaveAnser(true);
+            questionsEntity.setIsAllBlanksFilled(true);
             fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_NOT_SUBMIT_HASANSWER);
         }else if (QuestionEntity.TYPE_SUBMIT_END.equals(questionsEntity.getType())){
             fill_blanks_button.setTextColor();

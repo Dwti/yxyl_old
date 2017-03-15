@@ -61,9 +61,18 @@
                         android:layout_marginBottom="@dimen/dimen_12"
                         android:layout_gravity="center"
                         android:textColor="@color/color_black"
-                        android:textSize="@dimen/dimen_15" />
+                        android:textSize="@dimen/dimen_15"/>
 
-                </FrameLayout>、
+                    <com.yanxiu.gphone.student.view.spanreplaceabletextview.FillBlankTextView
+                        android:id="@+id/fill_blank_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_marginBottom="12dp"/>
+
+                </FrameLayout>
 
             </LinearLayout>
 

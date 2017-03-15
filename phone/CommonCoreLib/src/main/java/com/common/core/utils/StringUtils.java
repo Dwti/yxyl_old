@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,7 +21,11 @@ public class StringUtils {
     final static int BUFFER_SIZE = 4096;
     public final static String GB2312 = "gb2312";
     public final static String UTF_8 = "UTF-8";
-
+    private static final char SBC_CHAR_START = 65281;
+    private static final char SBC_CHAR_END = 65374;
+    private static final int CONVERT_STEP = 65248;
+    private static final char SBC_SPACE = 12288;
+    private static final char DBC_SPACE = ' ';
     /**
      * 获取当前版本号
      */
@@ -224,5 +230,33 @@ public class StringUtils {
         String sizeUrlHead = originalUrl.substring(0, dotIndex);
         String sizeNewUrl = sizeUrlHead + "_260_360" + sizeUrlExe;
         return sizeNewUrl;
+    }
+
+    public static String full2half(String src) {
+        if (src == null) {
+            return src;
+        }
+        StringBuilder buf = new StringBuilder(src.length());
+        char[] ca = src.toCharArray();
+        for (int i = 0; i < src.length(); i++) {
+            if (ca[i] >= SBC_CHAR_START && ca[i] <= SBC_CHAR_END) {
+                buf.append((char) (ca[i] - CONVERT_STEP));
+            } else if (ca[i] == SBC_SPACE) {
+                buf.append(DBC_SPACE);
+            } else {
+                buf.append(ca[i]);
+            }
+        }
+        return buf.toString();
+    }
+
+    public static List<String> full2half(List<String> srcList){
+        List<String> list = new ArrayList<>();
+        if(srcList == null)
+            return srcList;
+        for(String str : srcList){
+            list.add(full2half(str));
+        }
+        return list;
     }
 }

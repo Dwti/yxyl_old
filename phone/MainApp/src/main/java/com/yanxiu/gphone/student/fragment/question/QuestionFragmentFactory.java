@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
+import com.yanxiu.gphone.student.fragment.FillFragment;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.choicequestion.ChoiceQuestions;
 
@@ -62,13 +63,8 @@ public class QuestionFragmentFactory {
                 fragment = new JudgeQuestionFragment();
                 break;
             case QUESTION_FILL_BLANKS:
-//                if (questionsEntity.getTemplate().equals(YanXiuConstant.MULTI_QUESTION) && (questionsEntity.getType_id() == QUESTION_SOLVE_COMPLEX.type
-//                        || questionsEntity.getType_id() == QUESTION_COMPUTE.type)) {
-//                    fragment=new NewFillBlanksFragment();
-//                } else {
-                    fragment = new FillBlanksFragment();
-//                }
-                //fragment=new NewFillBlanksFragment();
+//                    fragment = new FillBlanksFragment();
+                fragment = new FillFragment();
                 break;
             case QUESTION_CLASSFY:
                 fragment = new ClassfyQuestionFragment();

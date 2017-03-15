@@ -6,6 +6,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -573,5 +574,8 @@ public class Util {
         return Math.round(dp * displayMetrics.density);
     }
 
+    public static float computeStringWidth(String str, TextPaint textPaint){
+        return textPaint.measureText(str);
+    }
 }
 

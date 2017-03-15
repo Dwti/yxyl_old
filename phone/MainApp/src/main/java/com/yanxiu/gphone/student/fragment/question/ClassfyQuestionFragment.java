@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -422,7 +421,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                 flag=false;
             }
         }
-        questionsEntity.setHaveAnser(flag);
+        questionsEntity.setIsAllBlanksFilled(flag);
         return flag;
     }
 
