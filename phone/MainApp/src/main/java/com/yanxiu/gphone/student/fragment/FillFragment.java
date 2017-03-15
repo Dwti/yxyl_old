@@ -81,7 +81,13 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
             return null;
         String str = stem.replaceAll("\\(_\\)", "<Blank>empty</Blank>");
         if(str.startsWith("<Blank>"))
-            str = "&zwj;" + str;          //如果<Blank>标签为第一个字符时，taghandler解析的时候会有一个bug，导致第一个解析会跳过，然后会引起后面的图片显示也有问题
+            str = "&zwj;" + str;                   //如果<Blank>标签为第一个字符时，taghandler解析的时候会有一个bug，导致第一个解析会跳过，然后会引起后面的图片显示也有问题
+        StringBuilder sb = new StringBuilder(str);
+        while(str.contains("</Blank><Blank>")){   //就是两个空连起来的情况，需要中间加一个空格
+            int index = sb.indexOf("</Blank><Blank>");
+            sb = sb.insert(index+8,"&nbsp");
+            str = sb.toString();
+        }
         return str;
     }
     private void addAnalysisFragment() {
