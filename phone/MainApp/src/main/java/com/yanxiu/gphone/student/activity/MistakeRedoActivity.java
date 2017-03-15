@@ -448,34 +448,34 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
         dialog.setQuestionNumber(getTatleNumber(list),getRightNumber(list),getFailNumber(list));
     }
 
-    private String getTatleNumber(List<PaperTestEntity> list){
+    private int getTatleNumber(List<PaperTestEntity> list){
         int t=0;
         for (PaperTestEntity entity:list){
              if (entity!=null&&entity.getQuestions().isHaveAnser()){
                 t++;
             }
         }
-        return t+"";
+        return t;
     }
 
-    private String getRightNumber(List<PaperTestEntity> list){
+    private int getRightNumber(List<PaperTestEntity> list){
         int r=0;
         for (PaperTestEntity entity:list){
             if (entity!=null&&entity.getQuestions().getAnswerIsRight()== QuestionEntity.ANSWER_RIGHT){
                 r++;
             }
         }
-        return r+"";
+        return r;
     }
 
-    private String getFailNumber(List<PaperTestEntity> list){
+    private int getFailNumber(List<PaperTestEntity> list){
         int f=0;
         for (PaperTestEntity entity:list){
             if (entity!=null&&entity.getQuestions().getAnswerIsRight()==QuestionEntity.ANSWER_FAIL){
                 f++;
             }
         }
-        return f+"";
+        return f;
     }
 
     @Override

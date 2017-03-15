@@ -32,10 +32,14 @@ public class MistakeRedoDialog extends Dialog {
         this.stageDialogCallBack = stageDialogCallBack;
     }
 
-    public void setQuestionNumber(String tatledata,String rightdata,String faildata){
-        tatle.setText(tatledata);
-        right.setText(rightdata);
-        fail.setText(faildata);
+    public void setQuestionNumber(int tatledata,int rightdata,int faildata){
+        right.setText(rightdata+"");
+        fail.setText(faildata+"");
+        /**
+         * 需求变更
+         * */
+//        tatle.setText(tatledata);
+        tatle.setText(rightdata+faildata+"");
     }
 
     public void setStageDialogCallBack (StageDialogCallBack stageDialogCallBack) {
