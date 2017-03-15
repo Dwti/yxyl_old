@@ -511,4 +511,6 @@
     <string name="loading_more">加载中...</string>
     <string name="answer_right">，回答正确</string>
     <string name="answer_fall">，回答错误</string>
+    <string name="four_Chinese_characters">四个汉字</string>
+    <string name="single_Chinese_character">加</string>
 </resources>
