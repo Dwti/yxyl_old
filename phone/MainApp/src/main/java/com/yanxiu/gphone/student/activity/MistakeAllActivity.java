@@ -229,7 +229,11 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                 if (numberBean!=null&&numberBean.getStatus().getCode()==0) {
                     String s = getResources().getString(R.string.mistake_redo_number, numberBean.getProperty().getQuestionNum() + "");
                     mistake_number.setText(s);
-                    mistake_number.setClickable(true);
+                    if (numberBean.getProperty().getQuestionNum()==0){
+                        mistake_number.setClickable(false);
+                    }else {
+                        mistake_number.setClickable(true);
+                    }
                     Is_number_ready=true;
                     if (Is_number_click){
                         MistakeNumClick();
