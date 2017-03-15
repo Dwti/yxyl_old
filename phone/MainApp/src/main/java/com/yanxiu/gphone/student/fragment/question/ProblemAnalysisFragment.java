@@ -1,7 +1,9 @@
 package com.yanxiu.gphone.student.fragment.question;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -87,6 +89,7 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
     private FlowLayout flowLayout;
     //    protected StudentLoadingLayout loadingLayout;
     private ImageView iv_edit_note;
+    private int answerViewType;
 
     private String qid;
     private SubjectExercisesItemBean subjectExercisesItemBean;
@@ -178,6 +181,7 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
     private void initData() {
         SubjectExercisesItemBean dataSources = ((BaseAnswerViewActivity) this.getActivity()).getDataSources();
         if (dataSources != null && dataSources.getData() != null && !dataSources.getData().isEmpty()) {
+            answerViewType = dataSources.getViewType();
             stageId = LoginModel.getUserinfoEntity().getStageid();
             subjectId = dataSources.getData().get(0).getSubjectid();
             subjectName = dataSources.getData().get(0).getSubjectName();
@@ -340,7 +344,7 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
     }
 
     private void setNoteContentVisible(String note,List<String> imagePath){
-        if(subjectExercisesItemBean!=null&&subjectExercisesItemBean.getViewType()==SubjectExercisesItemBean.WRONG_SET||subjectExercisesItemBean.getViewType()==SubjectExercisesItemBean.MISTAKEREDO){
+        if( answerViewType ==SubjectExercisesItemBean.WRONG_SET|| answerViewType ==SubjectExercisesItemBean.MISTAKEREDO){
             ll_note.setVisibility(View.VISIBLE);
         }else {
             ll_note.setVisibility(View.GONE);
@@ -453,6 +457,7 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.ECLAIR)
     @Override
     public void onClick(View v) {
         if (tvReportQuestionError == v) {
