@@ -194,6 +194,7 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
             case SubjectExercisesItemBean.MISTAKEREDO:
                 if (ischild) {
                     if (QuestionEntity.TYPE_SUBMIT_END.equals(questionsEntity.getType()) || QuestionEntity.TYPE_DELETE_END.equals(questionsEntity.getType())) {
+                        mTextView.setEditable(false);
                         FragmentManagerFactory.addMistakeRedoFragment(getActivity(), getChildFragmentManager().beginTransaction(), questionsEntity, R.id.content_problem_analysis);
                     }
                     return;
@@ -209,6 +210,7 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
                         switch (type) {
                             case SubmitOrDeleteFragment.TYPE_SUBMIT:
                                 questionsEntity.setType(QuestionEntity.TYPE_SUBMIT_END);
+                                mTextView.setEditable(false);
                                 checkTheAnswer();
                                 fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_SUBMIT);
                                 FragmentManagerFactory.addMistakeRedoFragment(getActivity(), getChildFragmentManager().beginTransaction(), questionsEntity, R.id.content_problem_analysis);
@@ -233,6 +235,7 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
     @Override
     public void setMistakeSubmit() {
         super.setMistakeSubmit();
+        mTextView.setEditable(false);
         questionsEntity.setType(QuestionEntity.TYPE_SUBMIT_END);
         FragmentManagerFactory.addMistakeRedoFragment(getActivity(), getChildFragmentManager().beginTransaction(), questionsEntity, R.id.content_problem_analysis);
     }
@@ -263,10 +266,12 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
             }
         } else if (QuestionEntity.TYPE_SUBMIT_END.equals(questionsEntity.getType())) {
             questionsEntity.setType(QuestionEntity.TYPE_SUBMIT_END);
+            mTextView.setEditable(false);
             fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_SUBMIT);
             FragmentManagerFactory.addMistakeRedoFragment(getActivity(), getChildFragmentManager().beginTransaction(), questionsEntity, R.id.content_problem_analysis);
         } else if (QuestionEntity.TYPE_DELETE_END.equals(questionsEntity.getType())) {
             questionsEntity.setType(QuestionEntity.TYPE_SUBMIT_END);
+            mTextView.setEditable(false);
             fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_DELETE);
             FragmentManagerFactory.addMistakeRedoFragment(getActivity(), getChildFragmentManager().beginTransaction(), questionsEntity, R.id.content_problem_analysis);
         }
@@ -314,7 +319,7 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
     public void filledContentChanged(List<String> filledContent) {
         if (ischild){
             questionsEntity.setIsAllBlanksFilled(isAllBlanksFilled(filledContent));
-            getTheAnswerIsRight();
+            boolean f=getTheAnswerIsRight();
             if (redoCallback!=null){
                 redoCallback.redoCallback();
             }

@@ -8,7 +8,7 @@
     <RelativeLayout
         android:id="@+id/rl_answer_card_first"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_57"
+        android:layout_height="@dimen/dimen_44"
         android:background="@color/color_ffe580">
 
         <ImageView
@@ -39,10 +39,6 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recy_mistakecard"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/dimen_26"
-            android:layout_marginLeft="@dimen/dimen_25"
-            android:layout_marginRight="@dimen/dimen_25"
-            android:layout_marginTop="@dimen/dimen_26" />
+            android:layout_height="match_parent"/>
     </LinearLayout>
 </LinearLayout>

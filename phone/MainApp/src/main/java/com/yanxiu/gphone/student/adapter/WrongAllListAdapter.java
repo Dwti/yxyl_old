@@ -28,6 +28,8 @@ import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 
+import java.util.List;
+
 import de.greenrobot.event.EventBus;
 
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTION_CLASSFY;
@@ -139,12 +141,29 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
     private void setData(PaperTestEntity entity,ViewHolder holder) {
         if (entity != null && entity.getQuestions() != null) {
             int typeId = entity.getQuestions().getType_id();
+
+            if (entity.getQuestions().getStem() != null) {
+                holder.answerExamContent.setHtmlFlag(false);
+                if (typeId==15){
+                    holder.answerExamContent.setTextHtml(entity.getQuestions().getStem().replace("(_)","___"));
+                }else {
+                    holder.answerExamContent.setTextHtml(entity.getQuestions().getStem());
+                }
+            }
+
             if(typeId == QUESTION_SUBJECTIVE.type){
                 //    6
                 holder.answerExamType.setImageResource(R.drawable.subjective_title_bg);
             }else if(typeId == QUESTION_SINGLE_CHOICES.type) {
                 //    1
                 holder.answerExamType.setImageResource(R.drawable.choice_single_title_bg);
+                String text_heml=entity.getQuestions().getStem();
+                List<String> list=entity.getQuestions().getContent().getChoices();
+                for (int i=0;i<list.size();i++){
+                        String ss=String.valueOf(numToLetter(String.valueOf(i+"")));
+                        text_heml=text_heml+"<br/>"+ss+" : "+list.get(i);
+                }
+                holder.answerExamContent.setTextHtml(text_heml);
             }else if(typeId == QUESTION_MULTI_CHOICES.type){
                 //    2
                 holder.answerExamType.setImageResource(R.drawable.choice_multi_title_bg);
@@ -198,18 +217,19 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
                     tvQuestionTitle.setText(questionTitle);
                 }
             }*/
-            if (entity.getQuestions().getStem() != null) {
-                holder.answerExamContent.setHtmlFlag(false);
-                if (typeId==15){
-                    holder.answerExamContent.setTextHtml(entity.getQuestions().getStem().replace("(_)","___"));
-                }else {
-                    holder.answerExamContent.setTextHtml(entity.getQuestions().getStem());
-                }
-            }
+
         }
     }
 
-
+    // 将数字转换成字母
+    public char[] numToLetter(String input) {
+        char c[] = input.toCharArray();
+        int i = 0;
+        for (byte b : input.getBytes()) {
+            c[i] = (char) (b + 49 - 26 - 6);
+        }
+        return c;
+    }
 
     private class ViewHolder {
         private ImageView answerExamType;

@@ -2,6 +2,7 @@ package com.yanxiu.gphone.student.bean;
 
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +19,11 @@ public class MistakeRedoCardBean implements YanxiuBaseBean {
 
     List<Mdata> data;
 
-    public class Mdata{
+    public class Mdata implements YanxiuBaseBean{
         String date;
         int count;
         List<Integer> wqnumbers;
-        List<Integer> wqtypes=new ArrayList<>();
+        List<Integer> wqtypes;
 
         public String getDate() {
             return date;
@@ -46,8 +47,11 @@ public class MistakeRedoCardBean implements YanxiuBaseBean {
 
         public void setWqnumbers(List<Integer> wqnumbers) {
             this.wqnumbers = wqnumbers;
-            for (Integer i:wqnumbers){
-                wqtypes.add(TYPE_NOANSWER);
+            if (wqnumbers!=null&&wqnumbers.size()>0) {
+                wqtypes=new ArrayList<>();
+                for (Integer i : wqnumbers) {
+                    wqtypes.add(TYPE_NOANSWER);
+                }
             }
         }
 

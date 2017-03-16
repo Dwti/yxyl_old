@@ -27,6 +27,9 @@ public class SubmitOrDeleteFragment extends Fragment {
     public static final String QUESTION_SUBMIT="2";
     public static final String QUESTION_DELETE="3";
 
+    private static final float UN_CLICK=0.6f;
+    private static final float CLICK=1.0f;
+
     private QuestionEntity entity;
 
     private OnButtonClickListener listener;
@@ -55,6 +58,7 @@ public class SubmitOrDeleteFragment extends Fragment {
 
     private void initView(View view) {
         button= (Button) view.findViewById(R.id.add_problem_mistakeredo);
+        button.setAlpha(UN_CLICK);
         button.setVisibility(View.VISIBLE);
         button.setText(R.string.question_submit);
         button.setOnClickListener(new View.OnClickListener() {
@@ -97,21 +101,25 @@ public class SubmitOrDeleteFragment extends Fragment {
         switch (questionType){
             case QUESTION_NOT_SUBMIT_NOANSWER:
                 button.setClickable(false);
+                button.setAlpha(UN_CLICK);
                 button.setBackgroundResource(R.drawable.judge_item_pre);
                 button.setText(R.string.submit_txt);
                 break;
             case QUESTION_NOT_SUBMIT_HASANSWER:
                 button.setClickable(true);
+                button.setAlpha(CLICK);
                 button.setBackgroundResource(R.drawable.judge_item_nor);
                 button.setText(R.string.submit_txt);
                 break;
             case QUESTION_SUBMIT:
                 button.setClickable(true);
+                button.setAlpha(CLICK);
                 button.setBackgroundResource(R.drawable.judge_item_nor);
                 button.setText(R.string.delete_question);
                 break;
             case QUESTION_DELETE:
                 button.setClickable(false);
+                button.setAlpha(UN_CLICK);
                 button.setBackgroundResource(R.drawable.judge_item_pre);
                 button.setText(R.string.delete_question_end);
                 break;

@@ -443,6 +443,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
         wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mMistakeCount+""));
         pageIndex = 1;
         requestMistakeAllList(true, false, false);
+        requestMistakeNumber();
     }
 
     @Override
@@ -453,6 +454,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
             mMistakeCount = data.getIntExtra("wrongNum", 0);
             pageIndex = 1;
             requestMistakeAllList(true, false, false);
+            requestMistakeNumber();
         }else {
             this.finish();
         }

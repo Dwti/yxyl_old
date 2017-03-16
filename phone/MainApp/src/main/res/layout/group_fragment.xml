@@ -103,8 +103,7 @@
             android:layout_height="@dimen/dimen_145"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
-            android:background="@drawable/my_list_bg_sel"
-            android:gravity="center">
+            android:background="@drawable/my_list_bg_sel">
 
             <TextView
                 android:id="@+id/TextViewInfo"
@@ -112,6 +111,7 @@
                 android:layout_width="305dp"
                 android:layout_height="@dimen/dimen_40"
                 android:gravity="center"
+                android:layout_centerInParent="true"
                 android:shadowColor="@color/color_ffff99"
                 android:textColor="@color/color_805500"
                 android:textSize="17sp" />
@@ -121,14 +121,14 @@
                 android:id="@+id/stage_layout_sure"
                 style="@style/shadow_text_style"
                 android:layout_width="@dimen/dimen_100"
-                android:layout_height="@dimen/dimen_40"
-                android:layout_below="@+id/TextViewInfo"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/dimen_15"
-                android:background="@drawable/register_code_selector"
                 android:gravity="center"
                 android:paddingLeft="@dimen/dimen_10"
                 android:paddingRight="@dimen/dimen_10"
+                android:paddingTop="@dimen/dimen_10"
+                android:layout_marginBottom="@dimen/dimen_8"
+                android:layout_alignParentBottom="true"
                 android:shadowColor="@color/color_ffff99"
                 android:text="@string/group_refrese"
                 android:textColor="@color/color_805500"

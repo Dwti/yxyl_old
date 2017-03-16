@@ -2,6 +2,7 @@ package com.yanxiu.gphone.student.fragment;
 
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -130,6 +131,7 @@ public class GroupFragment extends Fragment {
         TextViewInfo.setText(R.string.class_no_work);
         TextView stage_layout_sure= (TextView) rootView.findViewById(R.id.stage_layout_sure);
         stage_layout_sure.setVisibility(View.VISIBLE);
+        stage_layout_sure.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         stage_layout_sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

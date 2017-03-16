@@ -505,7 +505,7 @@
     <string name="mistake_redo_math">数学</string>
     <string name="mistake_redo_english">英语</string>
 
-    <string name="group_refrese">刷新</string>
+    <string name="group_refrese">点击后刷新</string>
     <string name="mistake_redo_number">错题数量(%1$s)</string>
 
     <string name="loading_more">加载中...</string>
