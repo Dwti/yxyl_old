@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.common.core.utils.NetWorkTypeUtils;
 import com.common.login.LoginModel;
 import com.test.yanxiu.network.HttpCallback;
 import com.test.yanxiu.network.RequestBase;
@@ -19,7 +20,11 @@ import com.yanxiu.gphone.student.bean.request.NoteRequest;
 import com.yanxiu.gphone.student.httpApi.YanxiuHttpApi;
 import com.yanxiu.gphone.student.utils.MediaUtils;
 import com.yanxiu.gphone.student.utils.ToastMaster;
+import com.yanxiu.gphone.student.view.CommonDialog;
+import com.yanxiu.gphone.student.view.DelDialog;
+import com.yanxiu.gphone.student.view.LoadingDialog;
 import com.yanxiu.gphone.student.view.PhotoView;
+import com.yanxiu.gphone.student.view.StudentLoadingLayout;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -43,8 +48,9 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
     private ArrayList<String> mPhotoPath = new ArrayList<>();
     private ArrayList<String> mHttpPath = new ArrayList<>();
     private List<String> localPhotoPath = new ArrayList<>();
-
     private String mContent;
+    private StudentLoadingLayout loadingLayout;
+    private boolean isSubmiting = false;
 
     public static void launch(Fragment fragment, String content, ArrayList<String> imagePaths) {
         Intent intent = new Intent(fragment.getActivity(), NoteEditActivity.class);
@@ -63,6 +69,7 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_edit);
+        loadingLayout = (StudentLoadingLayout) findViewById(R.id.loading_layout);
         iv_cancel = (ImageView) findViewById(R.id.iv_cancel);
         iv_save = (ImageView) findViewById(R.id.iv_save);
         mEditText = (EditText) findViewById(R.id.editText);
@@ -86,6 +93,9 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
      * 剥离出来没上传到server的图片，也就是路径是本地的图片
      */
     private void saveData() {
+        if(!NetWorkTypeUtils.isNetAvailable()){
+            ToastMaster.showShortToast(this,"网络未连接，请检查后重试");
+        }
         localPhotoPath.clear();
         mHttpPath.clear();
         if (mPhotoView.getPhotos() != null && mPhotoView.getPhotos().size() > 0) {
@@ -101,7 +111,6 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
     }
 
     private void saveContentAndImages(ArrayList<String> images, String content) {
-        //调增加笔记 的接口，然后setResult
         NoteBean note = new NoteBean();
         note.setImages(images);
         note.setText(content);
@@ -149,11 +158,24 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
                 finish();
                 break;
             case R.id.iv_save:
+                if(isSubmiting)
+                    return;
+                showLoadingDialog();
                 saveData();
                 break;
             default:
                 break;
         }
+    }
+
+    private void showLoadingDialog(){
+        isSubmiting = true;
+        loadingLayout.setViewType(StudentLoadingLayout.LoadingType.LAODING_COMMON);
+    }
+
+    private void dismissLoadingDialog(){
+        isSubmiting = false;
+        loadingLayout.setViewGone();
     }
 
     private void setResultOK(ArrayList<String> data, String text) {
@@ -168,14 +190,13 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
 
         @Override
         public void onFail(UploadImageBean bean) {
-            ToastMaster.showShortToast(NoteEditActivity.this, "上传失败");
+            dismissLoadingDialog();
         }
 
         @Override
         public void onSuccess(UploadImageBean bean) {
             mHttpPath.addAll(bean.getData());
             saveContentAndImages(mHttpPath, mEditText.getText().toString());
-            ToastMaster.showShortToast(NoteEditActivity.this, "上传成功");
         }
 
         @Override
@@ -188,16 +209,17 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
 
         @Override
         public void onSuccess(RequestBase request, NoteResponseBean response) {
+            dismissLoadingDialog();
             if (response.getStatus().getCode() == 0) {
                 NoteRequest noteRequest = (NoteRequest) request;
-                ToastMaster.showShortToast(NoteEditActivity.this, "保存成功");
                 setResultOK(noteRequest.getNote().getImages(), noteRequest.getNote().getText());
             }
         }
 
         @Override
         public void onFail(RequestBase request, Error error) {
-            ToastMaster.showShortToast(NoteEditActivity.this, "保存失败");
+            dismissLoadingDialog();
+            ToastMaster.showShortToast(NoteEditActivity.this, "保存失败，请检查网络后重试");
         }
     }
 }

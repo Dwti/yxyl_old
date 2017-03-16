@@ -73,14 +73,25 @@ public abstract class SpanReplaceableTextView<T extends View> extends FrameLayou
 
     protected void initSpanWidthAndHeight(Spanned span,List<String> textToFill){
         mEmptySpans = span.getSpans(0, mSpannedStr.length(),getTagHandler().getSpanType());
-        int minSpanWidth = getMinSpanWidth();
         for(int i = 0; i < mEmptySpans.length; i++){
             mEmptySpans[i].standardLineHeight = mTextView.getLineHeight();
             if(textToFill != null && textToFill.get(i) != null){
-                int textWidth = (int) Util.computeStringWidth(textToFill.get(i),mTextView.getPaint());
-                mEmptySpans[i].textWidth = Math.max(textWidth,minSpanWidth);
+                mEmptySpans[i].textWidth = getSpanWidth(textToFill);
             }
         }
+    }
+
+    private int getSpanWidth(List<String> listString){
+        int width = 0;
+        int minTextWidth = getMinSpanWidth();
+        for(String str : listString){
+            int textWidth = (int) Util.computeStringWidth(str,mTextView.getPaint());
+            width = Math.max(textWidth,width);
+        }
+        width = Math.max(width,minTextWidth);
+        if(width > minTextWidth)
+            width += (int) Util.computeStringWidth(getContext().getString(R.string.single_Chinese_character),mTextView.getPaint());
+        return width;
     }
     protected void replaceSpanWithView(Spanned spannedStr) {
         if(spannedStr == null){
@@ -151,7 +162,7 @@ public abstract class SpanReplaceableTextView<T extends View> extends FrameLayou
         mTextView.setTextColor(color);
     }
     protected int getMinSpanWidth(){
-        return Util.convertDpToPx(getContext(),50);
+        return (int) Util.computeStringWidth(getContext().getString(R.string.four_Chinese_characters),mTextView.getPaint());
     }
     protected Html.ImageGetter getImageGetter(){
         return new HtmlImageGetter(mContext, mTextView);

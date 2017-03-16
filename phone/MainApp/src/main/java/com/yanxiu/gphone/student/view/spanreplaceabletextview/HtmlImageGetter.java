@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.yanxiu.gphone.student.utils.YanXiuConstant;
 
 import java.util.HashMap;
 
@@ -36,20 +37,17 @@ public class HtmlImageGetter implements Html.ImageGetter {
         drawable.setBounds(0, 0, 0, 0);
         Glide.with(mContext)
                 .load(source)
-//                .skipMemoryCache(true)
-//                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(new SimpleTarget<GlideDrawable>() {
                     @Override
                     public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
                         UrlDrawable drawable = mMap.get(source);
-//                        float factor = resource.getIntrinsicHeight() / 200; // 最宽 200
                         float width = resource.getIntrinsicWidth();
                         float height = resource.getIntrinsicHeight();
-//                        if (factor > 1) {
-//                            width /= factor;
-//                            height /= factor;
-//                        }
-
+                        if(width > mTextView.getWidth()){
+                            float scale = mTextView.getWidth() / width;
+                            height = height * scale;
+                            width = mTextView.getWidth();
+                        }
                         drawable.setBounds(0, 0, Math.round(width), Math.round(height));
                         drawable.drawable = resource;
                         drawable.drawable.setBounds(0, 0, Math.round(width), Math.round(height));

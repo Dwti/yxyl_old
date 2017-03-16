@@ -79,7 +79,16 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
     private String initStem(String stem){
         if(stem == null)
             return null;
-        return stem.replaceAll("\\(_\\)", "<Blank>empty</Blank>");
+        String str = stem.replaceAll("\\(_\\)", "<Blank>empty</Blank>");
+        if(str.startsWith("<Blank>"))
+            str = "&zwj;" + str;                   //如果<Blank>标签为第一个字符时，taghandler解析的时候会有一个bug，导致第一个解析会跳过，然后会引起后面的图片显示也有问题
+        StringBuilder sb = new StringBuilder(str);
+        while(str.contains("</Blank><Blank>")){   //就是两个空连起来的情况，需要中间加一个空格
+            int index = sb.indexOf("</Blank><Blank>");
+            sb = sb.insert(index+8,"&nbsp");
+            str = sb.toString();
+        }
+        return str;
     }
     private void addAnalysisFragment() {
         rootView.setClickable(false);
@@ -116,10 +125,10 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
         List<String> answers = questionsEntity.getAnswer();
         boolean isRight = QuestionUtils.compareListByOrder(StringUtils.full2half(filledContent), StringUtils.full2half(answers));
         bean.setIsRight(isRight);
-        bean.setIsFinish(false);
+        bean.setIsFinish(true);
         for (String str : filledContent) {
-            if (!TextUtils.isEmpty(str)) {
-                bean.setIsFinish(true);
+            if (TextUtils.isEmpty(str.trim())) {
+                bean.setIsFinish(false);
                 break;
             }
         }
@@ -247,11 +256,13 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
     }
 
     private boolean isAllBlanksFilled(List<String> filledContents) {
-        boolean flag = true;
+        boolean flag = false;
         for(String str : filledContents){
             if(TextUtils.isEmpty(str)){
                 flag = false;
                 break;
+            }else {
+                flag=true;
             }
         }
         return flag;

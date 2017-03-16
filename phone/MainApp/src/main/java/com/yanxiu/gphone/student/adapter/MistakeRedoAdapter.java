@@ -51,7 +51,7 @@ public class MistakeRedoAdapter extends BaseMistakRedoAdapter<PaperTestEntity> i
     private int answerViewTypyBean;
     private String subject_id;
     private OnShouldDownLoadListener loadListener;
-    private int position;
+    private int position=-1;
     private int LARGEPAGECOUNT=10;
     private int page_start=-1;
     private int page_end=-1;

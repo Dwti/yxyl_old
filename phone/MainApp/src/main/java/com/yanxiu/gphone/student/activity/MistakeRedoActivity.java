@@ -328,6 +328,7 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         try {
             if (resultCode == RESULT_OK) {
                 /**
