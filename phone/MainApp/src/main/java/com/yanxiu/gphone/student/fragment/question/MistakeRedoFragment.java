@@ -152,7 +152,9 @@ public class MistakeRedoFragment extends Fragment {
                         try {
                             JSONObject object=new JSONObject(s);
                             String an=object.optString("answer","");
-                            answer+=an+" ";
+                            List<String> class_list=questionsEntity.getAnswer();
+                            String string=numToString(class_list.size(),an);
+                            answer+=string;
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -174,7 +176,16 @@ public class MistakeRedoFragment extends Fragment {
                             JSONObject object=new JSONObject(s);
                             String name=object.optString("name","");
                             String an=object.optString("answer","");
-                            answer+=name+":"+an+" ";
+                            List<String> list=questionsEntity.getContent().getChoices();
+                            String[] str=an.split(",");
+                            answer+=name+":";
+                            if (str.length>0){
+                                for (String ss:str){
+                                    int index=Integer.parseInt(ss);
+                                    answer+=list.get(index)+" ";
+                                }
+                            }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -199,6 +210,26 @@ public class MistakeRedoFragment extends Fragment {
         tv_note.setText(questionsEntity.getJsonNote().getText());
         setNoteContentVisible(tv_note.getText().toString(),noteAdapter.getData());
     }
+
+    public String numToString(int size,String str){
+        String string="";
+        String[] strings=str.split(",");
+        if (strings.length>0){
+            for (String s:strings) {
+                int index=Integer.parseInt(s);
+                if (index < size) {
+                    string+="左"+(index+1);
+                }
+                string+="连";
+                if (index >= size) {
+                    string+="右"+(index-size+1);
+                }
+                string+=" ";
+            }
+        }
+        return string;
+    }
+
 
     // 将数字转换成字母
     public char[] numToLetter(String input) {

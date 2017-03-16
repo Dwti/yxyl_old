@@ -74,7 +74,7 @@
             android:visibility="visible"
             android:textSize="@dimen/dimen_18"
             app:type_face="metor_bold.OTF"
-            android:text="错题数量（50）"/>
+            android:text="错题重做"/>
 <!--
         <TextView
             android:id="@+id/mistake_number"

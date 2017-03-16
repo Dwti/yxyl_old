@@ -231,8 +231,10 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                     mistake_number.setText(s);
                     if (numberBean.getProperty().getQuestionNum()==0){
                         mistake_number.setClickable(false);
+                        mistake_number.setAlpha(0.6f);
                     }else {
                         mistake_number.setClickable(true);
+                        mistake_number.setAlpha(1f);
                     }
                     Is_number_ready=true;
                     if (Is_number_click){
@@ -251,6 +253,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                 Is_number_ready=false;
                 Is_number_click=false;
                 mistake_number.setClickable(true);
+                mistake_number.setAlpha(1f);
                 if (!NetWorkTypeUtils.isNetAvailable()) {
                     Util.showToast(R.string.server_connection_erro);
                 }else {
