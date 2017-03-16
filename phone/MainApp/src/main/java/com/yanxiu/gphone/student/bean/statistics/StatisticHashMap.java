@@ -22,5 +22,12 @@ public class StatisticHashMap extends HashMap<String, String> {
         put(YanXiuConstant.ip, "");
         put(YanXiuConstant.url, "www.yanxiu.com");
         put(YanXiuConstant.resID, "");
+
+        put(YanXiuConstant.mobileModel, Build.MODEL);   //手机型号
+        put(YanXiuConstant.brand,Build.MANUFACTURER);         //手机品牌
+        put(YanXiuConstant.system,Build.VERSION.RELEASE);        //手机系统
+        put(YanXiuConstant.resolution,YanXiuConstant.displayMetrics.heightPixels + " * " +YanXiuConstant.displayMetrics.widthPixels);    //屏幕分辨率
+        put(YanXiuConstant.netModel, NetWorkTypeUtils.getNetType());      //连网类型
+
     }
 }
