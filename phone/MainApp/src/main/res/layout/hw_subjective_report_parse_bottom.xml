@@ -456,15 +456,6 @@
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_1"
-        android:layout_marginBottom="@dimen/dimen_10"
-        android:layout_marginLeft="@dimen/dimen_20"
-        android:layout_marginRight="@dimen/dimen_10"
-        android:layout_marginTop="@dimen/dimen_10"
-        android:background="@drawable/repeat_common_line" />
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_85">
