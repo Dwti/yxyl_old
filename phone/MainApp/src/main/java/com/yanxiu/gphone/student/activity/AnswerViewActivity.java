@@ -178,21 +178,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
 //        testUpload();
     }
 
-//    @Override
-//    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-////        super.onSaveInstanceState(outState, outPersistentState);
-//        LogInfo.log("geny", "onSaveInstanceState");
-//        outState.putSerializable("dataSources", dataSources);
-//    }
-//
-//    @Override
-//    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-////        super.onRestoreInstanceState(savedInstanceState);
-//        LogInfo.log("geny", "onRestoreInstanceState");
-//        dataSources = (SubjectExercisesItemBean) savedInstanceState.get("dataSources");
-//    }
-
-
     /**
      * 时间转换分：秒
      */
@@ -265,26 +250,6 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
             tvToptext.setText(stringForTimeNoHour(totalTime));
             tvPagerIndex.setText("1");
             tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(adapter.getTotalCount())));
-
-//            if (PreferencesManager.getInstance().getFirstClassfyQuestion() && dataSources.getData().get(0).getPaperTest().get(0).getQuestions().getTemplate().equals(YanXiuConstant.CLASSIFY_QUESTION)) {
-//                View view = LayoutInflater.from(this).inflate(R.layout.popupwindow, null);
-//                //View view = View.inflate((Context)getActivity(), R.layout.popupwindow, null);
-//               final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-//                ImageView imageView = (android.widget.ImageView) view.findViewById(R.id.first_classfy_guide);
-//                Glide.with(this).load(R.drawable.first_classfy_question).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
-//                view.setOnTouchListener(new View.OnTouchListener() {
-//
-//                    @Override
-//                    public boolean onTouch(View view, MotionEvent motionEvent) {
-//                        popupWindow.dismiss();
-//                        return true;
-//                    }
-//                });
-//                popupWindow.setContentView(view);
-//                popupWindow.showAsDropDown(ivBack);
-//                PreferencesManager.getInstance().setFirstClassfyQuestion();
-//            }
-
             if (PreferencesManager.getInstance().getFirstQuestion()) {
                 list.add("2");
                 PreferencesManager.getInstance().setFirstQuestion();

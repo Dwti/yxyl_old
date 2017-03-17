@@ -4,18 +4,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.AnswerViewActivity;
 import com.yanxiu.gphone.student.activity.BaseAnswerViewActivity;
@@ -25,8 +19,6 @@ import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.inter.MistakeRedoCallback;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
-
-import java.util.List;
 
 import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.*;
 
@@ -39,7 +31,6 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
 
 
     protected int answerViewTypyBean;
-    private long startTime, endTime;
     protected int pageIndex;
     private int mPageCount;
 
@@ -69,6 +60,8 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
     private int wrongCount;
     private Object message;
     protected MistakeRedoCallback redoCallback;
+    private boolean isVisible;
+    protected long costTime,startTime,endTime;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -316,15 +309,29 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
 
     }
 
+    protected void calculateAndSetCostTime(){
+        endTime = System.currentTimeMillis();
+        costTime += endTime - startTime;
+        int millSeconds = (int) (costTime / 1000);
+        if(questionsEntity !=null && questionsEntity.getAnswerBean() != null){
+            questionsEntity.getAnswerBean().setConsumeTime(millSeconds);
+        }
+    }
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        isVisible = isVisibleToUser;
         if (isVisibleToUser) {
+            startTime = System.currentTimeMillis();
             if (YanXiuConstant.OnClick_TYPE == 0) {
                 is_reduction = false;
             } else if (YanXiuConstant.OnClick_TYPE == 1) {
                 YanXiuConstant.OnClick_TYPE = 0;
                 is_reduction = true;
+            }
+        }else  {
+            if(isResumed()){
+                calculateAndSetCostTime();
             }
         }
         hideSoftInput();
@@ -333,17 +340,17 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
     @Override
     public void onResume() {
         super.onResume();
+        if(isVisible){
+            startTime = System.currentTimeMillis();
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-//        endTime = System.currentTimeMillis();
-//        if (questionsEntity != null && answerViewTypyBean == SubjectExercisesItemBean.ANSWER_QUESTION) {
-//            int costTime = (int) ((endTime - startTime) / 1000);
-//            questionsEntity.getAnswerBean().setConsumeTime(questionsEntity.getAnswerBean().getConsumeTime() + costTime);
-//            startTime = endTime = 0;
-//        }
+        if(isVisible){
+            calculateAndSetCostTime();
+        }
     }
 
     @Override
@@ -353,7 +360,6 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
 
 
     public void hideSoftInput() {
-//        answerViewTypyBean == SubjectExercisesItemBean.ANSWER_QUESTION
         if (imm != null && getActivity() instanceof AnswerViewActivity) {
             ((AnswerViewActivity) getActivity()).getTvToptext().setFocusable(true);
             ((AnswerViewActivity) getActivity()).getTvToptext().setFocusableInTouchMode(true);
