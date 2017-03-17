@@ -430,7 +430,7 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
         List<PaperTestEntity> list=mistakeRedoAdapter.getDatas();
         for (int i=0;i<list.size();i++){
             PaperTestEntity entity=list.get(i);
-            if (entity!=null&&entity.getQuestions().isHaveAnser()){
+            if (entity!=null&&entity.getQuestions().getAnswerIsRight()!=0){
                 lastWqid=entity.getWqid();
                 lastWqnumber=entity.getWqnumber()+"";
             }

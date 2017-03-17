@@ -307,6 +307,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
 
                     mSubjectExercisesItemBean = (SubjectExercisesItemBean) result;
                     wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mSubjectExercisesItemBean.getPage().getTotalCou()+""));
+                    mMistakeCount=mSubjectExercisesItemBean.getPage().getTotalCou();
 
                     QuestionUtils.settingAnswer(mSubjectExercisesItemBean);
                     QuestionUtils.initDataWithAnswer(mSubjectExercisesItemBean);
