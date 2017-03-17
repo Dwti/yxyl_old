@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.common.core.utils.CommonCoreUtil;
 import com.common.core.utils.LogInfo;
 import com.common.core.utils.NetWorkTypeUtils;
 import com.common.login.LoginModel;
@@ -129,6 +130,7 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
         super.onClick(v);
         switch (v.getId()) {
             case R.id.iv_answer_card:
+                CommonCoreUtil.hideSoftInput(mRootView,mRootView);
                 if (mistakeRedoCardBean==null) {
                     requestMisRedoCard();
                 }else {
