@@ -78,6 +78,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
     private YanxiuTypefaceButton mistake_number;
     private boolean Is_number_ready=false;
     private boolean Is_number_click=false;
+    private RelativeLayout linear_number;
 
 
     public static void launch (Activity activity, String title, String subjectId, String wrongNum) {
@@ -149,11 +150,10 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
             }
         });
 
-        RelativeLayout linear_number= (RelativeLayout) findViewById(R.id.linear_number);
+        linear_number= (RelativeLayout) findViewById(R.id.linear_number);
         mistake_number= (YanxiuTypefaceButton) findViewById(R.id.mistake_number);
         if (title.equals(getResources().getString(R.string.mistake_redo_math))||title.equals(getResources().getString(R.string.mistake_redo_english))){
             requestMistakeNumber();
-            linear_number.setVisibility(View.VISIBLE);
             mistake_number.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -225,6 +225,10 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
             @Override
             public void update(YanxiuBaseBean result) {
 //                rootView.loading(false);
+                if (!isMistakeNumReady) {
+                    isMistakeNumReady = true;
+                    httpEnd();
+                }
                 numberBean= (MistakeRedoNumberBean) result;
                 if (numberBean!=null&&numberBean.getStatus().getCode()==0) {
                     String s = getResources().getString(R.string.mistake_redo_number, numberBean.getProperty().getQuestionNum() + "");
@@ -245,13 +249,16 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                     Util.showToast(R.string.data_erro);
                 }
                 Is_number_click=false;
+                linear_number.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void dataError(int type, String msg) {
-                rootView.finish();
                 Is_number_ready=false;
                 Is_number_click=false;
+                isMistakeNumReady=true;
+                httpEnd();
+                linear_number.setVisibility(View.VISIBLE);
                 mistake_number.setClickable(true);
                 mistake_number.setAlpha(1f);
                 if (!NetWorkTypeUtils.isNetAvailable()) {
@@ -263,6 +270,15 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
             }
         });
         numQuestionTask.start();
+    }
+
+    private boolean isWrongListReady=false;
+    private boolean isMistakeNumReady=false;
+
+    private void httpEnd(){
+        if (isWrongListReady&&isMistakeNumReady) {
+            rootView.finish();
+        }
     }
 
     private void requestMistakeAllList(final boolean isRefresh,final boolean showLoading,
@@ -283,7 +299,9 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
             mRequestWrongAllQuestionTask = new RequestWrongAllQuestionTask(this, stageId, subjectId, page, "0", ptype, new AsyncCallBack() {
                 @Override
                 public void update(YanxiuBaseBean result) {
-                    rootView.finish();
+//                    rootView.finish();
+                    isWrongListReady=true;
+                    httpEnd();
                     listView.stopRefresh();
                     listView.stopLoadMore();
 
@@ -347,7 +365,9 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
 
                 @Override
                 public void dataError(int type, String msg) {
-                    rootView.finish();
+//                    rootView.finish();
+                    isWrongListReady=true;
+                    httpEnd();
                     listView.stopRefresh();
                     listView.stopLoadMore();
                     if (isRefresh || isLoaderMore) {

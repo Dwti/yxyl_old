@@ -506,7 +506,7 @@
     <string name="mistake_redo_english">英语</string>
 
     <string name="group_refrese">点击后刷新</string>
-    <string name="mistake_redo_number">错题数量(%1$s)</string>
+    <string name="mistake_redo_number">错题重做(%1$s)</string>
 
     <string name="loading_more">加载中...</string>
     <string name="answer_right">，回答正确</string>

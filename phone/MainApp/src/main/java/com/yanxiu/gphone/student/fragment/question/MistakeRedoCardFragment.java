@@ -64,7 +64,6 @@ public class MistakeRedoCardFragment extends Fragment implements View.OnClickLis
     }
 
     private void initData() {
-        pub_top_right.setVisibility(View.INVISIBLE);
         pub_top_right.setText(R.string.mistakeredo_card);
         recy_mistakecard.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter=new MistakeRedoCardAdapter(getActivity());

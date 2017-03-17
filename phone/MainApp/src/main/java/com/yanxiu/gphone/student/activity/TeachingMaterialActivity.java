@@ -192,6 +192,7 @@ public class TeachingMaterialActivity extends YanxiuBaseActivity {
     }
     private void updateSubjectVersionView(List<SubjectVersionBean.DataEntity> dataList) {
         if (dataList != null && dataList.size() > 0) {
+            materialList.setVisibility(View.VISIBLE);
             if (adapter.getCount() <= 0) {
                 adapter.setList(dataList);
                 materialList.setAdapter(adapter);
@@ -204,6 +205,7 @@ public class TeachingMaterialActivity extends YanxiuBaseActivity {
     }
     @Override
     protected void onResume() {
+        materialList.setVisibility(View.INVISIBLE);
         super.onResume();
         if (LoginModel.getUserinfoEntity()!=null) {
             if (type == PRACTICE_ERROR_COLLECTION_ACTIVITY) {
@@ -216,6 +218,7 @@ public class TeachingMaterialActivity extends YanxiuBaseActivity {
 
     private void updateMistakeEditionView(MistakeEditionBean mMistakeEditionBean) {
         if (mMistakeEditionBean.getData() != null) {
+            materialList.setVisibility(View.VISIBLE);
             if (adapter.getCount() <= 0) {
                 adapter.setList(mMistakeEditionBean.getData());
                 materialList.setAdapter(adapter);
@@ -253,6 +256,7 @@ public class TeachingMaterialActivity extends YanxiuBaseActivity {
         SubjectVersionBean.DataEntity mDataEntity = (SubjectVersionBean.DataEntity) adapter.getList().get(selectPosition);
         mDataEntity.setData(editionBean);
         if (adapter != null) {
+            materialList.setVisibility(View.VISIBLE);
             adapter.notifyDataSetChanged();
         }
         RequestSubjectInfoTask.savaCacheData(JSON.toJSONString(subjectVersionBean));
@@ -314,6 +318,7 @@ public class TeachingMaterialActivity extends YanxiuBaseActivity {
                 } else {
                     mRootView.dataNull(mMistakeEditionBean.getStatus().getDesc());
                 }
+                materialList.setVisibility(View.VISIBLE);
                 adapter.getList().clear();
                 adapter.notifyDataSetChanged();
             } else {
@@ -325,6 +330,7 @@ public class TeachingMaterialActivity extends YanxiuBaseActivity {
         public void dataError(int type, String msg) {
             LogInfo.log("haitian", "type=" + type + "---msg=" + msg);
             if(adapter != null){
+                materialList.setVisibility(View.VISIBLE);
                 if(adapter.getList() != null){
                     adapter.getList().clear();
                 }
@@ -367,6 +373,7 @@ public class TeachingMaterialActivity extends YanxiuBaseActivity {
                     if (result != null && result.getData() != null) {
                         updateMistakeEditionView(result);
                     } else {
+                        materialList.setVisibility(View.VISIBLE);
                         if(adapter == null || adapter.getCount() <= 0){
                             mRootView.dataNull(true);
                         }
@@ -406,6 +413,7 @@ public class TeachingMaterialActivity extends YanxiuBaseActivity {
                     if (result != null && result.getData() != null) {
                         updateMistakeEditionView(result);
                     } else {
+                        materialList.setVisibility(View.VISIBLE);
                         if(adapter == null || adapter.getCount() <= 0){
                             mRootView.dataNull(true);
                         }

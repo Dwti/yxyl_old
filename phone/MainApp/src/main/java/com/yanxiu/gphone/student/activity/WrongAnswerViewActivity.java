@@ -421,8 +421,9 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
                         deleteProcess(pageIndex);
 
                         try{
+                            int currentPageCount = wrongCounts-delQueNum;
                             int size = dataSources.getData().get(0).getPaperTest().size();
-                            if (size<6) {
+                            if (size<6&&currentPageCount>size) {
                                 PaperTestEntity mPaperTestEntity = dataSources.getData().get(0).getPaperTest().get(size - 1);
                                 String currentId = mPaperTestEntity.getWqid() + "";
                                 requestWrongAllQuestion(subjectId, currentPageIndex + 1, currentId);
