@@ -71,7 +71,7 @@ public class SubmitOrDeleteFragment extends Fragment {
     private void clearAlpha(){
         if (button!=null){
             button.setAlpha(0);
-            button=null;
+//            button=null;
         }
     }
 
@@ -121,7 +121,7 @@ public class SubmitOrDeleteFragment extends Fragment {
             case QUESTION_NOT_SUBMIT_NOANSWER:
                 button.setClickable(false);
 //                button.setBackgroundResource(R.drawable.judge_item_pre);
-//                button.setText(R.string.submit_txt);
+                button.setText(R.string.submit_txt);
                 button.setAlpha(UN_CLICK);
                 button.invalidate();
 //                button.getPaint().setAlpha(0);
@@ -130,7 +130,7 @@ public class SubmitOrDeleteFragment extends Fragment {
             case QUESTION_NOT_SUBMIT_HASANSWER:
                 button.setClickable(true);
 //                button.setBackgroundResource(R.drawable.judge_item_nor);
-//                button.setText(R.string.submit_txt);
+                button.setText(R.string.submit_txt);
                 button.setAlpha(CLICK);
                 button.invalidate();
 //                button.getPaint().setAlpha(0);
@@ -139,7 +139,7 @@ public class SubmitOrDeleteFragment extends Fragment {
             case QUESTION_SUBMIT:
                 button.setClickable(true);
 //                button.setBackgroundResource(R.drawable.judge_item_nor);
-//                button.setText(R.string.delete_question);
+                button.setText(R.string.delete_question);
                 button.setAlpha(CLICK);
                 button.invalidate();
 //                button.getPaint().setAlpha(0);
@@ -148,7 +148,7 @@ public class SubmitOrDeleteFragment extends Fragment {
             case QUESTION_DELETE:
                 button.setClickable(false);
 //                button.setBackgroundResource(R.drawable.judge_item_pre);
-//                button.setText(R.string.delete_question_end);
+                button.setText(R.string.delete_question_end);
                 button.setAlpha(UN_CLICK);
                 button.invalidate();
 //                button.getPaint().setAlpha(0);

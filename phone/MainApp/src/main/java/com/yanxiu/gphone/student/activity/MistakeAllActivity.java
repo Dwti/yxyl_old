@@ -452,12 +452,16 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data != null && data.getIntExtra("wrongNum", 0) != 0) {
+        if (data != null) {
             wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, data.getIntExtra("wrongNum", 0)+""));
             mMistakeCount = data.getIntExtra("wrongNum", 0);
-            pageIndex = 1;
-            requestMistakeAllList(true, false, false);
-            requestMistakeNumber();
+            if (mMistakeCount==0){
+                this.finish();
+            }else {
+                pageIndex = 1;
+                requestMistakeAllList(true, false, false);
+                requestMistakeNumber();
+            }
         }else {
             pageIndex = 1;
             requestMistakeAllList(true, false, false);

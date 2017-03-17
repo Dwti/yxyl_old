@@ -86,7 +86,6 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
     private String deleteWqidList="";
     private int index=0;
     private RequestMisRedoAddClassTask addClassTask;
-    private TextView tv_emoji;
 
     public static void launch(Activity context, SubjectExercisesItemBean bean,String wrongCount,String stageId,String subjectId) {
         Intent intent = new Intent(context, MistakeRedoActivity.class);
@@ -119,7 +118,6 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
         super.initView();
         rel_popup = (RelativeLayout) findViewById(R.id.rel_popup);
         TextViewInfo = (TextView) findViewById(R.id.TextViewInfo);
-        tv_emoji= (TextView) findViewById(R.id.tv_image);
         iv_top_back= (ImageView) findViewById(R.id.iv_top_back);
         iv_top_back.setOnClickListener(this);
         content_answer_card= (FrameLayout) findViewById(R.id.content_answer_card);
@@ -574,11 +572,6 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
 
     public void showPopup(int message) {
         TextViewInfo.setText(message);
-        if (getString(message).equals(getString(R.string.submit_right))){
-            tv_emoji.setText(R.string.no_home_work);
-        }else {
-            tv_emoji.setText("O>_<O");
-        }
         rel_popup.setVisibility(View.VISIBLE);
         MyTimerTask task = new MyTimerTask(handle, rel_popup);
         timer.schedule(task, 1000);

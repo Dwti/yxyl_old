@@ -77,8 +77,6 @@ public class SubjectiveQuestionFragment extends BaseQuestionFragment implements 
             top_dotted_line.setVisibility(View.GONE);
         FragmentTransaction ft = SubjectiveQuestionFragment.this.getChildFragmentManager().beginTransaction();
         ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
-        ft.replace(R.id.fra_sub_or_del,new Fragment());
-        ft.commit();
         if (questionsEntity != null && questionsEntity.getStem() != null) {
             String stem = questionsEntity.getStem();
             int i = 0;

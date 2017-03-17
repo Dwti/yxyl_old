@@ -217,7 +217,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center">
-        <include layout="@layout/no_homework"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/dimen_80"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/my_list_bg_selector">
+
+            <TextView
+                android:id="@+id/TextViewInfo"
+                android:layout_width="305dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_805500"
+                android:textSize="17sp"
+                android:text="@string/no_group_hw_list_tip"
+                android:gravity="center"
+                style="@style/shadow_text_style"
+                android:shadowColor="@color/color_ffff99"
+                />
+
+        </LinearLayout>
     </RelativeLayout>
         <View
             android:layout_width="match_parent"
