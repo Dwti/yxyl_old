@@ -72,6 +72,8 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
 
         FragmentTransaction ft = FillFragment.this.getChildFragmentManager().beginTransaction();
         ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
+        FragmentTransaction ft1 = FillFragment.this.getChildFragmentManager().beginTransaction();
+        ft1.replace(R.id.fra_sub_or_del,new Fragment()).commitAllowingStateLoss();
         selectTypeView();
         return rootView;
     }
@@ -265,6 +267,7 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
                 flag=true;
             }
         }
+        questionsEntity.setIsAllBlanksFilled(flag);
         return flag;
     }
 

@@ -45,7 +45,7 @@ public class SubmitOrDeleteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_submitordelete,container,false);
-        initView(view);
+            initView(view);
         return view;
     }
 
@@ -54,6 +54,25 @@ public class SubmitOrDeleteFragment extends Fragment {
         super.onResume();
         isReady=true;
         initQuestionType();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        clearAlpha();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        clearAlpha();
+    }
+
+    private void clearAlpha(){
+        if (button!=null){
+            button.setAlpha(0);
+            button=null;
+        }
     }
 
     private void initView(View view) {
@@ -101,27 +120,39 @@ public class SubmitOrDeleteFragment extends Fragment {
         switch (questionType){
             case QUESTION_NOT_SUBMIT_NOANSWER:
                 button.setClickable(false);
+//                button.setBackgroundResource(R.drawable.judge_item_pre);
+//                button.setText(R.string.submit_txt);
                 button.setAlpha(UN_CLICK);
-                button.setBackgroundResource(R.drawable.judge_item_pre);
-                button.setText(R.string.submit_txt);
+                button.invalidate();
+//                button.getPaint().setAlpha(0);
+//                button.getPaint().setAlpha(150);
                 break;
             case QUESTION_NOT_SUBMIT_HASANSWER:
                 button.setClickable(true);
+//                button.setBackgroundResource(R.drawable.judge_item_nor);
+//                button.setText(R.string.submit_txt);
                 button.setAlpha(CLICK);
-                button.setBackgroundResource(R.drawable.judge_item_nor);
-                button.setText(R.string.submit_txt);
+                button.invalidate();
+//                button.getPaint().setAlpha(0);
+//                button.getPaint().setAlpha(150);
                 break;
             case QUESTION_SUBMIT:
                 button.setClickable(true);
+//                button.setBackgroundResource(R.drawable.judge_item_nor);
+//                button.setText(R.string.delete_question);
                 button.setAlpha(CLICK);
-                button.setBackgroundResource(R.drawable.judge_item_nor);
-                button.setText(R.string.delete_question);
+                button.invalidate();
+//                button.getPaint().setAlpha(0);
+//                button.getPaint().setAlpha(150);
                 break;
             case QUESTION_DELETE:
                 button.setClickable(false);
+//                button.setBackgroundResource(R.drawable.judge_item_pre);
+//                button.setText(R.string.delete_question_end);
                 button.setAlpha(UN_CLICK);
-                button.setBackgroundResource(R.drawable.judge_item_pre);
-                button.setText(R.string.delete_question_end);
+                button.invalidate();
+//                button.getPaint().setAlpha(0);
+//                button.getPaint().setAlpha(150);
                 break;
         }
     }

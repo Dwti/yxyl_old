@@ -471,7 +471,7 @@
     <string name="submit_group_picture">提交作业图片中</string>
 
     <string name="activity_not_found">没找到文件管理器</string>
-    <string name="mistakeredo_card">答题卡</string>
+    <string name="mistakeredo_card">题号</string>
 
     <item name="TAG_NUMBERPAGER" type="id" />
     <item name="TAG_PAGER" type="id" />
@@ -488,7 +488,7 @@
     <string name="all_picture">所有图片</string>
     <string name="picker_image_count">%1$d张</string>
      
-    <string name="submit_right">恭喜你，答对了！</string>
+    <string name="submit_right">恭喜你，答对了~</string>
     <string name="submit_fail">很遗憾，答错了！</string>
     <string name="delete_question">删除本题</string>
     <string name="delete_question_end">本题已删除</string>

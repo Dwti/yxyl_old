@@ -8,7 +8,7 @@
     <RelativeLayout
         android:id="@+id/rl_answer_card_first"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_44"
+        android:layout_height="@dimen/dimen_57"
         android:background="@color/color_ffe580">
 
         <ImageView

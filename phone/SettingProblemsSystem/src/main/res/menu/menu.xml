@@ -2,19 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/problem"
+        android:id="@+id/menu_problem"
         android:orderInCategory="1"
         android:title="@string/problem"/>
     <item
-        android:id="@+id/parsing"
+        android:id="@+id/menu_parsing"
         android:orderInCategory="1"
         android:title="@string/parsing"/>
     <item
-        android:id="@+id/wrong_topic"
+        android:id="@+id/menu_wrong_topic"
         android:orderInCategory="1"
         android:title="@string/wrong_topic"/>
     <item
-        android:id="@+id/redo"
+        android:id="@+id/menu_redo"
         android:orderInCategory="1"
         android:title="@string/redo"/>
 </menu>

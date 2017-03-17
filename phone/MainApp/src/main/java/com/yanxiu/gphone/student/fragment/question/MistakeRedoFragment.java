@@ -215,17 +215,22 @@ public class MistakeRedoFragment extends Fragment {
         String string="";
         String[] strings=str.split(",");
         if (strings.length>0){
-            for (String s:strings) {
-                int index=Integer.parseInt(s);
-                if (index < size) {
-                    string+="左"+(index+1);
+//            for (String s:strings) {
+//                int index=Integer.parseInt(strings[0]);
+                if (Integer.parseInt(strings[0]) < size) {
+                    string+="左"+(Integer.parseInt(strings[0])+1);
+                    string+="连";
+                    string+="右"+(Integer.parseInt(strings[1])-size+1);
+                    return string+=" ";
                 }
-                string+="连";
-                if (index >= size) {
-                    string+="右"+(index-size+1);
+
+                if (Integer.parseInt(strings[0]) >= size) {
+                    string+="左"+(Integer.parseInt(strings[1])+1);
+                    string+="连";
+                    string+="右"+(Integer.parseInt(strings[0])-size+1);
+                    return string+=" ";
                 }
-                string+=" ";
-            }
+//            }
         }
         return string;
     }

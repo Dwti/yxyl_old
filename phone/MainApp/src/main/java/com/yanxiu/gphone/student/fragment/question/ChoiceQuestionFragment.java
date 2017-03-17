@@ -83,7 +83,8 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
         yXiuAnserTextView = (YXiuAnserTextView) rootView.findViewById(R.id.yxiu_tv);
         FragmentTransaction ft = ChoiceQuestionFragment.this.getChildFragmentManager().beginTransaction();
         ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
-
+        FragmentTransaction ft1 = ChoiceQuestionFragment.this.getChildFragmentManager().beginTransaction();
+        ft1.replace(R.id.fra_sub_or_del,new Fragment()).commitAllowingStateLoss();
         choiceQuestions.setChoicesType(typeId);
 
         selectTypeView();

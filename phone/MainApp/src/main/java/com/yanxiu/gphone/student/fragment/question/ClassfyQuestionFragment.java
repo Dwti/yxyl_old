@@ -164,6 +164,11 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             classfyDelPopupWindow.setCallBack(callBack);
         }
         classfyDelPopupWindow.setOnDissmissListener(ClassfyQuestionFragment.this);
+
+        FragmentManager manager = getChildFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.fra_sub_or_del,new Fragment()).commitAllowingStateLoss();
+
     }
 
     private void initData() {

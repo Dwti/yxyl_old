@@ -78,6 +78,8 @@ public class JudgeQuestionFragment extends BaseQuestionFragment implements Quest
         }
         FragmentTransaction ft = JudgeQuestionFragment.this.getChildFragmentManager().beginTransaction();
         ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
+        FragmentTransaction ft1 = JudgeQuestionFragment.this.getChildFragmentManager().beginTransaction();
+        ft1.replace(R.id.fra_sub_or_del,new Fragment()).commitAllowingStateLoss();
         selectTypeView();
 //        if(isWrongSet){
 //

@@ -55,6 +55,8 @@ public class ConnectFragment extends BaseQuestionFragment implements PageIndex {
         initview(rootView);
         FragmentTransaction ft = ConnectFragment.this.getChildFragmentManager().beginTransaction();
         ft.replace(R.id.content_problem_analysis, new Fragment()).commitAllowingStateLoss();
+        FragmentTransaction ft1 = ConnectFragment.this.getChildFragmentManager().beginTransaction();
+        ft1.replace(R.id.fra_sub_or_del,new Fragment()).commitAllowingStateLoss();
         selectTypeView();
         return rootView;
     }

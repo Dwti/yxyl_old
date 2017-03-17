@@ -80,12 +80,22 @@ public class SettingProbActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.);
-        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+//            case R.id.menu_problem:
+//                break;
+//            case R.id.menu_parsing:
+//                break;
+//            case R.id.menu_wrong_topic:
+//                break;
+//            case R.id.menu_redo:
+//                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 }

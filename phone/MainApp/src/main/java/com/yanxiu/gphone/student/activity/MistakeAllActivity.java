@@ -459,7 +459,9 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
             requestMistakeAllList(true, false, false);
             requestMistakeNumber();
         }else {
-            this.finish();
+            pageIndex = 1;
+            requestMistakeAllList(true, false, false);
+            requestMistakeNumber();
         }
 
     }

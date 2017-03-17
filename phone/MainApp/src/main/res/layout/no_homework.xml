@@ -8,6 +8,7 @@
     android:background="@drawable/my_list_bg_selector">
 
     <TextView
+        android:id="@+id/tv_image"
         android:layout_width="305dp"
         android:layout_height="80dp"
         android:gravity="center"

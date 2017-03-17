@@ -266,7 +266,9 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
             int position_index;
             if (getActivity() instanceof WrongAnswerViewActivity) {
                 position_index = 0;
-            } else {
+            } else if (getActivity() instanceof MistakeRedoActivity){
+                position_index = 0;
+            }else {
                 position_index = -1;
             }
             fill_blanks_button.setQuestionsEntity(questionsEntity, position_index);
