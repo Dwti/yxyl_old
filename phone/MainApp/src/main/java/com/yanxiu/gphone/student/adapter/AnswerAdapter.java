@@ -694,35 +694,20 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
          * 暂时解决崩溃问题，由于不是太清楚这块儿需求，所以可能会有一些问题，后续解决
          * */
 
-        if (dataList != null && dataList.isEmpty()) {
-            AnswerBean bean = null;
-            if (childPosition != -1) {
-                if (childPosition < dataList.size()) {
-                    bean = dataList.get(childPosition).getQuestions().getAnswerBean();
-                }
-            } else {
-                if (position < dataList.size()) {
-                    bean = dataList.get(position).getQuestions().getAnswerBean();
-                }
-            }
-            if (bean != null) {
-                bean.setConsumeTime(bean.getConsumeTime() + costTime);
-            }
-        }
-
-//        if (dataList != null && !dataList.isEmpty() && dataList.get(position) != null && dataList.get(position).getQuestions() != null) {
-//            List<PaperTestEntity> children = dataList.get(position).getQuestions().getChildren();
+//        if (dataList != null && dataList.isEmpty()) {
 //            AnswerBean bean = null;
-//            if (children != null && !children.isEmpty() && childPosition != -1) {
-//                if (childPosition < children.size())
-//                    bean = children.get(childPosition).getQuestions().getAnswerBean();
+//            if (childPosition != -1) {
+//                if (childPosition < dataList.size()) {
+//                    bean = dataList.get(childPosition).getQuestions().getAnswerBean();
+//                }
 //            } else {
-//                if (position < dataList.size())
+//                if (position < dataList.size()) {
 //                    bean = dataList.get(position).getQuestions().getAnswerBean();
+//                }
 //            }
-//            if (bean != null)
+//            if (bean != null) {
 //                bean.setConsumeTime(bean.getConsumeTime() + costTime);
-//            LogInfo.log("geny", costTime + "---costTime-------viewPagerLastPosition----" + position);
+//            }
 //        }
     }
 
