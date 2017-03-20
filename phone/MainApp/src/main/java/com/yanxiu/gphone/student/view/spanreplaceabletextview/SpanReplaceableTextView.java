@@ -73,15 +73,16 @@ public abstract class SpanReplaceableTextView<T extends View> extends FrameLayou
 
     protected void initSpanWidthAndHeight(Spanned span,List<String> textToFill){
         mEmptySpans = span.getSpans(0, mSpannedStr.length(),getTagHandler().getSpanType());
+        int width = getSpanWidth(textToFill);
         for(int i = 0; i < mEmptySpans.length; i++){
             mEmptySpans[i].standardLineHeight = mTextView.getLineHeight();
-            if(textToFill != null && textToFill.get(i) != null){
-                mEmptySpans[i].textWidth = getSpanWidth(textToFill);
-            }
+            mEmptySpans[i].textWidth = width;
         }
     }
 
     private int getSpanWidth(List<String> listString){
+        if(listString == null || listString.isEmpty())
+            return 0;
         int width = 0;
         int minTextWidth = getMinSpanWidth();
         for(String str : listString){
