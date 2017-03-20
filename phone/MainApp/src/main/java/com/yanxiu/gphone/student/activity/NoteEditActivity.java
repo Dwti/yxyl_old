@@ -214,6 +214,8 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
             if (response.getStatus().getCode() == 0) {
                 NoteRequest noteRequest = (NoteRequest) request;
                 setResultOK(noteRequest.getNote().getImages(), noteRequest.getNote().getText());
+            }else {
+                ToastMaster.showShortToast(NoteEditActivity.this, response.getStatus().getDesc());
             }
         }
 
