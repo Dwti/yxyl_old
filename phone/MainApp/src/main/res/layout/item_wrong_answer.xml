@@ -48,7 +48,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dimen_12"
             android:layout_marginRight="@dimen/dimen_10"
-            app:maxHeight="@dimen/dimen_130"
+            app:maxHeight="@dimen/dimen_140"
             android:padding="@dimen/dimen_5">
 
             <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
@@ -56,7 +56,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/dimen_3"
-                android:paddingBottom="@dimen/dimen_3"
                 android:maxHeight="@dimen/dimen_140"
                 android:textColor="@color/color_666252" />
 

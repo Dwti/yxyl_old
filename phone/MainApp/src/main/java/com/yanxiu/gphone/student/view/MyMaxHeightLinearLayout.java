@@ -60,7 +60,7 @@ public class MyMaxHeightLinearLayout extends LinearLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int height_mode= MeasureSpec.getMode(heightMeasureSpec);
-        @IntRange int height_size= MeasureSpec.getSize(heightMeasureSpec);
+        int height_size= MeasureSpec.getSize(heightMeasureSpec);
         int should_height=0;
         for (int i=0;i<getChildCount();i++){
             View child_view=getChildAt(i);

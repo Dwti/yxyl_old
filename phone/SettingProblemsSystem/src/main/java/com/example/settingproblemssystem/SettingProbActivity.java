@@ -56,12 +56,12 @@ public class SettingProbActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        iv_back= (ImageView) findViewById(R.id.iv_back);
+//        iv_back= (ImageView) findViewById(R.id.iv_back);
         recy_prob_title= (RecyclerView) findViewById(R.id.recy_prob_title);
-        problem= (TextView) findViewById(R.id.problem);
-        parsing= (TextView) findViewById(R.id.parsing);
-        wrong_topic= (TextView) findViewById(R.id.wrong_topic);
-        redo= (TextView) findViewById(R.id.redo);
+//        problem= (TextView) findViewById(R.id.problem);
+//        parsing= (TextView) findViewById(R.id.parsing);
+//        wrong_topic= (TextView) findViewById(R.id.wrong_topic);
+//        redo= (TextView) findViewById(R.id.redo);
     }
 
     @Override

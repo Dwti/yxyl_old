@@ -4,37 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_50"
-        android:background="@color/color_00cccc"
-        android:orientation="horizontal">
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="@dimen/dimen_48"
-            android:layout_height="@dimen/dimen_48"
-            android:padding="@dimen/dimen_10"
-            android:layout_gravity="center_vertical"
-            android:onClick="OnClick"
-            android:src="@drawable/login_back"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:text="@string/system_redo"/>
-
-        <ImageView
-            android:layout_width="@dimen/dimen_48"
-            android:layout_height="@dimen/dimen_48"
-            android:visibility="invisible"
-            android:padding="@dimen/dimen_10"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/login_back"/>
-    </LinearLayout>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recy_prob_title"
         android:layout_width="match_parent"
@@ -42,51 +11,4 @@
         android:background="#fffff0"
         android:layout_weight="1"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:background="#87cecb"
-        android:paddingTop="@dimen/dimen_15"
-        android:paddingBottom="@dimen/dimen_15"
-        android:layout_height="@dimen/dimen_120">
-        <TextView
-            android:id="@+id/problem"
-            android:layout_width="@dimen/dimen_120"
-            android:layout_height="@dimen/dimen_40"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="@dimen/dimen_20"
-            android:onClick="OnClick"
-            android:gravity="center"
-            android:text="@string/problem"/>
-        <TextView
-            android:id="@+id/parsing"
-            android:layout_width="@dimen/dimen_120"
-            android:layout_height="@dimen/dimen_40"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/dimen_20"
-            android:onClick="OnClick"
-            android:gravity="center"
-            android:text="@string/parsing"/>
-        <TextView
-            android:id="@+id/wrong_topic"
-            android:layout_width="@dimen/dimen_120"
-            android:layout_height="@dimen/dimen_40"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="@dimen/dimen_20"
-            android:onClick="OnClick"
-            android:gravity="center"
-            android:text="@string/wrong_topic"/>
-        <TextView
-            android:id="@+id/redo"
-            android:layout_width="@dimen/dimen_120"
-            android:layout_height="@dimen/dimen_40"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/dimen_20"
-            android:onClick="OnClick"
-            android:gravity="center"
-            android:text="@string/redo"/>
-    </RelativeLayout>
 </LinearLayout>
