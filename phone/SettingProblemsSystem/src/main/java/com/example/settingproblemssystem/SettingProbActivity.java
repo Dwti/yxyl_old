@@ -1,9 +1,9 @@
 package com.example.settingproblemssystem;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
@@ -27,6 +27,7 @@ public class SettingProbActivity extends BaseActivity {
     private static final String string_parsing="解析";
     private static final String string_wrong_topic="错题";
     private static final String string_redo="重做";
+    private static final String string_pc="PC联动";
 
     private ImageView iv_back;
     private TextView problem;
@@ -44,7 +45,8 @@ public class SettingProbActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActionBar bar=getActionBar();
+        ActionBar bar=getSupportActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -96,21 +98,30 @@ public class SettingProbActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getTitle().toString()){
-            case string_problem:
-                ToastUtils(string_problem);
-                break;
-            case string_parsing:
-                ToastUtils(string_parsing);
-                break;
-            case string_wrong_topic:
-                ToastUtils(string_wrong_topic);
-                break;
-            case string_redo:
-                ToastUtils(string_redo);
-                break;
+        if (item.getTitle()!=null) {
+            switch (item.getTitle().toString()) {
+                case string_problem:
+                    ToastUtils(string_problem);
+                    break;
+                case string_parsing:
+                    ToastUtils(string_parsing);
+                    break;
+                case string_wrong_topic:
+                    ToastUtils(string_wrong_topic);
+                    break;
+                case string_redo:
+                    ToastUtils(string_redo);
+                    break;
+                case string_pc:
+                    ToastUtils(string_pc);
+                    break;
+            }
+        }else {
+            if (item.getItemId()==android.R.id.home){
+                this.finish();
+            }
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     private void ToastUtils(String str){

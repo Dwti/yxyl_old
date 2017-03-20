@@ -55,7 +55,9 @@
                 android:id="@+id/answer_exam_content_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxHeight="@dimen/dimen_130"
+                android:paddingTop="@dimen/dimen_3"
+                android:paddingBottom="@dimen/dimen_3"
+                android:maxHeight="@dimen/dimen_140"
                 android:textColor="@color/color_666252" />
 
         </com.yanxiu.gphone.student.view.MyMaxHeightLinearLayout>
