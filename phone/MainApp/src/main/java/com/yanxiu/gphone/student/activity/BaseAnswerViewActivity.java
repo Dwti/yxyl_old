@@ -28,6 +28,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.AnswerAdapter;
+import com.yanxiu.gphone.student.adapter.MistakeRedoAdapter;
 import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
@@ -60,6 +61,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
     protected static SubjectExercisesItemBean dataSources;
 
     protected AnswerAdapter adapter;
+    protected MistakeRedoAdapter mistakeRedoAdapter;
 
     protected ImageView ivBack;
     protected MyViewPager vpAnswer;
@@ -127,10 +129,16 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 
     public boolean getCurrent(int fragment_ID){
         try {
-            Fragment fragment=adapter.getmFragments().get(vpAnswer.getCurrentItem());
-            if (fragment.hashCode()==fragment_ID){
+            Fragment fragment = null;
+            if (adapter!=null&&adapter.getmFragments().size()>0) {
+                fragment = adapter.getmFragments().get(vpAnswer.getCurrentItem());
+            }
+            if (fragment==null){
+                fragment = mistakeRedoAdapter.getFragmentAtNow();
+            }
+            if (fragment.hashCode() == fragment_ID) {
                 return true;
-            }else {
+            } else {
                 return false;
             }
         }catch (Exception e){

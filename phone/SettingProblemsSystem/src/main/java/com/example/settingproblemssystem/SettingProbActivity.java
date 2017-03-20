@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,13 +28,7 @@ public class SettingProbActivity extends BaseActivity {
     private static final String string_redo="重做";
     private static final String string_pc="PC联动";
 
-    private ImageView iv_back;
-    private TextView problem;
-    private TextView parsing;
-    private TextView wrong_topic;
-    private TextView redo;
     private RecyclerView recy_prob_title;
-
 
     public static void lunch(Context context){
         Intent intent=new Intent(context,SettingProbActivity.class);
@@ -56,12 +49,7 @@ public class SettingProbActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-//        iv_back= (ImageView) findViewById(R.id.iv_back);
         recy_prob_title= (RecyclerView) findViewById(R.id.recy_prob_title);
-//        problem= (TextView) findViewById(R.id.problem);
-//        parsing= (TextView) findViewById(R.id.parsing);
-//        wrong_topic= (TextView) findViewById(R.id.wrong_topic);
-//        redo= (TextView) findViewById(R.id.redo);
     }
 
     @Override
@@ -71,23 +59,7 @@ public class SettingProbActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
-//        iv_back.setOnClickListener(this);
-    }
 
-    public void OnClick(View view){
-        if (view==iv_back){
-            Intent intent=new Intent("android.intent.action.SYSTEM");
-            intent.addCategory("SYSTEM");
-            startActivity(intent);
-        }else if (view==problem){
-
-        }else if (view==parsing){
-
-        }else if (view==wrong_topic){
-
-        }else if (view==redo){
-
-        }
     }
 
     @Override
@@ -95,6 +67,11 @@ public class SettingProbActivity extends BaseActivity {
         getMenuInflater().inflate(R.menu.menu,menu);
         return true;
     }
+
+//    Intent intent=new Intent("android.intent.action.SYSTEM");
+//            intent.addCategory("SYSTEM");
+//    startActivity(intent);
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

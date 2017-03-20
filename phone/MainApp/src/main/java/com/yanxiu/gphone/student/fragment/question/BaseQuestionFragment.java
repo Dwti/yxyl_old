@@ -192,7 +192,6 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
                 setQuestionTitle(typeId);
             }
         }
-
     }
 
     protected void setCurrent(ViewPager pager) {

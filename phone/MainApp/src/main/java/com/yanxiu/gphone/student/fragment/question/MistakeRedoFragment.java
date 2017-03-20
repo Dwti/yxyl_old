@@ -70,18 +70,6 @@ public class MistakeRedoFragment extends Fragment {
         if (questionsEntity==null){
             return;
         }
-        String wqid="";
-        String qid="";
-        try {
-            wqid=((MistakeRedoActivity)getActivity()).getWqid();
-            qid=((MistakeRedoActivity)getActivity()).getQid();
-        }catch (Exception e){
-            wqid="";
-            qid="";
-        }
-
-        questionsEntity.setWqid(wqid);
-        questionsEntity.setQid(qid);
         if (questionsEntity.getExtend() != null && questionsEntity.getExtend().getData() != null) {
             String answer="";
             switch (questionsEntity.getTemplate()) {
@@ -263,6 +251,19 @@ public class MistakeRedoFragment extends Fragment {
         iv_edit_note.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String wqid="";
+                String qid="";
+                try {
+                    wqid=((MistakeRedoActivity)getActivity()).getWqid();
+                    qid=((MistakeRedoActivity)getActivity()).getQid();
+                }catch (Exception e){
+                    wqid="";
+                    qid="";
+                }
+
+                questionsEntity.setWqid(wqid);
+                questionsEntity.setQid(qid);
+
                 Bundle args = new Bundle();
                 args.putString(NoteEditActivity.NOTE_CONTENT,tv_note.getText().toString());
                 args.putStringArrayList(NoteEditActivity.PHOTO_PATH,noteAdapter.getData());

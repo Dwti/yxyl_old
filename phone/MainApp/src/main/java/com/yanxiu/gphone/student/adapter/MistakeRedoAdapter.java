@@ -85,14 +85,13 @@ public class MistakeRedoAdapter extends BaseMistakRedoAdapter<PaperTestEntity> i
 
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
-        super.setPrimaryItem(container, position, object);
-        if (this.position!=position) {
+//        if (this.position!=position) {
             fragment= (BaseQuestionFragment) object;
             if (object instanceof DefaultLoadFragment){
                 if (position<this.page_start||position>=this.page_end) {
 
                     int page=position/10;
-                    this.page_start=page;
+                    this.page_start=page*10;
                     this.page_end=page*10+9;
                     if (loadListener != null) {
                         loadListener.onLoadListener(page+1);
@@ -100,7 +99,8 @@ public class MistakeRedoAdapter extends BaseMistakRedoAdapter<PaperTestEntity> i
                 }
             }
             this.position = position;
-        }
+//        }
+        super.setPrimaryItem(container, position, object);
     }
 
     public void setViewPager(MyViewPager vpAnswer) {

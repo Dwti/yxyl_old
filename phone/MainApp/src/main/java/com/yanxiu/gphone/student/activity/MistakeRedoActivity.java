@@ -67,7 +67,6 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
     public static final int RIGHT = R.string.submit_right;
     public static final int FAIL = R.string.submit_fail;
 
-    private MistakeRedoAdapter mistakeRedoAdapter;
     private int wrongCounts;
     private int position = 0;
 
