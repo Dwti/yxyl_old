@@ -464,7 +464,7 @@
 
     <style name="btn_problem_analysis" parent="text_fff99_shadow_style">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/dimen_58</item>
+        <item name="android:layout_height">@dimen/dimen_54</item>
         <item name="android:visibility">gone</item>
         <item name="android:layout_marginRight">@dimen/dimen_20</item>
         <item name="android:layout_marginLeft">@dimen/dimen_20</item>

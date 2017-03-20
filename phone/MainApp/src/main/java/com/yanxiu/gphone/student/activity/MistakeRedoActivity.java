@@ -309,7 +309,7 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
         vpAnswer.setCurrentItem(position);
         tvPagerIndex.setText(String.valueOf(position + 1));
         tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), (wrongCounts) + ""));
-        tvToptext.setText(this.getResources().getString(R.string.questiong_resolution));
+        tvToptext.setText(this.getResources().getString(R.string.mistake_redo));
         tvToptext.setCompoundDrawables(null, null, null, null);
         ivAnswerCard.setBackgroundResource(R.drawable.selector_mistake_question_card);
     }

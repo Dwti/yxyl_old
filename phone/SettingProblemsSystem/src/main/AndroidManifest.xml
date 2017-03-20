@@ -2,10 +2,15 @@
 
     package="com.example.settingproblemssystem">
 
-    <application android:allowBackup="true" android:label="@string/app_name"
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
         android:supportsRtl="true">
-        <activity android:name="com.example.settingproblemssystem.SettingProbActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.example.settingproblemssystem.SettingProbActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+            android:label="@string/system_redo"
+            android:screenOrientation="portrait" />
 
     </application>
 

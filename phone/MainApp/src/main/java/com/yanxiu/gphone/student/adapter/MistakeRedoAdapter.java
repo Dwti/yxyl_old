@@ -125,20 +125,25 @@ public class MistakeRedoAdapter extends BaseMistakRedoAdapter<PaperTestEntity> i
     public void addDataSources(SubjectExercisesItemBean dataSources,int page) {
         ArrayList<PaperTestEntity> list= (ArrayList<PaperTestEntity>) getDatas();
         List<PaperTestEntity> data=dataSources.getData().get(0).getPaperTest();
-        int k=0;
-        int start=10*(page-1);
-        int data_count=data.size();
-        int number=LARGEPAGECOUNT;
-        if (data_count<LARGEPAGECOUNT){
-            number=data_count;
-        }
-        int end=start+number;
-        for (int i=start;i<end;i++){
-            if (list.get(i)==null) {
-                list.set(i, data.get(k));
+        for (PaperTestEntity entity:data){
+            if (list.get(entity.getWqnumber()-1)==null) {
+                list.set(entity.getWqnumber()-1, entity);
             }
-            k++;
         }
+//        int k=0;
+//        int start=10*(page-1);
+//        int data_count=data.size();
+//        int number=LARGEPAGECOUNT;
+//        if (data_count<LARGEPAGECOUNT){
+//            number=data_count;
+//        }
+//        int end=start+number;
+//        for (int i=start;i<end;i++){
+//            if (list.get(i)==null) {
+//
+//            }
+//            k++;
+//        }
     }
 
     /**

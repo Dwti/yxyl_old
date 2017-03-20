@@ -1,5 +1,6 @@
 package com.example.settingproblemssystem;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by Canghaixiao.
@@ -20,12 +22,19 @@ import android.widget.TextView;
 
 public class SettingProbActivity extends BaseActivity {
 
+    private static final String string_problem="做题";
+    private static final String string_system_redo="出题";
+    private static final String string_parsing="解析";
+    private static final String string_wrong_topic="错题";
+    private static final String string_redo="重做";
+
     private ImageView iv_back;
     private TextView problem;
     private TextView parsing;
     private TextView wrong_topic;
     private TextView redo;
     private RecyclerView recy_prob_title;
+
 
     public static void lunch(Context context){
         Intent intent=new Intent(context,SettingProbActivity.class);
@@ -35,6 +44,7 @@ public class SettingProbActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar bar=getActionBar();
     }
 
     @Override
@@ -86,16 +96,24 @@ public class SettingProbActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-//            case R.id.menu_problem:
-//                break;
-//            case R.id.menu_parsing:
-//                break;
-//            case R.id.menu_wrong_topic:
-//                break;
-//            case R.id.menu_redo:
-//                break;
+        switch (item.getTitle().toString()){
+            case string_problem:
+                ToastUtils(string_problem);
+                break;
+            case string_parsing:
+                ToastUtils(string_parsing);
+                break;
+            case string_wrong_topic:
+                ToastUtils(string_wrong_topic);
+                break;
+            case string_redo:
+                ToastUtils(string_redo);
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void ToastUtils(String str){
+        Toast.makeText(this,str,Toast.LENGTH_SHORT).show();
     }
 }
