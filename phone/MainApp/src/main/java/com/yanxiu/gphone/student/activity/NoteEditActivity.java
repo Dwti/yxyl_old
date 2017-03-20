@@ -83,6 +83,7 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
         mEditText.setText(mContent);
         mPhotoView.setMaxCount(4);
         mPhotoView.setData(mPhotoPath);
+        mPhotoView.setAddButtonText(getString(R.string.upload_photo));
 
         iv_cancel.setOnClickListener(this);
         iv_save.setOnClickListener(this);
