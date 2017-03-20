@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:visibility="invisible"
             android:layout_marginLeft="@dimen/dimen_10"
             android:shadowColor="@color/color_005959"
             android:textColor="@color/color_ffdb4d"

@@ -9,10 +9,8 @@
         android:supportsRtl="true">
         <activity
             android:name="com.example.settingproblemssystem.SettingProbActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+            android:theme="@style/MyTheme"
             android:label="@string/system_redo"
-            android:logo="@drawable/login_back"
-            android:icon="@drawable/login_back"
             android:screenOrientation="portrait" />
 
     </application>

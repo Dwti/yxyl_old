@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MyTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="actionBarStyle">@style/MyTheme.ActionBarStyle</item>
+    </style>
+
+    <style name="MyTheme.ActionBarStyle">
+        <item name="background">@color/color_00cccc</item>
+        <item name="android:titleTextStyle">@style/MyTheme.TitleTextStyle</item>
+    </style>
+
+    <style name="MyTheme.TitleTextStyle">
+        <item name="android:textColor">@color/color_ffffff</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+</resources>

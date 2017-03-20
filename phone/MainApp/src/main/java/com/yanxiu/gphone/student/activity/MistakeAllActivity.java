@@ -306,6 +306,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                     listView.stopLoadMore();
 
                     mSubjectExercisesItemBean = (SubjectExercisesItemBean) result;
+                    wrongNumView.setVisibility(View.VISIBLE);
                     wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mSubjectExercisesItemBean.getPage().getTotalCou()+""));
                     mMistakeCount=mSubjectExercisesItemBean.getPage().getTotalCou();
 
@@ -369,6 +370,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
 //                    rootView.finish();
                     isWrongListReady=true;
                     httpEnd();
+                    wrongNumView.setVisibility(View.VISIBLE);
                     listView.stopRefresh();
                     listView.stopLoadMore();
                     if (isRefresh || isLoaderMore) {
@@ -411,6 +413,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                     if (result != null && result.getData() != null && result.getData().size()>0) {
                         QuestionUtils.initDataWithAnswer(result);
                         pageIndex++;
+                        wrongNumView.setVisibility(View.VISIBLE);
                         dataList.addAll(result.getData().get(0).getPaperTest());
                         if(wrongAllListAdapter != null){
                             wrongAllListAdapter.setList(dataList);
