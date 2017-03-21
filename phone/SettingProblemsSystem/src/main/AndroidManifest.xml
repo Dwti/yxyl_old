@@ -8,11 +8,14 @@
         android:logo="@drawable/login_back"
         android:supportsRtl="true">
         <activity
-            android:name="com.example.settingproblemssystem.Activity.SettingProbActivity"
+            android:name="com$example$settingproblemssystem$Activity.SettingProbActivity"
             android:theme="@style/MyTheme"
             android:label="@string/system_redo"
             android:screenOrientation="portrait" />
 
+        <activity android:name="com$example$settingproblemssystem$Activity.QuestionListActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

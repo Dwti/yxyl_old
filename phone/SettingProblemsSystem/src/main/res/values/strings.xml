@@ -8,4 +8,5 @@
     <string name="pc">前往PC</string>
     <string name="add_question">点击添加题目信息</string>
     <string name="question_name">选择题</string>
+    <string name="have_no_question">Please add the question.</string>
 </resources>

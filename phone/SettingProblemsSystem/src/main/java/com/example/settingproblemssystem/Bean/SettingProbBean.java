@@ -12,6 +12,7 @@ import java.util.List;
 public class SettingProbBean {
 
     private String Qname;
+    private int QType;
     private List<String> childs=new ArrayList<>();
 
     public String getQname() {
@@ -20,6 +21,14 @@ public class SettingProbBean {
 
     public void setQname(String qname) {
         Qname = qname;
+    }
+
+    public int getQType() {
+        return QType;
+    }
+
+    public void setQType(int QType) {
+        this.QType = QType;
     }
 
     public List<String> getChilds() {

@@ -11,7 +11,12 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.settingproblemssystem.BaseAdapter.SettingProbAdapter;
+import com.example.settingproblemssystem.Bean.SettingProbBean;
 import com.example.settingproblemssystem.R;
+import com.example.settingproblemssystem.Utils.QuestionType;
+import com.example.settingproblemssystem.Utils.ToastUtils;
+
+import java.util.List;
 
 /**
  * Created by Canghaixiao.
@@ -19,7 +24,7 @@ import com.example.settingproblemssystem.R;
  * Function :
  */
 
-public class SettingProbActivity extends BaseActivity {
+public class SettingProbActivity extends BaseActivity implements SettingProbAdapter.OnItemClickListener {
 
     private static final String string_problem = "前往做题";
 //    private static final String string_system_redo = "出题";
@@ -61,6 +66,7 @@ public class SettingProbActivity extends BaseActivity {
     protected void initData() {
         recy_prob_title.setLayoutManager(new LinearLayoutManager(this));
         adapter=new SettingProbAdapter(this);
+        adapter.setOnItemClickListener(this);
         recy_prob_title.setAdapter(adapter);
     }
 
@@ -76,9 +82,20 @@ public class SettingProbActivity extends BaseActivity {
     }
 
     private void setIntent() {
+        List<SettingProbBean> list= adapter.getDatas();
+        if (list==null||list.size()==0){
+            ToastUtils.show(this,R.string.have_no_question);
+            return;
+        }
         Intent intent = new Intent("android.intent.action.SYSTEM");
         intent.addCategory("SYSTEM");
         startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        adapter.setDatas(null);
     }
 
     @Override
@@ -98,7 +115,7 @@ public class SettingProbActivity extends BaseActivity {
                     setIntent();
                     break;
                 case string_pc:
-                    ToastUtils(string_no);
+                    ToastUtils.show(this,string_no);
                     break;
             }
         } else {
@@ -109,7 +126,30 @@ public class SettingProbActivity extends BaseActivity {
         return true;
     }
 
-    private void ToastUtils(String str) {
-        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+    @Override
+    public void onItemClick(SettingProbBean bean, int position) {
+        if (bean==null){
+            QuestionListActivity.lunch(this);
+        }else {
+            switch (bean.getQType()){
+                case QuestionType.CLASSFY:
+                case QuestionType.COMPUTE:
+                case QuestionType.CONNECT:
+                case QuestionType.FILL_BLANKS:
+                case QuestionType.JUDGE:
+                case QuestionType.MULTI:
+                case QuestionType.SINGLE:
+                case QuestionType.SUBJECTIVE:
+                    //单题
+                    break;
+                case QuestionType.CLOZE:
+                case QuestionType.LISTEN:
+                case QuestionType.READ:
+                case QuestionType.READING:
+                case QuestionType.SOLVE:
+                    //复合题
+                    break;
+            }
+        }
     }
 }
