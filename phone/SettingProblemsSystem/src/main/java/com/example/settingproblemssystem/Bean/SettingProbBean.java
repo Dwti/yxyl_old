@@ -9,11 +9,11 @@ import java.util.List;
  * Function :
  */
 
-public class SettingProbBean {
+public class SettingProbBean extends BaseBean{
 
     private String Qname;
     private int QType;
-    private List<String> childs=new ArrayList<>();
+    private List<SettingProbBean> childs=new ArrayList<>();
 
     public String getQname() {
         return Qname;
@@ -31,11 +31,11 @@ public class SettingProbBean {
         this.QType = QType;
     }
 
-    public List<String> getChilds() {
+    public List<SettingProbBean> getChilds() {
         return childs;
     }
 
-    public void setChilds(List<String> childs) {
+    public void setChilds(List<SettingProbBean> childs) {
         this.childs = childs;
     }
 }

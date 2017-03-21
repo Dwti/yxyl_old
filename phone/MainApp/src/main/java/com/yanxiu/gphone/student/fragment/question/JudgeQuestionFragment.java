@@ -226,7 +226,7 @@ public class JudgeQuestionFragment extends BaseQuestionFragment implements Quest
             fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_SUBMIT);
             FragmentManagerFactory.addMistakeRedoFragment(getActivity(), getChildFragmentManager().beginTransaction(), questionsEntity, R.id.content_problem_analysis);
         } else if (QuestionEntity.TYPE_DELETE_END.equals(questionsEntity.getType())) {
-            questionsEntity.setType(QuestionEntity.TYPE_SUBMIT_END);
+            questionsEntity.setType(QuestionEntity.TYPE_DELETE_END);
             judgeQuestions.setIsResolution(true);
             judgeQuestions.setIsClick(false);
             judgeQuestions.setFoucesClear();

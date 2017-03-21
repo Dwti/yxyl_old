@@ -284,7 +284,7 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
             fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_SUBMIT);
             FragmentManagerFactory.addMistakeRedoFragment(getActivity(), getChildFragmentManager().beginTransaction(), questionsEntity, R.id.content_problem_analysis);
         } else if (QuestionEntity.TYPE_DELETE_END.equals(questionsEntity.getType())) {
-            questionsEntity.setType(QuestionEntity.TYPE_SUBMIT_END);
+            questionsEntity.setType(QuestionEntity.TYPE_DELETE_END);
             mTextView.setEditable(false);
             fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_DELETE);
             FragmentManagerFactory.addMistakeRedoFragment(getActivity(), getChildFragmentManager().beginTransaction(), questionsEntity, R.id.content_problem_analysis);

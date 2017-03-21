@@ -2,17 +2,23 @@ package com.example.settingproblemssystem.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
+
+import com.example.settingproblemssystem.Bean.SettingProbBean;
 
 /**
  * Created by Canghaixiao.
- * Time : 2017/3/21 15:56.
+ * Time : 2017/3/21 17:15.
  * Function :
  */
 
-public class QuestionListActivity extends BaseActivity {
+public class WebViewActivity extends BaseActivity {
 
-    public static void lunch(Activity activity){
-        Intent intent=new Intent(activity,QuestionListActivity.class);
+    public static void lunch(Activity activity, SettingProbBean bean){
+        Intent intent=new Intent(activity,WebViewActivity.class);
+        Bundle bundle=new Bundle();
+        bundle.putSerializable("bean",bean);
+        intent.putExtra("bundle",bundle);
         activity.startActivityForResult(intent,RESULT_OK);
     }
 

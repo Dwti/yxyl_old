@@ -126,7 +126,7 @@ public class JudgeQuestionsItem extends AbsChoiceQuestionsItem implements View.O
                  * */
 //                llParentBg.setBackgroundResource(R.drawable.selector_judge_wrong);
 //                setShadow(Color.parseColor("#80334d"),Color.parseColor("#ffe5ee"));
-                llParentBg.setBackgroundResource(R.drawable.selector_judge_wrong);
+                llParentBg.setBackgroundResource(R.drawable.selector_judge_correct);
                 setShadow(Color.parseColor("#006666"),Color.parseColor("#33ffff"));
                 break;
         }
@@ -149,7 +149,7 @@ public class JudgeQuestionsItem extends AbsChoiceQuestionsItem implements View.O
                  * */
 //                llParentBg.setBackgroundResource(R.drawable.selector_judge_wrong);
 //                setShadow(Color.parseColor("#80334d"),Color.parseColor("#ffe5ee"));
-                llParentBg.setBackgroundResource(R.drawable.selector_judge_wrong);
+                llParentBg.setBackgroundResource(R.drawable.selector_judge_correct);
                 setShadow(Color.parseColor("#006666"),Color.parseColor("#33ffff"));
                 break;
         }

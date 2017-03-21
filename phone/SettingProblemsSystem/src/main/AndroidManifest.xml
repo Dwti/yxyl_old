@@ -1,5 +1,4 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
     package="com.example.settingproblemssystem">
 
     <application
@@ -8,13 +7,19 @@
         android:logo="@drawable/login_back"
         android:supportsRtl="true">
         <activity
-            android:name="com$example$settingproblemssystem$Activity.SettingProbActivity"
+            android:name="com.example.settingproblemssystem.activity.SettingProbActivity"
             android:theme="@style/MyTheme"
             android:label="@string/system_redo"
             android:screenOrientation="portrait" />
 
-        <activity android:name="com$example$settingproblemssystem$Activity.QuestionListActivity"
+        <activity android:name="activity.QuestionListActivity"
             android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name="activity.WebViewActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name="activity.CompQuestionActivity"
             android:screenOrientation="portrait"/>
     </application>
 

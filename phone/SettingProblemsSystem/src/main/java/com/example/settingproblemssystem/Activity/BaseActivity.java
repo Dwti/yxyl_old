@@ -1,11 +1,10 @@
-package com.example.settingproblemssystem.Activity;
+package com.example.settingproblemssystem.activity;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
 
 /**
  * Created by Canghaixiao.

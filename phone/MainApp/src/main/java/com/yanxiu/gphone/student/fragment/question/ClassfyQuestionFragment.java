@@ -446,7 +446,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_SUBMIT);
             FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
         }else if (QuestionEntity.TYPE_DELETE_END.equals(questionsEntity.getType())){
-            questionsEntity.setType(QuestionEntity.TYPE_SUBMIT_END);
+            questionsEntity.setType(QuestionEntity.TYPE_DELETE_END);
             setIsResolution(true);
             setIsClick(false);
             vgClassfyAnswers.clearFocuse();

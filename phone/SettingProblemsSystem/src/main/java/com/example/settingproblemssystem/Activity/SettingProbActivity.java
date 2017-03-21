@@ -1,4 +1,4 @@
-package com.example.settingproblemssystem.Activity;
+package com.example.settingproblemssystem.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.settingproblemssystem.BaseAdapter.SettingProbAdapter;
 import com.example.settingproblemssystem.Bean.SettingProbBean;
@@ -141,6 +140,7 @@ public class SettingProbActivity extends BaseActivity implements SettingProbAdap
                 case QuestionType.SINGLE:
                 case QuestionType.SUBJECTIVE:
                     //单题
+                    WebViewActivity.lunch(this,bean);
                     break;
                 case QuestionType.CLOZE:
                 case QuestionType.LISTEN:
