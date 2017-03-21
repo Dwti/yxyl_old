@@ -311,7 +311,7 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
     protected void calculateAndSetCostTime(){
         endTime = System.currentTimeMillis();
         costTime += endTime - startTime;
-        int millSeconds = (int) (costTime / 1000);
+        int millSeconds = (int) Math.ceil(costTime / 1000);
         if(questionsEntity !=null && questionsEntity.getAnswerBean() != null){
             questionsEntity.getAnswerBean().setConsumeTime(millSeconds);
         }

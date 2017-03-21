@@ -92,6 +92,11 @@ public class PhotoView extends FrameLayout {
         }
     }
 
+    public void setAddButtonText(String text){
+        if(tv_add !=null)
+            tv_add.setText(text);
+    }
+
     public int getMaxCount() {
         return maxCount;
     }
