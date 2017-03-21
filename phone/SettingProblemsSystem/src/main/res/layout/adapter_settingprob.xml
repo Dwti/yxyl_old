@@ -1,16 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/dimen_10"
+    android:paddingLeft="@dimen/dimen_5"
+    android:paddingRight="@dimen/dimen_5"
+    android:paddingTop="@dimen/dimen_10">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:drawableEnd="@drawable/chevron_right"
+        android:drawableRight="@drawable/chevron_right"
+        android:gravity="center_vertical"
+        android:text="@string/question_name"
+        android:textColor="@color/color_334466"
+        android:textSize="@dimen/dimen_20sp" />
 
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></RelativeLayout>
+    <TextView
+        android:id="@+id/tv_add_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:drawableEnd="@drawable/add"
+        android:drawableRight="@drawable/add"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:text="@string/add_question"
+        android:textColor="@color/color_334466"
+        android:textSize="@dimen/dimen_20sp" />
 </FrameLayout>

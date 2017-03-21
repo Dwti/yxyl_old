@@ -6,4 +6,6 @@
     <string name="wrong_topic">前往错题</string>
     <string name="redo">前往重做</string>
     <string name="pc">前往PC</string>
+    <string name="add_question">点击添加题目信息</string>
+    <string name="question_name">选择题</string>
 </resources>

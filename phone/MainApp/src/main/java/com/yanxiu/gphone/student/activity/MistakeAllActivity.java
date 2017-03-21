@@ -86,7 +86,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
         intent.putExtra("title", title);
         intent.putExtra("subjectId", subjectId);
         intent.putExtra("wrongNum", wrongNum);
-        activity.startActivity(intent);
+        activity.startActivityForResult(intent,00);
     }
 
     @Override public void onCreate(Bundle savedInstanceState) {
@@ -428,6 +428,10 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
         }
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+    }
 
     /**
      * 更新列表UI
@@ -495,6 +499,8 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
     }
 
     @Override protected void onDestroy() {
+//        Intent intent=new Intent();
+//        setResult(00,intent);
         super.onDestroy();
         cancelTask();
         EventBus.getDefault().unregister(this);

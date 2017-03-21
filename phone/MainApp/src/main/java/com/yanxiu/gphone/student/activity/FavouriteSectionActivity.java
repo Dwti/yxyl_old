@@ -79,7 +79,7 @@ public class FavouriteSectionActivity extends YanxiuBaseActivity implements View
         intent.putExtra("editionId", editionId);
         intent.putExtra("volumeIdList", volumeIdList);
         intent.putExtra("has_knp", has_knp);
-        activity.startActivity(intent);
+        activity.startActivityForResult(intent,00);
     }
 
     @Override

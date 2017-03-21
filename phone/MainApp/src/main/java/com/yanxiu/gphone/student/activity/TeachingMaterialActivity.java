@@ -97,6 +97,14 @@ public class TeachingMaterialActivity extends YanxiuBaseActivity {
         });
         type = getIntent().getIntExtra("type", TEACHING_MATERIAL_ACTIVITY);
         findView();
+        materialList.setVisibility(View.INVISIBLE);
+        if (LoginModel.getUserinfoEntity()!=null) {
+            if (type == PRACTICE_ERROR_COLLECTION_ACTIVITY) {
+                requestMistakeEditionTask(LoginModel.getUserinfoEntity().getStageid() + "");
+            } else if (type == MY_FAVOURITE_COLLECTION_ACTIVITY) {
+                requestMyFavouriteTask(LoginModel.getUserinfoEntity().getStageid() + "");
+            }
+        }
     }
 
     private void findView() {
@@ -205,15 +213,8 @@ public class TeachingMaterialActivity extends YanxiuBaseActivity {
     }
     @Override
     protected void onResume() {
-        materialList.setVisibility(View.INVISIBLE);
         super.onResume();
-        if (LoginModel.getUserinfoEntity()!=null) {
-            if (type == PRACTICE_ERROR_COLLECTION_ACTIVITY) {
-                requestMistakeEditionTask(LoginModel.getUserinfoEntity().getStageid() + "");
-            } else if (type == MY_FAVOURITE_COLLECTION_ACTIVITY) {
-                requestMyFavouriteTask(LoginModel.getUserinfoEntity().getStageid() + "");
-            }
-        }
+
     }
 
     private void updateMistakeEditionView(MistakeEditionBean mMistakeEditionBean) {
@@ -245,6 +246,16 @@ public class TeachingMaterialActivity extends YanxiuBaseActivity {
                         }
                     }
                     break;
+            }
+        }
+
+        if (LoginModel.getUserinfoEntity()!=null) {
+            if (type == PRACTICE_ERROR_COLLECTION_ACTIVITY) {
+                materialList.setVisibility(View.INVISIBLE);
+                requestMistakeEditionTask(LoginModel.getUserinfoEntity().getStageid() + "");
+            } else if (type == MY_FAVOURITE_COLLECTION_ACTIVITY) {
+                materialList.setVisibility(View.INVISIBLE);
+                requestMyFavouriteTask(LoginModel.getUserinfoEntity().getStageid() + "");
             }
         }
     }
