@@ -61,7 +61,8 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
     private Object message;
     protected MistakeRedoCallback redoCallback;
     private boolean isVisible;
-    protected long costTime,startTime,endTime;
+    protected long startTime,endTime;
+    private int costTime;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -127,6 +128,7 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
         ivTopIcon = (ImageView) view.findViewById(R.id.iv_answer_top_icon);
         if (questionsEntity != null) {
             BaseQuestionFragment fragment = this;
+            costTime = questionsEntity.getAnswerBean().getConsumeTime();
             int typeId = questionsEntity.getType_id();
             if (!ischild) {
                 if (typeId == QUESTION_SUBJECTIVE.type) {
@@ -308,12 +310,13 @@ public class BaseQuestionFragment extends Fragment implements QuestionsListener 
 
     }
 
-    protected void calculateAndSetCostTime(){
-        endTime = System.currentTimeMillis();
-        costTime += endTime - startTime;
-        int millSeconds = (int) Math.ceil(costTime / 1000);
-        if(questionsEntity !=null && questionsEntity.getAnswerBean() != null){
-            questionsEntity.getAnswerBean().setConsumeTime(millSeconds);
+    public void calculateAndSetCostTime(){
+        if(questionsEntity !=null && answerViewTypyBean == SubjectExercisesItemBean.ANSWER_QUESTION){
+            endTime = System.currentTimeMillis();
+            long millSeconds = endTime - startTime;
+            int seconds = (int) Math.ceil(millSeconds / 1000.00);
+            costTime += seconds;
+            questionsEntity.getAnswerBean().setConsumeTime(costTime);
         }
     }
     @Override

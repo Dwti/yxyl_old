@@ -403,6 +403,14 @@ public class SolveComplexQuestionFragment extends BaseQuestionFragment implement
     }
 
     @Override
+    public void calculateAndSetCostTime() {
+        try {
+            BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getmFragments().get(vpAnswer.getCurrentItem());
+            fragment.calculateAndSetCostTime();
+        }catch (Exception e){}
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
 //

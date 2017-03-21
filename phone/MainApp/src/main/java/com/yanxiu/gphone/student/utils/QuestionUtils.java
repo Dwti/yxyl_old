@@ -372,6 +372,7 @@ public class QuestionUtils {
                                 childQuestion.setQid(String.valueOf(paperList.get(j).getQid()));
                                 if(childQuestion == null || childQuestion.getPad()==null)
                                     continue;
+                                childQuestion.getAnswerBean().setConsumeTime(childQuestion.getPad().getCosttime());
                                 List<String> answerChildList;
                                 String childJsonAnswer =childQuestion.getPad().getJsonAnswer();
                                 answerChildList = JSON.parseArray(childJsonAnswer,String.class);

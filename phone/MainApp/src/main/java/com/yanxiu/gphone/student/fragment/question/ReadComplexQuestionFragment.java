@@ -378,6 +378,14 @@ public class ReadComplexQuestionFragment extends BaseQuestionFragment implements
     }
 
     @Override
+    public void calculateAndSetCostTime() {
+        try {
+            BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getmFragments().get(vpAnswer.getCurrentItem());
+            fragment.calculateAndSetCostTime();
+        }catch (Exception e){}
+    }
+
+    @Override
     public void setRefresh() {
         super.setRefresh();
         if (vpAnswer != null) {

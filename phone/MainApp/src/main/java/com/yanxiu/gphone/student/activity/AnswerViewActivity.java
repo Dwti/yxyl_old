@@ -490,6 +490,7 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
         long endtime = System.currentTimeMillis();
         dataSources.setEndtime(endtime);
         calculateLastQuestionTime();
+        setQuestionCostTime();
         //QuestionUtils.clearSubjectiveQuesition(dataSources);
         dataSources.getData().get(0).getPaperStatus().setCosttime(AnswerViewActivity.totalTime);
         requestSubmitQuesitonTask = new RequestSubmitQuesitonTask(this, dataSources, RequestSubmitQuesitonTask.LIVE_CODE, new AsyncCallBack() {
@@ -525,6 +526,11 @@ public class AnswerViewActivity extends BaseAnswerViewActivity {
             }
         });
         requestSubmitQuesitonTask.start();
+    }
+
+    public void setQuestionCostTime() {
+        BaseQuestionFragment baseQuestionFragment = (BaseQuestionFragment) adapter.getItem(vpAnswer.getCurrentItem());
+        baseQuestionFragment.calculateAndSetCostTime();
     }
 
     private void addTimeHandler() {

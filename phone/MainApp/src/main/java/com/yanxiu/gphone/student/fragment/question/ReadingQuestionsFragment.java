@@ -463,6 +463,14 @@ public class ReadingQuestionsFragment extends BaseQuestionFragment implements Vi
     }
 
     @Override
+    public void calculateAndSetCostTime() {
+        try {
+            BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getmFragments().get(vpAnswer.getCurrentItem());
+            fragment.calculateAndSetCostTime();
+        }catch (Exception e){}
+    }
+
+    @Override
     public void onClick(View v) {
         if(v == ivBottomCtrl){
             llTopView.onExpandable(null);
