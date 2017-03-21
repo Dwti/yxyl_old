@@ -314,11 +314,15 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
             fill_blanks_button.setDataSources(bean);
         }
         LogInfo.log("geny", "onResume");
-        if (vpAnswer != null) {
-            if (!is_reduction) {
-                vpAnswer.setCurrentItem(childPagerIndex);
-            } else {
-                vpAnswer.setCurrentItem(adapter.getCount() - 1);
+        if (getActivity() instanceof MistakeRedoActivity){
+
+        }else {
+            if (vpAnswer != null) {
+                if (!is_reduction) {
+                    vpAnswer.setCurrentItem(childPagerIndex);
+                } else {
+                    vpAnswer.setCurrentItem(adapter.getCount() - 1);
+                }
             }
         }
 
@@ -332,6 +336,7 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
                 }
             }
         }
+        setCurrent(vpAnswer);
     }
 
     public void setUserVisibleHint(boolean isVisibleToUser) {

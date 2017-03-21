@@ -121,8 +121,13 @@ public class JudgeQuestionsItem extends AbsChoiceQuestionsItem implements View.O
                 setShadow(Color.parseColor("#006666"),Color.parseColor("#33ffff"));
                 break;
             case WRONG:
+                /**
+                 * 哪个货写的功能，靠，同样的代码，重复三次
+                 * */
+//                llParentBg.setBackgroundResource(R.drawable.selector_judge_wrong);
+//                setShadow(Color.parseColor("#80334d"),Color.parseColor("#ffe5ee"));
                 llParentBg.setBackgroundResource(R.drawable.selector_judge_wrong);
-                setShadow(Color.parseColor("#80334d"),Color.parseColor("#ffe5ee"));
+                setShadow(Color.parseColor("#006666"),Color.parseColor("#33ffff"));
                 break;
         }
         ivChoiceIcon.setVisibility(View.VISIBLE);

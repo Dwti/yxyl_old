@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.common.core.utils.LogInfo;
 import com.common.login.LoginModel;
-import com.example.settingproblemssystem.SettingProbActivity;
+import com.example.settingproblemssystem.Activity.SettingProbActivity;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.YanxiuApplication;

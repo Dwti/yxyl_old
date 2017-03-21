@@ -138,6 +138,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
             tvToptext.setCompoundDrawables(null, null, null, null);
 //            tvAnswerCard.setVisibility(View.GONE);
             ivAnswerCard.setBackgroundResource(R.drawable.selector_answer_delete);
+        answer_view_type.setBackgroundResource(R.drawable.answer_report);
         //}
     }
 

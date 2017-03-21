@@ -311,6 +311,7 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
         tvToptext.setText(this.getResources().getString(R.string.mistake_redo));
         tvToptext.setCompoundDrawables(null, null, null, null);
         ivAnswerCard.setBackgroundResource(R.drawable.selector_mistake_question_card);
+        answer_view_type.setBackgroundResource(R.drawable.mistake_redo);
     }
 
     private boolean setIndex(){

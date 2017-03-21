@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -100,6 +101,7 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
     private LinearLayout llReportParse;
     private LinearLayout llDifficullty;
     private LinearLayout llAnswer;
+    private FrameLayout send_wrong;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -138,6 +140,9 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
     }
 
     private void initView() {
+
+        send_wrong=(FrameLayout) rootView.findViewById(R.id.send_wrong);
+
         tvKnowledgePoint = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_parse_knowledge_point);
         tvReportParseText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_parse_text);
         tvReportParseStatueText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_parse_statue_text);
@@ -350,6 +355,10 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
             ll_note.setVisibility(View.GONE);
             return;
         }
+        if (answerViewType == SubjectExercisesItemBean.WRONG_SET){
+            send_wrong.setVisibility(View.GONE);
+        }
+
         if(TextUtils.isEmpty(note) && (imagePath == null || imagePath.size() ==0)){
             ll_note_content.setVisibility(View.GONE);
         }else{

@@ -1,4 +1,4 @@
-package com.example.settingproblemssystem;
+package com.example.settingproblemssystem.Activity;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;

@@ -16,6 +16,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
 
@@ -81,6 +82,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    protected LinearLayout answer_view_type;
 
     public YanxiuTypefaceTextView getTvToptext() {
         return tvToptext;
@@ -171,6 +173,7 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 
 
     protected void initView() {
+        answer_view_type=(LinearLayout) this.findViewById(R.id.answer_view_type);
         gif_framelayout = (FrameLayout) this.findViewById(R.id.gif_framelayout);
 //        try {
 //            btnLastQuestion = (Button) this.findViewById(R.id.btn_last_question);
