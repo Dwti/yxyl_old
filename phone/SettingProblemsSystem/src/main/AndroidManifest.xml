@@ -4,7 +4,6 @@
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
-        android:logo="@drawable/login_back"
         android:supportsRtl="true">
         <activity
             android:name="com.example.settingproblemssystem.activity.SettingProbActivity"

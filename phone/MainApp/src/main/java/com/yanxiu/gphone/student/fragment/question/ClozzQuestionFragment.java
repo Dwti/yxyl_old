@@ -411,6 +411,8 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
             adapter.setCostTime(costtime, questionsEntity.getPageIndex(), childPagerIndex);
             childPagerIndex = position;
             AnswerViewActivity.childIndex = position;
+        }else if (answerViewTypyBean == SubjectExercisesItemBean.WRONG_SET||answerViewTypyBean == SubjectExercisesItemBean.RESOLUTION){
+            this.childPagerIndex=position;
         }
         if (questionsEntity != null) {
             pageCountIndex = pageIndex + position;

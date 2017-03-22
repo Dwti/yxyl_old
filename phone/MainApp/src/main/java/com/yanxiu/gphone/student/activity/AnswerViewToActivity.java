@@ -12,6 +12,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
 
@@ -93,6 +94,7 @@ public class AnswerViewToActivity extends YanxiuBaseActivity implements View.OnC
             }
         }
     };
+    private LinearLayout answer_view_type;
 
     public static void launch(Activity context, SubjectExercisesItemBean bean) {
         Intent intent = new Intent(context, AnswerViewToActivity.class);
