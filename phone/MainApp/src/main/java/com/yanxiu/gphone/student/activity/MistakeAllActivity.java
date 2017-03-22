@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -75,7 +76,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
     private SubjectExercisesItemBean mSubjectExercisesItemBean;
     private SubjectExercisesItemBean subjectExercisesItemBeanIntent = new SubjectExercisesItemBean();;
     private MistakeRedoNumberBean numberBean;
-    private YanxiuTypefaceButton mistake_number;
+    private Button mistake_number;
     private boolean Is_number_ready=false;
     private boolean Is_number_click=false;
     private RelativeLayout linear_number;
@@ -151,7 +152,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
         });
 
         linear_number= (RelativeLayout) findViewById(R.id.linear_number);
-        mistake_number= (YanxiuTypefaceButton) findViewById(R.id.mistake_number);
+        mistake_number= (Button) findViewById(R.id.mistake_number);
         if (title.equals(getResources().getString(R.string.mistake_redo_math))||title.equals(getResources().getString(R.string.mistake_redo_english))){
             requestMistakeNumber();
             mistake_number.setOnClickListener(new View.OnClickListener() {

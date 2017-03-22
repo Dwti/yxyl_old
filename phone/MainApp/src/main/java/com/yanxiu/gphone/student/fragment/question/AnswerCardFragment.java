@@ -3,6 +3,8 @@ package com.yanxiu.gphone.student.fragment.question;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
@@ -346,6 +348,33 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
     }
 
 
+    private void submit_image_fail(final YanxiuBaseBean bean){
+        rootView.post(new Runnable() {
+            @Override
+            public void run() {
+                subjectiveQIndex = 0;
+                if (getActivity()==null){
+                    return;
+                }
+                if (AnswerCardFragment.this.getActivity()!=null) {
+                    ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideDialog();
+                }
+//                        loadingLayout.setViewGone();
+                if (bean != null && ((UploadImageBean) bean).getStatus() != null && ((UploadImageBean) bean).getStatus().getDesc() != null) {
+                    //Util.showToast(((UploadImageBean) bean).getStatus().getDesc());
+                } else {
+                    //Util.showToast(R.string.server_connection_erro);
+                }
+                saveNetErrorDialog();
+            }
+        });
+        LogInfo.log("geny", "requestUploadImage s =onFail");
+    }
+
+    private void submit_image_sucrss(){
+
+    }
+
     /**
      * 上传主观题图片
      */
@@ -380,26 +409,10 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
 
             @Override
             public void onFail(final YanxiuBaseBean bean) {
-                rootView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        subjectiveQIndex = 0;
-                        if (getActivity()==null){
-                            return;
-                        }
-                        if (AnswerCardFragment.this.getActivity()!=null) {
-                            ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideDialog();
-                        }
-//                        loadingLayout.setViewGone();
-                        if (bean != null && ((UploadImageBean) bean).getStatus() != null && ((UploadImageBean) bean).getStatus().getDesc() != null) {
-                            //Util.showToast(((UploadImageBean) bean).getStatus().getDesc());
-                        } else {
-                            //Util.showToast(R.string.server_connection_erro);
-                        }
-                        saveNetErrorDialog();
-                    }
-                });
-                LogInfo.log("geny", "requestUploadImage s =onFail");
+                Message message=Message.obtain();
+                message.obj=bean;
+                message.what=2;
+                myhandle.sendMessage(message);
             }
 
             @Override
@@ -426,6 +439,119 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
     }
 
 
+    private class Myhandle extends Handler{
+
+        public Myhandle(){
+
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    YanxiuBaseBean result= (YanxiuBaseBean) msg.obj;
+                    submit_updata(result);
+                    break;
+                case 1:
+                    String message= (String) msg.obj;
+                    submit_dataerror(message);
+                    break;
+                case 2:
+                    YanxiuBaseBean bean= (YanxiuBaseBean) msg.obj;
+                    submit_image_fail(bean);
+                    break;
+            }
+        }
+    }
+
+    Myhandle myhandle=new Myhandle();
+
+    private void submit_updata(YanxiuBaseBean result){
+        final long groupStartTime = dataSources.getData().get(0).getBegintime();
+        final long groupEndtime = dataSources.getData().get(0).getEndtime();//作业练习截止时间
+
+        ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideDialog();
+        DataStatusEntityBean bean = (DataStatusEntityBean) result;
+        if (bean.getCode() == 0) {
+
+            int showana = dataSources.getShowana();
+            if (showana == GroupHwActivity.NOT_FINISH_STATUS) {
+                LogInfo.log("haitian", "comeFrom=" + comeFrom);
+                if (comeFrom == AnswerViewActivity.GROUP && groupEndtime > groupStartTime &&
+                        ((groupEndtime - System.currentTimeMillis()) >= 3 * 60 * 1000)) {//作业截止时间判断，还未到截止时间不产生作业报告
+                    Util.showToast(R.string.update_sucess);
+                    EventBus.getDefault().post(new ThridExamiEvent(true));
+                    EventBus.getDefault().post(new GroupEventHWRefresh());
+                    if (getActivity()==null){
+                        return;
+                    }
+                    ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).addFinishFragment(dataSources, YanXiuConstant.END_TIME);
+                } else {
+                    jumpReport();
+                }
+
+            } else if (showana == GroupHwActivity.HAS_FINISH_CHECK_REPORT) {
+                jumpReport();
+            } else {
+                Util.showToast(R.string.update_sucess);
+
+                EventBus.getDefault().post(new ThridExamiEvent(true));
+                EventBus.getDefault().post(new GroupEventHWRefresh());
+                if (getActivity()==null){
+                    return;
+                }
+                getActivity().finish();
+            }
+
+            if (comeFrom == YanXiuConstant.HISTORY_REPORT) {
+                EventBus.getDefault().post(new ExHistoryEventBus());
+            }
+            ArrayList<StatisticHashMap> arrayList = new ArrayList<StatisticHashMap>();
+            for (int i = 0; i < dataSources.getData().size(); i++) {
+                StatisticHashMap statisticHashMap = new StatisticHashMap();
+                statisticHashMap.put(YanXiuConstant.eventID, "20:event_3");//3:提交练习/作业
+                HashMap reserveHashMap = new HashMap();
+
+                reserveHashMap.put(YanXiuConstant.editionID, dataSources.getData().get(i).getBedition());
+                reserveHashMap.put(YanXiuConstant.gradeID, String.valueOf(dataSources.getData().get(i).getGradeid()));
+                reserveHashMap.put(YanXiuConstant.subjectID, String.valueOf(dataSources.getData().get(i).getSubjectid()));
+                reserveHashMap.put(YanXiuConstant.paperType, String.valueOf(comeFrom));
+                reserveHashMap.put(YanXiuConstant.quesNum, String.valueOf(dataSources.getData().get(i).getQuesnum()));
+                String questionId = "[";
+                for (int j = 0; j < dataSources.getData().get(i).getPaperTest().size(); j++) {
+                    questionId = questionId + "\"" + dataSources.getData().get(i).getPaperTest().get(j).getQid() + "\"" + ",";
+                }
+                questionId = questionId.substring(0, questionId.lastIndexOf(",")) + "]";
+                reserveHashMap.put(YanXiuConstant.qID, questionId);
+                statisticHashMap.put(YanXiuConstant.reserved, Util.hashMapToJsonTwo(reserveHashMap));
+                arrayList.add(statisticHashMap);
+            }
+            submitQuestionStatistic(arrayList);
+
+        } else {
+            if (bean != null && bean.getDesc() != null) {
+                Util.showToast(bean.getDesc());
+            } else {
+                Util.showToast(R.string.server_connection_erro);
+            }
+        }
+
+    }
+
+    private void submit_dataerror(String msg){
+        if (TextUtils.isEmpty(msg)) {
+            //Util.showToast(R.string.server_connection_erro);
+        } else {
+            //Util.showToast(msg);
+        }
+        submitNetErrorDialog();
+        if (getActivity()==null){
+            return;
+        }
+        ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideDialog();
+    }
+
     private void requestSubmmit() {
         if (getActivity()==null){
             return;
@@ -439,93 +565,24 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
             ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).setQuestionCostTime();
         }
         long endtime = System.currentTimeMillis();
-        final long groupStartTime = dataSources.getData().get(0).getBegintime();
-        final long groupEndtime = dataSources.getData().get(0).getEndtime();//作业练习截止时间
         dataSources.setEndtime(endtime);
         dataSources.getData().get(0).getPaperStatus().setCosttime(AnswerViewActivity.totalTime);
         requestSubmitQuesitonTask = new RequestSubmitQuesitonTask(YanxiuApplication.getContext(), dataSources, RequestSubmitQuesitonTask.SUBMIT_CODE, new AsyncCallBack() {
             @Override
             public void update(YanxiuBaseBean result) {
-                ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideDialog();
-                DataStatusEntityBean bean = (DataStatusEntityBean) result;
-                if (bean.getCode() == 0) {
-
-                    int showana = dataSources.getShowana();
-                    if (showana == GroupHwActivity.NOT_FINISH_STATUS) {
-                        LogInfo.log("haitian", "comeFrom=" + comeFrom);
-                        if (comeFrom == AnswerViewActivity.GROUP && groupEndtime > groupStartTime &&
-                                ((groupEndtime - System.currentTimeMillis()) >= 3 * 60 * 1000)) {//作业截止时间判断，还未到截止时间不产生作业报告
-                            Util.showToast(R.string.update_sucess);
-                            EventBus.getDefault().post(new ThridExamiEvent(true));
-                            EventBus.getDefault().post(new GroupEventHWRefresh());
-                            if (getActivity()==null){
-                                return;
-                            }
-                            ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).addFinishFragment(dataSources, YanXiuConstant.END_TIME);
-                        } else {
-                            jumpReport();
-                        }
-
-                    } else if (showana == GroupHwActivity.HAS_FINISH_CHECK_REPORT) {
-                        jumpReport();
-                    } else {
-                        Util.showToast(R.string.update_sucess);
-
-                        EventBus.getDefault().post(new ThridExamiEvent(true));
-                        EventBus.getDefault().post(new GroupEventHWRefresh());
-                        if (getActivity()==null){
-                            return;
-                        }
-                        getActivity().finish();
-                    }
-
-                    if (comeFrom == YanXiuConstant.HISTORY_REPORT) {
-                        EventBus.getDefault().post(new ExHistoryEventBus());
-                    }
-                    ArrayList<StatisticHashMap> arrayList = new ArrayList<StatisticHashMap>();
-                    for (int i = 0; i < dataSources.getData().size(); i++) {
-                        StatisticHashMap statisticHashMap = new StatisticHashMap();
-                        statisticHashMap.put(YanXiuConstant.eventID, "20:event_3");//3:提交练习/作业
-                        HashMap reserveHashMap = new HashMap();
-
-                        reserveHashMap.put(YanXiuConstant.editionID, dataSources.getData().get(i).getBedition());
-                        reserveHashMap.put(YanXiuConstant.gradeID, String.valueOf(dataSources.getData().get(i).getGradeid()));
-                        reserveHashMap.put(YanXiuConstant.subjectID, String.valueOf(dataSources.getData().get(i).getSubjectid()));
-                        reserveHashMap.put(YanXiuConstant.paperType, String.valueOf(comeFrom));
-                        reserveHashMap.put(YanXiuConstant.quesNum, String.valueOf(dataSources.getData().get(i).getQuesnum()));
-                        String questionId = "[";
-                        for (int j = 0; j < dataSources.getData().get(i).getPaperTest().size(); j++) {
-                            questionId = questionId + "\"" + dataSources.getData().get(i).getPaperTest().get(j).getQid() + "\"" + ",";
-                        }
-                        questionId = questionId.substring(0, questionId.lastIndexOf(",")) + "]";
-                        reserveHashMap.put(YanXiuConstant.qID, questionId);
-                        statisticHashMap.put(YanXiuConstant.reserved, Util.hashMapToJsonTwo(reserveHashMap));
-                        arrayList.add(statisticHashMap);
-                    }
-                    submitQuestionStatistic(arrayList);
-
-                } else {
-                    if (bean != null && bean.getDesc() != null) {
-                        Util.showToast(bean.getDesc());
-                    } else {
-                        Util.showToast(R.string.server_connection_erro);
-                    }
-                }
+                Message message=Message.obtain();
+                message.what=0;
+                message.obj=result;
+                myhandle.sendMessage(message);
             }
 
 
             @Override
             public void dataError(int type, String msg) {
-                if (TextUtils.isEmpty(msg)) {
-                    //Util.showToast(R.string.server_connection_erro);
-                } else {
-                    //Util.showToast(msg);
-                }
-                submitNetErrorDialog();
-                if (getActivity()==null){
-                    return;
-                }
-                ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).hideDialog();
+                Message message=Message.obtain();
+                message.what=1;
+                message.obj=msg;
+                myhandle.sendMessage(message);
             }
         });
         requestSubmitQuesitonTask.start();
