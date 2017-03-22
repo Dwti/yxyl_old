@@ -341,10 +341,10 @@ public class BaseAnswerViewActivity extends YanxiuBaseActivity implements View.O
 
 
     @Override
-    public void
-    onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        String ss="";
+        ss="1";
     }
-
 
     @Override
     public void onPageSelected(int position) {

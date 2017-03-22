@@ -133,6 +133,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                     if (subjectExercisesItemBeanIntent.getData() != null && subjectExercisesItemBeanIntent.getData().size() > 0) {
                         subjectExercisesItemBeanIntent.getData().get(0).setName("");
                     }
+                    subjectExercisesItemBeanIntent.getData().get(0).setPaperTest(wrongAllListAdapter.getList());
                     if (list != null && list.size() > 0 && position>0 && position-1 < list.size()) {
                         WrongAnswerViewActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, subjectId, pageIndex, list.get(position-1).getQuestions().getChildPageIndex(), YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position-1);
                         //ResolutionAnswerViewActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, YanXiuConstant.INTELLI_REPORT);
@@ -473,7 +474,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
         mMistakeCount = mMistakeCount - 1;
         wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mMistakeCount+""));
         pageIndex = 1;
-        requestMistakeAllList(true, false, false);
+//        requestMistakeAllList(true, false, false);
         requestMistakeNumber();
     }
 
