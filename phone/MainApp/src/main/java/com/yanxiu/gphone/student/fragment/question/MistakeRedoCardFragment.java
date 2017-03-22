@@ -1,6 +1,5 @@
 package com.yanxiu.gphone.student.fragment.question;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,10 +15,6 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.MistakeRedoActivity;
 import com.yanxiu.gphone.student.adapter.MistakeRedoCardAdapter;
 import com.yanxiu.gphone.student.bean.MistakeRedoCardBean;
-import com.yanxiu.gphone.student.view.MyBoldTextView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Canghaixiao.
@@ -45,6 +40,7 @@ public class MistakeRedoCardFragment extends Fragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.activity_mistakeredocard,container,false);
+        view.setOnClickListener(this);
         initView(view);
         initData();
         listener();

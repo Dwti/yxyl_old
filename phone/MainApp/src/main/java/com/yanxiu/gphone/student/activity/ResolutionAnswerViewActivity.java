@@ -83,6 +83,7 @@ public class ResolutionAnswerViewActivity extends BaseAnswerViewActivity {
             ivAnswerCard.setOnClickListener(this);
             ivAnswerCard.setBackgroundResource(R.drawable.selector_answer_uncollection);
             ivAnswerCard.setVisibility(View.GONE);
+            answer_view_type.setBackgroundResource(R.drawable.answer_report);
             setViewPagerPosition(pagerIndex, childIndex);
 
         }
