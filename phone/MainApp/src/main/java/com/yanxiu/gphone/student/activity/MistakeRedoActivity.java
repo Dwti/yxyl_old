@@ -141,10 +141,7 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
                 if (dialog==null){
                     initPopup();
                 }else {
-                    dialog.setStageDialogCallBack(back);
-                    List<PaperTestEntity> list=dataSources.getData().get(0).getPaperTest();
-                    dialog.setQuestionNumber(getTatleNumber(list),getRightNumber(list),getFailNumber(list));
-                    dialog.show();
+                    setDialogShow();
                 }
                 break;
         }
@@ -379,12 +376,17 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
             if (dialog == null) {
                 initPopup();
             } else {
-                dialog.show();
-                dialog.setStageDialogCallBack(back);
-                List<PaperTestEntity> list = mistakeRedoAdapter.getDatas();
-                dialog.setQuestionNumber(getTatleNumber(list), getRightNumber(list), getFailNumber(list));
+                setDialogShow();
             }
         }
+    }
+
+    public void setDialogShow(){
+        dialog.setStageDialogCallBack(back);
+        List<PaperTestEntity> list=mistakeRedoAdapter.getDatas();
+        dialog.setQuestionNumber(getTatleNumber(list),getRightNumber(list),getFailNumber(list));
+        dialog.show();
+
     }
 
     private MistakeRedoDialog.StageDialogCallBack back=new MistakeRedoDialog.StageDialogCallBack() {

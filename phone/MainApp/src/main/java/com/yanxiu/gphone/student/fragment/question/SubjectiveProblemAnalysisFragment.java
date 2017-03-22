@@ -111,6 +111,8 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
      **/
     private LinearLayout mLlReportParse;
 
+    private FrameLayout send_wrong;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         this.questionsEntity = (getArguments() != null) ? (QuestionEntity) getArguments().getSerializable("questions") : null;
@@ -151,6 +153,9 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
     }
 
     private void initView() {
+
+        send_wrong=(FrameLayout) rootView.findViewById(R.id.send_wrong);
+
         tvKnowledgePoint = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_parse_knowledge_point);
         tvReportParseText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_parse_text);
         tvCorrectionResultText = (YXiuAnserTextView) rootView.findViewById(R.id.correction_result_text);
@@ -365,6 +370,10 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
             ll_note.setVisibility(View.GONE);
             return;
         }
+        if (answerViewTypeBean == SubjectExercisesItemBean.WRONG_SET){
+            send_wrong.setVisibility(View.GONE);
+        }
+
         if(TextUtils.isEmpty(note) && (imagePath == null || imagePath.size() ==0)){
             ll_note_content.setVisibility(View.GONE);
         }else {

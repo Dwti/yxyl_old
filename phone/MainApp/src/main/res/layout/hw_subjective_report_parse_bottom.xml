@@ -452,8 +452,8 @@
     </LinearLayout>
 
     <FrameLayout
+        android:id="@+id/send_wrong"
         android:layout_width="match_parent"
-        android:visibility="gone"
         android:layout_height="@dimen/dimen_85">
 
         <TextView
