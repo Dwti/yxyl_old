@@ -109,7 +109,6 @@ public abstract class SpanReplaceableTextView<T extends View> extends FrameLayou
 
     protected void replaceSpanWithView(Spanned spannedStr) {
         if (spannedStr == null) {
-            mIsReplaceCompleted = true;
             return;
         }
         for (EmptySpan emptySpan : mEmptySpans) {

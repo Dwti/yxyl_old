@@ -436,6 +436,7 @@ public class AnswerCardFragment extends Fragment implements View.OnClickListener
         }
         if (AnswerCardFragment.this.getActivity() instanceof AnswerViewActivity) {
             ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).calculateLastQuestionTime();
+            ((AnswerViewActivity) AnswerCardFragment.this.getActivity()).setQuestionCostTime();
         }
         long endtime = System.currentTimeMillis();
         final long groupStartTime = dataSources.getData().get(0).getBegintime();

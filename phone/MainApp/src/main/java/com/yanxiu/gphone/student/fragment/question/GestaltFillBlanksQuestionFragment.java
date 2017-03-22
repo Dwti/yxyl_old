@@ -153,6 +153,14 @@ public class GestaltFillBlanksQuestionFragment extends BaseQuestionFragment impl
         adapter.setViewPager(vpAnswer);
     }
 
+    @Override
+    public void calculateAndSetCostTime() {
+        try {
+            BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getmFragments().get(vpAnswer.getCurrentItem());
+            fragment.calculateAndSetCostTime();
+        }catch (Exception e){}
+    }
+
     public void onEventMainThread(ChildIndexEvent event) {
         if (event != null && vpAnswer != null) {
 //            String msg = "onEventMainThread收到了消息：" + event.getIndex();

@@ -192,6 +192,7 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
         @Override
         public void onFail(UploadImageBean bean) {
             dismissLoadingDialog();
+            ToastMaster.showShortToast(NoteEditActivity.this, "保存失败，请检查网络后重试");
         }
 
         @Override

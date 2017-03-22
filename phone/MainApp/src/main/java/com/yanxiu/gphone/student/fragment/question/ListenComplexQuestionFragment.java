@@ -571,6 +571,14 @@ public class ListenComplexQuestionFragment extends BaseQuestionFragment implemen
     }
 
     @Override
+    public void calculateAndSetCostTime() {
+        try {
+            BaseQuestionFragment fragment= (BaseQuestionFragment) adapter.getmFragments().get(vpAnswer.getCurrentItem());
+            fragment.calculateAndSetCostTime();
+        }catch (Exception e){}
+    }
+
+    @Override
     public void setRefresh() {
         super.setRefresh();
     }
