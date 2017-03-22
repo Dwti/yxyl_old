@@ -96,6 +96,7 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
     private void saveData() {
         if(!NetWorkTypeUtils.isNetAvailable()){
             ToastMaster.showShortToast(this,"网络未连接，请检查后重试");
+            return;
         }
         localPhotoPath.clear();
         mHttpPath.clear();

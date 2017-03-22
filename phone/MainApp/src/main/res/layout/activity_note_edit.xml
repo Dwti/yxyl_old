@@ -76,6 +76,7 @@
                 android:padding="10dp"
                 android:maxLength="500"
                 android:textSize="@dimen/note_text_size"
+                android:hint="请编辑笔记内容(500字以内)..."
                 android:textColor="@color/color_black"
                 android:background="@drawable/shape_rect"/>
 
