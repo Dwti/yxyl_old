@@ -137,7 +137,6 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
         }
     }
 
-
     private void setData(PaperTestEntity entity,ViewHolder holder) {
         if (entity != null && entity.getQuestions() != null) {
             int typeId = entity.getQuestions().getType_id();
