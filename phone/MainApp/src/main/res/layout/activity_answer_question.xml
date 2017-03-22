@@ -39,7 +39,7 @@
                           android:id="@+id/tv_top_title"
                           android:gravity="center"
                           android:layout_marginLeft="@dimen/dimen_52"
-                          android:textSize="@dimen/dimen_20"
+                          android:textSize="@dimen/dimen_18"
                           android:textColor="@color/color_white" />
 
             </LinearLayout>
