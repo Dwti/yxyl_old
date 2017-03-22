@@ -1,18 +1,18 @@
-package com.example.settingproblemssystem.activity;
+package com.example.settingproblemssystem.ui;
 
 import android.app.Activity;
 import android.content.Intent;
 
 /**
  * Created by Canghaixiao.
- * Time : 2017/3/21 17:27.
+ * Time : 2017/3/21 15:56.
  * Function :
  */
 
-public class CompQuestionActivity extends BaseActivity {
+public class QuestionListActivity extends BaseActivity {
 
     public static void lunch(Activity activity){
-        Intent intent=new Intent(activity,CompQuestionActivity.class);
+        Intent intent=new Intent(activity,QuestionListActivity.class);
         activity.startActivityForResult(intent,RESULT_OK);
     }
 
