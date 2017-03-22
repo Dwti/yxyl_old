@@ -1,4 +1,4 @@
-package com.example.settingproblemssystem.ui;
+package com.example.settingproblemssystem.activity;
 
 import android.content.Context;
 import android.content.Intent;
