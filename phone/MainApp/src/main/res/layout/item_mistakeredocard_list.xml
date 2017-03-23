@@ -27,6 +27,7 @@
             android:layout_marginRight="@dimen/dimen_10"
             android:textSize="@dimen/dimen_20"
             android:textStyle="bold"
+            android:textColor="@color/color_805500"
             android:text="2016.9" />
 
         <ImageView
