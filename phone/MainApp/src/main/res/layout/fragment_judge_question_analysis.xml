@@ -13,7 +13,7 @@
                 android:layout_height="match_parent"
                 android:layout_above="@+id/fra_sub_or_del"
                 android:layout_below="@id/rl_top"
-                android:paddingBottom="@dimen/dimen_10">
+                android:paddingBottom="@dimen/dimen_30">
 
         <RelativeLayout android:layout_width="match_parent"
                         android:layout_height="match_parent" >
