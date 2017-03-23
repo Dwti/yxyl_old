@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.settingproblemssystem.Bean.SettingProbBean;
+import com.example.settingproblemssystem.R;
 
 /**
  * Created by Canghaixiao.
@@ -24,7 +25,7 @@ public class WebViewActivity extends BaseActivity {
 
     @Override
     protected int getContentViewId() {
-        return 0;
+        return R.layout.activity_webview;
     }
 
     @Override

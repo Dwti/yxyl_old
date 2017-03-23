@@ -3,6 +3,8 @@ package com.example.settingproblemssystem.activity;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.example.settingproblemssystem.R;
+
 /**
  * Created by Canghaixiao.
  * Time : 2017/3/21 15:56.
@@ -18,7 +20,7 @@ public class QuestionListActivity extends BaseActivity {
 
     @Override
     protected int getContentViewId() {
-        return 0;
+        return R.layout.activity_questionlist;
     }
 
     @Override

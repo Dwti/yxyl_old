@@ -7,7 +7,7 @@
         android:supportsRtl="true">
         <activity
             android:name="com.example.settingproblemssystem.activity.SettingProbActivity"
-            android:theme="@style/MyTheme"
+            android:theme="@style/MyTheme_Setting"
             android:label="@string/system_redo"
             android:screenOrientation="portrait" />
 

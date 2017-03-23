@@ -360,6 +360,11 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                         }
                         updateUI();
                     } else {
+                        if (isRefresh){
+                            dataList.clear();
+                            exercisesList.clear();
+                            updateUI();
+                        }
 //                        rootView.dataNull(getResources().getString(R.string.no_group_hw_list_tip));
 //                    noCommentView.setVisibility(View.VISIBLE;);
                     }
