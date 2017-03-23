@@ -117,8 +117,10 @@ public class JudgeQuestionsItem extends AbsChoiceQuestionsItem implements View.O
         setChecked(true);
         switch (judgeType) {
             case RIGHT:
-                llParentBg.setBackgroundResource(R.drawable.selector_judge_correct);
-                setShadow(Color.parseColor("#006666"),Color.parseColor("#33ffff"));
+//                llParentBg.setBackgroundResource(R.drawable.selector_judge_correct);
+//                setShadow(Color.parseColor("#006666"),Color.parseColor("#33ffff"));
+                llParentBg.setBackgroundResource(R.drawable.selector_judge_item);
+                setShadow(Color.parseColor("#805500"),Color.parseColor("#ffff99"));
                 break;
             case WRONG:
                 /**
@@ -126,12 +128,18 @@ public class JudgeQuestionsItem extends AbsChoiceQuestionsItem implements View.O
                  * */
 //                llParentBg.setBackgroundResource(R.drawable.selector_judge_wrong);
 //                setShadow(Color.parseColor("#80334d"),Color.parseColor("#ffe5ee"));
-                llParentBg.setBackgroundResource(R.drawable.selector_judge_correct);
-                setShadow(Color.parseColor("#006666"),Color.parseColor("#33ffff"));
+                llParentBg.setBackgroundResource(R.drawable.selector_judge_item);
+                setShadow(Color.parseColor("#805500"),Color.parseColor("#ffff99"));
                 break;
         }
-        ivChoiceIcon.setVisibility(View.VISIBLE);
-        ivChoiceIcon.setBackgroundResource(R.drawable.judge_wrong);
+//        ivChoiceIcon.setVisibility(View.VISIBLE);
+//        ivChoiceIcon.setBackgroundResource(R.drawable.judge_wrong);
+    }
+
+
+    public void setDefult(){
+        llParentBg.setBackgroundResource(R.drawable.selector_judge_item);
+        setShadow(Color.parseColor("#805500"),Color.parseColor("#ffff99"));
     }
 
     /**
@@ -140,8 +148,10 @@ public class JudgeQuestionsItem extends AbsChoiceQuestionsItem implements View.O
         setChecked(true);
         switch (judgeType) {
             case RIGHT:
-                llParentBg.setBackgroundResource(R.drawable.selector_judge_correct);
-                setShadow(Color.parseColor("#006666"),Color.parseColor("#33ffff"));
+//                llParentBg.setBackgroundResource(R.drawable.selector_judge_correct);
+//                setShadow(Color.parseColor("#006666"),Color.parseColor("#33ffff"));
+                llParentBg.setBackgroundResource(R.drawable.selector_judge_item);
+                setShadow(Color.parseColor("#805500"),Color.parseColor("#ffff99"));
                 break;
             case WRONG:
                 /**
@@ -149,12 +159,12 @@ public class JudgeQuestionsItem extends AbsChoiceQuestionsItem implements View.O
                  * */
 //                llParentBg.setBackgroundResource(R.drawable.selector_judge_wrong);
 //                setShadow(Color.parseColor("#80334d"),Color.parseColor("#ffe5ee"));
-                llParentBg.setBackgroundResource(R.drawable.selector_judge_correct);
-                setShadow(Color.parseColor("#006666"),Color.parseColor("#33ffff"));
+                llParentBg.setBackgroundResource(R.drawable.selector_judge_item);
+                setShadow(Color.parseColor("#805500"),Color.parseColor("#ffff99"));
                 break;
         }
-        ivChoiceIcon.setVisibility(View.VISIBLE);
-        ivChoiceIcon.setBackgroundResource(R.drawable.judge_correct);
+//        ivChoiceIcon.setVisibility(View.VISIBLE);
+//        ivChoiceIcon.setBackgroundResource(R.drawable.judge_correct);
     }
 
     public void setSelectedHalfRight(){
@@ -164,6 +174,26 @@ public class JudgeQuestionsItem extends AbsChoiceQuestionsItem implements View.O
         ivChoiceIcon.setBackgroundResource(R.drawable.judge_correct);
     }
 
+
+    public void setselectedRights(){
+        llParentBg.setBackgroundResource(R.drawable.selector_judge_correct);
+        setShadow(Color.parseColor("#006666"),Color.parseColor("#33ffff"));
+    }
+
+    public void setselecteds(){
+        llParentBg.setBackgroundResource(R.drawable.selector_judge_correct);
+        setShadow(Color.parseColor("#006666"),Color.parseColor("#33ffff"));
+    }
+
+    public void setItemRight(){
+        ivChoiceIcon.setVisibility(View.VISIBLE);
+        ivChoiceIcon.setBackgroundResource(R.drawable.judge_correct);
+    }
+
+    public void setItemWronglist(){
+        ivChoiceIcon.setVisibility(View.VISIBLE);
+        ivChoiceIcon.setBackgroundResource(R.drawable.judge_wrong);
+    }
 
     /**
      * 设置选中状态

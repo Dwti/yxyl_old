@@ -219,7 +219,9 @@
             android:id="@+id/view_sub_difficulty_star"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_20"
+            android:layout_marginTop="@dimen/dimen_18"
+            android:layout_marginRight="@dimen/dimen_20"
+            android:layout_marginLeft="@dimen/dimen_20"
             app:maxNumStar="5" />
 
         <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
@@ -269,10 +271,9 @@
             android:id="@+id/hw_report_answer_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dimen_10"
-            android:layout_marginLeft="@dimen/dimen_22"
+            android:layout_marginLeft="@dimen/dimen_20"
             android:layout_marginRight="@dimen/dimen_10"
-            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_18"
             android:background="@drawable/question_read_content_bg"
             android:textColor="@color/color_ff323232"
             android:textSize="@dimen/dimen_15" />
@@ -311,8 +312,9 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dimen_12"
-            android:padding="@dimen/dimen_10">
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_marginRight="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_18">
 
             <RelativeLayout
                 android:layout_width="match_parent"
