@@ -836,16 +836,16 @@ public class AnswerReportActivity extends YanxiuBaseActivity implements View.OnC
                 holder = (ViewHolder) row.getTag();
             }
 
-            holder.flContent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-                @Override
-                public void onGlobalLayout() {
-                    holder.flContent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    int width=holder.flContent.getWidth();
-                    AbsListView.LayoutParams params=new AbsListView.LayoutParams(width,width);
-                    holder.flContent.setLayoutParams(params);
-                }
-            });
+//            holder.flContent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//                @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+//                @Override
+//                public void onGlobalLayout() {
+//                    holder.flContent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//                    int width=holder.flContent.getWidth();
+//                    AbsListView.LayoutParams params=new AbsListView.LayoutParams(width,width);
+//                    holder.flContent.setLayoutParams(params);
+//                }
+//            });
 
             if (YanXiuConstant.ANSWER_QUESTION.equals(data.getTemplate())) {                //如果是主观题
                 if (answerBean.getRealStatus() == AnswerBean.ANSER_READED) {                                   //如果已批改
