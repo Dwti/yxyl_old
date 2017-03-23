@@ -13,13 +13,12 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/rl_top"
-        android:layout_marginBottom="@dimen/dimen_10">
+        android:layout_below="@id/rl_top">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/dimen_10">
+            android:paddingBottom="@dimen/dimen_30">
 
             <LinearLayout
                 android:id="@+id/ll_answer_content"

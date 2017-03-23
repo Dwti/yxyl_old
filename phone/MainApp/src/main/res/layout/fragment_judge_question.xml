@@ -15,8 +15,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/rl_top"
         android:fillViewport="true"
-        android:layout_above="@+id/fra_sub_or_del"
-        android:paddingBottom="@dimen/dimen_10">
+        android:layout_above="@+id/fra_sub_or_del">
 
         <LinearLayout
             android:layout_width="match_parent"
