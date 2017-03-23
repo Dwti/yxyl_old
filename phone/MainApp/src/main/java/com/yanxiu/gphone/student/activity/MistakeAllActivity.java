@@ -153,7 +153,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
 
         linear_number= (RelativeLayout) findViewById(R.id.linear_number);
         mistake_number= (Button) findViewById(R.id.mistake_number);
-        if (title.equals(getResources().getString(R.string.mistake_redo_math))||title.equals(getResources().getString(R.string.mistake_redo_english))){
+//        if (title.equals(getResources().getString(R.string.mistake_redo_math))||title.equals(getResources().getString(R.string.mistake_redo_english))){
             requestMistakeNumber();
             mistake_number.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -167,9 +167,9 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                     }
                 }
             });
-        }else {
-            linear_number.setVisibility(View.GONE);
-        }
+//        }else {
+//            linear_number.setVisibility(View.GONE);
+//        }
     }
 
     private void MistakeNumClick(){
