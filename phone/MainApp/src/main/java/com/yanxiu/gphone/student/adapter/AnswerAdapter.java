@@ -752,6 +752,4 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
         super.setPrimaryItem(container, position, object);
     }
 
-
-
 }
