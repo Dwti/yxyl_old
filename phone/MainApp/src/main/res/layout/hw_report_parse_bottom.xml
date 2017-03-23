@@ -486,7 +486,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/note_text_size"
-                android:textColor="@color/color_black"/>
+                android:textColor="#333333"/>
 
             <com.yanxiu.gphone.student.view.picsel.NoScrollGridView
                 android:id="@+id/grid_note_image"
