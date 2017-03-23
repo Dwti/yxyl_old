@@ -717,39 +717,4 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
         this.comeFrom = comeFrom;
     }
 
-    @Override
-    public void startUpdate(ViewGroup container) {
-        super.startUpdate(container);
-    }
-
-    @Override
-    public void finishUpdate(ViewGroup container) {
-        super.finishUpdate(container);
-    }
-
-    @Override
-    public Parcelable saveState() {
-        return super.saveState();
-    }
-
-    @Override
-    public void restoreState(Parcelable state, ClassLoader loader) {
-        super.restoreState(state, loader);
-    }
-
-    @Override
-    public void registerDataSetObserver(DataSetObserver observer) {
-        super.registerDataSetObserver(observer);
-    }
-
-    @Override
-    public void unregisterDataSetObserver(DataSetObserver observer) {
-        super.unregisterDataSetObserver(observer);
-    }
-
-    @Override
-    public void setPrimaryItem(ViewGroup container, int position, Object object) {
-        super.setPrimaryItem(container, position, object);
-    }
-
 }
