@@ -307,61 +307,76 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                     listView.stopLoadMore();
 
                     mSubjectExercisesItemBean = (SubjectExercisesItemBean) result;
-                    wrongNumView.setVisibility(View.VISIBLE);
-                    wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mSubjectExercisesItemBean.getPage().getTotalCou()+""));
-                    mMistakeCount=mSubjectExercisesItemBean.getPage().getTotalCou();
+                    if (mSubjectExercisesItemBean.getData()!=null&&mSubjectExercisesItemBean.getPage()!=null) {
+                        wrongNumView.setVisibility(View.VISIBLE);
+                        wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mSubjectExercisesItemBean.getPage().getTotalCou() + ""));
+                        mMistakeCount = mSubjectExercisesItemBean.getPage().getTotalCou();
 
-                    QuestionUtils.settingAnswer(mSubjectExercisesItemBean);
-                    QuestionUtils.initDataWithAnswer(mSubjectExercisesItemBean);
+                        QuestionUtils.settingAnswer(mSubjectExercisesItemBean);
+                        QuestionUtils.initDataWithAnswer(mSubjectExercisesItemBean);
 
-                    ArrayList<ExercisesDataEntity> exerciseData = mSubjectExercisesItemBean.getData();
-                    List<PaperTestEntity> data = new ArrayList<PaperTestEntity>();
-                    for (int i = 0; i < exerciseData.size(); i++) {
-                        data.addAll(exerciseData.get(i).getPaperTest());
-                    }
+                        ArrayList<ExercisesDataEntity> exerciseData = mSubjectExercisesItemBean.getData();
+                        List<PaperTestEntity> data = new ArrayList<PaperTestEntity>();
+                        for (int i = 0; i < exerciseData.size(); i++) {
+                            data.addAll(exerciseData.get(i).getPaperTest());
+                        }
 
-                    QuestionUtils.CleanData(data);
+                        QuestionUtils.CleanData(data);
 
-                    if (isLoaderMore) {
-//                        pageIndex += 1;
-                    } else if (isRefresh) {
-//                        pageIndex = 1;
-                        dataList.clear();
-                        exercisesList.clear();
-                    }
-
-                    if (data != null && data.size() > 0) {
                         if (isLoaderMore) {
-                            pageIndex += 1;
+//                        pageIndex += 1;
                         } else if (isRefresh) {
-                            pageIndex = 1;
+//                        pageIndex = 1;
+                            dataList.clear();
+                            exercisesList.clear();
+                        }
+
+                        if (data != null && data.size() > 0) {
+                            if (isLoaderMore) {
+                                pageIndex += 1;
+                            } else if (isRefresh) {
+                                pageIndex = 1;
 //                            dataList.clear();
 //                            exercisesList.clear();
-                        }
-                        if (exercisesList.size() != 0) {
-                            exercisesList.get(0).getPaperTest().addAll(exerciseData.get(0).getPaperTest());
-                        } else {
-                            exercisesList.addAll(exerciseData);
-                        }
-                        //
-
-                        subjectExercisesItemBeanIntent.setData(exercisesList);
-                        //subjectExercisesItemBeanIntent.getData().get(0).getPaperTest().addAll(exerciseData.get(0).getPaperTest());
-                        dataList.addAll(data);
-                        YanxiuPageInfoBean pageBean = mSubjectExercisesItemBean.getPage();
-                        if (pageBean != null) {
-                            if (pageIndex == pageBean.getTotalPage()) {
-                                listView.setPullLoadEnable(false);
-                            } else {
-                                listView.setPullLoadEnable(true);
                             }
+                            if (exercisesList.size() != 0) {
+                                exercisesList.get(0).getPaperTest().addAll(exerciseData.get(0).getPaperTest());
+                            } else {
+                                exercisesList.addAll(exerciseData);
+                            }
+                            //
+
+                            subjectExercisesItemBeanIntent.setData(exercisesList);
+                            //subjectExercisesItemBeanIntent.getData().get(0).getPaperTest().addAll(exerciseData.get(0).getPaperTest());
+                            dataList.addAll(data);
+                            YanxiuPageInfoBean pageBean = mSubjectExercisesItemBean.getPage();
+                            if (pageBean != null) {
+                                if (pageIndex == pageBean.getTotalPage()) {
+                                    listView.setPullLoadEnable(false);
+                                } else {
+                                    listView.setPullLoadEnable(true);
+                                }
+                            } else {
+                                listView.setPullLoadEnable(false);
+                            }
+                            updateUI();
                         } else {
-                            listView.setPullLoadEnable(false);
-                        }
-                        updateUI();
-                    } else {
+                            if (isRefresh) {
+//                                dataList.clear();
+//                                exercisesList.clear();
+//                                updateUI();
+                                MistakeAllActivity.this.finish();
+                            }
 //                        rootView.dataNull(getResources().getString(R.string.no_group_hw_list_tip));
 //                    noCommentView.setVisibility(View.VISIBLE;);
+                        }
+                    }else {
+                        if (isRefresh) {
+//                            dataList.clear();
+//                            exercisesList.clear();
+//                            updateUI();
+                            MistakeAllActivity.this.finish();
+                        }
                     }
 
                 }
