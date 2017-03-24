@@ -111,36 +111,36 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
                 Util.showToast(R.string.public_loading_net_null_errtxt);
                 return;
             }
-//            deleteAction = true;
-//            Util.showToast(R.string.mistake_question_del_done);
-//            PublicErrorQuestionCollectionBean.updateDelData(questionId);
-//            MistakeCountBean mistakeCountBean = new MistakeCountBean();
-//            EventBus.getDefault().post(mistakeCountBean);
-//            deleteCell(v, position);
+            deleteAction = true;
+            Util.showToast(R.string.mistake_question_del_done);
+            PublicErrorQuestionCollectionBean.updateDelData(questionId);
+            MistakeCountBean mistakeCountBean = new MistakeCountBean();
+            EventBus.getDefault().post(mistakeCountBean);
+            deleteCell(v, position);
 
-            //mRootView.loading(true);
-            RequestDelMistakeTask.requestTask(mContext, questionId, new AsyncCallBack() {
-                @Override
-                public void update(YanxiuBaseBean result) {
-                    //mRootView.finish();
-                    deleteAction = true;
-                    Util.showToast(R.string.mistake_question_del_done);
-                    PublicErrorQuestionCollectionBean.updateDelData(questionId);
-                    MistakeCountBean mistakeCountBean = new MistakeCountBean();
-                    EventBus.getDefault().post(mistakeCountBean);
-                    deleteCell(v, position);
-                }
-
-                @Override
-                public void dataError(int type, String msg) {
-                    //mRootView.finish();
-                    if (!TextUtils.isEmpty(msg)) {
-                        Util.showToast(msg);
-                    } else {
-                        Util.showToast(R.string.mistake_question_del_failed);
-                    }
-                }
-            });
+//            //mRootView.loading(true);
+//            RequestDelMistakeTask.requestTask(mContext, questionId, new AsyncCallBack() {
+//                @Override
+//                public void update(YanxiuBaseBean result) {
+//                    //mRootView.finish();
+//                    deleteAction = true;
+//                    Util.showToast(R.string.mistake_question_del_done);
+//                    PublicErrorQuestionCollectionBean.updateDelData(questionId);
+//                    MistakeCountBean mistakeCountBean = new MistakeCountBean();
+//                    EventBus.getDefault().post(mistakeCountBean);
+//                    deleteCell(v, position);
+//                }
+//
+//                @Override
+//                public void dataError(int type, String msg) {
+//                    //mRootView.finish();
+//                    if (!TextUtils.isEmpty(msg)) {
+//                        Util.showToast(msg);
+//                    } else {
+//                        Util.showToast(R.string.mistake_question_del_failed);
+//                    }
+//                }
+//            });
         }
     }
 

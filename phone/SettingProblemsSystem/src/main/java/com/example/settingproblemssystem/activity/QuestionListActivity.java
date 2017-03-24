@@ -2,6 +2,9 @@ package com.example.settingproblemssystem.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 
 import com.example.settingproblemssystem.R;
 
@@ -12,6 +15,9 @@ import com.example.settingproblemssystem.R;
  */
 
 public class QuestionListActivity extends BaseActivity {
+
+    private Toolbar tool_que_title;
+    private RecyclerView recy_que_list;
 
     public static void lunch(Activity activity){
         Intent intent=new Intent(activity,QuestionListActivity.class);
@@ -25,7 +31,9 @@ public class QuestionListActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        tool_que_title= (Toolbar) findViewById(R.id.tool_que_title);
+        recy_que_list= (RecyclerView) findViewById(R.id.recy_que_list);
+        recy_que_list.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override

@@ -12,17 +12,18 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:paddingLeft="@dimen/dimen_20"
         android:layout_below="@+id/rl_top"
         android:layout_above="@+id/fra_sub_or_del"
         android:fillViewport="true">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingRight="@dimen/dimen_10"
-            android:paddingBottom="@dimen/dimen_30">
+            android:paddingBottom="@dimen/dimen_30"
+            android:orientation="vertical">
 
             <FrameLayout
                 android:id="@+id/ll_answer"
@@ -47,7 +48,7 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/connect_lineslinearlayout">
 
                 <com.yanxiu.gphone.student.view.YanxiuTypefaceButton
@@ -60,9 +61,9 @@
             <FrameLayout
                 android:id="@+id/content_problem_analysis"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_below="@+id/connect_lineslinearlayout" />
-        </RelativeLayout>
+        </LinearLayout>
 
     </ScrollView>
 

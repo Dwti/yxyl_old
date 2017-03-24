@@ -160,6 +160,7 @@ public class ConnectFragment extends BaseQuestionFragment implements PageIndex {
                                 checkTheAnswer();
                                 fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_SUBMIT);
                                 FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
+//                                getChildFragmentManager().executePendingTransactions();
                                 break;
                             case SubmitOrDeleteFragment.TYPE_DELETE:
                                 questionsEntity.setType(QuestionEntity.TYPE_DELETE_END);
