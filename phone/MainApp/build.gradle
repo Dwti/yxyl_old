@@ -11,8 +11,8 @@ android {
         applicationId "com.yanxiu.gphone.student"
         minSdkVersion 16
         targetSdkVersion 21
-        versionCode 19
-        versionName "2.3.7"
+        versionCode 20
+        versionName "2.4"
         multiDexEnabled true//multiDexEnabled true
 
         buildConfigField "boolean", "YANXIU_DEBUG", "${yanxiu_debug}"
