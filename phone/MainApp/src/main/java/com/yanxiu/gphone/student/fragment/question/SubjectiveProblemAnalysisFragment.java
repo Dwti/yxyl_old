@@ -293,7 +293,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
 
             if (questionsEntity.getPad() != null && questionsEntity.getPad().getTeachercheck() != null && questionsEntity.getPad().getStatus() == AnswerBean.ANSER_READED) {
                 //如果是主观类型的填空题，只显示正确、错误或未批改，不显示得分
-                if (questionsEntity.getType_id() == YanXiuConstant.QUESTION_TYP.QUESTION_FILL_BLANKS.type) {
+                if (questionsEntity.getType_id() == YanXiuConstant.QUESTION_TYP.QUESTION_FILL_BLANKS.type||questionsEntity.getType_id() == 16||questionsEntity.getType_id() == 17) {
                     subjectiveStarLayout.setVisibility(View.GONE);
                     tv_result.setVisibility(View.VISIBLE);
                     if (questionsEntity.getPad().getTeachercheck().getScore() == 5) {
