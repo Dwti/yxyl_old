@@ -13,6 +13,8 @@
 
         <activity android:name=".activity.QuestionListActivity"
             android:launchMode="singleInstance"
+            android:theme="@style/MyTheme_Quelist"
+            android:label="@string/question_list"
             android:screenOrientation="portrait"/>
 
         <activity android:name=".activity.WebViewActivity"

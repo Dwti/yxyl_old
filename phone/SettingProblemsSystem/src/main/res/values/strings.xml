@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Setting Problems System</string>
+
     <string name="system_redo">出题</string>
     <string name="problem">前往做题</string>
     <string name="parsing">前往解析</string>
@@ -7,6 +8,11 @@
     <string name="redo">前往重做</string>
     <string name="pc">前往PC</string>
     <string name="add_question">点击添加题目信息</string>
-    <string name="question_name">选择题</string>
     <string name="have_no_question">Please add the question.</string>
+
+    <string name="question_list">错题列表</string>
+
+
+    <string name="question_name">选择题</string>
+
 </resources>

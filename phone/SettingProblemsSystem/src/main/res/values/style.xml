@@ -16,9 +16,11 @@
         <item name="android:textSize">20sp</item>
     </style>
 
-    <style name="MyTheme_Quelist" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="MyTheme_Quelist" parent="Theme.AppCompat.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/color_white</item>
     </style>
 
     <style name="Question_TextView_Style">
