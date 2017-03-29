@@ -355,6 +355,42 @@
             </intent-filter>
         </activity>
 
+        <service android:name=".service.YanxiuIntentService" />
+        <service
+            android:name=".service.YanxiuService"
+            android:exported="true"
+            android:label="PushService"
+            android:process=":pushservice" />
+        <receiver android:name=".receiver.YanxiuPushUpdateReceiver">
+            <intent-filter>
+                <action android:name="com.yanxiu.gphone.student.yanxiu_push_update_receiver" />
+            </intent-filter>
+        </receiver>
+        <!-- 配置第三方Receiver -->
+        <!-- 此处com.getui.demo.PushDemoReceiver，需要替换成开发者自己的BroadcastReceiver文件全名 -->
+        <receiver
+            android:name=".receiver.YanxiuPushReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.${GETUI_APP_ID}" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Translucent">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="wxb6704ac52abcfe4c" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
