@@ -48,20 +48,18 @@
     <!-- 个推3.0电子围栏功能所需权限 -->
     <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
     <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
-    <uses-permission android:name="getui.permission.GetuiService.${GETUI_APP_ID}" />
-    <!--     <uses-permission android:name="getui.permission.GetuiService.com.yanxiu.gphone.student" /> -->
+    <!--<uses-permission android:name="getui.permission.GetuiService.${GETUI_APP_ID}" />-->
+         <uses-permission android:name="getui.permission.GetuiService.com.yanxiu.gphone.student" />
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!-- 自定义权限 -->
-    <permission
-        android:name="getui.permission.GetuiService.${GETUI_APP_ID}"
-        android:protectionLevel="normal" />
+    <!--<permission-->
+        <!--android:name="getui.permission.GetuiService.${GETUI_APP_ID}"-->
+        <!--android:protectionLevel="normal" />-->
 
-    <!--
     <permission
     android:name="getui.permission.GetuiService.com.yanxiu.gphone.student"
     android:protectionLevel="normal"></permission>
-    -->
     <application
         android:name=".YanxiuApplication"
         android:allowBackup="true"

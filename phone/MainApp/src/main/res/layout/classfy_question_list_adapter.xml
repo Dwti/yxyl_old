@@ -1,34 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="@dimen/dimen_110"
-              android:layout_height="match_parent"
-              android:paddingBottom="@dimen/dimen_15"
-          >
-        <LinearLayout
-            android:id="@+id/linear_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/login_and_pwd_selector"
-            android:padding="@dimen/dimen_15"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-        <TextView
+    android:layout_width="@dimen/dimen_110"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/login_and_pwd_selector"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/dimen_15">
+
+        <com.yanxiu.gphone.student.view.UnMoveTextView
             android:id="@+id/classfyQuestionName"
-            android:layout_width="@dimen/dimen_0"
+            android:layout_width="@dimen/dimen_80"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/dimen_15"
             android:gravity="center"
             android:textColor="@color/color_333333"
-            android:layout_weight="3"
-            />
-        <TextView
+            android:textSize="@dimen/dimen_15" />
+
+        <com.yanxiu.gphone.student.view.UnMoveTextView
             android:id="@+id/classfyQuestionNum"
-            android:layout_width="@dimen/dimen_0"
+            android:layout_width="@dimen/dimen_30"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/dimen_15"
             android:gravity="center"
             android:textColor="@color/color_333333"
-            android:layout_weight="1"
-            />
-</LinearLayout>
+            android:textSize="@dimen/dimen_15" />
+    </LinearLayout>
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.settingproblemssystem.Bean;
+package com.example.settingproblemssystem.bean;
 
 import java.io.Serializable;
 

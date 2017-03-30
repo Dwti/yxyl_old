@@ -76,18 +76,13 @@ public class ConnectImageGetter implements ImageGetterListener {
 
         @Override
         protected void onPostExecute(final Drawable result) {
-//            FillBlankImageGetterTrick.this.replaceImage(result,urlDrawable);
             if (result != null) {
                 ConnectImageGetter.this.view.post(new Runnable() {
                     @Override
                     public void run() {
                         urlDrawable.setBounds(0, 0, loadedImageWidth, loadedImageheight);
                         urlDrawable.drawable = result;
-                        /**
-                         * 这里控件高度除以2，原因是图片的问题，最好的办法是替换成合适的切图，这样就不再需要除以2
-                         * */
-                        ConnectImageGetter.this.view.setHeight((ConnectImageGetter.this.view.getHeight()/2 + loadedImageheight));
-//                        ConnectImageGetter.this.view.setHeight((0 + loadedImageheight*2));
+                        ConnectImageGetter.this.view.setHeight((ConnectImageGetter.this.view.getHeight() + loadedImageheight));
                         ConnectImageGetter.this.view.setEllipsize(null);
                         ConnectImageGetter.this.view.requestLayout();
                         ConnectImageGetter.this.view.invalidate();

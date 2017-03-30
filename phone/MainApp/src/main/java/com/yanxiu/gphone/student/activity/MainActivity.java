@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -125,6 +126,7 @@ public class MainActivity extends YanxiuBaseActivity implements View.OnClickList
         judgeToJump(getIntent());
 //        PublicErrorQuestionCollectionBean.createDataForErrorCollection();
         PushManager.getInstance().bindAlias(this.getApplicationContext(), String.valueOf(LoginModel.getUid()));
+        Log.d("getui",String.valueOf(LoginModel.getUid()));
     }
 
     public void judgeToJump(Intent intent) {

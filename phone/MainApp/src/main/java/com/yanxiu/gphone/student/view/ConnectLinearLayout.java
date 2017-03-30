@@ -18,6 +18,8 @@ public class ConnectLinearLayout extends LinearLayout{
     private ConnectTextView textview_right;
     private ConnectLinesLinearLayout.BaseBean bean_left;
     private ConnectLinesLinearLayout.BaseBean bean_right;
+    private LinearLayout llBackgroundLeft;
+    private LinearLayout llBackgroundRight;
 
     public ConnectLinearLayout(Context context) {
         this(context,null);
@@ -37,11 +39,14 @@ public class ConnectLinearLayout extends LinearLayout{
         LayoutInflater.from(context).inflate(R.layout.connect_linearlayout,this);
         textview_left= (ConnectTextView) this.findViewById(R.id.textview_left);
         textview_right= (ConnectTextView) this.findViewById(R.id.textview_right);
+        llBackgroundLeft= (LinearLayout) this.findViewById(R.id.ll_bgtextview_left);
+        llBackgroundRight= (LinearLayout) this.findViewById(R.id.ll_bgtextview_right);
     }
 
     public void setData_left(String text_left, ConnectLinesLinearLayout.BaseBean bean_left){
         this.bean_left=bean_left;
         bean_left.setTextView(textview_left);
+        bean_left.setLayout(llBackgroundLeft);
         textview_left.setHtmlText(text_left);
         textview_left.setBaseBean(bean_left);
     }
@@ -49,6 +54,7 @@ public class ConnectLinearLayout extends LinearLayout{
     public void setData_right(String text_right, ConnectLinesLinearLayout.BaseBean bean_right){
         this.bean_right=bean_right;
         bean_right.setTextView(textview_right);
+        bean_right.setLayout(llBackgroundRight);
         textview_right.setHtmlText(text_right);
         textview_right.setBaseBean(bean_right);
     }
@@ -59,8 +65,8 @@ public class ConnectLinearLayout extends LinearLayout{
     }
 
     public void setBackgroud(int color){
-        textview_left.setBackgroundResource(color);
-        textview_right.setBackgroundResource(color);
+        llBackgroundLeft.setBackgroundResource(color);
+        llBackgroundRight.setBackgroundResource(color);
     }
 
     public void setOnLayoutSuccessListener(OnLayoutSuccessListener successListener){
