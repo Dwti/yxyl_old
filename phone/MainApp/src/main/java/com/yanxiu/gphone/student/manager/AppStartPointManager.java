@@ -48,7 +48,7 @@ public class AppStartPointManager {
         AppStartInfoUploadRequest request = new AppStartInfoUploadRequest();
         List<AppStartInfo> list = new ArrayList<>();
         AppStartInfo startInfo = new AppStartInfo();
-        startInfo.setEventID("20:event_7");  //首次启动
+        startInfo.setEventID("20:event_2");  //每次次启动
         startInfo.setUid(String.valueOf(LoginModel.getUid()));
         list.add(startInfo);
         request.setContent(list);
