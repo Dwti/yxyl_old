@@ -3,6 +3,7 @@ package com.yanxiu.gphone.student.bean;
 import android.os.Build;
 
 import com.common.core.utils.NetWorkTypeUtils;
+import com.google.gson.Gson;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 
@@ -25,4 +26,9 @@ public class ExtraInfo implements YanxiuBaseBean {
         netModel = NetWorkTypeUtils.getNetType();
     }
 
+    @Override
+    public String toString() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    }
 }

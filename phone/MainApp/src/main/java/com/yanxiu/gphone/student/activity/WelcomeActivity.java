@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -17,23 +16,16 @@ import com.common.core.manage.CommonActivityManager;
 import com.common.core.utils.StringUtils;
 import com.common.login.LoginModel;
 import com.common.login.constants.LoginConstants;
-import com.common.login.model.ParentInfoBean;
 //import com.yanxiu.gphone.parent.activity.MainForParentActivity;
 //import com.yanxiu.gphone.parent.contants.YanxiuParentConstants;
 //import com.yanxiu.gphone.parent.jump.utils.ParentActivityJumpUtils;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
-import com.yanxiu.gphone.student.bean.statistics.StatisticsInfoBean;
-import com.yanxiu.gphone.student.bean.statistics.YanXiuDataBase;
-import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
+import com.yanxiu.gphone.student.manager.AppStartPointManager;
 import com.yanxiu.gphone.student.preference.PreferencesManager;
 import com.yanxiu.gphone.student.requestTask.RequestCreateShareIconTask;
-import com.yanxiu.gphone.student.utils.YanXiuConstant;
-import com.yanxiu.gphone.student.utils.statistics.DataBaseManager;
-import com.yanxiu.gphone.student.utils.statistics.DataStatisticsUploadManager;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -87,7 +79,7 @@ public class WelcomeActivity extends YanxiuBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
-        initMAT();
+        initStart();
         launch();
         savaShareIconImage();
     }
@@ -195,8 +187,11 @@ public class WelcomeActivity extends YanxiuBaseActivity {
         }
     }
 
-    private void initMAT() {
-
+    private void initStart() {
+        AppStartPointManager.getInstance().uploadStartInfo();
+        if(PreferencesManager.getInstance().getFristApp()){
+            AppStartPointManager.getInstance().uploadStartInfoFirstInstall();
+        }
     }
 
     @Override

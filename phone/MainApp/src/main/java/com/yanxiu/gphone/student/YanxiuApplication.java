@@ -92,12 +92,6 @@ public class YanxiuApplication extends CommonCoreApplication {
         LogInfo.log("haitian", "DevoceId=" + YanXiuConstant.DEVICEID);
         initParentConstant();
         initUpgradeConstant();
-        if(PreferencesManager.getInstance().getFristApp()){
-//            uploadInitInfo();
-            AppStartPointManager.getInstance().uploadStartInfoFirstInstall();
-        }
-//        startStatistics();
-        AppStartPointManager.getInstance().uploadStartInfo();
         getUrlJson();
 
 
