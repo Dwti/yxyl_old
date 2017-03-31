@@ -14,6 +14,7 @@ import com.yanxiu.gphone.student.HtmlParser.MyHtml;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.ClassfyBean;
 import com.yanxiu.gphone.student.utils.ClassfyImageGetter;
+import com.yanxiu.gphone.student.utils.ClassfyImageGetter2;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 
 import java.util.ArrayList;
@@ -63,7 +64,7 @@ public class ClassfyAnswerPopupAdapter extends BaseAdapter {
         holder.classfyAnswerImg.setVisibility(View.GONE);
         holder.tv_classfyAnswerImg.setVisibility(View.VISIBLE);
 
-        ClassfyImageGetter classfyImageGetter = new ClassfyImageGetter(holder.tv_classfyAnswerImg, mContext);
+        ClassfyImageGetter2 classfyImageGetter = new ClassfyImageGetter2(holder.tv_classfyAnswerImg, mContext);
         Spanned spanned = MyHtml.fromHtml(mContext, mEntity.get(position).getName(), classfyImageGetter, null, null, null);
         holder.tv_classfyAnswerImg.setText(spanned);
         return convertView;

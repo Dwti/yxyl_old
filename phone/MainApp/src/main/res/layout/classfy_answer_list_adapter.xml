@@ -17,6 +17,8 @@
             android:layout_width="@dimen/dimen_classfy_one"
             android:layout_height="@dimen/dimen_classfy_one"
             android:layout_gravity="center"
+            android:includeFontPadding="false"
+            android:gravity="center"
             android:padding="@dimen/dimen_5"
             android:visibility="gone"
             android:background="@drawable/upload_pic" />

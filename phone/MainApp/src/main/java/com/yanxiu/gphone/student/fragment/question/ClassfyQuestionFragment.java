@@ -135,7 +135,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                                 mRemoveBean = classfyItem.get(i);
                                 choiceTmpString = String.valueOf(classfyItem.get(i).getId());
                             }
-                            classfyAnswerAdapter.notifyDataSetChanged();
+//                            classfyAnswerAdapter.notifyDataSetChanged();
                         }
                     });
                 }
@@ -153,13 +153,13 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                             mRemoveBean = classfyItem.get(i);
                             choiceTmpString = String.valueOf(classfyItem.get(i).getId());
                         }
-                        classfyAnswerAdapter.notifyDataSetChanged();
+//                        classfyAnswerAdapter.notifyDataSetChanged();
                     }
                 });
             }
 
         }
-        classfyAnswerAdapter = new ClassfyAnswerAdapter(getActivity());
+        classfyAnswerAdapter = new ClassfyAnswerAdapter(getActivity(),lgClassfyAnswers);
         lgClassfyAnswers.setAdapter(classfyAnswerAdapter);
         classfyPopupWindow = new ClassfyPopupWindow(getActivity());
         classfyPopupWindow.setOnDissmissListener(ClassfyQuestionFragment.this);

@@ -6,6 +6,7 @@ import android.text.Spanned;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.ClassfyBean;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.utils.ClassfyImageGetter;
+import com.yanxiu.gphone.student.utils.ClassfyImageGetter2;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 
 import java.util.ArrayList;
@@ -31,8 +33,10 @@ public class ClassfyAnswerAdapter extends BaseAdapter {
     private Activity mContext;
     private List<ClassfyBean> mEntity = new ArrayList<ClassfyBean>();
     private int clickTemp = -1;//标识被选择的item
-    public ClassfyAnswerAdapter(Activity context) {
+    private GridView gridView;
+    public ClassfyAnswerAdapter(Activity context, GridView gridView) {
         mContext = context;
+        this.gridView=gridView;
         options = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)                        // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true)                       // 设置下载的图片是否缓存在SD卡中
@@ -66,7 +70,7 @@ public class ClassfyAnswerAdapter extends BaseAdapter {
 //            ImageLoader.getInstance().displayImage(matcher.group(1), holder.classfyAnswerImg, options);
 //        }
 
-        ClassfyImageGetter classfyImageGetter = new ClassfyImageGetter(holder.tv_classfyAnswerImg, mContext);
+        ClassfyImageGetter2 classfyImageGetter = new ClassfyImageGetter2(holder.tv_classfyAnswerImg, mContext);
         Spanned spanned = MyHtml.fromHtml(mContext, mEntity.get(position).getName(), classfyImageGetter, null, null, null);
         holder.tv_classfyAnswerImg.setText(spanned);
         if(clickTemp == position) {    //根据点击的Item当前状态设置背景
@@ -98,7 +102,33 @@ public class ClassfyAnswerAdapter extends BaseAdapter {
     }
 
     public void setSeclection(int posiTion) {
+        int vis_fir_posi=gridView.getFirstVisiblePosition();
+        int vis_la_posi=gridView.getLastVisiblePosition();
+        if (clickTemp>vis_fir_posi-1&&clickTemp<vis_la_posi+1){
+            setBG(vis_fir_posi,false);
+        }
         clickTemp = posiTion;
+        if (posiTion!=-1){
+            setBG(vis_fir_posi,true);
+        }
+    }
+
+    private void setBG(int start,boolean isSelect){
+
+            View view=null;
+            try {
+                view=gridView.getChildAt(clickTemp-start);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            if (view!=null){
+                if (isSelect){
+                    view.setAlpha(0.5f);
+                }else {
+                    view.setAlpha(1f);
+                }
+            }
+
     }
 
 }
