@@ -1,4 +1,4 @@
-package com.example.settingproblemssystem.Utils;
+package com.example.settingproblemssystem.utils;
 
 /**
  * Created by Canghaixiao.
