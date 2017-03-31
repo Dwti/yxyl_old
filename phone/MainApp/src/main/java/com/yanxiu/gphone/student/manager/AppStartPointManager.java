@@ -76,7 +76,6 @@ public class AppStartPointManager {
 
     public void queryAndUploadData() {
         List<AppStartInfo> datas = DataSupport.findAll(AppStartInfo.class);
-        Log.i("startinfo", "size:" + datas.size());
         StringBuilder sb = new StringBuilder();
         for (AppStartInfo info : datas) {
             sb.append(info.toString());
@@ -102,12 +101,10 @@ public class AppStartPointManager {
 
         @Override
         public void onSuccess(RequestBase request, AppStartInfoResponse response) {
-            Log.i("startinfo", response.toString());
         }
 
         @Override
         public void onFail(RequestBase request, Error error) {
-            Log.i("startinfo", "failed");
         }
     }
 
@@ -119,12 +116,10 @@ public class AppStartPointManager {
                 mTempFile.delete();
             if (response != null && "ok".equals(response.getResult()))
                 DataSupport.deleteAll(AppStartInfo.class);
-            Log.i("startupload", response.getResult());
         }
 
         @Override
         public void onFail(RequestBase request, Error error) {
-            Log.i("startupload", error.toString());
         }
     }
 }
