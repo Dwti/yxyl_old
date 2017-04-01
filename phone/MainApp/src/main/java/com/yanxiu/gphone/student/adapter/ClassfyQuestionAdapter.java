@@ -13,9 +13,11 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.common.core.view.UnMoveGridView;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectVersionBean;
+import com.yanxiu.gphone.student.view.UnMoveTextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,8 +43,8 @@ public class ClassfyQuestionAdapter extends BaseAdapter {
         if(convertView==null){
             holder=new ViewHolder();
             convertView=View.inflate(mContext, R.layout.classfy_question_list_adapter,null);
-            holder.classfyQuestionName= (TextView) convertView.findViewById(R.id.classfyQuestionName);
-            holder.classfyQuestionNum= (TextView) convertView.findViewById(R.id.classfyQuestionNum);
+            holder.classfyQuestionName= (UnMoveTextView) convertView.findViewById(R.id.classfyQuestionName);
+            holder.classfyQuestionNum= (UnMoveTextView) convertView.findViewById(R.id.classfyQuestionNum);
             holder.position=position;
             convertView.setTag(holder);
             holder.update();
@@ -85,6 +87,9 @@ public class ClassfyQuestionAdapter extends BaseAdapter {
 
     int index=0;
     int heights=0;
+
+    int max_height=0;
+
     @Override
     public long getItemId(int position) {
         return 0;
@@ -100,8 +105,8 @@ public class ClassfyQuestionAdapter extends BaseAdapter {
     }
 
     class ViewHolder{
-        private TextView classfyQuestionName;
-        private TextView classfyQuestionNum;
+        private UnMoveTextView classfyQuestionName;
+        private UnMoveTextView classfyQuestionNum;
         private int position;
         private int mheight;
 
@@ -155,14 +160,20 @@ public class ClassfyQuestionAdapter extends BaseAdapter {
                     ViewHolder viewHolder2= (ViewHolder) view2.getTag();
 
                     if (viewHolder1.mheight>viewHolder2.mheight){
+                        max_height+=viewHolder1.mheight;
                         view1.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT,viewHolder1.mheight));
                         view2.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT,viewHolder1.mheight));
                     }else {
+                        max_height+=viewHolder2.mheight;
                         view1.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT,viewHolder2.mheight));
                         view2.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT,viewHolder2.mheight));
                     }
 
 
+                }
+
+                if (position%2==0&&position==getCount()-1){
+                    max_height+=mheight;
                 }
 
                 if (position%2>0||position==getCount()-1){
@@ -171,12 +182,14 @@ public class ClassfyQuestionAdapter extends BaseAdapter {
                 }
 
                 if (position==getCount()-1){
-                    listenr.updatesuccess();
+//                    LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,100);
+//                    gv.setLayoutParams(params);
+//                    listenr.updatesuccess();
                 }
-                LinearLayout.LayoutParams LayoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,index);
-                gv.setLayoutParams(LayoutParams);
+//                LinearLayout.LayoutParams LayoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,100);
+//                gv.setLayoutParams(LayoutParams);
             }
-//                        }
+////                        }
         };
     }
 

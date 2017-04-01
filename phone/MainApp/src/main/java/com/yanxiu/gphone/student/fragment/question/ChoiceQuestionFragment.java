@@ -273,14 +273,14 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
             choiceQuestions.setIsResolution(true);
             choiceQuestions.setIsClick(false);
             choiceQuestions.setclearFocuse();
-            choiceQuestions.setDataSources(questionsEntity.getAnswerBean());
+//            choiceQuestions.setDataSources(questionsEntity.getAnswerBean());
             fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_SUBMIT);
             FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
         }else if (QuestionEntity.TYPE_DELETE_END.equals(questionsEntity.getType())){
             choiceQuestions.setIsResolution(true);
             choiceQuestions.setIsClick(false);
             choiceQuestions.setclearFocuse();
-            choiceQuestions.setDataSources(questionsEntity.getAnswerBean());
+//            choiceQuestions.setDataSources(questionsEntity.getAnswerBean());
             fragment.setQuestionType(SubmitOrDeleteFragment.QUESTION_DELETE);
             FragmentManagerFactory.addMistakeRedoFragment(getActivity(),getChildFragmentManager().beginTransaction(),questionsEntity,R.id.content_problem_analysis);
         }

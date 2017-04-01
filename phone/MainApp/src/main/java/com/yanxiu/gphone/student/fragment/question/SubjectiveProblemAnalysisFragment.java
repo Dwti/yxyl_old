@@ -293,8 +293,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
 
             if (questionsEntity.getPad() != null && questionsEntity.getPad().getTeachercheck() != null && questionsEntity.getPad().getStatus() == AnswerBean.ANSER_READED) {
                 //如果是主观类型的填空题，只显示正确、错误或未批改，不显示得分
-                if (questionsEntity.getType_id() == YanXiuConstant.QUESTION_TYP.QUESTION_FILL_BLANKS.type) {
-                    iv_result.setImageResource(R.drawable.current_state_title_bg);
+                if (questionsEntity.getType_id() == YanXiuConstant.QUESTION_TYP.QUESTION_FILL_BLANKS.type||questionsEntity.getType_id() == 16||questionsEntity.getType_id() == 17) {
                     subjectiveStarLayout.setVisibility(View.GONE);
                     tv_result.setVisibility(View.VISIBLE);
                     if (questionsEntity.getPad().getTeachercheck().getScore() == 5) {
@@ -313,13 +312,14 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
                     flCorrectionContent.setVisibility(View.GONE);
                 }
             } else {
-                if (questionsEntity.getType_id() == YanXiuConstant.QUESTION_TYP.QUESTION_FILL_BLANKS.type){
-                    iv_result.setImageResource(R.drawable.current_state_title_bg);
-                }
                 subjectiveStarLayout.setVisibility(View.GONE);
                 ivIcon.setVisibility(View.GONE);
                 flCorrectionContent.setBackgroundColor(this.getActivity().getResources().getColor(android.R.color.transparent));
                 tvCorrectionResultText.setTextHtml(this.getActivity().getResources().getString(R.string.subjective_questions_unread));
+            }
+
+            if (questionsEntity.getType_id() == YanXiuConstant.QUESTION_TYP.QUESTION_FILL_BLANKS.type||questionsEntity.getType_id() == 16||questionsEntity.getType_id() == 17){
+                iv_result.setImageResource(R.drawable.current_state_title_bg);
             }
 
             if (questionsEntity != null) {

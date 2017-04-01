@@ -256,8 +256,14 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
     }
 
     public void setViewPagerCurrent(int item){
-        vpAnswer.setCurrentItem(item-1);
+        vpAnswer.setCurrentItem(item-1,false);
         content_answer_card.setVisibility(View.GONE);
+        FragmentManager manager=getSupportFragmentManager();
+        Fragment fragment=manager.findFragmentByTag(TAG);
+        if (fragment!=null){
+            MistakeRedoCardFragment cardFragment= (MistakeRedoCardFragment) fragment;
+            cardFragment.onLoadFinish();
+        }
     }
 
     @Override
@@ -288,7 +294,7 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
                 vpAnswer.post(new Runnable() {
                     @Override
                     public void run() {
-                        vpAnswer.setCurrentItem(index-1);
+                        vpAnswer.setCurrentItem(index-1,false);
                     }
                 });
 
@@ -302,7 +308,7 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
         }
         setReportError();
 
-        vpAnswer.setCurrentItem(position);
+        vpAnswer.setCurrentItem(position,false);
         tvPagerIndex.setText(String.valueOf(position + 1));
         tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), (wrongCounts) + ""));
         tvToptext.setText(this.getResources().getString(R.string.mistake_redo));

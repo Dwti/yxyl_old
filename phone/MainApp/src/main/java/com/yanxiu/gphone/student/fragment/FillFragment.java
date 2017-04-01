@@ -326,7 +326,6 @@ public class FillFragment extends BaseQuestionFragment implements QuestionsListe
     @Override
     public void onDestroy() {
         super.onDestroy();
-        System.gc();
     }
 
     @Override

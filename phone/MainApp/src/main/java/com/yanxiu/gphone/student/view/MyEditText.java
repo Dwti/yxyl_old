@@ -74,7 +74,7 @@ public class MyEditText extends AppCompatEditText {
     private void init(Context context) {
         this.mContext = context;
         setStateFull();
-        ViewUtils.setEditTextCursorDrawable(this, Color.BLACK);
+//        ViewUtils.setEditTextCursorDrawable(this, Color.BLACK);
         addTextChangedListener(watcher);
     }
 

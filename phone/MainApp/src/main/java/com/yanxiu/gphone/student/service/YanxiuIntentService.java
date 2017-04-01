@@ -76,6 +76,11 @@ public class YanxiuIntentService extends GTIntentService {
             e.printStackTrace();
         }
         if(mPushMsgBean == null){
+//            mPushMsgBean=new PushMsgBean();
+//            mPushMsgBean.setId(1);
+//            mPushMsgBean.setMsg_title("asd");
+//            mPushMsgBean.setMsg_type(2);
+//            mPushMsgBean.setName("ss");
             return;
         }
         LogInfo.log("haitian", "-----------onTextMessage-----------------content=" + content);

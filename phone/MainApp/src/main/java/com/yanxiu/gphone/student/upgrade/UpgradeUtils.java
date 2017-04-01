@@ -226,6 +226,7 @@ public class UpgradeUtils {
 
         @Override public void onProgress(double progress) {
             LogInfo.log("king","onProgress progress = " + progress);
+            mDialogWindow.setProgress((int) progress);
             notification.contentView.setProgressBar(R.id.progress_value, 100, (int) progress, false);
             notification.contentView.setTextViewText(R.id.progress_text, (int)progress + "%");
             notificationManager.notify(NOTIFICATION_ID, notification);

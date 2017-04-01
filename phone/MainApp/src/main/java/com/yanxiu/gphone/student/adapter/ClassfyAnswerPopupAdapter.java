@@ -2,6 +2,7 @@ package com.yanxiu.gphone.student.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.Spanned;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,8 +10,11 @@ import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.yanxiu.gphone.student.HtmlParser.MyHtml;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.ClassfyBean;
+import com.yanxiu.gphone.student.utils.ClassfyImageGetter;
+import com.yanxiu.gphone.student.utils.ClassfyImageGetter2;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 
 import java.util.ArrayList;
@@ -47,15 +51,22 @@ public class ClassfyAnswerPopupAdapter extends BaseAdapter {
             holder=new ViewHolder();
             convertView=View.inflate(mContext, R.layout.classfy_answer_list_popup_adapter,null);
             holder.classfyAnswerImg= (ImageView) convertView.findViewById(R.id.classfyAnswerImg);
+            holder.tv_classfyAnswerImg= (YXiuAnserTextView) convertView.findViewById(R.id.tv_classfyAnswerImg);
             convertView.setTag(holder);
         }else{
             holder= (ViewHolder) convertView.getTag();
         }
-        Pattern pattern = Pattern.compile("<img src=\\\"(.*?)\\\"");
-        Matcher matcher = pattern.matcher(mEntity.get(position).getName());
-        while(matcher.find()){
-            ImageLoader.getInstance().displayImage(matcher.group(1), holder.classfyAnswerImg, options);
-        }
+//        Pattern pattern = Pattern.compile("<img src=\\\"(.*?)\\\"");
+//        Matcher matcher = pattern.matcher(mEntity.get(position).getName());
+//        while(matcher.find()){
+//            ImageLoader.getInstance().displayImage(matcher.group(1), holder.classfyAnswerImg, options);
+//        }
+        holder.classfyAnswerImg.setVisibility(View.GONE);
+        holder.tv_classfyAnswerImg.setVisibility(View.VISIBLE);
+
+        ClassfyImageGetter2 classfyImageGetter = new ClassfyImageGetter2(holder.tv_classfyAnswerImg, mContext);
+        Spanned spanned = MyHtml.fromHtml(mContext, mEntity.get(position).getName(), classfyImageGetter, null, null, null);
+        holder.tv_classfyAnswerImg.setText(spanned);
         return convertView;
     }
 
@@ -76,6 +87,7 @@ public class ClassfyAnswerPopupAdapter extends BaseAdapter {
 
     class ViewHolder{
         private ImageView classfyAnswerImg;
+        private YXiuAnserTextView tv_classfyAnswerImg;
     }
 
 }

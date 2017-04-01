@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yanxiu.gphone.student.HtmlParser.Interface.ImageGetterListener;
+import com.yanxiu.gphone.student.utils.Util;
 
 public class UilImageGetter implements ImageGetterListener {
 
@@ -83,7 +84,8 @@ public class UilImageGetter implements ImageGetterListener {
                 UilImageGetter.this.view.post(new Runnable() {
                     @Override
                     public void run() {
-                        UilImageGetter.this.view.setHeight((UilImageGetter.this.view.getHeight() + result.getIntrinsicHeight()));
+                        UilImageGetter.this.view.setHeight((UilImageGetter.this.view.getHeight() + loadedImageheight));
+//                        UilImageGetter.this.view.setHeight(Integer.MAX_VALUE);
                         UilImageGetter.this.view.setEllipsize(null);
                         UilImageGetter.this.view.requestLayout();
                         UilImageGetter.this.view.invalidate();

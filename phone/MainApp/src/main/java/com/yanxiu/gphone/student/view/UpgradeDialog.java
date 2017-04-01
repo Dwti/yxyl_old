@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.YanxiuApplication;
@@ -31,6 +32,7 @@ public class UpgradeDialog extends Dialog{
     private UpgradeDialogCallBack upgradeDialogCallBack;
 
     private Context mContext;
+    private ProgressBar pb_loadapk;
 
     public UpgradeDialog(Context context, InitializeBean initializeBean,
             UpgradeDialogCallBack upgradeDialogCallBack) {
@@ -44,6 +46,7 @@ public class UpgradeDialog extends Dialog{
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.update_popupwindow);
+        pb_loadapk= (ProgressBar) findViewById(R.id.pb_loadapk);
         mUpgradeTitleView = (TextView)findViewById(R.id.upgrade_title);
         mUpgradeVersionView = (TextView)findViewById(R.id.upgrade_version);
         mUpgradeCelView = (TextView)findViewById(R.id.upgrade_layout_cel);
@@ -76,6 +79,7 @@ public class UpgradeDialog extends Dialog{
             mUpgradeSureView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     if (upgradeDialogCallBack != null) {
+                        pb_loadapk.setVisibility(View.VISIBLE);
                         upgradeDialogCallBack.upgrade();
                     }
                 }
@@ -104,6 +108,12 @@ public class UpgradeDialog extends Dialog{
                     }
                 }
             });
+        }
+    }
+
+    public void setProgress(int progress){
+        if (pb_loadapk!=null) {
+            pb_loadapk.setProgress(progress);
         }
     }
 

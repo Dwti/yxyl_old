@@ -229,25 +229,44 @@ public class JudgeQuestions extends LinearLayout implements JudgeQuestionsItem.O
                     ((JudgeQuestionsItem) view).setUnSelected();
                     break;
             }
-            if(isAnswerDone){
-                return;
-            }
+//            if(isAnswerDone){
+//                return;
+//            }
 
         }
-        for(int i = 0; i < count; i++){
-            View view = getChildAt(i);
-            JUDGE_TYPE judgeType = ((JudgeQuestionsItem) view).getJudgeType();
-            // 判断用户是否做题 没做过直接画出正确答案 做过了在此item上做判断
-
-            switch (judgeType) {
-                case RIGHT:
-                    setHalfCorrectAnswer(JUDGE_TYPE.RIGHT.key, view);
-                    break;
-                case WRONG:
-                    setHalfCorrectAnswer(JUDGE_TYPE.WRONG.key, view);
-                    break;
+        if (isResolution||isWrongSet) {
+//            if (!isClick) {
+                for (int i = 0; i < count; i++) {
+                    View view = getChildAt(i);
+                    JUDGE_TYPE judgeType = ((JudgeQuestionsItem) view).getJudgeType();
+                    // 判断用户是否做题 没做过直接画出正确答案 做过了在此item上做判断
+                    String an = "";
+                    if (answer != null && answer.size() > 0) {
+                        an = answer.get(0);
+                    }
+                    switch (judgeType) {
+                        case RIGHT:
+                            setAnsRight(view, an, JUDGE_TYPE.RIGHT.key + "");
+//                    setHalfCorrectAnswer(JUDGE_TYPE.RIGHT.key, view);
+                            break;
+                        case WRONG:
+                            setAnsRight(view, an, JUDGE_TYPE.WRONG.key + "");
+//                    setHalfCorrectAnswer(JUDGE_TYPE.WRONG.key, view);
+                            break;
+                    }
+//                }
             }
         }
+    }
+
+    private void setAnsRight(View view,String ans,String ss){
+        if (ss.equals(ans)) {
+            ((JudgeQuestionsItem) view).setItemRight();
+        }else {
+            ((JudgeQuestionsItem) view).setItemWronglist();
+        }
+    }
+    private void setAnsWrong(){
 
     }
 
@@ -260,20 +279,32 @@ public class JudgeQuestions extends LinearLayout implements JudgeQuestionsItem.O
      */
     private boolean setCorrectAnswer(String selectType, int key, View view){
         if(!TextUtils.isEmpty(selectType) && selectType.equals(String.valueOf(key))){
-            if(isResolution){
-                if(bean.isRight()){
-                    ((JudgeQuestionsItem) view).setSelectedRight();
-                }else{
-                    ((JudgeQuestionsItem) view).setSelectedWrong();
-                }
-                return true;
-            }else{
-                ((JudgeQuestionsItem) view).setSelected();
+//            if(isResolution){
+//                if(bean.isRight()){
+//                    ((JudgeQuestionsItem) view).setSelectedRight();
+//                }else{
+//                    ((JudgeQuestionsItem) view).setSelectedWrong();
+//                }
+//                return true;
+//            }else{
+//                ((JudgeQuestionsItem) view).setSelected();
+//            }
+//            if (key==1){
+//                ((JudgeQuestionsItem) view).setselectedRights();
+//            }else {
+//                ((JudgeQuestionsItem) view).setselectedWrongs();
+//            }
+            ((JudgeQuestionsItem) view).setselecteds();
+        }else {
+            if (key==1){
+                ((JudgeQuestionsItem) view).setDefult();
+            }else {
+                ((JudgeQuestionsItem) view).setDefult();
             }
-
-        }else if(isWrongSet && answer != null && !answer.isEmpty() && answer.get(0).contains(String.valueOf(key))){
-            ((JudgeQuestionsItem) view).setSelectedRight();
         }
+//        else if(isWrongSet && answer != null && !answer.isEmpty() && answer.get(0).contains(String.valueOf(key))){
+//            ((JudgeQuestionsItem) view).setSelectedRight();
+//        }
         return false;
     }
 

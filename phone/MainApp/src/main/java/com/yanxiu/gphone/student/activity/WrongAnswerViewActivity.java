@@ -133,7 +133,10 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
             vpAnswer.setCurrentItem(position);
             tvPagerIndex.setText(String.valueOf(position + 1));
             //tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf(adapter.getTotalCount())));
-            tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), (wrongCounts-delQueNum)+""));
+        tvToptext.setShadowLayer(2, 0, 5, this.getResources().getColor(R.color.color_33ffff));
+        tvToptext.setTextColor(this.getResources().getColor(R.color.color_006666));
+
+        tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), (wrongCounts-delQueNum)+""));
             tvToptext.setText(this.getResources().getString(R.string.questiong_resolution));
             tvToptext.setCompoundDrawables(null, null, null, null);
 //            tvAnswerCard.setVisibility(View.GONE);

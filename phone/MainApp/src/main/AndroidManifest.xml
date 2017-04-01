@@ -48,20 +48,18 @@
     <!-- 个推3.0电子围栏功能所需权限 -->
     <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
     <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
-    <uses-permission android:name="getui.permission.GetuiService.${GETUI_APP_ID}" />
-    <!--     <uses-permission android:name="getui.permission.GetuiService.com.yanxiu.gphone.student" /> -->
+    <!--<uses-permission android:name="getui.permission.GetuiService.${GETUI_APP_ID}" />-->
+         <uses-permission android:name="getui.permission.GetuiService.com.yanxiu.gphone.student" />
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!-- 自定义权限 -->
-    <permission
-        android:name="getui.permission.GetuiService.${GETUI_APP_ID}"
-        android:protectionLevel="normal" />
+    <!--<permission-->
+        <!--android:name="getui.permission.GetuiService.${GETUI_APP_ID}"-->
+        <!--android:protectionLevel="normal" />-->
 
-    <!--
     <permission
     android:name="getui.permission.GetuiService.com.yanxiu.gphone.student"
     android:protectionLevel="normal"></permission>
-    -->
     <application
         android:name=".YanxiuApplication"
         android:allowBackup="true"
@@ -352,6 +350,42 @@
                 <action android:name="android.intent.action.SYSTEM" />
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="SYSTEM"/>
+            </intent-filter>
+        </activity>
+
+        <service android:name=".service.YanxiuIntentService" />
+        <service
+            android:name=".service.YanxiuService"
+            android:exported="true"
+            android:label="PushService"
+            android:process=":pushservice" />
+        <receiver android:name=".receiver.YanxiuPushUpdateReceiver">
+            <intent-filter>
+                <action android:name="com.yanxiu.gphone.student.yanxiu_push_update_receiver" />
+            </intent-filter>
+        </receiver>
+        <!-- 配置第三方Receiver -->
+        <!-- 此处com.getui.demo.PushDemoReceiver，需要替换成开发者自己的BroadcastReceiver文件全名 -->
+        <receiver
+            android:name=".receiver.YanxiuPushReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.${GETUI_APP_ID}" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Translucent">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="wxb6704ac52abcfe4c" />
             </intent-filter>
         </activity>
 

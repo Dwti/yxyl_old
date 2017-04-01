@@ -15,6 +15,8 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.activity.MistakeRedoActivity;
 import com.yanxiu.gphone.student.adapter.MistakeRedoCardAdapter;
 import com.yanxiu.gphone.student.bean.MistakeRedoCardBean;
+import com.yanxiu.gphone.student.utils.PublicLoadUtils;
+import com.yanxiu.gphone.student.view.PublicLoadLayout;
 
 /**
  * Created by Canghaixiao.
@@ -29,6 +31,7 @@ public class MistakeRedoCardFragment extends Fragment implements View.OnClickLis
     private RecyclerView recy_mistakecard;
     private MistakeRedoCardAdapter adapter;
     private MistakeRedoCardBean bean;
+    private PublicLoadLayout mRootView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,12 +42,14 @@ public class MistakeRedoCardFragment extends Fragment implements View.OnClickLis
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.activity_mistakeredocard,container,false);
-        view.setOnClickListener(this);
-        initView(view);
+//        View view=inflater.inflate(R.layout.activity_mistakeredocard,container,false);
+//        view.setOnClickListener(this);
+        mRootView = PublicLoadUtils.createPage(getActivity(), R.layout.activity_mistakeredocard);
+        mRootView.setOnClickListener(this);
+        initView(mRootView);
         initData();
         listener();
-        return view;
+        return mRootView;
     }
 
     private void initView(View view) {
@@ -82,9 +87,16 @@ public class MistakeRedoCardFragment extends Fragment implements View.OnClickLis
         }
     }
 
+    public void onLoadFinish(){
+        if (mRootView!=null){
+            mRootView.finish();
+        }
+    }
+
     @Override
     public void onClick(int position, int position_child, int index) {
         if (getActivity()!=null) {
+            mRootView.loading(true);
             ((MistakeRedoActivity) getActivity()).setViewPagerCurrent(index);
         }
     }

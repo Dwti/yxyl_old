@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="false">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,12 +29,13 @@
                 android:textColor="@color/color_333333"/>
 
 
-            <com.common.core.view.AllGridView
+            <GridView
                 android:id="@+id/classfy_question_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_10"
                 android:horizontalSpacing="@dimen/dimen_51"
+                android:verticalSpacing="@dimen/dimen_15"
                 android:numColumns="2"/>
 
         </LinearLayout>

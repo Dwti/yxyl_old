@@ -96,7 +96,9 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
     private void saveData() {
         if(!NetWorkTypeUtils.isNetAvailable()){
             ToastMaster.showShortToast(this,"网络未连接，请检查后重试");
+            return;
         }
+        showLoadingDialog();
         localPhotoPath.clear();
         mHttpPath.clear();
         if (mPhotoView.getPhotos() != null && mPhotoView.getPhotos().size() > 0) {
@@ -161,7 +163,6 @@ public class NoteEditActivity extends Activity implements View.OnClickListener {
             case R.id.iv_save:
                 if(isSubmiting)
                     return;
-                showLoadingDialog();
                 saveData();
                 break;
             default:

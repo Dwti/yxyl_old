@@ -25,25 +25,14 @@
             android:src="@drawable/icon_x" />
 
 
-        <LinearLayout
-            android:layout_width="@dimen/dimen_146"
-            android:layout_height="@dimen/dimen_40"
+        <ImageView
+            android:layout_width="146dp"
+            android:layout_height="40dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/question_timer_bg">
+            android:src="@drawable/icon_title_note">
 
-            <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
-                android:id="@+id/tv_top_title"
-                style="@style/shadow_answer_view_text_style"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/dimen_52"
-                android:gravity="center"
-                android:textColor="@color/color_white"
-                android:textSize="@dimen/dimen_20"
-                android:text="@string/note"/>
-
-        </LinearLayout>
+        </ImageView>
 
         <ImageView
             android:id="@+id/iv_save"
@@ -76,7 +65,9 @@
                 android:padding="10dp"
                 android:maxLength="500"
                 android:textSize="@dimen/note_text_size"
-                android:textColor="@color/color_black"
+                android:hint="请编辑笔记内容(500字以内)..."
+                android:textColor="#333333"
+                android:textColorHint="#999999"
                 android:background="@drawable/shape_rect"/>
 
             <View

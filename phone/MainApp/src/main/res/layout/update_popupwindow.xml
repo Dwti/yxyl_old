@@ -19,6 +19,17 @@
             android:shadowColor="@color/color_ffff99"
             android:textColor="@color/color_805500"
             />
+
+    <ProgressBar
+        android:id="@+id/pb_loadapk"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_20"
+        android:max="100"
+        android:progress="0"
+        android:visibility="gone"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_10"
+        style="?android:attr/progressBarStyleHorizontal" />
     <TextView
             android:id="@+id/upgrade_version"
             android:layout_width="match_parent"

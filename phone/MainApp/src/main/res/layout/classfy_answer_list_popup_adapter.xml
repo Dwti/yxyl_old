@@ -4,6 +4,10 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/dimen_5"
           >
+<RelativeLayout
+    android:id="@+id/rl_location"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/classfyAnswerImg"
             android:layout_width="@dimen/dimen_classfy_one"
@@ -13,12 +17,23 @@
             android:background="@drawable/upload_pic"
             />
 
+        <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+            android:id="@+id/tv_classfyAnswerImg"
+            android:layout_width="@dimen/dimen_classfy_one"
+            android:layout_height="@dimen/dimen_classfy_one"
+            android:includeFontPadding="false"
+            android:layout_marginTop="@dimen/dimen_7"
+            android:padding="@dimen/dimen_5"
+            android:gravity="center"
+            android:visibility="gone"
+            android:background="@drawable/upload_pic" />
+</RelativeLayout>
         <ImageView
             android:id="@+id/widget_title_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/classfyAnswerImg"
+            android:layout_alignRight="@+id/rl_location"
             android:adjustViewBounds="true"
             android:scaleType="fitStart"
             android:src="@drawable/classfy_del_icon" />

@@ -50,12 +50,13 @@
                     <ScrollView
                         android:id="@+id/sv_content_top"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:fillViewport="true">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_marginRight="@dimen/dimen_20"
-                            android:layout_height="wrap_content">
+                            android:layout_height="match_parent">
 
                             <com.yanxiu.gphone.student.view.ClozzTextview
                                 android:id="@+id/fill_blanks_button"
