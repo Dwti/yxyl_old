@@ -183,11 +183,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
         });
 
         linear_number= (RelativeLayout) findViewById(R.id.linear_number);
-<<<<<<< HEAD
-        mistake_number= (YanxiuTypefaceButton) findViewById(R.id.mistake_number);
-=======
         mistake_number= (Button) findViewById(R.id.mistake_number);
->>>>>>> origin
 //        if (title.equals(getResources().getString(R.string.mistake_redo_math))||title.equals(getResources().getString(R.string.mistake_redo_english))){
             requestMistakeNumber();
             mistake_number.setOnClickListener(new View.OnClickListener() {
@@ -205,8 +201,6 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
 //        }else {
 //            linear_number.setVisibility(View.GONE);
 //        }
-<<<<<<< HEAD
-=======
         int stageId=0;
         if (mUserinfoEntity!=null) {
             stageId = mUserinfoEntity.getStageid();
@@ -228,7 +222,6 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
                 }
             }
         }
->>>>>>> origin
     }
 
     private void MistakeNumClick(){
@@ -420,7 +413,6 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
                             }
                             updateUI();
                         } else {
-<<<<<<< HEAD
                             listView.setPullLoadEnable(false);
                         }
                         updateUI();
@@ -430,27 +422,17 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
                             exercisesList.clear();
                             updateUI();
                         }
-=======
                             if (isRefresh) {
 //                                dataList.clear();
 //                                exercisesList.clear();
 //                                updateUI();
                                 MistakeAllActivity.this.finish();
                             }
->>>>>>> origin
 //                        rootView.dataNull(getResources().getString(R.string.no_group_hw_list_tip));
 //                    noCommentView.setVisibility(View.VISIBLE;);
                         }
-                    }else {
-                        if (isRefresh) {
-//                            dataList.clear();
-//                            exercisesList.clear();
-//                            updateUI();
-                            MistakeAllActivity.this.finish();
-                        }
                     }
 
-                }
 
                 @Override
                 public void dataError(int type, String msg) {

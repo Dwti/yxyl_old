@@ -5,10 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.settingproblemssystem.bean.SettingProbBean;
-<<<<<<< HEAD
 import com.example.settingproblemssystem.R;
-=======
->>>>>>> origin
 
 /**
  * Created by Canghaixiao.
