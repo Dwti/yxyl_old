@@ -19,7 +19,7 @@ public class AppStartInfo extends DataSupport {
     private String timestamp;
     private String source;   //来源：0，移动端；1，页面
     private String ip;
-    private String reserved;
+    private ExtraInfo reserved;
 
     public AppStartInfo() {
         appkey = "20001";
@@ -29,7 +29,7 @@ public class AppStartInfo extends DataSupport {
         timestamp = String.valueOf(System.currentTimeMillis());
         source="0";
         ip="";
-        reserved = new ExtraInfo().toString();
+        reserved = new ExtraInfo();
     }
 
     public String getEventID() {
@@ -104,11 +104,11 @@ public class AppStartInfo extends DataSupport {
         this.ip = ip;
     }
 
-    public String getReserved() {
+    public ExtraInfo getReserved() {
         return reserved;
     }
 
-    public void setReserved(String reserved) {
+    public void setReserved(ExtraInfo reserved) {
         this.reserved = reserved;
     }
 
