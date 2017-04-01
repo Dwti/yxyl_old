@@ -7,14 +7,10 @@ import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -30,10 +26,8 @@ import com.yanxiu.basecore.task.base.threadpool.YanxiuSimpleAsyncTask;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.WrongAllListAdapter;
 import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
-import com.yanxiu.gphone.student.bean.DataStatusEntityBean;
 import com.yanxiu.gphone.student.bean.ExercisesDataEntity;
 import com.yanxiu.gphone.student.bean.MistakeRedoNumberBean;
-import com.yanxiu.gphone.student.bean.PageBean;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.PublicErrorQuestionCollectionBean;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
@@ -42,20 +36,15 @@ import com.yanxiu.gphone.student.bean.statistics.MistakeCountBean;
 import com.yanxiu.gphone.student.fragment.MistakeAllFragment;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
 import com.yanxiu.gphone.student.requestTask.MisRedoNumQuestionTask;
-import com.yanxiu.gphone.student.requestTask.RequestDelMistakeTask;
 import com.yanxiu.gphone.student.requestTask.RequestMistakeRedoClassTask;
 import com.yanxiu.gphone.student.requestTask.RequestWrongAllQuestionTask;
-import com.yanxiu.gphone.student.utils.LoadingDialogUtils;
 import com.yanxiu.gphone.student.utils.PublicLoadUtils;
 import com.yanxiu.gphone.student.utils.QuestionUtils;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
-import com.yanxiu.gphone.student.view.ChapterTabTitleLayout;
 import com.yanxiu.gphone.student.view.PublicLoadLayout;
-import com.yanxiu.gphone.student.view.YanxiuTypefaceButton;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
@@ -134,9 +123,10 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
 
         RadioGroup rgTitleView= (RadioGroup) findViewById(R.id.rg_title);
         rgTitleView.setOnCheckedChangeListener(this);
-//        RadioButton rbTotalView= (RadioButton) findViewById(R.id.rb_total);
+        RadioButton rbTotalView= (RadioButton) findViewById(R.id.rb_total);
 //        RadioButton rbChapterView= (RadioButton) findViewById(R.id.rb_chapter);
         RadioButton rbKongLedgeView= (RadioButton) findViewById(R.id.rb_kongledge);
+        rbTotalView.setChecked(true);
 
         flFragemtView= (FrameLayout) findViewById(R.id.fl_fragment);
         rlXListTotalView= (RelativeLayout) findViewById(R.id.rl_list_total);
