@@ -9,11 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.settingproblemssystem.BaseAdapter.SettingProbAdapter;
-import com.example.settingproblemssystem.Bean.SettingProbBean;
+import com.example.settingproblemssystem.baseAdapter.SettingProbAdapter;
+import com.example.settingproblemssystem.bean.SettingProbBean;
 import com.example.settingproblemssystem.R;
-import com.example.settingproblemssystem.Utils.QuestionType;
-import com.example.settingproblemssystem.Utils.ToastUtils;
+import com.example.settingproblemssystem.utils.QuestionType;
+import com.example.settingproblemssystem.utils.ToastUtils;
 
 import java.util.List;
 

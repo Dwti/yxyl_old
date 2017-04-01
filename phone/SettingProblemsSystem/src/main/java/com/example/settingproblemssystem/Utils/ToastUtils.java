@@ -1,4 +1,4 @@
-package com.example.settingproblemssystem.Utils;
+package com.example.settingproblemssystem.utils;
 
 import android.content.Context;
 import android.support.annotation.StringRes;

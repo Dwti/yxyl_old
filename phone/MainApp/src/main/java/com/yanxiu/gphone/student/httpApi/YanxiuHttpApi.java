@@ -1419,6 +1419,7 @@ public class YanxiuHttpApi {
 
         YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
                 YanxiuHttpParameter.Type.GET, parser, updataId);
+        LogInfo.log("cwq", "requestChapterWrongQ url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
         return request(httpParameter);
     }
 

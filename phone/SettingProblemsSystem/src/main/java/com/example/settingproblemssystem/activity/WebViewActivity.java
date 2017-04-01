@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.settingproblemssystem.Bean.SettingProbBean;
+import com.example.settingproblemssystem.bean.SettingProbBean;
 
 /**
  * Created by Canghaixiao.

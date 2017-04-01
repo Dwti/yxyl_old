@@ -1,4 +1,4 @@
-package com.example.settingproblemssystem.BaseAdapter;
+package com.example.settingproblemssystem.baseAdapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.settingproblemssystem.Bean.SettingProbBean;
+import com.example.settingproblemssystem.bean.SettingProbBean;
 import com.example.settingproblemssystem.R;
 
 import java.util.ArrayList;

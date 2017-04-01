@@ -3,12 +3,20 @@ package com.yanxiu.gphone.student.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -16,6 +24,7 @@ import com.common.core.utils.NetWorkTypeUtils;
 import com.common.core.utils.StringUtils;
 import com.common.core.view.xlistview.XListView;
 import com.common.login.LoginModel;
+import com.common.login.model.UserInfo;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.basecore.task.base.threadpool.YanxiuSimpleAsyncTask;
 import com.yanxiu.gphone.student.R;
@@ -30,6 +39,7 @@ import com.yanxiu.gphone.student.bean.PublicErrorQuestionCollectionBean;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.bean.YanxiuPageInfoBean;
 import com.yanxiu.gphone.student.bean.statistics.MistakeCountBean;
+import com.yanxiu.gphone.student.fragment.MistakeAllFragment;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
 import com.yanxiu.gphone.student.requestTask.MisRedoNumQuestionTask;
 import com.yanxiu.gphone.student.requestTask.RequestDelMistakeTask;
@@ -53,7 +63,8 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by JS-00 on 2016/6/23.
  */
-public class MistakeAllActivity extends YanxiuBaseActivity{
+public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup.OnCheckedChangeListener {
+    private static final String FRAGMENT_TAG="mistake_all";
     private PublicLoadLayout rootView;
     private int pageIndex = 1;
     private TextView backView;
@@ -69,6 +80,8 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
     private final int pageSize = YanXiuConstant.YX_PAGESIZE_CONSTANT;
     private int mMistakeCount;
 
+    private UserInfo mUserinfoEntity = LoginModel.getUserinfoEntity();
+
     private WrongAllListAdapter wrongAllListAdapter;
     private List<PaperTestEntity> dataList = new ArrayList<PaperTestEntity>();
     private ArrayList<ExercisesDataEntity> exercisesList = new ArrayList<ExercisesDataEntity>();
@@ -80,6 +93,8 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
     private boolean Is_number_ready=false;
     private boolean Is_number_click=false;
     private RelativeLayout linear_number;
+    private FrameLayout flFragemtView;
+    private RelativeLayout rlXListTotalView;
 
 
     public static void launch (Activity activity, String title, String subjectId, String wrongNum) {
@@ -116,6 +131,21 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
         backView = (TextView)findViewById(R.id.pub_top_left);
         titleView = (TextView)findViewById(R.id.pub_top_mid);
         titleView.setText(title);
+
+        RadioGroup rgTitleView= (RadioGroup) findViewById(R.id.rg_title);
+        rgTitleView.setOnCheckedChangeListener(this);
+//        RadioButton rbTotalView= (RadioButton) findViewById(R.id.rb_total);
+//        RadioButton rbChapterView= (RadioButton) findViewById(R.id.rb_chapter);
+        RadioButton rbKongLedgeView= (RadioButton) findViewById(R.id.rb_kongledge);
+
+        flFragemtView= (FrameLayout) findViewById(R.id.fl_fragment);
+        rlXListTotalView= (RelativeLayout) findViewById(R.id.rl_list_total);
+
+        FragmentManager manager=getSupportFragmentManager();
+        FragmentTransaction ft=manager.beginTransaction();
+        ft.replace(R.id.fl_fragment,new Fragment());
+        ft.commitAllowingStateLoss();
+
         wrongNumView = (TextView)findViewById(R.id.answer_exam_wrong_num_text);
         mMistakeCount = new Integer(wrongNum);
         wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, 0+""));
@@ -170,6 +200,27 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
 //        }else {
 //            linear_number.setVisibility(View.GONE);
 //        }
+        int stageId=0;
+        if (mUserinfoEntity!=null) {
+            stageId = mUserinfoEntity.getStageid();
+            if (stageId == MyStageSelectActivity.STAGE_TYPE_PRIM || stageId == MyStageSelectActivity.STAGE_TYPE_JUIN) {
+                FragmentManager fm=getSupportFragmentManager();
+                FragmentTransaction fts=fm.beginTransaction();
+                if (title.equals(getResources().getString(R.string.mistake_redo_math))) {
+                    rgTitleView.setVisibility(View.VISIBLE);
+                    rbKongLedgeView.setVisibility(View.VISIBLE);
+                    fts.replace(R.id.fl_fragment,new MistakeAllFragment(),FRAGMENT_TAG);
+                    fts.commitAllowingStateLoss();
+                } else if (title.equals(getResources().getString(R.string.mistake_redo_english))){
+                    rgTitleView.setVisibility(View.VISIBLE);
+                    rbKongLedgeView.setVisibility(View.GONE);
+                    fts.replace(R.id.fl_fragment,new MistakeAllFragment(),FRAGMENT_TAG);
+                    fts.commitAllowingStateLoss();
+                }else {
+                    rgTitleView.setVisibility(View.GONE);
+                }
+            }
+        }
     }
 
     private void MistakeNumClick(){
@@ -520,5 +571,33 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
         super.onDestroy();
         cancelTask();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+        switch (checkedId){
+            case R.id.rb_total:
+                rlXListTotalView.setVisibility(View.VISIBLE);
+                flFragemtView.setVisibility(View.GONE);
+                break;
+            case R.id.rb_chapter:
+                rlXListTotalView.setVisibility(View.GONE);
+                flFragemtView.setVisibility(View.VISIBLE);
+                Fragment fragment=getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
+                if (fragment!=null&&fragment instanceof MistakeAllFragment){
+                    MistakeAllFragment allFragment= (MistakeAllFragment) fragment;
+                    allFragment.setData(1);
+                }
+                break;
+            case R.id.rb_kongledge:
+                rlXListTotalView.setVisibility(View.GONE);
+                flFragemtView.setVisibility(View.VISIBLE);
+                Fragment fragmentByTag=getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
+                if (fragmentByTag!=null&&fragmentByTag instanceof MistakeAllFragment){
+                    MistakeAllFragment allFragment= (MistakeAllFragment) fragmentByTag;
+                    allFragment.setData(2);
+                }
+                break;
+        }
     }
 }

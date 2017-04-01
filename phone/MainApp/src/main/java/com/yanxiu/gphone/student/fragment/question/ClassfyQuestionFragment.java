@@ -75,7 +75,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     private ClassfyDelPopupWindow classfyDelPopupWindow;
 
     private List<ClassfyBean> classfyItem = new ArrayList<ClassfyBean>();
-    //private List<ArrayList<ClassfyBean>> pointItem = new ArrayList<ArrayList<ClassfyBean>>();
+     //private List<ArrayList<ClassfyBean>> pointItem = new ArrayList<ArrayList<ClassfyBean>>();
 
     private List<String> answerData = new ArrayList<String>();
     private AnswerBean answerBean;
