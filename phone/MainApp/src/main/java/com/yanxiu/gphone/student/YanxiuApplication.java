@@ -34,6 +34,7 @@ import com.yanxiu.gphone.student.bean.statistics.StatisticHashMap;
 import com.yanxiu.gphone.student.bean.statistics.UploadInstantPointDataBean;
 import com.yanxiu.gphone.student.httpApi.YanxiuHttpApi;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
+import com.yanxiu.gphone.student.manager.AppStartPointManager;
 import com.yanxiu.gphone.student.preference.PreferencesManager;
 import com.yanxiu.gphone.student.utils.Configuration;
 import com.yanxiu.gphone.student.utils.CrashHandler;
@@ -91,10 +92,6 @@ public class YanxiuApplication extends CommonCoreApplication {
         LogInfo.log("haitian", "DevoceId=" + YanXiuConstant.DEVICEID);
         initParentConstant();
         initUpgradeConstant();
-        if(PreferencesManager.getInstance().getFristApp()){
-            uploadInitInfo();
-        }
-        startStatistics();
         getUrlJson();
 
 

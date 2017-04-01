@@ -345,13 +345,13 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
     private void setMyTextviewColor() {
         for (BaseBean bean : list) {
             if (bean.isOnclick()) {
-                bean.getTextView().setBackgroundResource(checked_now);
+                bean.getLayout().setBackgroundResource(checked_now);
                 bean.getTextView().setTextColor(context.getResources().getColor(R.color.color_998e63));
             } else if (!bean.isOnclick() && bean.isSelect()) {
-                bean.getTextView().setBackgroundResource(checked_old);
+                bean.getLayout().setBackgroundResource(checked_old);
                 bean.getTextView().setTextColor(context.getResources().getColor(R.color.color_333333));
             } else {
-                bean.getTextView().setBackgroundResource(checked_no);
+                bean.getLayout().setBackgroundResource(checked_no);
                 bean.getTextView().setTextColor(context.getResources().getColor(R.color.color_333333));
             }
         }
@@ -371,8 +371,17 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
         private int select_id = -1;
         private boolean onclick = false;
         private boolean IsRight = false;
+        private LinearLayout layout;
 
         public BaseBean() {
+        }
+
+        public LinearLayout getLayout() {
+            return layout;
+        }
+
+        public void setLayout(LinearLayout layout) {
+            this.layout = layout;
         }
 
         public boolean getIsRight() {

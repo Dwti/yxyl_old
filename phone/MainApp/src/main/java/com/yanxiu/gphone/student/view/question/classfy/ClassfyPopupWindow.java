@@ -62,7 +62,7 @@ public class ClassfyPopupWindow extends BasePopupWindow  {
         vgClassfyAnswers = (ClassfyAnswers) view.findViewById(R.id.classfy_text_item);
         lgClassfyAnswers = (UnMoveGridView) view.findViewById(R.id.classfy_icon_item);
         lgClassfyAnswers.setSelector(new ColorDrawable(Color.TRANSPARENT));
-        classfyAnswerPopupAdapter = new ClassfyAnswerAdapter((Activity)mContext);
+        classfyAnswerPopupAdapter = new ClassfyAnswerAdapter((Activity)mContext,lgClassfyAnswers);
         lgClassfyAnswers.setAdapter(classfyAnswerPopupAdapter);
         loadingData();
     }

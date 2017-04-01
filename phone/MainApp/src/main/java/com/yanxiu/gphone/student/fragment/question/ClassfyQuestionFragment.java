@@ -14,6 +14,8 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.GridView;
+import android.widget.LinearLayout;
 
 import com.common.core.utils.BasePopupWindow;
 import com.common.core.utils.LogInfo;
@@ -30,6 +32,7 @@ import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.inter.SetAnswerCallBack;
 import com.yanxiu.gphone.student.utils.FragmentManagerFactory;
+import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
@@ -55,7 +58,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
     public int typeId;
 
     private YXiuAnserTextView tvYanxiu;
-    private UnMoveGridView gvClassfyQuestion;
+    private GridView gvClassfyQuestion;
     private ClassfyAnswers vgClassfyAnswers;
     private View view_line_ccc4a3_2;
     private UnMoveGridView lgClassfyAnswers;
@@ -97,17 +100,18 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
 //        }
         initView();
         initData();
-
+        updatesuccess();
         return rootView;
     }
 
     private void initView() {
         tvYanxiu = (YXiuAnserTextView) rootView.findViewById(R.id.yxiu_tv);
-        gvClassfyQuestion = (UnMoveGridView) rootView.findViewById(R.id.classfy_question_item);
+        gvClassfyQuestion = (GridView) rootView.findViewById(R.id.classfy_question_item);
         gvClassfyQuestion.setSelector(new ColorDrawable(Color.TRANSPARENT));
         classfyQuestionAdapter = new ClassfyQuestionAdapter(gvClassfyQuestion, getActivity());
         classfyQuestionAdapter.setlistener(this);
         gvClassfyQuestion.setAdapter(classfyQuestionAdapter);
+
         view_line_ccc4a3_2 = (View) rootView.findViewById(R.id.view_line_ccc4a3_2);
         vgClassfyAnswers = (ClassfyAnswers) rootView.findViewById(R.id.classfy_text_item);
         lgClassfyAnswers = (UnMoveGridView) rootView.findViewById(R.id.classfy_icon_item);
@@ -131,7 +135,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                                 mRemoveBean = classfyItem.get(i);
                                 choiceTmpString = String.valueOf(classfyItem.get(i).getId());
                             }
-                            classfyAnswerAdapter.notifyDataSetChanged();
+//                            classfyAnswerAdapter.notifyDataSetChanged();
                         }
                     });
                 }
@@ -149,13 +153,13 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
                             mRemoveBean = classfyItem.get(i);
                             choiceTmpString = String.valueOf(classfyItem.get(i).getId());
                         }
-                        classfyAnswerAdapter.notifyDataSetChanged();
+//                        classfyAnswerAdapter.notifyDataSetChanged();
                     }
                 });
             }
 
         }
-        classfyAnswerAdapter = new ClassfyAnswerAdapter(getActivity());
+        classfyAnswerAdapter = new ClassfyAnswerAdapter(getActivity(),lgClassfyAnswers);
         lgClassfyAnswers.setAdapter(classfyAnswerAdapter);
         classfyPopupWindow = new ClassfyPopupWindow(getActivity());
         classfyPopupWindow.setOnDissmissListener(ClassfyQuestionFragment.this);
@@ -197,6 +201,7 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
             }
             answerBean = questionsEntity.getAnswerBean();
             classfyQuestionAdapter.setData(questionsEntity);
+            checkGridViewHeight(classfyQuestionAdapter);
             //if (answerViewTypyBean != SubjectExercisesItemBean.RESOLUTION && answerViewTypyBean != SubjectExercisesItemBean.WRONG_SET) {
                 gvClassfyQuestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -271,6 +276,47 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
 
 
 
+    }
+
+    private void checkGridViewHeight(ClassfyQuestionAdapter adapter) {
+        int totalheight=0;
+        int height=0;
+        int count=adapter.getCount();
+        int mCount=count/2;
+        if (count%2>0){
+            mCount+=1;
+        }
+        int v_height=(mCount-1)* Util.dipToPx(15);
+        for (int i=0;i<count;i++){
+            View item = adapter.getView(i, null, gvClassfyQuestion);
+            item.measure(0, 0);
+            if (i%2==0){
+                if (i==count-1){
+                    totalheight+=item.getMeasuredHeight();
+                    setLayoutParamToGridView(totalheight+v_height);
+                    return;
+                }else {
+                    height=item.getMeasuredHeight();
+                }
+            }else {
+                int h=item.getMeasuredHeight();
+                if (h>height){
+                    height=h;
+                }
+                totalheight+=height;
+                if (i==count-1){
+                    setLayoutParamToGridView(totalheight+v_height);
+                    return;
+                }else {
+                    height=0;
+                }
+            }
+        }
+    }
+
+    private void setLayoutParamToGridView(int height){
+        LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,height);
+        gvClassfyQuestion.setLayoutParams(params);
     }
 
     @Override
@@ -709,6 +755,8 @@ public class ClassfyQuestionFragment extends BaseQuestionFragment implements Que
 
     @Override
     public void updatesuccess() {
+//        LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,100);
+//        gvClassfyQuestion.setLayoutParams(params);
         if (questionsEntity.getContent() != null && questionsEntity.getContent().getChoices() != null && questionsEntity.getContent().getChoices().get(0).contains(YanXiuConstant.IMG_SRC)) {
             classfyAnswerAdapter.setData(classfyItem);
             lgClassfyAnswers.setVisibility(View.VISIBLE);
