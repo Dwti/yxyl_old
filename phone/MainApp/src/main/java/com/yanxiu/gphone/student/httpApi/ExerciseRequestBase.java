@@ -19,7 +19,6 @@ import okhttp3.RequestBody;
  */
 
 public abstract class ExerciseRequestBase extends RequestBase {
-
     protected String fullUrl() throws NullPointerException, IllegalAccessException, IllegalArgumentException {
         String server = urlServer();
         String path = urlPath();
@@ -78,7 +77,7 @@ public abstract class ExerciseRequestBase extends RequestBase {
         return builder;
     }
 
-    private RequestBody createRequestBody() {
+    protected RequestBody createRequestBody() {
         RequestBody requestBody;
         String strRequest = gson.toJson(this);
         FormBody.Builder formBody = new FormBody.Builder();

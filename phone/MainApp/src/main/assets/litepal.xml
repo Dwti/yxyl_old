@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
 <dbname value="yan_xiu_student_db" ></dbname>
-<version value="5" ></version>
+<version value="6" ></version>
 <list>
     <mapping class="com.common.login.model.LocalCacheBean"></mapping>
     <mapping class="com.yanxiu.gphone.student.bean.SubjectVersionBean"></mapping>
@@ -13,10 +13,9 @@
     <mapping class="com.yanxiu.gphone.student.bean.PublicVolumeBean"></mapping>
     <mapping class="com.yanxiu.gphone.student.bean.PublicErrorQuestionCollectionBean"></mapping>
     <mapping class="com.yanxiu.gphone.student.bean.PublicFavouriteQuestionBean"></mapping>
+    <mapping class="com.yanxiu.gphone.student.bean.AppStartInfo"></mapping>
 
-    <mapping
-        class="com.yanxiu.gphone.student.bean.statistics.StatisticsInfoBean"></mapping>
-    <mapping
-        class="com.yanxiu.gphone.student.bean.statistics.InstantUploadErrorData"></mapping>
+    <mapping class="com.yanxiu.gphone.student.bean.statistics.StatisticsInfoBean" />
+    <mapping class="com.yanxiu.gphone.student.bean.statistics.InstantUploadErrorData" />
 </list>
 </litepal>
