@@ -515,4 +515,5 @@
     <string name="four_Chinese_characters">四个汉字</string>
     <string name="single_Chinese_character">加</string>
     <string name="upload_photo">上传照片</string>
+    <string name="bind_mobile">绑定手机</string>
 </resources>

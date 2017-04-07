@@ -23,10 +23,10 @@ import com.yanxiu.gphone.student.view.YanxiuTypefaceTextView;
  * Created by Administrator on 2015/7/13.
  */
 public class UserSettingActivity extends YanxiuBaseActivity implements View.OnClickListener{
-    private View topView, modifyPwdView, updateView, aboutUsView, logOutView,
+    private View topView,bindMobileView, modifyPwdView, updateView, aboutUsView, logOutView,
             pwdDividerLine;
     private View backView;
-    private TextView topTitle, modifyTV, updateTv, aboutUsTv;
+    private TextView topTitle,bindMobileTV, modifyTV, updateTv, aboutUsTv;
     private ScalpelFrameLayout mScalpelView;
     public static void launchActivity(Activity context) {
         Intent intent = new Intent(context, UserSettingActivity.class);
@@ -43,6 +43,7 @@ public class UserSettingActivity extends YanxiuBaseActivity implements View.OnCl
         backView = topView.findViewById(R.id.pub_top_left);
         topTitle = (TextView) topView.findViewById(R.id.pub_top_mid);
         topTitle.setText(R.string.my_setting_name);
+        bindMobileView = findViewById(R.id.setting_modify_bind_mobile_layout);
         modifyPwdView = findViewById(R.id.setting_modify_pwd_layout);
         updateView = findViewById(R.id.setting_update_layout);
         aboutUsView = findViewById(R.id.setting_about_us_layout);
@@ -50,6 +51,7 @@ public class UserSettingActivity extends YanxiuBaseActivity implements View.OnCl
         pwdDividerLine = findViewById(R.id.setting_modify_pwd_dividerline);
         Util.setViewTypeface(YanxiuTypefaceTextView.TypefaceType.FANGZHENG, (TextView) logOutView);
 
+        bindMobileTV = (TextView) bindMobileView.findViewById(R.id.name);
         modifyTV = (TextView) modifyPwdView.findViewById(R.id.name);
 
         updateTv = (TextView) updateView.findViewById(R.id.name);
@@ -71,12 +73,14 @@ public class UserSettingActivity extends YanxiuBaseActivity implements View.OnCl
         ImageView aboutUsRightIcon=(ImageView)aboutUsView.findViewById(R.id.right_arrow);
         aboutUsRightIcon.setVisibility(View.VISIBLE);
 
+        bindMobileTV.setText(R.string.bind_mobile);
         modifyTV.setText(R.string.modify_pwd_txt);
         updateTv.setText(R.string.update_version_txt);
         aboutUsTv.setText(R.string.about_us_txt);
 
 
         backView.setOnClickListener(this);
+        bindMobileView.setOnClickListener(this);
         modifyPwdView.setOnClickListener(this);
 
         updateView.setOnClickListener(this);
@@ -101,7 +105,9 @@ public class UserSettingActivity extends YanxiuBaseActivity implements View.OnCl
     public void onClick(View v) {
         if(v == backView){
             finish();
-        } else if(v == modifyPwdView){
+        } else if(v == bindMobileView){
+            SettingBindMobileActivity.launch(this);
+        }else if(v == modifyPwdView){
             SettingModifyPWDActivity.launchActivity(this);
         }else if(v == updateView){
             UpgradeUtils.requestInitialize(true, this);
