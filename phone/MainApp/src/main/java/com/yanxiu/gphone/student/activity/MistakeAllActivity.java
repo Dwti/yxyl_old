@@ -585,6 +585,15 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
         requestMistakeNumber();
     }
 
+    public void onEventMainThread(WrongAnswerViewActivity.WrongAnswerDeleteBean bean){
+        try {
+            wrongAllListAdapter.getList().remove(bean.position);
+            wrongAllListAdapter.notifyDataSetChanged();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -594,9 +603,19 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
             if (mMistakeCount==0){
                 this.finish();
             }else {
-                pageIndex = 1;
-                requestMistakeAllList(true, false, false);
-                requestMistakeNumber();
+                List<PaperTestEntity> list=wrongAllListAdapter.getList();
+                if (list!=null) {
+                    int count = list.size();
+                    if (count == 0) {
+                        pageIndex = 1;
+                        requestMistakeAllList(true, false, false);
+                        requestMistakeNumber();
+                    }
+                }else {
+                    pageIndex = 1;
+                    requestMistakeAllList(true, false, false);
+                    requestMistakeNumber();
+                }
             }
         }else {
             pageIndex = 1;

@@ -24,6 +24,7 @@ import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
 import com.yanxiu.gphone.student.manager.AppStartPointManager;
 import com.yanxiu.gphone.student.preference.PreferencesManager;
 import com.yanxiu.gphone.student.requestTask.RequestCreateShareIconTask;
+import com.yanxiu.gphone.student.utils.YanXiuConstant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +80,7 @@ public class WelcomeActivity extends YanxiuBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
+        YanXiuConstant.updata = 0;
         initStart();
         launch();
         savaShareIconImage();

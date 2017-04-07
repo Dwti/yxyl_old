@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Created by Administrator on 2015/7/28.
  */
@@ -399,6 +401,11 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+
+    public class WrongAnswerDeleteBean{
+        int position;
+    }
+
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -432,6 +439,9 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
                         Util.showToast(R.string.mistake_question_del_done);
                         PublicErrorQuestionCollectionBean.updateDelData(questionId);
                         deleteProcess(pageIndex);
+                        WrongAnswerDeleteBean deleteBean=new WrongAnswerDeleteBean();
+                        deleteBean.position=pageIndex;
+                        EventBus.getDefault().post(deleteBean);
 
                         try{
                             int currentPageCount = wrongCounts-delQueNum;
