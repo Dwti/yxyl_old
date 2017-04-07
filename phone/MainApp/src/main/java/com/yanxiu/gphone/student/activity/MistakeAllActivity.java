@@ -105,17 +105,17 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
         rootView.setmRefreshData(new PublicLoadLayout.RefreshData() {
             @Override public void refreshData() {
                 pageIndex = 1;
-                requestMistakeAllList(false, true, false);
+                requestMistakeAllList(true, true, false);
             }
         });
         setContentView(rootView);
         EventBus.getDefault().register(this);
         findView();
-        requestMistakeAllList(false, true, false);
+        requestMistakeAllList(true, true, false);
     }
 
     private void findView() {
-        View top_space_view=findViewById(R.id.top_space_view);
+        View top_space_view=findViewById(R.id.top_space_views);
         top_space_view.setVisibility(View.VISIBLE);
         backView = (TextView)findViewById(R.id.pub_top_left);
         titleView = (TextView)findViewById(R.id.pub_top_mid);
@@ -124,12 +124,16 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
         RadioGroup rgTitleView= (RadioGroup) findViewById(R.id.rg_title);
         rgTitleView.setOnCheckedChangeListener(this);
         RadioButton rbTotalView= (RadioButton) findViewById(R.id.rb_total);
-//        RadioButton rbChapterView= (RadioButton) findViewById(R.id.rb_chapter);
+        RadioButton rbChapterView= (RadioButton) findViewById(R.id.rb_chapter);
         RadioButton rbKongLedgeView= (RadioButton) findViewById(R.id.rb_kongledge);
-        rbTotalView.setChecked(true);
+
+//        RelativeLayout rlImageleft= (RelativeLayout) findViewById(R.id.rl_image1);
+        RelativeLayout rlImagecenter= (RelativeLayout) findViewById(R.id.rl_image2);
+        RelativeLayout rlImageright= (RelativeLayout) findViewById(R.id.rl_image3);
 
         flFragemtView= (FrameLayout) findViewById(R.id.fl_fragment);
         rlXListTotalView= (RelativeLayout) findViewById(R.id.rl_list_total);
+        rbTotalView.setChecked(true);
 
         FragmentManager manager=getSupportFragmentManager();
         FragmentTransaction ft=manager.beginTransaction();
@@ -153,11 +157,12 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
                     List<PaperTestEntity> list = wrongAllListAdapter.getList();
                     if (subjectExercisesItemBeanIntent.getData() != null && subjectExercisesItemBeanIntent.getData().size() > 0) {
                         subjectExercisesItemBeanIntent.getData().get(0).setName("");
+                        List<PaperTestEntity> lists=new ArrayList<PaperTestEntity>();
+                        lists.addAll(list);
+                        subjectExercisesItemBeanIntent.getData().get(0).setPaperTest(lists);
                     }
                     if (list != null && list.size() > 0 && position>0 && position-1 < list.size()) {
                         WrongAnswerViewActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, subjectId, pageIndex, list.get(position-1).getQuestions().getChildPageIndex(), YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position-1);
-                        //ResolutionAnswerViewActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, YanXiuConstant.INTELLI_REPORT);
-//                        MistakeRedoActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, subjectId, pageIndex, list.get(position-1).getQuestions().getChildPageIndex(), YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position-1);
                     } else {
                         WrongAnswerViewActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, subjectId, pageIndex, 0, YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position);
                     }
@@ -199,15 +204,22 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
                 if (title.equals(getResources().getString(R.string.mistake_redo_math))) {
                     rgTitleView.setVisibility(View.VISIBLE);
                     rbKongLedgeView.setVisibility(View.VISIBLE);
+                    rlImagecenter.setVisibility(View.VISIBLE);
+                    rlImageright.setVisibility(View.VISIBLE);
                     fts.replace(R.id.fl_fragment,new MistakeAllFragment(),FRAGMENT_TAG);
                     fts.commitAllowingStateLoss();
                 } else if (title.equals(getResources().getString(R.string.mistake_redo_english))){
                     rgTitleView.setVisibility(View.VISIBLE);
                     rbKongLedgeView.setVisibility(View.GONE);
+                    rlImagecenter.setVisibility(View.VISIBLE);
+                    rlImageright.setVisibility(View.GONE);
                     fts.replace(R.id.fl_fragment,new MistakeAllFragment(),FRAGMENT_TAG);
                     fts.commitAllowingStateLoss();
-                }else {
-                    rgTitleView.setVisibility(View.GONE);
+                } else {
+                    rbChapterView.setVisibility(View.GONE);
+                    rbKongLedgeView.setVisibility(View.GONE);
+                    rlImagecenter.setVisibility(View.GONE);
+                    rlImageright.setVisibility(View.GONE);
                 }
             }
         }
@@ -251,8 +263,14 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
             }
         }
 
-        @Override public void onLoadMore(XListView view) {
+        @Override
+        public void onLoadMore(XListView view) {
             if(NetWorkTypeUtils.isNetAvailable()){
+                if (wrongAllListAdapter!=null){
+                    List<PaperTestEntity> list=wrongAllListAdapter.getList();
+                    int count=list.size();
+                    pageIndex=count/10;
+                }
                 requestMistakeAllList(false, false, true);
             }else {
                 listView.stopLoadMore();
@@ -389,7 +407,32 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
 
                             subjectExercisesItemBeanIntent.setData(exercisesList);
                             //subjectExercisesItemBeanIntent.getData().get(0).getPaperTest().addAll(exerciseData.get(0).getPaperTest());
-                            dataList.addAll(data);
+                            if (isRefresh) {
+                                List<PaperTestEntity> datas = new ArrayList<PaperTestEntity>();
+                                datas.addAll(data);
+                                dataList.addAll(datas);
+                            }else if (isLoaderMore){
+                                if (dataList.size()==pageIndex*10){
+                                    List<PaperTestEntity> datas = new ArrayList<PaperTestEntity>();
+                                    datas.addAll(data);
+                                    dataList.addAll(datas);
+                                }else {
+                                    for (int i=(pageIndex-1)*10;i<dataList.size();i++){
+                                        dataList.set(i,data.get(0));
+                                        data.remove(0);
+                                    }
+                                    List<PaperTestEntity> datas = new ArrayList<PaperTestEntity>();
+                                    datas.addAll(data);
+                                    dataList.addAll(datas);
+                                }
+                            }
+                            try {
+                                List<PaperTestEntity> dataLists = new ArrayList<PaperTestEntity>();
+                                dataLists.addAll(dataList);
+                                subjectExercisesItemBeanIntent.getData().get(0).setPaperTest(dataLists);
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
                             YanxiuPageInfoBean pageBean = mSubjectExercisesItemBean.getPage();
                             if (pageBean != null) {
                                 if (pageIndex == pageBean.getTotalPage()) {
@@ -531,6 +574,14 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
         wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mMistakeCount+""));
         pageIndex = 1;
         requestMistakeAllList(true, false, false);
+        requestMistakeNumber();
+    }
+
+    public void onEventMainThread(WrongAllListAdapter.NoRefreshBean event) {
+        mMistakeCount = mMistakeCount - 1;
+        wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mMistakeCount+""));
+//        pageIndex = 1;
+//        requestMistakeAllList(true, false, false);
         requestMistakeNumber();
     }
 

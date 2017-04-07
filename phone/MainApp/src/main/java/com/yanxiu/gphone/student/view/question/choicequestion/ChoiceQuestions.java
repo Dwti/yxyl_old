@@ -197,7 +197,6 @@ public class ChoiceQuestions extends LinearLayout implements ChoiceQuestionsItem
     public void initViewWithData(AnswerBean bean) {
         if(isSingleChoice){
             selectType = bean.getSelectType();
-
         }else{
             mixList = mixList(answer, bean.getMultiSelect());
             halfList = removeMixList(answer, mixList);

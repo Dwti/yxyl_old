@@ -20,6 +20,7 @@
             android:id="@+id/rl_top_wrong_all_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_44"
+            android:visibility="gone"
             android:background="@color/color_006666">
 
             <TextView
@@ -37,42 +38,110 @@
                 android:visibility="invisible" />
         </RelativeLayout>
 
-        <RadioGroup
-            android:id="@+id/rg_title"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_50"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
-            <RadioButton
-                android:id="@+id/rb_total"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/color_white"
-                android:button="@null"
-                android:gravity="center"
-                android:text="@string/mistake_total" />
 
-            <RadioButton
-                android:id="@+id/rb_chapter"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/color_white"
-                android:button="@null"
-                android:gravity="center"
-                android:text="@string/mistake_chapter" />
+            <RadioGroup
+                android:id="@+id/rg_title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_58"
+                android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/rb_kongledge"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/color_white"
-                android:button="@null"
-                android:gravity="center"
-                android:text="@string/mistake_kongledge" />
-        </RadioGroup>
+                <RadioButton
+                    android:id="@+id/rb_total"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/mistake_radiobutton_selector"
+                    android:button="@null"
+                    android:gravity="center" />
+
+                <RadioButton
+                    android:id="@+id/rb_chapter"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/mistake_radiobutton_selector"
+                    android:button="@null"
+                    android:gravity="center" />
+
+                <RadioButton
+                    android:id="@+id/rb_kongledge"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/mistake_radiobutton_selector"
+                    android:button="@null"
+                    android:gravity="center" />
+
+            </RadioGroup>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_58"
+                android:clickable="false"
+                android:focusable="false"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/rl_image1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:focusable="false">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:src="@drawable/mistake_all" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_image2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:focusable="false">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:src="@drawable/mistake_chapter" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_image3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:focusable="false">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:src="@drawable/mistake_kongledge" />
+                </RelativeLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
     <RelativeLayout
@@ -86,17 +155,17 @@
             android:layout_height="match_parent">
 
             <View
-                android:id="@+id/top_space_view"
+                android:id="@+id/top_space_views"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_15"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
             <com.common.core.view.xlistview.XListView
                 android:id="@+id/mistack_all_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/linear_number"
-                android:layout_below="@id/top_space_view"
+                android:layout_below="@id/top_space_views"
                 android:layout_marginLeft="@dimen/dimen_30"
                 android:layout_marginRight="@dimen/dimen_30"
                 android:cacheColorHint="@null"

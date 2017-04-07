@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dimen_5"
+    android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:id="@+id/ll_place_children"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"/>
+
+    <ImageView
+        android:id="@+id/iv_left_icon"
+        android:contentDescription="@null"
+        android:layout_width="@dimen/dimen_35"
+        android:layout_height="@dimen/dimen_35"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/chapter_center_examination_up"/>
+
+    <LinearLayout
+        android:id="@+id/ll_item_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_5"
+        android:layout_marginStart="@dimen/dimen_10"
+        android:layout_marginEnd="@dimen/dimen_5"
+        android:paddingTop="@dimen/dimen_10"
+        android:paddingBottom="@dimen/dimen_10"
+        android:background="@drawable/father_selector_examination_bg">
+        <include
+            android:id="@+id/exa_father_detail_view"
+            layout="@layout/exa_chapter_public_layout"/>
+    </LinearLayout>
+
+</LinearLayout>

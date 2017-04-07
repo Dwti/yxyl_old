@@ -119,8 +119,14 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
                     deleteAction = true;
                     Util.showToast(R.string.mistake_question_del_done);
                     PublicErrorQuestionCollectionBean.updateDelData(questionId);
-                    MistakeCountBean mistakeCountBean = new MistakeCountBean();
-                    EventBus.getDefault().post(mistakeCountBean);
+                    int count=mList.size();
+                    if (count<=1) {
+                        MistakeCountBean mistakeCountBean = new MistakeCountBean();
+                        EventBus.getDefault().post(mistakeCountBean);
+                    }else {
+                        NoRefreshBean refreshBean=new NoRefreshBean();
+                        EventBus.getDefault().post(refreshBean);
+                    }
                     deleteCell(v, position);
                 }
 
@@ -136,6 +142,8 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
             });
         }
     }
+
+    public class NoRefreshBean{}
 
     private void setData(PaperTestEntity entity,ViewHolder holder) {
         if (entity != null && entity.getQuestions() != null) {

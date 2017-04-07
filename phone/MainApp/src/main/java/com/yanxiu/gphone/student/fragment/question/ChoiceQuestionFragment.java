@@ -138,6 +138,8 @@ public class ChoiceQuestionFragment extends BaseQuestionFragment implements Ques
                 addBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        choiceQuestions.setIsWrongSet(false);
+                        choiceQuestions.setIsResolution(true);
                         addBtn.setVisibility(View.GONE);
                         try {
                             ArrayList<String> answer_list = bean.getFillAnswers();

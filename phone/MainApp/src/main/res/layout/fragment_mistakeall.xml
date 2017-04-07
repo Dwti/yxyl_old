@@ -3,13 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <RelativeLayout
-        android:id="@+id/rl_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recy_cpter_koledge"
         android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dimen_10"
         android:layout_height="match_parent"/>
 </LinearLayout>
