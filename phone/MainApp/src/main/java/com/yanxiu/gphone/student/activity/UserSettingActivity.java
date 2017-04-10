@@ -57,19 +57,23 @@ public class UserSettingActivity extends YanxiuBaseActivity implements View.OnCl
         updateTv = (TextView) updateView.findViewById(R.id.name);
         aboutUsTv = (TextView) aboutUsView.findViewById(R.id.name);
 
+        ImageView bindMobileLeftIcon = (ImageView) bindMobileView.findViewById(R.id.left_icon);
+        bindMobileLeftIcon.setVisibility(View.GONE);
+        ImageView bindMobileRightIcon = (ImageView) bindMobileView.findViewById(R.id.right_arrow);
+        bindMobileRightIcon.setVisibility(View.VISIBLE);
+
         ImageView modifyLeftIcon=(ImageView)modifyPwdView.findViewById(R.id.left_icon);
         modifyLeftIcon.setVisibility(View.GONE);
-
-        ImageView updateLeftIcon=(ImageView)updateView.findViewById(R.id.left_icon);
-        updateLeftIcon.setVisibility(View.GONE);
-        ImageView aboutUsLeftIcon=(ImageView)aboutUsView.findViewById(R.id.left_icon);
-        aboutUsLeftIcon.setVisibility(View.GONE);
-
         ImageView modifyRightIcon=(ImageView)modifyPwdView.findViewById(R.id.right_arrow);
         modifyRightIcon.setVisibility(View.VISIBLE);
 
+        ImageView updateLeftIcon=(ImageView)updateView.findViewById(R.id.left_icon);
+        updateLeftIcon.setVisibility(View.GONE);
         ImageView updaterRightIcon=(ImageView)updateView.findViewById(R.id.right_arrow);
         updaterRightIcon.setVisibility(View.VISIBLE);
+        
+        ImageView aboutUsLeftIcon=(ImageView)aboutUsView.findViewById(R.id.left_icon);
+        aboutUsLeftIcon.setVisibility(View.GONE);
         ImageView aboutUsRightIcon=(ImageView)aboutUsView.findViewById(R.id.right_arrow);
         aboutUsRightIcon.setVisibility(View.VISIBLE);
 

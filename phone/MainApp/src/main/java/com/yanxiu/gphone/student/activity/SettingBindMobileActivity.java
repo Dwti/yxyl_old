@@ -27,7 +27,7 @@ import com.yanxiu.gphone.student.view.MyBoldTextView;
 public class SettingBindMobileActivity extends YanxiuBaseActivity implements View.OnClickListener {
     private Context mContext;
     private MyBoldTextView textView ;
-    private View backView;
+    private View backView,iv_delete;
     private EditText et_mobile_num,et_verification_code;
     private TextView tv_send_code,tv_ok;
     private String temMobileNum;
@@ -70,6 +70,7 @@ public class SettingBindMobileActivity extends YanxiuBaseActivity implements Vie
 
     private void initView(){
         textView = (MyBoldTextView) findViewById(R.id.pub_top_mid);
+        iv_delete = findViewById(R.id.iv_delete);
         backView = findViewById(R.id.pub_top_left);
         et_mobile_num = (EditText) findViewById(R.id.et_mobile_num);
         et_verification_code = (EditText) findViewById(R.id.et_verification_code);
@@ -81,8 +82,8 @@ public class SettingBindMobileActivity extends YanxiuBaseActivity implements Vie
     }
 
     private void initListener(){
-        textView.setOnClickListener(this);
         backView.setOnClickListener(this);
+        iv_delete.setOnClickListener(this);
         mobileNumTextWatcher = new MobileNumTextWatcher();
         et_mobile_num.addTextChangedListener(mobileNumTextWatcher);
         tv_send_code.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +92,7 @@ public class SettingBindMobileActivity extends YanxiuBaseActivity implements Vie
                 if(TextUtils.isEmpty(et_mobile_num.getText().toString())){
                     ToastMaster.showShortToast(mContext,R.string.mobile_null);
                     return;
-                }else if(!CommonCoreUtil.isMobileNo(et_mobile_num.getText().toString())){
+                }else if(!CommonCoreUtil.isMobileNo(et_mobile_num.getText().toString().replaceAll(" ",""))){
                     ToastMaster.showShortToast(mContext,R.string.login_name_ival);
                     return;
                 }else {
@@ -138,9 +139,11 @@ public class SettingBindMobileActivity extends YanxiuBaseActivity implements Vie
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.pub_top_mid:
+            case R.id.iv_delete:
+                et_mobile_num.setText("");
                 break;
             case R.id.pub_top_left:
+                this.finish();
                 break;
             default:
                 break;
@@ -201,7 +204,7 @@ public class SettingBindMobileActivity extends YanxiuBaseActivity implements Vie
 
         @Override
         public void afterTextChanged (final Editable s) {
-            if(!TextUtils.isEmpty(s.toString()) && s.length()==11){
+            if(!TextUtils.isEmpty(s.toString()) && s.toString().replaceAll(" ","").length()==11){
                 isMobileNumReady = true;
                 if(isVerificationCodeReady){
                     tv_ok.setClickable(true);
