@@ -39,6 +39,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_conver_total"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -95,8 +96,9 @@
                     android:focusable="false">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/iv_left"
+                        android:layout_width="@dimen/dimen_43"
+                        android:layout_height="@dimen/dimen_24"
                         android:layout_centerInParent="true"
                         android:layout_gravity="center"
                         android:clickable="false"
@@ -113,8 +115,9 @@
                     android:focusable="false">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/iv_center"
+                        android:layout_width="@dimen/dimen_43"
+                        android:layout_height="@dimen/dimen_24"
                         android:layout_centerInParent="true"
                         android:layout_gravity="center"
                         android:clickable="false"
@@ -131,8 +134,9 @@
                     android:focusable="false">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/iv_right"
+                        android:layout_width="@dimen/dimen_60"
+                        android:layout_height="@dimen/dimen_24"
                         android:layout_centerInParent="true"
                         android:layout_gravity="center"
                         android:clickable="false"

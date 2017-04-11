@@ -403,7 +403,8 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
 
 
     public class WrongAnswerDeleteBean{
-        int position;
+        public int position;
+        public int id;
     }
 
     @Override
@@ -440,6 +441,10 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
                         PublicErrorQuestionCollectionBean.updateDelData(questionId);
                         deleteProcess(pageIndex);
                         WrongAnswerDeleteBean deleteBean=new WrongAnswerDeleteBean();
+                        if (dataSources.getData().get(0).getPaperTest() != null && dataSources.getData().get(0).getPaperTest().size() > pageIndex) {
+                            PaperTestEntity entity = dataSources.getData().get(0).getPaperTest().get(pageIndex);
+                            deleteBean.id=entity.getId();
+                        }
                         deleteBean.position=pageIndex;
                         EventBus.getDefault().post(deleteBean);
 

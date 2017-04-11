@@ -11,15 +11,60 @@ import java.util.List;
  */
 
 public class MistakeAllFragBean implements Serializable{
-    int id;
-    String name;
-    int question_num;
-    ArrayList<Integer> qids;
-    ArrayList<MistakeAllFragBean> children;
+    private int id;
+    private String name;
+    private int question_num;
+    private ArrayList<Integer> qids;
+    private ArrayList<MistakeAllFragBean> children;
+    private String lft;
+    private String lvl;
+    private String rgt;
+    private String root;
+    private String sep;
 
-    private boolean isHaveChildren=true;
+    private boolean isHaveChildren=false;
     private int Hierarchy=-1;
     private boolean isExPand=false;
+
+    public String getLft() {
+        return lft;
+    }
+
+    public void setLft(String lft) {
+        this.lft = lft;
+    }
+
+    public String getLvl() {
+        return lvl;
+    }
+
+    public void setLvl(String lvl) {
+        this.lvl = lvl;
+    }
+
+    public String getRgt() {
+        return rgt;
+    }
+
+    public void setRgt(String rgt) {
+        this.rgt = rgt;
+    }
+
+    public String getRoot() {
+        return root;
+    }
+
+    public void setRoot(String root) {
+        this.root = root;
+    }
+
+    public String getSep() {
+        return sep;
+    }
+
+    public void setSep(String sep) {
+        this.sep = sep;
+    }
 
     public int getId() {
         return id;

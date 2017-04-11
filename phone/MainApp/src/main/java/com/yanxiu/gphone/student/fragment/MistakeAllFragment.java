@@ -6,18 +6,44 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.common.core.utils.NetWorkTypeUtils;
+import com.common.core.utils.StringUtils;
+import com.yanxiu.basecore.bean.YanxiuBaseBean;
+import com.yanxiu.basecore.task.base.threadpool.YanxiuSimpleAsyncTask;
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.activity.MistakeAllActivity;
 import com.yanxiu.gphone.student.activity.MistakeDetailsActivity;
+import com.yanxiu.gphone.student.activity.TeachingMaterialActivity;
+import com.yanxiu.gphone.student.activity.WrongAnswerViewActivity;
 import com.yanxiu.gphone.student.adapter.MistakeAllFragmentAdapter;
 import com.yanxiu.gphone.student.bean.MistakeAllFragBean;
+import com.yanxiu.gphone.student.bean.MistakeAllFragmentBean;
+import com.yanxiu.gphone.student.bean.MistakeEditionBean;
+import com.yanxiu.gphone.student.bean.MistakeRefreshAllBean;
+import com.yanxiu.gphone.student.bean.PublicErrorQuestionCollectionBean;
+import com.yanxiu.gphone.student.inter.AsyncCallBack;
+import com.yanxiu.gphone.student.inter.AsyncLocalCallBack;
+import com.yanxiu.gphone.student.requestTask.RequestMistakeEditionTask;
+import com.yanxiu.gphone.student.requestTask.RequestWrongChapterask;
+import com.yanxiu.gphone.student.requestTask.RequestWrongKongledgeask;
+import com.yanxiu.gphone.student.utils.QuestionUtils;
+import com.yanxiu.gphone.student.utils.Util;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by Canghaixiao.
@@ -29,6 +55,26 @@ public class MistakeAllFragment extends Fragment implements MistakeAllFragmentAd
 
     private Context mContext;
     private MistakeAllFragmentAdapter adapter;
+    private String mType;
+    private String stageId="";
+    private String subjectId="";
+    private String editionId="";
+    private List<MistakeAllFragBean> chapter_list=new ArrayList<>();
+    private List<MistakeAllFragBean> kongledge_list=new ArrayList<>();
+    private RelativeLayout rlConverLoadView;
+    private RelativeLayout rlNoDataView;
+    private TextView tvDescView;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle=getArguments();
+        if (bundle!=null){
+            stageId=bundle.getString("stageId","");
+            subjectId=bundle.getString("subjectId","");
+            editionId=bundle.getString("editionId","");
+        }
+    }
 
     @Nullable
     @Override
@@ -38,7 +84,14 @@ public class MistakeAllFragment extends Fragment implements MistakeAllFragmentAd
         initView(view);
         initData();
         initListener();
+        EventBus.getDefault().register(this);
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
     }
 
     private void initView(View view) {
@@ -46,57 +99,17 @@ public class MistakeAllFragment extends Fragment implements MistakeAllFragmentAd
         recyProSelect.setLayoutManager(new LinearLayoutManager(mContext));
         adapter=new MistakeAllFragmentAdapter(mContext);
         recyProSelect.setAdapter(adapter);
-    }
 
-    private List<MistakeAllFragBean> getList(){
-        List<MistakeAllFragBean> list=new ArrayList<>();
+        rlNoDataView= (RelativeLayout) view.findViewById(R.id.relative_layout);
+        rlConverLoadView= (RelativeLayout) view.findViewById(R.id.rl_conver_loading);
+        tvDescView= (TextView) view.findViewById(R.id.text_dese);
 
-        for (int i=0;i<3;i++){
-            MistakeAllFragBean bean=new MistakeAllFragBean();
-            bean.setId((i+1));
-            bean.setHaveChildren(true);
-            bean.setHierarchy(0);
-            bean.setName("i"+i);
-            ArrayList<MistakeAllFragBean> list_i=new ArrayList<>();
-            for (int j=0;j<3;j++){
-                MistakeAllFragBean bean_j=new MistakeAllFragBean();
-                bean_j.setId((i+1)*10+(j+1));
-                bean_j.setHaveChildren(true);
-                bean_j.setName("j"+j);
-                bean_j.setHierarchy(1);
-                ArrayList<MistakeAllFragBean> list_j=new ArrayList<>();
-                for (int k=0;k<3;k++){
-                    MistakeAllFragBean bean_k=new MistakeAllFragBean();
-                    bean_k.setId((i+1)*100+(j+1)*10+(k+1));
-                    bean_k.setHaveChildren(true);
-                    bean_k.setHierarchy(2);
-                    bean_k.setName("k"+k);
-                    ArrayList<MistakeAllFragBean> list_k=new ArrayList<>();
-                    for (int m=0;m<3;m++){
-                        MistakeAllFragBean bean_m=new MistakeAllFragBean();
-                        bean_m.setId((i+1)*1000+(j+1)*100+(k+1)*10+(m+1));
-                        bean_m.setHaveChildren(false);
-                        bean_m.setHierarchy(3);
-                        bean_m.setName("m"+m);
-                        list_k.add(bean_m);
-                    }
-                    bean_k.setChildren(list_k);
-                    list_j.add(bean_k);
-                }
-                bean_j.setChildren(list_j);
-                list_i.add(bean_j);
-            }
-            bean.setChildren(list_i);
-            list.add(bean);
-        }
-
-        MistakeAllFragBean bean=new MistakeAllFragBean();
-        bean.setId(4);
-        bean.setHaveChildren(false);
-        bean.setHierarchy(0);
-        bean.setName("i"+4);
-        list.add(bean);
-        return list;
+        ImageView pbLoading= (ImageView) view.findViewById(R.id.pb_loaing);
+        pbLoading.clearAnimation();
+        Animation operatingAnim = AnimationUtils.loadAnimation(mContext, R.anim.xlistview_header_progress);
+        LinearInterpolator lin = new LinearInterpolator();
+        operatingAnim.setInterpolator(lin);
+        pbLoading.startAnimation(operatingAnim);
     }
 
     private void initData() {
@@ -107,14 +120,127 @@ public class MistakeAllFragment extends Fragment implements MistakeAllFragmentAd
         adapter.setOnItemClickListener(this);
     }
 
-    public void setData(int index){
-        adapter.setData(getList());
+    public void onEventMainThread(MistakeRefreshAllBean event) {
+        requestMistakeChapterData();
+        requestMistakeKongledgeData();
+    }
+
+    public void onEventMainThread(MistakeAllActivity.MistakeFragRefreshBean event) {
+        requestMistakeChapterData();
+        requestMistakeKongledgeData();
+    }
+
+    public void onEventMainThread(WrongAnswerViewActivity.WrongAnswerDeleteBean bean){
+        requestMistakeChapterData();
+        requestMistakeKongledgeData();
+    }
+
+    private void requestMistakeChapterData(){
+        rlConverLoadView.setVisibility(View.VISIBLE);
+        RequestWrongChapterask chapterask=new RequestWrongChapterask(mContext, stageId, subjectId, editionId, new AsyncCallBack() {
+            @Override
+            public void update(YanxiuBaseBean result) {
+                rlConverLoadView.setVisibility(View.GONE);
+                MistakeAllFragmentBean fragmentBean= (MistakeAllFragmentBean) result;
+                if (fragmentBean!=null&&fragmentBean.getStatus()!=null&&fragmentBean.getStatus().getCode().equals("0")){
+                    chapter_list.clear();
+                    chapter_list.addAll(fragmentBean.getData());
+                    QuestionUtils.checkMistakeAllFragmentBean(0,chapter_list);
+                    if (mType.equals(MistakeAllActivity.MISTAKE_CHAPTER)) {
+                        setAdapterNotify(chapter_list);
+                    }
+                }else {
+                    rlNoDataView.setVisibility(View.VISIBLE);
+                    tvDescView.setText(R.string.no_mistake_chapter);
+                }
+            }
+
+            @Override
+            public void dataError(int type, String msg) {
+                rlConverLoadView.setVisibility(View.GONE);
+                if (!StringUtils.isEmpty(msg)) {
+                    Util.showUserToast(msg, null, null);
+                } else {
+                    Util.showUserToast(R.string.net_null_one, -1, -1);
+                }
+            }
+        });
+        chapterask.start();
+    }
+
+    private void requestMistakeKongledgeData(){
+        rlConverLoadView.setVisibility(View.VISIBLE);
+        RequestWrongKongledgeask kongledgeask=new RequestWrongKongledgeask(mContext, stageId, subjectId, new AsyncCallBack() {
+            @Override
+            public void update(YanxiuBaseBean result) {
+                MistakeAllFragmentBean fragmentBean= (MistakeAllFragmentBean) result;
+                if (fragmentBean!=null&&fragmentBean.getStatus()!=null&&fragmentBean.getStatus().getCode().equals("0")){
+                    kongledge_list.clear();
+                    kongledge_list.addAll(fragmentBean.getData());
+                    QuestionUtils.checkMistakeAllFragmentBean(0,kongledge_list);
+                    if (mType.equals(MistakeAllActivity.MISTAKE_KONGLEDGE)) {
+                        setAdapterNotify(kongledge_list);
+                    }
+                }else {
+                    rlNoDataView.setVisibility(View.VISIBLE);
+                    tvDescView.setText(R.string.no_mistake_kongledge);
+                }
+                rlConverLoadView.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void dataError(int type, String msg) {
+                rlConverLoadView.setVisibility(View.GONE);
+                if (!StringUtils.isEmpty(msg)) {
+                    Util.showUserToast(msg, null, null);
+                } else {
+                    Util.showUserToast(R.string.net_null_one, -1, -1);
+                }
+            }
+        });
+        kongledgeask.start();
+    }
+
+    private void setAdapterNotify(List<MistakeAllFragBean> data){
+        adapter.setData(data);
         adapter.notifyDataSetChanged();
+    }
+
+    public void setData(String type){
+        List<MistakeAllFragBean> list=new ArrayList<>();
+        list.addAll(adapter.getData());
+        switch (type){
+            case MistakeAllActivity.MISTAKE_CHAPTER:
+                if (!type.equals(mType)) {
+                    kongledge_list.clear();
+                    kongledge_list.addAll(list);
+                }
+                this.mType=type;
+                if (chapter_list!=null&&chapter_list.size()>0){
+                    setAdapterNotify(chapter_list);
+                }else {
+                    setAdapterNotify(null);
+                    requestMistakeChapterData();
+                }
+                break;
+            case MistakeAllActivity.MISTAKE_KONGLEDGE:
+                if (!type.equals(mType)) {
+                    chapter_list.clear();
+                    chapter_list.addAll(list);
+                }
+                this.mType=type;
+                if (kongledge_list!=null&&kongledge_list.size()>0){
+                    setAdapterNotify(kongledge_list);
+                }else {
+                    setAdapterNotify(null);
+                    requestMistakeKongledgeData();
+                }
+                break;
+        }
     }
 
     @Override
     public void itemClickListener(MistakeAllFragBean bean) {
-        Toast.makeText(mContext,bean.getName(),Toast.LENGTH_SHORT).show();
-        MistakeDetailsActivity.launch(getActivity(),bean.getName(),"subjectId",bean.getQids());
+        MistakeDetailsActivity.launch(getActivity(),bean.getName(),subjectId,bean.getQids());
     }
 }

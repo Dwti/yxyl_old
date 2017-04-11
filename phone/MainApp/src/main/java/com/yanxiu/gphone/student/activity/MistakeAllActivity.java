@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -24,10 +25,12 @@ import com.common.login.model.UserInfo;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.basecore.task.base.threadpool.YanxiuSimpleAsyncTask;
 import com.yanxiu.gphone.student.R;
+import com.yanxiu.gphone.student.adapter.MistakeDetilsAdapter;
 import com.yanxiu.gphone.student.adapter.WrongAllListAdapter;
 import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
 import com.yanxiu.gphone.student.bean.ExercisesDataEntity;
 import com.yanxiu.gphone.student.bean.MistakeRedoNumberBean;
+import com.yanxiu.gphone.student.bean.MistakeRefreshAllBean;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.PublicErrorQuestionCollectionBean;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
@@ -54,6 +57,8 @@ import de.greenrobot.event.EventBus;
  */
 public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup.OnCheckedChangeListener {
     private static final String FRAGMENT_TAG="mistake_all";
+    public static final String MISTAKE_CHAPTER="chapter";
+    public static final String MISTAKE_KONGLEDGE="kongledge";
     private PublicLoadLayout rootView;
     private int pageIndex = 1;
     private TextView backView;
@@ -62,6 +67,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
     private XListView listView;
     private String title;
     private String stageId;
+    private String editionId;
     private String subjectId;
     private String wrongNum;
     private int ptype = 2;
@@ -86,11 +92,12 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
     private RelativeLayout rlXListTotalView;
 
 
-    public static void launch (Activity activity, String title, String subjectId, String wrongNum) {
+    public static void launch (Activity activity, String title, String subjectId, String wrongNum,String editionId) {
         Intent intent = new Intent(activity, MistakeAllActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("subjectId", subjectId);
         intent.putExtra("wrongNum", wrongNum);
+        intent.putExtra("editionId",editionId);
         activity.startActivityForResult(intent,00);
     }
 
@@ -101,6 +108,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
         title = getIntent().getStringExtra("title");
         subjectId = getIntent().getStringExtra("subjectId");
         wrongNum = getIntent().getStringExtra("wrongNum");
+        editionId=getIntent().getStringExtra("editionId");
         rootView = PublicLoadUtils.createPage(this, R.layout.activity_mistake_all_layout);
         rootView.setmRefreshData(new PublicLoadLayout.RefreshData() {
             @Override public void refreshData() {
@@ -120,6 +128,9 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
         backView = (TextView)findViewById(R.id.pub_top_left);
         titleView = (TextView)findViewById(R.id.pub_top_mid);
         titleView.setText(title);
+
+        RelativeLayout rlConverView= (RelativeLayout) findViewById(R.id.rl_conver_total);
+        rlConverView.setVisibility(View.GONE);
 
         RadioGroup rgTitleView= (RadioGroup) findViewById(R.id.rg_title);
         rgTitleView.setOnCheckedChangeListener(this);
@@ -201,19 +212,30 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
             if (stageId == MyStageSelectActivity.STAGE_TYPE_PRIM || stageId == MyStageSelectActivity.STAGE_TYPE_JUIN) {
                 FragmentManager fm=getSupportFragmentManager();
                 FragmentTransaction fts=fm.beginTransaction();
+                MistakeAllFragment fragment=null;
+                Bundle bundle=new Bundle();
+                bundle.putString("stageId",stageId+"");
+                bundle.putString("subjectId",subjectId);
+                bundle.putString("editionId",editionId);
                 if (title.equals(getResources().getString(R.string.mistake_redo_math))) {
+                    rlConverView.setVisibility(View.VISIBLE);
+                    fragment=new MistakeAllFragment();
+                    fragment.setArguments(bundle);
                     rgTitleView.setVisibility(View.VISIBLE);
                     rbKongLedgeView.setVisibility(View.VISIBLE);
                     rlImagecenter.setVisibility(View.VISIBLE);
                     rlImageright.setVisibility(View.VISIBLE);
-                    fts.replace(R.id.fl_fragment,new MistakeAllFragment(),FRAGMENT_TAG);
+                    fts.replace(R.id.fl_fragment,fragment,FRAGMENT_TAG);
                     fts.commitAllowingStateLoss();
                 } else if (title.equals(getResources().getString(R.string.mistake_redo_english))){
+                    rlConverView.setVisibility(View.VISIBLE);
+                    fragment=new MistakeAllFragment();
+                    fragment.setArguments(bundle);
                     rgTitleView.setVisibility(View.VISIBLE);
                     rbKongLedgeView.setVisibility(View.GONE);
                     rlImagecenter.setVisibility(View.VISIBLE);
                     rlImageright.setVisibility(View.GONE);
-                    fts.replace(R.id.fl_fragment,new MistakeAllFragment(),FRAGMENT_TAG);
+                    fts.replace(R.id.fl_fragment,fragment,FRAGMENT_TAG);
                     fts.commitAllowingStateLoss();
                 } else {
                     rbChapterView.setVisibility(View.GONE);
@@ -575,6 +597,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
         pageIndex = 1;
         requestMistakeAllList(true, false, false);
         requestMistakeNumber();
+        setRefresh();
     }
 
     public void onEventMainThread(WrongAllListAdapter.NoRefreshBean event) {
@@ -583,15 +606,44 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
 //        pageIndex = 1;
 //        requestMistakeAllList(true, false, false);
         requestMistakeNumber();
+        setRefresh();
+    }
+
+    public class MistakeFragRefreshBean{}
+
+    private void setRefresh(){
+        MistakeFragRefreshBean bean=new MistakeFragRefreshBean();
+        EventBus.getDefault().post(bean);
+    }
+
+    public void onEventMainThread(MistakeRefreshAllBean event) {
+        mMistakeCount = mMistakeCount - 1;
+        wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mMistakeCount+""));
+        pageIndex = 1;
+        requestMistakeAllList(true, false, false);
+        requestMistakeNumber();
     }
 
     public void onEventMainThread(WrongAnswerViewActivity.WrongAnswerDeleteBean bean){
         try {
-            wrongAllListAdapter.getList().remove(bean.position);
-            wrongAllListAdapter.notifyDataSetChanged();
+            int position=getIndexFromList(wrongAllListAdapter.getList(),bean.id);
+            if (position!=-1) {
+                wrongAllListAdapter.getList().remove(position);
+                wrongAllListAdapter.notifyDataSetChanged();
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private int getIndexFromList(List<PaperTestEntity> list,int id){
+        for (int i=0;i<list.size();i++){
+            PaperTestEntity entity=list.get(i);
+            if (entity.getId()==id){
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -621,6 +673,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
             pageIndex = 1;
             requestMistakeAllList(true, false, false);
             requestMistakeNumber();
+            setRefresh();
         }
 
     }
@@ -646,7 +699,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
                 Fragment fragment=getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
                 if (fragment!=null&&fragment instanceof MistakeAllFragment){
                     MistakeAllFragment allFragment= (MistakeAllFragment) fragment;
-                    allFragment.setData(1);
+                    allFragment.setData(MISTAKE_CHAPTER);
                 }
                 break;
             case R.id.rb_kongledge:
@@ -655,7 +708,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
                 Fragment fragmentByTag=getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
                 if (fragmentByTag!=null&&fragmentByTag instanceof MistakeAllFragment){
                     MistakeAllFragment allFragment= (MistakeAllFragment) fragmentByTag;
-                    allFragment.setData(2);
+                    allFragment.setData(MISTAKE_KONGLEDGE);
                 }
                 break;
         }

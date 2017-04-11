@@ -519,4 +519,7 @@
     <string name="mistake_total">全部</string>
     <string name="mistake_chapter">章节</string>
     <string name="mistake_kongledge">知识点</string>
+
+    <string name="no_mistake_chapter">还没有章节</string>
+    <string name="no_mistake_kongledge">还没有知识点</string>
 </resources>
