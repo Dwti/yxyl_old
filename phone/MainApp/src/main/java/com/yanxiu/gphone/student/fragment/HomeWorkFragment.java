@@ -213,9 +213,7 @@ import com.yanxiu.gphone.student.view.stickhome.StickHomeLayout;
                 TeachingMaterialActivity.launchActivity(getActivity(), TeachingMaterialActivity.PRACTICE_HISTORY_ACTIVITY);
                 break;
             case R.id.system_redo:
-                String ss=UpdataUtils.getChannelName(getActivity());
-                Toast.makeText(getActivity(),ss,Toast.LENGTH_SHORT).show();
-//                SettingProbActivity.lunch(getActivity());
+                SettingProbActivity.lunch(getActivity());
                 break;
         }
     }

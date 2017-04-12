@@ -15,7 +15,7 @@ android {
 //        versionName "2.4.1"
 
         versionCode 19
-        versionName "2.4.3"
+        versionName "1.0"
         multiDexEnabled true//multiDexEnabled true
 
         buildConfigField "boolean", "YANXIU_DEBUG", "${yanxiu_debug}"

@@ -15,17 +15,19 @@ import com.yanxiu.gphone.student.parser.InitializeParser;
 public class InitializeTask extends AbstractAsyncTask<NewInitializeBean>{
     private AsyncCallBack mAsyncCallBack;
     private String content;
-    public InitializeTask(Context context, String content,
+    private String channel;
+    public InitializeTask(Context context, String content,String channel,
             AsyncCallBack mAsyncCallBack) {
         super(context);
         this.content = content;
+        this.channel=channel;
         this.mAsyncCallBack = mAsyncCallBack;
     }
 
     @Override
     public YanxiuDataHull<NewInitializeBean> doInBackground() {
         return YanxiuHttpApi
-                .requestInitialize(0, content, new InitializeParser());
+                .requestInitialize(0, content,channel, new InitializeParser());
     }
 
     @Override

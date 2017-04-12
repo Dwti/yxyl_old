@@ -28,6 +28,7 @@ import com.yanxiu.gphone.student.manager.ActivityManager;
 import com.yanxiu.gphone.student.preference.PreferencesManager;
 import com.yanxiu.gphone.student.requestTask.InitializeTask;
 
+import com.yanxiu.gphone.student.utils.UpdataUtils;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.UpgradeDialog;
@@ -264,7 +265,8 @@ public class UpgradeUtils {
         }
         YanXiuConstant.updata = 1;
         cancelUpgrade();
-        updateTask=new InitializeTask(activity, "", new AsyncCallBack() {
+        String channel=UpdataUtils.getChannelName(activity);
+        updateTask=new InitializeTask(activity, "",channel, new AsyncCallBack() {
             @Override
             public void update(YanxiuBaseBean result) {
                 if (result != null) {
