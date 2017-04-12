@@ -1727,7 +1727,8 @@ public class YanxiuHttpApi {
      */
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestInitialize(int updataId, String content, YanxiuMainParser<T, D> parser) {
 
-        String baseUrl = getInitUrl() + "/initialize";
+//        String baseUrl = getInitUrl() + "/initialize";
+        String baseUrl = getInitUrl() + "/app/log/uploadDeviceLog/release.do";
 
         Bundle params = new Bundle();
 
@@ -1737,9 +1738,13 @@ public class YanxiuHttpApi {
         params.putString("nettype", NetWorkTypeUtils.getNetWorkType());
         params.putString("osType", YanXiuConstant.OS_TYPE);
         params.putString("os", YanXiuConstant.OS);
+
+        params.putString("channel","shoujizhushou360");
+
+        params.putString("debugtoken","");
         params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString("appVersion", YanXiuConstant.VERSION);
-        params.putString("version", YanXiuConstant.VERSION);
+        params.putString("osVer", YanXiuConstant.VERSION);
         params.putString("content", content);
         params.putString("mode", mUrlBean!=null ? mUrlBean.getMode() : "test");
         params.putString("operType", YanXiuConstant.OPERTYPE);

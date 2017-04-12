@@ -22,6 +22,7 @@ import com.yanxiu.basecore.http.HttpTaskManager;
 //import com.yanxiu.gphone.parent.contants.YanxiuParentConstants;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.InitializeBean;
+import com.yanxiu.gphone.student.bean.NewInitializeBean;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
 import com.yanxiu.gphone.student.manager.ActivityManager;
 import com.yanxiu.gphone.student.preference.PreferencesManager;
@@ -74,7 +75,7 @@ public class UpgradeUtils {
      * show popupwindow
      */
     @TargetApi(Build.VERSION_CODES.KITKAT) public static void showUpdateDialogWin(
-            Context context,final InitializeBean initializeBean,
+            Context context,final NewInitializeBean initializeBean,
             OnUpgradeCallBack onUpgradeCallBack) {
         mContext = context;
         if(onUpgradeCallBack!=null){
@@ -267,43 +268,45 @@ public class UpgradeUtils {
             @Override
             public void update(YanxiuBaseBean result) {
                 if (result != null) {
-                    InitializeBean initializeBean = (InitializeBean) result;
-                    boolean isUpgrade = UpgradeUtils
-                            .onUpdate(YanXiuConstant.VERSION,
-                                    initializeBean.getVersion());
-                    if (isUpgrade) {
-                        UpgradeUtils.showUpdateDialogWin(activity,
-                                initializeBean,
-                                new UpgradeUtils.OnUpgradeCallBack() {
-                                    @Override
-                                    public void onExit() {
-                                        ActivityManager.destory();
-                                        android.os.Process.killProcess(android.os.Process.myPid());
-                                    }
+                    NewInitializeBean initializeBean = (NewInitializeBean) result;
+                    if (initializeBean!= null) {
+                        boolean isUpgrade = UpgradeUtils
+                                .onUpdate(YanXiuConstant.VERSION,
+                                        initializeBean.getVersion());
+                        if (isUpgrade) {
+                            UpgradeUtils.showUpdateDialogWin(activity,
+                                    initializeBean,
+                                    new UpgradeUtils.OnUpgradeCallBack() {
+                                        @Override
+                                        public void onExit() {
+                                            ActivityManager.destory();
+                                            android.os.Process.killProcess(android.os.Process.myPid());
+                                        }
 
-                                    @Override
-                                    public void onDownloadApk(
-                                            boolean isSuccess) {
-                                        LogInfo.log("king",
-                                                "onDownloadApk isSuccess = "
-                                                        + isSuccess);
-                                    }
+                                        @Override
+                                        public void onDownloadApk(
+                                                boolean isSuccess) {
+                                            LogInfo.log("king",
+                                                    "onDownloadApk isSuccess = "
+                                                            + isSuccess);
+                                        }
 
-                                    @Override
-                                    public void onInstallApk(
-                                            boolean isSuccess) {
-                                        LogInfo.log("king",
-                                                "onInstallApk isSuccess = "
-                                                        + isSuccess);
-                                    }
-                                });
-                    } else {
-                        if (fromUser) {
-                            Util.showToast(R.string.update_new);
+                                        @Override
+                                        public void onInstallApk(
+                                                boolean isSuccess) {
+                                            LogInfo.log("king",
+                                                    "onInstallApk isSuccess = "
+                                                            + isSuccess);
+                                        }
+                                    });
+                        } else {
+                            if (fromUser) {
+                                Util.showToast(R.string.update_new);
+                            }
                         }
+                        updateTask = null;
+                        LogInfo.log("king", initializeBean.toString());
                     }
-                    updateTask=null;
-                    LogInfo.log("king", initializeBean.toString());
                 }
             }
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import com.yanxiu.basecore.bean.YanxiuDataHull;
 import com.yanxiu.basecore.exception.ErrorCode;
 import com.yanxiu.gphone.student.bean.InitializeBean;
+import com.yanxiu.gphone.student.bean.NewInitializeBean;
 import com.yanxiu.gphone.student.httpApi.YanxiuHttpApi;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
 import com.yanxiu.gphone.student.parser.InitializeParser;
@@ -11,7 +12,7 @@ import com.yanxiu.gphone.student.parser.InitializeParser;
 /**
  * Created by Administrator on 2015/6/1.
  */
-public class InitializeTask extends AbstractAsyncTask<InitializeBean>{
+public class InitializeTask extends AbstractAsyncTask<NewInitializeBean>{
     private AsyncCallBack mAsyncCallBack;
     private String content;
     public InitializeTask(Context context, String content,
@@ -22,13 +23,13 @@ public class InitializeTask extends AbstractAsyncTask<InitializeBean>{
     }
 
     @Override
-    public YanxiuDataHull<InitializeBean> doInBackground() {
+    public YanxiuDataHull<NewInitializeBean> doInBackground() {
         return YanxiuHttpApi
                 .requestInitialize(0, content, new InitializeParser());
     }
 
     @Override
-    public void onPostExecute(int updateId, InitializeBean result) {
+    public void onPostExecute(int updateId, NewInitializeBean result) {
         if(result != null){
             if(mAsyncCallBack != null){
                 mAsyncCallBack.update(result);
