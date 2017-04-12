@@ -271,7 +271,6 @@ public class UpgradeUtils {
             public void update(YanxiuBaseBean result) {
                 if (result != null) {
                     NewInitializeBean initializeBean = (NewInitializeBean) result;
-                    if (initializeBean!= null) {
                         boolean isUpgrade = UpgradeUtils
                                 .onUpdate(YanXiuConstant.VERSION,
                                         initializeBean.getVersion());
@@ -309,7 +308,6 @@ public class UpgradeUtils {
                         updateTask = null;
                         LogInfo.log("king", initializeBean.toString());
                     }
-                }
             }
 
             @Override
