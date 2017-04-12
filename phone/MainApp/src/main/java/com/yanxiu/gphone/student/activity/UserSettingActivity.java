@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,7 +25,7 @@ import com.yanxiu.gphone.student.view.YanxiuTypefaceTextView;
  */
 public class UserSettingActivity extends YanxiuBaseActivity implements View.OnClickListener{
     private View topView,bindMobileView, modifyPwdView, updateView, aboutUsView, logOutView,
-            pwdDividerLine;
+            pwdDividerLine,bindMobileLine;
     private View backView;
     private TextView topTitle,bindMobileTV, modifyTV, updateTv, aboutUsTv;
     private ScalpelFrameLayout mScalpelView;
@@ -44,6 +45,7 @@ public class UserSettingActivity extends YanxiuBaseActivity implements View.OnCl
         topTitle = (TextView) topView.findViewById(R.id.pub_top_mid);
         topTitle.setText(R.string.my_setting_name);
         bindMobileView = findViewById(R.id.setting_modify_bind_mobile_layout);
+        bindMobileLine = findViewById(R.id.setting_bind_mobile_dividerline);
         modifyPwdView = findViewById(R.id.setting_modify_pwd_layout);
         updateView = findViewById(R.id.setting_update_layout);
         aboutUsView = findViewById(R.id.setting_about_us_layout);
@@ -71,7 +73,7 @@ public class UserSettingActivity extends YanxiuBaseActivity implements View.OnCl
         updateLeftIcon.setVisibility(View.GONE);
         ImageView updaterRightIcon=(ImageView)updateView.findViewById(R.id.right_arrow);
         updaterRightIcon.setVisibility(View.VISIBLE);
-        
+
         ImageView aboutUsLeftIcon=(ImageView)aboutUsView.findViewById(R.id.left_icon);
         aboutUsLeftIcon.setVisibility(View.GONE);
         ImageView aboutUsRightIcon=(ImageView)aboutUsView.findViewById(R.id.right_arrow);
@@ -93,6 +95,9 @@ public class UserSettingActivity extends YanxiuBaseActivity implements View.OnCl
         Util.setViewTypeface(YanxiuTypefaceTextView.TypefaceType.FANGZHENG, ((TextView) logOutView));
 
         if(PreferencesManager.getInstance().getIsThirdLogIn()){
+            bindMobileView.setVisibility(View.GONE);
+            bindMobileLine.setVisibility(View.GONE);
+
             modifyPwdView.setVisibility(View.GONE);
             pwdDividerLine.setVisibility(View.GONE);
         }
@@ -110,7 +115,11 @@ public class UserSettingActivity extends YanxiuBaseActivity implements View.OnCl
         if(v == backView){
             finish();
         } else if(v == bindMobileView){
-            SettingBindMobileActivity.launch(this);
+            if(TextUtils.isEmpty(LoginModel.getBindMobile())){
+                SettingBindMobileActivity.launch(this,SettingBindMobileActivity.FORM_OTHERS);
+            }else{
+                VerifyMobileActivity.launch(this,LoginModel.getBindMobile());
+            }
         }else if(v == modifyPwdView){
             SettingModifyPWDActivity.launchActivity(this);
         }else if(v == updateView){

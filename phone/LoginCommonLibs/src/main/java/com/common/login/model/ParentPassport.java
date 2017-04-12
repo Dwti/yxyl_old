@@ -11,6 +11,8 @@ public class ParentPassport implements YanxiuBaseBean {
     private String mobile;
     private String token;
     private String uid;
+    private String loginName;
+    private String type;  //0:手机/账号 1：三方登录
 
     public String getDeviceid() {
         return deviceid;
@@ -50,5 +52,21 @@ public class ParentPassport implements YanxiuBaseBean {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

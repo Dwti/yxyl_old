@@ -344,6 +344,8 @@
         <activity android:name=".activity.MistakeRedoActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.SettingBindMobileActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.VerifyMobileActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"/>
         <activity android:name=".activity.SystemActivity"

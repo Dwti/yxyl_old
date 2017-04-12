@@ -24,7 +24,7 @@
                 layout="@layout/activity_info_user_icon_public_item"
                 />
             <include
-                android:id="@+id/setting_modify_pwd_dividerline"
+                android:id="@+id/setting_bind_mobile_dividerline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dimen_16"

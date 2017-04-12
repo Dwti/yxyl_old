@@ -517,4 +517,6 @@
     <string name="upload_photo">上传照片</string>
     <string name="bind_mobile">绑定手机</string>
     <string name="toast_login_account">请输入正确的账号</string>
+    <string name="verify_mobile">手机验证</string>
+    <string name="bind_new_mobile">填写新手机</string>
 </resources>

@@ -335,7 +335,7 @@ public class UserInfoActivity extends YanxiuBaseActivity implements View.OnClick
         });
         newRegisterTask.start();
 
-//        requestRegisterTask = new RequestRegisterTask(this, LoginModel.getMobile(),
+//        requestRegisterTask = new RequestRegisterTask(this, LoginModel.getBindMobile(),
 //                LoginModel.getPassword(),
 //                nameView.getText().toString(), nickNameView.getText().toString(),provinceId,cityId,
 //                zipcode, schoolId, stageId, schoolName,new AsyncCallBack() {
