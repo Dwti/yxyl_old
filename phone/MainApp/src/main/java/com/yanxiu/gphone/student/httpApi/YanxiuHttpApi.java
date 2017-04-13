@@ -1746,7 +1746,7 @@ public class YanxiuHttpApi {
         params.putString("content", content);
         params.putString("mode", mUrlBean!=null ? mUrlBean.getMode() : "test");
         params.putString("operType", YanXiuConstant.OPERTYPE);
-        params.putString("phone", LoginModel.getUserinfoEntity().getMobile() == null ? "-" : LoginModel.getUserinfoEntity().getMobile());
+        params.putString("phone", "-");
         params.putString("remoteIp", "");
         params.putString("productLine", YanXiuConstant.PRODUCTLINE + "");
         YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl,

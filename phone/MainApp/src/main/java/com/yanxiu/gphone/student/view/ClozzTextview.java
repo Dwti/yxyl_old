@@ -19,6 +19,7 @@ import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
+import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.view.question.QuestionsListener;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/9/5.
  */
-public class ClozzTextview extends TextView implements ImageSpanOnclickListener ,QuestionsListener {
+public class ClozzTextview extends TextView implements ImageSpanOnclickListener, QuestionsListener {
 
     private static final char SBC_CHAR_START = 65281;
     private static final char SBC_CHAR_END = 65374;
@@ -36,14 +37,14 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
     private static final char DBC_SPACE = ' ';
 
     private Context context;
-    private float textsize=32;
-    private int linespacing=10;
+    private float textsize = 32;
+    private int linespacing = 10;
 
     public List<Buttonbean> getList() {
         return list;
     }
 
-    private List<Buttonbean> list=new ArrayList<Buttonbean>();
+    private List<Buttonbean> list = new ArrayList<Buttonbean>();
     protected QuestionEntity questionsEntity;
     private int position_index;
     private int question_position;
@@ -52,11 +53,11 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
     private AnswerBean bean;
 
     public ClozzTextview(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public ClozzTextview(Context context, AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public ClozzTextview(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -65,37 +66,60 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
     }
 
     private void init(Context context) {
-        this.context=context;
+        this.context = context;
 //        this.setTextSize(textsize);
         this.setTextSize(TypedValue.COMPLEX_UNIT_PX, textsize);
-        this.setLineSpacing(linespacing,1);
+        this.setLineSpacing(linespacing, 1);
         this.setMovementMethod(MyImageSpanLinkMovementMethod.getInstance());
         this.setHighlightColor(context.getResources().getColor(android.R.color.transparent));
     }
 
-    public void setData(String text){
+    public void setData(String text) {
 //        text=full2half(text);
 //        text=text.replaceAll(" ","&nbsp;");
-        text=text.replaceAll("&nbsp;"," ");
-        text=text.replaceAll("\\(_\\)","<clozz>k</clozz>");
+        text = text.replaceAll("&nbsp;", " ");
+        text = text.replaceAll("\\(_\\)", "<clozz>k</clozz>");
 //        text=text.replaceAll("\\(_\\)","");
-        int position=text.split("<clozz>").length;
-        for (int i=0;i<position-1;i++){
-            Buttonbean buttonbean=new Buttonbean();
+        int position = text.split("<clozz>").length;
+        for (int i = 0; i < position - 1; i++) {
+            Buttonbean buttonbean = new Buttonbean();
             buttonbean.setId(i);
             question_position++;
             buttonbean.setQuestion_id(question_position);
             buttonbean.setText("");
             buttonbean.setTextsize(textsize);
-            if (i==0){
+            if (i == 0) {
                 buttonbean.setSelect(true);
             }
             list.add(buttonbean);
-            setAnswers_cache(buttonbean,i);
+            setAnswers_cache(buttonbean, i);
         }
         UilImageGetter imageGetter = new UilImageGetter(this, context);
-        Spanned spanned = MyHtml.fromHtml(context,text,imageGetter,null,list,this);
+        Spanned spanned = MyHtml.fromHtml(context, text, imageGetter, null, list, this);
         this.setText(spanned);
+    }
+
+    public void setAnswerViewTypyBean(int answerViewTypyBean) {
+        if (answerViewTypyBean == SubjectExercisesItemBean.RESOLUTION || answerViewTypyBean == SubjectExercisesItemBean.WRONG_SET) {
+            setAnswerToFillAnswer();
+        }
+    }
+
+    private void setAnswerToFillAnswer() {
+        ArrayList<String> list = bean.getFillAnswers();
+        if (list == null) {
+            list = new ArrayList<>();
+        }
+        List<PaperTestEntity> children_list = questionsEntity.getChildren();
+        for (int i = 0; i < children_list.size(); i++) {
+            PaperTestEntity entity = children_list.get(i);
+            String fillAnswer = "";
+            if (!StringUtils.isEmpty(entity.getQuestions().getAnswerBean().getSelectType())) {
+                fillAnswer = entity.getQuestions().getAnswerBean().getSelectType();
+            }
+            list.add(fillAnswer);
+        }
+        bean.setFillAnswers(list);
     }
 
     private String full2half(String src) {
@@ -116,18 +140,20 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
         return buf.toString();
     }
 
-    public interface onDrawSucessListener{
+    public interface onDrawSucessListener {
         void onsucess();
     }
+
     private onDrawSucessListener sucessListener;
-    public void setOnDrawSucessListener(onDrawSucessListener sucessListener){
-        this.sucessListener=sucessListener;
+
+    public void setOnDrawSucessListener(onDrawSucessListener sucessListener) {
+        this.sucessListener = sucessListener;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (sucessListener!=null) {
+        if (sucessListener != null) {
             sucessListener.onsucess();
         }
     }
@@ -142,74 +168,74 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
-    public void setTextColor(){
+    public void setTextColor() {
 //        if (answers.size()!=list.size()){
 //            return;
 //        }
-        List<PaperTestEntity> children_list=questionsEntity.getChildren();
-        for (int i=0;i<children_list.size();i++){
-            String ans=children_list.get(i).getQuestions().getAnswer().get(0);
-            Buttonbean bean=list.get(i);
+        List<PaperTestEntity> children_list = questionsEntity.getChildren();
+        for (int i = 0; i < children_list.size(); i++) {
+            String ans = children_list.get(i).getQuestions().getAnswer().get(0);
+            Buttonbean bean = list.get(i);
 //            if (!TextUtils.isEmpty(bean.getText())) {
 
-                switch (ans){
-                    case "0":
-                        ans="A";
-                        break;
+            switch (ans) {
+                case "0":
+                    ans = "A";
+                    break;
 
-                    case "1":
-                        ans="B";
-                        break;
+                case "1":
+                    ans = "B";
+                    break;
 
-                    case "2":
-                        ans="C";
-                        break;
+                case "2":
+                    ans = "C";
+                    break;
 
-                    case "3":
-                        ans="D";
-                        break;
-                }
+                case "3":
+                    ans = "D";
+                    break;
+            }
 
-                if (bean.getText().equals(ans)) {
-                    bean.setTextcolor(Buttonbean.COLOR_CORRECT);
-                } else {
-                    bean.setTextcolor(Buttonbean.COLOR_ERROR);
-                }
+            if (bean.getText().equals(ans)) {
+                bean.setTextcolor(Buttonbean.COLOR_CORRECT);
+            } else {
+                bean.setTextcolor(Buttonbean.COLOR_ERROR);
+            }
 //            }
         }
         this.invalidate();
     }
 
-    private void setAnswers_cache(Buttonbean buttonbean, int i){
-        if (bean.getFillAnswers().size()>i){
-            String answer=bean.getFillAnswers().get(i);
-            setText(buttonbean,answer);
-        }else {
-            if (position_index==0){
+    private void setAnswers_cache(Buttonbean buttonbean, int i) {
+        if (bean.getFillAnswers().size() > i) {
+            String answer = bean.getFillAnswers().get(i);
+            setText(buttonbean, answer);
+        } else {
+            if (position_index == 0) {
                 bean.getFillAnswers().add("");
                 buttonbean.setText("");
-            }else {
-                List<PaperTestEntity> list=questionsEntity.getChildren();
-                String select=list.get(i).getQuestions().getAnswerBean().getSelectType();
-                if (!TextUtils.isEmpty(select)){
+            } else {
+                List<PaperTestEntity> list = questionsEntity.getChildren();
+                String select = list.get(i).getQuestions().getAnswerBean().getSelectType();
+                if (!TextUtils.isEmpty(select)) {
                     bean.getFillAnswers().add(select);
-                    setText(buttonbean,select);
-                }else {
+                    setText(buttonbean, select);
+                } else {
                     bean.getFillAnswers().add("");
-                    setText(buttonbean,"");
+                    setText(buttonbean, "");
                 }
             }
 
         }
     }
 
-    public void setQuestionsEntity(QuestionEntity questionsEntity, int position_index){
-        this.questionsEntity=questionsEntity;
-        this.position_index=position_index;
-        if (position_index==-1){
-            question_position=questionsEntity.getChildren().get(0).getQuestions().getPositionForCard();
-        }else {
-            question_position=position_index;
+    public void setQuestionsEntity(QuestionEntity questionsEntity, int position_index) {
+        this.questionsEntity = questionsEntity;
+        this.position_index = position_index;
+        if (position_index == -1) {
+            question_position = questionsEntity.getChildren().get(0).getQuestions().getPositionForCard();
+        } else {
+            question_position = position_index;
         }
     }
 
@@ -222,15 +248,15 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
         }
     }
 
-    public void setAnswersToPosition(int position,String answer){
-        Buttonbean buttonbean=list.get(position);
-        ArrayList<String> answer_list=bean.getFillAnswers();
-        if (answer_list.size()<position){
+    public void setAnswersToPosition(int position, String answer) {
+        Buttonbean buttonbean = list.get(position);
+        ArrayList<String> answer_list = bean.getFillAnswers();
+        if (answer_list.size() < position) {
 
-        }else {
+        } else {
             answer_list.remove(position);
-            answer_list.add(position,answer);
-            setText(buttonbean,answer);
+            answer_list.add(position, answer);
+            setText(buttonbean, answer);
             invalidate();
         }
     }
@@ -240,9 +266,9 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
         super.invalidate();
     }
 
-    private void setText(Buttonbean buttonbean, String answer){
+    private void setText(Buttonbean buttonbean, String answer) {
 //        String text="";
-        switch (answer){
+        switch (answer) {
             case "0":
 //                text=(int)textView.getTag(PAGER)+1+".A";
                 buttonbean.setText("A");
@@ -267,13 +293,13 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
 //        textView.setText(text);
     }
 
-    public void setTextViewSelect(int position){
-        Buttonbean buttonbean= list.get(position);
+    public void setTextViewSelect(int position) {
+        Buttonbean buttonbean = list.get(position);
 //        buttonbean.setText("便");
-        for (Buttonbean bean:list){
-            if (bean.getId()==buttonbean.getId()){
+        for (Buttonbean bean : list) {
+            if (bean.getId() == buttonbean.getId()) {
                 bean.setSelect(true);
-            }else {
+            } else {
                 bean.setSelect(false);
             }
         }
@@ -288,14 +314,14 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
      * 如果其中一个TextView的答案不为null，则认为用户已经答了这道题
      */
     public void saveAnswers() {
-        if (list!=null&&list.size()>0){
+        if (list != null && list.size() > 0) {
             int fillCount = list.size();
             int answerCount = bean.getFillAnswers().size();
             bean.setIsFinish(false);
-            List<PaperTestEntity> list=questionsEntity.getChildren();
+            List<PaperTestEntity> list = questionsEntity.getChildren();
             for (int i = 0; i < fillCount; i++) {
                 String fillAnswer = "";
-                if (list!=null) {
+                if (list != null) {
                     if (!StringUtils.isEmpty(list.get(i).getQuestions().getAnswerBean().getSelectType())) {
                         fillAnswer = list.get(i).getQuestions().getAnswerBean().getSelectType();
                         bean.setIsFinish(true);
@@ -318,26 +344,26 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
      */
     private boolean judgeAnswerIsRight() {
         //形势所致，只能改为这样
-        List<PaperTestEntity> children_list=questionsEntity.getChildren();
+        List<PaperTestEntity> children_list = questionsEntity.getChildren();
         answers.clear();
-        for (int i=0;i<children_list.size();i++){
-            String ans=children_list.get(i).getQuestions().getAnswer().get(0);
+        for (int i = 0; i < children_list.size(); i++) {
+            String ans = children_list.get(i).getQuestions().getAnswer().get(0);
 
-            switch (ans){
+            switch (ans) {
                 case "0":
-                    ans="A";
+                    ans = "A";
                     break;
 
                 case "1":
-                    ans="B";
+                    ans = "B";
                     break;
 
                 case "2":
-                    ans="C";
+                    ans = "C";
                     break;
 
                 case "3":
-                    ans="D";
+                    ans = "D";
                     break;
             }
 
@@ -347,27 +373,27 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
         return CommonCoreUtil.compare(myAnswers, answers);
     }
 
-    public interface QuestionPositionSelectListener{
+    public interface QuestionPositionSelectListener {
         void QuestionPosition(Buttonbean buttonbean);
     }
 
-    public void setListener(QuestionPositionSelectListener listener){
-        this.selectListener=listener;
+    public void setListener(QuestionPositionSelectListener listener) {
+        this.selectListener = listener;
     }
 
     @Override
     public void onClick(Object flag) {
-        Buttonbean buttonbean= (Buttonbean) flag;
+        Buttonbean buttonbean = (Buttonbean) flag;
 //        buttonbean.setText("便");
-        for (Buttonbean bean:list){
-            if (bean.getId()==buttonbean.getId()){
+        for (Buttonbean bean : list) {
+            if (bean.getId() == buttonbean.getId()) {
                 bean.setSelect(true);
-            }else {
+            } else {
                 bean.setSelect(false);
             }
         }
         invalidate();
-        if (selectListener!=null){
+        if (selectListener != null) {
             selectListener.QuestionPosition(buttonbean);
         }
     }
@@ -392,21 +418,21 @@ public class ClozzTextview extends TextView implements ImageSpanOnclickListener 
 
     }
 
-    public class Buttonbean{
+    public class Buttonbean {
 
         /**
          * 正确时的错题颜色
-         * */
-        public static final String COLOR_CORRECT="#00cccc";
+         */
+        public static final String COLOR_CORRECT = "#00cccc";
         /**
          * 错误时的错题颜色
-         * */
-        public static final String COLOR_ERROR="#ff80aa";
+         */
+        public static final String COLOR_ERROR = "#ff80aa";
 
         private int id;
         private int question_id;
-        private String text="";
-        private String textcolor="#000000";
+        private String text = "";
+        private String textcolor = "#000000";
         private float textsize;
         private boolean select;
         private int y;

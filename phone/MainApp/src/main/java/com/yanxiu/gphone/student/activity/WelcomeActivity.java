@@ -80,7 +80,7 @@ public class WelcomeActivity extends YanxiuBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
-        YanXiuConstant.updata = 0;
+//        YanXiuConstant.updata = 0;
         initStart();
         launch();
         savaShareIconImage();

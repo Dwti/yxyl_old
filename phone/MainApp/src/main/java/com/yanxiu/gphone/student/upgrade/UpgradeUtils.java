@@ -181,6 +181,7 @@ public class UpgradeUtils {
             notification.tickerText = mContext.getResources().getString(
                     R.string.update_asynctask_downloading);
             notification.flags = Notification.FLAG_AUTO_CANCEL;
+            notification.icon=R.drawable.notification04;
             RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.notification_updata_layout);
             remoteViews.setTextViewText(R.id.app_name, mContext.getResources().getString(
                     R.string.app_name));

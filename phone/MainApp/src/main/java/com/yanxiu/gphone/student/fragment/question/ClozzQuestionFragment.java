@@ -273,6 +273,7 @@ public class ClozzQuestionFragment extends BaseQuestionFragment implements Quest
             }
             fill_blanks_button.setQuestionsEntity(questionsEntity, position_index);
             fill_blanks_button.setDataSources(questionsEntity.getAnswerBean());
+            fill_blanks_button.setAnswerViewTypyBean(answerViewTypyBean);
             fill_blanks_button.setData(questionsEntity.getStem());
             fill_blanks_button.setAnswers(questionsEntity.getAnswer());
         }
