@@ -74,7 +74,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
     private ArrayList<ExercisesDataEntity> exercisesList = new ArrayList<ExercisesDataEntity>();
     private RequestWrongAllQuestionTask mRequestWrongAllQuestionTask;
     private SubjectExercisesItemBean mSubjectExercisesItemBean;
-    private SubjectExercisesItemBean subjectExercisesItemBeanIntent = new SubjectExercisesItemBean();;
+    public static SubjectExercisesItemBean subjectExercisesItemBeanIntent = new SubjectExercisesItemBean();;
     private MistakeRedoNumberBean numberBean;
     private Button mistake_number;
     private boolean Is_number_ready=false;
@@ -135,11 +135,11 @@ public class MistakeAllActivity extends YanxiuBaseActivity{
                         subjectExercisesItemBeanIntent.getData().get(0).setName("");
                     }
                     if (list != null && list.size() > 0 && position>0 && position-1 < list.size()) {
-                        WrongAnswerViewActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, subjectId, pageIndex, list.get(position-1).getQuestions().getChildPageIndex(), YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position-1);
+                        WrongAnswerViewActivity.launch(MistakeAllActivity.this, subjectId, pageIndex, list.get(position-1).getQuestions().getChildPageIndex(), YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position-1);
                         //ResolutionAnswerViewActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, YanXiuConstant.INTELLI_REPORT);
 //                        MistakeRedoActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, subjectId, pageIndex, list.get(position-1).getQuestions().getChildPageIndex(), YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position-1);
                     } else {
-                        WrongAnswerViewActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, subjectId, pageIndex, 0, YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position);
+                        WrongAnswerViewActivity.launch(MistakeAllActivity.this, subjectId, pageIndex, 0, YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position);
                     }
                 }
             }

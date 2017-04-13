@@ -78,9 +78,9 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
         context.startActivityForResult(intent, WRONG_ANSWER_REQUESTCODE);
     }
 
-    public static void launch(Activity context, SubjectExercisesItemBean bean, String subjectId, int pagerIndex, int childIndex, int comeFrom, String wrongCount, int position) {
+    public static void launch(Activity context, String subjectId, int pagerIndex, int childIndex, int comeFrom, String wrongCount, int position) {
         Intent intent = new Intent(context, WrongAnswerViewActivity.class);
-        intent.putExtra("subjectExercisesItemBean", bean);
+//        intent.putExtra("subjectExercisesItemBean", bean);
         intent.putExtra("subjectId", subjectId);
         intent.putExtra("pagerIndex", pagerIndex);
         intent.putExtra("childIndex", childIndex);
@@ -92,6 +92,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        comeFrom = getIntent().getIntExtra("comeFrom", 0);
         super.onCreate(savedInstanceState);
         stageId = LoginModel.getUserinfoEntity().getStageid() + "";
         subjectId = getIntent().getStringExtra("subjectId");
@@ -102,7 +103,6 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
         uniteId = getIntent().getStringExtra("uniteId");
         isChapterSection = getIntent().getIntExtra("isChapterSection", 0);
         isNetData = getIntent().getBooleanExtra("isNetData", true);
-        comeFrom = getIntent().getIntExtra("comeFrom", 0);
         position = getIntent().getIntExtra("position", 0);
         String wrongCount = getIntent().getStringExtra("wrongCount");
         try {
@@ -143,6 +143,15 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
             ivAnswerCard.setBackgroundResource(R.drawable.selector_answer_delete);
         answer_view_type.setBackgroundResource(R.drawable.answer_report);
         //}
+    }
+
+    @Override
+    protected void initDataSource() {
+        if(comeFrom == YanXiuConstant.WRONG_REPORT){
+            dataSources = MistakeAllActivity.subjectExercisesItemBeanIntent;
+        }else {
+            super.initDataSource();
+        }
     }
 
     @Override
