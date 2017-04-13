@@ -104,7 +104,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
     private TelephonyManager telephonyManager;
 
     //add
-    private ImageView ivIcon, iv_result;
+    private ImageView ivIcon, iv_result,iv_result1;
     private FrameLayout flCorrectionContent;
     /**
      * 批改结果模块
@@ -164,6 +164,7 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
 
 //        tvMyAnswer = (YXiuAnserTextView) rootView.findViewById(R.id.my_anwsers_text);
         iv_result = (ImageView) rootView.findViewById(R.id.iv_result);
+        iv_result1 = (ImageView) rootView.findViewById(R.id.iv_result1);
         tv_result = (TextView) rootView.findViewById(R.id.tv_result);
         tvReportQuestionError = (TextView) rootView.findViewById(R.id.tv_report_question_error);
         ll_note_content= rootView.findViewById(R.id.ll_note_content);
@@ -319,7 +320,8 @@ public class SubjectiveProblemAnalysisFragment extends Fragment implements View.
             }
 
             if (questionsEntity.getType_id() == YanXiuConstant.QUESTION_TYP.QUESTION_FILL_BLANKS.type||questionsEntity.getType_id() == 16||questionsEntity.getType_id() == 17){
-                iv_result.setImageResource(R.drawable.current_state_title_bg);
+                iv_result.setVisibility(View.GONE);
+                iv_result1.setVisibility(View.VISIBLE);
             }
 
             if (questionsEntity != null) {

@@ -79,11 +79,20 @@
 
             <ImageView
                 android:id="@+id/iv_result"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="32dp"
+                android:layout_height="18dp"
                 android:layout_below="@id/correcting_result_line"
                 android:layout_marginLeft="@dimen/dimen_20"
                 android:src="@drawable/correcting_result_bg" />
+
+            <ImageView
+                android:id="@+id/iv_result1"
+                android:layout_width="60dp"
+                android:layout_height="18dp"
+                android:layout_below="@id/correcting_result_line"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:src="@drawable/current_state_title_bg"
+                android:visibility="gone"/>
 
         </RelativeLayout>
 
@@ -170,8 +179,8 @@
             android:background="@drawable/repeat_common_line" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="18dp"
             android:src="@drawable/laoshipiyu" />
 
         <com.yanxiu.gphone.student.view.UnMoveListView
@@ -413,14 +422,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="32dp"
+                android:layout_height="18dp"
                 android:src="@drawable/icon_note"/>
 
             <ImageView
                 android:id="@+id/iv_edit_note"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="75dp"
+                android:layout_height="18dp"
                 android:src="@drawable/icon_note_edit"
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>

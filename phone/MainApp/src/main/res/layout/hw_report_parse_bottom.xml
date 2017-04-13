@@ -11,30 +11,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!--<RelativeLayout android:layout_width="@dimen/dimen_97"
-                        android:layout_height="@dimen/dimen_30"
-                        android:id="@+id/rl_anwser_pen"
-                        android:layout_marginTop="@dimen/dimen_10"
-                        android:background="@drawable/current_state_title_bg">
-
-            <ImageView android:layout_width="@dimen/dimen_20"
-                       android:layout_height="@dimen/dimen_20"
-                       android:layout_marginLeft="@dimen/dimen_5"
-                       android:layout_centerVertical="true"
-                       android:id="@+id/left_icon"
-                       android:src="@drawable/hw_report_parse_statue_icon"/>
-
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_toRightOf="@+id/left_icon"
-                      android:singleLine="true"
-                      android:layout_centerVertical="true"
-                      android:text="@string/hw_report_parse_statue_title"
-                      android:textSize="@dimen/dimen_15"
-                      android:textColor="@color/color_white"/>
-
-        </RelativeLayout>-->
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -462,14 +438,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="32dp"
+                android:layout_height="18dp"
                 android:src="@drawable/icon_note"/>
 
             <ImageView
                 android:id="@+id/iv_edit_note"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="75dp"
+                android:layout_height="18dp"
                 android:src="@drawable/icon_note_edit"
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>
