@@ -135,11 +135,9 @@ public class YXiuAnserTextView extends HtmlTextView {
         this.height=height;
     }
 
-    public int getFontHeight(float fontSize)
+    public int getFontHeight()
     {
-        Paint paint = new Paint();
-        paint.setTextSize(fontSize);
-        Paint.FontMetrics fm = paint.getFontMetrics();
+        Paint.FontMetrics fm = getPaint().getFontMetrics();
         return (int) Math.ceil(fm.descent - fm.ascent);
     }
 
@@ -151,9 +149,9 @@ public class YXiuAnserTextView extends HtmlTextView {
         this.application = (YanxiuApplication) ((Activity)mCtx).getApplication();
         this.setGravity(Gravity.CENTER_VERTICAL);
         this.setLineSpacing(DensityUtils.px2dip(this.getContext(), 15), 1);
-        int textsize= Util.getTextPX((Activity)mCtx);
-        this.setTextSize(TypedValue.COMPLEX_UNIT_PX, textsize);//32
-        singline_height=getFontHeight(textsize);//32
+//        int textsize= Util.getTextPX((Activity)mCtx);
+        this.setTextSize(15);//默认的为sp
+        singline_height=getFontHeight();//32
     }
 
 
