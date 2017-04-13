@@ -41,8 +41,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/group_hw_list_item_message"
-            android:maxLines="3"
-            android:ellipsize="end"
             android:layout_margin="@dimen/dimen_10"
             android:background="@drawable/teacher_msg_bg"
             android:paddingTop="@dimen/dimen_6"

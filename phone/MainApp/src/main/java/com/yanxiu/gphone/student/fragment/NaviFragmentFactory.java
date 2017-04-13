@@ -13,9 +13,9 @@ import com.yanxiu.gphone.student.fragment.MyFragment;
 
 public class NaviFragmentFactory {
 	private int currItem = 0;
-	private HomeWorkFragment mHomeWorkFragment;
-	private GroupFragment mGroupFragment;
-	private MyFragment mMyFragment;
+	private HomeWorkFragment mHomeWorkFragment;    //练习
+	private GroupFragment mGroupFragment;          //作业
+	private MyFragment mMyFragment;                //我的
 	public NaviFragmentFactory() {
 	}
 	public int getCurrentItem(){

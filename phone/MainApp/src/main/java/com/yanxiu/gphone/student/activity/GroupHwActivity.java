@@ -40,6 +40,7 @@ import de.greenrobot.event.EventBus;
 
 /**
  * Created by Administrator on 2015/7/10.
+ * 首页作业详情列表（从作业列表点进去的二级界面）
  */
 public class GroupHwActivity extends YanxiuBaseActivity {
     private final static int HAS_FINISH_STATUS = 2; //已z完成
