@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.YanxiuApplication;
 import com.yanxiu.gphone.student.bean.InitializeBean;
+import com.yanxiu.gphone.student.bean.NewInitializeBean;
 
 /**
  * Created by Administrator on 2015/6/3.
@@ -27,14 +28,14 @@ public class UpgradeDialog extends Dialog{
 
 //    private TextView mUpgradeIgoneView;
 
-    private InitializeBean initializeBean;
+    private NewInitializeBean initializeBean;
 
     private UpgradeDialogCallBack upgradeDialogCallBack;
 
     private Context mContext;
     private ProgressBar pb_loadapk;
 
-    public UpgradeDialog(Context context, InitializeBean initializeBean,
+    public UpgradeDialog(Context context, NewInitializeBean initializeBean,
             UpgradeDialogCallBack upgradeDialogCallBack) {
         super(context, R.style.alert_dialog_style);
         setOwnerActivity((Activity) context);

@@ -717,4 +717,21 @@ public class AnswerAdapter extends FragmentPagerAdapter implements QuestionsList
         this.comeFrom = comeFrom;
     }
 
+    public interface OnMoveListener{
+       void onMove(int position);
+    }
+
+    OnMoveListener moveListener;
+
+    public void setOnMoveListener(OnMoveListener moveListener){
+        this.moveListener=moveListener;
+    }
+
+    @Override
+    public void setPrimaryItem(ViewGroup container, int position, Object object) {
+        if (moveListener!=null){
+            moveListener.onMove(position);
+        }
+        super.setPrimaryItem(container, position, object);
+    }
 }

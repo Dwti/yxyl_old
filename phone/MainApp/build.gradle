@@ -13,6 +13,7 @@ android {
         targetSdkVersion 21
         versionCode 21
         versionName "2.4.1"
+
         multiDexEnabled true//multiDexEnabled true
 
         buildConfigField "boolean", "YANXIU_DEBUG", "${yanxiu_debug}"

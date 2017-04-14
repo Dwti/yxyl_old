@@ -139,10 +139,10 @@ public class TeachingMaterialActivity extends YanxiuBaseActivity {
                     if(mDataTeacherEntity.getChildren() != null && !mDataTeacherEntity.getChildren().isEmpty()){
                         //MistakeSectionActivity.launch(TeachingMaterialActivity.this, mDataTeacherEntity.getName(), mDataTeacherEntity.getId() + "",
                                 //mDataTeacherEntity.getData().getEditionId() + "", mDataTeacherEntity.getChildren(), mDataTeacherEntity.getData().getHas_knp());
-                        MistakeAllActivity.launch(TeachingMaterialActivity.this, mDataTeacherEntity.getName(), mDataTeacherEntity.getId() + "", mDataTeacherEntity.getData().getWrongNum());
+                        MistakeAllActivity.launch(TeachingMaterialActivity.this, mDataTeacherEntity.getName(), mDataTeacherEntity.getId() + "", mDataTeacherEntity.getData().getWrongNum(),mDataTeacherEntity.getData().getEditionId());
 
                     } else {
-                        MistakeAllActivity.launch(TeachingMaterialActivity.this, mDataTeacherEntity.getName(), mDataTeacherEntity.getId() + "", mDataTeacherEntity.getData().getWrongNum());
+                        MistakeAllActivity.launch(TeachingMaterialActivity.this, mDataTeacherEntity.getName(), mDataTeacherEntity.getId() + "", mDataTeacherEntity.getData().getWrongNum(),mDataTeacherEntity.getData().getEditionId());
                         //MistakeSectionActivity.launch(TeachingMaterialActivity.this, mDataTeacherEntity.getName(), mDataTeacherEntity.getId() + "",
                                 //mDataTeacherEntity.getData().getEditionId() + "", null, mDataTeacherEntity.getData().getHas_knp());
                     }

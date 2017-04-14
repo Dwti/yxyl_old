@@ -519,4 +519,7 @@
     <string name="mistake_total">全部</string>
     <string name="mistake_chapter">章节</string>
     <string name="mistake_kongledge">知识点</string>
+
+    <string name="no_mistake_chapter">当前教材版本的章节目录下无题目</string>
+    <string name="no_mistake_kongledge">暂无题目</string>
 </resources>

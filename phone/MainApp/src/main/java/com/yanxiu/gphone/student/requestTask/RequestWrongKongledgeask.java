@@ -1,37 +1,42 @@
 package com.yanxiu.gphone.student.requestTask;
 
 import android.content.Context;
+
+import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.basecore.bean.YanxiuDataHull;
 import com.yanxiu.basecore.exception.ErrorCode;
-import com.yanxiu.gphone.student.bean.InitializeBean;
-import com.yanxiu.gphone.student.bean.NewInitializeBean;
+import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.httpApi.YanxiuHttpApi;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
-import com.yanxiu.gphone.student.parser.InitializeParser;
+import com.yanxiu.gphone.student.parser.MistakeFragmentBeanParser;
 
 /**
- * Created by Administrator on 2015/6/1.
+ * Created by Canghaixiao.
+ * Time : 2017/4/10 11:50.
+ * Function :
  */
-public class InitializeTask extends AbstractAsyncTask<NewInitializeBean>{
+
+public class RequestWrongKongledgeask extends AbstractAsyncTask<YanxiuBaseBean>  {
+    private Context context;
+    private String stageId;
+    private String subjectId;
     private AsyncCallBack mAsyncCallBack;
-    private String content;
-    private String channel;
-    public InitializeTask(Context context, String content,String channel,
-            AsyncCallBack mAsyncCallBack) {
+
+    public RequestWrongKongledgeask(Context context ,String stageId, String subjectId ,AsyncCallBack mAsyncCallBack) {
         super(context);
-        this.content = content;
-        this.channel=channel;
-        this.mAsyncCallBack = mAsyncCallBack;
+        this.context=context;
+        this.stageId=stageId;
+        this.subjectId=subjectId;
+        this.mAsyncCallBack=mAsyncCallBack;
     }
 
     @Override
-    public YanxiuDataHull<NewInitializeBean> doInBackground() {
-        return YanxiuHttpApi
-                .requestInitialize(0, content,channel, new InitializeParser());
+    public YanxiuDataHull<YanxiuBaseBean> doInBackground() {
+        return YanxiuHttpApi.requestMistakeKongledge(0,stageId,subjectId,new MistakeFragmentBeanParser());
     }
 
     @Override
-    public void onPostExecute(int updateId, NewInitializeBean result) {
+    public void onPostExecute(int updateId, YanxiuBaseBean result) {
         if(result != null){
             if(mAsyncCallBack != null){
                 mAsyncCallBack.update(result);

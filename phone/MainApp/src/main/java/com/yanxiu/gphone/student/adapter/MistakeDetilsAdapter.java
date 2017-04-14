@@ -1,9 +1,6 @@
 package com.yanxiu.gphone.student.adapter;
 
 import android.app.Activity;
-import android.app.usage.UsageEvents;
-import android.content.Context;
-import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,21 +8,17 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.common.core.utils.LogInfo;
 import com.common.core.utils.NetWorkTypeUtils;
 import com.yanxiu.basecore.bean.YanxiuBaseBean;
 import com.yanxiu.gphone.student.R;
-import com.yanxiu.gphone.student.bean.ExercisesDataEntity;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.PublicErrorQuestionCollectionBean;
 import com.yanxiu.gphone.student.bean.statistics.MistakeCountBean;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
 import com.yanxiu.gphone.student.requestTask.RequestDelMistakeTask;
 import com.yanxiu.gphone.student.utils.Util;
-import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 
 import java.util.List;
@@ -49,10 +42,10 @@ import static com.yanxiu.gphone.student.utils.YanXiuConstant.QUESTION_TYP.QUESTI
 /**
  * Created by JS-00 on 2016/6/23.
  */
-public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity> {
+public class MistakeDetilsAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity> {
     private static final long ANIMATION_DURATION = 300;
     private boolean deleteAction = false;
-    public WrongAllListAdapter(Activity context) {
+    public MistakeDetilsAdapter(Activity context) {
         super(context);
     }
 
@@ -111,13 +104,6 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
                 Util.showToast(R.string.public_loading_net_null_errtxt);
                 return;
             }
-//            deleteAction = true;
-//            Util.showToast(R.string.mistake_question_del_done);
-//            PublicErrorQuestionCollectionBean.updateDelData(questionId);
-//            MistakeCountBean mistakeCountBean = new MistakeCountBean();
-//            EventBus.getDefault().post(mistakeCountBean);
-//            deleteCell(v, position);
-
             //mRootView.loading(true);
             RequestDelMistakeTask.requestTask(mContext, questionId, new AsyncCallBack() {
                 @Override
@@ -128,10 +114,12 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
                     PublicErrorQuestionCollectionBean.updateDelData(questionId);
                     int count=mList.size();
                     if (count<=1) {
-                        MistakeCountBean mistakeCountBean = new MistakeCountBean();
+                        RefreshMisDetilsBean mistakeCountBean = new RefreshMisDetilsBean();
+                        mistakeCountBean.position=position;
                         EventBus.getDefault().post(mistakeCountBean);
                     }else {
-                        NoRefreshBean refreshBean=new NoRefreshBean();
+                        NoRefreshMisDetilsBean refreshBean=new NoRefreshMisDetilsBean();
+                        refreshBean.position=position;
                         EventBus.getDefault().post(refreshBean);
                     }
                     deleteCell(v, position);
@@ -150,7 +138,12 @@ public class WrongAllListAdapter extends YXiuCustomerBaseAdapter<PaperTestEntity
         }
     }
 
-    public class NoRefreshBean{}
+    public class RefreshMisDetilsBean{
+        public int position;
+    }
+    public class NoRefreshMisDetilsBean{
+        public int position;
+    }
 
     private void setData(PaperTestEntity entity,ViewHolder holder) {
         if (entity != null && entity.getQuestions() != null) {

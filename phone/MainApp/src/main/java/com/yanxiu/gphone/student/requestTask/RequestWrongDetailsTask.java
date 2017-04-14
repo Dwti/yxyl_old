@@ -1,37 +1,46 @@
 package com.yanxiu.gphone.student.requestTask;
 
 import android.content.Context;
+
 import com.yanxiu.basecore.bean.YanxiuDataHull;
 import com.yanxiu.basecore.exception.ErrorCode;
-import com.yanxiu.gphone.student.bean.InitializeBean;
-import com.yanxiu.gphone.student.bean.NewInitializeBean;
+import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
 import com.yanxiu.gphone.student.httpApi.YanxiuHttpApi;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
-import com.yanxiu.gphone.student.parser.InitializeParser;
+import com.yanxiu.gphone.student.parser.SubjectExerisesItemParser;
+import com.yanxiu.gphone.student.utils.YanXiuConstant;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by Administrator on 2015/6/1.
+ * Created by Canghaixiao.
+ * Time : 2017/4/10 17:24.
+ * Function :
  */
-public class InitializeTask extends AbstractAsyncTask<NewInitializeBean>{
+
+public class RequestWrongDetailsTask extends AbstractAsyncTask<SubjectExercisesItemBean> {
     private AsyncCallBack mAsyncCallBack;
-    private String content;
-    private String channel;
-    public InitializeTask(Context context, String content,String channel,
-            AsyncCallBack mAsyncCallBack) {
+    private String subjectId;
+    private int currentPage = 1;
+    private ArrayList<Integer> qids;
+    private final int pageSize = YanXiuConstant.YX_PAGESIZE_CONSTANT;
+
+    public RequestWrongDetailsTask(Context context, String subjectId , ArrayList<Integer> qids, int currentPage , AsyncCallBack mAsyncCallBack) {
         super(context);
-        this.content = content;
-        this.channel=channel;
         this.mAsyncCallBack = mAsyncCallBack;
+        this.subjectId = subjectId;
+        this.qids=qids;
+        this.currentPage = currentPage;
     }
 
     @Override
-    public YanxiuDataHull<NewInitializeBean> doInBackground() {
-        return YanxiuHttpApi
-                .requestInitialize(0, content,channel, new InitializeParser());
+    public YanxiuDataHull<SubjectExercisesItemBean> doInBackground() {
+        return YanxiuHttpApi.requestWrongDetailsQuestion(0,qids,subjectId, pageSize, currentPage ,new SubjectExerisesItemParser());
     }
 
     @Override
-    public void onPostExecute(int updateId, NewInitializeBean result) {
+    public void onPostExecute(int updateId, SubjectExercisesItemBean result) {
         if(result != null){
             if(mAsyncCallBack != null){
                 mAsyncCallBack.update(result);

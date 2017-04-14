@@ -22,11 +22,13 @@ import com.yanxiu.basecore.http.HttpTaskManager;
 //import com.yanxiu.gphone.parent.contants.YanxiuParentConstants;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.InitializeBean;
+import com.yanxiu.gphone.student.bean.NewInitializeBean;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
 import com.yanxiu.gphone.student.manager.ActivityManager;
 import com.yanxiu.gphone.student.preference.PreferencesManager;
 import com.yanxiu.gphone.student.requestTask.InitializeTask;
 
+import com.yanxiu.gphone.student.utils.UpdataUtils;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.UpgradeDialog;
@@ -74,7 +76,7 @@ public class UpgradeUtils {
      * show popupwindow
      */
     @TargetApi(Build.VERSION_CODES.KITKAT) public static void showUpdateDialogWin(
-            Context context,final InitializeBean initializeBean,
+            Context context,final NewInitializeBean initializeBean,
             OnUpgradeCallBack onUpgradeCallBack) {
         mContext = context;
         if(onUpgradeCallBack!=null){
@@ -179,6 +181,7 @@ public class UpgradeUtils {
             notification.tickerText = mContext.getResources().getString(
                     R.string.update_asynctask_downloading);
             notification.flags = Notification.FLAG_AUTO_CANCEL;
+            notification.icon=R.drawable.notification04;
             RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.notification_updata_layout);
             remoteViews.setTextViewText(R.id.app_name, mContext.getResources().getString(
                     R.string.app_name));
@@ -258,49 +261,54 @@ public class UpgradeUtils {
      * 初始化接口
      */
     public static void requestInitialize(final boolean fromUser,final Activity activity) {
+        if (YanXiuConstant.updata == 1){
+            return;
+        }
+        YanXiuConstant.updata = 1;
         cancelUpgrade();
-        updateTask=new InitializeTask(activity, "", new AsyncCallBack() {
+        String channel=UpdataUtils.getChannelName(activity);
+        updateTask=new InitializeTask(activity, "",channel, new AsyncCallBack() {
             @Override
             public void update(YanxiuBaseBean result) {
                 if (result != null) {
-                    InitializeBean initializeBean = (InitializeBean) result;
-                    boolean isUpgrade = UpgradeUtils
-                            .onUpdate(YanXiuConstant.VERSION,
-                                    initializeBean.getVersion());
-                    if (isUpgrade) {
-                        UpgradeUtils.showUpdateDialogWin(activity,
-                                initializeBean,
-                                new UpgradeUtils.OnUpgradeCallBack() {
-                                    @Override
-                                    public void onExit() {
-                                        ActivityManager.destory();
-                                        android.os.Process.killProcess(android.os.Process.myPid());
-                                    }
+                    NewInitializeBean initializeBean = (NewInitializeBean) result;
+                        boolean isUpgrade = UpgradeUtils
+                                .onUpdate(YanXiuConstant.VERSION,
+                                        initializeBean.getVersion());
+                        if (isUpgrade) {
+                            UpgradeUtils.showUpdateDialogWin(activity,
+                                    initializeBean,
+                                    new UpgradeUtils.OnUpgradeCallBack() {
+                                        @Override
+                                        public void onExit() {
+                                            ActivityManager.destory();
+                                            android.os.Process.killProcess(android.os.Process.myPid());
+                                        }
 
-                                    @Override
-                                    public void onDownloadApk(
-                                            boolean isSuccess) {
-                                        LogInfo.log("king",
-                                                "onDownloadApk isSuccess = "
-                                                        + isSuccess);
-                                    }
+                                        @Override
+                                        public void onDownloadApk(
+                                                boolean isSuccess) {
+                                            LogInfo.log("king",
+                                                    "onDownloadApk isSuccess = "
+                                                            + isSuccess);
+                                        }
 
-                                    @Override
-                                    public void onInstallApk(
-                                            boolean isSuccess) {
-                                        LogInfo.log("king",
-                                                "onInstallApk isSuccess = "
-                                                        + isSuccess);
-                                    }
-                                });
-                    } else {
-                        if (fromUser) {
-                            Util.showToast(R.string.update_new);
+                                        @Override
+                                        public void onInstallApk(
+                                                boolean isSuccess) {
+                                            LogInfo.log("king",
+                                                    "onInstallApk isSuccess = "
+                                                            + isSuccess);
+                                        }
+                                    });
+                        } else {
+                            if (fromUser) {
+                                Util.showToast(R.string.update_new);
+                            }
                         }
+                        updateTask = null;
+                        LogInfo.log("king", initializeBean.toString());
                     }
-                    updateTask=null;
-                    LogInfo.log("king", initializeBean.toString());
-                }
             }
 
             @Override

@@ -40,6 +40,7 @@ import java.io.InputStream;
 import java.io.InterruptedIOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -1034,12 +1035,15 @@ public class YanxiuHttpApi {
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestMistakeEdition(
             int updataId, String stageId,
             YanxiuMainParser<T, D> parser) {
-        //String baseUrl = getStaticHead() + "/personalData/getMistakeEdition.do";
+//        String baseUrl = getStaticHead() + "/personalData/getMistakeEdition.do";
         String baseUrl = getStaticHead() + "/personalData/getSubjectMistakeV2.do";
 
         Bundle params = new Bundle();
-        //params.putString("stageId", stageId);
-        params.putString("stageId", "0");
+        if (!TextUtils.isEmpty(stageId)) {
+            params.putString("stageId", stageId);
+        }else {
+            params.putString("stageId", "0");
+        }
         params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
         params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
@@ -1047,6 +1051,8 @@ public class YanxiuHttpApi {
         params.putString(PUBLIC_PARAMETERS.OS, YanXiuConstant.OS_TYPE);
         YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
                 YanxiuHttpParameter.Type.GET, parser, updataId);
+        LogInfo.log("geny", "requestIntelliExe url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
+
         return request(httpParameter);
     }
 
@@ -1410,6 +1416,35 @@ public class YanxiuHttpApi {
         return request(httpParameter);
     }
 
+    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestWrongDetailsQuestion(
+            int updataId,ArrayList<Integer> qids, String subjectId, int pageSize, int currentPage,YanxiuMainParser<T, D> parser) {
+        String baseUrl = getStaticHead() + "/q/getWrongQByQids.do";
+
+        Bundle params = new Bundle();
+        params.putString("subjectId", subjectId);
+        JSONArray array=new JSONArray();
+        for (Integer i:qids){
+            array.put(i);
+        }
+        String s=array.toString();
+        s=s.substring(1,s.length()-1);
+        params.putString("qids",s);
+
+        params.putString("pageSize", String.valueOf(pageSize));
+        params.putString("currentPage", String.valueOf(currentPage));//从 1 开始请求
+
+        params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
+        params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
+        params.putString(PUBLIC_PARAMETERS.PCODE_KEY, YanXiuConstant.PCODE);
+        params.putString(PUBLIC_PARAMETERS.VERSION_KEY, YanXiuConstant.VERSION);
+        params.putString(PUBLIC_PARAMETERS.OS, YanXiuConstant.OS_TYPE);
+        YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
+                YanxiuHttpParameter.Type.POST, parser, updataId);
+        httpParameter.setIsEncode(false);
+        LogInfo.log("geny", "requestChapterWrongQ url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
+        return request(httpParameter);
+    }
+
     public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestMisRedoNum(int updataId, String stageId, String subjectId,YanxiuMainParser<T, D> parser){
         String baseUrl = getStaticHead() +"/q/getReDoWrongQNum.do";
         Bundle params = new Bundle();
@@ -1434,6 +1469,33 @@ public class YanxiuHttpApi {
         YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
                 YanxiuHttpParameter.Type.GET, parser, updataId);
         httpParameter.setIsEncode(true);
+        return request(httpParameter);
+    }
+
+    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestMistakeChapter(int updataId, String stageId, String subjectId,String editionId,YanxiuMainParser<T, D> parser){
+        String baseUrl = getStaticHead() +"/q/getWrongQChapterList.do";
+        Bundle params = new Bundle();
+        params.putString("stageId", stageId + "");
+        params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
+        params.putString("subjectId", subjectId + "");
+        params.putString("editionId",editionId);
+
+        YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
+                YanxiuHttpParameter.Type.GET, parser, updataId);
+        httpParameter.setIsEncode(false);
+        return request(httpParameter);
+    }
+
+    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestMistakeKongledge(int updataId, String stageId, String subjectId,YanxiuMainParser<T, D> parser){
+        String baseUrl = getStaticHead() +"/q/getWrongQPointList.do";
+        Bundle params = new Bundle();
+        params.putString("stageId", stageId + "");
+        params.putString(PUBLIC_PARAMETERS.TOKEN, LoginModel.getToken());
+        params.putString("subjectId", subjectId + "");
+
+        YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
+                YanxiuHttpParameter.Type.GET, parser, updataId);
+        httpParameter.setIsEncode(false);
         return request(httpParameter);
     }
 
@@ -1663,9 +1725,10 @@ public class YanxiuHttpApi {
     /**
      * 开机接口
      */
-    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestInitialize(int updataId, String content, YanxiuMainParser<T, D> parser) {
+    public static <T extends YanxiuBaseBean, D> YanxiuDataHull<T> requestInitialize(int updataId, String content,String channel, YanxiuMainParser<T, D> parser) {
 
-        String baseUrl = getInitUrl() + "/initialize";
+//        String baseUrl = getInitUrl() + "/initialize";
+        String baseUrl = getInitUrl() + "/app/log/uploadDeviceLog/release.do";
 
         Bundle params = new Bundle();
 
@@ -1675,13 +1738,15 @@ public class YanxiuHttpApi {
         params.putString("nettype", NetWorkTypeUtils.getNetWorkType());
         params.putString("osType", YanXiuConstant.OS_TYPE);
         params.putString("os", YanXiuConstant.OS);
+        params.putString("channel",channel);
+        params.putString("debugtoken","");
         params.putString(PUBLIC_PARAMETERS.TRACE_UID, LoginModel.getUid() + "");
         params.putString("appVersion", YanXiuConstant.VERSION);
-        params.putString("version", YanXiuConstant.VERSION);
+        params.putString("osVer", YanXiuConstant.VERSION);
         params.putString("content", content);
         params.putString("mode", mUrlBean!=null ? mUrlBean.getMode() : "test");
         params.putString("operType", YanXiuConstant.OPERTYPE);
-        params.putString("phone", LoginModel.getUserinfoEntity().getMobile() == null ? "-" : LoginModel.getUserinfoEntity().getMobile());
+        params.putString("phone", "-");
         params.putString("remoteIp", "");
         params.putString("productLine", YanXiuConstant.PRODUCTLINE + "");
         YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl,

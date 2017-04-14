@@ -7,14 +7,10 @@ import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -30,10 +26,9 @@ import com.yanxiu.basecore.task.base.threadpool.YanxiuSimpleAsyncTask;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.adapter.WrongAllListAdapter;
 import com.yanxiu.gphone.student.base.YanxiuBaseActivity;
-import com.yanxiu.gphone.student.bean.DataStatusEntityBean;
 import com.yanxiu.gphone.student.bean.ExercisesDataEntity;
 import com.yanxiu.gphone.student.bean.MistakeRedoNumberBean;
-import com.yanxiu.gphone.student.bean.PageBean;
+import com.yanxiu.gphone.student.bean.MistakeRefreshAllBean;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.PublicErrorQuestionCollectionBean;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
@@ -42,20 +37,15 @@ import com.yanxiu.gphone.student.bean.statistics.MistakeCountBean;
 import com.yanxiu.gphone.student.fragment.MistakeAllFragment;
 import com.yanxiu.gphone.student.inter.AsyncCallBack;
 import com.yanxiu.gphone.student.requestTask.MisRedoNumQuestionTask;
-import com.yanxiu.gphone.student.requestTask.RequestDelMistakeTask;
 import com.yanxiu.gphone.student.requestTask.RequestMistakeRedoClassTask;
 import com.yanxiu.gphone.student.requestTask.RequestWrongAllQuestionTask;
-import com.yanxiu.gphone.student.utils.LoadingDialogUtils;
 import com.yanxiu.gphone.student.utils.PublicLoadUtils;
 import com.yanxiu.gphone.student.utils.QuestionUtils;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
-import com.yanxiu.gphone.student.view.ChapterTabTitleLayout;
 import com.yanxiu.gphone.student.view.PublicLoadLayout;
-import com.yanxiu.gphone.student.view.YanxiuTypefaceButton;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
@@ -65,6 +55,8 @@ import de.greenrobot.event.EventBus;
  */
 public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup.OnCheckedChangeListener {
     private static final String FRAGMENT_TAG="mistake_all";
+    public static final String MISTAKE_CHAPTER="chapter";
+    public static final String MISTAKE_KONGLEDGE="kongledge";
     private PublicLoadLayout rootView;
     private int pageIndex = 1;
     private TextView backView;
@@ -73,6 +65,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
     private XListView listView;
     private String title;
     private String stageId;
+    private String editionId;
     private String subjectId;
     private String wrongNum;
     private int ptype = 2;
@@ -97,11 +90,12 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
     private RelativeLayout rlXListTotalView;
 
 
-    public static void launch (Activity activity, String title, String subjectId, String wrongNum) {
+    public static void launch (Activity activity, String title, String subjectId, String wrongNum,String editionId) {
         Intent intent = new Intent(activity, MistakeAllActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("subjectId", subjectId);
         intent.putExtra("wrongNum", wrongNum);
+        intent.putExtra("editionId",editionId);
         activity.startActivityForResult(intent,00);
     }
 
@@ -112,34 +106,43 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
         title = getIntent().getStringExtra("title");
         subjectId = getIntent().getStringExtra("subjectId");
         wrongNum = getIntent().getStringExtra("wrongNum");
+        editionId=getIntent().getStringExtra("editionId");
         rootView = PublicLoadUtils.createPage(this, R.layout.activity_mistake_all_layout);
         rootView.setmRefreshData(new PublicLoadLayout.RefreshData() {
             @Override public void refreshData() {
                 pageIndex = 1;
-                requestMistakeAllList(false, true, false);
+                requestMistakeAllList(true, true, false);
             }
         });
         setContentView(rootView);
         EventBus.getDefault().register(this);
         findView();
-        requestMistakeAllList(false, true, false);
+        requestMistakeAllList(true, true, false);
     }
 
     private void findView() {
-        View top_space_view=findViewById(R.id.top_space_view);
+        View top_space_view=findViewById(R.id.top_space_views);
         top_space_view.setVisibility(View.VISIBLE);
         backView = (TextView)findViewById(R.id.pub_top_left);
         titleView = (TextView)findViewById(R.id.pub_top_mid);
         titleView.setText(title);
 
+        RelativeLayout rlConverView= (RelativeLayout) findViewById(R.id.rl_conver_total);
+        rlConverView.setVisibility(View.GONE);
+
         RadioGroup rgTitleView= (RadioGroup) findViewById(R.id.rg_title);
         rgTitleView.setOnCheckedChangeListener(this);
-//        RadioButton rbTotalView= (RadioButton) findViewById(R.id.rb_total);
-//        RadioButton rbChapterView= (RadioButton) findViewById(R.id.rb_chapter);
+        RadioButton rbTotalView= (RadioButton) findViewById(R.id.rb_total);
+        RadioButton rbChapterView= (RadioButton) findViewById(R.id.rb_chapter);
         RadioButton rbKongLedgeView= (RadioButton) findViewById(R.id.rb_kongledge);
+
+//        RelativeLayout rlImageleft= (RelativeLayout) findViewById(R.id.rl_image1);
+        RelativeLayout rlImagecenter= (RelativeLayout) findViewById(R.id.rl_image2);
+        RelativeLayout rlImageright= (RelativeLayout) findViewById(R.id.rl_image3);
 
         flFragemtView= (FrameLayout) findViewById(R.id.fl_fragment);
         rlXListTotalView= (RelativeLayout) findViewById(R.id.rl_list_total);
+        rbTotalView.setChecked(true);
 
         FragmentManager manager=getSupportFragmentManager();
         FragmentTransaction ft=manager.beginTransaction();
@@ -163,12 +166,13 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
                     List<PaperTestEntity> list = wrongAllListAdapter.getList();
                     if (subjectExercisesItemBeanIntent.getData() != null && subjectExercisesItemBeanIntent.getData().size() > 0) {
                         subjectExercisesItemBeanIntent.getData().get(0).setName("");
+                        List<PaperTestEntity> lists=new ArrayList<PaperTestEntity>();
+                        lists.addAll(list);
+                        subjectExercisesItemBeanIntent.getData().get(0).setPaperTest(lists);
                     }
                     subjectExercisesItemBeanIntent.getData().get(0).setPaperTest(wrongAllListAdapter.getList());
                     if (list != null && list.size() > 0 && position>0 && position-1 < list.size()) {
                         WrongAnswerViewActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, subjectId, pageIndex, list.get(position-1).getQuestions().getChildPageIndex(), YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position-1);
-                        //ResolutionAnswerViewActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, YanXiuConstant.INTELLI_REPORT);
-//                        MistakeRedoActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, subjectId, pageIndex, list.get(position-1).getQuestions().getChildPageIndex(), YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position-1);
                     } else {
                         WrongAnswerViewActivity.launch(MistakeAllActivity.this, subjectExercisesItemBeanIntent, subjectId, pageIndex, 0, YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position);
                     }
@@ -207,18 +211,36 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
             if (stageId == MyStageSelectActivity.STAGE_TYPE_PRIM || stageId == MyStageSelectActivity.STAGE_TYPE_JUIN) {
                 FragmentManager fm=getSupportFragmentManager();
                 FragmentTransaction fts=fm.beginTransaction();
+                MistakeAllFragment fragment=null;
+                Bundle bundle=new Bundle();
+                bundle.putString("stageId",stageId+"");
+                bundle.putString("subjectId",subjectId);
+                bundle.putString("editionId",editionId);
                 if (title.equals(getResources().getString(R.string.mistake_redo_math))) {
+                    rlConverView.setVisibility(View.VISIBLE);
+                    fragment=new MistakeAllFragment();
+                    fragment.setArguments(bundle);
                     rgTitleView.setVisibility(View.VISIBLE);
                     rbKongLedgeView.setVisibility(View.VISIBLE);
-                    fts.replace(R.id.fl_fragment,new MistakeAllFragment(),FRAGMENT_TAG);
+                    rlImagecenter.setVisibility(View.VISIBLE);
+                    rlImageright.setVisibility(View.VISIBLE);
+                    fts.replace(R.id.fl_fragment,fragment,FRAGMENT_TAG);
                     fts.commitAllowingStateLoss();
                 } else if (title.equals(getResources().getString(R.string.mistake_redo_english))){
+                    rlConverView.setVisibility(View.VISIBLE);
+                    fragment=new MistakeAllFragment();
+                    fragment.setArguments(bundle);
                     rgTitleView.setVisibility(View.VISIBLE);
                     rbKongLedgeView.setVisibility(View.GONE);
-                    fts.replace(R.id.fl_fragment,new MistakeAllFragment(),FRAGMENT_TAG);
+                    rlImagecenter.setVisibility(View.VISIBLE);
+                    rlImageright.setVisibility(View.GONE);
+                    fts.replace(R.id.fl_fragment,fragment,FRAGMENT_TAG);
                     fts.commitAllowingStateLoss();
-                }else {
-                    rgTitleView.setVisibility(View.GONE);
+                } else {
+                    rbChapterView.setVisibility(View.GONE);
+                    rbKongLedgeView.setVisibility(View.GONE);
+                    rlImagecenter.setVisibility(View.GONE);
+                    rlImageright.setVisibility(View.GONE);
                 }
             }
         }
@@ -262,8 +284,14 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
             }
         }
 
-        @Override public void onLoadMore(XListView view) {
+        @Override
+        public void onLoadMore(XListView view) {
             if(NetWorkTypeUtils.isNetAvailable()){
+                if (wrongAllListAdapter!=null){
+                    List<PaperTestEntity> list=wrongAllListAdapter.getList();
+                    int count=list.size();
+                    pageIndex=count/10;
+                }
                 requestMistakeAllList(false, false, true);
             }else {
                 listView.stopLoadMore();
@@ -400,7 +428,32 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
 
                             subjectExercisesItemBeanIntent.setData(exercisesList);
                             //subjectExercisesItemBeanIntent.getData().get(0).getPaperTest().addAll(exerciseData.get(0).getPaperTest());
-                            dataList.addAll(data);
+                            if (isRefresh) {
+                                List<PaperTestEntity> datas = new ArrayList<PaperTestEntity>();
+                                datas.addAll(data);
+                                dataList.addAll(datas);
+                            }else if (isLoaderMore){
+                                if (dataList.size()==pageIndex*10){
+                                    List<PaperTestEntity> datas = new ArrayList<PaperTestEntity>();
+                                    datas.addAll(data);
+                                    dataList.addAll(datas);
+                                }else {
+                                    for (int i=(pageIndex-1)*10;i<dataList.size();i++){
+                                        dataList.set(i,data.get(0));
+                                        data.remove(0);
+                                    }
+                                    List<PaperTestEntity> datas = new ArrayList<PaperTestEntity>();
+                                    datas.addAll(data);
+                                    dataList.addAll(datas);
+                                }
+                            }
+                            try {
+                                List<PaperTestEntity> dataLists = new ArrayList<PaperTestEntity>();
+                                dataLists.addAll(dataList);
+                                subjectExercisesItemBeanIntent.getData().get(0).setPaperTest(dataLists);
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
                             YanxiuPageInfoBean pageBean = mSubjectExercisesItemBean.getPage();
                             if (pageBean != null) {
                                 if (pageIndex == pageBean.getTotalPage()) {
@@ -544,6 +597,53 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
         pageIndex = 1;
 //        requestMistakeAllList(true, false, false);
         requestMistakeNumber();
+        setRefresh();
+    }
+
+    public void onEventMainThread(WrongAllListAdapter.NoRefreshBean event) {
+        mMistakeCount = mMistakeCount - 1;
+        wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mMistakeCount+""));
+//        pageIndex = 1;
+//        requestMistakeAllList(true, false, false);
+        requestMistakeNumber();
+        setRefresh();
+    }
+
+    public class MistakeFragRefreshBean{}
+
+    private void setRefresh(){
+        MistakeFragRefreshBean bean=new MistakeFragRefreshBean();
+        EventBus.getDefault().post(bean);
+    }
+
+    public void onEventMainThread(MistakeRefreshAllBean event) {
+        mMistakeCount = mMistakeCount - 1;
+        wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mMistakeCount+""));
+        pageIndex = 1;
+        requestMistakeAllList(true, false, false);
+        requestMistakeNumber();
+    }
+
+    public void onEventMainThread(WrongAnswerViewActivity.WrongAnswerDeleteBean bean){
+        try {
+            int position=getIndexFromList(wrongAllListAdapter.getList(),bean.id);
+            if (position!=-1) {
+                wrongAllListAdapter.getList().remove(position);
+                wrongAllListAdapter.notifyDataSetChanged();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private int getIndexFromList(List<PaperTestEntity> list,int id){
+        for (int i=0;i<list.size();i++){
+            PaperTestEntity entity=list.get(i);
+            if (entity.getId()==id){
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -555,14 +655,25 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
             if (mMistakeCount==0){
                 this.finish();
             }else {
-                pageIndex = 1;
-                requestMistakeAllList(true, false, false);
-                requestMistakeNumber();
+                List<PaperTestEntity> list=wrongAllListAdapter.getList();
+                if (list!=null) {
+                    int count = list.size();
+                    if (count == 0) {
+                        pageIndex = 1;
+                        requestMistakeAllList(true, false, false);
+                        requestMistakeNumber();
+                    }
+                }else {
+                    pageIndex = 1;
+                    requestMistakeAllList(true, false, false);
+                    requestMistakeNumber();
+                }
             }
         }else {
             pageIndex = 1;
             requestMistakeAllList(true, false, false);
             requestMistakeNumber();
+            setRefresh();
         }
 
     }
@@ -588,7 +699,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
                 Fragment fragment=getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
                 if (fragment!=null&&fragment instanceof MistakeAllFragment){
                     MistakeAllFragment allFragment= (MistakeAllFragment) fragment;
-                    allFragment.setData(1);
+                    allFragment.setData(MISTAKE_CHAPTER);
                 }
                 break;
             case R.id.rb_kongledge:
@@ -597,7 +708,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
                 Fragment fragmentByTag=getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
                 if (fragmentByTag!=null&&fragmentByTag instanceof MistakeAllFragment){
                     MistakeAllFragment allFragment= (MistakeAllFragment) fragmentByTag;
-                    allFragment.setData(2);
+                    allFragment.setData(MISTAKE_KONGLEDGE);
                 }
                 break;
         }

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recy_cpter_koledge"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_height="match_parent"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_conver_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center">
+        <include layout="@layout/layout_student_loading"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/relative_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_20"
+        android:minHeight="@dimen/dimen_140"
+        android:paddingTop="@dimen/dimen_15"
+        android:paddingBottom="@dimen/dimen_15"
+        android:paddingLeft="@dimen/dimen_5"
+        android:paddingStart="@dimen/dimen_5"
+        android:paddingRight="@dimen/dimen_5"
+        android:paddingEnd="@dimen/dimen_5"
+        android:visibility="gone"
+        android:background="@drawable/my_list_bg_selector">
+
+        <ImageView
+            android:contentDescription="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <TextView
+            android:id="@+id/text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="30sp"
+            android:text="@string/no_home_work"/>
+        <TextView
+            android:id="@+id/text_dese"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_mistake_chapter"
+            android:layout_marginTop="@dimen/dimen_15"
+            android:gravity="center_horizontal"
+            android:textSize="20sp"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

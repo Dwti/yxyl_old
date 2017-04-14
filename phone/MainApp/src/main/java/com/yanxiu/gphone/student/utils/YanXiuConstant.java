@@ -223,4 +223,6 @@ public class YanXiuConstant {
     public final static int LAUNCHER_FROM_MISTAKE = 0x12;
 
     public static final String IMG_SRC = "<img src=";
+
+    public static int updata=0;
 }

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:padding="@dimen/dimen_5">
+
+
+    <LinearLayout
+        android:id="@+id/ll_place_children"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" />
+
+    <LinearLayout
+        android:id="@+id/rl_add_iconimage"
+        android:layout_width="@dimen/dimen_35"
+        android:layout_height="@dimen/dimen_35"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/iv_left_icon"
+            android:layout_width="@dimen/dimen_35"
+            android:layout_height="@dimen/dimen_35"
+            android:background="@drawable/chapter_center_examination_up"
+            android:contentDescription="@null" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/ll_item_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="@dimen/dimen_5"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_5"
+        android:layout_marginStart="@dimen/dimen_10"
+        android:background="@drawable/father_selector_examination_bg"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dimen_10"
+        android:paddingTop="@dimen/dimen_10">
+        <TextView
+            android:id="@+id/tv_exa_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/tv_exa_error"
+            android:layout_toStartOf="@+id/tv_exa_error"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dimen_10"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_marginStart="@dimen/dimen_10"
+            android:textColor="@color/color_805500"
+            android:shadowColor="@color/color_ffff99"
+            style="@style/shadow_text_style"
+            tools:text="ajkdfaksdnfkasdfasdf"/>
+
+        <TextView
+            android:id="@+id/tv_exa_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/iv_right_row"
+            android:layout_toStartOf="@+id/iv_right_row"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/dimen_5"
+            android:layout_marginEnd="@dimen/dimen_5"
+            style="@style/shadow_text_style"
+            android:shadowColor="@color/color_ffff99"
+            android:textColor="@color/color_805500"/>
+
+        <ImageView
+            android:id="@+id/iv_right_row"
+            android:contentDescription="@null"
+            android:layout_width="@dimen/dimen_25"
+            android:layout_height="@dimen/dimen_25"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dimen_10"
+            android:layout_marginEnd="@dimen/dimen_10"
+            android:src="@drawable/examination_right_row"/>
+    </RelativeLayout>
+
+</LinearLayout>

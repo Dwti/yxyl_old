@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSON;
 import com.common.core.utils.LogInfo;
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.AnswerBean;
+import com.yanxiu.gphone.student.bean.MistakeAllFragBean;
 import com.yanxiu.gphone.student.bean.PaperTestEntity;
 import com.yanxiu.gphone.student.bean.QuestionEntity;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
@@ -1090,6 +1091,21 @@ public class QuestionUtils {
         @Override
         public int compare(String lhs, String rhs) {
             return getIntValue(lhs) - getIntValue(rhs);
+        }
+    }
+
+    public static void checkMistakeAllFragmentBean(int hierarchy,List<MistakeAllFragBean> list){
+        if (hierarchy>3){
+            hierarchy=3;
+        }
+        for (MistakeAllFragBean bean:list){
+            bean.setHierarchy(hierarchy);
+            if (bean.getChildren()!=null&&bean.getChildren().size()>0){
+                bean.setHaveChildren(true);
+                checkMistakeAllFragmentBean(hierarchy+1,bean.getChildren());
+            }else {
+                bean.setHaveChildren(false);
+            }
         }
     }
 

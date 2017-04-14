@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.common.core.utils.LogInfo;
 import com.common.login.LoginModel;
@@ -26,6 +27,7 @@ import com.yanxiu.gphone.student.inter.AsyncLocalCallBack;
 import com.yanxiu.gphone.student.jump.utils.ActivityJumpUtils;
 import com.yanxiu.gphone.student.requestTask.RequestSubjectInfoTask;
 import com.yanxiu.gphone.student.utils.PublicLoadUtils;
+import com.yanxiu.gphone.student.utils.UpdataUtils;
 import com.yanxiu.gphone.student.view.PublicLoadLayout;
 import com.yanxiu.gphone.student.view.stickhome.StickHomeLayout;
 

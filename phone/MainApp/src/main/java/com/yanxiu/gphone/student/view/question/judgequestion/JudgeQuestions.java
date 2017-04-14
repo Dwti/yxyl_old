@@ -235,6 +235,7 @@ public class JudgeQuestions extends LinearLayout implements JudgeQuestionsItem.O
 
         }
         if (isResolution||isWrongSet) {
+//            if (false) {
 //            if (!isClick) {
                 for (int i = 0; i < count; i++) {
                     View view = getChildAt(i);
@@ -246,11 +247,15 @@ public class JudgeQuestions extends LinearLayout implements JudgeQuestionsItem.O
                     }
                     switch (judgeType) {
                         case RIGHT:
-                            setAnsRight(view, an, JUDGE_TYPE.RIGHT.key + "");
+                            if (!TextUtils.isEmpty(selectType) && selectType.equals(JUDGE_TYPE.RIGHT.key + "")) {
+                                setAnsRight(view, an, JUDGE_TYPE.RIGHT.key + "");
+                            }
 //                    setHalfCorrectAnswer(JUDGE_TYPE.RIGHT.key, view);
                             break;
                         case WRONG:
-                            setAnsRight(view, an, JUDGE_TYPE.WRONG.key + "");
+                            if (!TextUtils.isEmpty(selectType) && selectType.equals(JUDGE_TYPE.WRONG.key + "")){
+                                setAnsRight(view, an, JUDGE_TYPE.WRONG.key + "");
+                            }
 //                    setHalfCorrectAnswer(JUDGE_TYPE.WRONG.key, view);
                             break;
                     }

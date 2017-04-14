@@ -50,6 +50,7 @@ import com.yanxiu.gphone.student.requestTask.RequestLoginTask;
 import com.yanxiu.gphone.student.requestTask.RequestThirdLoginTask;
 import com.yanxiu.gphone.student.requestTask.RequestTokenBackTask;
 import com.yanxiu.gphone.student.requestTask.RequestWXUserInfoTask;
+import com.yanxiu.gphone.student.upgrade.UpgradeUtils;
 import com.yanxiu.gphone.student.utils.EditTextWatcherUtils;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.view.LoginRelativeLayoutView;
@@ -137,6 +138,7 @@ public class LoginActivity extends YanxiuBaseActivity implements
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_main);
+        UpgradeUtils.requestInitialize(false, this);
         findView();
 //        startActivity(new Intent(this,TestActivity.class));
     }

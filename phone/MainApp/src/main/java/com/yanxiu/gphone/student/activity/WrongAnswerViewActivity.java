@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Created by Administrator on 2015/7/28.
  */
@@ -143,6 +145,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
             ivAnswerCard.setBackgroundResource(R.drawable.selector_answer_delete);
         answer_view_type.setBackgroundResource(R.drawable.answer_report);
         //}
+        adapter.setOnMoveListener(moveListener);
     }
 
     @Override
@@ -177,33 +180,41 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
 //            nextPager_onclick = 0;
 //        }
 
-        List<Fragment> list=((AnswerAdapter)vpAnswer.getAdapter()).getmFragments();
-        BaseQuestionFragment fragment= (BaseQuestionFragment) list.get(vpAnswer.getCurrentItem());
-        fragment.setWrongQuestionTitle(position+1+"",String.valueOf((wrongCounts - delQueNum)));
-
-        tvPagerIndex.setText(String.valueOf(position + 1));
-
-        tvPagerCount.setText(" / " + String.format(this.getResources().getString(R.string.pager_count), String.valueOf((wrongCounts - delQueNum))));
-        pageIndex = position;
-        int currentTotal = adapter.getCount();
-        LogInfo.log("haitian", "currentTotal =" + currentTotal + "   position=" + position + "   currentTotal - position - 1 - delQueNum="
-                + (currentTotal - position - 1 - delQueNum) + " adapter.getCount() - position - 1=" + (adapter.getCount() - position - 1));
-        if (wrongCounts-delQueNum > currentTotal && (adapter.getCount() - position - 1) < 2&&isGetDataNow&&wrongCounts-delQueNum >10) {
-            isGetDataNow=false;
-            String currentId = null;
-            try{
-                int size = dataSources.getData().get(0).getPaperTest().size();
-                PaperTestEntity mPaperTestEntity = dataSources.getData().get(0).getPaperTest().get(size - 1);
-                currentId = mPaperTestEntity.getWqid()+"";
-            } catch (Exception e){
-            }
-            LogInfo.log("haitian", "onPageSelected currentId ="+currentId);
-            //requestWrongQuestion(subjectId, editionId, volumeId, chapterId, sectionId, currentPageIndex + 1, currentId);
-            requestWrongAllQuestion(subjectId, currentPageIndex + 1, currentId);
-        }else if ((adapter.getCount() - position - 1) >2){
-            isGetDataNow=true;
-        }
     }
+
+    AnswerAdapter.OnMoveListener moveListener=new AnswerAdapter.OnMoveListener() {
+        @Override
+        public void onMove(int position) {
+            if (position!=pageIndex) {
+                List<Fragment> list = ((AnswerAdapter) vpAnswer.getAdapter()).getmFragments();
+                BaseQuestionFragment fragment = (BaseQuestionFragment) list.get(vpAnswer.getCurrentItem());
+                fragment.setWrongQuestionTitle(position + 1 + "", String.valueOf((wrongCounts - delQueNum)));
+
+                tvPagerIndex.setText(String.valueOf(position + 1));
+
+                tvPagerCount.setText(" / " + String.format(WrongAnswerViewActivity.this.getResources().getString(R.string.pager_count), String.valueOf((wrongCounts - delQueNum))));
+            }
+            pageIndex = position;
+            int currentTotal = adapter.getCount();
+            LogInfo.log("haitian", "currentTotal =" + currentTotal + "   position=" + position + "   currentTotal - position - 1 - delQueNum="
+                    + (currentTotal - position - 1 - delQueNum) + " adapter.getCount() - position - 1=" + (adapter.getCount() - position - 1));
+            if (wrongCounts-delQueNum > currentTotal && (adapter.getCount() - position - 1) < 2&&isGetDataNow) {
+                isGetDataNow=false;
+                String currentId = null;
+                try{
+                    int size = dataSources.getData().get(0).getPaperTest().size();
+                    PaperTestEntity mPaperTestEntity = dataSources.getData().get(0).getPaperTest().get(size - 1);
+                    currentId = mPaperTestEntity.getWqid()+"";
+                } catch (Exception e){
+                }
+                LogInfo.log("haitian", "onPageSelected currentId ="+currentId);
+                //requestWrongQuestion(subjectId, editionId, volumeId, chapterId, sectionId, currentPageIndex + 1, currentId);
+                requestWrongAllQuestion(subjectId, currentPageIndex + 1, currentId);
+            }else if ((adapter.getCount() - position - 1) >2){
+                isGetDataNow=true;
+            }
+        }
+    };
 
     public void setIndexFromRead(int position){
         LogInfo.log("TTTT", "test"+position);
@@ -390,6 +401,12 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+
+    public class WrongAnswerDeleteBean{
+        public int position;
+        public int id;
+    }
+
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -423,6 +440,13 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
                         Util.showToast(R.string.mistake_question_del_done);
                         PublicErrorQuestionCollectionBean.updateDelData(questionId);
                         deleteProcess(pageIndex);
+                        WrongAnswerDeleteBean deleteBean=new WrongAnswerDeleteBean();
+                        if (dataSources.getData().get(0).getPaperTest() != null && dataSources.getData().get(0).getPaperTest().size() > pageIndex) {
+                            PaperTestEntity entity = dataSources.getData().get(0).getPaperTest().get(pageIndex);
+                            deleteBean.id=entity.getId();
+                        }
+                        deleteBean.position=pageIndex;
+                        EventBus.getDefault().post(deleteBean);
 
                         try{
                             int currentPageCount = wrongCounts-delQueNum;
