@@ -150,8 +150,10 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
 
     @Override
     protected void initDataSource() {
-        if(comeFrom == YanXiuConstant.WRONG_REPORT){
+        if(comeFrom == MistakeAllActivity.WRONG_LIST){
             dataSources = MistakeAllActivity.subjectExercisesItemBeanIntent;
+        }else if(comeFrom == MistakeDetailsActivity.WRONG_DETAIL){
+            dataSources = MistakeDetailsActivity.subjectExercisesItemBeanIntent;
         }else {
             super.initDataSource();
         }

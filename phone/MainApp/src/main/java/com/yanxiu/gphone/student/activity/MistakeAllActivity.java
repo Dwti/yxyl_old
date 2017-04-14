@@ -82,7 +82,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
     private ArrayList<ExercisesDataEntity> exercisesList = new ArrayList<ExercisesDataEntity>();
     private RequestWrongAllQuestionTask mRequestWrongAllQuestionTask;
     private SubjectExercisesItemBean mSubjectExercisesItemBean;
-    public static SubjectExercisesItemBean subjectExercisesItemBeanIntent = new SubjectExercisesItemBean();;
+    public static SubjectExercisesItemBean subjectExercisesItemBeanIntent;
     private MistakeRedoNumberBean numberBean;
     private Button mistake_number;
     private boolean Is_number_ready=false;
@@ -90,6 +90,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
     private RelativeLayout linear_number;
     private FrameLayout flFragemtView;
     private RelativeLayout rlXListTotalView;
+    public static final int WRONG_LIST = 0x08;
 
 
     public static void launch (Activity activity, String title, String subjectId, String wrongNum,String editionId) {
@@ -103,6 +104,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        subjectExercisesItemBeanIntent = new SubjectExercisesItemBean();
         subjectExercisesItemBeanIntent.setIsWrongSet(true);
         stageId = LoginModel.getUserinfoEntity().getStageid() + "";
         title = getIntent().getStringExtra("title");
@@ -173,9 +175,9 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
                         subjectExercisesItemBeanIntent.getData().get(0).setPaperTest(lists);
                     }
                     if (list != null && list.size() > 0 && position>0 && position-1 < list.size()) {
-                        WrongAnswerViewActivity.launch(MistakeAllActivity.this, subjectId, pageIndex, list.get(position-1).getQuestions().getChildPageIndex(), YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position-1);
+                        WrongAnswerViewActivity.launch(MistakeAllActivity.this, subjectId, pageIndex, list.get(position-1).getQuestions().getChildPageIndex(), WRONG_LIST, String.valueOf(mMistakeCount), position-1);
                     } else {
-                        WrongAnswerViewActivity.launch(MistakeAllActivity.this, subjectId, pageIndex, 0, YanXiuConstant.WRONG_REPORT, String.valueOf(mMistakeCount), position);
+                        WrongAnswerViewActivity.launch(MistakeAllActivity.this, subjectId, pageIndex, 0, WRONG_LIST, String.valueOf(mMistakeCount), position);
                     }
                 }
             }
@@ -684,6 +686,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
         super.onDestroy();
         cancelTask();
         EventBus.getDefault().unregister(this);
+        subjectExercisesItemBeanIntent = null;
     }
 
     @Override
