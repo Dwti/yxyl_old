@@ -50,6 +50,7 @@ import de.greenrobot.event.EventBus;
 /**
  *
  * Created by Administrator on 2015/7/7.
+ * 首页 作业列表Fragment
  */
 public class GroupFragment extends Fragment {
     private final static String TAG=GroupFragment.class.getSimpleName();
