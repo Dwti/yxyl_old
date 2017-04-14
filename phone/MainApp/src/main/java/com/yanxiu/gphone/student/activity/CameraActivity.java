@@ -218,7 +218,6 @@ public class CameraActivity extends Activity implements View.OnClickListener {
             if(file == null){
                 Toast.makeText(CameraActivity.this,"保存照片失败!",Toast.LENGTH_SHORT).show();
                 setResult(RESULT_CANCELED);
-                file.delete();
                 isTakingPhoto = false;
                 finish();
                 return;
