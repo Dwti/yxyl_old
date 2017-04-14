@@ -80,9 +80,9 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
         context.startActivityForResult(intent, WRONG_ANSWER_REQUESTCODE);
     }
 
-    public static void launch(Activity context, SubjectExercisesItemBean bean, String subjectId, int pagerIndex, int childIndex, int comeFrom, String wrongCount, int position) {
+    public static void launch(Activity context, String subjectId, int pagerIndex, int childIndex, int comeFrom, String wrongCount, int position) {
         Intent intent = new Intent(context, WrongAnswerViewActivity.class);
-        intent.putExtra("subjectExercisesItemBean", bean);
+//        intent.putExtra("subjectExercisesItemBean", bean);
         intent.putExtra("subjectId", subjectId);
         intent.putExtra("pagerIndex", pagerIndex);
         intent.putExtra("childIndex", childIndex);
@@ -146,6 +146,17 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
         answer_view_type.setBackgroundResource(R.drawable.answer_report);
         //}
         adapter.setOnMoveListener(moveListener);
+    }
+
+    @Override
+    protected void initDataSource() {
+        if(comeFrom == MistakeAllActivity.WRONG_LIST){
+            dataSources = MistakeAllActivity.subjectExercisesItemBeanIntent;
+        }else if(comeFrom == MistakeDetailsActivity.WRONG_DETAIL){
+            dataSources = MistakeDetailsActivity.subjectExercisesItemBeanIntent;
+        }else {
+            super.initDataSource();
+        }
     }
 
     @Override
