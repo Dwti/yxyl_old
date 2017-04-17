@@ -70,7 +70,7 @@ public class MistakeDetailsActivity extends YanxiuBaseActivity {
         intent.putExtra("title", title);
         intent.putExtra("subjectId", subjectId);
         intent.putIntegerArrayListExtra("qids", qids);
-        activity.startActivityForResult(intent, 00);
+        activity.startActivity(intent);
     }
 
     @Override
