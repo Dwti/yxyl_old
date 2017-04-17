@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/wood_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <include
+        layout="@layout/public_top_layout"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_60"
+        android:layout_marginLeft="@dimen/dimen_36"
+        android:layout_marginRight="@dimen/dimen_36"
+        android:layout_marginTop="@dimen/dimen_25"
+        android:background="@drawable/logo_content_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/dimen_26"
+            android:layout_height="@dimen/dimen_26"
+            android:layout_marginLeft="@dimen/dimen_5"
+            android:background="@drawable/login_username"
+            android:scaleType="centerCrop"
+            />
+
+        <EditText
+            android:id="@+id/et_mobile_num"
+            style="@style/shadow_text_style"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_35"
+            android:layout_marginLeft="@dimen/dimen_5"
+            android:layout_weight="1"
+            android:background="@drawable/login_content_input_bg"
+            android:digits="0123456789"
+            android:gravity="left|center_vertical"
+            android:hint="@string/register_username"
+            android:inputType="number"
+            android:maxLines="1"
+            android:maxLength="13"
+            android:paddingLeft="@dimen/dimen_4"
+            android:shadowColor="@color/color_a37a00"
+            android:singleLine="true"
+            android:textColor="@color/color_ffffff"
+            android:textColorHint="@color/color_ffffff"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/dimen_18"
+            />
+
+        <ImageView
+            android:id="@+id/iv_delete"
+            android:layout_width="@dimen/dimen_26"
+            android:layout_height="@dimen/dimen_26"
+            android:layout_marginLeft="@dimen/dimen_5"
+            android:layout_marginRight="@dimen/dimen_5"
+            android:background="@drawable/serach_del_bg"
+            android:scaleType="centerCrop"
+            />
+    </LinearLayout>
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
+        android:background="@drawable/my_module_repeat_dash_line"
+        />
+
+    <LinearLayout
+        android:id="@+id/register_pwd_layout_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_60"
+        android:layout_marginLeft="36dp"
+        android:layout_marginRight="36dp"
+        android:background="@drawable/logo_content_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/register_pwd_left_iv"
+            android:layout_width="@dimen/dimen_26"
+            android:layout_height="@dimen/dimen_26"
+            android:layout_marginLeft="@dimen/dimen_5"
+            android:background="@drawable/login_password"
+            android:scaleType="centerCrop"
+            />
+
+        <EditText
+            android:id="@+id/et_verification_code"
+            style="@style/shadow_text_style"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_35"
+            android:layout_marginLeft="@dimen/dimen_5"
+            android:layout_weight="1"
+            android:background="@drawable/login_content_input_bg"
+            android:digits="0123456789"
+            android:maxLength="4"
+            android:gravity="left|center_vertical"
+            android:hint="@string/register_code"
+            android:inputType="number"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/dimen_4"
+            android:shadowColor="@color/color_a37a00"
+            android:singleLine="true"
+            android:textColor="@color/color_ffffff"
+            android:textColorHint="@color/color_ffffff"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/dimen_14"
+            />
+
+        <TextView
+            android:id="@+id/tv_send_code"
+            style="@style/shadow_text_style"
+            android:layout_width="@dimen/dimen_90"
+            android:layout_height="@dimen/dimen_35"
+            android:layout_marginLeft="@dimen/dimen_5"
+            android:layout_marginRight="@dimen/dimen_5"
+            android:background="@drawable/register_code_selector"
+            android:gravity="center"
+            android:padding="@dimen/dimen_5"
+            android:shadowColor="@color/color_ffff99"
+            android:text="@string/register_send_code"
+            android:textColor="@color/color_e4b62e"
+            android:textSize="@dimen/dimen_14"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_ok"
+        style="@style/shadow_text_style"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_55"
+        android:layout_marginTop="@dimen/dimen_18"
+        android:layout_marginLeft="36dp"
+        android:layout_marginRight="36dp"
+        android:background="@drawable/login_and_pwd_selector"
+        android:gravity="center"
+        android:shadowColor="@color/color_ffff99"
+        android:text="确定"
+        android:textColor="@color/color_e4b62e"
+        android:textSize="@dimen/dimen_20"
+        />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_bottom_tips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:text="若手机号不可用，请拨打客服电话：400-870-6696"/>
+
+    <com.yanxiu.gphone.student.view.StudentLoadingLayout
+        android:id="@+id/loading_layout"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
+
+</RelativeLayout>

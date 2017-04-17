@@ -21,7 +21,7 @@
     <string name="net_null_one">数据加载失败</string>
     <string name="url_error">地址有误,加载出错啦</string>
 
-    <string name="login_username">请输入手机号</string>
+    <string name="login_username">请输入账号/手机号</string>
     <string name="login_password">请输入密码</string>
     <string name="login_forget_password">忘记密码</string>
     <string name="login">登录</string>
@@ -522,4 +522,8 @@
 
     <string name="no_mistake_chapter">当前教材版本的章节目录下无题目</string>
     <string name="no_mistake_kongledge">暂无题目</string>
+    <string name="bind_mobile">绑定手机</string>
+    <string name="toast_login_account">请输入正确的账号</string>
+    <string name="verify_mobile">手机验证</string>
+    <string name="bind_new_mobile">填写新手机</string>
 </resources>

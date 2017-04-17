@@ -17,6 +17,8 @@ public class PasswordBean {
     private String mobile;
     private int id;
     private String token;
+    private String loginName;
+    private String type; // 0:手机/账号  1：三方登陆
 
     public void setUid(int uid) {
         this.uid = uid;
@@ -56,5 +58,21 @@ public class PasswordBean {
 
     public String getToken() {
         return token;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

@@ -211,8 +211,8 @@ public class LoginActivity extends YanxiuBaseActivity implements
                     Util.showUserToast(R.string.login_name_null, -1, -1);
                     return;
                 }
-                if (!CommonCoreUtil.isMobileNo(userNameText.getText().toString().replaceAll(" ", ""))) {
-                    Util.showUserToast(R.string.login_name_ival, -1, -1);
+                if (userNameText.getText().toString().replaceAll(" ", "").length() < 11) {
+                    Util.showUserToast(R.string.toast_login_account, -1, -1);
                     return;
                 }
                 if (StringUtils.isEmpty(passwordText.getText().toString())) {
@@ -609,11 +609,11 @@ public class LoginActivity extends YanxiuBaseActivity implements
             if (s == null || s.length() == 0 ) return;
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < s.length(); i++) {
-                if (i != 3 && i != 8 && i != 13 && s.charAt(i) == ' ') {
+                if (i != 3 && i != 8 && i != 13 && i !=18 && s.charAt(i) == ' ') {
                     continue;
                 } else {
                     sb.append(s.charAt(i));
-                    if ((sb.length() == 4 || sb.length() == 9 || sb.length() == 14) && sb.charAt(sb
+                    if ((sb.length() == 4 || sb.length() == 9 || sb.length() == 14 || sb.length() == 19) && sb.charAt(sb
                             .length() - 1)
                             != ' ') {
                         sb.insert(sb.length() - 1, ' ');
@@ -638,7 +638,7 @@ public class LoginActivity extends YanxiuBaseActivity implements
                 userNameText.setText(Html.fromHtml("<big><strong>" + txtContent +
                         "</strong></big>"));
                 userNameText.setSelection(index);
-            } else if(sb.toString().replaceAll(" ", "").length() >=11){
+            } else if(sb.toString().replaceAll(" ", "").length() >=16){
                 userNameText.removeTextChangedListener(mUserTextWatcher);
                 String txtContent = sb.toString();
 //                userNameText.setText(txtContent);

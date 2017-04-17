@@ -163,6 +163,28 @@ public class LoginModel {
         return mCurInter!=null?mCurInter.getUid():0;
     }
 
+    public static void setBindMobile(String mobile){
+        if(!isLoginIn() || mCurInter == null)
+            return;
+        else {
+            mCurInter.setBindMobile(mobile);
+        }
+    }
+
+    public static String getBindMobile(){
+        if(!isLoginIn()){
+            return null;
+        }
+        return mCurInter!=null?mCurInter.getBindMobile():null;
+    }
+
+    public static String getLoginType(){
+        if(!isLoginIn()){
+            return null;
+        }
+        return mCurInter!=null?mCurInter.getLoginType():null;
+    }
+
     public static String getToken() {
         if(!isLoginIn()){
             return null;
