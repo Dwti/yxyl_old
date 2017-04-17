@@ -74,7 +74,7 @@ public class VerifyMobileActivity extends Activity implements View.OnClickListen
     public static void launch(Activity activity,String mobileNum){
         Intent intent = new Intent(activity,VerifyMobileActivity.class);
         intent.putExtra(MOBILE_NUM,mobileNum);
-        activity.startActivity(intent);
+        activity.startActivityForResult(intent,REQUEST_VERIFY_MOBILE);
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -247,6 +247,7 @@ public class VerifyMobileActivity extends Activity implements View.OnClickListen
         switch (requestCode){
             case SettingBindMobileActivity.REQUEST_BIND_MOBILE:
                 if(resultCode == RESULT_OK){
+                    setResult(RESULT_OK);
                     finish();
                 }
                 break;
