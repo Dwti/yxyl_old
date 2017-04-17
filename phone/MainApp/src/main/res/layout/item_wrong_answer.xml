@@ -24,7 +24,7 @@
             <ImageView
                 android:id="@+id/answer_exam_type_text"
                 android:layout_width="@dimen/dimen_60"
-                android:layout_height="wrap_content"
+                android:layout_height="18dp"
                 android:layout_alignParentLeft="true"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="@dimen/dimen_12"

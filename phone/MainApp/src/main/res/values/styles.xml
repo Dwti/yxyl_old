@@ -443,6 +443,23 @@
 
     </style>
 
+    <style name="bind_mobile_edit_style" parent="@style/text_996600_shadow_style">
+        <item name="android:paddingLeft">@dimen/dimen_10</item>
+        <item name="android:paddingRight">@dimen/dimen_10</item>
+        <item name="android:textSize">@dimen/dimen_14</item>
+        <item name="android:layout_marginRight">@dimen/dimen_10</item>
+        <item name="android:cursorVisible">true</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:password">true</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/color_ffffff</item>
+        <item name="android:textColorHint">@color/color_ffffff</item>
+        <item name="android:background">@drawable/my_single_edit_bg</item>
+
+    </style>
+
 
 
     <style name="about_left_text_style" parent="@style/about_text_style">

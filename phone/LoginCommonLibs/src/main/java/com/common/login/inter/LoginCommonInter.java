@@ -20,4 +20,10 @@ public interface LoginCommonInter {
 
      String getToken();
 
+     void setBindMobile(String mobile);
+
+     String getBindMobile();
+
+     String getLoginType();
+
 }

@@ -64,4 +64,29 @@ public class LoginParentMgr implements LoginCommonInter{
         }
 
     }
+
+    @Override
+    public void setBindMobile(String mobile) {
+        if(loginBean!=null && loginBean.getProperty()!=null&&loginBean.getProperty().getPassport()!=null){
+            loginBean.getProperty().getPassport().setMobile(mobile);
+        }
+    }
+
+    @Override
+    public String getBindMobile() {
+        if(loginBean!=null && loginBean.getProperty()!=null&&loginBean.getProperty().getPassport()!=null){
+            return loginBean.getProperty().getPassport().getMobile();
+        }else{
+            return "";
+        }
+    }
+
+    @Override
+    public String getLoginType() {
+        if(loginBean!=null && loginBean.getProperty()!=null&&loginBean.getProperty().getPassport()!=null){
+            return loginBean.getProperty().getPassport().getType();
+        }else{
+            return "";
+        }
+    }
 }
