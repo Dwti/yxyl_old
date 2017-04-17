@@ -62,7 +62,15 @@ public class LoginParentMgr implements LoginCommonInter{
         }else{
             return "";
         }
+    }
 
+    @Override
+    public String getLoginName() {
+        if(loginBean!=null && loginBean.getProperty()!=null&&loginBean.getProperty().getPassport()!=null){
+            return loginBean.getProperty().getPassport().getLoginName();
+        }else{
+            return "";
+        }
     }
 
     @Override
