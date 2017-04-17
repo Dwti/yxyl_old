@@ -111,7 +111,6 @@ public class LoginActivity extends YanxiuBaseActivity implements
     private IWXAPI api;
     private Tencent mTencent;
     private QQListener listener;
-    private UserTextWatcher mUserTextWatcher;
     private Window window;
     private boolean isLock = false;
 
@@ -179,9 +178,6 @@ public class LoginActivity extends YanxiuBaseActivity implements
                 handler.sendEmptyMessage(SHOW_LOGO);
             }
         });
-//        passwordText.addTextChangedListener(new MyTextWatcher());
-        mUserTextWatcher = new UserTextWatcher();
-        userNameText.addTextChangedListener(mUserTextWatcher);
         forgetPwdText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
@@ -211,7 +207,7 @@ public class LoginActivity extends YanxiuBaseActivity implements
                     Util.showUserToast(R.string.login_name_null, -1, -1);
                     return;
                 }
-                if (userNameText.getText().toString().replaceAll(" ", "").length() < 11) {
+                if (userNameText.getText().toString().length() < 11) {
                     Util.showUserToast(R.string.toast_login_account, -1, -1);
                     return;
                 }
@@ -294,7 +290,7 @@ public class LoginActivity extends YanxiuBaseActivity implements
     private void login () {
         loadingView.setViewType(StudentLoadingLayout.LoadingType.LAODING_COMMON);
         requestLoginTask = new RequestLoginTask(this,
-                userNameText.getText().toString().replaceAll(" ", ""),
+                userNameText.getText().toString(),
                 passwordText.getText().toString(),
                 new AsyncCallBack() {
                     @Override
@@ -304,7 +300,7 @@ public class LoginActivity extends YanxiuBaseActivity implements
                         if (userInfoBean.getStatus().getCode() == 0) {
                             handler.sendEmptyMessage(LOGIN);
                         }else if (userInfoBean.getStatus().getCode() == 80){
-                            LoginModel.setMobile(userNameText.getText().toString().replaceAll(" ", ""));
+                            LoginModel.setMobile(userNameText.getText().toString());
                             LoginModel.setPassword(passwordText.getText().toString());
                             RegisterJoinGroupActivity.launchActivity(LoginActivity.this);
                         }else {
@@ -596,70 +592,4 @@ public class LoginActivity extends YanxiuBaseActivity implements
                     listener);
         }
     }
-
-    private class UserTextWatcher implements TextWatcher {
-        @Override
-        public void beforeTextChanged (CharSequence s, int start,
-                                       int count, int after) {
-        }
-
-        @Override
-        public void onTextChanged (CharSequence s, int start,
-                                   int before, int count) {
-            if (s == null || s.length() == 0 ) return;
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < s.length(); i++) {
-                if (i != 3 && i != 8 && i != 13 && i !=18 && s.charAt(i) == ' ') {
-                    continue;
-                } else {
-                    sb.append(s.charAt(i));
-                    if ((sb.length() == 4 || sb.length() == 9 || sb.length() == 14 || sb.length() == 19) && sb.charAt(sb
-                            .length() - 1)
-                            != ' ') {
-                        sb.insert(sb.length() - 1, ' ');
-                    }
-                }
-            }
-            if (!sb.toString().equals(s.toString())) {
-                int index = start + 1;
-                if (sb.charAt(start) == ' ') {
-                    if (before == 0) {
-                        index++;
-                    } else {
-                        index--;
-                    }
-                } else {
-                    if (before == 1) {
-                        index--;
-                    }
-                }
-                String txtContent = sb.toString();
-//                userNameText.setText(txtContent);
-                userNameText.setText(Html.fromHtml("<big><strong>" + txtContent +
-                        "</strong></big>"));
-                userNameText.setSelection(index);
-            } else if(sb.toString().replaceAll(" ", "").length() >=16){
-                userNameText.removeTextChangedListener(mUserTextWatcher);
-                String txtContent = sb.toString();
-//                userNameText.setText(txtContent);
-                userNameText.setText(Html.fromHtml("<big><strong>" + txtContent +
-                        "</strong></big>"));
-                userNameText.setSelection(txtContent.length());
-                LogInfo.log("haitian", "sb.toString()=" + sb.toString());
-                userNameText.addTextChangedListener(mUserTextWatcher);
-            }
-
-        }
-
-        @Override
-        public void afterTextChanged (final Editable s) {
-//            int length = s.length();
-//            if(length>0){
-//                delView.setVisibility(View.VISIBLE);
-//            }else{
-//                delView.setVisibility(View.GONE);
-//            }
-        }
-    }
-
 }

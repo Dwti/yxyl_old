@@ -211,6 +211,7 @@
     <dimen name="contentBottomMargin">20dp</dimen>
     <dimen name="contentMargin">20dp</dimen>
     <dimen name="note_text_size">16sp</dimen>
+    <dimen name="mobile_text_size">20sp</dimen>
 
     <declare-styleable name="GifView">
         <attr name="gif" format="reference" />

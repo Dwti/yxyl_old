@@ -489,16 +489,13 @@ public class RegisterActivity extends YanxiuBaseActivity{
                     }
                 }
                 String txtContent = sb.toString();
-                userNameText.setText(Html.fromHtml("<big><strong>" + txtContent +
-                        "</strong></big>"));
+                userNameText.setText(txtContent);
                 userNameText.setSelection(index);
             } else if(sb.toString().replaceAll(" ", "").length() >=11){
                 userNameText.removeTextChangedListener(mUserTextWatcher);
                 String txtContent = sb.toString();
-                userNameText.setText(Html.fromHtml("<big><strong>" + txtContent +
-                        "</strong></big>"));
+                userNameText.setText(txtContent);
                 userNameText.setSelection(txtContent.length());
-                LogInfo.log("haitian", "sb.toString()=" + sb.toString());
                 userNameText.addTextChangedListener(mUserTextWatcher);
             }
 
@@ -517,12 +514,6 @@ public class RegisterActivity extends YanxiuBaseActivity{
                 mHandler.sendEmptyMessageDelayed(SEND_INDENTIFY_TIMES,10);
             }
             mHandler.sendEmptyMessageDelayed(SEND_INDENTIFY_READY,10);
-//            int length = s.length();
-//            if(length>0){
-//                delView.setVisibility(View.VISIBLE);
-//            }else{
-//                delView.setVisibility(View.GONE);
-//            }
         }
     }
 }

@@ -34,6 +34,7 @@ import com.yanxiu.gphone.student.utils.ToastMaster;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.view.MyBoldTextView;
 import com.yanxiu.gphone.student.view.StudentLoadingLayout;
+import com.yanxiu.gphone.student.view.YanxiuTypefaceTextView;
 
 /**
  * Created by sunpeng on 2017/4/6.
@@ -107,6 +108,7 @@ public class SettingBindMobileActivity extends Activity implements View.OnClickL
         tv_bottom_tips = findViewById(R.id.tv_bottom_tips);
         loadingLayout = (StudentLoadingLayout) findViewById(R.id.loading_layout);
         tv_ok = (TextView) findViewById(R.id.tv_ok);
+        Util.setViewTypeface(YanxiuTypefaceTextView.TypefaceType.METRO_BOLD, et_mobile_num);
 
         tv_send_code.setClickable(false);
         tv_ok.setClickable(false);
@@ -297,16 +299,13 @@ public class SettingBindMobileActivity extends Activity implements View.OnClickL
                     }
                 }
                 String txtContent = sb.toString();
-                et_mobile_num.setText(Html.fromHtml("<big><strong>" + txtContent +
-                        "</strong></big>"));
+                et_mobile_num.setText(txtContent);
                 et_mobile_num.setSelection(index);
             } else if(sb.toString().replaceAll(" ", "").length() >=11){
                 et_mobile_num.removeTextChangedListener(mobileNumTextWatcher);
                 String txtContent = sb.toString();
-                et_mobile_num.setText(Html.fromHtml("<big><strong>" + txtContent +
-                        "</strong></big>"));
+                et_mobile_num.setText(txtContent);
                 et_mobile_num.setSelection(txtContent.length());
-                LogInfo.log("haitian", "sb.toString()=" + sb.toString());
                 et_mobile_num.addTextChangedListener(mobileNumTextWatcher);
             }
 
