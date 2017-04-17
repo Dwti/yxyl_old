@@ -67,14 +67,9 @@ android {
             //参数说明
             manifestPlaceholders = [
                     //dev
-//                    GETUI_APP_ID    : "Riw2lQ0vEQ9iEv8ADs2Qg5", //APP_ID
-//                    GETUI_APP_KEY   : "fpq9FFbGLB8zpLkwCO1oQA",   //APP_KEY
-//                    GETUI_APP_SECRET: "PiNzRvizni8i4Enu1HYuh7",   //APPSECRET
-
-
-                    GETUI_APP_ID    : "06JONKg7WO8ga06hryxph3", //APP_ID
-                    GETUI_APP_KEY   : "frDjLnCBoe9FAoMNqRA7V7",   //APP_KEY
-                    GETUI_APP_SECRET: "HzTOhVYOya7OC3fUxMSih5",   //APPSECRET
+                    GETUI_APP_ID    : "Riw2lQ0vEQ9iEv8ADs2Qg5", //APP_ID
+                    GETUI_APP_KEY   : "fpq9FFbGLB8zpLkwCO1oQA",   //APP_KEY
+                    GETUI_APP_SECRET: "PiNzRvizni8i4Enu1HYuh7",   //APPSECRET
 
             ]
             //APP_ID、APP_KEY、APP_SECRET请根据个推开发者后台申请到的应用参数进行相应替换
