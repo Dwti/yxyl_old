@@ -172,7 +172,6 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
                         lists.addAll(list);
                         subjectExercisesItemBeanIntent.getData().get(0).setPaperTest(lists);
                     }
-                    subjectExercisesItemBeanIntent.getData().get(0).setPaperTest(wrongAllListAdapter.getList());
                     if (list != null && list.size() > 0 && position>0 && position-1 < list.size()) {
                         WrongAnswerViewActivity.launch(MistakeAllActivity.this, subjectId, pageIndex, list.get(position-1).getQuestions().getChildPageIndex(), WRONG_LIST, String.valueOf(mMistakeCount), position-1);
                     } else {
