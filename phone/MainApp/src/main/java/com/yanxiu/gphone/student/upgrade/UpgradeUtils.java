@@ -261,7 +261,7 @@ public class UpgradeUtils {
      * 初始化接口
      */
     public static void requestInitialize(final boolean fromUser,final Activity activity) {
-        if (YanXiuConstant.updata == 1){
+        if (!fromUser&&YanXiuConstant.updata == 1){
             return;
         }
         YanXiuConstant.updata = 1;
