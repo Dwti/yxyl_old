@@ -243,7 +243,8 @@ public class ClassfyAnswers extends ViewGroup {
             final TextView view = (TextView) inflater.inflate(R.layout.classfy_layout_textview, null);
 //            ClassfyTextView view=new ClassfyTextView(context);
             //view.setClasfyFlag(false);
-           Spanned spanned=fromHtml(context,classfyItem.get(i).getName());
+//           Spanned spanned=fromHtml(context,classfyItem.get(i).getName());
+           Spanned spanned=Html.fromHtml(classfyItem.get(i).getName());
             view.setText(spanned);
             //view.setText(classfyItem.get(i).getName());
             view.getLayoutParams();

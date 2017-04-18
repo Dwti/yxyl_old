@@ -104,12 +104,10 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             userInfo= (UserInfo) LoginModel.getRoleUserInfoEntity();
         }
         String loginName = LoginModel.getLoginName();
-        if(TextUtils.isEmpty(loginName)){
+        if(TextUtils.isEmpty(loginName) && userInfo != null){
             loginName = userInfo.getMobile();
         }
-        if (LoginModel.getLoginName()!=null) {
-            stdUidTv.setText(String.format(getResources().getString(R.string.std_uid_text), loginName));
-        }
+        stdUidTv.setText(String.format(getResources().getString(R.string.std_uid_text), loginName));
         userHeadIv = (RoundedImageView) rootView.findViewById(R.id.user_icon);
         userHeadIv.setCornerRadius(getResources().getDimensionPixelOffset(R.dimen.dimen_12));
         if(mUserinfoEntity != null){
