@@ -33,6 +33,7 @@ import com.yanxiu.gphone.student.utils.ToastMaster;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.view.MyBoldTextView;
 import com.yanxiu.gphone.student.view.StudentLoadingLayout;
+import com.yanxiu.gphone.student.view.YanxiuTypefaceTextView;
 
 /**
  * Created by sunpeng on 2017/4/11.
@@ -73,7 +74,7 @@ public class VerifyMobileActivity extends Activity implements View.OnClickListen
     public static void launch(Activity activity,String mobileNum){
         Intent intent = new Intent(activity,VerifyMobileActivity.class);
         intent.putExtra(MOBILE_NUM,mobileNum);
-        activity.startActivity(intent);
+        activity.startActivityForResult(intent,REQUEST_VERIFY_MOBILE);
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,8 +95,7 @@ public class VerifyMobileActivity extends Activity implements View.OnClickListen
             sb.insert(3,' ');
             sb.insert(8,' ');
         }
-        et_mobile_num.setText(Html.fromHtml("<big><strong>" + sb.toString() +
-                "</strong></big>"));
+        et_mobile_num.setText(sb.toString());
     }
 
     private void initView(){
@@ -107,6 +107,7 @@ public class VerifyMobileActivity extends Activity implements View.OnClickListen
         tv_send_code = (TextView) findViewById(R.id.tv_send_code);
         loadingLayout = (StudentLoadingLayout) findViewById(R.id.loading_layout);
         tv_ok = (TextView) findViewById(R.id.tv_ok);
+        Util.setViewTypeface(YanxiuTypefaceTextView.TypefaceType.METRO_BOLD, et_mobile_num);
 
         et_mobile_num.setEnabled(false);
         et_mobile_num.setFocusable(false);
@@ -246,6 +247,7 @@ public class VerifyMobileActivity extends Activity implements View.OnClickListen
         switch (requestCode){
             case SettingBindMobileActivity.REQUEST_BIND_MOBILE:
                 if(resultCode == RESULT_OK){
+                    setResult(RESULT_OK);
                     finish();
                 }
                 break;

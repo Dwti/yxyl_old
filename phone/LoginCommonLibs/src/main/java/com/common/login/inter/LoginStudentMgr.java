@@ -71,6 +71,14 @@ public class LoginStudentMgr implements LoginCommonInter {
     }
 
     @Override
+    public String getLoginName() {
+        if(loginBean.getData().get(0).getPassport()!=null){
+            return loginBean.getData().get(0).getPassport().getLoginName();
+        }
+        return null;
+    }
+
+    @Override
     public void setBindMobile(String mobile) {
         if(loginBean.getData().get(0).getPassport()==null){
             PasswordBean passwordBean = new PasswordBean();

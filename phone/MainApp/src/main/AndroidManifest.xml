@@ -348,6 +348,9 @@
         <activity android:name=".activity.VerifyMobileActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"/>
+        <activity android:name=".activity.ModifyMobileActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"/>
         <activity android:name=".activity.SystemActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">

@@ -26,4 +26,6 @@ public interface LoginCommonInter {
 
      String getLoginType();
 
+     String getLoginName();
+
 }

@@ -526,4 +526,5 @@
     <string name="toast_login_account">请输入正确的账号</string>
     <string name="verify_mobile">手机验证</string>
     <string name="bind_new_mobile">填写新手机</string>
+    <string name="modify_mobile">修改手机</string>
 </resources>

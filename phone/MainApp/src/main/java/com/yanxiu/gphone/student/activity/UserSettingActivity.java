@@ -118,7 +118,8 @@ public class UserSettingActivity extends YanxiuBaseActivity implements View.OnCl
             if(TextUtils.isEmpty(LoginModel.getBindMobile())){
                 SettingBindMobileActivity.launch(this,SettingBindMobileActivity.FORM_OTHERS);
             }else{
-                VerifyMobileActivity.launch(this,LoginModel.getBindMobile());
+//                VerifyMobileActivity.launch(this,LoginModel.getBindMobile());
+                ModifyMobileActivity.launch(this,LoginModel.getBindMobile());
             }
         }else if(v == modifyPwdView){
             SettingModifyPWDActivity.launchActivity(this);

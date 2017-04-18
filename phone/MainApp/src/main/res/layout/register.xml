@@ -50,7 +50,7 @@
             android:textColor="@color/color_ffffff"
             android:textColorHint="@color/color_ffffff"
             android:textCursorDrawable="@null"
-            android:textSize="@dimen/dimen_18"
+            android:textSize="@dimen/mobile_text_size"
             />
 
         <ImageView

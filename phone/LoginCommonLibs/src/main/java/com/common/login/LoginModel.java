@@ -192,6 +192,12 @@ public class LoginModel {
         return mCurInter!=null?mCurInter.getToken():null;
     }
 
+    public static String getLoginName(){
+        if(!isLoginIn()){
+            return null;
+        }
+        return mCurInter!=null?mCurInter.getLoginName():null;
+    }
 
     public static void setToken(String token) {
         if(!isLoginIn()){

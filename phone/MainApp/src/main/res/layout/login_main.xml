@@ -59,7 +59,7 @@
                 android:layout_height="@dimen/dimen_35"
                 android:layout_marginLeft="@dimen/dimen_5"
                 android:layout_weight="1"
-                android:maxLength="20"
+                android:maxLength="16"
                 android:background="@drawable/login_content_input_bg"
                 android:digits="0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
                 android:gravity="left|center_vertical"
@@ -72,7 +72,7 @@
                 android:textColor="@color/color_ffffff"
                 android:textColorHint="@color/color_ffffff"
                 android:textCursorDrawable="@null"
-                android:textSize="@dimen/dimen_18"
+                android:textSize="@dimen/mobile_text_size"
                 />
 
             <ImageView
