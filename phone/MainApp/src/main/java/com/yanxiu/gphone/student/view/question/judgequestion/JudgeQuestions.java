@@ -249,13 +249,15 @@ public class JudgeQuestions extends LinearLayout implements JudgeQuestionsItem.O
                         case RIGHT:
                             if (!TextUtils.isEmpty(selectType) && selectType.equals(JUDGE_TYPE.RIGHT.key + "")) {
                                 setAnsRight(view, an, JUDGE_TYPE.RIGHT.key + "");
-                            }else if (TextUtils.isEmpty(selectType)){
+                            }else if (TextUtils.isEmpty(selectType)&&answer.get(0).equals("1")){
                                 setAnsRight(view, an, JUDGE_TYPE.RIGHT.key + "");
                             }
 //                    setHalfCorrectAnswer(JUDGE_TYPE.RIGHT.key, view);
                             break;
                         case WRONG:
                             if (!TextUtils.isEmpty(selectType) && selectType.equals(JUDGE_TYPE.WRONG.key + "")){
+                                setAnsRight(view, an, JUDGE_TYPE.WRONG.key + "");
+                            }else if (TextUtils.isEmpty(selectType)&&answer.get(0).equals("0")){
                                 setAnsRight(view, an, JUDGE_TYPE.WRONG.key + "");
                             }
 //                    setHalfCorrectAnswer(JUDGE_TYPE.WRONG.key, view);
