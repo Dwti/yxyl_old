@@ -103,8 +103,12 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         if (bean!=null){
             userInfo= (UserInfo) LoginModel.getRoleUserInfoEntity();
         }
+        String loginName = LoginModel.getLoginName();
+        if(TextUtils.isEmpty(loginName)){
+            loginName = userInfo.getMobile();
+        }
         if (LoginModel.getLoginName()!=null) {
-            stdUidTv.setText(String.format(getResources().getString(R.string.std_uid_text), LoginModel.getLoginName()));
+            stdUidTv.setText(String.format(getResources().getString(R.string.std_uid_text), loginName));
         }
         userHeadIv = (RoundedImageView) rootView.findViewById(R.id.user_icon);
         userHeadIv.setCornerRadius(getResources().getDimensionPixelOffset(R.dimen.dimen_12));
