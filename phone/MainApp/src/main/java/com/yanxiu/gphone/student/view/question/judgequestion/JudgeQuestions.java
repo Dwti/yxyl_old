@@ -249,6 +249,8 @@ public class JudgeQuestions extends LinearLayout implements JudgeQuestionsItem.O
                         case RIGHT:
                             if (!TextUtils.isEmpty(selectType) && selectType.equals(JUDGE_TYPE.RIGHT.key + "")) {
                                 setAnsRight(view, an, JUDGE_TYPE.RIGHT.key + "");
+                            }else if (TextUtils.isEmpty(selectType)){
+                                setAnsRight(view, an, JUDGE_TYPE.RIGHT.key + "");
                             }
 //                    setHalfCorrectAnswer(JUDGE_TYPE.RIGHT.key, view);
                             break;
