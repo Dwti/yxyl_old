@@ -186,6 +186,7 @@ public class SettingBindMobileActivity extends Activity implements View.OnClickL
                     Util.showUserToast("绑定成功",null,null);
                     LoginModel.setBindMobile(temMobileNum);
                     LoginModel.savaCacheData();
+                    ModifyMobileActivity.launch(SettingBindMobileActivity.this,LoginModel.getBindMobile());
                     setResult(RESULT_OK);
                     finish();
                 }else {
