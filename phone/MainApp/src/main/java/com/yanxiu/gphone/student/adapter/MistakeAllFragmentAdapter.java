@@ -142,7 +142,7 @@ public class MistakeAllFragmentAdapter extends RecyclerView.Adapter<MistakeAllFr
             ivButtonView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int position = getPosition();
+                    int position = getAdapterPosition();
                     MistakeAllFragBean bean = mDatas.get(position);
                     List<MistakeAllFragBean> list = bean.getChildren();
                     if (list == null || list.size() == 0) {
@@ -166,7 +166,7 @@ public class MistakeAllFragmentAdapter extends RecyclerView.Adapter<MistakeAllFr
             llItemBodyView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int position = getPosition();
+                    int position = getAdapterPosition();
                     MistakeAllFragBean bean = mDatas.get(position);
                     if (onItemClickListener != null) {
                         onItemClickListener.itemClickListener(bean);

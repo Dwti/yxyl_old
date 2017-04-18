@@ -447,9 +447,9 @@ public class MistakeRedoActivity extends BaseAnswerViewActivity implements Mista
             if (entity!=null&&entity.getQuestions().getType()==QuestionEntity.TYPE_DELETE_END){
                 deleteWqidList=deleteWqidList+entity.getWqid()+",";
             }
-            if (deleteWqidList.length()>0) {
-                deleteWqidList.substring(0, deleteWqidList.length() - 1);
-            }
+        }
+        if (deleteWqidList.length()>0) {
+            deleteWqidList=deleteWqidList.substring(0, deleteWqidList.length() - 1);
         }
         return false;
     }
