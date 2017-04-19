@@ -4,11 +4,15 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.yanxiu.gphone.student.R;
 import com.yanxiu.gphone.student.bean.AnswerBean;
 import com.yanxiu.gphone.student.inter.SetAnswerCallBack;
+import com.yanxiu.gphone.student.utils.Util;
+import com.yanxiu.gphone.student.utils.Utils;
 
 import org.json.JSONObject;
 
@@ -251,6 +255,21 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
+        if (mylines!=null) {
+            RelativeLayout.LayoutParams params = null;
+            try {
+                params = (RelativeLayout.LayoutParams) mylines.getLayoutParams();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            if(params!=null){
+                params.height=b-t;
+            }else {
+                params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,b-t);
+                params.setMargins(Util.dipToPx(120),0,Util.dipToPx(120),0);
+            }
+            mylines.setLayoutParams(params);
+        }
     }
 
     @Override
