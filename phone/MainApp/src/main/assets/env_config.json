@@ -3,5 +3,5 @@
 	"loginServer":"http://test.hwk.yanxiu.com/app",
 	"uploadServer":"http://test.hwk.yanxiu.com",
 	"initializeUrl":"http://mobile.yanxiu.com/test/api",
-	"mode":"dev"
+	"mode":"test"
 }
