@@ -632,6 +632,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
                 wrongAllListAdapter.getList().remove(position);
                 wrongAllListAdapter.notifyDataSetChanged();
             }
+            requestMistakeNumber();
         }catch (Exception e){
             e.printStackTrace();
         }

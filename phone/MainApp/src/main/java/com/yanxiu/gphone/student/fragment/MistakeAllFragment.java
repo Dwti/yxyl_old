@@ -145,16 +145,18 @@ public class MistakeAllFragment extends Fragment implements MistakeAllFragmentAd
             public void update(YanxiuBaseBean result) {
                 rlConverLoadView.setVisibility(View.GONE);
                 MistakeAllFragmentBean fragmentBean = (MistakeAllFragmentBean) result;
+                chapter_list.clear();
                 if (fragmentBean != null && fragmentBean.getStatus() != null && fragmentBean.getStatus().getCode().equals("0")) {
-                    chapter_list.clear();
                     chapter_list.addAll(fragmentBean.getData());
                     QuestionUtils.checkMistakeAllFragmentBean(0, chapter_list);
-                    if (mType.equals(MistakeAllActivity.MISTAKE_CHAPTER)) {
-                        setAdapterNotify(chapter_list);
-                    }
                 } else {
-                    rlNoDataView.setVisibility(View.VISIBLE);
-                    tvDescView.setText(R.string.no_mistake_chapter);
+                    if (mType.equals(MistakeAllActivity.MISTAKE_CHAPTER)) {
+                        rlNoDataView.setVisibility(View.VISIBLE);
+                        tvDescView.setText(R.string.no_mistake_chapter);
+                    }
+                }
+                if (mType.equals(MistakeAllActivity.MISTAKE_CHAPTER)) {
+                    setAdapterNotify(chapter_list);
                 }
             }
 
@@ -181,16 +183,18 @@ public class MistakeAllFragment extends Fragment implements MistakeAllFragmentAd
             @Override
             public void update(YanxiuBaseBean result) {
                 MistakeAllFragmentBean fragmentBean = (MistakeAllFragmentBean) result;
+                kongledge_list.clear();
                 if (fragmentBean != null && fragmentBean.getStatus() != null && fragmentBean.getStatus().getCode().equals("0")) {
-                    kongledge_list.clear();
                     kongledge_list.addAll(fragmentBean.getData());
                     QuestionUtils.checkMistakeAllFragmentBean(0, kongledge_list);
-                    if (mType.equals(MistakeAllActivity.MISTAKE_KONGLEDGE)) {
-                        setAdapterNotify(kongledge_list);
-                    }
                 } else {
-                    rlNoDataView.setVisibility(View.VISIBLE);
-                    tvDescView.setText(R.string.no_mistake_kongledge);
+                    if (mType.equals(MistakeAllActivity.MISTAKE_KONGLEDGE)) {
+                        rlNoDataView.setVisibility(View.VISIBLE);
+                        tvDescView.setText(R.string.no_mistake_kongledge);
+                    }
+                }
+                if (mType.equals(MistakeAllActivity.MISTAKE_KONGLEDGE)) {
+                    setAdapterNotify(kongledge_list);
                 }
                 rlConverLoadView.setVisibility(View.GONE);
             }
