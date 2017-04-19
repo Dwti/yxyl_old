@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.text.Html;
 import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -95,7 +96,8 @@ public class ClassfyPopupWindow extends BasePopupWindow  {
                         LayoutInflater inflater = LayoutInflater.from(mContext);
                         final View containerView = inflater.inflate(R.layout.classfy_layout_textview, null);
                         TextView classfy_answer_popup_text = (TextView) containerView.findViewById(R.id.classfy_answer_popup_text);
-                        Spanned spanned=ClassfyAnswers.fromHtml(mContext,classfyPopItem.get(i).getName());
+//                        Spanned spanned=ClassfyAnswers.fromHtml(mContext,classfyPopItem.get(i).getName());
+                        Spanned spanned= Html.fromHtml(classfyPopItem.get(i).getName());
                         classfy_answer_popup_text.setText(spanned);
                         //view.setText(mQuestionsEntity.getContent().getChoices().get(i));
                         containerView.getLayoutParams();

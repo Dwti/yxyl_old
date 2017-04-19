@@ -314,7 +314,7 @@ public class RegisterActivity extends YanxiuBaseActivity{
             }
         });
 
-        if(!TextUtils.isEmpty(phoneNum)){
+        if(!TextUtils.isEmpty(phoneNum) && CommonCoreUtil.isMobileNo(phoneNum)){
             userNameText.setText(phoneNum);
             userNameText.setSelection(userNameText.getText().length());
             if(userNameText.getText().toString().replaceAll(" ", "").length()==11){

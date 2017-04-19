@@ -114,6 +114,7 @@ public class VerifyMobileActivity extends Activity implements View.OnClickListen
         tv_ok.setClickable(false);
         iv_delete.setVisibility(View.INVISIBLE);
         textView.setText(R.string.verify_mobile);
+        tv_ok.setText("下一步");
         tv_send_code.setTextColor(getResources().getColor(R.color.color_805500));
     }
 
