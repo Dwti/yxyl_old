@@ -135,10 +135,15 @@ public class SettingModifyPWDActivity extends YanxiuBaseActivity implements View
                 String mobile = LoginModel.getUserinfoEntity().getMobile();
                 if(TextUtils.isEmpty(mobile)){
                     mobile = LoginModel.getLoginName();
+                    hashMap.put("mobile", "");
+                    hashMap.put("loginName",mobile);
+
+                }else {
+                    hashMap.put("mobile",mobile);
+                    hashMap.put("loginName","");
                 }
                 hashMap.put("newPass", newPwd);
                 hashMap.put("oldPass", oldPwd);
-                hashMap.put("mobile", mobile);
                 dataHull= YanxiuHttpApi.requestModifiedPwd(0, new ModifiedPwdBeanParse(), hashMap);
                 if(dataHull != null && dataHull.getDataType() == YanxiuDataHull.DataType.DATA_IS_INTEGRITY){
                     return dataHull.getDataEntity();

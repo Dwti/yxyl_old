@@ -450,7 +450,6 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
                         deleteAction = true;
                         Util.showToast(R.string.mistake_question_del_done);
                         PublicErrorQuestionCollectionBean.updateDelData(questionId);
-                        deleteProcess(pageIndex);
                         WrongAnswerDeleteBean deleteBean=new WrongAnswerDeleteBean();
                         if (dataSources.getData().get(0).getPaperTest() != null && dataSources.getData().get(0).getPaperTest().size() > pageIndex) {
                             PaperTestEntity entity = dataSources.getData().get(0).getPaperTest().get(pageIndex);
@@ -458,7 +457,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
                         }
                         deleteBean.position=pageIndex;
                         EventBus.getDefault().post(deleteBean);
-
+                        deleteProcess(pageIndex);
                         try{
                             int currentPageCount = wrongCounts-delQueNum;
                             int size = dataSources.getData().get(0).getPaperTest().size();
