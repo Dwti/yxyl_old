@@ -84,23 +84,6 @@ public class ClassfyImageGetter implements ImageGetterListener {
             return bounds;
         }
 
-        class MyOnGlobalLayoutListener implements ViewTreeObserver.OnGlobalLayoutListener {
-
-            @Override
-            public void onGlobalLayout() {
-                ClassfyImageGetter.this.view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                afterLine = ClassfyImageGetter.this.view.getLineCount();
-                LogInfo.log("geny", "afterLine change--" + afterLine);
-                if (afterLine != beforeLine) {
-                    ClassfyImageGetter.this.viewWillResetHeight += (ClassfyImageGetter.this.view.getTextSize()+10) * (afterLine - beforeLine);
-                    ClassfyImageGetter.this.view.setHeight(ClassfyImageGetter.this.viewWillResetHeight);
-//                FillBlankImageGetterTrick.this.view.invalidate();
-                    beforeLine = afterLine;
-                }
-                LogInfo.log("geny", "onGlobalLayout.this.viewWillResetHeight--" + ClassfyImageGetter.this.viewWillResetHeight);
-            }
-        }
-
         @Override
         protected void onPostExecute(final Drawable result) {
             if (result != null) {
@@ -109,20 +92,17 @@ public class ClassfyImageGetter implements ImageGetterListener {
                     public void run() {
                         urlDrawable.setBounds(0, 0, loadedImageWidth, loadedImageheight);
                         urlDrawable.drawable = result;
-                        //beforeLine = ClassfyImageGetter.this.view.getLineCount();
-                        //ViewTreeObserver.OnGlobalLayoutListener listener = new MyOnGlobalLayoutListener();
-                        //ClassfyImageGetter.this.view.getViewTreeObserver().addOnGlobalLayoutListener(listener);
-                        int height=((YXiuAnserTextView)ClassfyImageGetter.this.view).getClassfyHeight();
-                        if (height==0){
-                            height=ClassfyImageGetter.this.view.getHeight();
-                        }
-
-                        int setheight=height + result.getIntrinsicHeight();
-                        ((YXiuAnserTextView)ClassfyImageGetter.this.view).setClassfyheight(setheight);
-                        ClassfyImageGetter.this.view.requestLayout();
-                        ClassfyImageGetter.this.view.invalidate();
-                        ClassfyImageGetter.this.view.setHeight(setheight);
-                        ClassfyImageGetter.this.view.setEllipsize(null);
+//                        int height=((YXiuAnserTextView)ClassfyImageGetter.this.view).getClassfyHeight();
+//                        if (height==0){
+//                            height=ClassfyImageGetter.this.view.getHeight();
+//                        }
+//
+//                        int setheight=height + result.getIntrinsicHeight();
+//                        ((YXiuAnserTextView)ClassfyImageGetter.this.view).setClassfyheight(setheight);
+                         ClassfyImageGetter.this.view.requestLayout();
+                         ClassfyImageGetter.this.view.invalidate();
+//                        ClassfyImageGetter.this.view.setHeight(setheight);
+//                        ClassfyImageGetter.this.view.setEllipsize(null);
 
                     }
                 });
