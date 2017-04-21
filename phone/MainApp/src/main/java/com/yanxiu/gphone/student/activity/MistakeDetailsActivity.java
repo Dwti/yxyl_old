@@ -77,6 +77,7 @@ public class MistakeDetailsActivity extends YanxiuBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         subjectExercisesItemBeanIntent = new SubjectExercisesItemBean();
+        subjectExercisesItemBeanIntent.setIsWrongSet(true);
         stageId = LoginModel.getUserinfoEntity().getStageid() + "";
         title = getIntent().getStringExtra("title");
         subjectId = getIntent().getStringExtra("subjectId");
