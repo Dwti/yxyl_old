@@ -225,6 +225,9 @@ public class MistakeAllFragment extends Fragment implements MistakeAllFragmentAd
                 if (!type.equals(mType)) {
                     kongledge_list.clear();
                     kongledge_list.addAll(list);
+                }else {
+                    chapter_list.clear();
+                    chapter_list.addAll(list);
                 }
                 this.mType = type;
                 if (chapter_list != null && chapter_list.size() > 0) {
@@ -238,6 +241,9 @@ public class MistakeAllFragment extends Fragment implements MistakeAllFragmentAd
                 if (!type.equals(mType)) {
                     chapter_list.clear();
                     chapter_list.addAll(list);
+                }else {
+                    kongledge_list.clear();
+                    kongledge_list.addAll(list);
                 }
                 this.mType = type;
                 if (kongledge_list != null && kongledge_list.size() > 0) {
