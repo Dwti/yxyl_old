@@ -84,6 +84,7 @@ public class MistakeDetailsActivity extends YanxiuBaseActivity {
         qids = getIntent().getIntegerArrayListExtra("qids");
         qids_catch.clear();
         qids_catch.addAll(qids);
+        mMistakeCount=qids.size();
         rootView = PublicLoadUtils.createPage(this, R.layout.activity_mistake_all_layout);
         rootView.setmRefreshData(new PublicLoadLayout.RefreshData() {
             @Override
@@ -231,7 +232,7 @@ public class MistakeDetailsActivity extends YanxiuBaseActivity {
                 if (mSubjectExercisesItemBean.getData() != null && mSubjectExercisesItemBean.getPage() != null) {
                     wrongNumView.setVisibility(View.VISIBLE);
                     wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mSubjectExercisesItemBean.getPage().getTotalCou() + ""));
-                    mMistakeCount = mSubjectExercisesItemBean.getPage().getTotalCou();
+//                    mMistakeCount = mSubjectExercisesItemBean.getPage().getTotalCou();
 
                     QuestionUtils.settingAnswer(mSubjectExercisesItemBean);
                     QuestionUtils.initDataWithAnswer(mSubjectExercisesItemBean);
