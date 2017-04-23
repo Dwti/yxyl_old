@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,7 @@ import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import com.yanxiu.gphone.student.view.question.YXiuAnserTextView;
 import com.yanxiu.gphone.student.view.question.subjective.SubjectiveStarLayout;
+import com.yanxiu.gphone.student.view.spanreplaceabletextview.HtmlImageGetter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -79,7 +81,7 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
 
     private YXiuAnserTextView tvDifficulltyText;
 
-    private YXiuAnserTextView tvAnswerText;
+    private TextView tvAnswerText;
 
     private SubjectiveStarLayout difficultyStart;
 
@@ -148,7 +150,7 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
         tvReportParseStatueText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_parse_statue_text);
         tvReportParseStatisticsText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_parse_statistics_text);
         tvDifficulltyText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_difficullty_text);
-        tvAnswerText = (YXiuAnserTextView) rootView.findViewById(R.id.hw_report_answer_text);
+        tvAnswerText = (TextView) rootView.findViewById(R.id.hw_report_answer_text);
         iv_edit_note = (ImageView) rootView.findViewById(R.id.iv_edit_note);
         tvReportQuestionError = (TextView) rootView.findViewById(R.id.tv_report_question_error);
         ll_note_content = rootView.findViewById(R.id.ll_note_content);
@@ -261,7 +263,6 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                     List<String> data = questionsEntity.getAnswer();
                     for (String str : data) {
                         try {
-                            tvAnswerText.setClasfyFlag(false);
                             JSONObject object = new JSONObject(str);
                             String ss = object.optString("answer");
                             String name = object.optString("name") + ":";
@@ -276,7 +277,7 @@ public class ProblemAnalysisFragment extends Fragment implements View.OnClickLis
                     }
                 }
                 if (!TextUtils.isEmpty(answerString.toString())) {
-                    tvAnswerText.setTextHtml(answerString.toString());
+                    tvAnswerText.setText(Html.fromHtml(answerString.toString(),new HtmlImageGetter(getActivity(),tvAnswerText),null));
                     tvAnswerText.setVisibility(View.VISIBLE);
                     llAnswer.setVisibility(View.VISIBLE);
                     switch (questionsEntity.getTemplate()) {//以下几种题型不显示答案
