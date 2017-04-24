@@ -218,7 +218,7 @@
 
         </RelativeLayout>
 
-        <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+        <TextView
             android:id="@+id/hw_report_answer_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
