@@ -140,9 +140,9 @@ public class MistakeDetailsActivity extends YanxiuBaseActivity {
                         subjectExercisesItemBeanIntent.getData().get(0).setPaperTest(lists);
                     }
                     if (list != null && list.size() > 0 && position > 0 && position - 1 < list.size()) {
-                        WrongAnswerViewActivity.launch(MistakeDetailsActivity.this, subjectId, pageIndex, list.get(position - 1).getQuestions().getChildPageIndex(), WRONG_DETAIL, String.valueOf(mMistakeCount), position - 1);
+                        WrongAnswerViewActivity.launch(MistakeDetailsActivity.this,qids,qids_catch, subjectId, pageIndex, list.get(position - 1).getQuestions().getChildPageIndex(), WRONG_DETAIL, String.valueOf(mMistakeCount), position - 1);
                     } else {
-                        WrongAnswerViewActivity.launch(MistakeDetailsActivity.this, subjectId, pageIndex, 0, WRONG_DETAIL, String.valueOf(mMistakeCount), position);
+                        WrongAnswerViewActivity.launch(MistakeDetailsActivity.this,qids,qids_catch, subjectId, pageIndex, 0, WRONG_DETAIL, String.valueOf(mMistakeCount), position);
                     }
                 }
             }

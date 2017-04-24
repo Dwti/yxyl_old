@@ -113,13 +113,13 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
         rootView.setmRefreshData(new PublicLoadLayout.RefreshData() {
             @Override public void refreshData() {
                 pageIndex = 1;
-                requestMistakeAllList(true, true, false);
+                requestMistakeAllList(true, true, false,"0");
             }
         });
         setContentView(rootView);
         EventBus.getDefault().register(this);
         findView();
-        requestMistakeAllList(true, true, false);
+        requestMistakeAllList(true, true, false,"0");
     }
 
     private void findView() {
@@ -278,7 +278,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
         @Override public void onRefresh(XListView view) {
             if(NetWorkTypeUtils.isNetAvailable()){
                 pageIndex = 1;
-                requestMistakeAllList(true, false, false);
+                requestMistakeAllList(true, false, false,"0");
             }else {
                 listView.stopRefresh();
                 Util.showUserToast(R.string.net_null, -1, -1);
@@ -288,12 +288,14 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
         @Override
         public void onLoadMore(XListView view) {
             if(NetWorkTypeUtils.isNetAvailable()){
+                String currentId="0";
                 if (wrongAllListAdapter!=null){
                     List<PaperTestEntity> list=wrongAllListAdapter.getList();
                     int count=list.size();
                     pageIndex=count/10;
+                    currentId=list.get(count-1).getWqid()+"";
                 }
-                requestMistakeAllList(false, false, true);
+                requestMistakeAllList(false, false, true,currentId);
             }else {
                 listView.stopLoadMore();
                 Util.showUserToast(R.string.net_null, -1, -1);
@@ -364,7 +366,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
     }
 
     private void requestMistakeAllList(final boolean isRefresh,final boolean showLoading,
-                               final boolean isLoaderMore){
+                               final boolean isLoaderMore,String currentId){
         if(showLoading){
             rootView.loading(true);
         }
@@ -378,7 +380,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
                 mRequestWrongAllQuestionTask.cancel();
                 mRequestWrongAllQuestionTask = null;
             }
-            mRequestWrongAllQuestionTask = new RequestWrongAllQuestionTask(this, stageId, subjectId, page, "0", ptype, new AsyncCallBack() {
+            mRequestWrongAllQuestionTask = new RequestWrongAllQuestionTask(this, stageId, subjectId, page, currentId, ptype, new AsyncCallBack() {
                 @Override
                 public void update(YanxiuBaseBean result) {
 //                    rootView.finish();
@@ -434,19 +436,19 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
                                 datas.addAll(data);
                                 dataList.addAll(datas);
                             }else if (isLoaderMore){
-                                if (dataList.size()==pageIndex*10){
+//                                if (dataList.size()==pageIndex*10){
                                     List<PaperTestEntity> datas = new ArrayList<PaperTestEntity>();
                                     datas.addAll(data);
                                     dataList.addAll(datas);
-                                }else {
-                                    for (int i=(pageIndex-1)*10;i<dataList.size();i++){
-                                        dataList.set(i,data.get(0));
-                                        data.remove(0);
-                                    }
-                                    List<PaperTestEntity> datas = new ArrayList<PaperTestEntity>();
-                                    datas.addAll(data);
-                                    dataList.addAll(datas);
-                                }
+//                                }else {
+//                                    for (int i=(pageIndex-1)*10;i<dataList.size();i++){
+//                                        dataList.set(i,data.get(0));
+//                                        data.remove(0);
+//                                    }
+//                                    List<PaperTestEntity> datas = new ArrayList<PaperTestEntity>();
+//                                    datas.addAll(data);
+//                                    dataList.addAll(datas);
+//                                }
                             }
                             try {
                                 List<PaperTestEntity> dataLists = new ArrayList<PaperTestEntity>();
@@ -621,7 +623,7 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
         mMistakeCount = mMistakeCount - 1;
         wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mMistakeCount+""));
         pageIndex = 1;
-        requestMistakeAllList(true, false, false);
+        requestMistakeAllList(true, false, false,"0");
         requestMistakeNumber();
     }
 
@@ -662,18 +664,18 @@ public class MistakeAllActivity extends YanxiuBaseActivity implements RadioGroup
                     int count = list.size();
                     if (count == 0) {
                         pageIndex = 1;
-                        requestMistakeAllList(true, false, false);
+                        requestMistakeAllList(true, false, false,"0");
                         requestMistakeNumber();
                     }
                 }else {
                     pageIndex = 1;
-                    requestMistakeAllList(true, false, false);
+                    requestMistakeAllList(true, false, false,"0");
                     requestMistakeNumber();
                 }
             }
         }else {
             pageIndex = 1;
-            requestMistakeAllList(true, false, false);
+            requestMistakeAllList(true, false, false,"0");
             requestMistakeNumber();
             setRefresh();
         }

@@ -3,6 +3,7 @@ package com.yanxiu.gphone.student.view;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -267,8 +268,8 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
             }else {
                 params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,b-t);
                 params.setMargins(Util.dipToPx(120),0,Util.dipToPx(120),0);
+                mylines.setLayoutParams(params);
             }
-            mylines.setLayoutParams(params);
         }
     }
 

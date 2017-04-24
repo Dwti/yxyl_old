@@ -1,5 +1,7 @@
 package com.yanxiu.gphone.student.parser;
 
+import android.util.Log;
+
 import com.alibaba.fastjson.JSON;
 import com.yanxiu.basecore.parse.YanxiuMobileParser;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;
@@ -13,6 +15,7 @@ public class SubjectExerisesItemParser extends YanxiuMobileParser<SubjectExercis
     @Override
     public SubjectExercisesItemBean parse(JSONObject data) throws Exception {
         if(data != null ){
+            Log.d("asd",data.toString());
             return JSON.parseObject(data.toString(), SubjectExercisesItemBean.class);
         }
         return null;
