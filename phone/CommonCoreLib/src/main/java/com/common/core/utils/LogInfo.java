@@ -41,7 +41,7 @@ public class LogInfo {
     }
 
     public static void log(String Tag, String msg) {
-        if (true) {
+        if (isDebug) {
             if (!TextUtils.isEmpty(msg)) {
                 switch (DEBUG_LEVEL) {
                     case 0:

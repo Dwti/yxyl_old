@@ -219,6 +219,9 @@ public class MistakeAllFragment extends Fragment implements MistakeAllFragmentAd
     }
 
     public void setData(String type) {
+        if (rlNoDataView!=null) {
+            rlNoDataView.setVisibility(View.GONE);
+        }
         List<MistakeAllFragBean> list = new ArrayList<>();
         list.addAll(adapter.getData());
         switch (type) {

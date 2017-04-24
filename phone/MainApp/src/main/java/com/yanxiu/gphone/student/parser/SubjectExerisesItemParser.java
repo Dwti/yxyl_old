@@ -15,7 +15,6 @@ public class SubjectExerisesItemParser extends YanxiuMobileParser<SubjectExercis
     @Override
     public SubjectExercisesItemBean parse(JSONObject data) throws Exception {
         if(data != null ){
-            Log.d("asd",data.toString());
             return JSON.parseObject(data.toString(), SubjectExercisesItemBean.class);
         }
         return null;

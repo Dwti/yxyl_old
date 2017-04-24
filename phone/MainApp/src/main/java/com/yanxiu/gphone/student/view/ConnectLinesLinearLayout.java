@@ -258,18 +258,9 @@ public class ConnectLinesLinearLayout extends LinearLayout implements ConnectTex
         super.onLayout(changed, l, t, r, b);
         if (mylines!=null) {
             RelativeLayout.LayoutParams params = null;
-            try {
-                params = (RelativeLayout.LayoutParams) mylines.getLayoutParams();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-            if(params!=null){
-                params.height=b-t;
-            }else {
                 params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,b-t);
                 params.setMargins(Util.dipToPx(120),0,Util.dipToPx(120),0);
                 mylines.setLayoutParams(params);
-            }
         }
     }
 
