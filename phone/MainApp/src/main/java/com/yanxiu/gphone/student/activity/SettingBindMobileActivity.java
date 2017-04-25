@@ -320,8 +320,10 @@ public class SettingBindMobileActivity extends Activity implements View.OnClickL
                     tv_ok.setClickable(true);
                     tv_ok.setTextColor(getResources().getColor(R.color.color_805500));
                 }
-                tv_send_code.setClickable(true);
-                tv_send_code.setTextColor(getResources().getColor(R.color.color_805500));
+                if(counter < 1){
+                    tv_send_code.setClickable(true);
+                    tv_send_code.setTextColor(getResources().getColor(R.color.color_805500));
+                }
             }else{
                 isMobileNumReady = false;
                 tv_send_code.setClickable(false);
