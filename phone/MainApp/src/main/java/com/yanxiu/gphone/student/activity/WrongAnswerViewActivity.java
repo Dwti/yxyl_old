@@ -437,7 +437,11 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
                     setNextShow();
                 }
             } else {
-                Util.showToast(R.string.server_connection_erro);
+                if (!NetWorkTypeUtils.isNetAvailable()) {
+                    Util.showUserToast(getString(R.string.public_loading_net_null_errtxt), null, null);
+                }else {
+                    Util.showToast(R.string.public_loading_data_null);
+                }
             }
         }
         @Override

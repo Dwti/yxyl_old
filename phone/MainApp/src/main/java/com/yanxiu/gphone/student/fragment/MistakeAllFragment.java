@@ -153,7 +153,8 @@ public class MistakeAllFragment extends Fragment implements MistakeAllFragmentAd
                 } else {
                     if (mType.equals(MistakeAllActivity.MISTAKE_CHAPTER)) {
                         rlNoDataView.setVisibility(View.VISIBLE);
-                        tvDescView.setText(R.string.no_mistake_chapter);
+//                        tvDescView.setText(R.string.no_mistake_chapter);
+                        rlNoDataView.setBackgroundResource(R.drawable.mis_no_chapter);
                     }
                 }
                 if (mType.equals(MistakeAllActivity.MISTAKE_CHAPTER)) {
@@ -191,7 +192,8 @@ public class MistakeAllFragment extends Fragment implements MistakeAllFragmentAd
                 } else {
                     if (mType.equals(MistakeAllActivity.MISTAKE_KONGLEDGE)) {
                         rlNoDataView.setVisibility(View.VISIBLE);
-                        tvDescView.setText(R.string.no_mistake_kongledge);
+//                        tvDescView.setText(R.string.no_mistake_kongledge);
+                        rlNoDataView.setBackgroundResource(R.drawable.mis_no_questions);
                     }
                 }
                 if (mType.equals(MistakeAllActivity.MISTAKE_KONGLEDGE)) {
