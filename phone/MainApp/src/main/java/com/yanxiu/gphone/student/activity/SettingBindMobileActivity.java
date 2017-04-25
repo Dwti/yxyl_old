@@ -48,7 +48,7 @@ public class SettingBindMobileActivity extends Activity implements View.OnClickL
     private EditText et_mobile_num,et_verification_code;
     private TextView tv_send_code,tv_ok;
     private String temMobileNum;
-    private int counter=45;  //计时
+    private int counter=0;  //计时
     private static final int COUNTER = 0x01;
     private boolean isMobileNumReady,isVerificationCodeReady;
     private MobileNumTextWatcher mobileNumTextWatcher;
