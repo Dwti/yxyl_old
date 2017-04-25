@@ -31,7 +31,7 @@
         android:paddingStart="@dimen/dimen_5"
         android:paddingRight="@dimen/dimen_5"
         android:paddingEnd="@dimen/dimen_5"
-        android:visibility="visible"
+        android:visibility="gone"
         android:background="@drawable/my_list_bg_selector">
 
         <!--<ImageView-->

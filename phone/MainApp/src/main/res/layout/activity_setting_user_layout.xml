@@ -64,7 +64,7 @@
                     />
             <include
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginLeft="@dimen/dimen_16"
                 android:layout_marginRight="@dimen/dimen_16"
                 layout="@layout/bitmap_repeat_layout"
