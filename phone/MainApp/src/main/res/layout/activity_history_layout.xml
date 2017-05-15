@@ -5,7 +5,7 @@
                 android:background="@drawable/yanxiu_my_frgment_bg"
     >
 
-    <com.yanxiu.gphone.student.view.ChapterTabTitleLayout
+    <com.yanxiu.gphone.studentold.view.ChapterTabTitleLayout
         android:id="@+id/rl_top_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

@@ -52,7 +52,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/question_content_bg" />
 
-                    <com.yanxiu.gphone.student.view.question.fillblanks.FillBlanksFramelayout
+                    <com.yanxiu.gphone.studentold.view.question.fillblanks.FillBlanksFramelayout
                         android:id="@+id/fb_item"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                         android:textColor="@color/color_black"
                         android:textSize="@dimen/dimen_15"/>
 
-                    <com.yanxiu.gphone.student.view.spanreplaceabletextview.FillBlankTextView
+                    <com.yanxiu.gphone.studentold.view.spanreplaceabletextview.FillBlankTextView
                         android:id="@+id/fill_blank_text_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
                 android:layout_height="match_parent"
                 android:layout_below="@id/ll_answer_content">
 
-                <com.yanxiu.gphone.student.view.YanxiuTypefaceButton
+                <com.yanxiu.gphone.studentold.view.YanxiuTypefaceButton
                     android:id="@+id/add_problem_analysis"
                     style="@style/btn_problem_analysis"
                     app:type_face="metor_bold.OTF"/>

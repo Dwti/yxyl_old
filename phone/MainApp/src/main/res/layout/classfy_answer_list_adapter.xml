@@ -12,7 +12,7 @@
             android:background="@drawable/upload_pic"
             />
 
-        <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+        <com.yanxiu.gphone.studentold.view.question.YXiuAnserTextView
             android:id="@+id/tv_classfyAnswerImg"
             android:layout_width="@dimen/dimen_classfy_one"
             android:layout_height="@dimen/dimen_classfy_one"

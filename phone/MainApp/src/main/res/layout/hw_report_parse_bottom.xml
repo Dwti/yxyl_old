@@ -34,7 +34,7 @@
 
         </RelativeLayout>
 
-        <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+        <com.yanxiu.gphone.studentold.view.question.YXiuAnserTextView
             android:id="@+id/hw_report_parse_statue_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                       android:textColor="@color/color_white"/>
 
         </RelativeLayout>-->
-        <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+        <com.yanxiu.gphone.studentold.view.question.YXiuAnserTextView
             android:id="@+id/hw_report_parse_statistics_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -168,7 +168,7 @@
             android:layout_marginTop="@dimen/dimen_5"
             android:orientation="horizontal" />
 
-        <com.yanxiu.gphone.student.view.question.subjective.SubjectiveStarLayout
+        <com.yanxiu.gphone.studentold.view.question.subjective.SubjectiveStarLayout
             android:id="@+id/view_sub_difficulty_star"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -177,7 +177,7 @@
             android:layout_marginLeft="@dimen/dimen_20"
             app:maxNumStar="5" />
 
-        <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+        <com.yanxiu.gphone.studentold.view.question.YXiuAnserTextView
             android:id="@+id/hw_report_difficullty_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -317,7 +317,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/question_read_content_bg"></RelativeLayout>
 
-            <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+            <com.yanxiu.gphone.studentold.view.question.YXiuAnserTextView
                 android:id="@+id/hw_report_parse_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -385,7 +385,7 @@
                 android:layout_marginLeft="@dimen/dimen_20"
                 android:src="@drawable/knowledge_point_title_bg" />
 
-            <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+            <com.yanxiu.gphone.studentold.view.question.YXiuAnserTextView
                 android:id="@+id/hw_report_parse_knowledge_point"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -464,7 +464,7 @@
                 android:textSize="@dimen/note_text_size"
                 android:textColor="#333333"/>
 
-            <com.yanxiu.gphone.student.view.picsel.NoScrollGridView
+            <com.yanxiu.gphone.studentold.view.picsel.NoScrollGridView
                 android:id="@+id/grid_note_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

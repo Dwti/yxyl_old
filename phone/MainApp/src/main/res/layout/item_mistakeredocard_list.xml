@@ -37,7 +37,7 @@
             android:background="#ccc4a3" />
     </LinearLayout>
 
-    <com.yanxiu.gphone.student.view.picsel.NoScrollGridView
+    <com.yanxiu.gphone.studentold.view.picsel.NoScrollGridView
         android:id="@+id/grid_mistake_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

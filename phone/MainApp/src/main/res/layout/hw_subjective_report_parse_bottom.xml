@@ -42,7 +42,7 @@
                 android:layout_height="@dimen/dimen_57"
                 android:src="@drawable/icon_subject_question_noanswer" />
 
-            <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+            <com.yanxiu.gphone.studentold.view.question.YXiuAnserTextView
                 android:id="@+id/my_anwsers_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.yanxiu.gphone.student.view.question.subjective.SubjectiveHeartLayout
+                <com.yanxiu.gphone.studentold.view.question.subjective.SubjectiveHeartLayout
                     android:id="@+id/view_correction_result"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -145,7 +145,7 @@
                     android:background="@drawable/question_content_bg"
                     android:visibility="gone" />
 
-                <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+                <com.yanxiu.gphone.studentold.view.question.YXiuAnserTextView
                     android:id="@+id/correction_result_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -183,7 +183,7 @@
             android:layout_height="18dp"
             android:src="@drawable/laoshipiyu" />
 
-        <com.yanxiu.gphone.student.view.UnMoveListView
+        <com.yanxiu.gphone.studentold.view.UnMoveListView
             android:id="@+id/lv_voice_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -224,7 +224,7 @@
 
         </RelativeLayout>
 
-        <com.yanxiu.gphone.student.view.question.subjective.SubjectiveStarLayout
+        <com.yanxiu.gphone.studentold.view.question.subjective.SubjectiveStarLayout
             android:id="@+id/view_sub_difficulty_star"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -233,7 +233,7 @@
             android:layout_marginLeft="@dimen/dimen_20"
             app:maxNumStar="5" />
 
-        <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+        <com.yanxiu.gphone.studentold.view.question.YXiuAnserTextView
             android:id="@+id/hw_report_difficullty_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -276,7 +276,7 @@
 
         </RelativeLayout>
 
-        <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+        <com.yanxiu.gphone.studentold.view.question.YXiuAnserTextView
             android:id="@+id/hw_report_answer_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -330,7 +330,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/question_read_content_bg"></RelativeLayout>
 
-            <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+            <com.yanxiu.gphone.studentold.view.question.YXiuAnserTextView
                 android:id="@+id/hw_report_parse_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -387,7 +387,7 @@
             flow:layoutDirection="ltr"
             flow:weightDefault="1.0" />
 
-        <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+        <com.yanxiu.gphone.studentold.view.question.YXiuAnserTextView
             android:id="@+id/hw_report_parse_knowledge_point"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -448,7 +448,7 @@
                 android:textSize="@dimen/note_text_size"
                 android:textColor="#333333"/>
 
-            <com.yanxiu.gphone.student.view.picsel.NoScrollGridView
+            <com.yanxiu.gphone.studentold.view.picsel.NoScrollGridView
                 android:id="@+id/grid_note_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

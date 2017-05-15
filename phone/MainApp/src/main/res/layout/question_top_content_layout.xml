@@ -37,7 +37,7 @@
         android:textSize="@dimen/dimen_12" />
 
 
-    <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
+    <com.yanxiu.gphone.studentold.view.YanxiuTypefaceTextView
         android:id="@+id/tv_title_name_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

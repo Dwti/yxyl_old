@@ -38,7 +38,7 @@
             android:layout_marginRight="@dimen/dimen_17"
             />
 
-        <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
+        <com.yanxiu.gphone.studentold.view.YanxiuTypefaceTextView
             app:type_face="metor_bold.OTF"
             android:id="@+id/item_sub_content"
             style="@style/shadow_text_style"
@@ -55,7 +55,7 @@
             tools:text="未选择版本"
             />
 
-        <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
+        <com.yanxiu.gphone.studentold.view.YanxiuTypefaceTextView
             app:type_face="metor_bold.OTF"
             android:id="@+id/item_name"
             style="@style/shadow_text_style"

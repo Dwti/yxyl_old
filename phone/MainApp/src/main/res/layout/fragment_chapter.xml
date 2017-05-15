@@ -15,7 +15,7 @@
         android:childDivider="@null"
         android:listSelector="@android:color/transparent"
         android:scrollbars="none"/>
-    <com.yanxiu.gphone.student.view.StudentLoadingLayout
+    <com.yanxiu.gphone.studentold.view.StudentLoadingLayout
         android:id="@+id/loading_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

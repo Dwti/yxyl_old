@@ -34,7 +34,7 @@
                 android:textSize="@dimen/dimen_17"/>
         </LinearLayout>
 
-        <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
+        <com.yanxiu.gphone.studentold.view.YanxiuTypefaceTextView
             android:id="@+id/tv_center_title"
             style="@style/shadow_text_style"
             android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
         android:paddingLeft="@dimen/dimen_10"
         android:paddingRight="@dimen/dimen_10">
 
-        <com.yanxiu.gphone.student.view.TitleTabLayout
+        <com.yanxiu.gphone.studentold.view.TitleTabLayout
             android:id="@+id/view_tab"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

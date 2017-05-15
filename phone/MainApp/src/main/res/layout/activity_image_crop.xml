@@ -22,7 +22,7 @@
                 android:layout_centerInParent="true"
                 android:adjustViewBounds="true" />
 
-            <com.yanxiu.gphone.student.view.ImageCropOverView
+            <com.yanxiu.gphone.studentold.view.ImageCropOverView
                 android:id="@+id/image_over_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />

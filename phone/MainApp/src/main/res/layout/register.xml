@@ -206,7 +206,7 @@
         />
 <!--color_e4b62e-->
     <!--color_805500-->
-    <com.yanxiu.gphone.student.view.StudentLoadingLayout
+    <com.yanxiu.gphone.studentold.view.StudentLoadingLayout
         android:id="@+id/loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -14,7 +14,7 @@
         android:layout_above="@+id/fra_sub_or_del"
         android:layout_below="@id/rl_top"
         android:orientation="vertical">
-        <com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout
+        <com.yanxiu.gphone.studentold.view.ExpandableRelativeLayoutlayout
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:id="@+id/rl_top_view"
@@ -42,7 +42,7 @@
                         <LinearLayout android:layout_width="match_parent"
                                       android:layout_height="wrap_content">
 
-                            <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+                            <com.yanxiu.gphone.studentold.view.question.YXiuAnserTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:textSize="@dimen/dimen_15"
@@ -115,7 +115,7 @@
 
                 </LinearLayout>
 
-                <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
+                <com.yanxiu.gphone.studentold.view.YanxiuTypefaceTextView
                           android:layout_width="@dimen/dimen_57"
                           android:layout_height="@dimen/dimen_26"
                           android:id="@+id/tv_read_item_quesiton_type"
@@ -130,7 +130,7 @@
 
             </RelativeLayout>
 
-        </com.yanxiu.gphone.student.view.ExpandableRelativeLayoutlayout>
+        </com.yanxiu.gphone.studentold.view.ExpandableRelativeLayoutlayout>
 
         <LinearLayout
                       android:layout_width="match_parent"

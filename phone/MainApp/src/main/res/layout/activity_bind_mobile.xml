@@ -160,7 +160,7 @@
         android:layout_marginBottom="10dp"
         android:text="若手机号不可用，请拨打客服电话：400-870-6696"/>
 
-    <com.yanxiu.gphone.student.view.StudentLoadingLayout
+    <com.yanxiu.gphone.studentold.view.StudentLoadingLayout
         android:id="@+id/loading_layout"
         android:layout_height="match_parent"
         android:layout_width="match_parent" />

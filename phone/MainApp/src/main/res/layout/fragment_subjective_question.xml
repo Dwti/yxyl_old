@@ -50,7 +50,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/question_content_bg" />
 
-                    <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+                    <com.yanxiu.gphone.studentold.view.question.YXiuAnserTextView
                         android:id="@+id/yxiu_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                 android:layerType="software"
                 />
 
-            <com.yanxiu.gphone.student.view.picsel.PicSelView
+            <com.yanxiu.gphone.studentold.view.picsel.PicSelView
                 android:id="@+id/picSelView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
                 android:background="@color/color_transparent"
                 android:visibility="visible" />
 
-            <com.yanxiu.gphone.student.view.YanxiuTypefaceButton
+            <com.yanxiu.gphone.studentold.view.YanxiuTypefaceButton
                 android:id="@+id/add_problem_analysis"
                 style="@style/btn_problem_analysis"
                 android:layout_below="@+id/mid_line"

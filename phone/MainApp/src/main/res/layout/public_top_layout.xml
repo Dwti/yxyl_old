@@ -38,7 +38,7 @@
             tools:text="pub_top_right"
             />
 
-        <com.yanxiu.gphone.student.view.TitleTabLayout
+        <com.yanxiu.gphone.studentold.view.TitleTabLayout
             android:id="@+id/view_tab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
             android:gravity="center"
             android:visibility="gone"/>
 
-        <com.yanxiu.gphone.student.view.MyBoldTextView
+        <com.yanxiu.gphone.studentold.view.MyBoldTextView
             android:id="@+id/pub_top_mid"
             style="@style/shadow_text_style"
             android:layout_width="200dp"

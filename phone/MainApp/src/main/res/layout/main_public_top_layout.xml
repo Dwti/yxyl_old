@@ -19,7 +19,7 @@
             android:visibility="gone"
             android:text="@string/system_redo"/>
 
-        <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
+        <com.yanxiu.gphone.studentold.view.YanxiuTypefaceTextView
             android:id="@+id/public_layout_top_tv"
             style="@style/shadow_text_style"
             android:layout_width="@dimen/dimen_200"

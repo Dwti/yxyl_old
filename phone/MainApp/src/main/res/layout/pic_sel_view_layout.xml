@@ -11,7 +11,7 @@
         android:src="@drawable/icon_question_a"
         android:layout_marginLeft="@dimen/dimen_20"
         />
-    <com.yanxiu.gphone.student.view.picsel.NoScrollGridView
+    <com.yanxiu.gphone.studentold.view.picsel.NoScrollGridView
         android:layout_toRightOf="@id/answerViewFlag"
         android:id="@+id/noScrollGrid"
         android:layout_width="match_parent"

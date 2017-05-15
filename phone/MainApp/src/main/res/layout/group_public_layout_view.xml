@@ -44,7 +44,7 @@
         android:background="@drawable/repeat_common_line"
         />
 
-    <com.yanxiu.gphone.student.view.passwordview.GridPasswordView
+    <com.yanxiu.gphone.studentold.view.passwordview.GridPasswordView
         android:id="@+id/group_edit_number"
         style="@style/shadow_text_style"
         android:layout_width="match_parent"

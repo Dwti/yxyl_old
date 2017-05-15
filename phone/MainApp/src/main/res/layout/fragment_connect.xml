@@ -33,14 +33,14 @@
                 android:layout_marginTop="@dimen/contentTopMargin"
                 android:background="@drawable/question_read_content_bg">
 
-                <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+                <com.yanxiu.gphone.studentold.view.question.YXiuAnserTextView
                     android:id="@+id/connect_question"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
             </FrameLayout>
 
-            <com.yanxiu.gphone.student.view.ConnectLinesLinearLayout
+            <com.yanxiu.gphone.studentold.view.ConnectLinesLinearLayout
                 android:id="@+id/connect_lineslinearlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/connect_lineslinearlayout">
 
-                <com.yanxiu.gphone.student.view.YanxiuTypefaceButton
+                <com.yanxiu.gphone.studentold.view.YanxiuTypefaceButton
                     android:id="@+id/add_problem_analysis"
                     style="@style/btn_problem_analysis"
                     app:type_face="metor_bold.OTF" />

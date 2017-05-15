@@ -299,14 +299,14 @@
             </LinearLayout>
         </LinearLayout>
 
-        <com.yanxiu.gphone.student.view.StudentLoadingLayout
+        <com.yanxiu.gphone.studentold.view.StudentLoadingLayout
             android:id="@+id/loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:visibility="gone"/>
 
-        <com.yanxiu.gphone.student.view.LoginRelativeLayoutView
+        <com.yanxiu.gphone.studentold.view.LoginRelativeLayoutView
             android:id="@+id/windowsoft"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

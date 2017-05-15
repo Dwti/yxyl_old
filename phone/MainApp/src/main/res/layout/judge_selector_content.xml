@@ -14,7 +14,7 @@
 
     </FrameLayout>
 
-    <com.yanxiu.gphone.student.view.question.judgequestion.JudgeQuestions
+    <com.yanxiu.gphone.studentold.view.question.judgequestion.JudgeQuestions
         android:id="@+id/jq_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

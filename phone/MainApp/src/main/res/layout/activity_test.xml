@@ -3,7 +3,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/color_fffaf9f9">
 
-    <fragment android:name="com.yanxiu.gphone.student.fragment.IntelliExeFragment"
+    <fragment android:name="com.yanxiu.gphone.studentold.fragment.IntelliExeFragment"
               android:id="@+id/list"
               android:layout_width="match_parent"
               android:layout_height="match_parent" />

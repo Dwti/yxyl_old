@@ -2,7 +2,7 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent" >
 
-    <com.yanxiu.gphone.student.view.stickhome.ScrollHomeView
+    <com.yanxiu.gphone.studentold.view.stickhome.ScrollHomeView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollbars="none"
@@ -37,7 +37,7 @@
                    android:id="@+id/image"
                 android:background="@drawable/test_bg"/>-->
 
-    </com.yanxiu.gphone.student.view.stickhome.ScrollHomeView>
+    </com.yanxiu.gphone.studentold.view.stickhome.ScrollHomeView>
 
     <View android:layout_width="match_parent"
           android:layout_height="match_parent"

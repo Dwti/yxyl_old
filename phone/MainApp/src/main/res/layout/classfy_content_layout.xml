@@ -20,7 +20,7 @@
             android:layout_marginRight="@dimen/contentRightMargin"
             android:orientation="vertical">
 
-            <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+            <com.yanxiu.gphone.studentold.view.question.YXiuAnserTextView
                 android:id="@+id/yxiu_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
             android:layout_marginBottom="@dimen/contentBottomMargin"
             android:orientation="horizontal">
 
-            <com.yanxiu.gphone.student.view.question.classfy.ClassfyAnswers
+            <com.yanxiu.gphone.studentold.view.question.classfy.ClassfyAnswers
                 android:id="@+id/classfy_text_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/ll_answer">
 
-            <com.yanxiu.gphone.student.view.YanxiuTypefaceButton
+            <com.yanxiu.gphone.studentold.view.YanxiuTypefaceButton
                 android:id="@+id/add_problem_analysis"
                 style="@style/btn_problem_analysis"
                 app:type_face="metor_bold.OTF" />

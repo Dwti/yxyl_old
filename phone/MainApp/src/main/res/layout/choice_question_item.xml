@@ -11,7 +11,7 @@
         android:id="@+id/fl_choice_text_item_bg"
         android:background="@drawable/answer_left_bg_nor">
 
-        <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
+        <com.yanxiu.gphone.studentold.view.YanxiuTypefaceTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_choice_text_item"
@@ -60,7 +60,7 @@
         android:background="@drawable/answer_right_bg"
         android:id="@+id/rl_choice_content_item">
 
-        <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+        <com.yanxiu.gphone.studentold.view.question.YXiuAnserTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tv_item_content_text"

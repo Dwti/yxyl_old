@@ -4,18 +4,18 @@
 <version value="6" ></version>
 <list>
     <mapping class="com.common.login.model.LocalCacheBean"></mapping>
-    <mapping class="com.yanxiu.gphone.student.bean.SubjectVersionBean"></mapping>
+    <mapping class="com.yanxiu.gphone.studentold.bean.SubjectVersionBean"></mapping>
     <mapping class="com.common.login.model.UserInfoBean"></mapping>
-    <mapping class="com.yanxiu.gphone.student.bean.PublicSubjectBean"></mapping>
-    <mapping class="com.yanxiu.gphone.student.bean.PublicEditionBean"></mapping>
-    <mapping class="com.yanxiu.gphone.student.bean.PublicChapterBean"></mapping>
-    <mapping class="com.yanxiu.gphone.student.bean.PublicSectionBean"></mapping>
-    <mapping class="com.yanxiu.gphone.student.bean.PublicVolumeBean"></mapping>
-    <mapping class="com.yanxiu.gphone.student.bean.PublicErrorQuestionCollectionBean"></mapping>
-    <mapping class="com.yanxiu.gphone.student.bean.PublicFavouriteQuestionBean"></mapping>
-    <mapping class="com.yanxiu.gphone.student.bean.AppStartInfo"></mapping>
+    <mapping class="com.yanxiu.gphone.studentold.bean.PublicSubjectBean"></mapping>
+    <mapping class="com.yanxiu.gphone.studentold.bean.PublicEditionBean"></mapping>
+    <mapping class="com.yanxiu.gphone.studentold.bean.PublicChapterBean"></mapping>
+    <mapping class="com.yanxiu.gphone.studentold.bean.PublicSectionBean"></mapping>
+    <mapping class="com.yanxiu.gphone.studentold.bean.PublicVolumeBean"></mapping>
+    <mapping class="com.yanxiu.gphone.studentold.bean.PublicErrorQuestionCollectionBean"></mapping>
+    <mapping class="com.yanxiu.gphone.studentold.bean.PublicFavouriteQuestionBean"></mapping>
+    <mapping class="com.yanxiu.gphone.studentold.bean.AppStartInfo"></mapping>
 
-    <mapping class="com.yanxiu.gphone.student.bean.statistics.StatisticsInfoBean" />
-    <mapping class="com.yanxiu.gphone.student.bean.statistics.InstantUploadErrorData" />
+    <mapping class="com.yanxiu.gphone.studentold.bean.statistics.StatisticsInfoBean" />
+    <mapping class="com.yanxiu.gphone.studentold.bean.statistics.InstantUploadErrorData" />
 </list>
 </litepal>

@@ -30,14 +30,14 @@
         android:layout_marginBottom="@dimen/dimen_36"
         layout="@layout/bottom_shadow"
         />
-    <com.yanxiu.gphone.student.exampoint.view.SubjectTypeContainer
+    <com.yanxiu.gphone.studentold.exampoint.view.SubjectTypeContainer
         android:id="@+id/SubjectTypeContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
         android:layout_marginBottom="@dimen/dimen_35"
         />
-    <com.yanxiu.gphone.student.view.PublicLoadLayout
+    <com.yanxiu.gphone.studentold.view.PublicLoadLayout
         android:id="@+id/errorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -12,7 +12,7 @@
         android:layout_marginLeft="@dimen/dimen_12"
         android:background="@drawable/answer_left_bg_nor">
 
-        <com.yanxiu.gphone.student.view.YanxiuTypefaceTextView
+        <com.yanxiu.gphone.studentold.view.YanxiuTypefaceTextView
             android:id="@+id/tv_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

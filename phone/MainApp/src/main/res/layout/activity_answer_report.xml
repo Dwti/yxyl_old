@@ -166,7 +166,7 @@
 
                                     <View style="@style/answer_report_line_style" />
 
-                                    <com.yanxiu.gphone.student.view.question.report.PercentageBirdLayout
+                                    <com.yanxiu.gphone.studentold.view.question.report.PercentageBirdLayout
                                         android:id="@+id/pb_report_num_text"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -207,7 +207,7 @@
 
                                     <View style="@style/answer_report_line_style" />
 
-                                    <com.yanxiu.gphone.student.view.question.report.PercentageBirdLayout
+                                    <com.yanxiu.gphone.studentold.view.question.report.PercentageBirdLayout
                                         android:id="@+id/pb_accuracy_text"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -368,7 +368,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.yanxiu.gphone.student.view.StudentLoadingLayout
+    <com.yanxiu.gphone.studentold.view.StudentLoadingLayout
         android:id="@+id/loading_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -7,7 +7,7 @@
             android:background="@color/color_white"
             android:orientation="horizontal">
     </FrameLayout>
-    <com.yanxiu.gphone.student.view.StudentLoadingLayout
+    <com.yanxiu.gphone.studentold.view.StudentLoadingLayout
             android:id="@+id/loading"
             android:layout_height="match_parent"
             android:layout_width="match_parent"

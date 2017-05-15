@@ -44,7 +44,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/question_content_bg"></RelativeLayout>
 
-                    <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+                    <com.yanxiu.gphone.studentold.view.question.YXiuAnserTextView
                         android:id="@+id/yxiu_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
                      android:id="@+id/rl_answer" />
 
 
-            <com.yanxiu.gphone.student.view.YanxiuTypefaceButton
+            <com.yanxiu.gphone.studentold.view.YanxiuTypefaceButton
                 android:id="@+id/add_problem_analysis"
                 android:layout_below="@+id/rl_answer"
                 style="@style/btn_problem_analysis"

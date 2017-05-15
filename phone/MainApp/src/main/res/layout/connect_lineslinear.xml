@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"/>
 
-        <com.yanxiu.gphone.student.view.Connectlines
+        <com.yanxiu.gphone.studentold.view.Connectlines
             android:id="@+id/mylines"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

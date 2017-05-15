@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-        <com.yanxiu.gphone.student.view.YanxiuTypefaceButton
+        <com.yanxiu.gphone.studentold.view.YanxiuTypefaceButton
             android:id="@+id/add_problem_mistakeredo"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_54"

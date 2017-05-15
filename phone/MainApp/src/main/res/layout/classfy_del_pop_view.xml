@@ -36,7 +36,7 @@
         />
 
 
-    <com.yanxiu.gphone.student.view.question.classfy.ClassfyAnswers
+    <com.yanxiu.gphone.studentold.view.question.classfy.ClassfyAnswers
         android:id="@+id/classfy_text_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

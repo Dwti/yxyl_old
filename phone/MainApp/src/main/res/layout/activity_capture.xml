@@ -5,7 +5,7 @@
     xmlns:record="http://schemas.android.com/apk/res-auto">
 
 
-    <com.yanxiu.gphone.student.view.CameraPreview
+    <com.yanxiu.gphone.studentold.view.CameraPreview
         android:id="@+id/cameraPreview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -41,7 +41,7 @@
             android:textColor="@color/color_white"
             android:background="@drawable/shape_camera_picture"
             />
-        <com.yanxiu.gphone.student.view.RecordVideoStatueCircle
+        <com.yanxiu.gphone.studentold.view.RecordVideoStatueCircle
             android:id="@+id/btn_capture"
             android:layout_width="@dimen/dimen_70"
             android:layout_height="@dimen/dimen_70"

@@ -23,7 +23,7 @@
             android:layout_marginTop="@dimen/dimen_25"
             android:background="@drawable/search_btn_bg">
 
-            <com.yanxiu.gphone.student.view.MySearchSchoolEdittext
+            <com.yanxiu.gphone.studentold.view.MySearchSchoolEdittext
                 android:id="@+id/search_edit"
                 style="@style/text_bd8e00_shadow_style"
                 android:layout_width="match_parent"

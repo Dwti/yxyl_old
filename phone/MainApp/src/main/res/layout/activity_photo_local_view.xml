@@ -7,7 +7,7 @@
 
     <include layout="@layout/simple_title_layout" />
 
-    <com.yanxiu.gphone.student.view.DefineViewPager
+    <com.yanxiu.gphone.studentold.view.DefineViewPager
         android:id="@+id/photo_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

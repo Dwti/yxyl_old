@@ -4,7 +4,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/chapter_examination_bg"
                 android:orientation="vertical">
-    <com.yanxiu.gphone.student.view.ChapterTabTitleLayout
+    <com.yanxiu.gphone.studentold.view.ChapterTabTitleLayout
         android:id="@+id/rl_top_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

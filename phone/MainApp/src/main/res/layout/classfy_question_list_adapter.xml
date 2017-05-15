@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.yanxiu.gphone.student.view.UnMoveTextView
+            <com.yanxiu.gphone.studentold.view.UnMoveTextView
                 android:id="@+id/classfyQuestionName"
                 android:layout_width="@dimen/dimen_80"
                 android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/dimen_15" />
 
-            <com.yanxiu.gphone.student.view.UnMoveTextView
+            <com.yanxiu.gphone.studentold.view.UnMoveTextView
                 android:id="@+id/classfyQuestionNum"
                 android:layout_width="@dimen/dimen_80"
                 android:layout_height="wrap_content"

@@ -7,7 +7,7 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              />
-    <com.yanxiu.gphone.student.view.stickhome.StickHomeLayout
+    <com.yanxiu.gphone.studentold.view.stickhome.StickHomeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/main_public_top_intelliexe"

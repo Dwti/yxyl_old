@@ -14,7 +14,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/dimen_36"
         />
-    <com.yanxiu.gphone.student.view.LoginChoiceView
+    <com.yanxiu.gphone.studentold.view.LoginChoiceView
         android:id="@+id/loginChoiceView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_136"

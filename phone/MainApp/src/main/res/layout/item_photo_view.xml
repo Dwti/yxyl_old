@@ -4,12 +4,12 @@
         android:background="@color/color_008080">
 
 
-    <com.yanxiu.gphone.student.view.ZoomImageView
+    <com.yanxiu.gphone.studentold.view.ZoomImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/dimen_44"
         android:id="@+id/iv_photo_view"/>
-    <com.yanxiu.gphone.student.view.StudentLoadingLayout
+    <com.yanxiu.gphone.studentold.view.StudentLoadingLayout
         android:id="@+id/loading_layout"
         android:layout_height="match_parent"
         android:layout_width="match_parent" />

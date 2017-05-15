@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.yanxiu.gphone.student.view.TitleView
+    <com.yanxiu.gphone.studentold.view.TitleView
         android:id="@+id/titleView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

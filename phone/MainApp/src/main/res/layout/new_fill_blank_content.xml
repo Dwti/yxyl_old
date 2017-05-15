@@ -51,7 +51,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/question_content_bg"></RelativeLayout>
 
-                <com.yanxiu.gphone.student.view.question.YXiuAnserTextView
+                <com.yanxiu.gphone.studentold.view.question.YXiuAnserTextView
                     android:id="@+id/yxiu_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                 android:layout_height="@dimen/dimen_28"
                 android:src="@drawable/icon_question_a" />
 
-            <com.yanxiu.gphone.student.view.FillBlankAnswerView
+            <com.yanxiu.gphone.studentold.view.FillBlankAnswerView
                 android:id="@+id/cq_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -109,7 +109,7 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/ll_answer">
 
-            <com.yanxiu.gphone.student.view.YanxiuTypefaceButton
+            <com.yanxiu.gphone.studentold.view.YanxiuTypefaceButton
                 android:id="@+id/add_problem_analysis"
                 style="@style/btn_problem_analysis"
                 app:type_face="metor_bold.OTF" />

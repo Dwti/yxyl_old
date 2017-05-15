@@ -3,7 +3,7 @@
               android:layout_height="match_parent"
               android:orientation="vertical" >
 
-    <com.yanxiu.gphone.student.view.question.readquestion.InterViewPager
+    <com.yanxiu.gphone.studentold.view.question.readquestion.InterViewPager
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/answer_viewpager"

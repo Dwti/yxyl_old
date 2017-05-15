@@ -3,7 +3,7 @@
         android:layout_height="match_parent"
         android:id="@+id/fl_decor_view">
 
-    <com.yanxiu.gphone.student.view.DefineViewPager
+    <com.yanxiu.gphone.studentold.view.DefineViewPager
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/photo_viewpager"

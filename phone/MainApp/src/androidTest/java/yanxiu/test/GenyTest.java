@@ -3,7 +3,7 @@ package yanxiu.test;
 import android.app.Application;
 import android.test.ApplicationTestCase;
 
-import com.yanxiu.gphone.student.parser.SubjectExerisesItemParser;
+import com.yanxiu.gphone.studentold.parser.SubjectExerisesItemParser;
 
 import org.json.JSONObject;
 
