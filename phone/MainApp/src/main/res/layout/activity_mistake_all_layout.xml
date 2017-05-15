@@ -198,6 +198,7 @@
                     android:layout_marginLeft="@dimen/dimen_0"
                     android:layout_marginRight="@dimen/dimen_0"
                     android:gravity="center"
+                    android:background="@drawable/father_selector_examination_bg"
                     android:text="错题重做"
                     android:textSize="@dimen/dimen_18"
                     android:visibility="visible" />

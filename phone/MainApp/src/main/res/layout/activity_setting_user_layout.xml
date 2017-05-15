@@ -3,7 +3,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              android:background="@drawable/wood_bg">
+              android:background="@drawable/yanxiu_my_frgment_bg">
     <include android:id="@+id/top_layout"
              layout="@layout/public_top_layout"
             />
@@ -64,7 +64,7 @@
                     />
             <include
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginLeft="@dimen/dimen_16"
                 android:layout_marginRight="@dimen/dimen_16"
                 layout="@layout/bitmap_repeat_layout"
@@ -73,6 +73,7 @@
                       android:layout_height="@dimen/dimen_62"
                       android:background="@drawable/my_list_bg_selector"
                       android:textSize="@dimen/dimen_17"
+                      android:layout_marginTop="@dimen/dimen_20"
                       android:textColor="@color/color_805500"
                       android:id="@+id/login_out_txt"
                       android:layout_gravity="center"

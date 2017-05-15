@@ -91,6 +91,8 @@ public class WelcomeActivity extends YanxiuBaseActivity {
         createShareIconTask.start();
     }
 
+    boolean isLoading=false;
+
     private void launch() {
         rootView = (RelativeLayout) findViewById(R.id.root_view);
         viewpager = (ViewPager) findViewById(R.id.wel_vp);
@@ -106,7 +108,8 @@ public class WelcomeActivity extends YanxiuBaseActivity {
                         break;
                     case MotionEvent.ACTION_MOVE:
                         if ((lastX - event.getX()) > 100 && (
-                                viewpager.getCurrentItem() == views.size() - 1)) {
+                                viewpager.getCurrentItem() == views.size() - 1)&&!isLoading) {
+                            isLoading=true;
                             vertifyLoginStatus();
                         }
                         break;

@@ -1,5 +1,7 @@
 package com.yanxiu.gphone.student.parser;
 
+import android.util.Log;
+
 import com.alibaba.fastjson.JSON;
 import com.yanxiu.basecore.parse.YanxiuMobileParser;
 import com.yanxiu.gphone.student.bean.SubjectExercisesItemBean;

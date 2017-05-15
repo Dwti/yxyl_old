@@ -1483,6 +1483,7 @@ public class YanxiuHttpApi {
         YanxiuHttpParameter<T, D> httpParameter = new YanxiuHttpParameter<T, D>(baseUrl, params,
                 YanxiuHttpParameter.Type.GET, parser, updataId);
         httpParameter.setIsEncode(false);
+        LogInfo.log("geny", "requestsubmitQ url = " + httpParameter.getBaseUrl() + httpParameter.encodeUrl());
         return request(httpParameter);
     }
 

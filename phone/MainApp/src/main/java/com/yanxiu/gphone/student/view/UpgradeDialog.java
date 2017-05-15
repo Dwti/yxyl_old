@@ -65,6 +65,7 @@ public class UpgradeDialog extends Dialog{
             mUpgradeCelView.setText(R.string.app_upgrade_exit);
             mUpgradeCelView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
+                    dismiss();
                     if (upgradeDialogCallBack != null) {
                         upgradeDialogCallBack.exit();
                     }

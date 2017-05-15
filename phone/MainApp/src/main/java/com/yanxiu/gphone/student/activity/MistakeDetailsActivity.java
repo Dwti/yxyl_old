@@ -59,7 +59,7 @@ public class MistakeDetailsActivity extends YanxiuBaseActivity {
     private String stageId;
     private String subjectId;
     private ArrayList<Integer> qids;
-    private ArrayList<Integer> qids_catch=new ArrayList<>();
+    private ArrayList<Integer> qids_catch = new ArrayList<>();
     private int mMistakeCount;
     private SubjectExercisesItemBean mSubjectExercisesItemBean;
     private TextView wrongNumView;
@@ -77,12 +77,14 @@ public class MistakeDetailsActivity extends YanxiuBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         subjectExercisesItemBeanIntent = new SubjectExercisesItemBean();
+        subjectExercisesItemBeanIntent.setIsWrongSet(true);
         stageId = LoginModel.getUserinfoEntity().getStageid() + "";
         title = getIntent().getStringExtra("title");
         subjectId = getIntent().getStringExtra("subjectId");
         qids = getIntent().getIntegerArrayListExtra("qids");
         qids_catch.clear();
         qids_catch.addAll(qids);
+        mMistakeCount=qids.size();
         rootView = PublicLoadUtils.createPage(this, R.layout.activity_mistake_all_layout);
         rootView.setmRefreshData(new PublicLoadLayout.RefreshData() {
             @Override
@@ -111,9 +113,9 @@ public class MistakeDetailsActivity extends YanxiuBaseActivity {
         TextView titleView = (TextView) findViewById(R.id.pub_top_mid);
         titleView.setText(title);
 
-        wrongNumView = (TextView)findViewById(R.id.answer_exam_wrong_num_text);
+        wrongNumView = (TextView) findViewById(R.id.answer_exam_wrong_num_text);
 //        mMistakeCount = new Integer(wrongNum);
-        wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, 0+""));
+        wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, 0 + ""));
 
         LinearLayout llBelowTitle = (LinearLayout) findViewById(R.id.ll_below_title);
         llBelowTitle.setVisibility(View.GONE);
@@ -133,14 +135,14 @@ public class MistakeDetailsActivity extends YanxiuBaseActivity {
                     List<PaperTestEntity> list = wrongAllListAdapter.getList();
                     if (subjectExercisesItemBeanIntent.getData() != null && subjectExercisesItemBeanIntent.getData().size() > 0) {
                         subjectExercisesItemBeanIntent.getData().get(0).setName("");
-                        List<PaperTestEntity> lists=new ArrayList<PaperTestEntity>();
+                        List<PaperTestEntity> lists = new ArrayList<PaperTestEntity>();
                         lists.addAll(list);
                         subjectExercisesItemBeanIntent.getData().get(0).setPaperTest(lists);
                     }
                     if (list != null && list.size() > 0 && position > 0 && position - 1 < list.size()) {
-                        WrongAnswerViewActivity.launch(MistakeDetailsActivity.this, subjectId, pageIndex, list.get(position - 1).getQuestions().getChildPageIndex(), WRONG_DETAIL, String.valueOf(mMistakeCount), position - 1);
+                        WrongAnswerViewActivity.launch(MistakeDetailsActivity.this,qids,qids_catch, subjectId, pageIndex, list.get(position - 1).getQuestions().getChildPageIndex(), WRONG_DETAIL, String.valueOf(mMistakeCount), position - 1);
                     } else {
-                        WrongAnswerViewActivity.launch(MistakeDetailsActivity.this, subjectId, pageIndex, 0, WRONG_DETAIL, String.valueOf(mMistakeCount), position);
+                        WrongAnswerViewActivity.launch(MistakeDetailsActivity.this,qids,qids_catch, subjectId, pageIndex, 0, WRONG_DETAIL, String.valueOf(mMistakeCount), position);
                     }
                 }
             }
@@ -161,12 +163,12 @@ public class MistakeDetailsActivity extends YanxiuBaseActivity {
 
         @Override
         public void onRefresh(XListView view) {
-            if(NetWorkTypeUtils.isNetAvailable()){
+            if (NetWorkTypeUtils.isNetAvailable()) {
                 qids_catch.clear();
                 qids_catch.addAll(qids);
                 pageIndex = 1;
                 requestMistakeAllList(true, false, false);
-            }else {
+            } else {
                 listView.stopRefresh();
                 Util.showUserToast(R.string.net_null, -1, -1);
             }
@@ -174,14 +176,14 @@ public class MistakeDetailsActivity extends YanxiuBaseActivity {
 
         @Override
         public void onLoadMore(XListView view) {
-            if(NetWorkTypeUtils.isNetAvailable()){
-                if (wrongAllListAdapter!=null){
-                    List<PaperTestEntity> list=wrongAllListAdapter.getList();
-                    int count=list.size();
-                    pageIndex=count/10;
+            if (NetWorkTypeUtils.isNetAvailable()) {
+                if (wrongAllListAdapter != null) {
+                    List<PaperTestEntity> list = wrongAllListAdapter.getList();
+                    int count = list.size();
+                    pageIndex = count / 10;
                 }
                 requestMistakeAllList(false, false, true);
-            }else {
+            } else {
                 listView.stopLoadMore();
                 Util.showUserToast(R.string.net_null, -1, -1);
             }
@@ -213,9 +215,9 @@ public class MistakeDetailsActivity extends YanxiuBaseActivity {
             mRequestWrongAllQuestionTask.cancel();
             mRequestWrongAllQuestionTask = null;
         }
-        ArrayList<Integer> datas=new ArrayList<>();
-        for (int i=0;i<10;i++){
-            if (qids_catch.size()>0){
+        ArrayList<Integer> datas = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            if (qids_catch.size() > 0) {
                 datas.add(qids_catch.get(0));
                 qids_catch.remove(0);
             }
@@ -230,7 +232,7 @@ public class MistakeDetailsActivity extends YanxiuBaseActivity {
                 if (mSubjectExercisesItemBean.getData() != null && mSubjectExercisesItemBean.getPage() != null) {
                     wrongNumView.setVisibility(View.VISIBLE);
                     wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mSubjectExercisesItemBean.getPage().getTotalCou() + ""));
-                    mMistakeCount = mSubjectExercisesItemBean.getPage().getTotalCou();
+//                    mMistakeCount = mSubjectExercisesItemBean.getPage().getTotalCou();
 
                     QuestionUtils.settingAnswer(mSubjectExercisesItemBean);
                     QuestionUtils.initDataWithAnswer(mSubjectExercisesItemBean);
@@ -273,9 +275,9 @@ public class MistakeDetailsActivity extends YanxiuBaseActivity {
                             datas.addAll(data);
                             dataList.addAll(datas);
                         } else if (isLoaderMore) {
-                                List<PaperTestEntity> datas = new ArrayList<PaperTestEntity>();
-                                datas.addAll(data);
-                                dataList.addAll(datas);
+                            List<PaperTestEntity> datas = new ArrayList<PaperTestEntity>();
+                            datas.addAll(data);
+                            dataList.addAll(datas);
                         }
                         try {
                             List<PaperTestEntity> dataLists = new ArrayList<PaperTestEntity>();
@@ -285,9 +287,9 @@ public class MistakeDetailsActivity extends YanxiuBaseActivity {
                             e.printStackTrace();
                         }
 //                        YanxiuPageInfoBean pageBean = mSubjectExercisesItemBean.getPage();
-                        if (qids_catch.size()>0){
+                        if (qids_catch.size() > 0) {
                             listView.setPullLoadEnable(true);
-                        }else {
+                        } else {
                             listView.setPullLoadEnable(false);
                         }
                         updateUI();
@@ -331,31 +333,31 @@ public class MistakeDetailsActivity extends YanxiuBaseActivity {
         mRequestWrongAllQuestionTask.start();
     }
 
-    private void updateUI(){
+    private void updateUI() {
         rootView.finish();
         listView.setScrollable(true);
         listView.setPullRefreshEnable(true);
-        if(wrongAllListAdapter != null){
+        if (wrongAllListAdapter != null) {
             wrongAllListAdapter.setList(dataList);
         }
     }
 
-    public void onEventMainThread(WrongAnswerViewActivity.WrongAnswerDeleteBean bean){
+    public void onEventMainThread(WrongAnswerViewActivity.WrongAnswerDeleteBean bean) {
         try {
-            int position=getIndexFromList(wrongAllListAdapter.getList(),bean.id);
-            if (position!=-1) {
+            int position = getIndexFromList(wrongAllListAdapter.getList(), bean.id);
+            if (position != -1) {
                 wrongAllListAdapter.getList().remove(position);
                 wrongAllListAdapter.notifyDataSetChanged();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private int getIndexFromList(List<PaperTestEntity> list,int id){
-        for (int i=0;i<list.size();i++){
-            PaperTestEntity entity=list.get(i);
-            if (entity.getId()==id){
+    private int getIndexFromList(List<PaperTestEntity> list, int id) {
+        for (int i = 0; i < list.size(); i++) {
+            PaperTestEntity entity = list.get(i);
+            if (entity.getId() == id) {
                 return i;
             }
         }
@@ -364,9 +366,9 @@ public class MistakeDetailsActivity extends YanxiuBaseActivity {
 
     public void onEventMainThread(MistakeDetilsAdapter.RefreshMisDetilsBean event) {
         mMistakeCount = mMistakeCount - 1;
-        wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mMistakeCount+""));
+        wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mMistakeCount + ""));
         pageIndex = 1;
-        int position=event.position;
+        int position = event.position;
         qids.remove(position);
         qids_catch.clear();
         qids_catch.addAll(qids);
@@ -377,8 +379,8 @@ public class MistakeDetailsActivity extends YanxiuBaseActivity {
 
     public void onEventMainThread(MistakeDetilsAdapter.NoRefreshMisDetilsBean event) {
         mMistakeCount = mMistakeCount - 1;
-        wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mMistakeCount+""));
-        int position=event.position;
+        wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, mMistakeCount + ""));
+        int position = event.position;
         qids.remove(position);
 //        pageIndex = 1;
 //        requestMistakeAllList(true, false, false);
@@ -386,10 +388,23 @@ public class MistakeDetailsActivity extends YanxiuBaseActivity {
         setRefresh();
     }
 
-    private void setRefresh(){
-        MistakeRefreshAllBean bean=new MistakeRefreshAllBean();
+    private void setRefresh() {
+        MistakeRefreshAllBean bean = new MistakeRefreshAllBean();
         EventBus.getDefault().post(bean);
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+            wrongNumView.setText(getResources().getString(R.string.mistake_all_num_text, data.getIntExtra("wrongNum", 0) + ""));
+            mMistakeCount = data.getIntExtra("wrongNum", 0);
+            if (mMistakeCount == 0) {
+                this.finish();
+            }
+        } else {
+            this.finish();
+        }
+    }
 }

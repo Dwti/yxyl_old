@@ -16,7 +16,7 @@ import com.yanxiu.gphone.student.utils.YanXiuConstant;
 import java.util.HashMap;
 
 /**
- * Created by cailei on 05/01/2017.
+ * Created by sunpeng on 05/01/2017.
  */
 
 public class HtmlImageGetter implements Html.ImageGetter {
@@ -24,7 +24,7 @@ public class HtmlImageGetter implements Html.ImageGetter {
     TextView mTextView;
     HashMap<String, UrlDrawable> mMap;
 
-    HtmlImageGetter(Context context, TextView textview) {
+    public HtmlImageGetter(Context context, TextView textview) {
         mContext = context;
         mTextView = textview;
         mMap = new HashMap<>();

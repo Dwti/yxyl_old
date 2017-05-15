@@ -116,7 +116,7 @@ public class YanxiuPushReceiver extends BroadcastReceiver {
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         Notification actNotification = null;
         RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.yanxiu_notification_layout);
-        contentView.setImageViewResource(R.id.notifi_icon, R.mipmap.notifi_icon);
+        contentView.setImageViewResource(R.id.notifi_icon, R.mipmap.app_icon);
         contentView.setTextViewText(R.id.notifi_title, appName);
         contentView.setTextViewText(R.id.notifi_content, mPushMsgBean.getMsg_title());
         contentView.setTextViewText(R.id.notifi_time, CommonCoreUtil.getNowHMDate());

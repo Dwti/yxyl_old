@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -145,16 +146,19 @@ public class MistakeAllFragment extends Fragment implements MistakeAllFragmentAd
             public void update(YanxiuBaseBean result) {
                 rlConverLoadView.setVisibility(View.GONE);
                 MistakeAllFragmentBean fragmentBean = (MistakeAllFragmentBean) result;
+                chapter_list.clear();
                 if (fragmentBean != null && fragmentBean.getStatus() != null && fragmentBean.getStatus().getCode().equals("0")) {
-                    chapter_list.clear();
                     chapter_list.addAll(fragmentBean.getData());
                     QuestionUtils.checkMistakeAllFragmentBean(0, chapter_list);
-                    if (mType.equals(MistakeAllActivity.MISTAKE_CHAPTER)) {
-                        setAdapterNotify(chapter_list);
-                    }
                 } else {
-                    rlNoDataView.setVisibility(View.VISIBLE);
-                    tvDescView.setText(R.string.no_mistake_chapter);
+                    if (mType.equals(MistakeAllActivity.MISTAKE_CHAPTER)) {
+                        rlNoDataView.setVisibility(View.VISIBLE);
+//                        tvDescView.setText(R.string.no_mistake_chapter);
+                        rlNoDataView.setBackgroundResource(R.drawable.mis_no_chapter);
+                    }
+                }
+                if (mType.equals(MistakeAllActivity.MISTAKE_CHAPTER)) {
+                    setAdapterNotify(chapter_list);
                 }
             }
 
@@ -181,16 +185,19 @@ public class MistakeAllFragment extends Fragment implements MistakeAllFragmentAd
             @Override
             public void update(YanxiuBaseBean result) {
                 MistakeAllFragmentBean fragmentBean = (MistakeAllFragmentBean) result;
+                kongledge_list.clear();
                 if (fragmentBean != null && fragmentBean.getStatus() != null && fragmentBean.getStatus().getCode().equals("0")) {
-                    kongledge_list.clear();
                     kongledge_list.addAll(fragmentBean.getData());
                     QuestionUtils.checkMistakeAllFragmentBean(0, kongledge_list);
-                    if (mType.equals(MistakeAllActivity.MISTAKE_KONGLEDGE)) {
-                        setAdapterNotify(kongledge_list);
-                    }
                 } else {
-                    rlNoDataView.setVisibility(View.VISIBLE);
-                    tvDescView.setText(R.string.no_mistake_kongledge);
+                    if (mType.equals(MistakeAllActivity.MISTAKE_KONGLEDGE)) {
+                        rlNoDataView.setVisibility(View.VISIBLE);
+//                        tvDescView.setText(R.string.no_mistake_kongledge);
+                        rlNoDataView.setBackgroundResource(R.drawable.mis_no_questions);
+                    }
+                }
+                if (mType.equals(MistakeAllActivity.MISTAKE_KONGLEDGE)) {
+                    setAdapterNotify(kongledge_list);
                 }
                 rlConverLoadView.setVisibility(View.GONE);
             }
@@ -214,6 +221,9 @@ public class MistakeAllFragment extends Fragment implements MistakeAllFragmentAd
     }
 
     public void setData(String type) {
+        if (rlNoDataView!=null) {
+            rlNoDataView.setVisibility(View.GONE);
+        }
         List<MistakeAllFragBean> list = new ArrayList<>();
         list.addAll(adapter.getData());
         switch (type) {
@@ -221,6 +231,9 @@ public class MistakeAllFragment extends Fragment implements MistakeAllFragmentAd
                 if (!type.equals(mType)) {
                     kongledge_list.clear();
                     kongledge_list.addAll(list);
+                }else {
+                    chapter_list.clear();
+                    chapter_list.addAll(list);
                 }
                 this.mType = type;
                 if (chapter_list != null && chapter_list.size() > 0) {
@@ -234,6 +247,9 @@ public class MistakeAllFragment extends Fragment implements MistakeAllFragmentAd
                 if (!type.equals(mType)) {
                     chapter_list.clear();
                     chapter_list.addAll(list);
+                }else {
+                    kongledge_list.clear();
+                    kongledge_list.addAll(list);
                 }
                 this.mType = type;
                 if (kongledge_list != null && kongledge_list.size() > 0) {

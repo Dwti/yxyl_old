@@ -48,7 +48,7 @@ public class SettingBindMobileActivity extends Activity implements View.OnClickL
     private EditText et_mobile_num,et_verification_code;
     private TextView tv_send_code,tv_ok;
     private String temMobileNum;
-    private int counter=45;  //计时
+    private int counter=0;  //计时
     private static final int COUNTER = 0x01;
     private boolean isMobileNumReady,isVerificationCodeReady;
     private MobileNumTextWatcher mobileNumTextWatcher;
@@ -320,8 +320,10 @@ public class SettingBindMobileActivity extends Activity implements View.OnClickL
                     tv_ok.setClickable(true);
                     tv_ok.setTextColor(getResources().getColor(R.color.color_805500));
                 }
-                tv_send_code.setClickable(true);
-                tv_send_code.setTextColor(getResources().getColor(R.color.color_805500));
+                if(counter < 1){
+                    tv_send_code.setClickable(true);
+                    tv_send_code.setTextColor(getResources().getColor(R.color.color_805500));
+                }
             }else{
                 isMobileNumReady = false;
                 tv_send_code.setClickable(false);

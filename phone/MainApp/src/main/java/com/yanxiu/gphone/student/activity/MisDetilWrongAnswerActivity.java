@@ -4,10 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.common.core.utils.LogInfo;
 import com.common.core.utils.NetWorkTypeUtils;
@@ -25,13 +25,11 @@ import com.yanxiu.gphone.student.inter.AsyncCallBack;
 import com.yanxiu.gphone.student.requestTask.RequestDelMistakeTask;
 import com.yanxiu.gphone.student.requestTask.RequestWrongAllQuestionTask;
 import com.yanxiu.gphone.student.requestTask.RequestWrongDetailsTask;
-import com.yanxiu.gphone.student.requestTask.RequestWrongQuestionTask;
 import com.yanxiu.gphone.student.utils.QuestionUtils;
 import com.yanxiu.gphone.student.utils.Util;
 import com.yanxiu.gphone.student.utils.YanXiuConstant;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
@@ -39,38 +37,38 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by Administrator on 2015/7/28.
  */
-public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
+public class MisDetilWrongAnswerActivity extends WrongAnswerViewActivity {
     public final static int WRONG_ANSWER_REQUESTCODE = 0x100;
-    protected RequestWrongAllQuestionTask mRequestWrongQuestionTask;
-    protected PaperTestEntity mPaperTestEntity;
-    protected int pageIndex = 0;
-    protected String stageId;
-    protected String subjectId;
-    protected String editionId;
-    protected String volumeId;
-    protected String chapterId;
-    protected String sectionId;
-    protected String questionId;
-    protected int isChapterSection = 0;
-    protected String uniteId;
-    protected int currentPageIndex = 1;
-    protected int delQueNum = 0;
-    protected boolean isNetData = true;
+//    private RequestWrongAllQuestionTask mRequestWrongQuestionTask;
+//    private PaperTestEntity mPaperTestEntity;
+//    private int pageIndex = 0;
+//    private String stageId;
+//    private String subjectId;
+//    private String editionId;
+//    private String volumeId;
+//    private String chapterId;
+//    private String sectionId;
+//    private String questionId;
+//    private int isChapterSection = 0;
+//    private String uniteId;
+//    private int currentPageIndex = 1;
+//    private int delQueNum = 0;
+//    private boolean isNetData = true;
+
+//    private int comeFrom = 0;
+//    private int position;
 
     private ArrayList<Integer> qids=new ArrayList<>();
     private ArrayList<Integer> qids_catch=new ArrayList<>();
 
-    protected int comeFrom = 0;
-    protected int position;
-
-    protected boolean deleteAction = false;
-    protected ArrayList<String> delQuestionTmpList = new ArrayList<String>();
-    protected int wrongCounts;
-    protected boolean isGetDataNow=true;
+//    private boolean deleteAction = false;
+//    private ArrayList<String> delQuestionTmpList = new ArrayList<String>();
+//    private int wrongCounts;
+//    private boolean isGetDataNow=true;
     private RequestWrongDetailsTask wrongDetailsTask;
 
     public static void launch(Activity context, SubjectExercisesItemBean bean, String subjectId, String editionId, String volumeId, String chapterId, String sectionId, String uniteId, int isChapterSection, boolean isNetData) {
-        Intent intent = new Intent(context, WrongAnswerViewActivity.class);
+        Intent intent = new Intent(context, MisDetilWrongAnswerActivity.class);
         QuestionUtils.initDataWithAnswer(bean);
         intent.putExtra("subjectExercisesItemBean", bean);
         intent.putExtra("subjectId", subjectId);
@@ -84,20 +82,8 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
         context.startActivityForResult(intent, WRONG_ANSWER_REQUESTCODE);
     }
 
-    public static void launch(Activity context,String subjectId, int pagerIndex, int childIndex, int comeFrom, String wrongCount, int position) {
-        Intent intent = new Intent(context, WrongAnswerViewActivity.class);
-//        intent.putExtra("subjectExercisesItemBean", bean);
-        intent.putExtra("subjectId", subjectId);
-        intent.putExtra("pagerIndex", pagerIndex);
-        intent.putExtra("childIndex", childIndex);
-        intent.putExtra("comeFrom", comeFrom);
-        intent.putExtra("position", position);
-        intent.putExtra("wrongCount", wrongCount);
-        context.startActivityForResult(intent, YanXiuConstant.LAUNCHER_FROM_MISTAKE);
-    }
-
     public static void launch(Activity context,ArrayList<Integer> qids,ArrayList<Integer> qids_catch,  String subjectId, int pagerIndex, int childIndex, int comeFrom, String wrongCount, int position) {
-        Intent intent = new Intent(context, WrongAnswerViewActivity.class);
+        Intent intent = new Intent(context, MisDetilWrongAnswerActivity.class);
 //        intent.putExtra("subjectExercisesItemBean", bean);
         intent.putExtra("subjectId", subjectId);
         intent.putExtra("pagerIndex", pagerIndex);
@@ -113,10 +99,31 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        onCreat2();
+//        stageId = LoginModel.getUserinfoEntity().getStageid() + "";
+//        subjectId = getIntent().getStringExtra("subjectId");
+//        editionId = getIntent().getStringExtra("editionId");
+//        volumeId = getIntent().getStringExtra("volumeId");
+//        chapterId = getIntent().getStringExtra("chapterId");
+//        sectionId = getIntent().getStringExtra("sectionId");
+//        uniteId = getIntent().getStringExtra("uniteId");
+//        isChapterSection = getIntent().getIntExtra("isChapterSection", 0);
+//        isNetData = getIntent().getBooleanExtra("isNetData", true);
+//        comeFrom = getIntent().getIntExtra("comeFrom", 0);
+//        position = getIntent().getIntExtra("position", 0);
+//        String wrongCount = getIntent().getStringExtra("wrongCount");
+        try {
+//            qids=getIntent().getIntegerArrayListExtra("qids");
+//            qids_catch=getIntent().getIntegerArrayListExtra("qids_catch");
+//            wrongCounts=Integer.parseInt(wrongCount);
+        }catch (Exception e){
+
+        }
+//        initView();
+//        initData();
     }
 
-    protected void onCreat2(){
+    @Override
+    protected void onCreat2() {
         stageId = LoginModel.getUserinfoEntity().getStageid() + "";
         subjectId = getIntent().getStringExtra("subjectId");
         editionId = getIntent().getStringExtra("editionId");
@@ -130,9 +137,9 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
         position = getIntent().getIntExtra("position", 0);
         String wrongCount = getIntent().getStringExtra("wrongCount");
         try {
-            wrongCounts=Integer.parseInt(wrongCount);
             qids=getIntent().getIntegerArrayListExtra("qids");
             qids_catch=getIntent().getIntegerArrayListExtra("qids_catch");
+            wrongCounts=Integer.parseInt(wrongCount);
         }catch (Exception e){
 
         }
@@ -143,7 +150,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
     @Override
     protected void initView() {
         super.initView();
-        adapter.setWrongCount(wrongCounts);
+//        adapter.setWrongCount(wrongCounts);
     }
 
     @Override
@@ -155,10 +162,10 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
 //            } else {
 //                btnNextQuestion.setVisibility(View.VISIBLE);
 //            }
-        initData2();
-        }
+    }
 
-    protected void initData2(){
+    @Override
+    protected void initData2() {
         pageIndex = position;
         vpAnswer.setCurrentItem(position);
         tvPagerIndex.setText(String.valueOf(position + 1));
@@ -178,13 +185,18 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
 
     @Override
     protected void initDataSource() {
-        if(comeFrom == MistakeAllActivity.WRONG_LIST){
-            dataSources = MistakeAllActivity.subjectExercisesItemBeanIntent;
-        }else if(comeFrom == MistakeDetailsActivity.WRONG_DETAIL){
+        Toast.makeText(this,comeFrom+"",Toast.LENGTH_SHORT).show();
+//        if(comeFrom == MistakeAllActivity.WRONG_LIST){
+//            dataSources = MistakeAllActivity.subjectExercisesItemBeanIntent;
+//        }else if(comeFrom == MistakeDetailsActivity.WRONG_DETAIL){
             dataSources = MistakeDetailsActivity.subjectExercisesItemBeanIntent;
-        }else {
-            super.initDataSource();
-        }
+//        }else {
+//            if (getIntent()!=null){
+//                if (getIntent().getSerializableExtra("subjectExercisesItemBean")!=null){
+//                    dataSources = (SubjectExercisesItemBean) getIntent().getSerializableExtra("subjectExercisesItemBean");
+//                }
+//            }
+//        }
     }
 
     @Override
@@ -231,7 +243,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
 
                 tvPagerIndex.setText(String.valueOf(position + 1));
 
-                tvPagerCount.setText(" / " + String.format(WrongAnswerViewActivity.this.getResources().getString(R.string.pager_count), String.valueOf((wrongCounts - delQueNum))));
+                tvPagerCount.setText(" / " + String.format(MisDetilWrongAnswerActivity.this.getResources().getString(R.string.pager_count), String.valueOf((wrongCounts - delQueNum))));
             }
             pageIndex = position;
             int currentTotal = adapter.getCount();
@@ -304,29 +316,25 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
                 }
             }.start();
         } else {
+//            mRequestWrongQuestionTask = new RequestWrongAllQuestionTask(MisDetilWrongAnswerActivity.this, stageId,
+//                    subjectId, currentPage, currentId, 2, mWrongQuesAsyncCallBack);
+//            mRequestWrongQuestionTask.start();
 
-            if (qids!=null&&qids.size()>0) {
-                if (wrongDetailsTask != null) {
-                    wrongDetailsTask.cancel();
-                    wrongDetailsTask = null;
+            pageIndex += 1;
+//            if (mRequestWrongAllQuestionTask != null) {
+//                mRequestWrongAllQuestionTask.cancel();
+//                mRequestWrongAllQuestionTask = null;
+//            }
+            ArrayList<Integer> datas = new ArrayList<>();
+            for (int i = 0; i < 10; i++) {
+                if (qids_catch.size() > 0) {
+                    datas.add(qids_catch.get(0));
+                    qids_catch.remove(0);
                 }
-                ArrayList<Integer> datas = new ArrayList<>();
-                for (int i = 0; i < 10; i++) {
-                    if (qids_catch.size() > 0) {
-                        datas.add(qids_catch.get(0));
-                        qids_catch.remove(0);
-                    }
-                }
-
-                wrongDetailsTask = new RequestWrongDetailsTask(this, subjectId, datas, pageIndex, mWrongQuesAsyncCallBack);
-                wrongDetailsTask.start();
-            }else {
-                mRequestWrongQuestionTask = new RequestWrongAllQuestionTask(WrongAnswerViewActivity.this, stageId,
-                        subjectId, currentPage, currentId, 2, mWrongQuesAsyncCallBack);
-                mRequestWrongQuestionTask.start();
-
             }
 
+            wrongDetailsTask=new RequestWrongDetailsTask(this,subjectId,datas,pageIndex,mWrongQuesAsyncCallBack);
+            wrongDetailsTask.start();
             /*mRequestWrongQuestionTask = new RequestWrongQuestionTask(WrongAnswerViewActivity.this, stageId,
                     subjectId, editionId, chapterId, sectionId, volumeId, currentPage, currentId, uniteId, isChapterSection, mWrongQuesAsyncCallBack);
             mRequestWrongQuestionTask.start();*/
@@ -387,35 +395,36 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
                 }
             }.start();
         } else {
-            if (qids!=null&&qids.size()>0) {
-                if (wrongDetailsTask != null) {
-                    wrongDetailsTask.cancel();
-                    wrongDetailsTask = null;
-                }
-                ArrayList<Integer> datas = new ArrayList<>();
-                for (int i = 0; i < 10; i++) {
-                    if (qids_catch.size() > 0) {
-                        datas.add(qids_catch.get(0));
-                        qids_catch.remove(0);
-                    }
-                }
+//            mRequestWrongQuestionTask = new RequestWrongAllQuestionTask(MisDetilWrongAnswerActivity.this, stageId,
+//                    subjectId, currentPage, currentId, 2, mWrongQuesAsyncCallBack);
+//            //mRequestWrongQuestionTask = new RequestWrongQuestionTask(WrongAnswerViewActivity.this, stageId,
+//                    //subjectId, editionId, chapterId, sectionId, volumeId, currentPage, currentId, uniteId, isChapterSection, mWrongQuesAsyncCallBack);
+//            mRequestWrongQuestionTask.start();
 
-                wrongDetailsTask = new RequestWrongDetailsTask(this, subjectId, datas, pageIndex, mWrongQuesAsyncCallBack);
-                wrongDetailsTask.start();
-            }else {
-                mRequestWrongQuestionTask = new RequestWrongAllQuestionTask(WrongAnswerViewActivity.this, stageId,
-                        subjectId, currentPage, currentId, 2, mWrongQuesAsyncCallBack);
-                mRequestWrongQuestionTask.start();
-
+            pageIndex += 1;
+//            if (mRequestWrongAllQuestionTask != null) {
+//                mRequestWrongAllQuestionTask.cancel();
+//                mRequestWrongAllQuestionTask = null;
+//            }
+            ArrayList<Integer> datas = new ArrayList<>();
+            for (int i = 0; i < 10; i++) {
+                if (qids_catch.size() > 0) {
+                    datas.add(qids_catch.get(0));
+                    qids_catch.remove(0);
+                }
             }
+
+            wrongDetailsTask=new RequestWrongDetailsTask(this,subjectId,datas,pageIndex,mWrongQuesAsyncCallBack);
+            wrongDetailsTask.start();
+
         }
     }
 
     private void cancelWrongQuestionTask() {
-        if (mRequestWrongQuestionTask != null) {
-            mRequestWrongQuestionTask.cancel();
+        if (wrongDetailsTask != null) {
+            wrongDetailsTask.cancel();
         }
-        mRequestWrongQuestionTask = null;
+        wrongDetailsTask = null;
     }
 
     private AsyncCallBack mWrongQuesAsyncCallBack = new AsyncCallBack() {
@@ -437,11 +446,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
                     setNextShow();
                 }
             } else {
-                if (!NetWorkTypeUtils.isNetAvailable()) {
-                    Util.showUserToast(getString(R.string.public_loading_net_null_errtxt), null, null);
-                }else {
-                    Util.showToast(R.string.public_loading_data_null);
-                }
+                Util.showToast(R.string.server_connection_erro);
             }
         }
         @Override
@@ -488,7 +493,7 @@ public class WrongAnswerViewActivity extends BaseAnswerViewActivity {
 
     @Override
     public void onClick(View v) {
-        super.onClick(v);
+//        super.onClick(v);
         if (v == ivBack) {
             finishResult(false);
 //        }else if(v == btnLastQuestion){
