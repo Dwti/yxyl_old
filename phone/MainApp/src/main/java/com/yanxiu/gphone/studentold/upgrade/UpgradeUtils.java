@@ -258,6 +258,8 @@ public class UpgradeUtils {
      * 初始化接口
      */
     public static void requestInitialize(final boolean fromUser,final Activity activity) {
+        if(true)
+            return;   //屏蔽升级功能
         if (!fromUser&&YanXiuConstant.updata == 1){
             return;
         }
